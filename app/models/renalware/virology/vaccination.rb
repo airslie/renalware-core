@@ -20,7 +20,7 @@ module Renalware
         validates :type, presence: true
 
         def to_s
-          [type_name, drug].reject(&:blank?).join(" - ")
+          [type_name, drug].compact_blank.join(" - ")
         end
 
         # Try and find the proper name for the vaccination type - we only store the vaccination

@@ -17,19 +17,19 @@ module Renalware
         authorize @infectable.patient
       end
 
+      def edit
+        @infection_organism = InfectionOrganism.find(params[:id])
+        @infectable = @infection_organism.infectable
+
+        authorize @infectable.patient
+      end
+
       def create
         @infectable = infectable_class.find(infectable_id)
 
         authorize @infectable.patient
 
         @infection_organism = @infectable.infection_organisms.create(infection_organism_params)
-      end
-
-      def edit
-        @infection_organism = InfectionOrganism.find(params[:id])
-        @infectable = @infection_organism.infectable
-
-        authorize @infectable.patient
       end
 
       def update

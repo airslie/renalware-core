@@ -3,9 +3,20 @@
 module Renalware
   module HD
     class DialysersController < BaseController
+      def index
+        dialysers = Dialyser.all
+        authorize dialysers
+        render locals: { dialysers: dialysers }
+      end
+
       def new
         dialyser = Dialyser.new
         authorize dialyser
+        render locals: { dialyser: dialyser }
+      end
+
+      def edit
+        dialyser = load_and_authorize_dialyser
         render locals: { dialyser: dialyser }
       end
 
@@ -19,17 +30,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("dialyser")
           render :new, locals: { dialyser: dialyser }
         end
-      end
-
-      def index
-        dialysers = Dialyser.all
-        authorize dialysers
-        render locals: { dialysers: dialysers }
-      end
-
-      def edit
-        dialyser = load_and_authorize_dialyser
-        render locals: { dialyser: dialyser }
       end
 
       def update

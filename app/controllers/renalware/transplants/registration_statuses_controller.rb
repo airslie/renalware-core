@@ -15,6 +15,15 @@ module Renalware
         }
       end
 
+      def edit
+        status = registration.statuses.find(params[:id])
+        authorize status
+        render locals: {
+          patient: transplants_patient,
+          status: status
+        }
+      end
+
       def create
         status = registration.add_status!(status_params)
         authorize status
@@ -25,15 +34,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("registration status")
           render :new, locals: { patient: transplants_patient, status: status }
         end
-      end
-
-      def edit
-        status = registration.statuses.find(params[:id])
-        authorize status
-        render locals: {
-          patient: transplants_patient,
-          status: status
-        }
       end
 
       def update

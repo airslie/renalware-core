@@ -15,6 +15,10 @@ module Renalware
         render_new(dialysate)
       end
 
+      def edit
+        render_edit(find_and_authorize_dialysate)
+      end
+
       def create
         dialysate = Dialysate.new(dialysate_params)
         authorize dialysate
@@ -25,10 +29,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("dialysate")
           render_new(dialysate)
         end
-      end
-
-      def edit
-        render_edit(find_and_authorize_dialysate)
       end
 
       def update

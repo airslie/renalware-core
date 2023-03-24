@@ -8,6 +8,14 @@ module Renalware
         include PresenterHelper
         include Pagy::Backend
 
+        # Display all public message for a patient
+        def index
+          authorize Messaging::Internal::Message, :index?
+          scope = patient.messages.where(public: true).order(created_at: :desc)
+          pagination, messages = pagy(scope, items: 20)
+          render locals: { patient: patient, messages: messages, pagination: pagination }
+        end
+
         def new
           authorize Messaging::Internal::Message, :new?
           form = MessageFormBuilder.new(
@@ -29,14 +37,6 @@ module Renalware
           else
             render_new(form)
           end
-        end
-
-        # Display all public message for a patient
-        def index
-          authorize Messaging::Internal::Message, :index?
-          scope = patient.messages.where(public: true).order(created_at: :desc)
-          pagination, messages = pagy(scope, items: 20)
-          render locals: { patient: patient, messages: messages, pagination: pagination }
         end
 
         private

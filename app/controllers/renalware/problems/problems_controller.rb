@@ -57,20 +57,6 @@ module Renalware
         }
       end
 
-      def update
-        authorize(problem = find_problem)
-
-        if update_problem(problem)
-          redirect_to patient_problem_path(patient, problem), notice: success_msg_for("problem")
-        else
-          flash.now[:error] = failed_msg_for("problem")
-          render :edit, locals: {
-            patient: patient,
-            problem: problem
-          }
-        end
-      end
-
       def create
         problem = patient.problems.new(problem_params)
         authorize problem
@@ -82,6 +68,20 @@ module Renalware
           )
         else
           render json: problem.errors.full_messages, status: :not_acceptable
+        end
+      end
+
+      def update
+        authorize(problem = find_problem)
+
+        if update_problem(problem)
+          redirect_to patient_problem_path(patient, problem), notice: success_msg_for("problem")
+        else
+          flash.now[:error] = failed_msg_for("problem")
+          render :edit, locals: {
+            patient: patient,
+            problem: problem
+          }
         end
       end
 

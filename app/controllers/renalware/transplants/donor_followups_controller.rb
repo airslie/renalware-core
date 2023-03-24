@@ -20,6 +20,11 @@ module Renalware
         render_new(donor_followup)
       end
 
+      def edit
+        authorize operation.followup
+        render_edit(operation.followup)
+      end
+
       def create
         donor_followup = operation.build_followup
         donor_followup.attributes = followup_attributes
@@ -30,11 +35,6 @@ module Renalware
         else
           render_new(donor_followup)
         end
-      end
-
-      def edit
-        authorize operation.followup
-        render_edit(operation.followup)
       end
 
       def update

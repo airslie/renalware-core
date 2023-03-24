@@ -17,6 +17,10 @@ module Renalware
         render_new(operation.build_followup)
       end
 
+      def edit
+        render_edit(operation.followup)
+      end
+
       def create
         followup = copy_attributes_onto_followup(operation.build_followup)
         authorize followup
@@ -27,10 +31,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("recipient follow up")
           render_new(followup)
         end
-      end
-
-      def edit
-        render_edit(operation.followup)
       end
 
       def update

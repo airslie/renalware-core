@@ -39,11 +39,11 @@ module Renalware
     def to_s(format = nil)
       parts = [name, organisation_name, street_1, street_2, street_3, town, county]
       parts += [postcode, country] unless format == :without_postcode
-      parts.reject(&:blank?).join(", ")
+      parts.compact_blank.join(", ")
     end
 
     def street
-      [street_1, street_2, street_3].reject(&:blank?).join(", ")
+      [street_1, street_2, street_3].compact_blank.join(", ")
     end
   end
 end

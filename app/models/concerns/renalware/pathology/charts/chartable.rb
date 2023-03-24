@@ -34,7 +34,7 @@ module Renalware
 
         # Eg "CRP 'C-Reactive Protein'"
         def title
-          parts = [code, name].reject(&:blank?).uniq
+          parts = [code, name].compact_blank.uniq
           case parts.length
           when 2 then "#{parts[0]} (#{parts[1]})"
           when 1 then parts.first

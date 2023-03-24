@@ -18,6 +18,14 @@ module Renalware
         )
       end
 
+      def edit
+        authorize note
+        render_form(
+          note,
+          url: patient_problem_note_path(patient, problem, note)
+        )
+      end
+
       def create
         note = problem.notes.create(notes_params)
         authorize(note)
@@ -29,14 +37,6 @@ module Renalware
             url: patient_problem_notes_path(patient, problem)
           )
         end
-      end
-
-      def edit
-        authorize note
-        render_form(
-          note,
-          url: patient_problem_note_path(patient, problem, note)
-        )
       end
 
       def update

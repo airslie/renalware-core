@@ -22,6 +22,10 @@ module Renalware
         render_new(ward)
       end
 
+      def edit
+        render_edit(find_an_authorise_ward)
+      end
+
       def create
         ward = unit.wards.build(ward_params)
         authorize ward
@@ -30,10 +34,6 @@ module Renalware
         else
           render_new(ward)
         end
-      end
-
-      def edit
-        render_edit(find_an_authorise_ward)
       end
 
       def update

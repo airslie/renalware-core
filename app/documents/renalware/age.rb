@@ -22,7 +22,7 @@ module Renalware
       new.tap do |age|
         if years && months
           if years < age_in_months_threshold
-            age.amount = years * 12 + months
+            age.amount = (years * 12) + months
             age.unit = :months
           else
             age.amount = years

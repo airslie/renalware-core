@@ -9,23 +9,14 @@ module Renalware
         render locals: { labs: labs }
       end
 
-      def edit
-        render locals: { lab: find_authorize_lab }
-      end
-
-      def update
-        lab = find_authorize_lab
-        if lab.update(lab_params)
-          redirect_to pathology_labs_path, notice: "Lab saved"
-        else
-          render :edit, locals: { lab: lab }
-        end
-      end
-
       def new
         lab = Lab.new
         authorize lab
         render locals: { lab: lab }
+      end
+
+      def edit
+        render locals: { lab: find_authorize_lab }
       end
 
       def create
@@ -35,6 +26,15 @@ module Renalware
           redirect_to pathology_labs_path
         else
           render "new", locals: { lab: lab }
+        end
+      end
+
+      def update
+        lab = find_authorize_lab
+        if lab.update(lab_params)
+          redirect_to pathology_labs_path, notice: "Lab saved"
+        else
+          render :edit, locals: { lab: lab }
         end
       end
 

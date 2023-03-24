@@ -5,6 +5,33 @@ module Renalware
     class BatchesController < BaseController
       include Renalware::Concerns::Pageable
 
+      def index
+        batches = Batch.order(created_at: :desc)
+        authorize batches
+        render locals: { batches: batches.page(page).per(per_page) }
+      end
+
+      # rubocop:disable Metrics/MethodLength
+      def show
+        batch = find_and_authorize_batch
+        respond_to do |format|
+          format.pdf do
+            # Returns the PDF itself using path saved in the Batch - provided status is correct
+            send_file(
+              batch.filepath,
+              type: "application/pdf",
+              disposition: "inline",
+              filename: "letter_batch_#{batch.id}.pdf"
+            )
+          end
+          format.html do
+            # Returns a partial with a link to the compiled batch pdf
+            render layout: false, locals: { batch: find_and_authorize_batch }
+          end
+        end
+      end
+      # rubocop:enable Metrics/MethodLength
+
       def create
         batch = create_unprocessed_batch_and_batch_items(ids_of_letters_to_batch_print)
         authorize batch
@@ -33,33 +60,6 @@ module Renalware
         end
       end
       # rubocop:enable Metrics/MethodLength
-
-      # rubocop:disable Metrics/MethodLength
-      def show
-        batch = find_and_authorize_batch
-        respond_to do |format|
-          format.pdf do
-            # Returns the PDF itself using path saved in the Batch - provided status is correct
-            send_file(
-              batch.filepath,
-              type: "application/pdf",
-              disposition: "inline",
-              filename: "letter_batch_#{batch.id}.pdf"
-            )
-          end
-          format.html do
-            # Returns a partial with a link to the compiled batch pdf
-            render layout: false, locals: { batch: find_and_authorize_batch }
-          end
-        end
-      end
-      # rubocop:enable Metrics/MethodLength
-
-      def index
-        batches = Batch.order(created_at: :desc)
-        authorize batches
-        render locals: { batches: batches.page(page).per(per_page) }
-      end
 
       private
 

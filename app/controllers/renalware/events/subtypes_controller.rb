@@ -22,6 +22,12 @@ module Renalware
         render_new(subtype)
       end
 
+      def edit
+        subtype = event_type.subtypes.find(params[:id])
+        authorize subtype
+        render_edit(subtype)
+      end
+
       def create
         subtype = event_type.subtypes.new(layout_params)
         subtype.definition = parse_definition_params_into_useable_hash
@@ -32,12 +38,6 @@ module Renalware
         else
           render_new(subtype)
         end
-      end
-
-      def edit
-        subtype = event_type.subtypes.find(params[:id])
-        authorize subtype
-        render_edit(subtype)
       end
 
       def update

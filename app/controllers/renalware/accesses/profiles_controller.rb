@@ -18,6 +18,11 @@ module Renalware
         render locals: { patient: accesses_patient, profile: profile }
       end
 
+      def edit
+        profile = find_profile
+        render locals: { patient: accesses_patient, profile: profile }
+      end
+
       def create
         profile = accesses_patient.profiles.new(profile_params)
         authorize profile
@@ -29,11 +34,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("Access profile")
           render :new, locals: { patient: accesses_patient, profile: profile }
         end
-      end
-
-      def edit
-        profile = find_profile
-        render locals: { patient: accesses_patient, profile: profile }
       end
 
       def update

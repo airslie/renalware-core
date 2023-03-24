@@ -17,6 +17,16 @@ module Renalware
         redirect_to research_study_participations_path(study)
       end
 
+      def new
+        participation = build_participation
+        authorize participation
+        render_new(participation)
+      end
+
+      def edit
+        render_edit(find_and_authorise_participation)
+      end
+
       def create
         participation = build_participation(participation_params)
         authorize participation
@@ -31,23 +41,6 @@ module Renalware
         end
       end
 
-      def new
-        participation = build_participation
-        authorize participation
-        render_new(participation)
-      end
-
-      def destroy
-        participation = find_and_authorise_participation
-        participation.destroy
-        redirect_to research_study_participations_path(study),
-                    notice: "#{participation.patient} removed from the study"
-      end
-
-      def edit
-        render_edit(find_and_authorise_participation)
-      end
-
       # Don't update the participant id here (the patient) as that is immutable at this point.
       def update
         participation = find_and_authorise_participation
@@ -59,6 +52,13 @@ module Renalware
         else
           render_edit(participation)
         end
+      end
+
+      def destroy
+        participation = find_and_authorise_participation
+        participation.destroy
+        redirect_to research_study_participations_path(study),
+                    notice: "#{participation.patient} removed from the study"
       end
 
       private

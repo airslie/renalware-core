@@ -25,6 +25,10 @@ module Renalware
         render locals: { consultant: consultant }
       end
 
+      def edit
+        render locals: { consultant: find_and_authorise_consultant }
+      end
+
       def create
         consultant = Consultant.new(consultant_params.merge(by: current_user))
         authorize consultant
@@ -33,10 +37,6 @@ module Renalware
         else
           render "new", locals: { consultant: consultant }
         end
-      end
-
-      def edit
-        render locals: { consultant: find_and_authorise_consultant }
       end
 
       def update

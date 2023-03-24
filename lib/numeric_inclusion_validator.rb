@@ -25,7 +25,7 @@ class NumericInclusionValidator < ActiveModel::Validations::InclusionValidator
                          .merge!(value: value, from: delimiter.first, to: delimiter.last)
       record.errors.add(attribute, :numeric_inclusion, **i18n_args)
 
-      #record.errors.add attribute, (options[:message] || "is not an email")
+      # record.errors.add attribute, (options[:message] || "is not an email")
     end
   end
 end

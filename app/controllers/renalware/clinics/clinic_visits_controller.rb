@@ -25,6 +25,10 @@ module Renalware
         render_new(clinic_visit, appointment_to_build_from)
       end
 
+      def edit
+        render_edit(find_and_authorize_visit)
+      end
+
       # rubocop:disable Metrics/AbcSize
       def create
         authorize ClinicVisit, :create?
@@ -42,10 +46,6 @@ module Renalware
         end
       end
       # rubocop:enable Metrics/AbcSize
-
-      def edit
-        render_edit(find_and_authorize_visit)
-      end
 
       def update
         clinic_visit = find_and_authorize_visit

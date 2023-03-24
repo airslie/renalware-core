@@ -33,6 +33,12 @@ module Renalware
         render_new(person)
       end
 
+      def edit
+        person = Person.find(params[:id])
+        authorize person
+        render_edit(person)
+      end
+
       def create
         person = Person.new(person_params)
         authorize person
@@ -43,12 +49,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("Directory person")
           render_new(person)
         end
-      end
-
-      def edit
-        person = Person.find(params[:id])
-        authorize person
-        render_edit(person)
       end
 
       def update

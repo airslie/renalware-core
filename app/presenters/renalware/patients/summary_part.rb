@@ -42,7 +42,7 @@ module Renalware
         bookmark
           .tags
           .split(",")
-          .reject(&:blank?)
+          .compact_blank
           .map(&:strip)
           .uniq
       end

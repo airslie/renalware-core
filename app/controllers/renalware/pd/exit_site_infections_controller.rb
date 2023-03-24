@@ -23,6 +23,11 @@ module Renalware
         render_new(esi)
       end
 
+      def edit
+        authorize exit_site_infection
+        render locals: locals
+      end
+
       def create
         esi = ExitSiteInfection.new(exit_site_infection_params.merge!(patient_id: pd_patient.id))
         authorize esi
@@ -33,11 +38,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("exit site infection")
           render_new(esi)
         end
-      end
-
-      def edit
-        authorize exit_site_infection
-        render locals: locals
       end
 
       def update

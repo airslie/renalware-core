@@ -54,7 +54,7 @@ module Renalware::Pathology
           identifiers: {
             nhs_number: nhs_number,
             local_patient_id: internal_id
-          }.reject { |_, value| value.blank? }
+          }.compact_blank
         )
       end
 

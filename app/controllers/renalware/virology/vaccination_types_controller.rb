@@ -9,23 +9,14 @@ module Renalware
         render locals: { types: types }
       end
 
-      def edit
-        type = find_and_authorise_type
-        render locals: { type: type }
-      end
-
-      def update
-        type = find_and_authorise_type
-        if type.update(type_params)
-          redirect_to virology_vaccination_types_path
-        else
-          render :edit, locals: { type: type }
-        end
-      end
-
       def new
         type = VaccinationType.new
         authorize type
+        render locals: { type: type }
+      end
+
+      def edit
+        type = find_and_authorise_type
         render locals: { type: type }
       end
 
@@ -36,6 +27,15 @@ module Renalware
           redirect_to virology_vaccination_types_path
         else
           render :new, locals: { type: type }
+        end
+      end
+
+      def update
+        type = find_and_authorise_type
+        if type.update(type_params)
+          redirect_to virology_vaccination_types_path
+        else
+          render :edit, locals: { type: type }
         end
       end
 

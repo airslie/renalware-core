@@ -18,6 +18,12 @@ module Renalware
         render locals: { patient: pd_patient, training_session: training_session }
       end
 
+      def edit
+        training_session = find_training_session
+        authorize training_session
+        render locals: { patient: pd_patient, training_session: training_session }
+      end
+
       def create
         training_session = TrainingSession.for_patient(pd_patient).new(training_session_params)
         authorize training_session
@@ -27,12 +33,6 @@ module Renalware
         else
           render :new, locals: { patient: pd_patient, training_session: training_session }
         end
-      end
-
-      def edit
-        training_session = find_training_session
-        authorize training_session
-        render locals: { patient: pd_patient, training_session: training_session }
       end
 
       def update

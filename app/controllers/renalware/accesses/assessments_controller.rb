@@ -19,6 +19,10 @@ module Renalware
         render_new(assessment)
       end
 
+      def edit
+        render_edit(find__and_authorize_assessement)
+      end
+
       def create
         assessment = accesses_patient.assessments.new(assessment_params)
         authorize assessment
@@ -30,10 +34,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("Access assessment")
           render_new(assessment)
         end
-      end
-
-      def edit
-        render_edit(find__and_authorize_assessement)
       end
 
       def update

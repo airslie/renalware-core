@@ -17,6 +17,11 @@ module Renalware
         render locals: { snippet: snippet }
       end
 
+      def edit
+        snippet = find_and_authorize_snippet
+        render :edit, locals: { snippet: snippet }
+      end
+
       def create
         snippet = Snippet.new(snippet_params)
         snippet.author = Snippets.cast_user(current_user)
@@ -27,11 +32,6 @@ module Renalware
         else
           render :new, locals: { snippet: snippet }
         end
-      end
-
-      def edit
-        snippet = find_and_authorize_snippet
-        render :edit, locals: { snippet: snippet }
       end
 
       def update

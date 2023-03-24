@@ -25,11 +25,21 @@ module Renalware
         render json: simplify(patients).to_json
       end
 
+      def show
+        authorize patient
+        render locals: { patient: patient }
+      end
+
       def new
         patient = patient_scope.new.tap(&:build_current_address)
 
         patient.hospital_centre = Renalware::Hospitals::Centre.host_site.default.ordered.first
 
+        authorize patient
+        render locals: { patient: patient }
+      end
+
+      def edit
         authorize patient
         render locals: { patient: patient }
       end
@@ -47,11 +57,6 @@ module Renalware
         end
       end
 
-      def edit
-        authorize patient
-        render locals: { patient: patient }
-      end
-
       def update
         authorize patient
         if patient.update_by(current_user, patient_params)
@@ -60,11 +65,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("patient")
           render :edit, locals: { patient: patient }
         end
-      end
-
-      def show
-        authorize patient
-        render locals: { patient: patient }
       end
 
       # This differs from the base controller implementation becuase we are looking

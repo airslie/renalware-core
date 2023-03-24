@@ -3,9 +3,24 @@
 module Renalware
   module Events
     class TypesController < BaseController
+      def index
+        event_types = Type.includes(:category).order(:name).all
+        authorize event_types
+        deleted_event_types = event_types.with_deleted.where.not(deleted_at: nil)
+        render locals: {
+          event_types: CollectionPresenter.new(event_types, TypePresenter),
+          deleted_event_types: CollectionPresenter.new(deleted_event_types, TypePresenter)
+        }
+      end
+
       def new
         event_type = Type.new
         authorize event_type
+        render locals: { event_type: event_type }
+      end
+
+      def edit
+        event_type = load_and_authorize_event_type
         render locals: { event_type: event_type }
       end
 
@@ -18,21 +33,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("event type")
           render :new, locals: { event_type: event_type }
         end
-      end
-
-      def index
-        event_types = Type.includes(:category).order(:name).all
-        authorize event_types
-        deleted_event_types = event_types.with_deleted.where.not(deleted_at: nil)
-        render locals: {
-          event_types: CollectionPresenter.new(event_types, TypePresenter),
-          deleted_event_types: CollectionPresenter.new(deleted_event_types, TypePresenter)
-        }
-      end
-
-      def edit
-        event_type = load_and_authorize_event_type
-        render locals: { event_type: event_type }
       end
 
       def update

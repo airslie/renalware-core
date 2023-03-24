@@ -7,10 +7,18 @@ module Renalware
       include Renalware::Concerns::PatientVisibility
       include PresenterHelper
 
+      def show
+        render locals: { pet_adequacy_result: pet_adequacy_result, patient: pd_patient }
+      end
+
       def new
         result = pd_patient.pet_adequacy_results.new
         authorize result
         render locals: { pet_adequacy_result: result, patient: pd_patient }
+      end
+
+      def edit
+        render locals: { pet_adequacy_result: pet_adequacy_result, patient: pd_patient }
       end
 
       def create
@@ -24,10 +32,6 @@ module Renalware
         end
       end
 
-      def edit
-        render locals: { pet_adequacy_result: pet_adequacy_result, patient: pd_patient }
-      end
-
       def update
         pet_adequacy_result.assign_attributes(pet_adequacy_result_params)
         if pet_adequacy_result.save
@@ -36,10 +40,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("PET Adequacy")
           render :edit, locals: { pet_adequacy_result: pet_adequacy_result, patient: pd_patient }
         end
-      end
-
-      def show
-        render locals: { pet_adequacy_result: pet_adequacy_result, patient: pd_patient }
       end
 
       private

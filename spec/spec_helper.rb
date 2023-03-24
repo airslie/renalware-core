@@ -22,7 +22,7 @@ RSpec.configure do |config|
     Time.use_zone(example.metadata[:tz]) { example.run }
   end
 
-  #config.full_backtrace = false
+  # config.full_backtrace = false
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -92,5 +92,5 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   # Kernel.srand config.seed
 
-  #config.backtrace_exclusion_patterns << /gems/
+  # config.backtrace_exclusion_patterns << /gems/
 end

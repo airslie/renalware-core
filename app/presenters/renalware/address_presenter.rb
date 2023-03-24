@@ -7,7 +7,7 @@ module Renalware
 
       presentable_attrs
         .map(&:to_s)
-        .reject(&:blank?)
+        .compact_blank
         .join(join_arg)
     end
 
@@ -20,7 +20,7 @@ module Renalware
 
       presentable_attrs
         .map(&:to_s)
-        .reject(&:blank?)
+        .compact_blank
     end
 
     private

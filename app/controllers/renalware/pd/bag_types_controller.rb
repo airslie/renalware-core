@@ -3,10 +3,20 @@
 module Renalware
   module PD
     class BagTypesController < BaseController
+      def index
+        bag_types = BagType.ordered
+        authorize bag_types
+        render locals: { bag_types: bag_types }
+      end
+
       def new
         bag_type = BagType.new
         authorize bag_type
         render locals: { bag_type: bag_type }
+      end
+
+      def edit
+        render locals: { bag_type: load_and_authorize_bag_type }
       end
 
       def create
@@ -20,16 +30,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("bag type")
           render :new, locals: { bag_type: bag_type }
         end
-      end
-
-      def index
-        bag_types = BagType.ordered
-        authorize bag_types
-        render locals: { bag_types: bag_types }
-      end
-
-      def edit
-        render locals: { bag_type: load_and_authorize_bag_type }
       end
 
       def update

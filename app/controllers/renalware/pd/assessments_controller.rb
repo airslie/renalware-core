@@ -18,6 +18,12 @@ module Renalware
         render locals: { patient: pd_patient, assessment: assessment }
       end
 
+      def edit
+        assessment = find_assessment
+        authorize assessment
+        render locals: { patient: pd_patient, assessment: assessment }
+      end
+
       def create
         assessment = PD::Assessment.for_patient(pd_patient).new(assessment_params)
         authorize assessment
@@ -27,12 +33,6 @@ module Renalware
         else
           render :new, locals: { patient: pd_patient, assessment: assessment }
         end
-      end
-
-      def edit
-        assessment = find_assessment
-        authorize assessment
-        render locals: { patient: pd_patient, assessment: assessment }
       end
 
       def update

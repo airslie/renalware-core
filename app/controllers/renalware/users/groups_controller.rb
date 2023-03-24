@@ -12,6 +12,10 @@ module Renalware
       render_new(Users::Group.new)
     end
 
+    def edit
+      render_edit(find_and_authorise_group)
+    end
+
     def create
       group = Users::Group.new(group_params)
       authorize group
@@ -20,10 +24,6 @@ module Renalware
       else
         render_new group
       end
-    end
-
-    def edit
-      render_edit(find_and_authorise_group)
     end
 
     def update

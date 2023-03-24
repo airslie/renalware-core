@@ -31,10 +31,21 @@ module Renalware
         @apd_regimes ||= APDRegime.for_patient(pd_patient).with_bags.ordered.page(1).per(5)
       end
 
+      def show
+        render :show, locals: {
+          regime: pd_regime,
+          patient: pd_patient
+        }
+      end
+
       def new
         regime = cloned_last_known_regime_of_type || pd_patient.pd_regimes.new(type: regime_type)
         authorize regime
         render_new(regime)
+      end
+
+      def edit
+        render_edit(pd_regime)
       end
 
       def create
@@ -50,10 +61,6 @@ module Renalware
         end
       end
 
-      def edit
-        render_edit(pd_regime)
-      end
-
       def update
         result = ReviseRegime.new(pd_regime).call(by: current_user, params: pd_regime_params)
 
@@ -64,13 +71,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("PD regime")
           render_edit(result.object)
         end
-      end
-
-      def show
-        render :show, locals: {
-          regime: pd_regime,
-          patient: pd_patient
-        }
       end
 
       private

@@ -3,10 +3,21 @@
 module Renalware
   module HD
     class CannulationTypesController < BaseController
+      def index
+        cannulation_types = CannulationType.all
+        authorize cannulation_types
+        render locals: { cannulation_types: cannulation_types }
+      end
+
       def new
         cannulation_type = CannulationType.new
         authorize cannulation_type
         render_new(cannulation_type)
+      end
+
+      def edit
+        cannulation_type = find_and_authorize_cannulation_type
+        render_edit(cannulation_type)
       end
 
       def create
@@ -20,17 +31,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("cannulation type")
           render_new(cannulation_type)
         end
-      end
-
-      def index
-        cannulation_types = CannulationType.all
-        authorize cannulation_types
-        render locals: { cannulation_types: cannulation_types }
-      end
-
-      def edit
-        cannulation_type = find_and_authorize_cannulation_type
-        render_edit(cannulation_type)
       end
 
       def update

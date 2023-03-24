@@ -31,7 +31,7 @@ module Renalware
         private
 
         def remove_blank_recipient_ids_from(params)
-          params[:recipient_ids].reject!(&:blank?) if params.key?(:recipient_ids)
+          params[:recipient_ids].compact_blank! if params.key?(:recipient_ids)
         end
       end
     end

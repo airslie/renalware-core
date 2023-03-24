@@ -30,6 +30,11 @@ module Renalware
         render_new(station)
       end
 
+      def edit
+        authorize station
+        render_edit(station)
+      end
+
       def create
         station = Station.new(station_params.merge!(hospital_unit_id: unit_id))
         authorize station
@@ -38,11 +43,6 @@ module Renalware
         else
           render_new(station)
         end
-      end
-
-      def edit
-        authorize station
-        render_edit(station)
       end
 
       def update

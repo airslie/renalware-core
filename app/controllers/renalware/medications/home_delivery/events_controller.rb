@@ -5,6 +5,14 @@ module Renalware
     module HomeDelivery
       # Works with a modal.
       class EventsController < BaseController
+        # GET PDF - display the pdf
+        def show
+          event = find_and_auth_event
+          respond_to do |format|
+            format.pdf { render_renalware_forms_pdf(event) }
+          end
+        end
+
         # A major REST faux pas, our #new action actually creates something - an instance of a
         # HomeDelivery::Event. We use this to render a modal form where the user can choose which
         # drug types they want to print a PDF for, and what some parameters are for the PDF
@@ -71,14 +79,6 @@ module Renalware
             end
           else
             render :edit, locals: { event: event }
-          end
-        end
-
-        # GET PDF - display the pdf
-        def show
-          event = find_and_auth_event
-          respond_to do |format|
-            format.pdf { render_renalware_forms_pdf(event) }
           end
         end
 

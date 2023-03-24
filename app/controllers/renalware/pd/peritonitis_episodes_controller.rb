@@ -22,15 +22,15 @@ module Renalware
         }
       end
 
-      def create
-        save_episode(new_episode)
-      end
-
       def edit
         render locals: {
           peritonitis_episode: current_episode,
           patient: pd_patient
         }
+      end
+
+      def create
+        save_episode(new_episode)
       end
 
       def update
