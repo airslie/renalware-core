@@ -6878,7 +6878,7 @@ var $$4 = window.$;
 // nested in a tbody (this is valid HTML) - ie there are probably two trs per tbody, and the last
 // one is toggleable. If you need anyting more complex you'll need to clone or adapt this
 // controller
-var _default$v = /*#__PURE__*/function (_Controller) {
+var _default$w = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -6923,7 +6923,7 @@ var _default$v = /*#__PURE__*/function (_Controller) {
 }(Controller);
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$u = /*#__PURE__*/function (_Controller) {
+var _default$v = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -6963,14 +6963,14 @@ var _default$u = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$u, "targets", ["output"]);
-_defineProperty$x(_default$u, "values", {
+_defineProperty$x(_default$v, "targets", ["output"]);
+_defineProperty$x(_default$v, "values", {
   weightSelector: String,
   heightSelector: String
 });
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$t = /*#__PURE__*/function (_Controller) {
+var _default$u = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7007,13 +7007,13 @@ var _default$t = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$t, "targets", ["previousWeight", "output"]);
-_defineProperty$x(_default$t, "values", {
+_defineProperty$x(_default$u, "targets", ["previousWeight", "output"]);
+_defineProperty$x(_default$u, "values", {
   weightSelector: String
 });
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$s = /*#__PURE__*/function (_Controller) {
+var _default$t = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7050,10 +7050,10 @@ var _default$s = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$s, "targets", ["proteinIntake", "output"]);
+_defineProperty$x(_default$t, "targets", ["proteinIntake", "output"]);
 
 var $$3 = window.$;
-var _default$r = /*#__PURE__*/function (_Controller) {
+var _default$s = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7076,13 +7076,13 @@ var _default$r = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$r, "targets", ["container", "radio"]);
+_defineProperty$x(_default$s, "targets", ["container", "radio"]);
 
 var Rails$3 = window.Rails;
 
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescrptions page.
-var _default$q = /*#__PURE__*/function (_Controller) {
+var _default$r = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7112,10 +7112,10 @@ var _default$q = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$q, "targets", ["form", "printOptions", "printFeedback"]);
+_defineProperty$x(_default$r, "targets", ["form", "printOptions", "printFeedback"]);
 
 var $$2 = window.$;
-var _default$p = /*#__PURE__*/function (_Controller) {
+var _default$q = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7137,7 +7137,7 @@ var _default$p = /*#__PURE__*/function (_Controller) {
 }(Controller);
 
 var $$1 = window.$;
-var _default$o = /*#__PURE__*/function (_Controller) {
+var _default$p = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7163,11 +7163,11 @@ var _default$o = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$o, "targets", ["trix"]);
+_defineProperty$x(_default$p, "targets", ["trix"]);
 
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescrptions page.
-var _default$n = /*#__PURE__*/function (_Controller) {
+var _default$o = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -7197,7 +7197,7 @@ var _default$n = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$n, "targets", ["homeDeliveryDates", "providers"]);
+_defineProperty$x(_default$o, "targets", ["homeDeliveryDates", "providers"]);
 
 /*! (c) Andrea Giammarchi - ISC */
 var self$1 = {};
@@ -19721,7 +19721,7 @@ var highcharts = {exports: {}};
 
 var Highcharts$1 = highcharts.exports;
 
-var _default$m = /*#__PURE__*/function (_Controller) {
+var _default$n = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -19845,11 +19845,11 @@ var _default$m = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$m, "targets", ["chart",
+_defineProperty$x(_default$n, "targets", ["chart",
 // chart container
 "period" // array of period (10y, 3y..) links
 ]);
-_defineProperty$x(_default$m, "values", {
+_defineProperty$x(_default$n, "values", {
   url: String,
   // API endpoint for chart json
   title: String,
@@ -19860,7 +19860,7 @@ _defineProperty$x(_default$m, "values", {
   // eg Kg
   yAxisType: String // linear or logarithmic
 });
-_defineProperty$x(_default$m, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
+_defineProperty$x(_default$n, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
 ]);
 
 var Rails$2 = window.Rails;
@@ -19918,7 +19918,7 @@ var _ = window._;
 //   active
 // - Not quite sure if putting the data attribute config settings in the body
 //   tag is the right thing to do - perhaps should be in a config .js.erb
-var _default$l = /*#__PURE__*/function (_Controller) {
+var _default$m = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -20117,7 +20117,7 @@ var _default$l = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$k = /*#__PURE__*/function (_Controller) {
+var _default$l = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
   function _default() {
@@ -20141,7 +20141,65 @@ var _default$k = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$x(_default$k, "targets", ["toggleable"]);
+_defineProperty$x(_default$l, "targets", ["toggleable"]);
+
+var _default$k = /*#__PURE__*/function (_Controller) {
+  _inherits$w(_default, _Controller);
+  var _super = _createSuper$w(_default);
+  function _default() {
+    _classCallCheck$x(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass$x(_default, [{
+    key: "connect",
+    value: function connect() {
+      this.toggleClass = this.data.get("class") || "hidden";
+    }
+  }, {
+    key: "select",
+    value: function select(event) {
+      var _this = this;
+      event.preventDefault();
+      var selectedOption = event.currentTarget.value;
+      this.itemTargets.filter(function (target) {
+        return _this.isMatch(target.dataset.showOnSelectedOption, selectedOption);
+      }).forEach(function (target) {
+        target.classList.remove(_this.toggleClass);
+        Array.from(target.getElementsByTagName("input")).forEach(function (input) {
+          input.disabled = false;
+        });
+      });
+      this.itemTargets.filter(function (target) {
+        return !_this.isMatch(target.dataset.showOnSelectedOption, selectedOption);
+      }).forEach(function (target) {
+        target.classList.add(_this.toggleClass);
+        Array.from(target.getElementsByTagName("input")).forEach(function (input) {
+          input.disabled = true;
+        });
+      });
+    }
+  }, {
+    key: "isMatch",
+    value: function isMatch(candidate, target) {
+      var candidates = [this.parsePotentialJson(candidate)].flat();
+      return candidates.includes(target);
+    }
+
+    // Support both "regular" strings and JSON encoded arrays for
+    // data-show-on-selected-option attributes
+  }, {
+    key: "parsePotentialJson",
+    value: function parsePotentialJson(valueOrJson) {
+      try {
+        return JSON.parse(valueOrJson);
+      } catch (error) {
+        return valueOrJson;
+      }
+    }
+  }]);
+  return _default;
+}(Controller);
+_defineProperty$x(_default$k, "targets", ["item"]);
 
 var _default$j = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
@@ -39427,15 +39485,16 @@ var _default = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-application.register("toggle", _default$v);
-application.register("hd-prescription-administration", _default$r);
-application.register("home-delivery-modal", _default$q);
-application.register("snippets", _default$p);
-application.register("letters-form", _default$o);
-application.register("prescriptions", _default$n);
-application.register("charts", _default$m);
-application.register("session", _default$l);
-application.register("simple-toggle", _default$k);
+application.register("toggle", _default$w);
+application.register("hd-prescription-administration", _default$s);
+application.register("home-delivery-modal", _default$r);
+application.register("snippets", _default$q);
+application.register("letters-form", _default$p);
+application.register("prescriptions", _default$o);
+application.register("charts", _default$n);
+application.register("session", _default$m);
+application.register("simple-toggle", _default$l);
+application.register("show-on-selected", _default$k);
 application.register("tabs", _default$j);
 application.register("pd-pet-chart", _default$i);
 application.register("pathology-sparklines", _default$h);
@@ -39454,9 +39513,9 @@ application.register("flash", _default$5);
 application.register("flatpickr", _default$3);
 application.register("input-value-alerter", _default$2);
 application.register("select-update-frame", _default$1);
-application.register("clinics--bmi-calculator", _default$u);
-application.register("clinics--weight-change-calculator", _default$t);
-application.register("clinics--dietary-protein-calculator", _default$s);
+application.register("clinics--bmi-calculator", _default$v);
+application.register("clinics--weight-change-calculator", _default$u);
+application.register("clinics--dietary-protein-calculator", _default$t);
 application.register("add-top-horizontal-scrollbar", _default);
 
 /*

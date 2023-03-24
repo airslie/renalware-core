@@ -46,6 +46,10 @@ module Renalware
         "#{dose_amount} #{unit}"
       end
 
+      def frequency
+        Drugs::Frequency.title_for_name(__getobj__.frequency)
+      end
+
       def administer_on_hd?
         administer_on_hd ? "Yes" : "No"
       end
