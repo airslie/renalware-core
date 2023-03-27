@@ -61,7 +61,6 @@ $table-margin-bottom: rem-calc(20) !default;
 //
 
 @mixin table {
-  background: $table-bg;
   border: $table-border-style $table-border-size $table-border-color;
   margin-bottom: $table-margin-bottom;
   table-layout: $table-layout;

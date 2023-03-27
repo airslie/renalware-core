@@ -130,5 +130,5 @@ en:
   simple_form:
     placeholders:
       user:
-        password: password
-        username: username
+        password: Password
+        username: Username
