@@ -4,7 +4,7 @@ span.select2 {
 }
 
 .grouped_select {
-   // margin-bottom: 0.7rem;
+  // margin-bottom: 0.7rem;
 
   label {
     margin-bottom: 0;
@@ -27,10 +27,14 @@ span.select2 {
   height: $select2-input-height;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__rendered {
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
   line-height: $select2-input-height;
 }
 
-.select2-container--classic .select2-selection--single .select2-selection__rendered {
+.select2-container--classic
+  .select2-selection--single
+  .select2-selection__rendered {
   line-height: $select2-input-height;
 }

@@ -82,7 +82,7 @@ html {
   }
 
   .full-screenable {
-    transition: margin .2s ease 0s;
+    transition: margin 0.2s ease 0s;
   }
 }
 
@@ -92,7 +92,7 @@ footer {
   background-color: $footer-bg-colour;
   border-top: 1px solid $light-grey;
   color: $footer-colour;
-  font-size: .8rem;
+  font-size: 0.8rem;
   padding: 0 1rem;
   text-align: right;
 }
@@ -119,7 +119,7 @@ section.display {
     color: $dark-grey;
     float: left;
     font-size: 1.3rem;
-    margin: .1rem 1rem 0 0;
+    margin: 0.1rem 1rem 0 0;
   }
 
   .section-actions {
@@ -128,15 +128,15 @@ section.display {
 
     a {
       @extend .button;
-      font-size: .9rem;
+      font-size: 0.9rem;
       margin: 0;
-      padding: .3rem 1rem;
+      padding: 0.3rem 1rem;
     }
   }
 
   .section-content {
     display: block;
-    margin-top: .2rem;
+    margin-top: 0.2rem;
 
     dl {
       clear: both;
@@ -156,7 +156,7 @@ section.display {
 
   .non-patient-page-header {
     margin: 0;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
     padding: 0;
 
     &.with-tabs {
@@ -164,7 +164,7 @@ section.display {
       margin-bottom: 1.5rem;
 
       .page-heading {
-        margin-bottom: .8rem;
+        margin-bottom: 0.8rem;
       }
     }
   }

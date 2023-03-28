@@ -9,12 +9,12 @@
 
 a.small-helper-button {
   margin-left: 4;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   background-color: $nhs-light-blue;
   color: $white;
   text-decoration: none;
   font-weight: normal;
-  padding: .1rem .4rem;
+  padding: 0.1rem 0.4rem;
 
   &:visited,
   &:active {
@@ -40,7 +40,8 @@ a.small-helper-button {
 }
 
 textarea.monospace {
-  font-family: Consolas,Monaco,Lucida Console,Bitstream Vera Sans Mono,Courier New, monospace;
+  font-family: Consolas, Monaco, Lucida Console, Bitstream Vera Sans Mono,
+    Courier New, monospace;
 }
 
 .filters {
@@ -53,12 +54,14 @@ textarea.monospace {
 }
 .filters--flex {
   .flex {
-    input, select, .select2 {
+    input,
+    select,
+    .select2 {
       margin: 0;
     }
 
     .button {
-      padding: .5rem 1rem
+      padding: 0.5rem 1rem;
     }
   }
 }
@@ -91,8 +94,8 @@ input[type="number"]::-webkit-outer-spin-button {
 form {
   .striped {
     > .row {
-      padding-bottom: .35rem;
-      padding-top: .35rem;
+      padding-bottom: 0.35rem;
+      padding-top: 0.35rem;
 
       input {
         margin-bottom: 0;
@@ -145,7 +148,6 @@ form {
   }
 
   .error {
-
     small.error {
       padding: 0.3rem 0.5rem 0.2rem 0.5rem;
     }
@@ -192,7 +194,7 @@ article {
       font-size: 1.2rem;
       font-weight: bold;
       line-height: 1.6rem;
-      margin: 0 .5rem 0 0;
+      margin: 0 0.5rem 0 0;
       padding: 0;
 
       a {
@@ -208,12 +210,12 @@ article {
         color: $mid-grey;
         font-size: 1.1rem;
         // line-height: 1.78rem;
-        margin: 0 .5rem 0 0;
+        margin: 0 0.5rem 0 0;
       }
 
       a {
         display: inline-block;
-        margin-right: .5rem;
+        margin-right: 0.5rem;
       }
 
       &.right {
@@ -326,7 +328,6 @@ article {
 
 .document form,
 .profile-info-form {
-
   .form-content {
     // max-width: 960px;
   }
@@ -391,7 +392,6 @@ article {
 
 .search-form,
 .filters__form {
-
   fieldset {
     margin-top: 0;
   }
@@ -412,7 +412,6 @@ article {
 }
 
 fieldset {
-
   &.borderless {
     border: 0;
     padding: 0 !important;
@@ -437,7 +436,6 @@ fieldset {
       width: 100%;
 
       span {
-
         &.title {
           font-weight: normal;
           padding-right: 1rem;
@@ -474,9 +472,7 @@ fieldset {
 }
 
 .button {
-
   &.slimline {
-
     &.small {
       padding: 0.3rem 0.6rem;
     }
@@ -497,7 +493,7 @@ fieldset {
     background-color: $table-border-color;
 
     &:hover,
-    &:active   {
+    &:active {
       background-color: $nhs-red;
       color: $white;
     }
@@ -512,9 +508,9 @@ legend .legend-note {
   right: 0;
   top: 0;
   position: absolute;
-  margin: .5rem 1rem;
+  margin: 0.5rem 1rem;
   font-weight: normal;
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: $steel;
 }
 

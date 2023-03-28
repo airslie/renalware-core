@@ -66,17 +66,17 @@ heading {
   }
 
   .our-ref {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 
   .purchase_order_no {
     font-size: 1.5em;
     color: #000;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 
   .drug_types {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 
   .trust {
@@ -94,7 +94,7 @@ heading {
   .address {
     float: right;
     clear: right;
-    margin-top: .8rem
+    margin-top: 0.8rem;
   }
 }
 
@@ -114,13 +114,13 @@ main {
 }
 
 .prescriptions {
-
   table {
     width: 100%;
   }
 
-  th, td {
-    padding: .5rem .5rem .3rem 0;
+  th,
+  td {
+    padding: 0.5rem 0.5rem 0.3rem 0;
 
     &.date {
       width: 6rem;
@@ -158,13 +158,15 @@ main {
 }
 
 .allergies {
-  th, td {
-    padding: .3rem .2rem .2rem 0;
+  th,
+  td {
+    padding: 0.3rem 0.2rem 0.2rem 0;
   }
 }
 
 .checks {
-  th, td {
+  th,
+  td {
     vertical-align: middle;
     padding: 0 1rem 0 0;
   }
@@ -193,12 +195,11 @@ main {
   table {
     width: 100%;
 
-    td.prescriber   {
+    td.prescriber {
       width: 30rem;
     }
 
     td.signature {
-
     }
   }
 }
@@ -221,7 +222,8 @@ main {
 table {
   border-collapse: collapse;
 
-  thead, th {
+  thead,
+  th {
     text-align: left;
   }
 }

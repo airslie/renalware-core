@@ -31,11 +31,11 @@ h1 {
     dl {
       color: #000;
       font-size: 1.1rem;
-      margin: 0 0 .2em 0;
+      margin: 0 0 0.2em 0;
 
       dt {
         display: inline-block;
-        font-size: .6em;
+        font-size: 0.6em;
         font-weight: normal;
         margin: 0;
         padding: 1rem 0 0 0;
@@ -46,15 +46,15 @@ h1 {
         display: inline;
         font-size: 1.5em;
         line-height: 1.3em;
-        margin: 0 .5em 0 .1em;
-        margin: 0 .6rem 0 .2em;
+        margin: 0 0.5em 0 0.1em;
+        margin: 0 0.6rem 0 0.2em;
 
         &.name {
           display: inline-block;
           font-weight: bold;
           margin-left: 0;
-          margin-right: .4em;
-          margin-right: .6em;
+          margin-right: 0.4em;
+          margin-right: 0.6em;
           width: auto;
         }
       }
@@ -94,7 +94,7 @@ h1 {
 
         &.protocol-recent-pathology {
           padding: 0;
-          padding-left: .3rem;
+          padding-left: 0.3rem;
           width: 15%;
         }
       }
@@ -206,7 +206,7 @@ h1 {
           }
         }
 
-        &:nth-child(even){
+        &:nth-child(even) {
           td {
             border-top: solid 1px #bbb;
           }
@@ -261,7 +261,7 @@ h1 {
 
     dd {
       margin-right: 0.6rem;
-      margin-top: .07rem;
+      margin-top: 0.07rem;
       white-space: nowrap;
     }
 
@@ -309,8 +309,9 @@ table.prescriptions {
   thead tr th {
     padding: 0 !important;
   }
-  th, td {
-    padding: 0 .5rem 0 0;
+  th,
+  td {
+    padding: 0 0.5rem 0 0;
 
     &.col-width-date {
       min-width: 7rem;
@@ -326,13 +327,14 @@ table.latest_dry_weight {
   border: none;
   border-spacing: 0;
   border-collapse: collapse;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 
   thead tr th {
     padding: 0 !important;
   }
 
-  th, td {
-    padding: 0 .5rem 0 0;
+  th,
+  td {
+    padding: 0 0.5rem 0 0;
   }
 }

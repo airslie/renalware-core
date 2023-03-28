@@ -13,7 +13,7 @@ body {
 .letter-wrapper {
   &.draft,
   &.pendingreview {
-    background-image: asset-data-url('renalware/draft.jpg');
+    background-image: asset-data-url("renalware/draft.jpg");
     background-position: center center;
     background-repeat: no-repeat;
   }

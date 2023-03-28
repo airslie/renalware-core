@@ -28,7 +28,7 @@ th.togglers .toggler {
 }
 
 .content-toggled .toggler i,
-.toggler.toggled i  {
+.toggler.toggled i {
   &:before {
     content: asset-data-url("renalware/icons/chevron-up.svg");
   }
@@ -86,7 +86,7 @@ th.togglers {
 
   tbody {
     tr:last-child {
-      display: none
+      display: none;
     }
 
     &.toggleable--open tr:last-child {

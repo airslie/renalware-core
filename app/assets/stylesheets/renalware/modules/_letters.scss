@@ -9,7 +9,7 @@ table.contacts tbody td {
 
     .button {
       margin: 0.3rem 0 0.2rem 0;
-      padding: 0.4rem .6rem;
+      padding: 0.4rem 0.6rem;
     }
   }
 }
@@ -32,17 +32,17 @@ table.contacts tbody td {
 
 .letters {
   .quick-preview {
-    font-size: .9rem;
+    font-size: 0.9rem;
 
     p {
-      font-size: .9rem;
+      font-size: 0.9rem;
       line-height: 1rem;
     }
 
     .admin-notes {
       background-color: table-even-row-colour;
       padding: 2px 0;
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
 
@@ -61,8 +61,8 @@ table.contacts tbody td {
   overflow-y: auto;
 
   .columns {
-    padding-left: .2rem;
-    padding-right: .2rem;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
   }
 }
 
@@ -139,7 +139,7 @@ table.letters {
   font-size: 1.3rem;
 
   .print-batch-letter {
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     text-decoration: underline;
     color: $nhs-green;
 

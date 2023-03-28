@@ -94,7 +94,6 @@
 }
 
 .diary {
-
   .diary__period {
     margin-bottom: 1.5rem;
   }
@@ -162,7 +161,6 @@
     }
   }
 
-
   .diary__button {
     background-color: transparent;
     display: inline-block;
@@ -216,7 +214,6 @@
     }
 
     &[data-master] {
-
       &:hover {
         background-color: $almost-white;
       }
@@ -293,10 +290,10 @@ table.hd-sessions {
   }
 
   tbody {
-    border-top: solid 2px #BBB;
+    border-top: solid 2px #bbb;
 
     &:last-child {
-      border-bottom: solid 1px #BBB;
+      border-bottom: solid 1px #bbb;
     }
 
     &:hover {
@@ -305,20 +302,20 @@ table.hd-sessions {
 
     &.dna {
       td {
-        background-color: #E6EFF8;
+        background-color: #e6eff8;
       }
     }
 
     &.open {
       td {
-        background-color: #FFF1CC; // #FFF1CC; // #ffffc8;
+        background-color: #fff1cc; // #FFF1CC; // #ffffc8;
       }
     }
 
     &.dna {
       td {
         // background-color: #eee;
-        background-color: #E6EFF8;
+        background-color: #e6eff8;
       }
     }
 
@@ -367,7 +364,6 @@ table.hd-sessions {
     }
   }
 
-
   td {
     vertical-align: top;
   }
@@ -399,7 +395,7 @@ use flexbox to layout items inside each prescription.
 
     .hd-drug {
       flex: 1 1 auto;
-      padding-bottom: .5rem;
+      padding-bottom: 0.5rem;
       color: $mid-grey;
 
       .hd-drug--name {
@@ -414,14 +410,14 @@ use flexbox to layout items inside each prescription.
       .hd-drug--prescriber-name,
       .hd-drug--prescriber-position {
         display: inline-block;
-        padding-right: .5rem;
+        padding-right: 0.5rem;
         color: $dark-grey;
       }
 
       .hd-drug--prescriber-name,
       .hd-drug--prescriber-position {
         color: $muted-dark-grey;
-        padding-right: .3rem;
+        padding-right: 0.3rem;
       }
 
       .hd-drug--termination {
@@ -429,7 +425,7 @@ use flexbox to layout items inside each prescription.
           color: $dark-grey;
           display: inline-block;
           color: $dark-grey;
-          padding: 0 .3rem;
+          padding: 0 0.3rem;
         }
       }
     }
@@ -443,9 +439,10 @@ use flexbox to layout items inside each prescription.
     width: 98%;
     text-align: right;
     display: flex;
-    margin-top: .3rem;
+    margin-top: 0.3rem;
 
-    label, .radio_buttons {
+    label,
+    .radio_buttons {
       display: flex;
       flex: 0 1 9rem;
     }
@@ -481,7 +478,7 @@ use flexbox to layout items inside each prescription.
     border-right-color: $nhs-red;
 
     /* The 'status' values for the prescription-administration */
-    &[data-token-count='2'] {
+    &[data-token-count="2"] {
       border-right-color: $nhs-green;
     }
   }
@@ -544,7 +541,8 @@ use flexbox to layout items inside each prescription.
       padding-right: 1rem;
       vertical-align: top;
 
-      .select2-container--default.select2-container--disabled .select2-selection--single {
+      .select2-container--default.select2-container--disabled
+        .select2-selection--single {
         background-color: $white;
       }
 
@@ -557,10 +555,9 @@ use flexbox to layout items inside each prescription.
           display: inline-block;
         }
 
-        .user-password  {
+        .user-password {
           background: $mid-grey;
         }
-
       }
 
       .error.invalid-password {
@@ -591,13 +588,13 @@ use flexbox to layout items inside each prescription.
         }
 
         a {
-          margin-left: .4rem;
+          margin-left: 0.4rem;
         }
       }
 
       &.authorised {
         .user-password {
-          display: none
+          display: none;
         }
 
         .confirmed {
@@ -617,7 +614,7 @@ table#hd-session-drugs {
     background-color: lighten($nhs-pink, 55);
 
     td {
-      border-color: lighten($nhs-pink, 55);;
+      border-color: lighten($nhs-pink, 55);
     }
   }
 

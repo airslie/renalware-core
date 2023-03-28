@@ -13,16 +13,15 @@
     > div {
       transform:
         // Magic Numbers
-        translate(25px, 51px)
-        // 45 is really 360-45
+        translate(25px, 51px) // 45 is really 360-45
         rotate(315deg);
       width: 2rem;
     }
 
     > div > span {
-      border-bottom: 1px solid #ccc ;
+      border-bottom: 1px solid #ccc;
       display: inline-block;
-      padding: .4rem .0rem;
+      padding: 0.4rem 0rem;
       margin: 0 0 1.1rem -0.5rem;
     }
   }

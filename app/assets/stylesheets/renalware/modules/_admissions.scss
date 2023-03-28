@@ -5,12 +5,12 @@
 
     &.admission {
       background-color: $light-yellow;
-      text-shadow: lighten($light-yellow, 20) .05rem .05rem;
+      text-shadow: lighten($light-yellow, 20) 0.05rem 0.05rem;
     }
 
     &.discharge {
       background-color: $light-green;
-      text-shadow: lighten($light-green, 20) .05rem .05rem
+      text-shadow: lighten($light-green, 20) 0.05rem 0.05rem;
     }
   }
 }
@@ -22,7 +22,6 @@
 }
 
 .admissions_requests {
-
   td.priority {
     span {
       @include badge;
@@ -34,7 +33,6 @@
       background-color: $priority-urgent;
     }
   }
-
 
   tr.priority-high {
     td.priority span {

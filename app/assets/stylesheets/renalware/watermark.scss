@@ -1,7 +1,7 @@
 .letter-wrapper {
   &.draft,
   &.pendingreview {
-    background-image: image-url('renalware/draft.jpg');
+    background-image: image-url("renalware/draft.jpg");
     background-position: center center;
     background-repeat: no-repeat;
   }
