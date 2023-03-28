@@ -1,11 +1,10 @@
 nav#top-menu-bar.top-bar(data-topbar role="navigation")
-  ul.title-area
-    li.name
-    li.toggle-topbar.menu-icon
-      a(href="#")
-        span
-
   - if user_signed_in?
+    ul.title-area
+      li.name
+      li.toggle-topbar.menu-icon
+        a(href="#")
+          span
     = render "renalware/navigation/menu", the_patient_search: patient_search
   - else
     = render "renalware/navigation/branding"
