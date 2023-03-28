@@ -42,7 +42,7 @@ describe "API request for a patient's prescriptions as JSON" do
           by: user,
           dose_amount: "20",
           frequency: "daily",
-          medication_route: create(:medication_route, code: "PO")
+          medication_route: create(:medication_route, name: "Oral")
         )
 
         visit api_v1_patient_prescriptions_path(
@@ -63,7 +63,7 @@ describe "API request for a patient's prescriptions as JSON" do
               "dose_unit" => "milligram",
               "dose_amount" => prescription.dose_amount,
               "frequency" => prescription.frequency,
-              "route_code" => prescription.medication_route.code,
+              "route_code" => "Oral",
               "route_description" => nil,
               "administer_on_hd" => false,
               "last_delivery_date" => nil

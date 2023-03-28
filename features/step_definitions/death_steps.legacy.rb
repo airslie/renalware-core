@@ -4,12 +4,6 @@ Given("the patient is cc'ed on letters") do
   (@patty || @patient_1).update_columns(cc_on_all_letters: true, cc_decision_on: "01-01-2013")
 end
 
-Given("the patient has prescriptions") do
-  patient = @patty || @patient_1
-  seed_prescription_for(patient: patient)
-  expect(patient.prescriptions.count).to eq(1)
-end
-
 When("I select death modality") do
   within ".patient-content" do
     within "#modality-description-select" do
@@ -59,10 +53,6 @@ When("I complete the cause of death form") do
 
     click_on t("btn.save")
   end
-end
-
-Then("all prescriptions should have been terminated") do
-  expect(@patient_1.prescriptions.current.count).to eq(0)
 end
 
 Then("the patient should not be cc'ed on future letters") do

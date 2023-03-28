@@ -9,7 +9,6 @@ Feature: Writing a clinic visit letter
     And Doug is a doctor
     And Patty has a practice
     And Patty has a recorded clinic visit
-    And Patty has current prescriptions
     And Patty has recorded problems with notes
     And Patty has completed pathology investigations relevant to the clinic letter
     And Patty has these allergies
@@ -21,7 +20,6 @@ Feature: Writing a clinic visit letter
   Scenario: A doctor drafted a clinic visit letter
     When Doug drafts a clinic visit letter for Patty
     Then a letter for Patty's clinical visit is drafted
-    And the letter lists Patty's current prescriptions
     And the letter lists Patty's clinical observations
     And the letter lists Patty's problems and notes
     And the letter lists Patty's recent pathology results

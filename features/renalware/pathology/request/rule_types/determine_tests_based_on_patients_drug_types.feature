@@ -13,7 +13,7 @@ Feature: Determining observations required based on patient's drug types
       | PrescriptionDrugType | ESA |          |       |
     And Patty is a patient
     And Patty has the following prescriptions:
-      | drug_name    | dose          | frequency | route_code | provider | terminated_on |
+      | drug_name    | dose          | frequency | route_name | provider | terminated_on |
       | Epoetin Beta | 100 milligram | bd        | PO         | Hospital |               |
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is required
@@ -29,7 +29,7 @@ Feature: Determining observations required based on patient's drug types
     And Patty is a patient
     And the date today is 07-06-2016
     And Patty has the following prescriptions:
-      | drug_name    | dose          | frequency | route_code | provider | terminated_on |
+      | drug_name    | dose          | frequency | route_name | provider | terminated_on |
       | Epoetin Beta | 100 milligram | bd        | PO         | Hospital | 01-01-2020 |
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is required
@@ -45,7 +45,7 @@ Scenario: The algorithm determines a test to be required for the patient with pa
     And Patty is a patient
     And the date today is 07-06-2016
     And Patty has the following prescriptions:
-      | drug_name    | dose          | frequency | route_code | provider | terminated_on |
+      | drug_name    | dose          | frequency | route_name | provider | terminated_on |
       | Epoetin Beta | 100 milligram | bd        | PO         | Hospital | |
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is required

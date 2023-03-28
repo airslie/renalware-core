@@ -24,7 +24,7 @@ div(data-controller="tabs" data-tabs-active-tab="active")
               th.col-width-date= t(".terminated_on")
         tbody
           - group.prescriptions.each do |prescription|
-            tr class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
+            tr style=Renalware::Drugs::DrugTypeColourPresenter.new.style(prescription.drug_types)
               td= prescription.drug.name
               - if group.show_drug_types
                 td= prescription.drug_type_names

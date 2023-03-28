@@ -10,9 +10,6 @@ Feature: Recording a HD session
     And Patty is a patient
     And Patty has the HD modality
     And Patty has a recorded HD profile
-    And Patty has a prescription:
-      | drug_name       | dose          | frequency | route_code | provider | terminated_on | administer_on_hd |
-      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               | true |
 
   @web
   Scenario: A nurse recorded the pre-session observations

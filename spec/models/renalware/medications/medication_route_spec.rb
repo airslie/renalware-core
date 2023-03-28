@@ -15,8 +15,8 @@ module Renalware
 
       describe "#other?" do
         it "case-insenstively matches the code 'other'" do
-          expect(described_class.new(code: "other").other?).to be(true)
-          expect(described_class.new(code: "OTHER").other?).to be(true)
+          expect(described_class.new(name: "other").other?).to be(true)
+          expect(described_class.new(name: "OTHER").other?).to be(true)
         end
       end
     end

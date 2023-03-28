@@ -8,9 +8,10 @@ class ToggleInput < SimpleForm::Inputs::BooleanInput
 
     label_options = label_html_options.merge(
       {
-        class: "!flex items-center",
+        class: "!inline-flex items-center",
         role: "switch"
-      })
+      }
+    )
 
     @builder.check_box(attribute_name, html_options) +
       @builder.label(label_target, label_options) do

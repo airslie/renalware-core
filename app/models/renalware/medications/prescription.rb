@@ -6,7 +6,7 @@ module Renalware
       include Accountable
       extend Enumerize
 
-      attr_accessor :drug_select
+      attr_accessor :drug_id_and_trade_family_id
 
       has_paper_trail(
         versions: { class_name: "Renalware::Medications::PrescriptionVersion" },
@@ -21,6 +21,9 @@ module Renalware
       belongs_to :drug, -> { with_deleted }, class_name: "Renalware::Drugs::Drug"
       belongs_to :treatable, polymorphic: true
       belongs_to :medication_route
+      belongs_to :unit_of_measure, optional: true, class_name: "Renalware::Drugs::UnitOfMeasure"
+      belongs_to :trade_family, optional: true, class_name: "Renalware::Drugs::TradeFamily"
+      belongs_to :form, optional: true, class_name: "Renalware::Drugs::Form"
 
       has_one :termination,
               class_name: "PrescriptionTermination",
@@ -35,10 +38,10 @@ module Renalware
       delegate :name, to: :drug, prefix: true, allow_nil: true
 
       validates :patient, presence: true
-      validates :treatable, presence: true
+      validates :treatable_id, presence: true
+      validates :treatable_type, presence: true
       validates :drug, presence: true
       validates :dose_amount, presence: true
-      validates :dose_unit, presence: true
       validates :medication_route, presence: true
       validates :frequency, presence: true
       validates :prescribed_on, presence: true
@@ -47,16 +50,17 @@ module Renalware
 
       enum provider: Provider.codes
 
+      # deprecated, use `unit_of_measure` instead
       enumerize :dose_unit,
                 in: DoseUnit.codes,
                 i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
 
       scope :ordered, lambda {
-        joins(:drug).order("drugs.name asc, prescribed_on desc")
+        joins(:drug).order("drugs.name asc, prescribed_on desc, created_at desc")
       }
       scope :with_medication_route, -> { includes(:medication_route) }
       scope :with_drugs, -> { includes(drug: :drug_types) }
-      scope :with_classifications, -> { includes(drug: :classifications) }
+      scope :with_classifications, -> { includes(drug: :drug_type_classifications) }
       scope :with_termination, -> { includes(termination: [:created_by]) }
       scope :current, lambda { |date = Date.current|
         left_outer_joins(:termination)

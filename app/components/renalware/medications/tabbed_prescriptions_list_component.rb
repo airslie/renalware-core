@@ -14,7 +14,6 @@ module Renalware
     #      { title: "EPO", prescriptions: list2, show_terminated_on: true }
     #   ]
     class TabbedPrescriptionsListComponent < ApplicationComponent
-      include DrugsHelper
       attr_reader :groups
 
       class PrescriptionGroup

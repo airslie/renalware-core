@@ -1,0 +1,6 @@
+.row
+  .large-6.columns
+    = simple_form_for form, url: drugs_dmd_matches_path do |f|
+      = f.input :file, label: "Matches CSV file", as: :file
+
+      = save_or_cancel(form: f, back_path: drugs_dmd_matches_path)

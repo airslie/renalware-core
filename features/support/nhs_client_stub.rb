@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 Before do
-  ENV["NHS_CLIENT_ID"] ||= "client_id"
-  ENV["NHS_CLIENT_SECRET"] ||= "client_secret"
+  Renalware.config.nhs_client_id = "client_id"
+  Renalware.config.nhs_client_secret = "client_secret"
 
   auth_uri = "#{NHSClient::NHS_BASE_URL}/#{NHSClient::TOKEN_REQUEST_PATH}"
   stub_request(:post, auth_uri).with(
@@ -34,4 +34,9 @@ Before do
       body: File.read("spec/fixtures/files/nhs_client/query_response.json")
     )
   end
+end
+
+After do
+  Renalware.config.nhs_client_id = nil
+  Renalware.config.nhs_client_secret = nil
 end

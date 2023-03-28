@@ -1,3 +1,6 @@
+/ locals: (patient:, current_prescriptions:, current_search:, treatable:, historical_prescriptions:, historical_prescriptions_search:)
+/ Rails 7.1 strict locals:
+
 article
   header
     h2 Current
@@ -15,8 +18,11 @@ article
             | Medication Review
 
         - if policy(Renalware::Medications::Prescription).new?
-          = link_to new_patient_prescription_path(patient, treatable),
-                    remote: true,
+          = link_to new_patient_prescription_path(patient,
+                      return_to: request.fullpath,
+                      treatable_type: treatable.class,
+                      treatable_id: treatable.id),
+                    data: { turbo: true },
                     class: %i(button add_prescription) do
             i.fas.fa-plus
             | Add Prescription
@@ -24,9 +30,10 @@ article
 
   = render "renalware/medications/prescriptions/table",
             id: "current-prescriptions",
-            **local_assigns.update(prescriptions: current_prescriptions,
-                                  search: current_search,
-                                  current_scope: true)
+            prescriptions: current_prescriptions,
+            search: current_search,
+            treatable: treatable,
+            current_scope: true
 
 - if defined? historical_prescriptions
   article
@@ -34,6 +41,7 @@ article
       h2 Historical
     = render "renalware/medications/prescriptions/table",
               id: "historical-prescriptions",
-              **local_assigns.update(prescriptions: historical_prescriptions,
-                                    search: historical_prescriptions_search,
-                                    current_scope: false)
+              prescriptions: historical_prescriptions,
+              search: historical_prescriptions_search,
+              treatable: treatable,
+              current_scope: false

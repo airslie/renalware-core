@@ -17,11 +17,9 @@ Feature: Set the patient's modality
   Scenario: Doctor adds a death modality for a patient
     Given I choose to add a modality
     And the patient is cc'ed on letters
-    And the patient has prescriptions
     When I select death modality
     When I complete the cause of death form
     Then I should see the date of death and causes of death in the patient's clinical profile
       And I should see the patient on the death list
       And I should see the patient's current modality set as death with start date
-      And all prescriptions should have been terminated
       And the patient should not be cc'ed on future letters

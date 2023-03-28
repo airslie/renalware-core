@@ -1,10 +1,13 @@
+/ locals: (prescription:)
+/ Rails 7.1 strict locals:
+
 - recently_changed = defined?(recently_changed) && recently_changed
 li.prescription class=("recently_changed" if recently_changed)
   = prescription.drug.name
   = blank_separator
   = prescription.dose
   = blank_separator
-  = prescription.medication_route.code
+  = prescription.medication_route.name
   = blank_separator
   = prescription.frequency
   = blank_separator

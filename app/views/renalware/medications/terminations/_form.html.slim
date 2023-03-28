@@ -1,16 +1,15 @@
-p
-  strong Termination Prescription: #{prescription.drug.name} #{prescription.dose}
+h5 Termination Prescription: #{prescription.drug.name} #{prescription.dose}
 
 = simple_form_for termination,
                   url: url,
-                  remote: true,
                   html: { autocomplete: "off" },
                   wrapper: :horizontal_form do |f|
   = f.input :terminated_on, as: :flatpickr
   = f.input :notes
+  = hidden_field_tag :return_to, return_to_param
 
   .row
     .large-offset-3.large-7.columns
       = f.button :submit, "Save", class: :tiny
       '  or
-      = link_to t("btn.cancel"), patient_prescriptions_path(patient, treatable), remote: true
+      = link_to t("btn.cancel"), back_url(patient_prescriptions_path(patient))

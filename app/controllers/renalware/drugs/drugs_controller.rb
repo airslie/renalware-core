@@ -58,7 +58,17 @@ module Renalware
         @drug = Drug.find(params[:id])
         authorize @drug
         if @drug.update(drug_params)
-          redirect_to drugs_drugs_path, notice: success_msg_for("drug")
+
+          enabled_trade_family_ids = params[:drugs_drug][:enabled_trade_family_ids]
+
+          Drug.transaction do
+            @drug.trade_family_classifications
+              .update_all(enabled: false)
+            @drug.trade_family_classifications.where(trade_family_id: enabled_trade_family_ids)
+              .update_all(enabled: true)
+          end
+
+          redirect_to edit_drugs_drug_path(@drug), notice: success_msg_for("drug")
         else
           flash.now[:error] = failed_msg_for("drug")
           render :edit

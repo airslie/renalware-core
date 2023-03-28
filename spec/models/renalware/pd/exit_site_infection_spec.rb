@@ -14,7 +14,7 @@ module Renalware
 
     describe "exit site infection" do
       let(:patient) { create(:patient) }
-      let(:esi) { build(:exit_site_infection) }
+      let(:esi) { create(:exit_site_infection) }
       let(:lymphocytes) { create(:organism_code, name: "Lymphocytes") }
       let(:proteus) { create(:organism_code, name: "Proteus") }
       let(:user) { create(:user) }

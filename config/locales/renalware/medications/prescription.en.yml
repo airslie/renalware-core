@@ -4,7 +4,8 @@ en:
     attributes:
       renalware/medications/prescription:
         administer_on_hd: Give on HD
-        frequency: Frequency & Duration
+        drug_id_and_trade_family_id: Drug
+        frequency: Frequency
         last_delivery_date: Last home prescription date
         medication_route: Route
         next_delivery_date: Next home prescription date
@@ -39,6 +40,16 @@ en:
             tablet: tablet
             teaspoon: tsp
             unit: unit
+  renalware:
+    medications:
+      prescriptions:
+        edit:
+          page_title: Edit Prescription
+        new:
+          page_title: Add Prescription
+      terminations:
+        new:
+          page_title: New Termination
   simple_form:
     hints:
       prescription:

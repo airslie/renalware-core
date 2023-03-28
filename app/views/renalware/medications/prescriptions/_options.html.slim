@@ -1,9 +1,11 @@
 - if prescription.current? && policy(prescription).edit?
-  = link_to t("btn.edit"), edit_patient_prescription_path(patient, prescription), remote: true
+  = link_to t("btn.edit"), edit_patient_prescription_path(patient,
+    prescription,
+    return_to: request.fullpath), data: { turbo: true }
+
 - unless prescription.terminated_or_marked_for_termination?
   - if policy(prescription).destroy?
     = link_to t("btn.terminate"),
-              new_patient_medications_prescription_termination_path(patient,
-                                                                    prescription,
-                                                                    @treatable),
-              remote: true
+      new_patient_medications_prescription_termination_path(patient,
+      prescription,
+      return_to: request.fullpath)

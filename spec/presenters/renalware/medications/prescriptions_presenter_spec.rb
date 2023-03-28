@@ -8,12 +8,13 @@ module Renalware
       describe "#to_s" do
         it "returns a string as close as possible to NHS guidelines" do
           drug = instance_double(Drugs::Drug, name: "Drug X", to_s: "Drug X")
+          unit_of_measure = instance_double(Drugs::UnitOfMeasure, name: "mg")
           prescription = instance_double(
             Prescription,
             drug: drug,
             dose_amount: "10",
-            dose_unit: "milligram",
-            medication_route: instance_double(MedicationRoute, code: "PO", other?: false),
+            unit_of_measure: unit_of_measure,
+            medication_route: instance_double(MedicationRoute, name: "PO", other?: false),
             frequency: "nocte"
           )
           presenter = described_class.new(prescription)

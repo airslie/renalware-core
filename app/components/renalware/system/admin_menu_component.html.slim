@@ -11,6 +11,7 @@ ul.side-nav.side-nav--admin(data-controller="collapsible-DISABLED" data-collapsi
   = admin_menu_item "Clinics", renalware.clinics_path, %r{clinics/clinics}
   = admin_menu_item "Consultants", renalware.consultants_path, %r{clinics/consultants}
   = super_admin_menu_item "Drugs", renalware.drugs_drugs_path, %r{drugs/drugs}
+  = super_admin_menu_item "DMD Matches", renalware.drugs_dmd_matches_path, %r{drugs/dmd_matches}
   = admin_menu_item "Modalities", renalware.modalities_descriptions_path, %r{modalities/descriptions}
   li= link_to "PD", "#", data: { action: "collapsible#open", collapsible_target: "link" }
   ul.collapsible(data-collapsible-target="section")

@@ -13,8 +13,8 @@ Given(/^Patty has problems:$/) do |table|
     create_problem(
       @patty,
       description: row[:description],
-      date: parse_date_string(row[:recorded_on]),
-      deleted_at: parse_date_string(row[:terminated_on]),
+      date: (Date.parse(row[:recorded_on]) if row[:recorded_on].present?),
+      deleted_at: (Date.parse(row[:terminated_on]) if row[:terminated_on].present?),
       by: Renalware::User.last
     )
   end

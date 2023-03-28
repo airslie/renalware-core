@@ -1,238 +1,163 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 module Renalware
   module Medications
     class PrescriptionsController < BaseController
       include PrescriptionsHelper
       include PresenterHelper
+      include Concerns::ReturnTo
+      include Renalware::Concerns::PdfRenderable
 
-      def index
+      def index # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         authorize Prescription, :index?
-        @treatable = treatable_class.find(treatable_id)
+
+        presenter = PrescriptionIndexPresenter.new(patient: patient, params: params)
+
         respond_to do |format|
-          format.html { render_index }
-          format.js { render_index }
+          format.html do
+            render locals: { presenter: presenter }
+          end
+
           format.pdf do
-            render_prescriptions_list_to_hand_to_patient(hd_only: params[:hd_only] == "true")
+            filename = "#{patient.family_name}_#{patient.hospital_identifier&.id}" \
+                       "_medications_#{I18n.l(Time.zone.today)}".upcase
+
+            render_with_wicked_pdf(
+              default_pdf_options.merge(
+                pdf: filename,
+                print_media_type: true,
+                locals: { title: pdf_title, presenter: presenter }
+              )
+            )
           end
         end
       end
 
-      def new
-        @treatable = treatable_class.find(treatable_id)
-        prescription = build_new_prescription_for(@treatable)
-        authorize prescription
-        render_form(prescription, url: patient_prescriptions_path(patient, @treatable))
-      end
-
-      def create
-        @treatable = treatable_class.find(treatable_id)
-
-        prescription = patient.prescriptions.new(
-          prescription_params.merge(treatable: @treatable)
-        )
+      def new # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        param_attrs = params[:medications_prescription].present? ? prescription_params : {}
+        prescription = patient.prescriptions.build
         authorize prescription
 
-        if prescription.save
-          render_index
-        else
-          render_form(prescription, url: patient_prescriptions_path(patient, @treatable))
-        end
+        prescription.assign_attributes(param_attrs)
+        prescription.treatable_type ||= params[:treatable_type] || "Renalware::Patient"
+        prescription.treatable_id ||= params[:treatable_id] || patient.id
+        prescription.prescribed_on ||= Date.current
+        prescription.provider ||= Provider.codes.find { |code| code == :gp }
+        prescription.termination || prescription.build_termination
+
+        render_new(prescription)
       end
 
       def edit
         prescription = patient.prescriptions.find(params[:id])
         authorize prescription
-        @treatable = prescription.treatable
 
-        render_form(prescription, url: patient_prescription_path(patient, prescription))
+        if prescription.trade_family_id
+          prescription.drug_id_and_trade_family_id = [
+            prescription.drug_id, PrescriptionFormPresenter::SEPARATOR, prescription.trade_family_id
+          ].join
+        else
+          prescription.drug_id_and_trade_family_id = prescription.drug_id
+        end
+
+        render_edit(prescription)
+      end
+
+      def create
+        prescription = patient.prescriptions.new(prescription_params)
+        authorize prescription
+
+        if prescription.save
+          redirect_to return_to_param || patient_prescriptions_path(patient)
+        else
+          render_new prescription
+        end
       end
 
       def update
         prescription = patient.prescriptions.find(params[:id])
         authorize prescription
-        @treatable = prescription.treatable
 
-        updated = RevisePrescription.new(prescription).call(prescription_params)
-
-        if updated
-          render_index
+        if RevisePrescription.new(prescription).call(prescription_params)
+          redirect_to return_to_param || patient_prescriptions_path(patient)
         else
-          render_form(prescription, url: patient_prescription_path(patient, prescription))
+          render_edit(prescription)
         end
       end
 
       private
 
-      def build_new_prescription_for(treatable)
-        gp_provider_code = Provider.codes.find { |code| code == :gp }
-        prescription = Prescription.new(treatable: treatable, provider: gp_provider_code)
-        prescription.build_termination
-        prescription.prescribed_on = Date.current
-        prescription
-      end
-
-      def render_index
-        render :index, locals: locals
-      end
-
-      # rubocop:disable Layout/LineLength, Metrics/MethodLength
-      def render_prescriptions_list_to_hand_to_patient(hd_only:)
+      def pdf_title
         title = "Medication List"
 
-        if hd_only
+        if hd_only?
           title = "Medications to be given on HD"
+          # TODO: move this bit
           params[:q] ||= {}
           params[:q][:administer_on_hd_eq] = true
         end
+        title
+      end
 
-        render_with_wicked_pdf(
-          pdf_options.merge(
-            pdf: pdf_filename,
-            disposition: "inline",
-            print_media_type: true,
-            locals: {
-              title: title,
-              patient: patient,
-              current_prescriptions: present(current_prescriptions, PrescriptionPresenter),
-              recently_stopped_prescriptions: present(recently_stopped_prescriptions, PrescriptionPresenter),
-              recently_changed_prescriptions: present(recently_changed_current_prescriptions, PrescriptionPresenter)
-            }
+      def hd_only?
+        params[:hd_only] == "true"
+      end
+
+      def render_edit(prescription)
+        render(
+          :edit,
+          locals: local_params(prescription).merge(
+            update_url: patient_prescription_path(patient, prescription),
+            search_url: new_patient_prescription_path(patient)
           )
         )
       end
-      # rubocop:enable Layout/LineLength, Metrics/MethodLength
 
-      def pdf_filename
-        "#{patient.family_name}_#{patient.hospital_identifier&.id}" \
-        "_medications_#{I18n.l(Time.zone.today)}".upcase
+      def render_new(prescription)
+        render(
+          :new,
+          locals: local_params(prescription).merge(
+            update_url: patient_prescriptions_path(patient),
+            search_url: new_patient_prescription_path(patient)
+          )
+        )
       end
 
-      def pdf_options
-        {
-          page_size: "A4",
-          layout: "renalware/layouts/letter",
-          show_as_html: params.key?(:debug),
-          footer: {
-            font_size: 8,
-            right: "page [page] of [topage]"
-          }
-        }
-      end
-
-      def locals
+      def local_params(prescription)
         {
           patient: patient,
-          treatable: present(@treatable, TreatablePresenter),
-          current_search: current_prescriptions_query.search,
-          current_prescriptions: present(current_prescriptions, PrescriptionPresenter),
-          historical_prescriptions_search: historical_prescriptions_query.search,
-          historical_prescriptions: present(historical_prescriptions, PrescriptionPresenter),
-          drug_types: find_drug_types
-        }
-      end
-
-      def render_form(prescription, url:)
-        render "form", locals: {
-          patient: patient,
-          treatable: @treatable,
           prescription: prescription,
-          provider_codes: present(Provider.codes, ProviderCodePresenter),
-          medication_routes: present(MedicationRoute.all, RouteFormPresenter),
-          url: url
+          presenter: PrescriptionFormPresenter.new(
+            prescription: prescription,
+            selected_drug_id: prescription.drug_id,
+            selected_trade_family_id: prescription.trade_family_id,
+            selected_form_id: prescription.form_id
+          )
         }
-      end
-
-      def treatable_class
-        @treatable_class ||= treatable_type.singularize.classify.constantize
       end
 
       def prescription_params
-        params
+        permitted = params
           .require(:medications_prescription)
           .permit(prescription_attributes)
-          .to_h
+
+        if permitted[:drug_id_and_trade_family_id].present?
+          permitted[:drug_id], permitted[:trade_family_id] =
+            permitted[:drug_id_and_trade_family_id].split(PrescriptionFormPresenter::SEPARATOR)
+        end
+
+        permitted.to_h
           .deep_merge(by: current_user, termination_attributes: { by: current_user })
       end
 
       def prescription_attributes
         [
-          :drug_id, :dose_amount, :dose_unit, :medication_route_id, :frequency,
-          :administer_on_hd, :route_description, :notes, :prescribed_on, :provider,
+          :drug_id, :dose_amount, :dose_unit, :unit_of_measure_id, :medication_route_id, :frequency,
+          :administer_on_hd, :notes, :prescribed_on, :provider, :form_id,
+          :drug_id_and_trade_family_id, :treatable_type, :treatable_id,
           :last_delivery_date, :next_delivery_date, { termination_attributes: :terminated_on }
         ]
-      end
-
-      def treatable_type
-        params.fetch(:treatable_type)
-      end
-
-      def treatable_id
-        params.fetch(:treatable_id)
-      end
-
-      def current_prescriptions_query
-        @current_prescriptions_query ||=
-          PrescriptionsQuery.new(
-            relation: @treatable.prescriptions.current,
-            search_params: params[:q]
-          )
-      end
-
-      def current_prescriptions
-        call_query(current_prescriptions_query)
-      end
-
-      def historical_prescriptions_query
-        @historical_prescriptions_query ||=
-          PrescriptionsQuery.new(
-            relation: @treatable.prescriptions,
-            search_params: params[:q]
-          )
-      end
-
-      # Prescriptions created or with dosage changed in the last 14 days.
-      # Because we terminated a prescription if the dosage changes, and create a new one,
-      # we just need to search for prescriptions created in the last 14 days.
-      def recently_changed_current_prescriptions
-        @recently_changed_current_prescriptions ||= begin
-          current_prescriptions_query
-            .call
-            .prescribed_between(from: 14.days.ago, to: ::Time.zone.now)
-        end
-      end
-
-      # Find prescriptions terminated within 14 days.
-      # Note we do not include those prescriptions which might have just had a dose change
-      # so they were implicitly terminated and re-created. We only want ones which were explicitly
-      # terminated.
-      def recently_stopped_prescriptions
-        @recently_stopped_prescriptions ||= begin
-          historical_prescriptions_query.call
-            .terminated
-            .terminated_between(from: 14.days.ago, to: ::Time.zone.now)
-            .where.not(drug_id: current_prescriptions.map(&:drug_id))
-        end
-      end
-
-      def call_query(query)
-        query
-          .call
-          .with_created_by
-          .with_medication_route
-          .with_drugs
-          .with_termination
-      end
-
-      def historical_prescriptions
-        call_query(historical_prescriptions_query)
-      end
-
-      def find_drug_types
-        Drugs::Type.all
       end
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

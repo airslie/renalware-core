@@ -26,7 +26,7 @@ module Renalware
           query = search.result
             .current
             .includes(:patient)
-            .eager_load(drug: [:classifications, :drug_types])
+            .eager_load(drug: [:drug_type_classifications, :drug_types])
             .joins("inner join patient_current_modalities pcm on pcm.patient_id = patients.id")
             .where(provider: :home_delivery)
             .where(next_delivery_date: (from..to))

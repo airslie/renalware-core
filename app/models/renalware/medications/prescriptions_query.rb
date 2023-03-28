@@ -16,7 +16,8 @@ module Renalware
       end
 
       def search
-        @search ||= @relation.ransack(@search_params)
+        @search ||= @relation.includes([:trade_family, :unit_of_measure])
+          .ransack(@search_params)
       end
 
       private

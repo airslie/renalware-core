@@ -67,5 +67,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "KFRE"
   inflect.irregular "feedback", "feedback"
   inflect.acronym "NHS"
+  inflect.acronym "DMD"
+  inflect.acronym "VMP"
   inflect.uncountable %w(cache)
 end

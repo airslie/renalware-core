@@ -15,7 +15,7 @@ module Renalware
 
     describe "peritonitis episode" do
       let(:patient) { create(:patient) }
-      let(:episode) { build(:peritonitis_episode) }
+      let(:episode) { create(:peritonitis_episode) }
       let(:mrsa) { create(:organism_code, name: "MRSA") }
       let(:ecoli) { create(:organism_code, name: "E.Coli") }
       let(:user) { create(:user) }

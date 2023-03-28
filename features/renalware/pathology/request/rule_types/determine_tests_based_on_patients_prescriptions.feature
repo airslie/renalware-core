@@ -15,7 +15,7 @@ Feature: Determining tests required based on patient's prescriptions
 
   Scenario: The algorithm determines a test to be required for the patient
     Given Patty has the following prescriptions:
-      | drug_name            | dose          | frequency | route_code | provider | terminated_on |
+      | drug_name            | dose          | frequency | route_name | provider | terminated_on |
       | Cefuroxime Injection | 100 milligram | bd        | PO         | Hospital |               |
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is required
