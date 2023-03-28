@@ -2,7 +2,7 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
-@import 'global';
+@import "global";
 
 //
 // @variables
@@ -41,24 +41,27 @@ $pagination-link-current-active-bg: $primary-color !default;
 //
 // Style the pagination container. Currently only used when centering elements.
 // $center - Default: false, Options: true
-@mixin pagination-container($center:false) {
-  @if $center { text-align: center; }
+@mixin pagination-container($center: false) {
+  @if $center {
+    text-align: center;
+  }
 }
 
 // @mixins
 // Style unavailable list items
 @mixin pagination-unavailable-item {
-  a, button {
+  a,
+  button {
     cursor: $pagination-link-unavailable-cursor;
     color: $pagination-link-unavailable-font-color;
     pointer-events: none;
   }
   &:hover a,
   & a:focus,
-
   &:hover button,
-  & button:focus
-  { background: $pagination-link-unavailable-bg-active; }
+  & button:focus {
+    background: $pagination-link-unavailable-bg-active;
+  }
 }
 // @mixins
 // Style the current list item. Do not assume that the current item has
@@ -66,14 +69,17 @@ $pagination-link-current-active-bg: $primary-color !default;
 // $has-anchor - Default: true, Options: false
 @mixin pagination-current-item($has-anchor: true) {
   @if $has-anchor {
-    a, button {
+    a,
+    button {
       background: $pagination-link-current-background;
       color: $pagination-link-current-font-color;
       cursor: $pagination-link-current-cursor;
       font-weight: $pagination-link-current-font-weight;
 
       &:hover,
-      &:focus { background: $pagination-link-current-active-bg; }
+      &:focus {
+        background: $pagination-link-current-active-bg;
+      }
     }
   } @else {
     background: $pagination-link-current-background;
@@ -85,7 +91,9 @@ $pagination-link-current-active-bg: $primary-color !default;
     @include radius;
 
     &:hover,
-    &:focus { background: $pagination-link-current-active-bg; }
+    &:focus {
+      background: $pagination-link-current-active-bg;
+    }
   }
 }
 
@@ -95,8 +103,11 @@ $pagination-link-current-active-bg: $primary-color !default;
 // $center - Left or center align the li elements. Default: false
 // $base-style - Sets base styles for pagination. Default: true, Options: false
 // $use-default-classes - Makes unavailable & current classes available for use. Default: true
-@mixin pagination($center:false, $base-style:true, $use-default-classes:true) {
-
+@mixin pagination(
+  $center: false,
+  $base-style: true,
+  $use-default-classes: true
+) {
   @if $base-style {
     display: block;
     margin-#{$default-float}: $pagination-margin;
@@ -108,7 +119,8 @@ $pagination-link-current-active-bg: $primary-color !default;
       height: $pagination-li-height;
       margin-#{$default-float}: $pagination-li-margin;
 
-      a, button {
+      a,
+      button {
         @include radius;
         @include single-transition(background-color);
         background: none;
@@ -123,12 +135,17 @@ $pagination-link-current-active-bg: $primary-color !default;
       &:hover a,
       a:focus,
       &:hover button,
-      button:focus
-      { background: $pagination-link-active-bg; }
+      button:focus {
+        background: $pagination-link-active-bg;
+      }
 
       @if $use-default-classes {
-        &.unavailable { @include pagination-unavailable-item(); }
-        &.current { @include pagination-current-item(); }
+        &.unavailable {
+          @include pagination-unavailable-item();
+        }
+        &.current {
+          @include pagination-current-item();
+        }
       }
     }
   }

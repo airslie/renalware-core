@@ -2,7 +2,7 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
-@import 'global';
+@import "global";
 
 //
 // Tooltip Variables
@@ -12,7 +12,8 @@ $include-html-tooltip-classes: $include-html-classes !default;
 $has-tip-border-bottom: dotted 1px $iron !default;
 $has-tip-font-weight: $font-weight-bold !default;
 $has-tip-font-color: $oil !default;
-$has-tip-border-bottom-hover: dotted 1px scale-color($primary-color, $lightness: -55%) !default;
+$has-tip-border-bottom-hover: dotted 1px
+  scale-color($primary-color, $lightness: -55%) !default;
 $has-tip-font-color-hover: $primary-color !default;
 $has-tip-cursor-type: help !default;
 
@@ -33,7 +34,6 @@ $tooltip-max-width: 300px !default;
 
 @include exports("tooltip") {
   @if $include-html-tooltip-classes {
-
     /* Tooltips */
     .has-tip {
       border-bottom: $has-tip-border-bottom;
@@ -48,7 +48,9 @@ $tooltip-max-width: 300px !default;
       }
 
       &.tip-left,
-      &.tip-right { float: none !important; }
+      &.tip-right {
+        float: none !important;
+      }
     }
 
     .tooltip {
@@ -111,32 +113,32 @@ $tooltip-max-width: 300px !default;
           border-color: transparent transparent $tooltip-bg transparent;
           top: -($tooltip-pip-size * 2);
         }
-        &.tip-top>.nub {
+        &.tip-top > .nub {
           border-color: $tooltip-bg transparent transparent transparent;
           bottom: -($tooltip-pip-size * 2);
           top: auto;
         }
 
         &.tip-left,
-        &.tip-right { float: none !important; }
+        &.tip-right {
+          float: none !important;
+        }
 
-        &.tip-left>.nub {
+        &.tip-left > .nub {
           border-color: transparent transparent transparent $tooltip-bg;
           left: auto;
           margin-top: -$tooltip-pip-size;
           right: -($tooltip-pip-size * 2);
           top: 50%;
         }
-        &.tip-right>.nub {
+        &.tip-right > .nub {
           border-color: transparent $tooltip-bg transparent transparent;
           left: -($tooltip-pip-size * 2);
           margin-top: -$tooltip-pip-size;
           right: auto;
           top: 50%;
         }
-
       }
     }
-
   }
 }

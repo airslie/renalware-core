@@ -2,7 +2,7 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
-@import 'global';
+@import "global";
 
 //
 // @name _tables.scss
@@ -54,7 +54,6 @@ $table-line-height: rem-calc(18) !default;
 $table-layout: auto !default;
 $table-display: table-cell !default;
 $table-margin-bottom: rem-calc(20) !default;
-
 
 //
 // @mixins
@@ -114,7 +113,9 @@ $table-margin-bottom: rem-calc(20) !default;
 
     &.even,
     &.alt,
-    &:nth-of-type(even) { background: $table-even-row-bg; }
+    &:nth-of-type(even) {
+      background: $table-even-row-bg;
+    }
   }
 
   thead tr th,
@@ -122,9 +123,11 @@ $table-margin-bottom: rem-calc(20) !default;
   tfoot tr td,
   tbody tr th,
   tbody tr td,
-  tr td { display: $table-display; line-height: $table-line-height; }
+  tr td {
+    display: $table-display;
+    line-height: $table-line-height;
+  }
 }
-
 
 @include exports("table") {
   @if $include-html-table-classes {

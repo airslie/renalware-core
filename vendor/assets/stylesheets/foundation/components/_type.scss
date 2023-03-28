@@ -2,7 +2,7 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
-@import 'global';
+@import "global";
 
 $include-html-type-classes: $include-html-classes !default;
 
@@ -12,8 +12,8 @@ $header-font-weight: $font-weight-normal !default;
 $header-font-style: normal !default;
 $header-font-color: $jet !default;
 $header-line-height: 1.4 !default;
-$header-top-margin: .2rem !default;
-$header-bottom-margin: .5rem !default;
+$header-top-margin: 0.2rem !default;
+$header-bottom-margin: 0.5rem !default;
 $header-text-rendering: optimizeLegibility !default;
 
 // We use these to control header font sizes
@@ -34,10 +34,13 @@ $h6-font-reduction: 0 !default;
 
 // These control how subheaders are styled.
 $subheader-line-height: 1.4 !default;
-$subheader-font-color: scale-color($header-font-color, $lightness: 35%) !default;
+$subheader-font-color: scale-color(
+  $header-font-color,
+  $lightness: 35%
+) !default;
 $subheader-font-weight: $font-weight-normal !default;
-$subheader-top-margin: .2rem !default;
-$subheader-bottom-margin: .5rem !default;
+$subheader-top-margin: 0.2rem !default;
+$subheader-bottom-margin: 0.5rem !default;
 
 // A general <small> styling
 $small-font-size: 60% !default;
@@ -61,14 +64,20 @@ $code-font-weight: $font-weight-normal !default;
 $code-background-color: scale-color($secondary-color, $lightness: 70%) !default;
 $code-border-size: 1px !default;
 $code-border-style: solid !default;
-$code-border-color: scale-color($code-background-color, $lightness: -10%) !default;
+$code-border-color: scale-color(
+  $code-background-color,
+  $lightness: -10%
+) !default;
 $code-padding: rem-calc(2) rem-calc(5) rem-calc(1) !default;
 
 // We use these to style anchors
 $anchor-text-decoration: none !default;
 $anchor-text-decoration-hover: none !default;
 $anchor-font-color: $primary-color !default;
-$anchor-font-color-hover: scale-color($anchor-font-color, $lightness: -14%) !default;
+$anchor-font-color-hover: scale-color(
+  $anchor-font-color,
+  $lightness: -14%
+) !default;
 
 // We use these to style the <hr> element
 $hr-border-width: 1px !default;
@@ -87,15 +96,21 @@ $list-ordered-side-margin: 1.4rem !default;
 $list-side-margin-no-bullet: 0 !default;
 $list-nested-margin: rem-calc(20) !default;
 $definition-list-header-weight: $font-weight-bold !default;
-$definition-list-header-margin-bottom: .3rem !default;
+$definition-list-header-margin-bottom: 0.3rem !default;
 $definition-list-margin-bottom: rem-calc(12) !default;
 
 // We use these to style blockquotes
-$blockquote-font-color: scale-color($header-font-color, $lightness: 35%) !default;
+$blockquote-font-color: scale-color(
+  $header-font-color,
+  $lightness: 35%
+) !default;
 $blockquote-padding: rem-calc(9 20 0 19) !default;
 $blockquote-border: 1px solid $gainsboro !default;
 $blockquote-cite-font-size: rem-calc(13) !default;
-$blockquote-cite-font-color: scale-color($header-font-color, $lightness: 23%) !default;
+$blockquote-cite-font-color: scale-color(
+  $header-font-color,
+  $lightness: 23%
+) !default;
 $blockquote-cite-link-color: $blockquote-cite-font-color !default;
 
 // Acronym styles
@@ -128,44 +143,42 @@ $microformat-abbr-font-decoration: none !default;
 $print-margin: 0.34in !default;
 
 // Text alignment class names
-$align-class-names:
-  small-only,
-  small,
-  medium-only,
-  medium,
-  large-only,
-  large,
-  xlarge-only,
-  xlarge,
-  xxlarge-only,
-  xxlarge;
+$align-class-names: small-only, small, medium-only, medium, large-only, large,
+  xlarge-only, xlarge, xxlarge-only, xxlarge;
 
 // Text alignment breakpoints
-$align-class-breakpoints:
-  $small-only,
-  $small-up,
-  $medium-only,
-  $medium-up,
-  $large-only,
-  $large-up,
-  $xlarge-only,
-  $xlarge-up,
-  $xxlarge-only,
-  $xxlarge-up;
+$align-class-breakpoints: $small-only, $small-up, $medium-only, $medium-up,
+  $large-only, $large-up, $xlarge-only, $xlarge-up, $xxlarge-only, $xxlarge-up;
 
 // Generates text align and justify classes
-@mixin align-classes{
-  .text-left    { text-align: left !important; }
-  .text-right   { text-align: right !important; }
-  .text-center  { text-align: center !important; }
-  .text-justify { text-align: justify !important; }
+@mixin align-classes {
+  .text-left {
+    text-align: left !important;
+  }
+  .text-right {
+    text-align: right !important;
+  }
+  .text-center {
+    text-align: center !important;
+  }
+  .text-justify {
+    text-align: justify !important;
+  }
 
   @for $i from 1 through length($align-class-names) {
     @media #{(nth($align-class-breakpoints, $i))} {
-      .#{(nth($align-class-names, $i))}-text-left { text-align: left !important; }
-      .#{(nth($align-class-names, $i))}-text-right   { text-align: right !important; }
-      .#{(nth($align-class-names, $i))}-text-center  { text-align: center !important; }
-      .#{(nth($align-class-names, $i))}-text-justify { text-align: justify !important; }
+      .#{(nth($align-class-names, $i))}-text-left {
+        text-align: left !important;
+      }
+      .#{(nth($align-class-names, $i))}-text-right {
+        text-align: right !important;
+      }
+      .#{(nth($align-class-names, $i))}-text-center {
+        text-align: center !important;
+      }
+      .#{(nth($align-class-names, $i))}-text-justify {
+        text-align: justify !important;
+      }
     }
   }
 }
@@ -212,8 +225,8 @@ $align-class-breakpoints:
     blockquote,
     th,
     td {
-      margin:0;
-      padding:0;
+      margin: 0;
+      padding: 0;
     }
 
     /* Default Link Styles */
@@ -226,11 +239,13 @@ $align-class-breakpoints:
       &:focus {
         color: $anchor-font-color-hover;
         @if $anchor-text-decoration-hover != $anchor-text-decoration {
-        	text-decoration: $anchor-text-decoration-hover;
+          text-decoration: $anchor-text-decoration-hover;
         }
       }
 
-      img { border:none; }
+      img {
+        border: none;
+      }
     }
 
     /* Default paragraph styles */
@@ -242,7 +257,9 @@ $align-class-breakpoints:
       margin-bottom: $paragraph-margin-bottom;
       text-rendering: $paragraph-text-rendering;
 
-      &.lead { @include lead; }
+      &.lead {
+        @include lead;
+      }
 
       & aside {
         font-size: $paragraph-aside-font-size;
@@ -252,7 +269,12 @@ $align-class-breakpoints:
     }
 
     /* Default header styles */
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       color: $header-font-color;
       font-family: $header-font-family;
       font-style: $header-font-style;
@@ -269,14 +291,28 @@ $align-class-breakpoints:
       }
     }
 
-    h1 { font-size: $h1-font-size - $h1-font-reduction; }
-    h2 { font-size: $h2-font-size - $h2-font-reduction; }
-    h3 { font-size: $h3-font-size - $h3-font-reduction; }
-    h4 { font-size: $h4-font-size - $h4-font-reduction; }
-    h5 { font-size: $h5-font-size - $h5-font-reduction; }
-    h6 { font-size: $h6-font-size - $h6-font-reduction; }
+    h1 {
+      font-size: $h1-font-size - $h1-font-reduction;
+    }
+    h2 {
+      font-size: $h2-font-size - $h2-font-reduction;
+    }
+    h3 {
+      font-size: $h3-font-size - $h3-font-reduction;
+    }
+    h4 {
+      font-size: $h4-font-size - $h4-font-reduction;
+    }
+    h5 {
+      font-size: $h5-font-size - $h5-font-reduction;
+    }
+    h6 {
+      font-size: $h6-font-size - $h6-font-reduction;
+    }
 
-    .subheader { @include subheader; }
+    .subheader {
+      @include subheader;
+    }
 
     hr {
       border: $hr-border-style $hr-border-color;
@@ -342,12 +378,23 @@ $align-class-breakpoints:
       &.square,
       &.circle,
       &.disc {
-        li ul { list-style: inherit; }
+        li ul {
+          list-style: inherit;
+        }
       }
 
-      &.square { list-style-type: square; margin-#{$default-float}: $list-side-margin;}
-      &.circle { list-style-type: circle; margin-#{$default-float}: $list-side-margin;}
-      &.disc { list-style-type: disc; margin-#{$default-float}: $list-side-margin;}
+      &.square {
+        list-style-type: square;
+        margin-#{$default-float}: $list-side-margin;
+      }
+      &.circle {
+        list-style-type: circle;
+        margin-#{$default-float}: $list-side-margin;
+      }
+      &.disc {
+        list-style-type: disc;
+        margin-#{$default-float}: $list-side-margin;
+      }
     }
 
     /* Ordered Lists */
@@ -366,7 +413,7 @@ $align-class-breakpoints:
     .no-bullet {
       list-style-type: none;
       margin-#{$default-float}: $list-side-margin-no-bullet;
-      
+
       li {
         ul,
         ol {
@@ -383,7 +430,9 @@ $align-class-breakpoints:
         margin-bottom: $definition-list-header-margin-bottom;
         font-weight: $definition-list-header-weight;
       }
-      dd { margin-bottom: $definition-list-margin-bottom; }
+      dd {
+        margin-bottom: $definition-list-margin-bottom;
+      }
     }
 
     /* Abbreviations */
@@ -431,7 +480,9 @@ $align-class-breakpoints:
     .vcard {
       display: inline-block;
       margin: $microformat-margin;
-      border: $microformat-border-width $microformat-border-style $microformat-border-color;
+      border: $microformat-border-width
+        $microformat-border-style
+        $microformat-border-color;
       padding: $microformat-padding;
 
       li {
@@ -445,7 +496,9 @@ $align-class-breakpoints:
     }
 
     .vevent {
-      .summary { font-weight: $microformat-summary-font-weight; }
+      .summary {
+        font-weight: $microformat-summary-font-weight;
+      }
 
       abbr {
         cursor: $cursor-default-value;
@@ -456,15 +509,33 @@ $align-class-breakpoints:
       }
     }
 
-
     @media #{$medium-up} {
-      h1, h2, h3, h4, h5, h6 { line-height: $header-line-height; }
-      h1 { font-size: $h1-font-size; }
-      h2 { font-size: $h2-font-size; }
-      h3 { font-size: $h3-font-size; }
-      h4 { font-size: $h4-font-size; }
-      h5 { font-size: $h5-font-size; }
-      h6 { font-size: $h6-font-size; }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        line-height: $header-line-height;
+      }
+      h1 {
+        font-size: $h1-font-size;
+      }
+      h2 {
+        font-size: $h2-font-size;
+      }
+      h3 {
+        font-size: $h3-font-size;
+      }
+      h4 {
+        font-size: $h4-font-size;
+      }
+      h5 {
+        font-size: $h5-font-size;
+      }
+      h6 {
+        font-size: $h6-font-size;
+      }
     }
 
     // Only include these styles if you want them.
@@ -484,15 +555,23 @@ $align-class-breakpoints:
         }
 
         a,
-        a:visited { text-decoration: underline;}
-        a[href]:after { content: " (" attr(href) ")"; }
+        a:visited {
+          text-decoration: underline;
+        }
+        a[href]:after {
+          content: " (" attr(href) ")";
+        }
 
-        abbr[title]:after { content: " (" attr(title) ")"; }
+        abbr[title]:after {
+          content: " (" attr(title) ")";
+        }
 
         // Don't show links for images, or javascript/internal links
         .ir a:after,
         a[href^="javascript:"]:after,
-        a[href^="#"]:after { content: ""; }
+        a[href^="#"]:after {
+          content: "";
+        }
 
         pre,
         blockquote {
@@ -500,14 +579,22 @@ $align-class-breakpoints:
           page-break-inside: avoid;
         }
 
-        thead { display: table-header-group; /* h5bp.com/t */ }
+        thead {
+          display: table-header-group; /* h5bp.com/t */
+        }
 
         tr,
-        img { page-break-inside: avoid; }
+        img {
+          page-break-inside: avoid;
+        }
 
-        img { max-width: 100% !important; }
+        img {
+          max-width: 100% !important;
+        }
 
-        @page { margin: $print-margin; }
+        @page {
+          margin: $print-margin;
+        }
 
         p,
         h2,
@@ -517,9 +604,10 @@ $align-class-breakpoints:
         }
 
         h2,
-        h3 { page-break-after: avoid; }
+        h3 {
+          page-break-after: avoid;
+        }
       }
     }
-
   }
 }
