@@ -56,7 +56,7 @@ describe "AKI alert management" do
         today = Time.zone.today
         # too early yesterday
         a1 = aki_alert(
-          at: today - 1.day + Time.zone.parse("09:44").seconds_since_midnight.seconds
+          at: today - 1.day + Time.zone.parse("09:43").seconds_since_midnight.seconds
         )
         # just in time to make it in today
         a2 = aki_alert(at: today + Time.zone.parse("09:44").seconds_since_midnight.seconds)
