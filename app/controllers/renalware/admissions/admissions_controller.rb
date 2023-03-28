@@ -23,6 +23,10 @@ module Renalware
         render_new(admission)
       end
 
+      def edit
+        render_edit(find_and_authorize_admission)
+      end
+
       def create
         admission = build_admission
         authorize admission
@@ -31,10 +35,6 @@ module Renalware
         else
           render_new(admission)
         end
-      end
-
-      def edit
-        render_edit(find_and_authorize_admission)
       end
 
       def update

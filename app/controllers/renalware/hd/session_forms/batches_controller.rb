@@ -4,6 +4,27 @@ module Renalware
   module HD
     module SessionForms
       class BatchesController < BaseController
+        # rubocop:disable Metrics/MethodLength
+        def show
+          batch = find_and_authorize_batch
+          respond_to do |format|
+            format.pdf do
+              # Returns the PDF itself using path saved in the Batch - provided status is correct
+              send_file(
+                batch.filepath,
+                type: "application/pdf",
+                disposition: "inline",
+                filename: "session_forms_batch_#{batch.id}.pdf"
+              )
+            end
+            format.html do
+              # Returns a partial with a link to the compiled batch pdf
+              render layout: false, locals: { batch: find_and_authorize_batch }
+            end
+          end
+        end
+        # rubocop:enable Metrics/MethodLength
+
         def create
           batch = create_unprocessed_batch_and_batch_items
           authorize batch
@@ -30,27 +51,6 @@ module Renalware
                 }
               )
             }
-          end
-        end
-        # rubocop:enable Metrics/MethodLength
-
-        # rubocop:disable Metrics/MethodLength
-        def show
-          batch = find_and_authorize_batch
-          respond_to do |format|
-            format.pdf do
-              # Returns the PDF itself using path saved in the Batch - provided status is correct
-              send_file(
-                batch.filepath,
-                type: "application/pdf",
-                disposition: "inline",
-                filename: "session_forms_batch_#{batch.id}.pdf"
-              )
-            end
-            format.html do
-              # Returns a partial with a link to the compiled batch pdf
-              render layout: false, locals: { batch: find_and_authorize_batch }
-            end
           end
         end
         # rubocop:enable Metrics/MethodLength

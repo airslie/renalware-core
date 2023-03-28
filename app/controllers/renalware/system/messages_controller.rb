@@ -15,6 +15,10 @@ module Renalware
         render_new(message)
       end
 
+      def edit
+        render_edit(find_and_authorise_message)
+      end
+
       def create
         message = System::Message.new(message_params)
         authorize message
@@ -23,10 +27,6 @@ module Renalware
         else
           render_new(message)
         end
-      end
-
-      def edit
-        render_edit(find_and_authorise_message)
       end
 
       def update

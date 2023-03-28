@@ -22,6 +22,13 @@ module Renalware
         }
       end
 
+      def edit
+        render locals: {
+          patient: transplants_patient,
+          recipient_operation: find_and_authorize_operation
+        }
+      end
+
       def create
         recipient_operation = RecipientOperation.new(patient: transplants_patient)
         recipient_operation.attributes = operation_params
@@ -38,13 +45,6 @@ module Renalware
                    recipient_operation: recipient_operation
                  }
         end
-      end
-
-      def edit
-        render locals: {
-          patient: transplants_patient,
-          recipient_operation: find_and_authorize_operation
-        }
       end
 
       def update

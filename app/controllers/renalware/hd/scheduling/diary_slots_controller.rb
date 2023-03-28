@@ -5,6 +5,21 @@ module Renalware
   module HD
     module Scheduling
       class DiarySlotsController < BaseController
+        # GET .js refresh a slot in a *weekly* diary
+        # See comment on #create.
+        # See show.js.erb where we refresh the slot in the diary
+        # To get here we will have manufactured a url like this
+        #   hd/diaries/2/slots/day/1/period/1/station/1
+        # as those bit are will we know.
+        # Basically we are saying find for this weekly diary, find the matching
+        # slot for the station/day/period combo and render the weekly slot if there is
+        # one, or the master behind it if there is one of those, otherwise render an Add button.
+        def show
+          authorize DiarySlot, :show?
+          slot = weekly_then_master_then_empty_slot
+          render layout: false, locals: { slot: DiarySlotPresenter.new(slot) }
+        end
+
         # GET html -  renders a form
         # Here we will have been passed in the query string:
         # - the unit id
@@ -23,6 +38,11 @@ module Renalware
           )
           authorize slot
           render locals: locals_for(slot), layout: false
+        end
+
+        def edit
+          authorize slot
+          render layout: false, locals: { slot: DiarySlotPresenter.new(slot) }
         end
 
         # POST create js
@@ -45,24 +65,15 @@ module Renalware
           end
         end
 
-        # GET .js refresh a slot in a *weekly* diary
-        # See comment on #create.
-        # See show.js.erb where we refresh the slot in the diary
-        # To get here we will have manufactured a url like this
-        #   hd/diaries/2/slots/day/1/period/1/station/1
-        # as those bit are will we know.
-        # Basically we are saying find for this weekly diary, find the matching
-        # slot for the station/day/period combo and render the weekly slot if there is
-        # one, or the master behind it if there is one of those, otherwise render an Add button.
-        def show
-          authorize DiarySlot, :show?
-          slot = weekly_then_master_then_empty_slot
-          render layout: false, locals: { slot: DiarySlotPresenter.new(slot) }
-        end
-
-        def edit
+        # PATCH js
+        # See also comments in #create and #destroy.
+        # Here we only update the patient's arrival_time. We don't change the patient ot diary.
+        def update
           authorize slot
-          render layout: false, locals: { slot: DiarySlotPresenter.new(slot) }
+          slot.arrival_time = slot_params[:arrival_time]
+          slot.save_by!(current_user)
+          diary = slot.diary
+          render locals: { diary: diary, slot: diary.decorate_slot(slot) }
         end
 
         # DELETE js
@@ -74,17 +85,6 @@ module Renalware
           authorize slot
           slot.destroy!
           render locals: { slot: DiarySlotPresenter.new(slot) }
-        end
-
-        # PATCH js
-        # See also comments in #create and #destroy.
-        # Here we only update the patient's arrival_time. We don't change the patient ot diary.
-        def update
-          authorize slot
-          slot.arrival_time = slot_params[:arrival_time]
-          slot.save_by!(current_user)
-          diary = slot.diary
-          render locals: { diary: diary, slot: diary.decorate_slot(slot) }
         end
 
         private

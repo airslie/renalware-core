@@ -41,7 +41,7 @@ module Renalware
       end
 
       def description
-        [name, code].reject(&:blank?).uniq.join(Renalware.config.clinic_name_code_separator)
+        [name, code].compact_blank.uniq.join(Renalware.config.clinic_name_code_separator)
       end
     end
   end

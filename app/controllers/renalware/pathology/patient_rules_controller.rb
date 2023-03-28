@@ -13,6 +13,10 @@ module Renalware
         render_new(patient_rule)
       end
 
+      def edit
+        render_edit(find_and_authorize_patient_rule)
+      end
+
       def create
         patient_rule = pathology_patient.rules.new(patient_rule_params)
         authorize patient_rule
@@ -24,10 +28,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("Patient Rule")
           render_new(patient_rule)
         end
-      end
-
-      def edit
-        render_edit(find_and_authorize_patient_rule)
       end
 
       def update

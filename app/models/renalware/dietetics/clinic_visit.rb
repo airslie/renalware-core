@@ -34,11 +34,11 @@ module Renalware
 
         document.next_review_on = case document.next_review_in.to_sym
                                   when :three_months
-                                    Date.today + 3.months
+                                    Time.zone.today + 3.months
                                   when :six_months
-                                    Date.today + 6.months
+                                    Time.zone.today + 6.months
                                   when :twelve_months
-                                    Date.today + 12.months
+                                    Time.zone.today + 12.months
                                   end
       end
       before_save :set_next_review_on

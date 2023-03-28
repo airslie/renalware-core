@@ -17,6 +17,10 @@ module Renalware
         render_new topic
       end
 
+      def edit
+        render_edit find_and_authorise_topic
+      end
+
       def create
         topic = Topic.new(topic_params)
         authorize topic
@@ -25,10 +29,6 @@ module Renalware
         else
           render_new topic
         end
-      end
-
-      def edit
-        render_edit find_and_authorise_topic
       end
 
       def update
@@ -68,7 +68,7 @@ module Renalware
       end
 
       def remove_blank_section_identifiers(params)
-        params[:section_identifiers].reject!(&:blank?)
+        params[:section_identifiers].compact_blank!
         params
       end
 

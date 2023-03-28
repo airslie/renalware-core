@@ -13,7 +13,7 @@ module Renalware
       let(:observation_datetime) { "200911111841" }
       let(:patient) do
         create(:pathology_patient, local_patient_id: local_patient_id,
-                                   born_on: Date.today - 34.years) do |pat|
+                                   born_on: Time.zone.today - 34.years) do |pat|
           create(
             :modality,
             started_on: Date.parse(dob),
@@ -42,7 +42,7 @@ module Renalware
           identifiers: {
             nhs_number: nhs_number,
             local_patient_id: internal_id
-          }.reject { |_, value| value.blank? }
+          }.compact_blank
         )
       end
 

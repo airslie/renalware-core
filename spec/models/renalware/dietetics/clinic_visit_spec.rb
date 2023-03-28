@@ -69,7 +69,7 @@ module Renalware
         context "with next_review_in 3 months" do
           it "assigns next_review_on" do
             instance.set_next_review_on
-            expect(instance.document.next_review_on).to eq Date.today + 3.months
+            expect(instance.document.next_review_on).to eq Time.zone.today + 3.months
           end
         end
 
@@ -78,7 +78,7 @@ module Renalware
 
           it "assigns next_review_on" do
             instance.set_next_review_on
-            expect(instance.document.next_review_on).to eq Date.today + 6.months
+            expect(instance.document.next_review_on).to eq Time.zone.today + 6.months
           end
         end
 
@@ -87,7 +87,7 @@ module Renalware
 
           it "assigns next_review_on" do
             instance.set_next_review_on
-            expect(instance.document.next_review_on).to eq Date.today + 12.months
+            expect(instance.document.next_review_on).to eq Time.zone.today + 12.months
           end
         end
       end

@@ -20,8 +20,8 @@
                   include_blank: false,
                   prompt: { day: "Day", month: "Month", year: "Year" },
                   order: [:day, :month, :year],
-                  start_year: Date.today.year,
-                  end_year: Date.today.year - 80,
+                  start_year: Time.zone.today.year,
+                  end_year: Time.zone.today.year - 80,
                   hint: "If necessary, only <b>Year</b> or <b>Month and Year</b> can be chosen".html_safe)
         = f.input :description,
                   collection: [problem.description],

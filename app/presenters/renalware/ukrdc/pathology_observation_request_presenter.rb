@@ -12,7 +12,7 @@ module Renalware
           requestor_order_number,
           requested_at.strftime("%Y%m%d%H%M%S%L"),
           description_id
-        ].reject(&:blank?).join("-")
+        ].compact_blank.join("-")
       end
     end
   end

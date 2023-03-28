@@ -9,23 +9,14 @@ module Renalware
         render locals: { categories: categories }
       end
 
-      def edit
-        render_edit(find_and_authorise_category)
-      end
-
-      def update
-        category = find_and_authorise_category
-        if category.update_by(current_user, category_params)
-          redirect_to worry_categories_path
-        else
-          render_edit(category)
-        end
-      end
-
       def new
         category = WorryCategory.new
         authorize category
         render_new(category)
+      end
+
+      def edit
+        render_edit(find_and_authorise_category)
       end
 
       def create
@@ -35,6 +26,15 @@ module Renalware
           redirect_to worry_categories_path
         else
           render_new(category)
+        end
+      end
+
+      def update
+        category = find_and_authorise_category
+        if category.update_by(current_user, category_params)
+          redirect_to worry_categories_path
+        else
+          render_edit(category)
         end
       end
 

@@ -5,12 +5,6 @@ module Renalware
     class ModalitiesController < BaseController
       include Renalware::Concerns::PatientVisibility
 
-      def new
-        modality = Modality.new(patient: patient)
-        authorize modality
-        render locals: { patient: patient, modality: modality }
-      end
-
       def index
         authorize Modality, :index?
         modalities = patient
@@ -18,6 +12,12 @@ module Renalware
                        .includes([:description, :created_by])
                        .ordered
         render locals: { patient: patient, modalities: modalities }
+      end
+
+      def new
+        modality = Modality.new(patient: patient)
+        authorize modality
+        render locals: { patient: patient, modality: modality }
       end
 
       def create

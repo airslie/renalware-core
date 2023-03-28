@@ -11,14 +11,6 @@ module Renalware
         include Renalware::Concerns::PdfRenderable
         include Renalware::Concerns::Pageable
 
-        def edit
-          authorize weekly_diary, :show?
-          render locals: {
-            unit: unit,
-            diary: DiaryPresenter.new(current_user, weekly_diary)
-          }
-        end
-
         # Renders a list of diaries for a hospital unit
         def index
           authorize WeeklyDiary, :index?
@@ -37,6 +29,14 @@ module Renalware
               render_with_wicked_pdf options
             end
           end
+        end
+
+        def edit
+          authorize weekly_diary, :show?
+          render locals: {
+            unit: unit,
+            diary: DiaryPresenter.new(current_user, weekly_diary)
+          }
         end
 
         private

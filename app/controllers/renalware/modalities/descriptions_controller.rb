@@ -3,10 +3,20 @@
 module Renalware
   module Modalities
     class DescriptionsController < BaseController
+      def index
+        modality_descriptions = Description.all.order(code: :asc)
+        authorize modality_descriptions
+        render locals: { modality_descriptions: modality_descriptions }
+      end
+
       def new
         modality_description = Description.new
         authorize modality_description
         render_new(modality_description)
+      end
+
+      def edit
+        render_edit(find_and_authorize_modality_description)
       end
 
       def create
@@ -20,16 +30,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("modality description")
           render_new(modality_description)
         end
-      end
-
-      def index
-        modality_descriptions = Description.all.order(code: :asc)
-        authorize modality_descriptions
-        render locals: { modality_descriptions: modality_descriptions }
-      end
-
-      def edit
-        render_edit(find_and_authorize_modality_description)
       end
 
       def update

@@ -18,6 +18,10 @@ module Renalware
         render_new(donation)
       end
 
+      def edit
+        render_edit(find_and_authorise_donation)
+      end
+
       def create
         donation = Donation.new(patient: transplants_patient)
         donation.attributes = donation_params
@@ -30,10 +34,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("donation")
           render_new(donation)
         end
-      end
-
-      def edit
-        render_edit(find_and_authorise_donation)
       end
 
       def update

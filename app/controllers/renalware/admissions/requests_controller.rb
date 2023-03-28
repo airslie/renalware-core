@@ -21,6 +21,12 @@ module Renalware
         render_new(request)
       end
 
+      def edit
+        request = find_request
+        authorize request
+        render_edit(request)
+      end
+
       def create
         request = Request.new(request_params)
         authorize request
@@ -29,12 +35,6 @@ module Renalware
         end
 
         flash.now[:notice] = success_msg_for("admission request")
-      end
-
-      def edit
-        request = find_request
-        authorize request
-        render_edit(request)
       end
 
       def update

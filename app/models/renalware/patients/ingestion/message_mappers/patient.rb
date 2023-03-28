@@ -46,7 +46,7 @@ module Renalware
             end
 
             # Don't overwrite existing patient data if the new data is blank?
-            attrs.reject! { |_key, value| value.blank? }
+            attrs.compact_blank!
             patient.attributes = attrs
 
             patient.build_current_address if patient.current_address.blank?

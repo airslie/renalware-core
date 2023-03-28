@@ -111,7 +111,7 @@ module Renalware
           before { apd_ukrdc_modality_code }
 
           it "creates a treatment for each" do
-            create_regime(start_date: Date.today, end_date: Date.parse("2049-01-04"),
+            create_regime(start_date: Time.zone.today, end_date: Date.parse("2049-01-04"),
                           type: :apd_regime)
             create_regime(start_date: Date.parse("2049-01-04"), end_date: nil, type: :apd_regime)
 
@@ -122,7 +122,7 @@ module Renalware
             treatments = UKRDC::Treatment.order(started_on: :asc)
             expect(treatments[0]).to have_attributes(
               modality_code: apd_ukrdc_modality_code,
-              started_on: Date.today,
+              started_on: Time.zone.today,
               ended_on: Date.parse("2049-01-04")
             )
             expect(treatments[1]).to have_attributes(

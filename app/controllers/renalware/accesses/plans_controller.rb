@@ -6,10 +6,23 @@ module Renalware
       include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::PatientVisibility
 
+      def show
+        render locals: {
+          patient: accesses_patient,
+          plan: find_and_authorize_plan
+        }
+      end
+
       def new
         plan = accesses_patient.plans.new
         authorize plan
         render_new(plan)
+      end
+
+      # Because editing a plan means creating a new current version (and terminating the previous
+      # current one), we just render the new template using an instance of the current plan.
+      def edit
+        render_new(find_and_authorize_plan.dup)
       end
 
       def create
@@ -21,19 +34,6 @@ module Renalware
         else
           render_new(plan)
         end
-      end
-
-      # Because editing a plan means creating a new current version (and terminating the previous
-      # current one), we just render the new template using an instance of the current plan.
-      def edit
-        render_new(find_and_authorize_plan.dup)
-      end
-
-      def show
-        render locals: {
-          patient: accesses_patient,
-          plan: find_and_authorize_plan
-        }
       end
 
       private

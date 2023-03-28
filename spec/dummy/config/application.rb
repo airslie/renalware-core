@@ -27,6 +27,7 @@ module Dummy
     config.good_job.poll_interval = 30
     config.good_job.cron = Renalware::Engine.scheduled_jobs_config
     config.good_job.enable_cron = false # Switch to true to enable cron jobs
+    config.good_job.smaller_number_is_higher_priority = true
 
     # Important!!
     # Unless set to :all, pg extensions are not put into structure.sql so certain

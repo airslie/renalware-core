@@ -42,10 +42,6 @@ module Renalware
         render :new, locals: locals(session)
       end
 
-      def create
-        save_session
-      end
-
       def edit
         session = find_session
         authorize session
@@ -55,6 +51,10 @@ module Renalware
       rescue Pundit::NotAuthorizedError
         flash[:warning] = t(".session_is_immutable")
         redirect_to patient_hd_session_path(session, patient_id: hd_patient)
+      end
+
+      def create
+        save_session
       end
 
       def update

@@ -6,26 +6,6 @@ module Renalware
       include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::PatientVisibility
 
-      def new
-        pet = PETResult.new(
-          patient: pd_patient,
-          performed_on: Date.current
-        )
-        authorize pet
-        render_new(pet)
-      end
-
-      def create
-        pet = PETResult.new(pet_result_params)
-        authorize pet
-
-        if pet.save_by(current_user)
-          redirect_to patient_pd_dashboard_path(pd_patient), notice: success_msg_for("PET result")
-        else
-          render_new(pet)
-        end
-      end
-
       def index
         respond_to do |format|
           format.json do # Graphing data
@@ -40,8 +20,28 @@ module Renalware
         end
       end
 
+      def new
+        pet = PETResult.new(
+          patient: pd_patient,
+          performed_on: Date.current
+        )
+        authorize pet
+        render_new(pet)
+      end
+
       def edit
         render locals: { pet: find_authorize_pet_result }
+      end
+
+      def create
+        pet = PETResult.new(pet_result_params)
+        authorize pet
+
+        if pet.save_by(current_user)
+          redirect_to patient_pd_dashboard_path(pd_patient), notice: success_msg_for("PET result")
+        else
+          render_new(pet)
+        end
       end
 
       def update

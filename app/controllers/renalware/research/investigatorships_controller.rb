@@ -22,6 +22,10 @@ module Renalware
         render_new(investigatorship)
       end
 
+      def edit
+        render_edit(find_and_authorize_investigatorship)
+      end
+
       def create
         investigatorship = build_investigatorship(investigatorship_params)
         authorize investigatorship
@@ -30,10 +34,6 @@ module Renalware
         else
           render_new(investigatorship)
         end
-      end
-
-      def edit
-        render_edit(find_and_authorize_investigatorship)
       end
 
       def update

@@ -6,9 +6,25 @@ module Renalware
       include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::PatientVisibility
 
+      def index
+        respond_to do |format|
+          format.js do
+            results = pd_patient.adequacy_results.ordered
+            authorize results
+            render locals: { results: results }
+          end
+        end
+      end
+
       def new
         adequacy = AdequacyResult.new(patient: pd_patient, performed_on: Date.current)
         authorize adequacy
+        render locals: { adequacy: adequacy }
+      end
+
+      def edit
+        adequacy = find_and_authorize_result
+        # adequacy.derive_calculated_attributes
         render locals: { adequacy: adequacy }
       end
 
@@ -26,12 +42,6 @@ module Renalware
         end
       end
 
-      def edit
-        adequacy = find_and_authorize_result
-        # adequacy.derive_calculated_attributes
-        render locals: { adequacy: adequacy }
-      end
-
       def update
         result = find_and_authorize_result
         if result.update_by(current_user, result_params)
@@ -45,16 +55,6 @@ module Renalware
         result = find_and_authorize_result
         result.destroy!
         redirect_to patient_pd_dashboard_path(pd_patient), notice: success_msg_for("Result")
-      end
-
-      def index
-        respond_to do |format|
-          format.js do
-            results = pd_patient.adequacy_results.ordered
-            authorize results
-            render locals: { results: results }
-          end
-        end
       end
 
       private

@@ -23,6 +23,11 @@ module Renalware
         render_new(study)
       end
 
+      def edit
+        study = find_and_authorize_study
+        render_edit(study)
+      end
+
       def create
         study = Study.new(study_params)
         authorize study
@@ -31,11 +36,6 @@ module Renalware
         else
           render_new(study)
         end
-      end
-
-      def edit
-        study = find_and_authorize_study
-        render_edit(study)
       end
 
       def update

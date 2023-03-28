@@ -17,6 +17,10 @@ module Renalware
         render_new(operation)
       end
 
+      def edit
+        render_edit(find_and_authorize_operation)
+      end
+
       def create
         operation = DonorOperation.new(patient: transplants_patient)
         operation.attributes = operation_params
@@ -29,10 +33,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("donor operation")
           render_new(operation)
         end
-      end
-
-      def edit
-        render_edit(find_and_authorize_operation)
       end
 
       def update

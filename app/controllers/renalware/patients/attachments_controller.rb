@@ -16,36 +16,6 @@ module Renalware
         }
       end
 
-      def new
-        attachment = patient.attachments.build
-        authorize attachment
-        render locals: { attachment: attachment }
-      end
-
-      def create
-        attachment = patient.attachments.build(attachment_params)
-        discard_uploaded_file_if_attachment_type_suggests_external_storage(attachment)
-
-        authorize attachment
-        if attachment.save_by(current_user)
-          redirect_to patient_attachments_path(patient)
-        else
-          render_new(attachment)
-        end
-      end
-
-      # Rather than calling #destroy on the record, we manually update the
-      # deleted_at column so the record is hidden (soft deleted). Of course
-      # acts_as_paranoid would have done this for us on #destroy, but
-      # activestorage would also delete the underlying attachment and blob, which we
-      # do not want as it defeats the point of a soft-delete! (At the time of writing activestorage
-      # does not have an option to skip purging after a delete).
-      # The downside of this approach is that no delete callbacks will be triggered.
-      def destroy
-        find_and_authorize_attachment.update_by(current_user, deleted_at: Time.zone.now)
-        redirect_to patient_attachments_path
-      end
-
       # If the attachment has an uploaded #file (i.e. it is not stored externally but has been
       # uploaded via ActiveStorage) then return a url to the stored file so it can be opened in
       # a new window. It if it has a content type the browser recognises it will display it
@@ -61,8 +31,26 @@ module Renalware
         end
       end
 
+      def new
+        attachment = patient.attachments.build
+        authorize attachment
+        render locals: { attachment: attachment }
+      end
+
       def edit
         render_edit(find_and_authorize_attachment)
+      end
+
+      def create
+        attachment = patient.attachments.build(attachment_params)
+        discard_uploaded_file_if_attachment_type_suggests_external_storage(attachment)
+
+        authorize attachment
+        if attachment.save_by(current_user)
+          redirect_to patient_attachments_path(patient)
+        else
+          render_new(attachment)
+        end
       end
 
       def update
@@ -72,6 +60,18 @@ module Renalware
         else
           render_edit(attachment)
         end
+      end
+
+      # Rather than calling #destroy on the record, we manually update the
+      # deleted_at column so the record is hidden (soft deleted). Of course
+      # acts_as_paranoid would have done this for us on #destroy, but
+      # activestorage would also delete the underlying attachment and blob, which we
+      # do not want as it defeats the point of a soft-delete! (At the time of writing activestorage
+      # does not have an option to skip purging after a delete).
+      # The downside of this approach is that no delete callbacks will be triggered.
+      def destroy
+        find_and_authorize_attachment.update_by(current_user, deleted_at: Time.zone.now)
+        redirect_to patient_attachments_path
       end
 
       private

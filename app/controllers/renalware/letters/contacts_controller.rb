@@ -15,6 +15,10 @@ module Renalware
         }
       end
 
+      def edit
+        render_edit(find_and_authorize_contact)
+      end
+
       def create
         contact = patient.assign_contact(contact_params)
         authorize contact
@@ -23,10 +27,6 @@ module Renalware
         else
           create_contact_failed(contact)
         end
-      end
-
-      def edit
-        render_edit(find_and_authorize_contact)
       end
 
       def update

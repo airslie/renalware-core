@@ -43,7 +43,7 @@ module Renalware
 
         def render_pdf_as_html?
           Renalware.config.render_pdf_as_html_for_debugging ||
-            (Rails.env.development? || Rails.env.test?) && params.key?(:debug)
+            ((Rails.env.development? || Rails.env.test?) && params.key?(:debug))
         end
 
         # By default if no variables supplied, we insert the patient drop to allow basic patient

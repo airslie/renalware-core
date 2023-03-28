@@ -82,7 +82,7 @@ module Renalware
       def build_electronic_ccs
         return if electronic_cc_recipient_ids.blank?
 
-        electronic_cc_recipient_ids.reject(&:blank?).map do |user_id|
+        electronic_cc_recipient_ids.compact_blank.map do |user_id|
           letter.electronic_receipts.build(recipient_id: user_id)
         end
       end

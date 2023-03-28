@@ -9,6 +9,18 @@ module Renalware
       include Renalware::Concerns::Pageable
       include Renalware::Concerns::PdfRenderable
 
+      def index
+        events_query = EventQuery.new(patient: patient, query: query_params)
+        events = events_query.call.page(page).per(per_page)
+        authorize events
+        events = EventsPresenter.new(patient, events)
+
+        render locals: {
+          events: events,
+          query: events_query.search
+        }
+      end
+
       # Render a PDF of the event
       def show
         event = load_and_authorize_event_for_edit_or_update
@@ -27,6 +39,10 @@ module Renalware
         render_new(build_new_event)
       end
 
+      def edit
+        render_edit(load_and_authorize_event_for_edit_or_update)
+      end
+
       def create
         event = new_event_for_patient(event_params)
 
@@ -36,22 +52,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("event")
           render_new(event)
         end
-      end
-
-      def index
-        events_query = EventQuery.new(patient: patient, query: query_params)
-        events = events_query.call.page(page).per(per_page)
-        authorize events
-        events = EventsPresenter.new(patient, events)
-
-        render locals: {
-          events: events,
-          query: events_query.search
-        }
-      end
-
-      def edit
-        render_edit(load_and_authorize_event_for_edit_or_update)
       end
 
       def update

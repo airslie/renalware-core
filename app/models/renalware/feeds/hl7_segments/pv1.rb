@@ -37,7 +37,7 @@ module Renalware
           end
 
           def name
-            [title, given_name, family_name].reject(&:blank?).join(" ")
+            [title, given_name, family_name].compact_blank.join(" ")
           end
 
           def family_name

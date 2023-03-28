@@ -32,6 +32,11 @@ module Renalware
         render_new(body_composition)
       end
 
+      def edit
+        body_composition = find_body_composition
+        render locals: { patient: clinical_patient, body_composition: body_composition }
+      end
+
       def create
         body_composition = build_body_composition
         authorize body_composition
@@ -42,11 +47,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("body composition")
           render_new(body_composition)
         end
-      end
-
-      def edit
-        body_composition = find_body_composition
-        render locals: { patient: clinical_patient, body_composition: body_composition }
       end
 
       def update

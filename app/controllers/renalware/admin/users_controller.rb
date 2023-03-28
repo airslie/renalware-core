@@ -55,7 +55,7 @@ module Renalware
     end
 
     def role_ids
-      (user_params[:role_ids] || []).reject(&:blank?)
+      (user_params[:role_ids] || []).compact_blank
     end
   end
 end

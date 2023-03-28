@@ -44,6 +44,11 @@ module Renalware
         render_new(consult)
       end
 
+      def edit
+        session[:consults_results] = request&.referer # for back link
+        render_edit(find_and_authorize_consult)
+      end
+
       def create
         consult = Consult.new(consult_params)
         authorize consult
@@ -52,11 +57,6 @@ module Renalware
         else
           render_new(consult)
         end
-      end
-
-      def edit
-        session[:consults_results] = request&.referer # for back link
-        render_edit(find_and_authorize_consult)
       end
 
       def update

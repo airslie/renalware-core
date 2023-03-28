@@ -17,22 +17,6 @@ module Renalware
         render locals: { descriptions: descriptions, pagy: pagy, query: query }
       end
 
-      def edit
-        render_edit find_authorise_description
-      end
-
-      def update
-        description = find_authorise_description
-        if description.update(description_params)
-          redirect_to(
-            pathology_observation_descriptions_path,
-            notice: success_msg_for("observation descrition")
-          )
-        else
-          render_edit(description)
-        end
-      end
-
       # GET
       # JSON - returns json to render a chart
       # HTML - returns markup for a modal dialog to display the chart. An async ajax query will then
@@ -60,6 +44,23 @@ module Renalware
           end
         end
       end
+
+      def edit
+        render_edit find_authorise_description
+      end
+
+      def update
+        description = find_authorise_description
+        if description.update(description_params)
+          redirect_to(
+            pathology_observation_descriptions_path,
+            notice: success_msg_for("observation descrition")
+          )
+        else
+          render_edit(description)
+        end
+      end
+
       # rubocop:enable Metrics/MethodLength
 
       private

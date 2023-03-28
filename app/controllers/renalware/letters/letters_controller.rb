@@ -33,6 +33,10 @@ module Renalware
         }
       end
 
+      def show
+        @letter = present_letter(find_letter(params[:id]))
+      end
+
       def new
         @patient = load_and_authorize_patient
         letter = LetterFactory.new(
@@ -47,11 +51,21 @@ module Renalware
         render_form(letter, :new)
       end
 
+      def edit
+        render_form(find_letter(params[:id]), :edit)
+      end
+
       def create
         attributes = letter_params.merge(event: find_event)
         DraftLetter.build
           .subscribe(self)
           .call(@patient, attributes)
+      end
+
+      def update
+        ReviseLetter.build
+          .subscribe(self)
+          .call(@patient, params[:id], letter_params)
       end
 
       def destroy
@@ -70,20 +84,6 @@ module Renalware
       def draft_letter_failed(letter)
         flash.now[:error] = failed_msg_for("Letter")
         render_form(letter, :new)
-      end
-
-      def show
-        @letter = present_letter(find_letter(params[:id]))
-      end
-
-      def edit
-        render_form(find_letter(params[:id]), :edit)
-      end
-
-      def update
-        ReviseLetter.build
-          .subscribe(self)
-          .call(@patient, params[:id], letter_params)
       end
 
       def revise_letter_successful(letter)

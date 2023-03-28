@@ -18,6 +18,11 @@ module Renalware
         render locals: { patient: accesses_patient, procedure: procedure }
       end
 
+      def edit
+        procedure = find_procedure
+        render locals: { patient: accesses_patient, procedure: procedure }
+      end
+
       def create
         procedure = accesses_patient.procedures.new(procedure_params)
         authorize procedure
@@ -29,11 +34,6 @@ module Renalware
           flash.now[:error] = failed_msg_for("Access procedure")
           render :new, locals: { patient: accesses_patient, procedure: procedure }
         end
-      end
-
-      def edit
-        procedure = find_procedure
-        render locals: { patient: accesses_patient, procedure: procedure }
       end
 
       def update

@@ -12,10 +12,23 @@ module Renalware
         render locals: { items: items, search: query.search }
       end
 
+      # Redirects the uploaded file eg PDF etc
+      def show
+        download = find_and_authorize_download
+        if download.file.attached?
+          update_view_count_for download
+          redirect_to(raw_active_storage_url_for(download.file))
+        end
+      end
+
       def new
         download = Download.new
         authorize download
         render_new(download)
+      end
+
+      def edit
+        render_edit(find_and_authorize_download)
       end
 
       def create
@@ -26,10 +39,6 @@ module Renalware
         else
           render_new(download)
         end
-      end
-
-      def edit
-        render_edit(find_and_authorize_download)
       end
 
       def update
@@ -51,15 +60,6 @@ module Renalware
       def destroy
         find_and_authorize_download.update_by(current_user, deleted_at: Time.zone.now)
         redirect_to system_downloads_path, notice: notice
-      end
-
-      # Redirects the uploaded file eg PDF etc
-      def show
-        download = find_and_authorize_download
-        if download.file.attached?
-          update_view_count_for download
-          redirect_to(raw_active_storage_url_for(download.file))
-        end
       end
 
       private

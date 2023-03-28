@@ -5,10 +5,27 @@ module Renalware
     class UserFeedbackController < BaseController
       include Concerns::Pageable
 
+      def index
+        search = UserFeedback
+          .includes(:author)
+          .order(created_at: :desc)
+          .ransack(search_params)
+
+        feedback_msgs = search.result.page(page).per(per_page)
+        authorize feedback_msgs
+        render locals: { feedback_msgs: feedback_msgs, search: search }
+      end
+
       def new
         feedback = UserFeedback.new
         authorize feedback
         render_new(feedback)
+      end
+
+      def edit
+        feedback = UserFeedback.find(params[:id])
+        authorize feedback
+        render locals: { feedback: feedback }
       end
 
       def create
@@ -21,23 +38,6 @@ module Renalware
         else
           render_new(feedback)
         end
-      end
-
-      def index
-        search = UserFeedback
-          .includes(:author)
-          .order(created_at: :desc)
-          .ransack(search_params)
-
-        feedback_msgs = search.result.page(page).per(per_page)
-        authorize feedback_msgs
-        render locals: { feedback_msgs: feedback_msgs, search: search }
-      end
-
-      def edit
-        feedback = UserFeedback.find(params[:id])
-        authorize feedback
-        render locals: { feedback: feedback }
       end
 
       def update

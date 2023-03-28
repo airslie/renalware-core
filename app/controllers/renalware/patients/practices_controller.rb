@@ -35,7 +35,7 @@ module Renalware
             address.town,
             address.county,
             address.postcode
-          ].reject(&:blank?).join(", ")
+          ].compact_blank.join(", ")
         }
       end
     end

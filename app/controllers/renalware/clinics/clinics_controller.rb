@@ -29,6 +29,10 @@ module Renalware
         render locals: { clinic: clinic }
       end
 
+      def edit
+        render locals: { clinic: find_and_authorise_clinic }
+      end
+
       def create
         clinic = Clinic.new(clinic_params.merge(by: current_user))
         authorize clinic
@@ -37,10 +41,6 @@ module Renalware
         else
           render "new", locals: { clinic: clinic }
         end
-      end
-
-      def edit
-        render locals: { clinic: find_and_authorise_clinic }
       end
 
       def update
