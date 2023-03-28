@@ -14,6 +14,10 @@ When("records Patty's event") do
     fill_in_date_time "Date time", with: fake_date_time
     find("#events_event_date_time").send_keys(:escape) # dismiss the datepicker which has popped up
     wait_for_ajax
+    # This is bound to fail sporadicly, as the select fetches an update
+    # of the page, which updates the inputs, but nothing really visible
+    # changes. Only way to sort of prevent it is by adding a small sleep
+    sleep 0.1
     fill_in "Description", with: "Discussed meeting to be set up with family."
     fill_trix_editor with: "Patty to speak to family before meeting set up."
 

@@ -1,8 +1,8 @@
+
 = content_for(:actions) do
   - if policy(Renalware::Medications::Prescription).new?
     = link_to t("btn.add"),
-              new_patient_prescription_path(@patient),
-              remote: true,
+              new_patient_prescription_path(presenter.patient),
               class: "button"
   |&nbsp;
 
@@ -18,16 +18,16 @@
     - [{ hd_only: false, title: "All Drugs" }, { hd_only: true, title: "HD Drugs" }].each do |opts|
       li
         = link_to(opts[:title],
-                  patient_prescriptions_path(@patient,
-                                             treatable,
-                                             hd_only: opts[:hd_only],
-                                             format: :pdf),
+                  patient_prescriptions_path(presenter.patient,
+                                                 presenter.treatable,
+                                                 hd_only: opts[:hd_only],
+                                                 format: :pdf),
                   target: :blank)
 
     li
       / link to open the modal
       = link_to "Home Delivery Drugs",
-                new_patient_medications_home_delivery_event_path(patient, format: :html),
+                new_patient_medications_home_delivery_event_path(presenter.patient, format: :html),
                 data: { "reveal-id" => "print-home-delivery-drugs-modal", "reveal-ajax" => "true" }
 
   / modal placeholder
@@ -36,6 +36,12 @@
                                                       data-options="close_on_background_click:false")
 
 = within_patient_layout(title: "Prescriptions") do
-  = render "filter_form", search: current_search, drug_types: drug_types, treatable: treatable
-  = render "index", local_assigns
+  = render "filter_form", presenter: presenter
+  = render "index",
+            patient: presenter.patient,
+            current_prescriptions: presenter.current_prescriptions,
+            current_search: presenter.current_search,
+            treatable: presenter.treatable,
+            historical_prescriptions: presenter.historical_prescriptions,
+            historical_prescriptions_search: presenter.historical_prescriptions_search
   = render_if_exists "bottom", local_assigns

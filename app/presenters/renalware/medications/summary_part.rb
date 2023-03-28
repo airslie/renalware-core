@@ -10,10 +10,10 @@ module Renalware
       def current_prescriptions
         @current_prescriptions ||= begin
           prescripts = prescriptions
-                         .includes(drug: [:drug_types, :classifications])
-                         .includes(:medication_route)
-                         .current
-                         .ordered
+            .includes(drug: [:drug_types, :drug_type_classifications])
+            .includes(:medication_route)
+            .current
+            .ordered
           CollectionPresenter.new(prescripts, Medications::PrescriptionPresenter)
         end
       end

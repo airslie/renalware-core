@@ -25,6 +25,7 @@ import ConditionalDisplayController from "./conditional_display_controller"
 import SlimselectController from "./slimselect_controller"
 import ModalController from "./modal_controller"
 import FormController from "./form_controller"
+import AlternativeFormSubmitterController from "./alternative_form_submitter_controller"
 import FlashController from "./flash_controller"
 import FlatpickrController from "./flatpickr_controller"
 import InputValueAlerterController from "./input_value_alerter_controller"
@@ -56,6 +57,10 @@ application.register("conditional-display", ConditionalDisplayController)
 application.register("slimselect", SlimselectController)
 application.register("modal", ModalController)
 application.register("form", FormController)
+application.register(
+  "alternative-form-submitter",
+  AlternativeFormSubmitterController
+)
 application.register("flash", FlashController)
 application.register("flatpickr", FlatpickrController)
 application.register("input-value-alerter", InputValueAlerterController)

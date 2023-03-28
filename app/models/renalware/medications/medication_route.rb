@@ -9,6 +9,10 @@ module Renalware
 
       has_many :prescriptions, dependent: :restrict_with_exception
       has_many :patients, through: :prescriptions
+      has_many :vmp_classifications, class_name: "Drugs::VMPClassification",
+                                     dependent: :nullify, foreign_key: :route_id
+      has_many :drugs, through: :vmp_classifications
+
       has_many :exit_site_infections,
                through: :prescriptions,
                source: :treatable,
@@ -17,11 +21,18 @@ module Renalware
                through: :prescriptions,
                source: :treatable,
                source_type: "PeritonitisEpisode"
+
+      scope :for_drug_id, lambda { |drug_id|
+                            joins(:vmp_classifications)
+                              .merge(Drugs::VMPClassification.where(drug_id: drug_id))
+                              .distinct
+                          }
+
       validates :code, presence: true
       validates :name, presence: true
 
       def other?
-        code.casecmp("other").zero?
+        name.casecmp("Other").zero?
       end
     end
   end

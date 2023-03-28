@@ -121,6 +121,13 @@ module Renalware
             class: "Renalware::InvokeCommandJob",
             args: ["bundle exec rake ukrdc:export"],
             description: "Export UKRDC xml - initially to /apps/current/"
+          },
+
+          dmd_sync: {
+            cron: "every day at 3am",
+            class: "Renalware::Drugs::DMD::SynchroniserJob",
+            description: "Use the NHS Digital Terminology Service APIs to fetch DM+D updates to " \
+                         "Drugs"
           }
         }
       end
@@ -133,7 +140,7 @@ module Renalware
 
     config.generators do |gens|
       gens.test_framework :rspec
-      gens.fixture_replacement :factory_bot, dir: "spec/factories"
+      gens.fixture_replacement :factory_bot, dir: "spec/factories", suffix: "factory"
     end
 
     initializer :add_locales do |app|

@@ -31,10 +31,22 @@ When("Donna reviews Patty's clinical summary") do
 end
 
 Then("Donna should see these current prescriptions in the clinical summary") do |table|
-  expect_current_prescriptions_to_match(
-    Renalware::Medications::SummaryPart.new(@patty, @clyde).current_prescriptions,
-    table.hashes
-  )
+  actual_prescriptions = Renalware::Medications::SummaryPart.new(
+    @patty, @clyde
+  ).current_prescriptions
+  expected_prescriptions = table.hashes
+
+  expect(actual_prescriptions.size).to eq(expected_prescriptions.size)
+  actual_prescriptions.zip(expected_prescriptions).each do |actual, expected|
+    prescription = Renalware::Medications::PrescriptionPresenter.new(actual)
+    expect(actual.drug.name).to eq(expected["drug_name"])
+    expect(prescription.dose).to eq(expected["dose"])
+    expect(actual.frequency).to eq(expected["frequency"])
+    expect(actual.medication_route.name).to eq(expected["route_name"])
+    expect(actual.provider.downcase).to eq(expected["provider"].downcase)
+    parsed_date = expected["terminated_on"].present? ? Date.parse(expected["terminated_on"]) : nil
+    expect(actual.terminated_on).to eq(parsed_date)
+  end
 end
 
 Then("Donna should see these current problems in the clinical summary:") do |table|

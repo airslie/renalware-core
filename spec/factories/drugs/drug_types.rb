@@ -14,6 +14,11 @@ FactoryBot.define do
       name { "Immunosuppressant" }
     end
 
+    trait :antibiotic do
+      name { "Antibiotic" }
+      code { "antibiotic" }
+    end
+
     trait :esa do
       code { "esa" }
       name { "ESA" }

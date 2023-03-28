@@ -6,7 +6,7 @@ html
     = wicked_pdf_stylesheet_link_tag "renalware/medications_pdf"
 
   heading
-    .our-ref= "RW ref: #{patient.hospital_identifier}"
+    .our-ref= "RW ref: #{presenter.patient.hospital_identifier}"
 
     span.logo= wicked_pdf_image_tag "renalware/NHS-Black.jpg", width: 50
 
@@ -15,11 +15,11 @@ html
     = "As at #{l(Time.zone.now)}"
 
     - with_format(:html) do
-      = render "patient_details", patient: patient
+      = render "patient_details", patient: presenter.patient
 
     section
       h3 Allergies
-      - allergies = Renalware::Clinical.cast_patient(patient).allergies
+      - allergies = Renalware::Clinical.cast_patient(presenter.patient).allergies
       - if allergies.any?
         ul.allergies
           - allergies.each do |allergy|
@@ -28,18 +28,18 @@ html
         p None
 
     section.review
-      = render Renalware::Medications::LatestReviewComponent.new(patient: patient)
+      = render Renalware::Medications::LatestReviewComponent.new(patient: presenter.patient)
 
     section.prescriptions
       - with_format(:html) do
-        = render "current",
-                prescriptions: current_prescriptions,
-                recently_changed: recently_changed_prescriptions
+        = render "renalware/medications/prescriptions/current",
+                prescriptions: presenter.current_prescriptions,
+                recently_changed: presenter.recently_changed_prescriptions
 
     section.prescriptions
       - with_format(:html) do
-        = render "recently_stopped",
-                prescriptions: recently_stopped_prescriptions
+        = render "renalware/medications/prescriptions/recently_stopped",
+                prescriptions: presenter.recently_stopped_prescriptions
 
     section.sign-off
       div

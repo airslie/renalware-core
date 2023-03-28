@@ -12,10 +12,10 @@ module Renalware
       describe "validations" do
         it :aggregate_failures do
           is_expected.to validate_presence_of :patient
-          is_expected.to validate_presence_of :treatable
+          is_expected.to validate_presence_of :treatable_type
+          is_expected.to validate_presence_of :treatable_id
           is_expected.to validate_presence_of(:drug)
           is_expected.to validate_presence_of(:dose_amount)
-          is_expected.to validate_presence_of(:dose_unit)
           is_expected.to validate_presence_of(:medication_route)
           is_expected.to validate_presence_of(:frequency)
           is_expected.to validate_presence_of(:prescribed_on)

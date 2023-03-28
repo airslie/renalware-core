@@ -1,3 +1,6 @@
+/ locals: (prescriptions:, search:, treatable:, current_scope:)
+/ Rails 7.1 strict locals:
+
 - if prescriptions.any?
   - display_termination_date = !current_scope || local_assigns.fetch(:display_termination_date, false)
   .row
@@ -11,14 +14,15 @@
               th.col-width-small
             th.col-width-large
               = sort_link_if(treatable.sortable?, search, :drug_name, "Drug name")
-            th Drug Type
+            th.col-width-small Drug Type
+            th.col-width-small Form
             th.col-width-small Dose
-            th.col-width-tiny Frequency
+            th.col-width-small Frequency
             th.col-width-tiny Route
             - if current_scope
-              th Give on HD
+              th.col-width-small Give on HD
             th.col-width-tiny Provider
-            th.col-width-tiny Notes
+            th.col-width-small Notes
             th.col-width-date.wide
               = sort_link_if(treatable.sortable?, search, :prescribed_on, "Prescribed on")
             th Recorded By
@@ -28,15 +32,16 @@
 
         - prescriptions.each do |prescription|
           tbody
-            tr(class="drug-#{drug_types_colour_tag(prescription.drug_types)}")
+            tr style=Renalware::Drugs::DrugTypeColourPresenter.new.style(prescription.drug_types)
               td= row_toggler
               - if current_scope
                 td.pr-2
                   input.discardable-checkbox-used-when-reviewing-drugs-with-patient(type="checkbox")
                 td.actions= render partial: "renalware/medications/prescriptions/options",
-                              locals: { patient: patient, prescription: prescription }
-              td= prescription.drug.name
+                              locals: { patient: prescription.patient, prescription: prescription }
+              td= prescription.drug_name
               td= prescription.drug_type_names
+              td= prescription.form_name
               td= prescription.dose
               td= prescription.frequency
               td= prescription.route_code

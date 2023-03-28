@@ -1,46 +1,97 @@
-ruby:
-  drug_select_partials = Hash.new("default").tap do |h|
-    h["Renalware::PD::PeritonitisEpisode"] = "peritonitis_episode"
-    h["Renalware::PD::ExitSiteInfection"] = "exit_site_infection"
-  end
+/ locals: (prescription:)
+/ Rails 7.1 strict locals:
 
-.document(data-controller="prescriptions")
+ruby:
+
+.mx-auto.max-w-4xl.document(data-controller="prescriptions alternative-form-submitter")
   br
+
+  / Use a separate form for updating the route, unit of measure, etc.. after selecting a drug
+  = form_with url: search_url, id: "drug_search_form",
+    data: {  turbo: true, turbo_frame: "drug_search_form_frame" },
+    method: :get do |select_form|
+
   = simple_form_for prescription,
-                    url: url,
-                    html: { class: "fn-form prescription-form", autocomplete: "off" },
-                    remote: true,
+                    url: update_url,
+                    html: { class: "fn-form prescription-form" },
                     wrapper: :horizontal_form do |f|
+
+    = f.hidden_field :treatable_type
+    = f.hidden_field :treatable_id
+
+    = hidden_field_tag :return_to, return_to_param
 
     = render "renalware/shared/errors", model: f.object
 
-    .med-form.content id=("edit-meds-#{f.object.id}" )
-      = render "renalware/medications/prescriptions/drug_select/#{drug_select_partials[f.object.treatable_type]}_fields", f: f
 
-      = hidden_field_tag :treatable_type, treatable.class.name
-      = f.input :dose_amount, wrapper: :horizontal_small
-      = f.input :dose_unit, wrapper: :horizontal_small
-      = f.association :medication_route,
-                      collection: medication_routes,
-                      label_method: :code,
-                      prompt: :translate,
-                      wrapper: :horizontal_medium
-      = f.input :route_description , wrapper: :horizontal_medium
+    .med-form.content
+      div
+        .mb-4
+          = f.input :drug_id_and_trade_family_id,
+            collection: presenter.drugs_collection,
+            prompt: :translate,
+            disabled: prescription.drug&.inactive?,
+            hint: prescription.drug&.inactive? ? "No longer available": nil,
+            input_html: { \
+              data: { \
+                controller: "slimselect",
+                action: "change->alternative-form-submitter#submit",
+                "alternative-form": "drug_search_form",
+              },
+            },
+            wrapper: :horizontal_medium
+
+        = turbo_frame_tag "drug_search_form_frame" do
+          .mb-4
+            = f.association :form,
+                            collection: presenter.forms,
+                            label_method: :name,
+                            input_html: { \
+                              data: { \
+                                controller: "slimselect",
+                                action: "change->alternative-form-submitter#submit",
+                                "alternative-form": "drug_search_form",
+                              },
+                            },
+                            prompt: (presenter.forms.size == 1 ? false : :translate),
+                            wrapper: :horizontal_medium
+
+          = f.input :dose_amount, wrapper: :horizontal_small
+
+          .mb-4
+            = f.association :unit_of_measure,
+                            collection: presenter.unit_of_measures,
+                            label_method: :name,
+                            input_html: { \
+                              data: { controller: "slimselect" },
+                            },
+                            prompt: (presenter.unit_of_measures.size == 1 ? false : :translate),
+                            wrapper: :horizontal_medium
+
+          .mb-4
+            = f.association :medication_route,
+                            collection: presenter.medication_routes,
+                            label_method: :name,
+                            input_html: { \
+                              data: { controller: "slimselect" },
+                            },
+                            prompt: (presenter.medication_routes.size == 1 ? false : :translate),
+                            wrapper: :horizontal_medium
+
       = f.input :frequency, wrapper: :horizontal_small
       = f.input :administer_on_hd, wrapper: :horizontal_small
       = f.input :notes, wrapper: :horizontal_medium
       = f.input :prescribed_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
-      - if f.object.new_record?
-        = f.simple_fields_for(:termination) do |tf|
-          = tf.input :terminated_on,
-                     as: :flatpickr,
-                     required: false,
-                     wrapper: :horizontal_datepicker
+      = f.simple_fields_for(:termination) do |tf|
+        = tf.input :terminated_on,
+                    as: :flatpickr,
+                    required: false,
+                    wrapper: :horizontal_datepicker
 
       span(data-prescriptions-target= "providers")
         = f.input :provider,
-                  collection: provider_codes,
+                  collection: present(Renalware::Medications::Provider.codes, Renalware::Medications::ProviderCodePresenter),
                   as: :inline_radio_buttons,
                   label_method: :to_label,
                   wrapper: :horizontal_medium,
@@ -52,17 +103,18 @@ ruby:
           .small-12.medium-4.large-3.columns
           .small-12.medium-8.large-9.columns
             label.right.inline Last home prescription date:
-            b= l(f.object.last_delivery_date)
+            b= l(prescription.last_delivery_date)
 
         .row
           .small-12.medium-4.large-3.columns
           .small-12.medium-8.large-9.columns
             label.right.inline Next home prescription date:
-            b= l(f.object.next_delivery_date)
+            b= l(prescription.next_delivery_date)
 
-    .row.actions
-      .small-9.columns
-        - if policy(prescription).create?
-          = f.button :submit, "Save"
-          '  or
-        = link_to t("btn.cancel"), patient_prescriptions_path(patient, treatable), remote: true
+    .mt-6
+      - back_path = back_url(patient_prescriptions_path(patient, treatable_id: prescription.treatable_id, treatable_type: prescription.treatable_type))
+
+      - if policy(prescription).create?
+        = save_or_cancel(form: f, back_path: back_path)
+      - else
+        = link_to t("btn.cancel"), back_path

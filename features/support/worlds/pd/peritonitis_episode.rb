@@ -25,18 +25,14 @@ module World
         episode.update!(diagnosis_date: diagnosed_on)
       end
 
-      def peritonitis_episode_drug_selector; end
-
       # @section expectations
       #
       def expect_peritonitis_episode_to_be_recorded(patient:)
         episode = episode_for(patient)
         organism = episode.infection_organisms.last
-        prescription = episode.prescriptions.last
 
         expect(episode).to be_present
         expect(organism).to be_present
-        expect(prescription).to be_present
       end
 
       def expect_peritonitis_episodes_revisions_recorded(patient:)
@@ -45,8 +41,6 @@ module World
 
         expect(exit_site_infection.created_at).not_to eq(exit_site_infection.updated_at)
         expect(organism.created_at).not_to eq(organism.updated_at)
-
-        expect_exit_site_prescriptions_to_be_revised(patient, exit_site_infection)
       end
     end
 
@@ -83,13 +77,6 @@ module World
           fill_in "Diagnosed on", with: diagnosed_on
           click_on t("btn.save")
           expect(page).to have_content "Peritonitis Episode Notes"
-        end
-      end
-
-      def peritonitis_episode_drug_selector
-        lambda do |drug_name|
-          find("select#medications_prescription_drug_id optgroup[label='Peritonitis']")
-            .find(:option, text: drug_name).select_option
         end
       end
     end

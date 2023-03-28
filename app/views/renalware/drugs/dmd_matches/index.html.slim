@@ -1,0 +1,32 @@
+= content_for(:actions) do
+  = link_to "Upload DMD Matches",
+            new_drugs_dmd_match_path,
+            class: "button"
+
+= content_for(:filters) do
+  = render "filters", dmd_matches_search: dmd_matches_search
+
+= within_new_admin_layout(title: "DMD Matches") do
+  table
+    thead
+      tr
+        th = sort_link(dmd_matches_search, :prescriptions_count, "Prescriptions count")
+        th = sort_link(dmd_matches_search, :drug_name, "Drug name")
+        th = sort_link(dmd_matches_search, :vtm_name, "VTM name")
+        th = sort_link(dmd_matches_search, :approved_vtm_match, "Approved VTM match")
+        th = sort_link(dmd_matches_search, :trade_family_name, "Trade family name")
+        th = sort_link(dmd_matches_search, :approved_trade_family_match, "Approved trade family match")
+        th = sort_link(dmd_matches_search, :form_name, "Form name")
+
+    tbody
+      - dmd_matches.each do |match|
+        tr
+          td= match.prescriptions_count
+          td= match.drug_name
+          td= match.vtm_name
+          td= match.approved_vtm_match
+          td= match.trade_family_name
+          td= match.approved_trade_family_match
+          td= match.form_name
+
+  = paginate dmd_matches

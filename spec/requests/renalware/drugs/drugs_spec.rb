@@ -109,6 +109,41 @@ describe "Configuring Drugs" do
         expect(response).to be_successful
       end
     end
+
+    context "when setting trade family" do
+      let(:trade_family) { create(:drug_trade_family) }
+      let(:trade_family_classification) {
+        create(:drug_trade_family_classification,
+               drug: drug,
+               trade_family: trade_family,
+               enabled: false)
+      }
+
+      before do
+        trade_family_classification
+      end
+
+      it "updates a record from non-enabled to enabled and vice-versa" do
+        attributes = { enabled_trade_family_ids: [trade_family.id] }
+        patch drugs_drug_path(drug), params: { drugs_drug: attributes }
+
+        expect(drug.trade_families.count).to eq 1
+        expect(drug.trade_family_classifications.first.enabled).to be true
+
+        follow_redirect!
+        expect(response).to be_successful
+
+        # now try the reverse
+        attributes = { enabled_trade_family_ids: [""] }
+        patch drugs_drug_path(drug), params: { drugs_drug: attributes }
+
+        expect(drug.trade_families.count).to eq 1
+        expect(drug.trade_family_classifications.first.enabled).to be false
+
+        follow_redirect!
+        expect(response).to be_successful
+      end
+    end
   end
 
   describe "DELETE destroy" do

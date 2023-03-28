@@ -105,6 +105,10 @@ module Renalware
       ENV.fetch("UKRDC_SEND_RREG_PATIENTS", "true") == "true"
     }
 
+    config_accessor(:nhs_client_id) { ENV.fetch("NHS_CLIENT_ID", nil) }
+    config_accessor(:nhs_client_secret) { ENV.fetch("NHS_CLIENT_SECRET", nil) }
+    config_accessor(:nhs_trud_api_key) { ENV.fetch("NHS_TRUD_API_KEY", nil) }
+
     # On Azure we use a mapped path otherwise we will use Rails.root.join("tmp")
     # However Rails.root is not yet defined so we need we use a proc to load the config
     # setting JIT when accessed, and rely on the code calling #base_working_folder

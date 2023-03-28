@@ -79,6 +79,7 @@ module Renalware
 
         def identifier
           observation_id.split("^").first
+          # Apply aliases logic to return the OBX code
         end
 
         def name

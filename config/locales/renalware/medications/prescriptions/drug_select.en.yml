@@ -7,15 +7,19 @@ en:
           default_fields:
             drug_search:
               label: Select Drug
-              placeholder: Search drug by name or type
+              placeholder: Search drug by name
             drug_select:
               label: Drug
             medication_switch:
               label: Medication Type
               prompt: Select drug by category/type or use the search option below
-          exit_site_infection_fields:
+        form:
+          exit_site_infection:
             drug:
               prompt: Please select drug (exit site drugs only)
-          peritonitis_episode_fields:
+          peritonitis_episode:
             drug:
-              prompt: Please select drug (common peritonitis drugs listed at the top)
+              prompt: Please select drug
+          trade_fammily_search:
+            label: Select Trade Family
+            placeholder: Search trade family

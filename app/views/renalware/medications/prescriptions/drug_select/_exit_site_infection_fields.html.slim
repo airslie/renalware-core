@@ -1,7 +1,0 @@
-.select-exit-site-drug
-  = f.association :drug, collection: Renalware::Drugs::Drug.for(:peritonitis),
-      as: :select,
-      label_method: :name,
-      prompt: t(".drug.prompt"),
-      wrapper: :horizontal_medium,
-      input_html: { class: "exit-site-drug-select" }

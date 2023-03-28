@@ -10,6 +10,18 @@ module Renalware
         patient.to_s
       end
 
+      def drug_name
+        if trade_family.present?
+          drug.name + " (#{trade_family.name})"
+        else
+          drug.name
+        end
+      end
+
+      def form_name
+        form&.name
+      end
+
       def patient_current_modality_name
         return unless patient_current_modality
 
@@ -17,7 +29,7 @@ module Renalware
       end
 
       def route_code
-        medication_route.other? ? route_description : medication_route.code
+        medication_route.other? ? route_description : medication_route.name
       end
 
       def drug_type_names
@@ -29,7 +41,9 @@ module Renalware
       end
 
       def dose
-        "#{dose_amount} #{translated_dose_unit}"
+        unit = unit_of_measure.present? ? unit_of_measure.name : translated_dose_unit
+
+        "#{dose_amount} #{unit}"
       end
 
       def administer_on_hd?
@@ -55,6 +69,8 @@ module Renalware
       private
 
       def translated_dose_unit
+        return nil if dose_unit.nil?
+
         ::I18n.t(dose_unit, scope: "enumerize.renalware.medications.prescription.dose_unit")
       end
     end

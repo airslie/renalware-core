@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 resources :patients, only: [] do
-  resources :prescriptions, controller: "medications/prescriptions", except: [:destroy]
+  resources :prescriptions, controller: "medications/prescriptions", except: :destroy
+
   namespace :medications do
     resources :reviews, only: :create, defaults: { format: :js }
     namespace :home_delivery do

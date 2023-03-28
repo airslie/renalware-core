@@ -5,10 +5,22 @@
     = simple_form_for @drug, html: { autocomplete: "off" } do |f|
       = f.input :name, label: "Drug Name"
 
-      h6
-        | Select categories/types for this drug:
+      br
+
+      h5
+        = f.label :drug_type_ids, "Drug Types"
 
       = f.collection_check_boxes :drug_type_ids, Renalware::Drugs::Type.all, :id, :name
 
+
+      hr
+
+      h5
+        = f.label :enabled_trade_family_ids, "Trade families"
+
+      = f.collection_check_boxes :enabled_trade_family_ids, @drug.trade_families, :id, :name
+
+
+      br
+
       = save_or_cancel(form: f, back_path: drugs_drugs_path)
- 
