@@ -10,8 +10,8 @@
   padding: 0;
 
   > div {
-    margin: 0 3px 0 0 ;
-    padding: .1em 0.2em .1rem 0.5em; // ensures both divs are equal height
+    margin: 0 3px 0 0;
+    padding: 0.1em 0.2em 0.1rem 0.5em; // ensures both divs are equal height
     border-radius: 0.3rem;
 
     @media #{$small-only} {
@@ -84,11 +84,11 @@ ul.provider {
   padding-right: 2em;
 }
 
-.provider>li {
+.provider > li {
   display: inline-block;
 }
 
-.med-list>li {
+.med-list > li {
   display: inline-block;
 }
 
@@ -97,7 +97,7 @@ ul.provider {
 }
 
 .full-screenable {
-  transition: left .2s ease 0s;
+  transition: left 0.2s ease 0s;
 }
 
 .page-heading h1 {
@@ -145,7 +145,7 @@ ul.provider {
     dt {
       color: $white;
       display: inline-block;
-      font-size: .6em;
+      font-size: 0.6em;
       font-weight: normal;
       line-height: inherit;
       margin: 0;
@@ -156,7 +156,7 @@ ul.provider {
       user-select: none;
 
       @media print, #{$large-up} {
-        font-size: .7em;
+        font-size: 0.7em;
       }
     }
 
@@ -164,7 +164,7 @@ ul.provider {
       color: $white;
       display: inline;
       font-size: 1em;
-      margin: 0 .5em 0 .1em;
+      margin: 0 0.5em 0 0.1em;
       line-height: inherit;
 
       // When the user clicks the content, select it all
@@ -177,14 +177,14 @@ ul.provider {
         display: inline;
         font-size: 1.4em;
         margin-left: 0;
-        margin-right: .4em;
+        margin-right: 0.4em;
         width: 100%;
       }
 
       &.patient-menu-toggler {
         display: block;
 
-        @media only screen and (min-width: 830px)  {
+        @media only screen and (min-width: 830px) {
           display: inline;
         }
 
@@ -225,11 +225,11 @@ ul.provider {
 
       @media print, #{$large-up} {
         font-size: 1.4em;
-        margin: 0 .6rem 0 .2em;
+        margin: 0 0.6rem 0 0.2em;
 
         &.name {
           font-size: 1.6em;
-          margin-right: .6em;
+          margin-right: 0.6em;
           width: auto;
         }
 
@@ -242,8 +242,8 @@ ul.provider {
     &.hospital_no {
       display: inline-block;
       margin-left: 0;
-      margin-right: .6em;
-      margin-top: .1rem;
+      margin-right: 0.6em;
+      margin-top: 0.1rem;
 
       dt,
       dd {
@@ -258,7 +258,6 @@ ul.provider {
       }
 
       @media #{$medium-only} {
-
         dd {
           line-height: 0.7rem;
         }
@@ -282,8 +281,9 @@ ul.provider {
 
   .menu-icon::after {
     background: $patient-menu-icon-color;
-    box-shadow: 0 6px 0 $patient-menu-icon-color, 0 12px 0 $patient-menu-icon-color;
-    content: '';
+    box-shadow: 0 6px 0 $patient-menu-icon-color,
+      0 12px 0 $patient-menu-icon-color;
+    content: "";
     display: block;
     height: 2px;
     left: 0;
@@ -292,16 +292,19 @@ ul.provider {
     width: 100%;
 
     @media #{$large-up} {
-      box-shadow: 0 7px 0 $patient-menu-icon-color, 0 14px 0 $patient-menu-icon-color;
+      box-shadow: 0 7px 0 $patient-menu-icon-color,
+        0 14px 0 $patient-menu-icon-color;
     }
   }
 
   .menu-icon:hover::after {
     background: $patient-menu-icon-hover-color;
-    box-shadow: 0 6px 0 $patient-menu-icon-hover-color, 0 12px 0 $patient-menu-icon-hover-color;
+    box-shadow: 0 6px 0 $patient-menu-icon-hover-color,
+      0 12px 0 $patient-menu-icon-hover-color;
 
     @media #{$large-up} {
-      box-shadow: 0 7px 0 $patient-menu-icon-hover-color, 0 14px 0 $patient-menu-icon-hover-color;
+      box-shadow: 0 7px 0 $patient-menu-icon-hover-color,
+        0 14px 0 $patient-menu-icon-hover-color;
     }
   }
 }
@@ -320,7 +323,6 @@ ul.provider {
   }
 
   .button {
-
   }
 }
 
@@ -385,21 +387,21 @@ form {
     }
 
     p {
-      padding: .2rem 0 0 0;
+      padding: 0.2rem 0 0 0;
     }
 
     .urgent {
       background-color: $nhs-yellow;
-      padding: .05rem .6rem;
+      padding: 0.05rem 0.6rem;
       display: inline-block;
       border-radius: 0.3rem;
-      margin-right: .4rem;
+      margin-right: 0.4rem;
     }
 
     .lozenge {
       margin: 0;
       padding: 0;
-      font-size: .9rem;
+      font-size: 0.9rem;
       display: inline-block;
 
       ul {
@@ -408,18 +410,19 @@ form {
         display: inline-block;
 
         li {
-          padding: 0 .4rem;
+          padding: 0 0.4rem;
           background-color: $nhs-green;
           line-height: 1.4rem;
           color: $white;
-          margin-right: .3rem;
+          margin-right: 0.3rem;
         }
       }
     }
   }
 
   .summary-part--eq5d table {
-    td, th {
+    td,
+    th {
       text-align: center;
     }
   }

@@ -28,17 +28,15 @@
 }
 
 .example-severity-colour {
-
   &.info {
-
   }
 }
 
 .download {
   border: solid 1px $light-grey;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
   margin-bottom: 1rem;
-  padding: .3rem .5rem;
+  padding: 0.3rem 0.5rem;
 
   &:hover {
     background-color: $nearly-white;
@@ -49,7 +47,6 @@
     display: table-cell;
     padding-right: 1rem;
     vertical-align: top;
-
 
     a {
       color: $winter-sky;
@@ -83,14 +80,13 @@
     }
 
     .updated_at {
-      font-size: .7rem;
+      font-size: 0.7rem;
       color: #888;
-
     }
 
     p {
       padding: 0;
-      margin: 0 0 .2rem 0;
+      margin: 0 0 0.2rem 0;
     }
 
     .actions {

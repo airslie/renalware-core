@@ -1,55 +1,56 @@
 $survey-0: #fff;
-$survey-1: #FFF8E8;
-$survey-2: #FFE8B4;
-$survey-3: #FFB81C;
-$survey-4: #ED8B00;
+$survey-1: #fff8e8;
+$survey-2: #ffe8b4;
+$survey-3: #ffb81c;
+$survey-4: #ed8b00;
 
 dl.pos-s-key {
-  font-size: .9rem;
+  font-size: 0.9rem;
   margin-top: 2rem;
 
-  dt, dd {
+  dt,
+  dd {
     display: inline-block;
-    padding-right: .2rem;
+    padding-right: 0.2rem;
   }
 
   dd {
-    padding: 0 .2rem;
+    padding: 0 0.2rem;
     margin-right: 1rem;
   }
 
   dt {
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
     text-align: center;
     border-radius: 3px;
-    border: solid 1px #DDD;
-    margin-right: .2rem;
+    border: solid 1px #ddd;
+    margin-right: 0.2rem;
   }
 }
 
 .pos-s--0 {
   background-color: $survey-0;
-  border: solid 1px #CCC;
+  border: solid 1px #ccc;
 }
 
 .pos-s--1 {
   background-color: $survey-1;
-  border: solid 1px #CCC;
+  border: solid 1px #ccc;
 }
 
 .pos-s--2 {
   background-color: $survey-2;
-  border: solid 1px #CCC;
+  border: solid 1px #ccc;
 }
 
 .pos-s--3 {
   background-color: $survey-3;
-  border: solid 1px #CCC;
+  border: solid 1px #ccc;
 }
 
 .pos-s--4 {
   background-color: $survey-4;
-  border: solid 1px #CCC;
+  border: solid 1px #ccc;
 }
 
 .summary-part--pos_s table {

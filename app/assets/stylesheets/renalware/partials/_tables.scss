@@ -14,7 +14,8 @@ table thead th {
 }
 
 table tbody tr:hover,
-table.column_hover .hover { // for js column hovering see table.js
+table.column_hover .hover {
+  // for js column hovering see table.js
   background-color: $table-row-hover-colour;
 }
 
@@ -46,12 +47,13 @@ td.actions {
     }
   }
 
-  > a, > span {
+  > a,
+  > span {
     &:after {
       color: $pipe-separator-colour;
       content: "|";
       padding-right: 0;
-      padding-left: .3rem;
+      padding-left: 0.3rem;
     }
 
     &:last-child:after {
@@ -63,7 +65,7 @@ td.actions {
       color: $pipe-separator-colour;
       content: "";
       padding-right: 0;
-      padding-right: .3rem;
+      padding-right: 0.3rem;
     }
 
     &:first-child:before {
@@ -84,13 +86,13 @@ table td.actions-dropdown {
   padding-right: 0;
   padding-top: 0.3rem;
 
-  > div  {
+  > div {
     display: inline-block;
   }
 
   .button.dropdown {
     margin: 0;
-    padding: .2rem 2.3rem .2rem .4rem;
+    padding: 0.2rem 2.3rem 0.2rem 0.4rem;
 
     &:after {
       right: 0.5rem;
@@ -448,7 +450,6 @@ td {
 }
 
 @media screen and (max-width: 1000px) {
-
   table.responsive {
     display: block;
     font-size: 1.2em;
@@ -530,7 +531,8 @@ table tr:nth-of-type(even) {
   background: transparent;
 }
 
-th, td {
+th,
+td {
   &.valign-bottom {
     vertical-align: bottom;
   }

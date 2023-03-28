@@ -6,7 +6,10 @@
     width: 14.3%;
   }
 
-  thead, tbody, th, td {
+  thead,
+  tbody,
+  th,
+  td {
     border: none;
     text-align: center;
   }
@@ -18,7 +21,10 @@
 
 .adequacy-path-table {
   background-color: transparent;
-  thead, tbody, th, td {
+  thead,
+  tbody,
+  th,
+  td {
     border: none;
     text-align: center;
   }
@@ -50,7 +56,7 @@
     }
 
     dt {
-      margin-right: .2rem;
+      margin-right: 0.2rem;
     }
 
     dd {

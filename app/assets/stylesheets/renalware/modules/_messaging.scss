@@ -21,13 +21,13 @@
 
     .button {
       margin: 0.3rem 0 0.2rem 0;
-      padding: 0.4rem .6rem;
+      padding: 0.4rem 0.6rem;
     }
   }
 
   .message-preview {
     padding: 0.4rem 1rem;
-    
+
     .subject {
       font-weight: bold;
       margin: 0 0 0.5rem;
@@ -40,7 +40,7 @@
 
   .messages-key {
     float: right;
-    margin: 0.3rem 0 .5rem;
+    margin: 0.3rem 0 0.5rem;
 
     span {
       border-radius: 0.3rem;
@@ -55,7 +55,7 @@
   // When tr toggled open
   .content-toggled {
     td {
-      border-bottom: none
+      border-bottom: none;
     }
 
     td:first-child {
@@ -63,4 +63,3 @@
     }
   }
 }
-

@@ -29,10 +29,10 @@
 
     a {
       background-color: $white; // $nhs-light-blue;
-      padding: .1rem .4rem;
+      padding: 0.1rem 0.4rem;
       color: $dark-grey;
-      border-radius: .2rem;
-      font-size: .9rem;
+      border-radius: 0.2rem;
+      font-size: 0.9rem;
 
       &.current-period {
         background-color: $nhs-blue;

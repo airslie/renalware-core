@@ -4,9 +4,8 @@
   }
 
   @media print {
-
     table tr th,
-    table tr td, {
+    table tr td {
       font-size: 0.9rem;
     }
 

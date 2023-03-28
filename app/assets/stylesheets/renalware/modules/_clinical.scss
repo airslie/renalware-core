@@ -2,12 +2,12 @@ article.clinical-allergies {
   padding-bottom: 0;
 
   .current-status {
-    font-weight:  normal;
+    font-weight: normal;
     padding-left: 0;
   }
 
   .panel {
-    margin: 2rem 0 .6rem 0;
+    margin: 2rem 0 0.6rem 0;
     padding: 0.5rem 0;
 
     .flex-container {
@@ -17,7 +17,7 @@ article.clinical-allergies {
       margin: 0 1rem;
 
       &.disabled {
-        opacity: .5;
+        opacity: 0.5;
         pointer-events: none;
       }
 
@@ -42,7 +42,7 @@ article.clinical-allergies {
       border-radius: 0.3rem;
       display: inline-block;
       // margin: 0.1rem 0.3rem 0.2rem 0;
-      margin: 0.1rem .6rem .2rem 0;
+      margin: 0.1rem 0.6rem 0.2rem 0;
       // padding: 0.3rem 0.3rem 0 .2rem;
       padding: 0;
       //padding: .2em .3rem 0 .3rem;
@@ -52,7 +52,7 @@ article.clinical-allergies {
 
 .clinical-header {
   // background-color: $disabled-colour;
-  padding: 0 .2em .2em .6em;
+  padding: 0 0.2em 0.2em 0.6em;
 
   @media print {
     display: none;
@@ -86,8 +86,8 @@ article.clinical-allergies {
     li {
       border-bottom: 1px solid $winter-sky;
       display: inline-block;
-      margin: 0.2rem .6rem .2rem 0;
-      padding: 0
+      margin: 0.2rem 0.6rem 0.2rem 0;
+      padding: 0;
     }
   }
 
@@ -154,9 +154,9 @@ article.clinical-allergies {
         background-color: $nhs-orange;
         color: $white;
         display: inline-block;
-        margin: 0 .3rem 0 0;
+        margin: 0 0.3rem 0 0;
         margin: 0.1rem 0.3rem 0.1rem 0;
-        padding: 0 .3rem 0 .4rem;
+        padding: 0 0.3rem 0 0.4rem;
         line-height: 1.6rem;
 
         &:hover {
@@ -233,8 +233,8 @@ article.clinical-allergies {
           }
 
           a {
-            border-bottom: 1px solid $white;;
-            color: $white
+            border-bottom: 1px solid $white;
+            color: $white;
           }
 
           .date {
@@ -247,7 +247,7 @@ article.clinical-allergies {
         }
 
         span {
-          padding: 0 .4rem;
+          padding: 0 0.4rem;
         }
 
         .body,
@@ -273,8 +273,8 @@ article.clinical-allergies {
         }
 
         .actions {
-          padding-left: .6rem;
-          padding-right: .1rem;
+          padding-left: 0.6rem;
+          padding-right: 0.1rem;
         }
       }
     }

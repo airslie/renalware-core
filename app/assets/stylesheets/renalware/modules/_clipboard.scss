@@ -3,8 +3,8 @@
 .clipboardable {
   border: solid 1px transparent;
   border-radius: 3px;
-  transition: background-color .1s ease-in;
-  transition: background-color .3s ease-out;
+  transition: background-color 0.1s ease-in;
+  transition: background-color 0.3s ease-out;
 
   &.success {
     background-color: $nhs-light-blue;

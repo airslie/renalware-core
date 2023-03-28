@@ -13,14 +13,13 @@
   .tag {
     background-color: $mid-grey;
     border: 0;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
     color: $white;
-    margin: .1rem .3rem .2rem 0;
-    padding: .05rem .5rem .15rem .5rem;
+    margin: 0.1rem 0.3rem 0.2rem 0;
+    padding: 0.05rem 0.5rem 0.15rem 0.5rem;
     white-space: nowrap;
 
     &.devops {
-
     }
 
     &.clinical {

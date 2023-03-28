@@ -22,13 +22,13 @@
     padding: 0;
 
     i {
-      margin-right: .7rem;
+      margin-right: 0.7rem;
     }
   }
 }
 
 .tooltip {
-  background-color: rgba(92,92,92,0.9);
+  background-color: rgba(92, 92, 92, 0.9);
   border-radius: 0.5em;
   color: $white;
   font-size: 0.9rem;
@@ -83,7 +83,7 @@ dd.patient-name {
 
     li {
       margin: 0;
-      padding: 0 0 .1rem 0.5rem;
+      padding: 0 0 0.1rem 0.5rem;
 
       a {
         border-radius: 3px;
@@ -98,7 +98,7 @@ dd.patient-name {
 
       &.action {
         padding-right: 0.5rem;
-        padding-right: .5rem;
+        padding-right: 0.5rem;
 
         a {
           background-color: $light-grey;
@@ -106,7 +106,7 @@ dd.patient-name {
           border-radius: 3px;
           color: $dark-grey;
           margin-bottom: 0.2rem;
-          margin-right: .5rem;
+          margin-right: 0.5rem;
           margin-top: 0.1rem;
           padding: 0.2rem 0.5rem;
           text-align: left;
@@ -115,7 +115,8 @@ dd.patient-name {
 
           &:hover {
             background-color: $nhs-blue;
-            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.13), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.13),
+              0 1px 3px 0 rgba(0, 0, 0, 0.08);
             color: $off-white;
           }
         }
@@ -176,7 +177,7 @@ dd.patient-name {
 
 .patient-side-nav li.heading {
   color: $dark-grey;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: normal;
 }
 
@@ -221,13 +222,13 @@ dd.patient-name {
 }
 
 #top-menu-bar {
-  li.menu-item a i{
+  li.menu-item a i {
     font-weight: 600;
     pointer-events: none;
     text-align: center;
     width: 1.2rem;
     vertical-align: text-bottom;
-    margin-right: .3rem;
+    margin-right: 0.3rem;
     display: inline-block;
     font-style: normal;
     font-variant: normal;
@@ -328,7 +329,7 @@ side-nav.list-group {
   padding: 0;
   margin: 0;
   margin-right: 2rem;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   border: solid 1px $table-border-colour;
 
   li {
@@ -340,12 +341,18 @@ side-nav.list-group {
       border-bottom: none;
     }
 
-    a, a:hover, a:active, a:visited {
+    a,
+    a:hover,
+    a:active,
+    a:visited {
       color: $nhs-blue;
     }
 
     &.active {
-      a, a:hover, a:active, a:visited {
+      a,
+      a:hover,
+      a:active,
+      a:visited {
         color: $black;
       }
     }

@@ -1,5 +1,4 @@
 .snippets {
-
   h1 {
     margin: 20px 0;
   }
@@ -77,9 +76,9 @@
 
       &:after {
         bottom: 0;
-        box-shadow: 0 0 .5em 0.5em #fff;
+        box-shadow: 0 0 0.5em 0.5em #fff;
         //height: 2rem;
-        content: '';
+        content: "";
         height: 0;
         left: 0;
         position: absolute;
@@ -105,7 +104,6 @@
     }
 
     @media #{$medium-up} {
-
       td,
       th {
         &.author {
@@ -115,7 +113,6 @@
     }
 
     @media #{$large-up} {
-
       td,
       th {
         &.last_used_on {
@@ -125,7 +122,6 @@
     }
 
     @media #{$xlarge-up} {
-
       td,
       th {
         &.updated_at {
@@ -157,7 +153,6 @@
         background-color: #fff;
         border: solid 1px #ccc;
         border-bottom: solid 1px #fff;
-
       }
     }
   }
