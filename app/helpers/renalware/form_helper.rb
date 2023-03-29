@@ -54,11 +54,14 @@ module Renalware
       form:,
       reset_path:,
       filter_title: I18n.t("btn.filter"),
-      reset_title: I18n.t("btn.reset")&.downcase
+      reset_title: I18n.t("btn.reset")&.downcase,
+      show_filter_button: true
     )
       tag.div(class: "filter-actions") do
-        concat(form.submit(filter_title, class: "btn btn-sm btn-secondary"))
-        concat(tag.span { " #{I18n.t('btn.or')} " })
+        if show_filter_button
+          concat(form.submit(filter_title, class: "btn btn-sm btn-secondary"))
+          concat(tag.span { " #{I18n.t('btn.or')} " })
+        end
         concat(link_to(reset_title, reset_path))
       end
     end

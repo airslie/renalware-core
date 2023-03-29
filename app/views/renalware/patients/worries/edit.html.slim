@@ -1,0 +1,6 @@
+= within_admin_layout(title: "Edit worry") do
+  = render "renalware/patients/worries/form",
+            patient: patient,
+            worry: patient.worry,
+            worry_source: worryboard_path,
+            title: nil

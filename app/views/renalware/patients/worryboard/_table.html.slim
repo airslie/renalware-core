@@ -2,6 +2,7 @@ table#patients.toggleable(data-controller="toggle")
   thead
     tr
       th.togglers.noprint= rows_toggler
+      th.col-width-small.actions
       th.at-least.col-width-large
         = sort_link(query,
                    :patient_family_name,
@@ -23,4 +24,4 @@ table#patients.toggleable(data-controller="toggle")
 
   = render partial: "worry", collection: worries
 
-= paginate worries
+== pagy_foundation_nav pagy
