@@ -6,6 +6,7 @@ module Renalware
   module Letters
     describe Letterhead do
       it :aggregate_failures do
+        is_expected.to belong_to(:hospital_department)
         is_expected.to validate_presence_of(:name)
         is_expected.to validate_presence_of(:unit_info)
         is_expected.to validate_presence_of(:trust_name)

@@ -4,7 +4,8 @@
 / When editing other kinds of addresses, or adding a new patient address, controlled_by_feed_options
 / is not passed in.
 - controlled_by_feed_options = (defined?(:controlled_by_feed_options) && controlled_by_feed_options).presence || {}
-
+= a.input :telephone, wrapper: :horizontal_medium, input_html: controlled_by_feed_options
+= a.input :email, wrapper: :horizontal_medium, input_html: controlled_by_feed_options
 = a.input :street_1, wrapper: :horizontal_large, input_html: controlled_by_feed_options
 = a.input :street_2, wrapper: :horizontal_large, input_html: controlled_by_feed_options
 = a.input :street_3, wrapper: :horizontal_large, input_html: controlled_by_feed_options
@@ -15,5 +16,4 @@
           collection: Renalware::System::Country.pluck(:name, :id),
           wrapper: :horizontal_small,
           input_html: controlled_by_feed_options
-= a.input :telephone, wrapper: :horizontal_medium, input_html: controlled_by_feed_options
-= a.input :email, wrapper: :horizontal_medium, input_html: controlled_by_feed_options
+
