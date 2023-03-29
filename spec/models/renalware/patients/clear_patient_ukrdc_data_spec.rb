@@ -6,7 +6,7 @@ module Renalware
   module Patients
     describe ClearPatientUKRDCData do
       describe "#call" do
-        it "clears the RPV status if the modality description type is death" do
+        it "clears the PKB (previously RPV) status if the modality description type is death" do
           freeze_time do
             patient = create(:patient, send_to_rpv: true, rpv_decision_on: 1.year.ago)
             user = create(:user)

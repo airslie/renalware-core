@@ -19,10 +19,10 @@ en:
         preferred_death_location_notes: Preferred place of death notes
         renalreg_decision_on: Renal Reg decision date
         renalreg_recorded_by: Renal Reg decision recorded by
-        rpv_decision_on: RPV decision date
-        rpv_recorded_by: RPV decision recorded by
+        rpv_decision_on: PKB decision date
+        rpv_recorded_by: PKB decision recorded by
         send_to_renalreg: Send data to Renal Registry
-        send_to_rpv: Send data to Renal Patient View (RPV)
+        send_to_rpv: Send data to Patient Knows Best (PKB)
         sex: Sex
   enumerize:
     renalware/patient:
