@@ -45,7 +45,6 @@ module Renalware
         class ChartFunctionSqlBuilder
           pattr_initialize [:patient_id!, :start_date!]
 
-          # rubocop:disable Metrics/MethodLength
           def to_sql(chartable)
             if chartable.chart_sql_function_name.present?
               <<-SQL.squish
@@ -66,7 +65,6 @@ module Renalware
               SQL
             end
           end
-          # rubocop:enable Metrics/MethodLength
         end
       end
     end

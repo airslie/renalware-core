@@ -7,10 +7,7 @@ module Renalware
         # Overwrite the existing master attribute to ensure it defaults to true
         attribute :master, :boolean, default: true
         validates :hospital_unit_id, uniqueness: true
-        # rubocop:disable Rails/HasManyOrHasOneDependent
         has_many :weekly_diaries, class_name: "WeeklyDiary"
-        # rubocop:enable Rails/HasManyOrHasOneDependent
-
         # While our DB constraints could check for the string
         # "Renalware::HD::Scheduling::MasterDiary" in the type column, this feels a bit fragile, so
         # instead a MasterDiary must have a corresponding

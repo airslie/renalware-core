@@ -31,7 +31,7 @@ module Renalware
           ) || NullObject.instance
         end
 
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable Metrics/AbcSize
         # TODO: do we need to store all the hosp numbers?
         def update_or_create_abridged_patient
           find_or_initialize_abridged_patient.update!(
@@ -48,7 +48,7 @@ module Renalware
             gp_code: hl7_message.gp_code
           )
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:enable Metrics/AbcSize
 
         def find_or_initialize_abridged_patient
           Patients::Abridgement.find_or_initialize_by(

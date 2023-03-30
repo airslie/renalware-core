@@ -13,7 +13,7 @@ module Renalware
           @client = client.call
         end
 
-        def call # rubocop:disable Metrics/MethodLength
+        def call
           response = client.post(
             "production1/fhir/ValueSet/$expand", {
               resourceType: "Parameters",
@@ -54,7 +54,7 @@ module Renalware
           # Example response
           # [
           #   { "system" => "https://dmd.nhs.uk", "code" => "10547007", "display" => "Auricular" },
-          #   { "system" => "https://dmd.nhs.uk", "code" => "420254004", "display" => "Body cavity" }, # rubocop:disable Layout/LineLength
+          #   { "system" => "https://dmd.nhs.uk", "code" => "420254004", "display" => "Body cavity" },
           # ]
         end
       end

@@ -5,7 +5,6 @@ module Renalware
     class ListsController < Letters::BaseController
       include Renalware::Concerns::Pageable
 
-      # rubocop:disable Metrics/MethodLength
       # TODO: Use a presenter here
       def show
         named_filter = params.fetch(:named_filter, "all").to_sym
@@ -31,7 +30,6 @@ module Renalware
           format.js   { render(locals: locals, layout: false) }
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 
@@ -59,7 +57,6 @@ module Renalware
       end
 
       # These are used also when creating a batch.
-      # rubocop:disable Metrics/MethodLength
       def filter_parameters
         return {} unless params.key?(:q)
 
@@ -77,7 +74,6 @@ module Renalware
             :s
           )
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

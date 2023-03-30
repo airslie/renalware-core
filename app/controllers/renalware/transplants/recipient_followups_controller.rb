@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 module Renalware
   module Transplants
     class RecipientFollowupsController < BaseController
@@ -88,7 +87,6 @@ module Renalware
           .merge(document: document_attributes)
       end
 
-      # rubocop:disable Metrics/MethodLength
       def attributes
         [
           :notes,
@@ -116,7 +114,6 @@ module Renalware
           document: []
         ]
       end
-      # rubocop:enable Metrics/MethodLength
 
       def document_attributes
         params
@@ -127,4 +124,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

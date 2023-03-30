@@ -11,7 +11,7 @@ module Renalware
         end
         attr_reader :virtual_medical_product_repository
 
-        def call # rubocop:disable Metrics/MethodLength
+        def call
           offset = 0
 
           loop do

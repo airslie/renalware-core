@@ -10,7 +10,6 @@ module Renalware
       included do
         protected
 
-        # rubocop:disable Metrics/MethodLength
         def default_pdf_options
           {
             page_size: "A4",
@@ -26,7 +25,6 @@ module Renalware
             encoding: "UTF-8"
           }
         end
-        # rubocop:enable Metrics/MethodLength
 
         # Render a Liquid template loaded from the database.
         # The template may have variable place holders w.g. {{ patient.name }} and these

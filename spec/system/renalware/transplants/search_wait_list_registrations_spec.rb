@@ -3,7 +3,6 @@
 require "rails_helper"
 
 describe "Search wait list registrations by UKT number" do
-  # rubocop:disable Metrics/MethodLength
   def create_tx_patient_with_active_status_and_ukt_number(ukt_number, user)
     modality_description = create(:modality_description, :transplant)
     create(:transplant_patient).tap do |patient|
@@ -20,8 +19,6 @@ describe "Search wait list registrations by UKT number" do
         .call(description: modality_description, started_on: Time.zone.now)
     end
   end
-  # rubocop:enable Metrics/MethodLength
-
   context "when a patient with a status of active has a UKT number" do
     it "the patient is listed under the All tab" do
       user = login_as_clinical

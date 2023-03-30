@@ -48,7 +48,6 @@ module World
       end
 
       module Web
-        # rubocop:disable Metrics/MethodLength
         def create_allergies_for(patient:, user:, allergies:)
           login_as user
           visit patient_clinical_profile_path(patient)
@@ -67,7 +66,6 @@ module World
             expect(page).to have_css(".allergy-status-form .disabled")
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         def remove_allergy_from_patient(patient:, allergy_description:, user:)
           login_as user

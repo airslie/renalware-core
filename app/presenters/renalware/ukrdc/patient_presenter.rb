@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 module Renalware
   module UKRDC
     class PatientPresenter < SimpleDelegator
@@ -11,7 +10,6 @@ module Renalware
       delegate :prd_description, to: :profile, allow_nil: true
       delegate :code, :term, to: :prd_description, allow_nil: true, prefix: true
 
-      # rubocop:disable Metrics/MethodLength
       def initialize(patient, changes_since: nil)
         if changes_since.present? && changes_since.is_a?(String)
           changes_since = Time.zone.parse(changes_since)
@@ -29,7 +27,6 @@ module Renalware
         @changes_up_until = Time.zone.now
         super(patient)
       end
-      # rubocop:enable Metrics/MethodLength
 
       def language
         return if super.nil? || super.name == "Unknown"
@@ -234,4 +231,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

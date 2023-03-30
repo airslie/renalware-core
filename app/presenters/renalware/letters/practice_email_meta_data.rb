@@ -40,7 +40,7 @@ module Renalware
 
       private
 
-      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize
       def parts
         [
           practice.code,
@@ -61,7 +61,7 @@ module Renalware
           author.signature
         ]
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize
 
       def letter_date
         format_date(letter.date)

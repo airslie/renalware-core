@@ -15,7 +15,6 @@ module Renalware
     #
     # Note this class could be removed and a Builder class used to create the database models
     # directly - this would remove the extra level of indirection that this class introduces.
-    # rubocop:disable Metrics/ClassLength
     class ObservationRequestsAttributesBuilder
       DEFAULT_REQUESTOR_NAME = "UNKNOWN"
       delegate :patient_identification, :observation_requests, to: :hl7_message
@@ -72,7 +71,6 @@ module Renalware
       # e.g. [ { observation_request: {..} }, {...} ]
       # Omits OBXs that have not value and not comment, and OBRs where all its OBXs have
       # been omitted.
-      # rubocop:disable Metrics/MethodLength
       def build_observation_request_params
         requests.each_with_object([]) do |request, arr|
           request_description = find_request_description(
@@ -96,12 +94,11 @@ module Renalware
           }
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Returns an array of hashes where each has the attributes used to create a new
       # pathology_observation in the datbase when passed inside the observation_request hash]
       # built in build_observation_request_params { observations_attributes: [..] }
-      # rubocop:disable Metrics/MethodLength, Performance/MapCompact, Style/EmptyElse
+      # rubocop:disable Performance/MapCompact, Style/EmptyElse
       def build_observations_params(request)
         request.observations.map do |observation|
           observation_description = FindOrCreateObservationDescription.new(
@@ -131,7 +128,7 @@ module Renalware
           end
         end.compact
       end
-      # rubocop:enable Metrics/MethodLength, Performance/MapCompact, Style/EmptyElse
+      # rubocop:enable Performance/MapCompact, Style/EmptyElse
 
       def find_request_description(code:, name:)
         RequestDescription.find_or_create_by!(code: code) do |desc|
@@ -167,6 +164,5 @@ module Renalware
         Time.zone.parse(string).to_s
       end
     end
-    # rubocop:enable Metrics/ClassLength
   end
 end

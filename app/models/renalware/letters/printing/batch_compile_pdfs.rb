@@ -66,7 +66,7 @@ module Renalware
           end
         end
 
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable Metrics/AbcSize
         # TODO: refactor
         def assemble_letter_pdfs(letter, dir)
           Rails.logger.info "Interleaving address sheets and letters for letter #{letter.id}"
@@ -90,7 +90,7 @@ module Renalware
             combine_multiple_pdfs_using_filenames(filenames, working_folder, output_filepath)
           end
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:enable Metrics/AbcSize
 
         # Remove letter and recipient working files
         def remove_working_files

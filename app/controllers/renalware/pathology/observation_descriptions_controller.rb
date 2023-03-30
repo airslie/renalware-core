@@ -21,7 +21,6 @@ module Renalware
       # JSON - returns json to render a chart
       # HTML - returns markup for a modal dialog to display the chart. An async ajax query will then
       #        be issued (hitting this action again) to get the the JSON.
-      # rubocop:disable Metrics/MethodLength
       def show
         authorize pathology_patient
         obs_desc = ObservationDescription.find(params[:id])
@@ -60,8 +59,6 @@ module Renalware
           render_edit(description)
         end
       end
-
-      # rubocop:enable Metrics/MethodLength
 
       private
 

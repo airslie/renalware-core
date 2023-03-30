@@ -24,7 +24,6 @@ module World
     module Web
       include Domain
 
-      # rubocop:disable Metrics/MethodLength
       def record_capd_regime_for(patient:, user:)
         login_as user
         dashboard_path = patient_pd_dashboard_path(patient)
@@ -75,6 +74,5 @@ module World
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end

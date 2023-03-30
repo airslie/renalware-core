@@ -44,7 +44,6 @@ module Renalware
       # in codepen outside of the app so we can experiment - at the moment
       # the x axis is built from the data series (pcr), which is not linear.
       # So we need to specify the x axis and the series data separately.
-      # rubocop:disable Metrics/MethodLength
       def graph_options
         {
           xtitle: "D/Pcr",
@@ -70,7 +69,6 @@ module Renalware
           }
         }
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 

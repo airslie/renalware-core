@@ -35,7 +35,6 @@ describe "V1 HD Session API" do
   end
 
   # This json when PUTted should always return success
-  # rubocop:disable Metrics/MethodLength
   def valid_session_json
     {
       provider_name: provider.name,
@@ -56,7 +55,6 @@ describe "V1 HD Session API" do
       arterial_pressure: 10
     }
   end
-  # rubocop:enable Metrics/MethodLength
 
   def response_errors
     JSON.parse(response.body)["error"]

@@ -2,7 +2,6 @@
 
 module Renalware
   module Clinics
-    # rubocop:disable Metrics/ClassLength
     class ClinicVisitsController < BaseController
       include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::PatientVisibility
@@ -177,6 +176,5 @@ module Renalware
         end
       end
     end
-    # rubocop:enable Metrics/ClassLength
   end
 end

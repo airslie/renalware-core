@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/AbcSize, Metrics/ClassLength
+# rubocop:disable Metrics/AbcSize
 module Renalware
   module Feeds
     # Given a Letters:::Letter, generates an HL7 MDMT T02 message
@@ -163,4 +163,4 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/AbcSize, Metrics/ClassLength
+# rubocop:enable Metrics/AbcSize

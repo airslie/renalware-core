@@ -17,7 +17,6 @@ module Renalware
     #       data-session-login-path="/users/sign_in"
     #       data-session-polling-interval="60"
     #       data-session-timeout="3600">
-    # rubocop:disable Metrics/MethodLength
     def self.session_controller_data_attributes
       urls = Renalware::Engine.routes.url_helpers
       {
@@ -35,6 +34,5 @@ module Renalware
         }
       }
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end

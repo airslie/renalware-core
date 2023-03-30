@@ -60,7 +60,7 @@ module Renalware
           @unclosed_session_ids = []
         end
 
-        # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+        # rubocop:disable Metrics/AbcSize
         def call
           log_start
           results = OpenStruct.new(closed_ids: [], unclosed_ids: [])
@@ -78,7 +78,7 @@ module Renalware
           log_results(results)
           results
         end
-        # rubocop:enable Metrics/MethodLength,Metrics/AbcSize
+        # rubocop:enable Metrics/AbcSize
 
         private
 

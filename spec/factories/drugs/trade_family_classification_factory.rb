@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :drug_trade_family_classification, class: "Renalware::Drugs::TradeFamilyClassification" do
   end

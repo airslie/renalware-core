@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 module Renalware
   module Pathology
     # Renders a pathology sparkline - a small graph of patient results for a particular
@@ -130,4 +129,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 module Renalware
   module UKRDC
     module Outgoing
@@ -8,7 +7,7 @@ module Renalware
         class Patient < Rendering::Base
           pattr_initialize [:patient!]
 
-          # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+          # rubocop:disable Metrics/AbcSize
           def xml
             create_node("ukrdc:PatientRecord") do |ukrdc_patient_elem|
               ukrdc_patient_elem["xmlns:ukrdc"] = "http://www.rixg.org.uk/"
@@ -39,7 +38,7 @@ module Renalware
               ukrdc_patient_elem << encouters_element
             end
           end
-          # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+          # rubocop:enable Metrics/AbcSize
 
           private
 
@@ -164,4 +163,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

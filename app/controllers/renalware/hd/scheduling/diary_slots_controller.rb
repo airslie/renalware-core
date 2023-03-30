@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 module Renalware
   module HD
     module Scheduling
@@ -147,7 +146,6 @@ module Renalware
           slot_params[:patient_id]
         end
 
-        # rubocop:disable Metrics/MethodLength
         def slot_params
           params
             .require(:slot)
@@ -163,9 +161,7 @@ module Renalware
               patient_ids: []
             )
         end
-        # rubocop:enable Metrics/MethodLength
       end
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end

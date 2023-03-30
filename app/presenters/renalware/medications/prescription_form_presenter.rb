@@ -2,7 +2,7 @@
 
 module Renalware
   module Medications
-    class PrescriptionFormPresenter # rubocop:disable Metrics/ClassLength
+    class PrescriptionFormPresenter
       attr_reader :selected_drug_id, :selected_form_id, :prescription, :selected_trade_family_id
 
       SEPARATOR = ":"
@@ -108,7 +108,7 @@ module Renalware
         end
       end
 
-      def drugs_and_trade_families_list # rubocop:disable Metrics/MethodLength
+      def drugs_and_trade_families_list
         drugs = Drugs::Drug.active.select(
           "name",
           "id",

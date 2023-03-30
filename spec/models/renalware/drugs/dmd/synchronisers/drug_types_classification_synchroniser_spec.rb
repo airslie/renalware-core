@@ -107,7 +107,7 @@ module Renalware
             end
           end
 
-          context "with matches on more than one VMP and Drug" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+          context "with matches on more than one VMP and Drug" do
             let(:drug_type) { create(:drug_type, atc_codes: %w(C0 B123)) }
             let(:drug_2) { create(:drug, code: "ANOTHER_DRUG_CODE") }
             let(:vmp_2) {

@@ -34,7 +34,6 @@ module Renalware
       # HB            HB     Facility1       *                   => HGB
       # HGB                                                      => HGB
       #
-      # rubocop:disable Metrics/MethodLength
       def self.observation_description_for(code:, sender:)
         where = <<-SQL.squish
           (
@@ -62,7 +61,6 @@ module Renalware
           .limit(1)
           .first
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

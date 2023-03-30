@@ -71,7 +71,7 @@ module Renalware
       # Things to watch here
       # - new attrs might have been added to target_klass_attributes and they will
       #   not be in layout.definition array
-      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize
       def target_klass_attributes(layout)
         labels_hash = definition_to_simple_field_label_hash(layout) || {}
         klass = "#{layout.event_type.event_class_name}::Document".constantize.new
@@ -107,7 +107,7 @@ module Renalware
 
         field_infos
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize
 
       # Converts
       # [{"number1"=>{"label"=>"sd"}}, {"text1"=>{"label"=>"dsds"}}, ..

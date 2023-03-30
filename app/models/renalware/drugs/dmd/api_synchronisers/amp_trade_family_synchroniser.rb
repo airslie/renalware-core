@@ -6,12 +6,12 @@ module Renalware
       class AmpTradeFamilySynchroniser
         COUNT = 100
 
-        def initialize(snomed_amps_repository: Repositories::SnomedAmpsWithTradeFamilyRepository.new) # rubocop:disable Layout/LineLength
+        def initialize(snomed_amps_repository: Repositories::SnomedAmpsWithTradeFamilyRepository.new)
           @snomed_amps_repository = snomed_amps_repository
         end
         attr_reader :snomed_amps_repository
 
-        def call # rubocop:disable Metrics/MethodLength
+        def call
           offset = 0
 
           trade_family_codes = Drugs::TradeFamily.all.index_by(&:code)
@@ -19,7 +19,7 @@ module Renalware
           loop do
             entries = snomed_amps_repository.call(offset: offset, count: COUNT)
 
-            Rails.logger.info "[AmpTradeFamilySynchroniser] offset: #{offset}; records: #{entries.size}" # rubocop:disable Layout/LineLength
+            Rails.logger.info "[AmpTradeFamilySynchroniser] offset: #{offset}; records: #{entries.size}"
 
             break if entries.empty?
 

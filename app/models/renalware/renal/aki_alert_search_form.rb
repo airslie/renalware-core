@@ -30,7 +30,6 @@ module Renalware
         end
       end
 
-      # rubocop:disable Metrics/MethodLength
       def date_range_options
         [
           [
@@ -50,7 +49,6 @@ module Renalware
           ]
         ]
       end
-      # rubocop:enable Metrics/MethodLength
 
       def show_specific_date_input?
         date_range == DATE_RANGE_SPECIFIC_DATE

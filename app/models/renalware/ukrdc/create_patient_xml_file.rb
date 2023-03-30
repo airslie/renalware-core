@@ -15,7 +15,7 @@ module Renalware
         :force_send
       ]
 
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/AbcSize
       # If force_send is true then send all files even if they have not changed since the last
       # send. This is primarily for debugging and testing phases with UKRDC
       def call
@@ -36,7 +36,7 @@ module Renalware
           logger.info "    Status: #{log.status}"
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize
 
       private
 

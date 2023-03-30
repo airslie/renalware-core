@@ -5,7 +5,7 @@ module Renalware
     module Repositories
       class ParseHelper
         # This can really dig stuff out :) See tests
-        def self.dig_property_out(node, key, excluded_values: []) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+        def self.dig_property_out(node, key, excluded_values: []) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
           property = node.find { |el|
             next if el["extension"].blank?
 

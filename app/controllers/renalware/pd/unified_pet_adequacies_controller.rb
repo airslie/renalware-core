@@ -53,7 +53,6 @@ module Renalware
         )
       end
 
-      # rubocop:disable Metrics/MethodLength
       def pet_params
         params
           .require(:patient_pd_unified_pet_adequacy)
@@ -73,7 +72,6 @@ module Renalware
             :overnight_dwell_time
           )
       end
-      # rubocop:enable Metrics/MethodLength
 
       def adequacy_params
         params

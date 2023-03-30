@@ -38,7 +38,7 @@ module Renalware
           @zip_url = zip_url
         end
 
-        def call # rubocop:disable Metrics/MethodLength
+        def call
           zip_file = download_zip(@zip_url)
 
           xml_file = extract_xml(zip_file.path)
@@ -84,7 +84,7 @@ module Renalware
           tempfile
         end
 
-        def extract_xml(location) # rubocop:disable Metrics/MethodLength
+        def extract_xml(location)
           xml_file = Tempfile.new(["nhs_atc_code_mappings", ".xml"])
 
           ZipArchive.new(location).unzip do |zip_files|

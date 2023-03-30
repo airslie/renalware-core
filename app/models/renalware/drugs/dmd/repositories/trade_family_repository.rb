@@ -12,7 +12,7 @@ module Renalware
           @client = client.call
         end
 
-        def call # rubocop:disable Metrics/MethodLength
+        def call
           response = client.post(
             "production1/fhir/ValueSet/$expand",
             {

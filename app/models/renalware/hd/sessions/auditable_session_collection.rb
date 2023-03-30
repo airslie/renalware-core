@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 #
 # Decorates an array of session objects, adding methods that provide e.g. a mean measured value
 # across all HD sessions for a patient. See also AuditableSession.
@@ -207,4 +206,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

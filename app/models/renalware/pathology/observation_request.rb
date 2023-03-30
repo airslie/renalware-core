@@ -26,7 +26,6 @@ module Renalware
       # complete results) and we only want the last received one got any requestor_order_number
       # (actually for any requestor_order_number + requested_at + description_id) combination
       # because requestor_order_number is sometimes blank
-      # rubocop:disable Metrics/MethodLength
       def self.distinct_for_patient_id(patient_id)
         select(
           Arel.sql(
@@ -42,7 +41,6 @@ module Renalware
           created_at: :desc
         )
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

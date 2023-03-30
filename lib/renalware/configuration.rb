@@ -14,7 +14,6 @@
 # To access configuration settings use e.g.
 #   Renalware.config.x
 #
-# rubocop:disable Metrics/ClassLength
 module Renalware
   class Configuration
     include ActiveSupport::Configurable
@@ -245,4 +244,3 @@ module Renalware
     yield config
   end
 end
-# rubocop:enable Metrics/ClassLength

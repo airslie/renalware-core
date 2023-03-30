@@ -73,7 +73,7 @@ module Renalware
       #     1.1
       #  ]
       # }
-      # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+      # rubocop:disable Metrics/AbcSize
       def to_h
         return {} if observation_set_a.blank? && observation_set_a.blank?
 
@@ -95,7 +95,7 @@ module Renalware
           hash[code] = arr
         end
       end
-      # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize
 
       private
 

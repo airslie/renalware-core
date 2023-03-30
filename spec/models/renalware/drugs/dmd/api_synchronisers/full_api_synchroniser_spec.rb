@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware::Drugs::DMD::APISynchronisers
   describe FullAPISynchroniser do
-    describe "#call" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+    describe "#call" do
       let(:form_synchroniser) { instance_double FormSynchroniser, call: nil }
       let(:route_synchroniser) { instance_double RouteSynchroniser, call: nil }
       let(:unit_of_measure_synchroniser) {

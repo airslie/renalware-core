@@ -6,7 +6,7 @@ module Renalware
       # Build a many-to-many table between a Drug and From, Unit of Measure and Route
       #
       class VMPClassificationSynchroniser
-        def call # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        def call # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           drug_code_to_id = Drug.all.pluck(:code, :id).to_h
           forms = Form.all.index_by(&:code)
           units_of_measure = UnitOfMeasure.all.index_by(&:code)

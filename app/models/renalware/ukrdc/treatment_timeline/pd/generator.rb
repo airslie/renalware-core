@@ -69,7 +69,6 @@ module Renalware
             create_treatment(regime, start_date, end_date)
           end
 
-          # rubocop:disable Metrics/MethodLength
           def create_treatment(regime, start_date, end_date)
             treatments << Treatment.create!(
               patient: patient,
@@ -89,7 +88,6 @@ module Renalware
               previous_treatment.update!(ended_on: start_date)
             end
           end
-          # rubocop:enable Metrics/MethodLength
 
           def treatments
             @treatments ||= []

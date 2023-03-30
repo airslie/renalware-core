@@ -6,12 +6,12 @@ module Renalware
       class ActualMedicalProductSynchroniser
         COUNT = 100
 
-        def initialize(actual_medical_product_repository: Repositories::ActualMedicalProductRepository.new) # rubocop:disable Layout/LineLength
+        def initialize(actual_medical_product_repository: Repositories::ActualMedicalProductRepository.new)
           @actual_medical_product_repository = actual_medical_product_repository
         end
         attr_reader :actual_medical_product_repository
 
-        def call # rubocop:disable Metrics/MethodLength
+        def call
           offset = 0
 
           loop do

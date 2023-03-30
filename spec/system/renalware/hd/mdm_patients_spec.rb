@@ -9,7 +9,6 @@ describe "HD MDM Patients" do
   let(:unit1) { create(:hd_hospital_unit, name: "Unit1", hospital_centre: hospital) }
   let(:unit2) { create(:hd_hospital_unit, name: "Unit2", hospital_centre: hospital) }
 
-  # rubocop:disable Metrics/MethodLength
   def create_hd_patient(unit:, family_name:, schedule_definition: nil, by: user)
     create(:hd_patient, :with_hd_modality, family_name: family_name, by: user).tap do |patient|
       patient.hd_profile = create(:hd_profile,
@@ -26,8 +25,6 @@ describe "HD MDM Patients" do
              by: user)
     end
   end
-  # rubocop:enable Metrics/MethodLength
-
   describe "GET index" do
     it "responds successfully" do
       patient = create(:hd_patient,

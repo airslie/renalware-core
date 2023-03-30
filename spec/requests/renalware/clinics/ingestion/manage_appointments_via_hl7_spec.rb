@@ -2,7 +2,6 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/MultipleMemoizedHelpers
 describe "manage appointments via HL7 ADT messages" do
   include HL7Helpers
   include PatientsSpecHelper
@@ -228,4 +227,3 @@ describe "manage appointments via HL7 ADT messages" do
     end
   end
 end
-# rubocop:enable RSpec/MultipleMemoizedHelpers

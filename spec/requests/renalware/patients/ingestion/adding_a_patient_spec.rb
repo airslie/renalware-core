@@ -5,7 +5,6 @@ require "rails_helper"
 #
 # See http://www.hl7.org.uk/repository/uploads/871/1/HL72UKA.3%20v2.pdf
 #
-# rubocop:disable RSpec/MultipleMemoizedHelpers
 describe "HL7 ADT~A28 message handling: 'Add person information'" do
   let(:local_patient_id) { "P123" }
   let(:family_name) { "SMITH" }
@@ -88,4 +87,3 @@ describe "HL7 ADT~A28 message handling: 'Add person information'" do
     expect(patient.sex.code).to eq(sex)
   end
 end
-# rubocop:enable RSpec/MultipleMemoizedHelpers

@@ -16,7 +16,6 @@ module Renalware
         ]
       end
 
-      # rubocop:disable Metrics/MethodLength
       def show
         authorize Patient, :index?
         sql_view_klass = Reporting::SqlView.new(view_name).klass
@@ -35,7 +34,6 @@ module Renalware
         )
         render locals: { options: options }
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 

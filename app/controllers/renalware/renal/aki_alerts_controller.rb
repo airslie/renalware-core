@@ -83,7 +83,6 @@ module Renalware
           )
       end
 
-      # rubocop:disable Metrics/MethodLength
       def search_params
         params
           .require(:q)
@@ -100,7 +99,6 @@ module Renalware
             :s
           )
       end
-      # rubocop:enable Metrics/MethodLength
 
       def path_params
         params.permit([:controller, :action])

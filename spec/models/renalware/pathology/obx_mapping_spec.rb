@@ -31,7 +31,7 @@ module Renalware
         }
       end
 
-      # rubocop:disable Layout/CaseIndentation, Layout/EndAlignment, RSpec/MultipleMemoizedHelpers
+      # rubocop:disable Layout/CaseIndentation, Layout/EndAlignment
       describe "#observation_description_for" do
         let(:sender) { create(:pathology_sender) }
         let(:sender_other) { create(:pathology_sender) }
@@ -128,7 +128,7 @@ module Renalware
             ).to eq(resolved_observation_description)
           end
         end
-        # rubocop:enable Layout/CaseIndentation, Layout/EndAlignment, RSpec/MultipleMemoizedHelpers
+        # rubocop:enable Layout/CaseIndentation, Layout/EndAlignment
       end
     end
   end

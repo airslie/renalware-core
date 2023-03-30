@@ -99,7 +99,6 @@ describe "Managing patients" do
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
   def build_document
     {
       interpreter_notes: Faker::Lorem.sentence,
@@ -128,7 +127,6 @@ describe "Managing patients" do
       }
     }
   end
-  # rubocop:enable Metrics/MethodLength
 
   def address_attributes
     attributes_for(:address)

@@ -11,7 +11,6 @@ module Renalware
         render locals: { batches: batches.page(page).per(per_page) }
       end
 
-      # rubocop:disable Metrics/MethodLength
       def show
         batch = find_and_authorize_batch
         respond_to do |format|
@@ -30,7 +29,6 @@ module Renalware
           end
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       def create
         batch = create_unprocessed_batch_and_batch_items(ids_of_letters_to_batch_print)
@@ -43,7 +41,6 @@ module Renalware
         end
       end
 
-      # rubocop:disable Metrics/MethodLength
       def status
         batch = find_and_authorize_batch(params[:batch_id])
         respond_to do |format|
@@ -59,7 +56,6 @@ module Renalware
           }
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 

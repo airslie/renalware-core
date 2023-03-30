@@ -6,7 +6,6 @@ module Renalware
       # hl7_message is an HL7Message (a decorator around ::HL7::Message)
       # If the same message is persisted twice we'll get an ActiveRecord::RecordNotUnique error
       # but that's fine as we don't want to process the same HL7 message twice.
-      # rubocop:disable Metrics/MethodLength
       def call(hl7_message)
         body_hash = Digest::MD5.hexdigest(hl7_message.to_hl7)
 
@@ -28,7 +27,6 @@ module Renalware
           "header_id=#{hl7_message.header_id}, body_hash=#{body_hash}"
         )
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

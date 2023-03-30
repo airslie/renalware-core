@@ -45,7 +45,6 @@ module Renalware
             SQL
           end
 
-          # rubocop:disable Metrics/MethodLength
           def apply_filter(filter)
             case filter
             when :status_mismatch
@@ -74,14 +73,12 @@ module Renalware
               all
             end
           end
-          # rubocop:enable Metrics/MethodLength
         end
 
         private
 
         attr_reader :q, :named_filter, :ukt_recipient_number
 
-        # rubocop:disable Metrics/MethodLength
         def query_for_filter(filter)
           case filter
           when :all
@@ -100,7 +97,6 @@ module Renalware
             {} # See Scopes
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         class QueryableRegistration < ActiveType::Record[Registration]
           scope :current_status_in, lambda { |codes|
