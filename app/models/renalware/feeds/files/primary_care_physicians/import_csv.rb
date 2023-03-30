@@ -30,7 +30,7 @@ module Renalware
           private
 
           # There are about 100,000 GPs in the UK
-          # rubocop:disable Lint/AssignmentInCondition
+          # rubocop:disable Lint/AssignmentInCondition, Metrics/AbcSize
           def batch_import_csv_rows_into_feed_gp_table
             Feeds::GP.delete_all
 
@@ -57,7 +57,7 @@ module Renalware
               Feeds::GP.import!(gps, batch_size: 1000)
             end
           end
-          # rubocop:enable Lint/AssignmentInCondition
+          # rubocop:enable Lint/AssignmentInCondition, Metrics/AbcSize
 
           # See migration for SQL function definition
           def import_feed_gps_using_sql_function

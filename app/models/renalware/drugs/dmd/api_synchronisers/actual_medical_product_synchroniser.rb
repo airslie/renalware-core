@@ -17,7 +17,7 @@ module Renalware
           loop do
             entries = actual_medical_product_repository.call(offset: offset, count: COUNT)
 
-            Rails.logger.info "[ActualMedicalProductSynchroniser] offset: #{offset}; records: #{entries.size}" # rubocop:disable Layout/LineLength
+            Rails.logger.info "[ActualMedicalProductSynchroniser] offset: #{offset}; records: #{entries.size}"
 
             break if entries.empty?
 

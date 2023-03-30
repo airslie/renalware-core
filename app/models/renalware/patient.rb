@@ -236,7 +236,7 @@ module Renalware
       end
     end
 
-    def must_have_at_least_one_hosp_number
+    def must_have_at_least_one_hosp_number # rubocop:disable Metrics/AbcSize
       if Renalware.config.patients_must_have_at_least_one_hosp_number
         if hospital_identifiers.all.empty? && external_patient_id.blank?
           errors.add(

@@ -23,7 +23,7 @@ module Renalware
         clean_prescription_from_invalid_values
       end
 
-      def clean_prescription_from_invalid_values # rubocop:disable Metrics/AbcSize
+      def clean_prescription_from_invalid_values
         unless medication_routes.map(&:id).include?(prescription.medication_route_id)
           prescription.medication_route_id = nil
         end

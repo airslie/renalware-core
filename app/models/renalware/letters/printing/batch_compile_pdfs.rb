@@ -29,7 +29,6 @@ module Renalware
           Rails.logger.info "Compiling letter PDFs for batch #{batch.id} in folder #{dir}"
         end
 
-        # rubocop:disable Metrics/AbcSize
         def call
           batch.status = :processing
           batch.save_by!(user)
@@ -42,7 +41,6 @@ module Renalware
           batch.status = :awaiting_printing
           batch.save_by!(user)
         end
-        # rubocop:enable Metrics/AbcSize
 
         private
 
@@ -66,9 +64,8 @@ module Renalware
           end
         end
 
-        # rubocop:disable Metrics/AbcSize
         # TODO: refactor
-        def assemble_letter_pdfs(letter, dir)
+        def assemble_letter_pdfs(letter, dir) # rubocop:disable Metrics/AbcSize
           Rails.logger.info "Interleaving address sheets and letters for letter #{letter.id}"
           letter_has_an_odd_number_of_pages = letter.page_count.odd?
           filenames = []
@@ -90,7 +87,6 @@ module Renalware
             combine_multiple_pdfs_using_filenames(filenames, working_folder, output_filepath)
           end
         end
-        # rubocop:enable Metrics/AbcSize
 
         # Remove letter and recipient working files
         def remove_working_files

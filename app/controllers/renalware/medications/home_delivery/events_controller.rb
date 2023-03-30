@@ -42,7 +42,7 @@ module Renalware
         end
 
         # Once #new is called when the modal is first displayed, successive updates come in here
-        def update
+        def update # rubocop:disable Metrics/AbcSize
           event = find_and_auth_event
           event.assign_attributes(event_params)
           event.homecare_form = homecare_form_for(event)

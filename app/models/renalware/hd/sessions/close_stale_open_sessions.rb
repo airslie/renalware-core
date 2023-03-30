@@ -32,7 +32,6 @@ module Renalware
             valid? && document.valid? && save_by(Renalware::SystemUser.find)
           end
 
-          # rubocop:disable Metrics/AbcSize
           def all_errors
             [
               errors.full_messages,
@@ -43,7 +42,6 @@ module Renalware
               document.info.errors.full_messages
             ].flatten.uniq.compact
           end
-          # rubocop:enable Metrics/AbcSize
 
           def url
             edit_patient_hd_session_path(patient, self)
@@ -60,7 +58,6 @@ module Renalware
           @unclosed_session_ids = []
         end
 
-        # rubocop:disable Metrics/AbcSize
         def call
           log_start
           results = OpenStruct.new(closed_ids: [], unclosed_ids: [])
@@ -78,7 +75,6 @@ module Renalware
           log_results(results)
           results
         end
-        # rubocop:enable Metrics/AbcSize
 
         private
 

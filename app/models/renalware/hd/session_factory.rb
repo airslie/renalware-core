@@ -45,7 +45,7 @@ module Renalware
         )
       end
 
-      def apply_profile(session)
+      def apply_profile(session) # rubocop:disable Metrics/AbcSize
         if (profile = Profile.for_patient(patient).first)
           session.hospital_unit = profile.hospital_unit
           unless dna_session?
