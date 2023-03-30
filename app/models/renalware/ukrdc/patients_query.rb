@@ -2,8 +2,8 @@
 
 module Renalware
   module UKRDC
-    # If the optional :changed_since argument is passed we select all RPV
-    # patients how have been updated since that date. Otherwise we select all RPV
+    # If the optional :changed_since argument is passed we select all PKB
+    # patients how have been updated since that date. Otherwise we select all PKB
     # patients who have changed since the last time they were exported.
     # A patient has a sent_to_ukrdc_at datetime which is the last time the data was actually sent.
     # It maybe be that something about the patient has changed and updated_at > sent_to_ukrdc_at

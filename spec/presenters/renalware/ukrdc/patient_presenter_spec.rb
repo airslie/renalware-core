@@ -102,7 +102,7 @@ module Renalware
         end
       end
 
-      context "when the patient has opted-in to RPV" do
+      context "when the patient has opted-in to PKB (previously RPV)" do
         it "returns the patient's letters" do
           patient = build_stubbed(:patient, send_to_rpv: true, send_to_renalreg: true)
           letters_patient = stub_letters_patient(patient)
@@ -113,7 +113,7 @@ module Renalware
         end
       end
 
-      context "when the patient has not opted-in to RPV" do
+      context "when the patient has not opted-in to PKB (previously RPV)" do
         it "returns an empty array even if the patient has letters" do
           patient = build_stubbed(:patient, send_to_rpv: false,  send_to_renalreg: true)
           letters_patient = stub_letters_patient(patient)

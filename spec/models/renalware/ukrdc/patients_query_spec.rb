@@ -9,7 +9,7 @@ module Renalware
 
     describe ".call" do
       context "when the changed_since_last_send boolean argument is false" do
-        it "returns the entire RPV and RR population even if not changed since last send" do
+        it "returns the entire PKB and RR population even if not changed since last send" do
           patient1 = create(
             :patient,
             family_name: "Jones",
@@ -47,7 +47,7 @@ module Renalware
           it { is_expected.to be_empty }
         end
 
-        context "when a patient has the RPV flag" do
+        context "when a patient has the PKB (previously RPV) flag" do
           before { patient.update(send_to_rpv: true, send_to_renalreg: false) }
 
           context "when they have never been sent to ukrdc" do
@@ -113,8 +113,8 @@ module Renalware
           end
         end
 
-        describe "patient recently opted out of RPV" do
-          context "when a patient does not have the RPV flag" do
+        describe "patient recently opted out of PKB (previously RPV)" do
+          context "when a patient does not have the PKB (previously RPV) flag" do
             before { patient.update(send_to_rpv: false) }
 
             context "when their updated_at has changed since the last export" do
@@ -149,7 +149,7 @@ module Renalware
           it { is_expected.to be_empty }
         end
 
-        context "when a patient has the RPV flag" do
+        context "when a patient has the PKB (previously RPV) flag" do
           before { patient.update(send_to_rpv: true) }
 
           context "when they have changed since the :changed_since date" do

@@ -14,16 +14,16 @@ namespace :ukrdc do
         app:ukrdc:export ...
 
     Example usage
-      1. To get all RR and RPV patients with who have changed
+      1. To get all RR and PKB patients with who have changed
          since the last time they were sent, or have not been sent to the UKRDC yet:
 
          bundle exec rake ukrdc:export
 
-      2. To get all RR and RPV patients who have changed since a certain date:
+      2. To get all RR and PKB patients who have changed since a certain date:
 
          bundle exec rake ukrdc:export changed_since="2018-02-23"
 
-      3. To get only certain RR and RPV patients (by their id eg ids 1 and 2) with changes since
+      3. To get only certain RR and PKB patients (by their id eg ids 1 and 2) with changes since
          a certain date:
 
          bundle exec rake ukrdc:export changed_since=2018-02-23 patient_ids=1,2
