@@ -59,8 +59,9 @@ Style/FrozenStringLiteralComment:
 Metrics/AbcSize:
   Exclude:
     - "spec/acceptance/renalware/steps/**/*"
+    - "features/**/*"
     - "db/**/*"
-  Max: 21
+  Max: 25
 RSpec/ExampleLength:
   Max: 40
   Exclude:
