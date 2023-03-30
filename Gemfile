@@ -82,6 +82,7 @@ group :development do
   gem "spring"
   gem "spring-commands-cucumber"
   gem "spring-commands-rspec"
+  gem "standard", require: false
   gem "turnip", "~> 4.0", github: "airslie/turnip", require: false
   # gem 'sql_tracker'
   gem "solargraph"

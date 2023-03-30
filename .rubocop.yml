@@ -1,42 +1,36 @@
-inherit_from:
-  - default.yml
+# rubocop config vases loosely on
+# https://evilmartians.com/chronicles/rubocoping-with-legacy-bring-your-ruby-code-up-to-standard
+# but excluding standardrb for now as it removes spaces from hashses which is just plain ugly :)
+
+# We want Exclude directives from different
+# config files to get merged, not overwritten
+inherit_mode:
+  merge:
+    - Exclude
 
 require:
+  # Standard's config uses custom cops, so it must be loaded. Skip for now though.
+  # - standard
   - rubocop-rails
   - rubocop-rspec
   - rubocop-performance
 
-# Note that the local default.yml is overwritten on CodeClimate with the contents of
-# the remote rubocop.yml pulled from GitHub in a codeclimate prepare step.
-
-#
-# Uncomment this section to check specs
-# require: rubocop-rspec
-#
-# RSpec/NamedSubject:
-#   Enabled: false
-#
-# RSpec/ExampleLength:
-#   Max: 10
-# End rubocop-rspec
-#
-
-# RSpec/DescribeClass:
-#   Enabled: false
-#   Exclude:
-#     - "spec/views/**/*"
-
-# Note that inheriting from a gem does not work as CodeClimate cannot cope with this
+# Skip standard for now.
 # inherit_gem:
-#   airslie-style:
-#     - default.yml
+#   standard: config/base.yml
+
+inherit_from:
+  - https://raw.githubusercontent.com/airslie/styleguide/main/rubocop.yml
+  - .rubocop_todo.yml
+  - .rubocop_strict.yml
 
 AllCops:
-  NewCops: enable
+  NewCops: disable
   UseCache: true
-  TargetRubyVersion: 3.1
-  # Just defining the Exclude or Include keys here overwrites the settings in default.yml
-  # so we have to redefine the entire set
+  SuggestExtensions: false
+  TargetRubyVersion: 3.2
+  # Defining the Exclude or Include keys here overwrites the settings in styleguide/rubocop.yml
+  # so we have to redefine the entire set.
   Exclude:
     - "*.gemspec"
     - "vendor/**/*"
