@@ -11,7 +11,10 @@ module Renalware
         home: "HOME"
       }.freeze
 
-      belongs_to :hospital_centre, class_name: "Hospitals::Centre"
+      belongs_to :hospital_centre,
+                 class_name: "Hospitals::Centre",
+                 touch: true,
+                 counter_cache: true
       has_many :wards,
                class_name: "Hospitals::Ward",
                foreign_key: :hospital_unit_id,

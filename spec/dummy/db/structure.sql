@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+--
 -- Name: renalware; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -2290,8 +2297,24 @@ CREATE TABLE renalware.hospital_centres (
     trust_caption character varying,
     host_site boolean DEFAULT false NOT NULL,
     abbrev character varying,
-    default_site boolean DEFAULT false
+    default_site boolean DEFAULT false,
+    departments_count integer DEFAULT 0 NOT NULL,
+    units_count integer DEFAULT 0 NOT NULL
 );
+
+
+--
+-- Name: COLUMN hospital_centres.departments_count; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hospital_centres.departments_count IS 'Counter cache for the number of departments at this centre';
+
+
+--
+-- Name: COLUMN hospital_centres.units_count; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hospital_centres.units_count IS 'Counter cache for the number of units at this centre';
 
 
 --
@@ -5613,6 +5636,47 @@ ALTER SEQUENCE renalware.hospital_centres_id_seq OWNED BY renalware.hospital_cen
 
 
 --
+-- Name: hospital_departments; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.hospital_departments (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    hospital_centre_id bigint NOT NULL,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE hospital_departments; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.hospital_departments IS 'Can be assigned for example to a Letters::Letterhead. Useful for e.g. when including the sending organisation''s details in a Transfer Of Care message.';
+
+
+--
+-- Name: hospital_departments_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.hospital_departments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hospital_departments_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.hospital_departments_id_seq OWNED BY renalware.hospital_departments.id;
+
+
+--
 -- Name: hospital_units_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -5930,7 +5994,8 @@ CREATE TABLE renalware.letter_letterheads (
     site_info text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    include_pathology_in_letter_body boolean DEFAULT true
+    include_pathology_in_letter_body boolean DEFAULT true,
+    hospital_department_id bigint
 );
 
 
@@ -13364,6 +13429,13 @@ ALTER TABLE ONLY renalware.hospital_centres ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: hospital_departments id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hospital_departments ALTER COLUMN id SET DEFAULT nextval('renalware.hospital_departments_id_seq'::regclass);
+
+
+--
 -- Name: hospital_units id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -15195,6 +15267,14 @@ ALTER TABLE ONLY renalware.hd_versions
 
 ALTER TABLE ONLY renalware.hospital_centres
     ADD CONSTRAINT hospital_centres_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hospital_departments hospital_departments_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hospital_departments
+    ADD CONSTRAINT hospital_departments_pkey PRIMARY KEY (id);
 
 
 --
@@ -18520,6 +18600,20 @@ CREATE INDEX index_hospital_centres_on_host_site ON renalware.hospital_centres U
 
 
 --
+-- Name: index_hospital_departments_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hospital_departments_on_deleted_at ON renalware.hospital_departments USING btree (deleted_at);
+
+
+--
+-- Name: index_hospital_departments_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hospital_departments_on_hospital_centre_id ON renalware.hospital_departments USING btree (hospital_centre_id);
+
+
+--
 -- Name: index_hospital_units_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -18685,6 +18779,13 @@ CREATE INDEX index_letter_electronic_receipts_on_recipient_id ON renalware.lette
 --
 
 CREATE INDEX index_letter_electronic_receipts_on_user_group_id ON renalware.letter_electronic_receipts USING btree (user_group_id);
+
+
+--
+-- Name: index_letter_letterheads_on_hospital_department_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letterheads_on_hospital_department_id ON renalware.letter_letterheads USING btree (hospital_department_id);
 
 
 --
@@ -23085,6 +23186,14 @@ ALTER TABLE ONLY renalware.hd_diary_slots
 
 
 --
+-- Name: letter_letterheads fk_rails_5a6d729513; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_letterheads
+    ADD CONSTRAINT fk_rails_5a6d729513 FOREIGN KEY (hospital_department_id) REFERENCES renalware.hospital_departments(id);
+
+
+--
 -- Name: patients fk_rails_5b44e541da; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -24573,6 +24682,14 @@ ALTER TABLE ONLY renalware.patients
 
 
 --
+-- Name: hospital_departments fk_rails_de41e48081; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hospital_departments
+    ADD CONSTRAINT fk_rails_de41e48081 FOREIGN KEY (hospital_centre_id) REFERENCES renalware.hospital_centres(id);
+
+
+--
 -- Name: letter_mailshot_items fk_rails_df39443cf5; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -25976,6 +26093,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230215105027'),
 ('20230221110514'),
 ('20230223102724'),
-('20230302134826');
+('20230302134826'),
+('20230329124526'),
+('20230329130612'),
+('20230329165043');
 
 

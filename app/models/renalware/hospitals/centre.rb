@@ -3,12 +3,15 @@
 module Renalware
   module Hospitals
     class Centre < ApplicationRecord
-      has_many(
-        :units,
-        class_name: "Hospitals::Unit",
-        foreign_key: :hospital_centre_id,
-        dependent: :restrict_with_exception
-      )
+      has_many :units,
+               class_name: "Hospitals::Unit",
+               foreign_key: :hospital_centre_id,
+               dependent: :restrict_with_exception
+
+      has_many :departments,
+               class_name: "Hospitals::Department",
+               foreign_key: :hospital_centre_id,
+               dependent: :restrict_with_exception
 
       scope :ordered, -> { order(:name) }
       scope :active, -> { where(active: true) }
