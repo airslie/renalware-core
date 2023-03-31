@@ -30,30 +30,6 @@ function initDateTimepickersIn(container) {
   })
 }
 
-function initClockpickersIn(container) {
-  var elem = ".clockpicker"
-  var pickerOptions = {
-    placement: "right",
-    align: "left",
-    donetext: "Set",
-    autoclose: "true",
-  }
-
-  $(container + " " + elem).clockpicker(pickerOptions)
-
-  // Clicking on the clock icon should display the clocpicker
-  $(container + " " + elem + "-wrapper .input-group-addon").on(
-    "click",
-    function () {
-      $(this)
-        .closest(elem + "-wrapper")
-        .find(elem)
-        .clockpicker("show")
-    }
-  )
-}
-
 $(function () {
   initDateTimepickersIn("body")
-  initClockpickersIn("body")
 })

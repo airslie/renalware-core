@@ -50,5 +50,3 @@ exclude_patterns:
 - tmp/
 - coverage/
 - lib/tasks/
-- app/assets/javascripts/renalware/clockpicker.js
-- app/assets/stylesheets/renalware/lib/_clockpicker.css
