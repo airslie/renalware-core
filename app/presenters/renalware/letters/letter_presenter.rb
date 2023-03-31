@@ -2,7 +2,6 @@
 
 require "collection_presenter"
 
-# rubocop:disable Metrics/ClassLength
 module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
@@ -60,15 +59,12 @@ module Renalware
         SectionManager.new(__getobj__).sections
       end
 
-      # rubocop:disable Rails/OutputSafety
       def to_html(adhoc_printing: false)
         html = content
         html << ADHOC_PRINTING_CSS.html_safe if adhoc_printing
         html
       end
-      # rubocop:enable Rails/OutputSafety
-
-      def content
+            def content
         if archived?
           archive.content
         else
@@ -183,4 +179,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

@@ -69,7 +69,6 @@ module Renalware
         render :edit, locals: { adequacy: adequacy }
       end
 
-      # rubocop:disable Metrics/MethodLength
       def result_params
         params
           .require(:pd_adequacy_result)
@@ -96,7 +95,6 @@ module Renalware
             :serum_creatinine
           )
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

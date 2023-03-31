@@ -2,7 +2,6 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/MultipleMemoizedHelpers
 module Renalware
   module Pathology
     describe Generators::UrrGenerator do
@@ -144,4 +143,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable RSpec/MultipleMemoizedHelpers

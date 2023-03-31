@@ -72,7 +72,6 @@ module Renalware
 
       private
 
-      # rubocop:disable Metrics/MethodLength
       def relation
         @relation ||= begin
           if event_type_slug.present?
@@ -90,7 +89,6 @@ module Renalware
           end
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       def t(str)
         return if event_class&.name.blank?

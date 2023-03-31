@@ -55,7 +55,6 @@ module Renalware
         #  alert if only score in previous 14 days was for a score of 1
         #  do not alert if alert in past 14 days was for a score of either 2 or 3
         #
-        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def oru_message_arrived(args)
           aki_msg = MessageDecorator.new(args[:hl7_message])
           return unless aki_msg.score > 0
@@ -72,7 +71,6 @@ module Renalware
 
           create_aki_alert(patient, aki_msg)
         end
-        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         private
 

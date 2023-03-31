@@ -7,7 +7,6 @@ module Renalware
       # message type.
       #
       class CommandFactory
-        # rubocop:disable Metrics/CyclomaticComplexity
         # Note that for now most of these mapped methods will only try and
         # update the patient info and master patient index, and not actually
         # try and create an admission/transfer etc. Patients only get added to RW in receipt of an
@@ -27,7 +26,6 @@ module Renalware
           else noop
           end
         end
-        # rubocop:enable Metrics/CyclomaticComplexity
 
         private
 

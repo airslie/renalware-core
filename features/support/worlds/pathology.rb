@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 require "array_stringifier"
 
 module World
@@ -222,4 +221,3 @@ module World
 end
 
 Dir[Renalware::Engine.root.join("features/support/worlds/pathology/*.rb")].each { |f| require f }
-# rubocop:enable Metrics/AbcSize, Metrics/MethodLength

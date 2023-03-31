@@ -13,7 +13,7 @@ module Renalware
 
           private
 
-          # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+          # rubocop:disable Metrics/AbcSize
           def document_element
             create_node("Document") do |elem|
               elem << create_node("DocumentTime", letter.datetime.iso8601)
@@ -34,7 +34,7 @@ module Renalware
               elem << create_node("Stream", encoded_document_content)
             end
           end
-          # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+          # rubocop:enable Metrics/AbcSize
 
           def encoded_document_content
             Base64.encode64(Renalware::Letters::PdfRenderer.call(letter))

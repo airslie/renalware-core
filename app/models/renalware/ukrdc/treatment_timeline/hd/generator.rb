@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 module Renalware
   module UKRDC
     module TreatmentTimeline
@@ -130,4 +129,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/AbcSize, Metrics/MethodLength

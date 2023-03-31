@@ -16,7 +16,7 @@ module Renalware
           @client = client.call
         end
 
-        def call(count: 2, offset: 0) # rubocop:disable Metrics/MethodLength
+        def call(count: 2, offset: 0)
           response = client.get(
             "production1/fhir/ValueSet/$expand", {
               url: "https://dmd.nhs.uk/ValueSet/AMP",

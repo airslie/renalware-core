@@ -5,7 +5,6 @@ module Renalware
     class NearestObservationsQuery
       pattr_initialize [:patient!, :date!, :code_group!, look_behind_days!: 2]
 
-      # rubocop:disable Metrics/MethodLength
       def call
         pathology_patient
           .observations
@@ -26,7 +25,6 @@ module Renalware
             }
           end
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 

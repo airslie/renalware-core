@@ -13,7 +13,6 @@ module Renalware
 
       # Do not allow events that are rendered to PDF to be edited or deleted as it may not be
       # possible to recall the document once sent to e.g. EPR.
-      # rubocop:disable Metrics/CyclomaticComplexity
       def edit?
         return false if save_pdf_to_electronic_public_register?
         return true if user_is_super_admin? && superadmin_can_always_change?
@@ -22,7 +21,6 @@ module Renalware
 
         false
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
       alias update? edit?
       alias destroy? edit?
 

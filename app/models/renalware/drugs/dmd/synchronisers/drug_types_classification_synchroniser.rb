@@ -7,7 +7,7 @@ module Renalware
       # This tells us which Drug Types are available for each Drug.
       #
       class DrugTypesClassificationSynchroniser
-        def call # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        def call
           drug_type_atc_codes_to_id_mapping = Drugs::Type.pluck(:atc_codes, :id).to_h
           drug_vtm_code_to_id_mapping = Drugs::Drug.pluck(:code, :id).to_h
 

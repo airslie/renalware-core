@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 module Renalware
   module Problems
     class ProblemsController < BaseController
@@ -121,7 +120,6 @@ module Renalware
         problem.save
       end
 
-      # rubocop:disable Metrics/CyclomaticComplexity
       def derive_display_style
         day, month, year = [
           PRB_PARAMS_DAY,
@@ -132,7 +130,6 @@ module Renalware
         return "my" if month && year
         return "y" if year
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
 
       def problem_params
         params[:problems_problem][:date_display_style] = derive_display_style
@@ -144,4 +141,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

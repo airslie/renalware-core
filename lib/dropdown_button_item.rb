@@ -44,11 +44,9 @@ class DropdownButtonItem < ActionView::Base
     end
   end
 
-  # rubocop:disable Rails/OutputSafety
   def icon_html
     return if icon.blank?
 
     "<i class='fa fa-link-annotation #{icon}'></i>".html_safe
   end
-  # rubocop:enable Rails/OutputSafety
-end
+  end

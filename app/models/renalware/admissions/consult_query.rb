@@ -21,7 +21,6 @@ module Renalware
       # included in the model file.
       # note that adding .includes(:created_by) here creates an ambigous column
       # 'family_name' error
-      # rubocop:disable Metrics/MethodLength
       def search
         @search ||= begin
           Consult
@@ -39,7 +38,6 @@ module Renalware
             .ransack(query)
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       module RansackScopes
         def self.extended(base)

@@ -1,4 +1,3 @@
-# rubocop:disable RSpec/MultipleMemoizedHelpers
 # frozen_string_literal: true
 
 require "rails_helper"
@@ -84,5 +83,3 @@ describe "Prescriptions - from a peritonitis episode - matches exit site infecti
     expect(page).to have_content "Exit Site Infection"
   end
 end
-
-# rubocop:enable RSpec/MultipleMemoizedHelpers

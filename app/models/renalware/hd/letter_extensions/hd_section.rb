@@ -48,7 +48,7 @@ module Renalware
           @patient = patient
         end
 
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable Layout/LineLength, Metrics/AbcSize
         def call
           output1 = []
           output1 << "<dt>HD Access</dt>"
@@ -65,7 +65,7 @@ module Renalware
 
           "<dl>#{[output1.join(' '), output2.join(' ')].compact.join}</dl>".html_safe
         end
-        # rubocop:enable Layout/LineLength
+        # rubocop:enable Layout/LineLength, Metrics/AbcSize
 
         def render?
           access_profile.present?

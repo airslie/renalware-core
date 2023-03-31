@@ -7,7 +7,7 @@ module Renalware
       # This tells us which Trade Families are available for each Drug.
       #
       class TradeFamilyClassificationSynchroniser
-        def call # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        def call
           trade_family_code_to_id_mapping = Drugs::TradeFamily.pluck(:code, :id).to_h
           vmp_code_to_vtm_code_mapping = Drugs::DMD::VirtualMedicalProduct.pluck(
             :code,

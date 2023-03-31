@@ -64,7 +64,7 @@ module World
                                          diagnosed_on:,
                                          outcome:,
                                          clinical_presentation:,
-                                         **args)
+                                         **_args)
         login_as user
 
         visit new_patient_pd_exit_site_infection_path(patient)

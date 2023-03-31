@@ -82,7 +82,6 @@ module Renalware
         render :new, locals: { pet: pet }
       end
 
-      # rubocop:disable Metrics/MethodLength
       def pet_result_params
         dialysate_sample_params = [0, 2, 4, 6].each_with_object([]) do |hr, arr|
           arr << :"sample_#{hr}hr_time"
@@ -117,7 +116,6 @@ module Renalware
             *dialysate_sample_params
           )
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

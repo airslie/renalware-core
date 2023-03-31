@@ -50,7 +50,6 @@ module Renalware
       end
 
       # TODO: refactor
-      # rubocop:disable Metrics/MethodLength
       def handle_valid_modality
         description = patient.modality_description
         if description.is_a? Deaths::ModalityDescription
@@ -66,7 +65,6 @@ module Renalware
                       notice: success_msg_for("modality")
         end
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

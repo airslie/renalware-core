@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # TODO: Remove this disable
-# rubocop:disable Metrics/ClassLength
 
 module Renalware
   module Letters
@@ -228,4 +227,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

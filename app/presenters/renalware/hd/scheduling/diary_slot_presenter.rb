@@ -30,7 +30,6 @@ module Renalware
           simplify(patients)
         end
 
-        # rubocop:disable Metrics/MethodLength
         def patient_search_options
           hospital_unit = Renalware::Hospitals::Unit.find(diary.hospital_unit_id)
           [
@@ -52,7 +51,6 @@ module Renalware
             )
           ]
         end
-        # rubocop:enable Metrics/MethodLength
 
         private
 

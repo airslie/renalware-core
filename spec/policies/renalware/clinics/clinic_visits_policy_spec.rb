@@ -2,7 +2,6 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/MultipleMemoizedHelpers
 module Renalware
   module Clinics
     describe ClinicVisitPolicy, type: :policy do
@@ -93,4 +92,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable RSpec/MultipleMemoizedHelpers

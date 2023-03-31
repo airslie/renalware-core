@@ -55,7 +55,6 @@ module Renalware
       end
     end
 
-    # rubocop:disable Metrics/MethodLength
     def create_initial_pathology_for(patient)
       observation_request = create(
         :pathology_observation_request,
@@ -74,7 +73,6 @@ module Renalware
         result: 1.1
       )
     end
-    # rubocop:enable Metrics/MethodLength
 
     def create_extra_pathology_for(patient)
       # There has been a new OBR

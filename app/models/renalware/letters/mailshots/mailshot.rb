@@ -54,7 +54,6 @@ module Renalware
         end
 
         # These attributes apply to all letters in the mailshot
-        # rubocop:disable Metrics/MethodLength
         def common_letter_attributes
           @common_letter_attributes ||= begin
             {
@@ -70,7 +69,6 @@ module Renalware
             }
           end
         end
-        # rubocop:enable Metrics/MethodLength
       end
 
       # Factory class responsible for creating a mailshot letter by moving it

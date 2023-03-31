@@ -11,7 +11,6 @@ module Renalware
       # - HTML version is rendered from patient pathology under Investigations when you
       # select a Request and see its Observations and click on the Code.
       # - JSON version used in graphs
-      # rubocop:disable Metrics/MethodLength
       def index
         authorize pathology_patient
         description = find_description
@@ -36,7 +35,6 @@ module Renalware
           end
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 

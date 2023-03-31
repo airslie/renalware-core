@@ -14,7 +14,6 @@ module World
       Renalware::Hospitals::Unit.hd_sites.first
     end
 
-    # rubocop:disable Metrics/MethodLength
     def find_or_create_user(given_name:, role:)
       return nil if given_name.blank?
 
@@ -36,7 +35,6 @@ module World
       user.roles << Renalware::Role.find_or_create_by(name: role) unless user.roles.any?
       user
     end
-    # rubocop:enable Metrics/MethodLength
 
     def create_patient(full_name:)
       Renalware::Patient.create!(

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 module Renalware
   module PD
     class AdequacyCalculatedAttributes
@@ -84,7 +83,6 @@ module Renalware
         residual_renal_function.to_f + pertitoneal_creatinine_clearance.to_f
       end
 
-      # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       def dietry_protein_intake
         return if urine_24_missing || dial_24_missing
         return if any_are_nil_or_zero?(
@@ -104,7 +102,6 @@ module Renalware
           ) / weight
         ).round(2)
       end
-      # rubocop:enable Metrics/MethodLength,Metrics/AbcSize
 
       def renal_ktv
         return if urine_24_missing
@@ -157,4 +154,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

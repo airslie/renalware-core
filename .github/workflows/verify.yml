@@ -40,6 +40,9 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Rubocop
+        run: bundle exec rubocop
+
       - name: Setup node and yarn with caching
         uses: actions/setup-node@v3
         with:

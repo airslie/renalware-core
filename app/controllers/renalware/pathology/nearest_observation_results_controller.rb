@@ -23,7 +23,6 @@ module Renalware
         Date.parse(params[:date])
       end
 
-      # rubocop:disable Metrics/MethodLength
       def nearest_results
         Pathology
           .cast_patient(Patient.find(params[:patient_id]))
@@ -44,7 +43,6 @@ module Renalware
             }
           end
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

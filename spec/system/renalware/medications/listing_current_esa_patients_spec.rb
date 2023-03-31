@@ -1,4 +1,3 @@
-# rubocop:disable RSpec/MultipleMemoizedHelpers
 # frozen_string_literal: true
 
 require "rails_helper"
@@ -35,5 +34,3 @@ describe "/medications/esa_prescriptions" do
     end
   end
 end
-
-# rubocop:enable RSpec/MultipleMemoizedHelpers

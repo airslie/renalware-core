@@ -46,13 +46,10 @@ module Renalware
     end
 
     # For use in pages
-    # rubocop:disable Rails/OutputSafety
     def page_heading(title)
       content_for(:page_title) { title.html_safe }
     end
-    # rubocop:enable Rails/OutputSafety
-
-    def t?(key)
+        def t?(key)
       t(key, cascade: false, raise: false, default: "").present?
     end
 

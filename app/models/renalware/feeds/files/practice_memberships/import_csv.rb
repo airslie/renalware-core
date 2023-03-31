@@ -23,7 +23,7 @@ module Renalware
 
           private
 
-          # rubocop:disable Lint/AssignmentInCondition, Metrics/AbcSize, Metrics/MethodLength
+          # rubocop:disable Lint/AssignmentInCondition, Metrics/AbcSize
           def batch_import_csv_rows_into_feed_practice_memberships_table
             Feeds::PracticeGP.delete_all
 
@@ -55,7 +55,7 @@ module Renalware
               Feeds::PracticeGP.import!(rows, batch_size: 1000)
             end
           end
-          # rubocop:enable Lint/AssignmentInCondition, Metrics/AbcSize, Metrics/MethodLength
+          # rubocop:enable Lint/AssignmentInCondition, Metrics/AbcSize
 
           # See db/functions/import_feed_practice_gps_v02.sql
           # Using a SQL fn here as originally there wasquite a bit of SQL involved.

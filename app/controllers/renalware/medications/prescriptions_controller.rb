@@ -8,7 +8,7 @@ module Renalware
       include Concerns::ReturnTo
       include Renalware::Concerns::PdfRenderable
 
-      def index # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      def index
         authorize Prescription, :index?
 
         presenter = PrescriptionIndexPresenter.new(patient: patient, params: params)
@@ -33,7 +33,7 @@ module Renalware
         end
       end
 
-      def new # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      def new # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
         param_attrs = params[:medications_prescription].present? ? prescription_params : {}
         prescription = patient.prescriptions.build
         authorize prescription

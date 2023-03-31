@@ -19,7 +19,7 @@ module Renalware
           Forms::Homecare::Pdf.valid?(args)
         end
 
-        def build_args
+        def build_args # rubocop:disable Metrics/AbcSize
           args = Forms::Homecare::Args.new(
             provider: homecare_form.form_name,
             version: homecare_form.form_version,

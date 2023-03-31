@@ -2,7 +2,6 @@
 
 module Renalware
   module Clinics
-    # rubocop:disable Metrics/ClassLength
     class ClinicVisitsController < BaseController
       include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::PatientVisibility
@@ -29,7 +28,6 @@ module Renalware
         render_edit(find_and_authorize_visit)
       end
 
-      # rubocop:disable Metrics/AbcSize
       def create
         authorize ClinicVisit, :create?
         result = CreateClinicVisit.call(clinics_patient, visit_params)
@@ -45,7 +43,6 @@ module Renalware
           render_new(visit, appointment)
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       def update
         clinic_visit = find_and_authorize_visit
@@ -177,6 +174,5 @@ module Renalware
         end
       end
     end
-    # rubocop:enable Metrics/ClassLength
   end
 end

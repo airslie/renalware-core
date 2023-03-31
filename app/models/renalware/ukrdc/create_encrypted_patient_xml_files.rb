@@ -9,7 +9,6 @@ module Renalware
     # about them. Encrypt the xml files and copy to an outgoing folder
     # which might for example be a symlink to an outgoing folder in /media/ukrdc which in turn
     # is mount on a remote share for example on an SFTP server.
-    # rubocop:disable Metrics/ClassLength:
     class CreateEncryptedPatientXmlFiles
       attr_reader(
         :patient_ids,
@@ -31,7 +30,6 @@ module Renalware
         @force_send = force_send
       end
 
-      # rubocop:disable Metrics/MethodLength
       def call
         logger.tagged(batch.number) do
           summary.milliseconds_taken = Benchmark.ms do
@@ -49,7 +47,6 @@ module Renalware
         Engine.exception_notifier.notify(e)
         raise e
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 
@@ -69,7 +66,7 @@ module Renalware
       # The performance increase in doing it this way is marginal unless there are
       # PDFs to be rendered, which can introduce significant IO wait. As PDFs are cached
       # by the PDFLetterCache, using threads may have limited benefit but
-      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize
       def create_patient_xml_files
         count = 0
         patients = ukrdc_patients_who_have_changed_since_last_send
@@ -102,7 +99,7 @@ module Renalware
           thread_pool.wait_for_termination
         end
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize
 
       def create_xml_file(patient:, schema:)
         CreatePatientXmlFile.new(
@@ -122,7 +119,7 @@ module Renalware
         summary.results = export_results
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/AbcSize
       def ukrdc_patients_who_have_changed_since_last_send
         @ukrdc_patients_who_have_changed_since_last_send ||= begin
           logger.info("Finding #{patient_ids&.any? ? patient_ids : 'all ukrdc'} patients")
@@ -144,7 +141,7 @@ module Renalware
           query.all
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize
 
       def print_summary
         logger.info("Files saved to #{summary.archive_folder}")
@@ -194,6 +191,5 @@ module Renalware
         )
       end
     end
-    # rubocop:enable Metrics/ClassLength:
   end
 end

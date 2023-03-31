@@ -2,7 +2,6 @@
 
 module Renalware
   module Pathology
-    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     class FindOrCreateObservationDescription
       pattr_initialize [
         :observation!,
@@ -54,4 +53,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/MethodLength, Metrics/AbcSize

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-# rubocop:disable Metrics/ParameterLists, Layout/SpaceInsideArrayLiteralBrackets
+# rubocop:disable Layout/SpaceInsideArrayLiteralBrackets
 module Renalware
   module Pathology
     module KFRE
@@ -84,4 +84,4 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ParameterLists, Layout/SpaceInsideArrayLiteralBrackets
+# rubocop:enable Layout/SpaceInsideArrayLiteralBrackets

@@ -160,7 +160,6 @@ module Renalware
             # Converts our friendly form object attributes into the
             # a Renalware HD:Session object graph/hash which can be used for
             # creating/updating an HD:Session record.
-            # rubocop:disable Metrics/MethodLength
             def to_hd_session_params
               {
                 by: system_user,
@@ -187,7 +186,6 @@ module Renalware
                 }
               }
             end
-            # rubocop:enable Metrics/MethodLength
           end
 
           def session_attributes

@@ -13,7 +13,7 @@ module Renalware
 
           private
 
-          # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+          # rubocop:disable Metrics/AbcSize
           def medication_element
             create_node("Medication").tap do |medication|
               medication << create_node("FromTime", prescription.prescribed_on.to_datetime)
@@ -30,7 +30,7 @@ module Renalware
               medication << create_node("ExternalId", prescription.id)
             end
           end
-          # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+          # rubocop:enable Metrics/AbcSize
 
           def entering_organisation_element
             create_node("EnteringOrganization") do |org|

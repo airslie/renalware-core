@@ -2,7 +2,6 @@
 
 require "collection_presenter"
 
-# rubocop:disable Metrics/ClassLength
 module Renalware
   module HD
     class SessionsController < BaseController
@@ -139,4 +138,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

@@ -53,7 +53,6 @@ module Renalware
       end
 
       # {"07-Jun-2017"=>{"HGB"=>"10.4", "WBC"=>"3.40", "PLT"=>"435"}
-      # rubocop:disable Rails/OutputSafety
       def format_groups_into_string(groups)
         str = ""
         groups.each do |group|
@@ -64,9 +63,7 @@ module Renalware
         end
         str.html_safe
       end
-      # rubocop:enable Rails/OutputSafety
-
-      def observations_as_string(observations)
+            def observations_as_string(observations)
         observations.map do |code, result|
           format_code_and_result_string(code, result)
         end.join(", ")

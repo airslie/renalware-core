@@ -2,7 +2,6 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/MultipleMemoizedHelpers
 describe "HL7 ADT~A31 message handling: 'Update person information'" do
   let(:local_patient_id) { "P123" }
   let(:family_name) { "SMITH" }
@@ -196,4 +195,3 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
   end
   # rubocop:enable Metrics/AbcSize
 end
-# rubocop:enable RSpec/MultipleMemoizedHelpers

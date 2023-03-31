@@ -26,7 +26,7 @@ module Renalware
 
           private
 
-          # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+          # rubocop:disable Metrics/AbcSize
           def map_attributes
             attrs = {
               given_name: patient_identification.given_name,
@@ -59,7 +59,7 @@ module Renalware
               postcode: address[4]
             }
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+          # rubocop:enable Metrics/AbcSize
 
           # If for some reason we cannot find the new practice (perhaps we have not imported it yet)
           # then be sure to leave the patient's current practice unchanged.

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
-
 #
 # Captures data used for PET (Peritoneal Equilibration Test) and Adequacy.
 #
@@ -164,4 +162,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

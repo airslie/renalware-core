@@ -10,7 +10,6 @@ module Renalware
     let(:patient) { create(:patient, by: user) }
     let(:bag_type) { create(:bag_type) }
 
-    # rubocop:disable Metrics/MethodLength
     def create_capd_regime
       create(
         :capd_regime,
@@ -28,8 +27,6 @@ module Renalware
         ]
       )
     end
-    # rubocop:enable Metrics/MethodLength
-
     describe "GET #new" do
       it "renders the new template" do
         get :new, params: { patient_id: patient }

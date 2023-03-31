@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
-
 module Renalware
   class MDMPresenter
     NullAccess = Naught.build do |config|
@@ -179,4 +177,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

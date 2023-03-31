@@ -18,7 +18,6 @@ module Renalware
         search.result
       end
 
-      # rubocop:disable Metrics/MethodLength
       def search
         @search ||= begin
           relation
@@ -34,7 +33,6 @@ module Renalware
             .ransack(params)
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       module NamedFilterScopes
         def none

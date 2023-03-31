@@ -16,7 +16,6 @@ module Renalware
         @descriptions = descriptions
       end
 
-      # rubocop:disable Metrics/MethodLength
       # If no observations found, returns nil values for all descriptions, e.g.
       #   <ActiveRecord::Relation [
       #     #<Renalware::Pathology::Observation id: nil, ...(all nil)>,
@@ -60,7 +59,6 @@ module Renalware
                   "pathology_observation_requests.patient_id IS NULL", patient.id])
           .where(pathology_observation_descriptions: { id: descriptions })
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 

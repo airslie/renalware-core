@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-# rubocop:disable Metrics/MethodLength, RSpec/ExampleLength
+# rubocop:disable RSpec/ExampleLength
 module Renalware
   module UKRDC
     module Outgoing
@@ -96,4 +96,4 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/MethodLength, RSpec/ExampleLength
+# rubocop:enable RSpec/ExampleLength

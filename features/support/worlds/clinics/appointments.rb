@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 module World
   module Clinics
     module Appointments
@@ -94,4 +93,3 @@ module World
     end
   end
 end
-# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
