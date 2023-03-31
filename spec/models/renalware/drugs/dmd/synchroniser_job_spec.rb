@@ -13,7 +13,9 @@ module Renalware
         end
 
         it "calls the full synchroniser" do
-          described_class.perform_now
+          expect {
+            described_class.perform_now
+          }.to change(System::APILog, :count).by(1)
           expect(synchroniser).to have_received(:call)
         end
       end
