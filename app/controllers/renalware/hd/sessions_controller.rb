@@ -133,7 +133,7 @@ module Renalware
       end
 
       def regenerate_rolling_hd_statistics
-        Delayed::Job.enqueue UpdateRollingPatientStatisticsDjJob.new(hd_patient.id)
+        UpdateRollingPatientStatisticsJob.perform_later(hd_patient)
       end
     end
   end

@@ -10,6 +10,7 @@ module Renalware
     class UpdateRollingPatientStatisticsJob < ApplicationJob
       queue_as :hd_patient_statistics
       queue_with_priority 4
+      retry_on StandardError, wait: 1.hour, attempts: 2
 
       # :reek:UtilityFunction
       def perform(patient)
