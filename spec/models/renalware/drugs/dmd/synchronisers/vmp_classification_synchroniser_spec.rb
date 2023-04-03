@@ -27,7 +27,8 @@ module Renalware
                    form_code: "FORM",
                    unit_of_measure_code: "MEASURE",
                    route_code: "MED_ROUTE",
-                   virtual_therapeutic_moiety_code: "DRUG_CODE")
+                   virtual_therapeutic_moiety_code: "DRUG_CODE",
+                   inactive: true)
           }
 
           context "with full data available" do
@@ -46,6 +47,7 @@ module Renalware
                 expect(row.form_id).to eq form.id
                 expect(row.route_id).to eq route.id
                 expect(row.unit_of_measure_id).to eq unit_of_measure.id
+                expect(row.inactive).to be true
               end
             end
 
@@ -53,7 +55,8 @@ module Renalware
               it "updates it" do
                 Drugs::VMPClassification.create! \
                   code: "VMP_CODE",
-                  drug: drug
+                  drug: drug,
+                  inactive: false
 
                 instance.call
 
@@ -64,6 +67,7 @@ module Renalware
                 expect(row.form_id).to eq form.id
                 expect(row.route_id).to eq route.id
                 expect(row.unit_of_measure_id).to eq unit_of_measure.id
+                expect(row.inactive).to be true
               end
             end
           end

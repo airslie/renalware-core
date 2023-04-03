@@ -3841,7 +3841,8 @@ CREATE TABLE renalware.drug_vmp_classifications (
     unit_of_measure_id bigint,
     trade_family_ids integer[] DEFAULT '{}'::integer[],
     created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    inactive boolean DEFAULT false
 );
 
 
@@ -6212,16 +6213,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -26164,6 +26155,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230329124526'),
 ('20230329130612'),
 ('20230329165043'),
+('20230403210211'),
 ('20230406131911');
 
 

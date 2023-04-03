@@ -46,7 +46,8 @@ module Renalware
                   form_id: form&.id,
                   unit_of_measure_id: unit_of_measure&.id,
                   route_id: route&.id,
-                  trade_family_ids: trade_family_ids
+                  trade_family_ids: trade_family_ids,
+                  inactive: vmp.inactive
                 }
               )
             end

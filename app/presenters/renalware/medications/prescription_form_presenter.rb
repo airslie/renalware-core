@@ -105,7 +105,7 @@ module Renalware
 
       def vmps
         @vmps ||= begin
-          scope = Drugs::VMPClassification.where(drug_id: selected_drug_id)
+          scope = Drugs::VMPClassification.where(drug_id: selected_drug_id, inactive: false)
 
           if selected_trade_family_id
             scope = scope.where("? = ANY(trade_family_ids)", selected_trade_family_id)
