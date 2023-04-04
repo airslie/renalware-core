@@ -8,7 +8,9 @@ module Renalware
     # @see Synchronisers::FullSynchroniser
     class SynchroniserJob < ApplicationJob
       def perform_now
-        Synchronisers::FullSynchroniser.new.call
+        System::APILog.with_log "Drugs::DMD::SynchroniserJob" do
+          Synchronisers::FullSynchroniser.new.call
+        end
       end
     end
   end
