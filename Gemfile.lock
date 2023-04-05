@@ -872,7 +872,6 @@ DEPENDENCIES
   execjs (= 2.7.0)
   factory_bot_rails (~> 6.1)
   faker
-  faraday
   foreman
   fuubar
   good_job

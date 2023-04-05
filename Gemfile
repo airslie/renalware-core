@@ -31,7 +31,6 @@ gem "terser"
 # a host app could include the wkhtmltopdf-binary gem, or use the apt package.
 # Bear in mind the gem contains several platform-specific binaries so is pretty large,
 # so in a docker image the apt package is a better choice
-gem "faraday"
 gem "httparty", require: false
 gem "wkhtmltopdf-binary", "0.12.3.1"
 # For sentry error reporting and metrics
