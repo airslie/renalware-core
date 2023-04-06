@@ -210,7 +210,7 @@ module World
 
         # visit patient_pathology_current_observations_path(patient)
 
-        puts "FIXME!! - need to reframe this test after changes to current obs"
+        # puts "FIXME!! - need to reframe this test after changes to current obs"
         # number_of_observation_descriptions =
         #   Renalware::Pathology::RelevantObservationDescription.codes.size
         # expect(page).to have_selector("table.current-observations tbody tr",
