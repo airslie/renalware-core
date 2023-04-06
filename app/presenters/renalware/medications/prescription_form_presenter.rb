@@ -7,6 +7,9 @@ module Renalware
 
       SEPARATOR = ":"
 
+      OTHER_FREQUENCY = OpenStruct.new(name: Drugs::Frequency::OTHER_NAME,
+                                       title: Drugs::Frequency::OTHER_TITLE)
+
       def initialize(prescription:, selected_drug_id:, selected_form_id: nil,
                      selected_trade_family_id: nil)
         @prescription = prescription
@@ -83,6 +86,10 @@ module Renalware
           Drugs::UnitOfMeasure.where(id: selection.map(&:unit_of_measure_id)).presence ||
             Drugs::UnitOfMeasure.all
         end
+      end
+
+      def frequencies
+        Drugs::Frequency.all.to_a + [OTHER_FREQUENCY]
       end
 
       private

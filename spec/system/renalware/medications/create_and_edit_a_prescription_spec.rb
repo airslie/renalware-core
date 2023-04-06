@@ -9,9 +9,11 @@ describe "Prescriptions - create / edit / terminate", js: true do
   let(:route) { create(:medication_route, name: "Oral") }
   let(:unit_of_measure) { create(:drug_unit_of_measure, name: "Ampoule") }
   let(:form) { create(:drug_form, name: "Capsule") }
+  let(:frequency) { create(:drug_frequency, name: "often", title: "Often") }
 
   before do
     patient
+    frequency
 
     create(
       :drug_vmp_classification,
@@ -48,16 +50,15 @@ describe "Prescriptions - create / edit / terminate", js: true do
     expect(page).to have_select "Route", selected: "Oral", visible: :hidden
     expect(page).to have_select "Form", selected: "Capsule", visible: :hidden
     expect(page).to have_field "Terminated on"
+    expect(page).to have_select "Frequency", selected: "Often"
 
     #
     # Test validation
     click_button "Create"
     expect(page).to have_content("Dose amount can't be blank")
-    expect(page).to have_content("Frequency can't be blank")
 
     # Now complete all required fields
     fill_in "Dose amount", with: 1
-    fill_in "Frequency", with: "abc"
     choose "GP"
     click_button "Create"
 
@@ -66,7 +67,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
     within "article", text: "Historical" do
       expect(page).to have_content("Blue Pill")
       expect(page).to have_content("1 Ampoule")
-      expect(page).to have_content("abc")
+      expect(page).to have_content("Often")
       expect(page).to have_content("Oral")
       expect(page).to have_content("GP")
       expect(page).to have_content(l(Date.current))
@@ -75,7 +76,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
     within "article", text: "Current" do
       expect(page).to have_content("Blue Pill")
       expect(page).to have_content("1 Ampoule")
-      expect(page).to have_content("abc")
+      expect(page).to have_content("Often")
       expect(page).to have_content("Oral")
       expect(page).to have_content("GP")
       expect(page).to have_content(l(Date.current))
@@ -94,7 +95,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
     expect(page).to have_select "Route", selected: "Oral", visible: :hidden
     expect(page).to have_select "Form", selected: "Capsule", visible: :hidden
 
-    expect(page).to have_field "Frequency", with: "abc"
+    expect(page).to have_select "Frequency", selected: "Often"
     expect(page).to have_field "Prescribed on", with: l(Date.current)
 
     #
@@ -179,14 +180,13 @@ describe "Prescriptions - create / edit / terminate", js: true do
       expect(page).to have_select "Form", selected: "Capsule", visible: :hidden
 
       fill_in "Dose amount", with: 1
-      fill_in "Frequency", with: "abc"
 
       click_button "Create"
 
       within "article", text: "Current" do
         expect(page).to have_content("Blue Pill (TradeFamily)")
         expect(page).to have_content("1 Ampoule")
-        expect(page).to have_content("abc")
+        expect(page).to have_content("Often")
         expect(page).to have_content("Oral")
         expect(page).to have_content("GP")
         expect(page).to have_content(l(Date.current))
@@ -239,7 +239,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
       expect(page).to have_select "Route", selected: "Oral"
       expect(page).to have_select "Form", selected: "Capsule"
 
-      expect(page).to have_field "Frequency", with: "daily"
+      expect(page).to have_select "Frequency"
       expect(page).to have_field "Prescribed on", with: "09-Oct-2022"
 
       #
@@ -257,6 +257,44 @@ describe "Prescriptions - create / edit / terminate", js: true do
       within "article", text: "Historical" do
         expect(page).to have_content("Blue PillCapsule20 Ampoule")
       end
+    end
+  end
+
+  context "when choosing 'Other' as frequency" do
+    it "allows to specify free text for Frequency", js: true do
+      visit new_patient_prescription_path(
+        patient,
+        treatable_type: patient.class.to_s,
+        treatable_id: patient
+      )
+
+      slim_select "Blue Pill", from: "Drug"
+
+      # First entry should be automatically pre-selected
+      expect(page).to have_select "Frequency", selected: "Often"
+
+      # Choose "Other" as Frequency instead
+      select "Other", from: "Frequency"
+      fill_in "Frequency", with: "More Often"
+
+      fill_in "Dose amount", with: 1
+      choose "GP"
+
+      click_button "Create"
+
+      #
+      # Now on index page
+      within "article", text: "Current" do
+        expect(page).to have_content("Blue Pill")
+        expect(page).to have_content("More Often")
+        click_link "Edit"
+      end
+
+      expect(page).to have_field "Other frequency", with: "More Often"
+      expect(page).to have_select "Frequency", selected: "Other"
+
+      select "Often", from: "Frequency"
+      expect(page).not_to have_field "Other frequency", with: "More Often"
     end
   end
 end

@@ -49,7 +49,7 @@ describe "Prescriptions - from a peritonitis episode - matches exit site infecti
 
     # Complete all required fields
     fill_in "Dose amount", with: 1
-    fill_in "Frequency", with: "abc"
+    fill_in "Other frequency", with: "abc"
     choose "GP"
     click_button "Create"
 

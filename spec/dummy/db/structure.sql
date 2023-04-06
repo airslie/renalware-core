@@ -3451,6 +3451,38 @@ ALTER SEQUENCE renalware.drug_forms_id_seq OWNED BY renalware.drug_forms.id;
 
 
 --
+-- Name: drug_frequencies; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.drug_frequencies (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    title character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: drug_frequencies_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.drug_frequencies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: drug_frequencies_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.drug_frequencies_id_seq OWNED BY renalware.drug_frequencies.id;
+
+
+--
 -- Name: drug_homecare_forms; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -13133,6 +13165,13 @@ ALTER TABLE ONLY renalware.drug_forms ALTER COLUMN id SET DEFAULT nextval('renal
 
 
 --
+-- Name: drug_frequencies id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_frequencies ALTER COLUMN id SET DEFAULT nextval('renalware.drug_frequencies_id_seq'::regclass);
+
+
+--
 -- Name: drug_homecare_forms id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -14894,6 +14933,14 @@ ALTER TABLE ONLY renalware.drug_dmd_virtual_therapeutic_moieties
 
 ALTER TABLE ONLY renalware.drug_forms
     ADD CONSTRAINT drug_forms_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: drug_frequencies drug_frequencies_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_frequencies
+    ADD CONSTRAINT drug_frequencies_pkey PRIMARY KEY (id);
 
 
 --
@@ -26113,6 +26160,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230221110514'),
 ('20230223102724'),
 ('20230302134826'),
+('20230323223232'),
 ('20230329124526'),
 ('20230329130612'),
 ('20230329165043'),
