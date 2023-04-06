@@ -11,7 +11,10 @@ module Renalware
           dmd_matches.each do |dmd_match|
             Medications::Prescription
               .where(drug_id: dmd_match.drug_id)
-              .update_all(drug_id: drug_ids_by_name[dmd_match.vtm_name])
+              .update_all(
+                drug_id: drug_ids_by_name[dmd_match.vtm_name],
+                legacy_drug_id: dmd_match.drug_id
+              )
           end
         end
       end

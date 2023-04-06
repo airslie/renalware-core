@@ -16,7 +16,8 @@ module Renalware
 
         def populate_missing_match_data
           upserts = Medications::Prescription.joins(:drug).group("drug_id", "name")
-            .pluck("name", "drug_id", "count(*) as count").map do |drug_name, drug_id, count|
+            .pluck("name", "drug_id", Arel.sql("count(*) as count"))
+            .map do |drug_name, drug_id, count|
             {
               prescriptions_count: count,
               drug_name: drug_name,

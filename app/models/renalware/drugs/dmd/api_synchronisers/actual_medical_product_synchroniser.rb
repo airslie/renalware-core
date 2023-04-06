@@ -22,7 +22,7 @@ module Renalware
             break if entries.empty?
 
             now = Time.current
-            upserts = entries.map do |entry|
+            upserts = entries.select { _1.virtual_medical_product_code.present? }.map do |entry|
               {
                 code: entry.code,
                 name: entry.name,
@@ -30,6 +30,8 @@ module Renalware
                 updated_at: now
               }
             end
+
+            next if upserts.none?
 
             ActualMedicalProduct.upsert_all(upserts, unique_by: :code)
 

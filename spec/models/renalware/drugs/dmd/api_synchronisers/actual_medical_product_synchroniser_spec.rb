@@ -23,12 +23,14 @@ module Renalware
         end
 
         context "with an entry" do
+          let(:virtual_medical_product_code) { "1234" }
+
           let(:entry) do
             instance_double(
               Repositories::ActualMedicalProductRepository::Entry,
               code: "code",
               name: "name",
-              virtual_medical_product_code: "1234"
+              virtual_medical_product_code: virtual_medical_product_code
             )
           end
 
@@ -47,6 +49,16 @@ module Renalware
               expect(item.code).to eq "code"
               expect(item.name).to eq "name"
               expect(item.virtual_medical_product_code).to eq "1234"
+            end
+          end
+
+          context "when entry doesn't have a virtual medical product code" do
+            let(:virtual_medical_product_code) { nil }
+
+            it "skips inserting it (as not use currently)" do
+              instance.call
+
+              expect(ActualMedicalProduct.count).to eq 0
             end
           end
 

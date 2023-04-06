@@ -5,7 +5,7 @@ module Renalware
     module DMDMigration
       class MigrateAll
         def call
-          PopulateATCCodesForDrugTypes.new.call
+          PopulateAtcCodesForDrugTypes.new.call
           RouteMigrator.new.call
           UnitOfMeasureMigrator.new.call
           FormMigrator.new.call

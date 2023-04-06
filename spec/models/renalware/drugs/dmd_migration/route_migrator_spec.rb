@@ -22,7 +22,9 @@ module Renalware::Drugs
 
         # Re-run -> shouldn't change anything
         described_class.new.call
-        expect(prescription.reload.medication_route).to eq dmd_route
+        prescription.reload
+        expect(prescription.medication_route).to eq dmd_route
+        expect(prescription.legacy_medication_route_id).to eq previous_route.id
       end
     end
 

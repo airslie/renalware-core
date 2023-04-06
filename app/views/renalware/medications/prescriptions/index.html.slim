@@ -44,4 +44,4 @@
             treatable: presenter.treatable,
             historical_prescriptions: presenter.historical_prescriptions,
             historical_prescriptions_search: presenter.historical_prescriptions_search
-  = render_if_exists "bottom", local_assigns
+  = render_if_exists "bottom", patient: presenter.patient
