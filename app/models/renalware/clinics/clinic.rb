@@ -12,7 +12,7 @@ module Renalware
             belongs_to :default_modality_description, class_name: "Modalities::Description"
 
       validates :name, presence: true, uniqueness: true
-      validates :code, uniqueness: true
+      validates :code, uniqueness: true, allow_nil: true
 
       scope :ordered, -> { order(deleted_at: :desc, name: :asc) }
       scope :with_last_clinic_visit_date, lambda {
