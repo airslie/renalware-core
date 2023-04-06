@@ -40,7 +40,10 @@ module Renalware
             next unless matching_dmd_route
 
             Medications::Prescription.where(medication_route_id: old_route.id)
-              .update_all(medication_route_id: matching_dmd_route.id)
+              .update_all(
+                medication_route_id: matching_dmd_route.id,
+                legacy_medication_route_id: old_route.id
+              )
           end
         end
       end

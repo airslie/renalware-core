@@ -10,13 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
--- *not* creating schema, since initdb creates it
-
-
---
 -- Name: renalware; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -6190,6 +6183,16 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
+
+
+--
 -- Name: letter_recipients; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6535,8 +6538,24 @@ CREATE TABLE renalware.medication_prescriptions (
     next_delivery_date date,
     unit_of_measure_id bigint,
     trade_family_id bigint,
-    form_id bigint
+    form_id bigint,
+    legacy_drug_id integer,
+    legacy_medication_route_id integer
 );
+
+
+--
+-- Name: COLUMN medication_prescriptions.legacy_drug_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.medication_prescriptions.legacy_drug_id IS 'Keep the previous drug id as a reference in case of issues with DMD migration';
+
+
+--
+-- Name: COLUMN medication_prescriptions.legacy_medication_route_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.medication_prescriptions.legacy_medication_route_id IS 'Keep the previous route id as a reference in case of issues with DMD migration';
 
 
 --
@@ -26096,6 +26115,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230302134826'),
 ('20230329124526'),
 ('20230329130612'),
-('20230329165043');
+('20230329165043'),
+('20230406131911');
 
 
