@@ -7,4 +7,7 @@
 = within_patient_layout(title: t(".page_title")) do
   .row
     - summary_parts = clinical_summary.summary_parts(current_user).each do |summary_part|
-      = render summary_part
+      - if summary_part.respond_to?(:to_partial_path)
+        = render summary_part.to_partial_path, summary_part: summary_part
+      - else
+        = render summary_part
