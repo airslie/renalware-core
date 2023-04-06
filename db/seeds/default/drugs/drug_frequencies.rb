@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "./db/seeds/seeds_helper"
+require_relative "../../seeds_helper"
 
 module Renalware
   extend SeedsHelper
