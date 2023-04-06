@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require Renalware::Engine.root.join("db/seeds/seeds_helper")
+require_relative "../../../seeds_helper"
 
 # rubocop:disable Style/WordArray
 module Renalware

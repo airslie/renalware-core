@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require Renalware::Engine.root.join("db/seeds/seeds_helper")
+require_relative "../../../seeds_helper"
 
 module Renalware
   module Drugs::DMD
@@ -91,7 +91,7 @@ module Renalware
       file_path = File.join(File.dirname(__FILE__), "dmd_actual_medical_products.csv")
       upserts = CSV.foreach(file_path, headers: true).map do |row|
         {
-          code: "SEED-" + SecureRandom.hex(13), # as not important
+          code: row["code"],
           virtual_medical_product_code: row["virtual_medical_product_code"],
           trade_family_code: row["trade_family_code"]
         }
