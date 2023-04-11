@@ -7,16 +7,16 @@ describe "HL7 message handling end to end" do
     Renalware.config.hl7_patient_locator_strategy = :simple # as used at KCH
   end
 
-  context "when we have an incoming HL7 msg wth > 1 OBR segment, via delayed_job" do
+  context "when we have an incoming HL7 msg wth > 1 OBR segment" do
     let(:raw_message) do
-      <<~RAW
+      <<~'RAW'
         MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
         PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
         PV1||Inpatient|NIBC^^^^^^^^|||||MID^KINGS MIDWIVES||||||||||NHS|HXF888888^^^Visit Number|||||||||
         ORC|RE|^PCS|09B0099478^LA||CM||||200911111841|||MID^KINGS MIDWIVES|||||||
         OBR|1|PLACER_ORDER_NO_1^PCS|FILLER_ORDER_NO_1^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
-        OBX|1|TX|WBC^WBC^MB||6.09|10\\S\\12/L|||||F|||200911112026||BBKA^Donald DUCK|
-        OBX|2|TX|RBC^RBC^MB||4.00|10\\S\\9/L|||||F|||200911112026||BBKA^Donald DUCK|
+        OBX|1|TX|WBC^WBC^MB||6.09|10\S\12/L|||||F|||200911112026||BBKA^Donald DUCK|
+        OBX|2|TX|RBC^RBC^MB||4.00|10\S\9/L|||||F|||200911112026||BBKA^Donald DUCK|
         OBR|2|PLACER_ORDER_NO_2^PCS|FILLER_ORDER_NO_2^LA|RLU^RENAL/LIVER/UREA^HM||201801251204|201801250541||||||.|201801250541|B^Blood|RABRO^Rabbit, Roger||100000000||||201801251249||HM|F
         OBX|1|NM|NA^Sodium^HM||136|mmol/L|||||F|||201801251249||XXXXXVC01^BHI Authchecker
         OBX|2|NM|POT^Potassium^HM||4.7|mmol/L|||||F|||201801251249||XXXXXVC01^BHI Authchecker
@@ -50,7 +50,7 @@ describe "HL7 message handling end to end" do
       patient = create(:pathology_patient, local_patient_id: "Z999990")
 
       # Simulate delayed_job picking up the job Mirth had inserted
-      FeedJob.new(raw_message).perform
+      Renalware::Feeds.message_processor.call(raw_message)
 
       # ...
       # Renalware::Pathology::MessageListener kicks in and creates the requests and observations
@@ -121,7 +121,7 @@ describe "HL7 message handling end to end" do
 
     it "persists the message but does not process it" do
       expect {
-        FeedJob.new(raw_message).perform
+        Renalware::Feeds.message_processor.call(raw_message)
       }.to change(Renalware::Feeds::Message, :count).by(1)
 
       msg = Renalware::Feeds::Message.last
@@ -144,7 +144,7 @@ describe "HL7 message handling end to end" do
       create(:pathology_lab, name: "Lab: Unknown")
       patient = create(:pathology_patient, local_patient_id: "Z999990")
 
-      FeedJob.new(raw_message).perform
+      Renalware::Feeds.message_processor.call(raw_message)
 
       expect(patient.observations.size).to eq(1)
       expect(patient.observations.first.observed_at).to eq(Time.zone.parse("200911111841"))
@@ -166,7 +166,7 @@ describe "HL7 message handling end to end" do
       patient = create(:pathology_patient, local_patient_id: "Z999990")
       allow(Renalware::System::Log).to receive(:warning)
 
-      FeedJob.new(raw_message).perform
+      Renalware::Feeds.message_processor.call(raw_message)
 
       expect(patient.observations.size).to eq(0)
       expect(Renalware::System::Log).to have_received(:warning)
@@ -191,7 +191,7 @@ describe "HL7 message handling end to end" do
       patient = create(:pathology_patient, local_patient_id: "Z999990")
       allow(Renalware::System::Log).to receive(:warning)
 
-      FeedJob.new(raw_message).perform
+      Renalware::Feeds.message_processor.call(raw_message)
 
       # WBC and TRLB not saved as nil.
       # TACR will be created with comment "## TEST CANCELLED ##"" and value = ""
@@ -220,7 +220,7 @@ describe "HL7 message handling end to end" do
       patient = create(:pathology_patient, local_patient_id: "Z999990")
       allow(Renalware::System::Log).to receive(:warning)
 
-      FeedJob.new(raw_message).perform
+      Renalware::Feeds.message_processor.call(raw_message)
 
       expect(patient.reload.observations.size).to eq(0)
       expect(patient.reload.observation_requests.size).to eq(0)

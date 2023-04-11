@@ -1356,6 +1356,26 @@ $$;
 
 
 --
+-- Name: insert_raw_hl7_message(text); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.insert_raw_hl7_message(message text) RETURNS void
+    LANGUAGE plpgsql
+    AS $$ BEGIN
+/*
+ This function supersedes `new_hl7_message`
+ */
+insert into
+  renalware.feed_raw_hl7_messages(body)
+values
+  (message);
+
+END;
+
+$$;
+
+
+--
 -- Name: months_between(timestamp without time zone, timestamp without time zone); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -5094,6 +5114,37 @@ CREATE SEQUENCE renalware.feed_practice_gps_id_seq
 --
 
 ALTER SEQUENCE renalware.feed_practice_gps_id_seq OWNED BY renalware.feed_practice_gps.id;
+
+
+--
+-- Name: feed_raw_hl7_messages; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.feed_raw_hl7_messages (
+    id bigint NOT NULL,
+    body character varying,
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: feed_raw_hl7_messages_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.feed_raw_hl7_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_raw_hl7_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.feed_raw_hl7_messages_id_seq OWNED BY renalware.feed_raw_hl7_messages.id;
 
 
 --
@@ -14230,6 +14281,13 @@ ALTER TABLE ONLY renalware.feed_practice_gps ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: feed_raw_hl7_messages id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_raw_hl7_messages ALTER COLUMN id SET DEFAULT nextval('renalware.feed_raw_hl7_messages_id_seq'::regclass);
+
+
+--
 -- Name: hd_cannulation_types id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -16065,6 +16123,14 @@ ALTER TABLE ONLY renalware.feed_outgoing_documents
 
 ALTER TABLE ONLY renalware.feed_practice_gps
     ADD CONSTRAINT feed_practice_gps_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_raw_hl7_messages feed_raw_hl7_messages_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_raw_hl7_messages
+    ADD CONSTRAINT feed_raw_hl7_messages_pkey PRIMARY KEY (id);
 
 
 --
@@ -27390,6 +27456,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230329165043'),
 ('20230403210211'),
 ('20230406131911'),
+('20230411202441'),
+('20230411205557'),
 ('20230416122815'),
 ('20230416132329'),
 ('20230424121332'),

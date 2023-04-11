@@ -129,6 +129,12 @@ module Renalware
             class: "Renalware::Drugs::DMD::SynchroniserJob",
             description: "Use the NHS Digital Terminology Service APIs to fetch DM+D updates to " \
                          "Drugs"
+          },
+
+          mirth_raw_message_processor: {
+            cron: "every 3 minutes",
+            class: "Renalware::Feeds::ProcessRawHL7MessagesCron",
+            description: "Process Mirth messages"
           }
         }
       end

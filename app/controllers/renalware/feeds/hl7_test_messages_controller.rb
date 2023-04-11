@@ -12,7 +12,7 @@ module Renalware
       def create
         authorize [:renalware, :admin, :devops], :create?
         body = replace_placeholders_in_hl7_message(form_params[:body])
-        FeedJob.new(body).perform
+        Renalware::Feeds.message_processor.call(body)
 
         respond_to do |format|
           format.js do
