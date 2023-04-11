@@ -400,9 +400,10 @@ module World
       end
 
       def assert_rolling_session_statitics_job_enqueued
-        expect(Delayed::Job.count).to eq(1)
-        # A more sophisticated approach that I can't get to work in cucumber
-        # expect(Renalware::HD::UpdateRollingPatientStatisticsJob).to have_been_enqueued
+        include ActiveJob::TestHelper
+
+        expect(enqueued_jobs.size).to eq(1)
+        expect(enqueued_jobs.first[:job]).to eq Renalware::HD::UpdateRollingPatientStatisticsJob
       end
 
       private

@@ -42,6 +42,9 @@ Given("Patty has a recorded HD session with has not yet been signed off") do
 end
 
 When("Nathalie deletes the session") do
+  # Clear jobs as later there's an expectation on an enqueued job
+  ActiveJob::Base.queue_adapter.enqueued_jobs.clear
+
   delete_session(@session, user: @nathalie)
 end
 

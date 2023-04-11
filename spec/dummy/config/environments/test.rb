@@ -62,5 +62,5 @@ Rails.application.configure do
 
   Rails.application.default_url_options = { host: "localhost", port: 3000 }
 
-  config.active_job.queue_adapter = :good_job
+  config.active_job.queue_adapter = :test
 end
