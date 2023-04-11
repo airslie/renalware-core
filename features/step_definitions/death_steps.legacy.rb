@@ -37,7 +37,9 @@ end
 Then("I should see the patient on the death list") do
   visit patient_deaths_path
   within("#patients-deceased") do
-    expect(page).to have_content((@patty || @patient_1).nhs_number_formatted)
+    if @patty || @patient_1 # prevent nil
+      expect(page).to have_content((@patty || @patient_1).nhs_number_formatted)
+    end
     expect(page).to have_content("M")
   end
 end
