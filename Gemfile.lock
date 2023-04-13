@@ -52,7 +52,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.3.2)
+    renalware-core (2.4.0)
       active_type (~> 2.3.2)
       activerecord-import (~> 1.0)
       activerecord-postgres_enum (~> 2.0)
