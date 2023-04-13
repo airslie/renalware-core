@@ -9,6 +9,35 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.4.0
+
+### Added
+- Switch to using dm+d drugs in prescriptions. The drug list is updated automatically #4247
+- Introduce a Hospitals::Department model to capture the telephone/address of an administrative department #4250
+- Add RR19 malignancy sites to database #4219
+- Add Visit Type filters at the top of Dietetic MDM list #4210
+- Add RR outcome code to Death::Location in preperation for RR5 dataset #4203
+### Changed
+- Move to Rails 7 and Ruby 3.2
+- Convert UpdateRollingPatientStatisticsJob to an Active Job #4256
+- Date picker and time picker enhancements #4254
+- Move drug frequencies into a database table #4246
+- Login page styling improvements
+- Change references to RPV to PKB in UI #4237
+- Migrate Audits to Reports #4188
+- Move mini clinical profile above alerts on patient layout #4165
+- HD Session form PDF changes - Add Solution flow from HD profile next to Blood Flow and indicate if Worry #4164
+- Refresh browser page automatically in development #4243
+### Fixed
+- Use the ClinicVisitPolicy for Dietetic clinic visits so they are no longer editbale after 7 days #4261
+- Include a name when JIT-creating Kt/V observation description #4220
+- Reply to a message should reply to all recipients in original message #4208
+- Fix error viewing own letters #4193
+- Trim whitespace from local_patient numbers when saving new patient #4169
+- Error when deleting a clinic visit created from an appointment #4162
+- Fix patient_scope syntax to correct Worryboard#show error #4160
+- Reinstate pathology table top scroll bar #4183
+
 ## 2.3.2
 
 ### Added
