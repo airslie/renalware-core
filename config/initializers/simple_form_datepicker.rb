@@ -47,7 +47,7 @@ SimpleForm.setup do |config|
     end
   end
 
-  # Same as `horizontal_datepicker`; Replace with single wrapper for both
+  # Same as `horizontal_datepicker`; Remove
   config.wrappers :horizontal_clockpicker,
                   tag: :div,
                   class: :row,

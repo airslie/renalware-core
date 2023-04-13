@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DatePickerInput < SimpleForm::Inputs::StringInput
-  # Note that where we use `wrapper: :datepicker` or `wrapper: horizontal_datepicker`,
+  # Note that where we use `wrapper: :clockpicker` or `wrapper: horizontal_clockpicker`,
   # #input is not called and we call #prefix_column and #input_column directly.
   def input(_wrapper_options)
     template.tag.div(class: "row collapse #{class_name}-wrapper") do
