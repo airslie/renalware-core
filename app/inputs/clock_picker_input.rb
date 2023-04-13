@@ -16,6 +16,8 @@ class ClockPickerInput < SimpleForm::Inputs::StringInput
 
   def input_column(_wrapper_options = {})
     html_options = input_html_options
+    html_options[:step] = 300
+
     html_options[:class] ||= []
     html_options[:class] << "border-0 !pl-10"
 
@@ -25,7 +27,7 @@ class ClockPickerInput < SimpleForm::Inputs::StringInput
     datestamp = @builder.object.public_send(attribute_name)
     value = datestamp.present? ? I18n.l(datestamp, format: :time) : ""
 
-    @builder.text_field(attribute_name, html_options.merge(value: value))
+    @builder.time_field(attribute_name, html_options.merge(value: value))
   end
 
   def icon_clock
@@ -42,9 +44,6 @@ class ClockPickerInput < SimpleForm::Inputs::StringInput
   end
 
   def data_attributes
-    {
-      controller: "flatpickr",
-      flatpickr_time_only_value: true
-    }
+    {}
   end
 end

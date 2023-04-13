@@ -4,3 +4,46 @@
     @apply text-gray-400;
   }
 }
+
+/* Wrapper around the hour, minute, second, and am/pm fields as well as
+the up and down buttons and the 'X' button */
+input[type="time"]::-webkit-datetime-edit-fields-wrapper {
+  display: flex;
+  padding: 1rem;
+}
+
+/* The space between the fields - between hour and minute, the minute and
+second, second and am/pm */
+/* input[type="time"] {
+  padding: 1rem;
+} */
+
+/* The naming convention for the hour, minute, second, and am/pm field is
+`-webkit-datetime-edit-{field}-field` */
+
+input[type="time"]::-webkit-datetime-edit-text,
+input[type="time"]::-webkit-datetime-edit-hour-field,
+input[type="time"]::-webkit-datetime-edit-minute-field,
+input[type="time"]::-webkit-datetime-edit-ampm-field {
+  border-radius: 15%;
+  padding: 1rem 0.75rem;
+}
+
+/* 'X' button for resetting/clearing time */
+input[type="time"]::-webkit-clear-button {
+  /* display: none; */
+}
+
+/* Up/Down arrows for incrementing/decrementing the value */
+input[type="time"]::-webkit-inner-spin-button {
+  /* display: none; */
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  width: 1rem;
+  left: -1rem;
+  /* border: 1px solid red; */
+  padding: 10px;
+}
