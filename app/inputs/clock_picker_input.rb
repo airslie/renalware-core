@@ -20,6 +20,7 @@ class ClockPickerInput < SimpleForm::Inputs::StringInput
 
     html_options[:class] ||= []
     html_options[:class] << "border-0 !pl-10"
+    html_options[:class] << "clockpicker"
 
     html_options[:data] ||= {}
     html_options[:data].merge!(data_attributes)
