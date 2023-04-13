@@ -9,7 +9,7 @@ class ClockPickerInput < SimpleForm::Inputs::StringInput
   end
 
   def prefix_column(_wrapper_options = {})
-    template.tag.div(class: "pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2") do
+    template.tag.div(class: "pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3") do
       template.concat(icon_clock)
     end
   end
@@ -19,7 +19,7 @@ class ClockPickerInput < SimpleForm::Inputs::StringInput
     html_options[:step] = 300
 
     html_options[:class] ||= []
-    html_options[:class] << "border-0 !pl-10"
+    html_options[:class] << "border-0 !pl-12"
     html_options[:class] << "clockpicker"
 
     html_options[:data] ||= {}
