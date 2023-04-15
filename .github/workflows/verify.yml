@@ -136,6 +136,9 @@ jobs:
           PGHOST: localhost
         run: bin/rails db:create app:db:schema:load
 
+      - name: Update packages
+        run: sudo apt update
+
       - name: Install dependencies
         run: sudo apt install -y ghostscript pandoc
 

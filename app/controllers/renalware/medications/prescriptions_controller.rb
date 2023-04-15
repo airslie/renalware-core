@@ -59,7 +59,7 @@ module Renalware
         else
           prescription.drug_id_and_trade_family_id = prescription.drug_id
         end
-
+        prescription.termination || prescription.build_termination
         render_edit(prescription)
       end
 
