@@ -97,6 +97,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
 
     expect(page).to have_select "Frequency", selected: "Often"
     expect(page).to have_field "Prescribed on", with: l(Date.current)
+    expect(page).to have_field "Terminated on"
 
     #
     # Change Dose, which would terminate the
