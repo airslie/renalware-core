@@ -17,6 +17,7 @@ resources :patients, only: [] do
               path: "/profiles/historical"
     resources :sessions
     resources :prescription_administrations, only: :index
+    resources :vnd_risk_assessments
   end
 end
 

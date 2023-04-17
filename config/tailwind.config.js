@@ -18,6 +18,8 @@ module.exports = {
       `${process.cwd()}/app/views/**/*.{erb,haml,html,slim}`,
       "../app/components/**/*.{erb,haml,html,slim,rb}",
       `${process.cwd()}/app/components/**/*.{erb,haml,html,slim,rb}`,
+      "../app/presenters/**/*.rb",
+      `${process.cwd()}/app/presenters/*.rb`,
       "../app/javascript/**/*",
       `${process.cwd()}/app/javascript/**/*`,
     ],

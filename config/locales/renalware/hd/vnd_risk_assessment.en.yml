@@ -1,0 +1,92 @@
+---
+en:
+  activerecord:
+    attributes:
+      renalware/hd/vnd_risk_assessment:
+        risk1: Fail to observe
+        risk2: Fail to raise alarm
+        risk3: Patient behaviour
+        risk4: Taping failure risk
+  renalware:
+    hd:
+      vnd_risk_assessments:
+        form:
+          key:
+            very_low: The event is very unlikely, it will probably never happen
+            low: The event is unlikely, but it could happen
+            medium: The event is likely to occur
+            high: The event is very likely, it is almost certain to occur
+          questions:
+            risk1:
+              title: >-
+                1. What is the likelihood that the staff (or carer) will fail to observe an actual
+                or potential VND for this patient?
+              narrative: >-
+                The likelihood of the staff (or carer) failing to detect VND, or conditions that
+                could lead to VND if not corrected, will be very low/low if staff can observe the
+                patient and access easily. The likelihood will increase to medium or high if there
+                are too few staff to make regular checks of the needles and if the staff are unable
+                to see the access clearly due to the patient’s location, covers, poor lighting etc.
+                Using a device that alarms when a VND occurs reduces this score to 0.
+              note:
+              options:
+              - 0_very_low
+              - 0_low
+              - 1_medium
+              - 2_high
+
+            risk2:
+              title: >-
+                2. What is the likelihood that the patient will fail to raise the alarm if they
+                experience VND?
+              narrative: >-
+                The likelihood of the patient failing to raise the alarm is very low/low if the
+                patient understands the implications of VND and is sufficiently alert to take action
+                if a VND, or a problem that could lead to VND, occurs. The likelihood will increase
+                to medium or high if the patient sleeps during dialysis, especially if they are hard
+                to wake up. It will also increase if the patient has impairments that could affect
+                their ability to notice VND (such as lowered skin sensitivity or poor eyesight) or
+                has communication difficulties. Using a device that alarms when a VND occurs reduces
+                this score to 0.
+              note:
+              options:
+              - 0_very_low
+              - 0_low
+              - 1_medium
+              - 2_high
+            risk3:
+              title: >-
+                3. What is the likelihood of the patient behaving in a way that could lead to VND?
+              note: >-
+                (Note: Do not consider the security of taping here, that is covered in question 4.)
+              narrative: >-
+                Ideally, the likelihood that a patient’s actions during dialysis will lead to VND
+                will be very low. The likelihood will increase to low or medium/high if the patient
+                suffers side effects (e.g. hypotension, hypoglycaemia, cramps, itching) that could
+                lead to unpredictable movement, if they are restless, not fully aware of being on
+                dialysis or known to tamper with the tapes, needles and/or lines. Patients who have
+                had more than one unexplained needle dislodgement should score 2.
+              options:
+              - 0_very_low
+              - 1_low
+              - 2_medium
+              - 2_high
+            risk4:
+              title: >-
+                4. What is the likelihood of the taping failing to ensure that the needle is secure
+                throughout dialysis?
+              note: >-
+                (Note: Do not consider tampering by the patient here, that is covered in
+                question 3.)
+              narrative: >-
+                The likelihood of the taping failing to secure the needle will be very low if a
+                standard taping protocol designed to prevent VND is used. The likelihood will
+                increase to low or medium/high if the taping technique does not include measures
+                to resist tugging on the needle tubing or has to be modified in a way that makes
+                it less secure (due to allergy, steep needle angle etc), or if there are problems
+                with excessive body hair, sweating or oozing from the needle site.
+              options:
+              - 0_very_low
+              - 1_low
+              - 2_medium
+              - 2_high

@@ -1,0 +1,5 @@
+- vnd_assessment = Renalware::HD::cast_patient(patient).vnd_risk_assessments.current
+
+dt
+  | VND Risk Assessment:
+dd.font-bold= vnd_assessment&.overall_risk || "Unknown"

@@ -180,6 +180,31 @@ CREATE TYPE renalware.feed_outgoing_document_state AS ENUM (
 
 
 --
+-- Name: hd_vnd_risk_level_itemised; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.hd_vnd_risk_level_itemised AS ENUM (
+    '0_very_low',
+    '0_low',
+    '1_low',
+    '1_medium',
+    '2_medium',
+    '2_high'
+);
+
+
+--
+-- Name: hd_vnd_risk_level_overall; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.hd_vnd_risk_level_overall AS ENUM (
+    'low',
+    'medium',
+    'high'
+);
+
+
+--
 -- Name: hl7_event_type; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -5482,6 +5507,69 @@ CREATE TABLE renalware.hd_schedule_definitions (
 
 
 --
+-- Name: hd_vnd_risk_assessments; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.hd_vnd_risk_assessments (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    risk1 renalware.hd_vnd_risk_level_itemised NOT NULL,
+    risk2 renalware.hd_vnd_risk_level_itemised NOT NULL,
+    risk3 renalware.hd_vnd_risk_level_itemised NOT NULL,
+    risk4 renalware.hd_vnd_risk_level_itemised NOT NULL,
+    overall_risk_score integer NOT NULL,
+    overall_risk_level renalware.hd_vnd_risk_level_overall NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN hd_vnd_risk_assessments.risk1; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_vnd_risk_assessments.risk1 IS 'What is the likelihood that the staff (or carer) will fail to observe an actual or potential VND for this patient?';
+
+
+--
+-- Name: COLUMN hd_vnd_risk_assessments.risk2; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_vnd_risk_assessments.risk2 IS 'What is the likelihood that the patient will fail to raise the alarm if they experience VND?';
+
+
+--
+-- Name: COLUMN hd_vnd_risk_assessments.risk3; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_vnd_risk_assessments.risk3 IS 'What is the likelihood of the patient behaving in a way that could lead to VND?';
+
+
+--
+-- Name: COLUMN hd_vnd_risk_assessments.risk4; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_vnd_risk_assessments.risk4 IS 'What is the likelihood of the taping failing to ensure that the needle is secure throughout dialysis?';
+
+
+--
+-- Name: COLUMN hd_vnd_risk_assessments.overall_risk_score; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_vnd_risk_assessments.overall_risk_score IS 'Overall risk score for a serious Venous Needle Dislodgement incident eg 6';
+
+
+--
+-- Name: COLUMN hd_vnd_risk_assessments.overall_risk_level; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_vnd_risk_assessments.overall_risk_level IS 'Overall risk level for a serious Venous Needle Dislodgement incident eg ''high''';
+
+
+--
 -- Name: transplant_recipient_operations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -5549,8 +5637,10 @@ CREATE VIEW renalware.hd_mdm_patients AS
     renalware.convert_to_float(((pa."values" -> 'PTHI'::text) ->> 'result'::text), NULL::double precision) AS pthi,
     (((pa."values" -> 'PTHI'::text) ->> 'observed_at'::text))::date AS pthi_date,
     renalware.convert_to_float(((pa."values" -> 'URR'::text) ->> 'result'::text), NULL::double precision) AS urr,
-    (((pa."values" -> 'URR'::text) ->> 'observed_at'::text))::date AS urr_date
-   FROM (((((((((((((((((((renalware.patients p
+    (((pa."values" -> 'URR'::text) ->> 'observed_at'::text))::date AS urr_date,
+    latest_vnd.overall_risk_score AS vnd_risk_score,
+    latest_vnd.overall_risk_level AS vnd_risk_level
+   FROM ((((((((((((((((((((renalware.patients p
      JOIN renalware.patient_current_modalities mx ON (((mx.patient_id = p.id) AND ((mx.modality_code)::text = 'hd'::text))))
      LEFT JOIN renalware.hd_profiles hdp ON (((hdp.patient_id = p.id) AND (hdp.deactivated_at IS NULL))))
      LEFT JOIN renalware.hospital_units unit ON ((unit.id = hdp.hospital_unit_id)))
@@ -5584,6 +5674,11 @@ CREATE VIEW renalware.hd_mdm_patients AS
      LEFT JOIN renalware.transplant_registration_statuses txrs ON (((txrs.registration_id = txr.id) AND (txrs.terminated_on IS NULL))))
      LEFT JOIN renalware.transplant_registration_status_descriptions txrsd ON ((txrsd.id = txrs.description_id)))
      LEFT JOIN renalware.renal_profiles rprof ON ((rprof.patient_id = p.id)))
+     LEFT JOIN ( SELECT DISTINCT ON (hvra.patient_id) hvra.patient_id,
+            hvra.overall_risk_score,
+            hvra.overall_risk_level
+           FROM renalware.hd_vnd_risk_assessments hvra
+          ORDER BY hvra.patient_id, hvra.updated_at DESC) latest_vnd ON ((latest_vnd.patient_id = p.id)))
      LEFT JOIN ( SELECT DISTINCT ON (transplant_recipient_operations.patient_id) transplant_recipient_operations.patient_id,
             transplant_recipient_operations.performed_on
            FROM renalware.transplant_recipient_operations
@@ -6157,6 +6252,25 @@ CREATE SEQUENCE renalware.hd_versions_id_seq
 --
 
 ALTER SEQUENCE renalware.hd_versions_id_seq OWNED BY renalware.hd_versions.id;
+
+
+--
+-- Name: hd_vnd_risk_assessments_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.hd_vnd_risk_assessments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_vnd_risk_assessments_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.hd_vnd_risk_assessments_id_seq OWNED BY renalware.hd_vnd_risk_assessments.id;
 
 
 --
@@ -14078,6 +14192,13 @@ ALTER TABLE ONLY renalware.hd_versions ALTER COLUMN id SET DEFAULT nextval('rena
 
 
 --
+-- Name: hd_vnd_risk_assessments id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_vnd_risk_assessments ALTER COLUMN id SET DEFAULT nextval('renalware.hd_vnd_risk_assessments_id_seq'::regclass);
+
+
+--
 -- Name: hospital_centres id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -15937,6 +16058,14 @@ ALTER TABLE ONLY renalware.hd_transmission_logs
 
 ALTER TABLE ONLY renalware.hd_versions
     ADD CONSTRAINT hd_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_vnd_risk_assessments hd_vnd_risk_assessments_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_vnd_risk_assessments
+    ADD CONSTRAINT hd_vnd_risk_assessments_pkey PRIMARY KEY (id);
 
 
 --
@@ -19284,6 +19413,34 @@ CREATE INDEX index_hd_stations_on_updated_by_id ON renalware.hd_stations USING b
 --
 
 CREATE INDEX index_hd_transmission_logs_on_session_id ON renalware.hd_transmission_logs USING btree (session_id);
+
+
+--
+-- Name: index_hd_vnd_risk_assessments_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_vnd_risk_assessments_on_created_by_id ON renalware.hd_vnd_risk_assessments USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_vnd_risk_assessments_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_vnd_risk_assessments_on_deleted_at ON renalware.hd_vnd_risk_assessments USING btree (deleted_at);
+
+
+--
+-- Name: index_hd_vnd_risk_assessments_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_vnd_risk_assessments_on_patient_id ON renalware.hd_vnd_risk_assessments USING btree (patient_id);
+
+
+--
+-- Name: index_hd_vnd_risk_assessments_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_vnd_risk_assessments_on_updated_by_id ON renalware.hd_vnd_risk_assessments USING btree (updated_by_id);
 
 
 --
@@ -23160,6 +23317,14 @@ ALTER TABLE ONLY renalware.pathology_obx_mappings
 
 
 --
+-- Name: hd_vnd_risk_assessments fk_rails_15202d155f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_vnd_risk_assessments
+    ADD CONSTRAINT fk_rails_15202d155f FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: transplant_donor_stages fk_rails_15abd8aa8d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -24064,6 +24229,14 @@ ALTER TABLE ONLY renalware.pd_pet_results
 
 
 --
+-- Name: hd_vnd_risk_assessments fk_rails_628a43fde7; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_vnd_risk_assessments
+    ADD CONSTRAINT fk_rails_628a43fde7 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: pathology_obx_mappings fk_rails_62ce548f09; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -24125,6 +24298,14 @@ ALTER TABLE ONLY renalware.pathology_calculation_sources
 
 ALTER TABLE ONLY renalware.transplant_recipient_followups
     ADD CONSTRAINT fk_rails_6893ba0593 FOREIGN KEY (transplant_failure_cause_description_id) REFERENCES renalware.transplant_failure_cause_descriptions(id);
+
+
+--
+-- Name: hd_vnd_risk_assessments fk_rails_68a3593399; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_vnd_risk_assessments
+    ADD CONSTRAINT fk_rails_68a3593399 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -26885,6 +27066,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230403210211'),
 ('20230406131911'),
 ('20230416122815'),
+('20230416132329'),
+('20230424121332'),
 ('20230427073423'),
 ('20230503143211'),
 ('20230503161542'),

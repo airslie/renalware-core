@@ -9,6 +9,7 @@ en:
           access_procedure: Access Procedure
           access_profile: Access Profile
           needling_assessment: Ease of Needling (MAGIC)
+          add_vnd_assessment: VND Assessment
     hd:
       accesses:
         summary:

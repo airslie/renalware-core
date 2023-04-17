@@ -1,0 +1,48 @@
+article#vnd_risk_assessments
+  header
+    h2= t(".title")
+    ul.flex.justify-end
+      li
+        span
+          = link_to(asset_path("renalware/VND-Risk-Assessment.pdf"), class: "button secondary", target: "_blank") do
+            .flex.mr-2
+              .mt-px.mr-2= inline_icon(:pdf)
+              | Guide
+      li
+        span
+          = link_to I18n.t("btn.add"),
+                    renalware.new_patient_hd_vnd_risk_assessment_path(patient),
+                    class: "button"
+
+  table.toggleable data-controller="toggle"
+    thead
+      tr
+        th.togglers.noprint= rows_toggler
+        - if controls
+          th(style="width: 20px")
+        th.col-width-small= t(".overall_risk_score")
+        th.col-width-date= t(".created_at")
+        th Assessor
+    - assessments.each do |assessment|
+      tbody
+        tr
+          td.noprint= row_toggler
+          - if controls
+            td
+              - if policy(assessment).destroy?
+                = link_to(patient_hd_vnd_risk_assessment_path(patient, assessment),
+                          method: :delete,
+                          data: { confirm: "Are you sure?" }) do
+                  = inline_icon("trash", size: :md)
+          td= render Renalware::HD::VNDOverallRiskLozengeComponent.new(assessment: assessment)
+          td= l(assessment.created_at.to_date)
+          td= assessment.created_by
+        tr
+          td(colspan=(controls ? 5 : 4))
+            dl.my-1.grid(style="grid-template-columns: 30% 38% auto;")
+              - %i(risk1 risk2 risk3 risk4).each do |risk|
+                dt.m-1.text-gray-700(style="grid-column: 1;")= assessment.class.human_attribute_name(risk)
+                dd.m-1(style="grid-column: 2;")
+                  .flex= render Renalware::HD::VNDRiskLozengeComponent.new(risk: assessment[risk])
+
+

@@ -1,0 +1,9 @@
+---
+en:
+  renalware:
+    hd:
+      vnd_risk_assessments_component:
+        created_at: Date
+        created_by: Assessor
+        overall_risk_score: Overall risk
+        title: VND Risk Assessments
