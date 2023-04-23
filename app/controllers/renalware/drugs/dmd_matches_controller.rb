@@ -57,11 +57,22 @@ module Renalware
             end
           end
 
-          DMDMatch.where(drug_name: approved_vtms.map { _1["drug_name"] })
-            .update_all(approved_vtm_match: true)
+          approved_vtms.each do |approved_vtm|
+            DMDMatch.where(drug_name: approved_vtm["drug_name"])
+              .update_all(
+                approved_vtm_match: true,
+                vtm_name: approved_vtm["vtm_name"]
+              )
+          end
 
-          DMDMatch.where(drug_name: approved_trade_families.map { _1["drug_name"] })
-            .update_all(approved_trade_family_match: true)
+          approved_trade_families.each do |approved_trade_family|
+            DMDMatch.where(drug_name: approved_trade_family["drug_name"])
+              .update_all(
+                approved_trade_family_match: true,
+                trade_family_name: approved_trade_family["trade_family_name"]
+              )
+          end
+
 
           # Now migrate the data
           DMDMigration::TradeFamilyMigrator.new.call
