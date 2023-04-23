@@ -6563,7 +6563,8 @@ CREATE TABLE renalware.medication_prescriptions (
     trade_family_id bigint,
     form_id bigint,
     legacy_drug_id integer,
-    legacy_medication_route_id integer
+    legacy_medication_route_id integer,
+    frequency_comment character varying
 );
 
 
@@ -26156,6 +26157,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230329130612'),
 ('20230329165043'),
 ('20230403210211'),
-('20230406131911');
+('20230406131911'),
+('20230427073423');
 
 

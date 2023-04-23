@@ -101,6 +101,8 @@ ruby:
             input_html: { value: (f.object.frequency if !frequency_is_predefined), autofocus: true },
             label: t("activerecord.attributes.renalware/medications/prescription.frequency_freeform")
 
+      = f.input :frequency_comment, wrapper: :horizontal_medium
+
       = f.input :administer_on_hd, wrapper: :horizontal_small
       = f.input :notes, wrapper: :horizontal_medium
       = f.input :prescribed_on, as: :flatpickr, wrapper: :horizontal_datepicker
