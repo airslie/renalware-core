@@ -73,6 +73,8 @@ module Renalware
               )
           end
 
+          # Identify VTMs by Trade Family match
+          DMDMigration::IdentifyVtmByTradeFamily.new.call
 
           # Now migrate the data
           DMDMigration::TradeFamilyMigrator.new.call
