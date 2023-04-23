@@ -35,6 +35,12 @@ module Renalware::Drugs
 
         described_class.new.call
         expect(prescription.reload.drug_id).to eq legacy_drug.id
+
+        # Won't update if drug name is not found
+        match.update(approved_vtm_match: true, vtm_name: "Non-matching DMD Drug name")
+
+        described_class.new.call
+        expect(prescription.reload.drug_id).to eq legacy_drug.id
       end
     end
   end
