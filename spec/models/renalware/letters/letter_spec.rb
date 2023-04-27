@@ -15,7 +15,9 @@ module Renalware
         is_expected.to respond_to(:pathology_timestamp)
         is_expected.to respond_to(:pathology_snapshot)
         is_expected.to have_many(:qr_encoded_online_reference_links)
-        is_expected.to have_many(:online_reference_links).through(:qr_encoded_online_reference_links)
+        is_expected
+          .to have_many(:online_reference_links)
+          .through(:qr_encoded_online_reference_links)
       end
 
       describe "validate_presence_of(topic)" do
