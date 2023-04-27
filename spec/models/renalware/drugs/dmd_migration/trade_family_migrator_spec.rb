@@ -30,6 +30,15 @@ module Renalware::Drugs
 
         described_class.new.call
         expect(prescription.reload.trade_family_id).to be_nil
+
+        # Won't update if trade family name is not found
+        match.update(
+          approved_trade_family_match: true,
+          trade_family_name: "Non-matching Trade Family"
+        )
+
+        described_class.new.call
+        expect(prescription.reload.trade_family_id).to be_nil
       end
     end
   end
