@@ -86,7 +86,7 @@ describe "Prescriptions - from an exit site infection", js: true do
       click_link "Edit"
     end
 
-    fill_in "Frequency", with: "New frequency"
+    fill_in "Frequency", with: "New frequency", match: :prefer_exact
     click_button "Save"
 
     expect(page).to have_content "PD Summary / Exit Site Infection"

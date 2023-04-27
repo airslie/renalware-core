@@ -43,7 +43,10 @@
               td= prescription.drug_type_names
               td= prescription.form_name
               td= prescription.dose
-              td= prescription.frequency
+              td
+                = prescription.frequency
+                - if prescription.frequency_comment.present?
+                  .mt-1.text-xs = prescription.frequency_comment
               td= prescription.route_code
               - if current_scope
                 td= prescription.administer_on_hd?

@@ -60,6 +60,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
     # Now complete all required fields
     fill_in "Dose amount", with: 1
     choose "GP"
+    fill_in "Frequency comment", with: "not on Monday"
     click_button "Create"
 
     #
@@ -68,6 +69,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
       expect(page).to have_content("Blue Pill")
       expect(page).to have_content("1 Ampoule")
       expect(page).to have_content("Often")
+      expect(page).to have_content("not on Monday")
       expect(page).to have_content("Oral")
       expect(page).to have_content("GP")
       expect(page).to have_content(l(Date.current))
@@ -77,6 +79,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
       expect(page).to have_content("Blue Pill")
       expect(page).to have_content("1 Ampoule")
       expect(page).to have_content("Often")
+      expect(page).to have_content("not on Monday")
       expect(page).to have_content("Oral")
       expect(page).to have_content("GP")
       expect(page).to have_content(l(Date.current))
@@ -276,7 +279,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
 
       # Choose "Other" as Frequency instead
       select "Other", from: "Frequency"
-      fill_in "Frequency", with: "More Often"
+      fill_in "Frequency", with: "More Often", match: :prefer_exact
 
       fill_in "Dose amount", with: 1
       choose "GP"
