@@ -180,64 +180,8 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers :horizontal_radio_and_checkboxes, tag: "div", class: "row" do |b|
-    b.use :html5
-    b.optional :readonly
-
-    b.wrapper :container_wrapper, tag: "div", class: "small-offset-3 small-9 columns" do |ba|
-      ba.wrapper tag: "label", class: "checkbox" do |bb|
-        bb.use :input
-        bb.use :label_text
-      end
-
-      ba.use :error, wrap_with: { tag: :small, class: :error }
-      # ba.use :hint,  wrap_with: { tag: :span, class: :hint }
-    end
-  end
-
-  # Foundation does not provide a way to handle inline forms
-  # This wrapper can be used to create an inline form
-  # by hiding that labels on every screen sizes ('hidden-for-small-up').
-  #
-  # Note that you need to adapt this wrapper to your needs. If you need a 4
-  # columns form then change the wrapper class to 'small-3', if you need
-  # only two use 'small-6' and so on.
-  config.wrappers :inline_form,
-                  tag: "div",
-                  class: "column small-4",
-                  hint_class: :field_with_hint,
-                  error_class: :error do |b|
-    b.use :html5
-    b.use :placeholder
-    b.optional :maxlength
-    b.optional :pattern
-    b.optional :min_max
-    b.optional :readonly
-
-    b.use :label, class: "hidden-for-small-up"
-    b.use :input
-
-    b.use :error, wrap_with: { tag: :small, class: :error }
-    # b.use :hint,  wrap_with: { tag: :span, class: :hint }
-  end
-
-  # Examples of use:
-  # - wrapper_html: {class: "row"}, custom_wrapper_html: {class: "column small-12"}
-  # - custom_wrapper_html: {class: "column small-3 end"}
-  config.wrappers :customizable_wrapper, tag: "div", error_class: :error do |b|
-    b.use :html5
-    b.optional :readonly
-
-    b.wrapper :custom_wrapper, tag: :div do |ba|
-      ba.use :label_input
-    end
-
-    b.use :error, wrap_with: { tag: :small, class: :error }
-    # b.use :hint,  wrap_with: { tag: :span, class: :hint }
-  end
-
   # CSS class for buttons
-  config.button_class = "button"
+  config.button_class = "btn btn-primary"
 
   # Set this to div to make the checkbox and radio properly work
   # otherwise simple_form adds a label tag instead of a div arround
@@ -249,25 +193,4 @@ SimpleForm.setup do |config|
 
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :vertical_form
-
-  config.wrappers(:two_columns_table_row,
-                  tag: "tr",
-                  hint_class: :field_with_hint, error_class: :error) do |b|
-    b.use :html5
-    b.use :placeholder
-    b.optional :maxlength
-    b.optional :pattern
-    b.optional :min_max
-    b.optional :readonly
-
-    b.wrapper :label_wrapper, tag: :td do |ba|
-      ba.use :label
-    end
-
-    b.wrapper :right_input_wrapper, tag: :td do |ba|
-      ba.use :input
-      ba.use :error, wrap_with: { tag: :small, class: :error }
-      ba.use :hint,  wrap_with: { tag: :span, class: :hint }
-    end
-  end
 end
