@@ -6,6 +6,8 @@ module Renalware
   # e.g. on login page
   #
   class FlashMessagesComponent < ApplicationComponent
+    include IconHelper
+
     rattr_initialize [:flash_messages, toast: true]
     STYLES = { notice: "success", error: "alert", warning: "warning" }.freeze
     alias :toast? :toast
