@@ -6,6 +6,7 @@ module Renalware
     class RTFRenderer
       pattr_initialize :letter
       REGEX_TO_STRIP_IMAGES = %r{(?m)<img\s*.*?"\s*\/>}
+      REGEX_TO_STRIP_SVG = %r{(?m)<svg\s*.*?"\s*\/>}
 
       def render
         using_temp_html_file do |temp_file|
@@ -42,7 +43,10 @@ module Renalware
       end
 
       def html_with_images_stripped
-        letter.to_html.gsub(REGEX_TO_STRIP_IMAGES, "")
+        letter
+          .to_html
+          .gsub(REGEX_TO_STRIP_IMAGES, "")
+          .gsub(REGEX_TO_STRIP_SVG, "")
       end
     end
   end

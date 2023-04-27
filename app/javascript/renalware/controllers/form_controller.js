@@ -15,7 +15,7 @@ import debounce from "debounce"
         action: "input->form#submit"
       }
 
-    - turbo_frame is id the trubo_frame_tag name to replace eg a paginated table
+    - turbo_frame is id the turbo_frame_tag name to replace eg a paginated table
     - turbo_advance: true will add to history as they search
     - action: "input->form#submit" will need to change depending on input type eg
       select, radio, but will cause the form to submit

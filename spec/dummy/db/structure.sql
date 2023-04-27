@@ -6223,6 +6223,36 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
+-- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.letter_qr_encoded_online_reference_links (
+    id bigint NOT NULL,
+    letter_id bigint NOT NULL,
+    online_reference_link_id bigint NOT NULL
+);
+
+
+--
+-- Name: letter_qr_encoded_online_reference_links_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.letter_qr_encoded_online_reference_links_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_qr_encoded_online_reference_links_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.letter_qr_encoded_online_reference_links_id_seq OWNED BY renalware.letter_qr_encoded_online_reference_links.id;
+
+
+--
 -- Name: letter_recipients; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -11517,6 +11547,64 @@ ALTER SEQUENCE renalware.system_nag_definitions_id_seq OWNED BY renalware.system
 
 
 --
+-- Name: system_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.system_online_reference_links (
+    id bigint NOT NULL,
+    title character varying NOT NULL,
+    url character varying NOT NULL,
+    description text,
+    usage_count integer DEFAULT 0,
+    last_used_at timestamp without time zone,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN system_online_reference_links.title; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_online_reference_links.title IS 'The name of this resource, for display in the UI only';
+
+
+--
+-- Name: COLUMN system_online_reference_links.url; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_online_reference_links.url IS 'A URL linking to a helpful online reference for patients. May be rendered as a QR code.';
+
+
+--
+-- Name: COLUMN system_online_reference_links.description; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_online_reference_links.description IS 'Text displayed alongside the link or QR code';
+
+
+--
+-- Name: system_online_reference_links_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.system_online_reference_links_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_online_reference_links_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.system_online_reference_links_id_seq OWNED BY renalware.system_online_reference_links.id;
+
+
+--
 -- Name: system_sql_functions; Type: VIEW; Schema: renalware; Owner: -
 --
 
@@ -13584,6 +13672,13 @@ ALTER TABLE ONLY renalware.letter_mailshot_mailshots ALTER COLUMN id SET DEFAULT
 
 
 --
+-- Name: letter_qr_encoded_online_reference_links id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_qr_encoded_online_reference_links ALTER COLUMN id SET DEFAULT nextval('renalware.letter_qr_encoded_online_reference_links_id_seq'::regclass);
+
+
+--
 -- Name: letter_recipients id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -14351,6 +14446,13 @@ ALTER TABLE ONLY renalware.system_messages ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY renalware.system_nag_definitions ALTER COLUMN id SET DEFAULT nextval('renalware.system_nag_definitions_id_seq'::regclass);
+
+
+--
+-- Name: system_online_reference_links id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_online_reference_links ALTER COLUMN id SET DEFAULT nextval('renalware.system_online_reference_links_id_seq'::regclass);
 
 
 --
@@ -15447,6 +15549,14 @@ ALTER TABLE ONLY renalware.letter_mailshot_mailshots
 
 
 --
+-- Name: letter_qr_encoded_online_reference_links letter_qr_encoded_online_reference_links_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_qr_encoded_online_reference_links
+    ADD CONSTRAINT letter_qr_encoded_online_reference_links_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: letter_recipients letter_recipients_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16324,6 +16434,14 @@ ALTER TABLE ONLY renalware.system_messages
 
 ALTER TABLE ONLY renalware.system_nag_definitions
     ADD CONSTRAINT system_nag_definitions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_online_reference_links system_online_reference_links_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_online_reference_links
+    ADD CONSTRAINT system_online_reference_links_pkey PRIMARY KEY (id);
 
 
 --
@@ -21318,6 +21436,34 @@ CREATE INDEX index_system_nag_definitions_on_scope_and_importance ON renalware.s
 
 
 --
+-- Name: index_system_online_reference_links_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_online_reference_links_on_created_by_id ON renalware.system_online_reference_links USING btree (created_by_id);
+
+
+--
+-- Name: index_system_online_reference_links_on_title; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_system_online_reference_links_on_title ON renalware.system_online_reference_links USING btree (title);
+
+
+--
+-- Name: index_system_online_reference_links_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_online_reference_links_on_updated_by_id ON renalware.system_online_reference_links USING btree (updated_by_id);
+
+
+--
+-- Name: index_system_online_reference_links_on_url; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_system_online_reference_links_on_url ON renalware.system_online_reference_links USING btree (url);
+
+
+--
 -- Name: index_system_templates_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -21966,6 +22112,20 @@ CREATE INDEX index_virology_versions_on_item_type_and_item_id ON renalware.virol
 --
 
 CREATE INDEX letter_effective_date_idx ON renalware.letter_letters USING btree (COALESCE(completed_at, approved_at, submitted_for_approval_at, created_at));
+
+
+--
+-- Name: letter_online_references_uniq_idx; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX letter_online_references_uniq_idx ON renalware.letter_qr_encoded_online_reference_links USING btree (letter_id, online_reference_link_id);
+
+
+--
+-- Name: INDEX letter_online_references_uniq_idx; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON INDEX renalware.letter_online_references_uniq_idx IS 'A letter cannot have duplicate online references';
 
 
 --
@@ -23579,6 +23739,14 @@ ALTER TABLE ONLY renalware.letter_mailshot_items
 
 
 --
+-- Name: letter_qr_encoded_online_reference_links fk_rails_7825abc09a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_qr_encoded_online_reference_links
+    ADD CONSTRAINT fk_rails_7825abc09a FOREIGN KEY (online_reference_link_id) REFERENCES renalware.system_online_reference_links(id);
+
+
+--
 -- Name: transplant_recipient_followups fk_rails_78dc63040c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -24179,6 +24347,14 @@ ALTER TABLE ONLY renalware.drug_vmp_classifications
 
 
 --
+-- Name: letter_qr_encoded_online_reference_links fk_rails_aa725c813c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_qr_encoded_online_reference_links
+    ADD CONSTRAINT fk_rails_aa725c813c FOREIGN KEY (letter_id) REFERENCES renalware.letter_letters(id);
+
+
+--
 -- Name: hd_diaries fk_rails_aab1b8f3e1; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -24200,6 +24376,14 @@ ALTER TABLE ONLY renalware.hd_preference_sets
 
 ALTER TABLE ONLY renalware.access_profiles
     ADD CONSTRAINT fk_rails_acbcae03df FOREIGN KEY (type_id) REFERENCES renalware.access_types(id);
+
+
+--
+-- Name: system_online_reference_links fk_rails_ace781d947; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_online_reference_links
+    ADD CONSTRAINT fk_rails_ace781d947 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -24792,6 +24976,14 @@ ALTER TABLE ONLY renalware.admission_requests
 
 ALTER TABLE ONLY renalware.hd_stations
     ADD CONSTRAINT fk_rails_e1203401d3 FOREIGN KEY (hospital_unit_id) REFERENCES renalware.hospital_units(id);
+
+
+--
+-- Name: system_online_reference_links fk_rails_e129006acb; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_online_reference_links
+    ADD CONSTRAINT fk_rails_e129006acb FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -26138,6 +26330,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221208202357'),
 ('20221209222847'),
 ('20221209223110'),
+('20221210222443'),
+('20221211013808'),
 ('20221220193005'),
 ('20221220201434'),
 ('20221221163602'),

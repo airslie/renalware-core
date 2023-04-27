@@ -1,0 +1,13 @@
+/ Representaion in a letter
+
+ruby:
+  online_reference_link = qr_encoded_online_reference_link.online_reference_link
+  url = online_reference_link.url
+  svg = Renalware::Letters::GenerateQRCodeFromUrl.new(url).call
+
+div.qr-code
+  div.qr-code_image= svg&.html_safe
+  div.qr-code_text
+    div.qr-code_text_title= online_reference_link.title
+    div.qr-code_text_description= online_reference_link.description
+    div.qr-code_text_url= url

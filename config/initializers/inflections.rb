@@ -69,5 +69,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "NHS"
   inflect.acronym "DMD"
   inflect.acronym "VMP"
+  inflect.acronym "QR"
   inflect.uncountable %w(cache)
 end

@@ -71,6 +71,15 @@ ruby:
               wrapper: :zilch,
               data: { "letters-form-target": "trix" }
 
+  - if Renalware.config.allow_qr_codes_in_letters
+    article
+      header
+        h2 Online References / QR Codes
+
+      = f.association :online_reference_links,
+                      label: false,
+                      wrapper: :zilch,
+                      input_html: { data: { controller: "slimselect" }}
   article
     header
       h2 Admin
