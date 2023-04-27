@@ -9,7 +9,7 @@ module Renalware
       # The dependent option is not really compatible with acts_as_paranoid
       has_many :clinic_visits
       has_many :appointments
-            belongs_to :default_modality_description, class_name: "Modalities::Description"
+      belongs_to :default_modality_description, class_name: "Modalities::Description"
 
       validates :name, presence: true, uniqueness: true
       validates :code, uniqueness: true, allow_nil: true

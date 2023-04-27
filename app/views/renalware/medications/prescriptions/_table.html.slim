@@ -25,10 +25,10 @@
             th.col-width-small Notes
             th.col-width-date.wide
               = sort_link_if(treatable.sortable?, search, :prescribed_on, "Prescribed on")
+            th.col-width-date.wide= current_scope ? "Stop on" : "Stopped on"
             th Recorded By
             - if display_termination_date
-              th.col-width-date Terminated On
-              th Terminated By
+              th Stopped By
 
         - prescriptions.each do |prescription|
           tbody
@@ -52,9 +52,9 @@
                 - if prescription.notes.present?
                   i.fas.fa-comment.text-yellow-500.hover:text-yellow-600(title="Toggle to see notes")
               td= I18n.l prescription.prescribed_on
+              td= I18n.l prescription.terminated_on
               td= prescription.created_by.full_name
               - if display_termination_date
-                td= I18n.l prescription.terminated_on
                 td= prescription.terminated_by&.full_name
             tr
               td(colspan=13)
