@@ -3466,8 +3466,16 @@ CREATE TABLE renalware.drug_frequencies (
     name character varying NOT NULL,
     title character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    doses_per_week numeric(5,2)
 );
+
+
+--
+-- Name: COLUMN drug_frequencies.doses_per_week; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_frequencies.doses_per_week IS 'Examples: daily = 7, weekly = 1, twice daily = 14, monthly = 0.25';
 
 
 --
@@ -26359,6 +26367,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230329165043'),
 ('20230403210211'),
 ('20230406131911'),
+('20230416122815'),
 ('20230427073423');
 
 
