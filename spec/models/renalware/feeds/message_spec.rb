@@ -10,6 +10,7 @@ module Renalware
       is_expected.to validate_presence_of(:body)
       is_expected.to respond_to(:body_hash)
       is_expected.to have_db_index(:body_hash).unique(true)
+      is_expected.to have_db_index([:message_type, :event_type])
     end
   end
 end
