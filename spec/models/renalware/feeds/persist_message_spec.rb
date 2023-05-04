@@ -11,6 +11,8 @@ module Renalware::Feeds
         instance_double(
           HL7Message,
           type: "::message type code::",
+          message_type: "ADT",
+          event_type: "A31",
           header_id: "::header id::",
           to_hl7: "::message body::",
           patient_identification: double(

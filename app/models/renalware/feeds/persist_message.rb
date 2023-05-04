@@ -11,6 +11,8 @@ module Renalware
 
         Message.create!(
           event_code: hl7_message.type,
+          message_type: hl7_message.message_type,
+          event_type: hl7_message.event_type,
           header_id: hl7_message.header_id,
           body: hl7_message.to_s,
           body_hash: body_hash,
