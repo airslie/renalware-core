@@ -3467,7 +3467,8 @@ CREATE TABLE renalware.drug_frequencies (
     title character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    doses_per_week numeric(5,2)
+    doses_per_week numeric(5,2),
+    "position" integer DEFAULT 1 NOT NULL
 );
 
 
@@ -17678,6 +17679,13 @@ CREATE UNIQUE INDEX index_drug_forms_on_code ON renalware.drug_forms USING btree
 
 
 --
+-- Name: index_drug_frequencies_on_position; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_drug_frequencies_on_position ON renalware.drug_frequencies USING btree ("position");
+
+
+--
 -- Name: index_drug_homecare_forms_on_drug_type_id_and_supplier_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -26368,6 +26376,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230403210211'),
 ('20230406131911'),
 ('20230416122815'),
-('20230427073423');
+('20230427073423'),
+('20230503185921');
 
 

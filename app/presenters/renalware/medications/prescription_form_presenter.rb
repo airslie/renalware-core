@@ -89,7 +89,7 @@ module Renalware
       end
 
       def frequencies
-        Drugs::Frequency.all.to_a + [OTHER_FREQUENCY]
+        Drugs::Frequency.ordered.to_a + [OTHER_FREQUENCY]
       end
 
       private
