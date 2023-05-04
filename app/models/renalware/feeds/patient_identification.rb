@@ -94,19 +94,19 @@ module Renalware
       end
 
       def family_name
-        patient_name[0]
+        patient_name[0]&.strip
       end
 
       def given_name
-        patient_name[1]
+        patient_name[1]&.strip
       end
 
       def suffix
-        patient_name[3]
+        patient_name[3]&.strip
       end
 
       def title
-        patient_name[4]
+        patient_name[4]&.strip
       end
 
       def address
