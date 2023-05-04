@@ -7,6 +7,7 @@ module Renalware::Drugs
     it :aggregate_failures do
       is_expected.to validate_presence_of(:name)
       is_expected.to validate_presence_of(:title)
+      is_expected.to have_db_index(:position)
     end
 
     describe ".title_for_name" do

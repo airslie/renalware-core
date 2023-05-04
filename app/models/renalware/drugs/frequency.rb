@@ -9,6 +9,8 @@ module Renalware
       validates :name, presence: true
       validates :title, presence: true
 
+      scope :ordered, -> { order(position: :asc, name: :asc) }
+
       def self.title_for_name(name)
         # Load all records to avoid N+1 queries, and use Rails cache on selects
         all.find { |frequency| frequency.name == name }&.title || name
