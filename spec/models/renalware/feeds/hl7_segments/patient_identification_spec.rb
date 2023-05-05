@@ -33,6 +33,38 @@ module Renalware::Feeds
       end
     end
 
+    describe "#title" do
+      subject { pi.title }
+
+      let(:raw_message) { "PID|||||RABBIT^JESSICA^^^  MS  |||||||||||||||||||||||||" }
+
+      it { is_expected.to eq("MS") }
+    end
+
+    describe "#family_name" do
+      subject { pi.family_name }
+
+      let(:raw_message) { "PID||||| RABBIT ^JESSICA^^^MS|||||||||||||||||||||||||" }
+
+      it { is_expected.to eq("RABBIT") }
+    end
+
+    describe "#given_name" do
+      subject { pi.given_name }
+
+      let(:raw_message) { "PID|||||RABBIT^  JESSICA  ^^^MS|||||||||||||||||||||||||" }
+
+      it { is_expected.to eq("JESSICA") }
+    end
+
+    describe "#suffix" do
+      subject { pi.suffix }
+
+      let(:raw_message) { "PID|||||RABBIT^JESSICA^^  MBE ^MS|||||||||||||||||||||||||" }
+
+      it { is_expected.to eq("MBE") }
+    end
+
     describe "#address" do
       subject { pi.address }
 
