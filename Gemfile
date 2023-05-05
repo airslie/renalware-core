@@ -9,6 +9,21 @@ gemspec
 
 gem "activesupport_cache_database", github: "airslie/activesupport-cache-database"
 
+# https://opentelemetry.io/docs/instrumentation/ruby/getting-started/
+# See spec/dummy/config/initializers/opentelemetry.rb where we load this group if
+# opentelemetry is enabled with an ENV var.
+group :opentelemetry do
+  gem "opentelemetry-exporter-otlp"
+  gem "opentelemetry-instrumentation-delayed_job"
+  gem "opentelemetry-instrumentation-faraday"
+  gem "opentelemetry-instrumentation-net_http"
+  gem "opentelemetry-instrumentation-pg"
+  gem "opentelemetry-instrumentation-rack"
+  gem "opentelemetry-instrumentation-rails"
+  gem "opentelemetry-instrumentation-redis"
+  gem "opentelemetry-sdk"
+end
+
 # These are visible to dummy app only
 gem "autoprefixer-rails"
 gem "aws-sdk-s3", require: false # for active storage when using Heroku for test environments
