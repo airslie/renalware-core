@@ -1,0 +1,6 @@
+= within_patient_layout(title: "Edit",
+                        breadcrumbs: [hd_summary_breadcrumb(assessment.patient)]) do
+
+  = render "form",
+           assessment: assessment,
+           url: renalware.patient_hd_vnd_risk_assessment_path(assessment.patient, assessment)

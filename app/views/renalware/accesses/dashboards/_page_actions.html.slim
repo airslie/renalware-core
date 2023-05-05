@@ -9,3 +9,6 @@ ul.f-dropdown#access-options(data-dropdown-content aria-hidden="true")
   li= link_to(t(".access_procedure"), new_patient_accesses_procedure_path(patient))
   li= link_to(t(".access_assessment"), new_patient_accesses_assessment_path(patient))
   li= link_to(t(".needling_assessment"), new_patient_accesses_needling_assessment_path(patient))
+  = dropdown_btn_item enabled: policy(Renalware::HD::VNDRiskAssessment).new?,
+                      title: t(".add_vnd_assessment"),
+                      url: new_patient_hd_vnd_risk_assessment_path(@patient)

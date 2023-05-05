@@ -1,0 +1,51 @@
+= simple_form_for assessment,
+    url: url,
+    html: { autocomplete: "off" },
+    as: :assessment_params do |f|
+
+  = hidden_field_tag :previous_request, request.referer
+
+  = render "renalware/shared/errors", model: assessment
+  - questions = t(".questions")
+
+
+  div.mt-4
+    - questions.each do |input_name, question|
+      .mb-6.rounded.border.p-3
+        div(data-controller="simple-toggle")
+          .font-bold.text-lg.my-0
+            .flex.items-center
+              = "#{question[:title]}"
+              = link_to("#", data: { action: "click->simple-toggle#toggle" }, class: "ml-3") do
+                = inline_icon(:question_mark, size: :lg)
+          .ml-4
+            - if question[:note].present?
+              .px-1= question[:note]
+
+            .px-1.py-1.mt-1.hidden(data-simple-toggle-target="toggleable")
+              = question[:narrative]
+
+            - options = question[:options]
+            .mt-4.pb-1
+              / Using collection_radio_buttons here as it provides control over rendering via a block
+              / and also gives us the hidden input to to handle the case where no radios
+              / are checked
+              = f.collection_radio_buttons(input_name, options, :to_s, :to_s) do |b|
+                / Given an option named eg 0_low we extract priority=0 level=low
+                - level = b.object[2..-1]
+                - points = b.object[0]
+
+                .flex.items-center.my-2
+                  = b.radio_button
+                  = b.label(style: "width: 150px") do
+                    = render Renalware::HD::VNDRiskLozengeComponent.new(risk: b.object)
+
+  = save_or_cancel(form: f, back_path: patient_hd_dashboard_path(assessment.patient))
+
+  .px-3.py-2.border.rounded-md.w-1/2.bg-blue-50
+    div.ml-2
+      .font-bold.mb-2 Key
+      - t(".key").each do |level, help|
+        .flex.my-1
+          .mr-2= render Renalware::HD::VNDRiskLozengeComponent.new(risk: level)
+          = help

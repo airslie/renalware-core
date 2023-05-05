@@ -1,5 +1,6 @@
 dl
   = render "latest_access_needling_assessment", patient: profile.patient, formats: :html
+  = render "latest_vnd_risk_assessment", patient: profile.patient, formats: :html
 
   dt.new_line= t(".site")
   dd= profile.hospital_unit_unit_code

@@ -41,6 +41,10 @@ ul.f-dropdown#pd-options(data-dropdown-content aria-hidden="true")
                       title: t(".add_dry_weight"),
                       url: new_patient_clinical_dry_weight_path(@patient)
 
+  = dropdown_btn_item enabled: policy(Renalware::HD::VNDRiskAssessment).new?,
+                      title: t(".add_vnd_assessment"),
+                      url: new_patient_hd_vnd_risk_assessment_path(@patient)
+
 - unless dashboard.has_ever_been_on_hd?
   = render "modality_missing_warning", message: t(".missing_modality_warning")
 

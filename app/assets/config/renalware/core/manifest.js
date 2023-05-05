@@ -4,3 +4,4 @@
 //= link renalware/modernizr
 //= link renalware/iframeResizer.contentWindow.js
 //= link renalware/print-button-example.png
+//= link renalware/VND-Risk-Assessment.pdf

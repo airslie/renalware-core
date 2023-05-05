@@ -70,5 +70,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "DMD"
   inflect.acronym "VMP"
   inflect.acronym "QR"
+  inflect.acronym "VND"
   inflect.uncountable %w(cache)
 end

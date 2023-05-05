@@ -1,5 +1,5 @@
 - assessment = Renalware::Accesses::cast_patient(patient).needling_assessments.latest
 
 dt.new_line
-  | **Ease of Needling**:
+  | Ease of Needling:
 dd.font-bold= assessment&.difficulty_description&.upcase || "Unknown"

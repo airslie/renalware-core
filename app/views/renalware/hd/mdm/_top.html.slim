@@ -17,6 +17,9 @@
            positive_results_only: true
 
 .columns.medium-6
+  = render Renalware::HD::VNDRiskAssessmentsComponent.new(patient: mdm.patient, current_user: current_user)
+
+.columns.medium-6
   = render "summary", mdm: mdm
 = render "worryboard", mdm: mdm
 
