@@ -87,8 +87,7 @@ module Renalware
       def reports_search
         @reports_search ||= System::ViewMetadata
           .where(category: :report)
-          .order(:title)
-          .ransack(params.fetch(:q, {}))
+          .ransack(params.fetch(:q, { s: "title asc" }))
       end
 
       def find_and_authorize_report
