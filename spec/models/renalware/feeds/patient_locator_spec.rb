@@ -30,6 +30,19 @@ module Renalware
             .to eq(Renalware::Feeds::PatientLocatorStrategies::Simple)
         end
       end
+
+      context "when strategy is configured as :nhs_or_any_assigning_auth_number" do
+        before do
+          Renalware.configure do |config|
+            config.hl7_patient_locator_strategy = :nhs_or_any_assigning_auth_number
+          end
+        end
+
+        it "returns the correct strategy class" do
+          expect(described_class.strategy)
+            .to eq(Renalware::Feeds::PatientLocatorStrategies::NHSOrAnyAssigningAuthNumber)
+        end
+      end
     end
   end
 end

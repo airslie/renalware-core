@@ -94,7 +94,7 @@ module Renalware::Patients::Ingestion
         end
       end
 
-      context "when updating a patient and the strategy=dob_and_any_nhs_or_assigning_auth_number" do
+      context "when updating a patient and the strategy=nhs_or_any_assigning_auth_number" do
         it "updates the correct patient number columns" do
           Renalware.configure do |config|
             config.patient_hospital_identifiers = {
@@ -104,7 +104,7 @@ module Renalware::Patients::Ingestion
               HOSP_C: :local_patient_id_3,
               HOSP_D: :local_patient_id_4
             }
-            config.hl7_patient_locator_strategy = :dob_and_any_nhs_or_assigning_auth_number
+            config.hl7_patient_locator_strategy = :nhs_or_any_assigning_auth_number
           end
 
           # The patient is known on the system only as local_patient_id_2 (HOSP_B) => "HB123"
@@ -112,7 +112,6 @@ module Renalware::Patients::Ingestion
           patient = create(
             :patient,
             local_patient_id_2: "HB123",
-            born_on: "2000-01-01",
             nhs_number: nil,
             by: system_user
           )

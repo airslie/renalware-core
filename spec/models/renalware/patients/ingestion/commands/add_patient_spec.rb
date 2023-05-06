@@ -19,7 +19,7 @@ module Renalware::Patients::Ingestion
           HOSP_C: :local_patient_id_3,
           HOSP_D: :local_patient_id_4
         }
-        config.hl7_patient_locator_strategy = :dob_and_any_nhs_or_assigning_auth_number
+        config.hl7_patient_locator_strategy = :nhs_or_any_assigning_auth_number
       end
       system_user
     end
