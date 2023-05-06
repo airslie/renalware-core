@@ -62,16 +62,18 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
       end
 
       def wire_up_listeners
-        Renalware.configure do |config|
-          config.broadcast_subscription_map = {
-            "Renalware::Feeds::MessageProcessor" => [
-              "Renalware::Patients::Ingestion::MessageListener"
-            ],
-            "Renalware::Modalities::ChangePatientModality" => [
-              "Renalware::Medications::PatientListener"
-            ]
-          }
-        end
+        allow(Renalware.config)
+          .to receive(:broadcast_subscription_map)
+          .and_return(
+            {
+              "Renalware::Feeds::MessageProcessor" => [
+                "Renalware::Patients::Ingestion::MessageListener"
+              ],
+              "Renalware::Modalities::ChangePatientModality" => [
+                "Renalware::Medications::PatientListener"
+              ]
+            }
+          )
       end
 
       it "sets the patient's modality to death (if needed)" do

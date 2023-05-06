@@ -8,13 +8,11 @@ module Renalware
       include LettersSpecHelper
 
       before do
-        Renalware.configure do |config|
-          config.patient_hospital_identifiers = {
-            HOSP1: :local_patient_id,
-            HOSP2: :local_patient_id_2,
-            HOSP3: :local_patient_id_3
-          }
-        end
+        allow(Renalware.config).to receive(:patient_hospital_identifiers).and_return(
+          HOSP1: :local_patient_id,
+          HOSP2: :local_patient_id_2,
+          HOSP3: :local_patient_id_3
+        )
         Hospitals::Centre.create!(code: "CODE1", abbrev: "HOSP1", name: "HOSP1")
         Hospitals::Centre.create!(code: "CODE2", abbrev: "HOSP2", name: "HOSP2")
         Hospitals::Centre.create!(code: "CODE3", abbrev: "HOSP3", name: "HOSP3")

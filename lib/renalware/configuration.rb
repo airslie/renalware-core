@@ -199,7 +199,7 @@ module Renalware
     config_accessor(:sentry_sample_rate) { 1.0 }
     config_accessor(:sentry_for_js_enabled) { false }
 
-    # :simple or :dob_and_any_nhs_or_assigning_auth_number
+    # :simple or :dob_and_any_nhs_or_assigning_auth_number or nhs_or_any_assigning_auth_number
     config_accessor(:hl7_patient_locator_strategy) { :simple }
     config_accessor(:demo_password) { "renalware" }
     config_accessor(:password_policy_description) { "Passwords must be at least 8 characters" }

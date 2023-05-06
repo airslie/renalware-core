@@ -41,6 +41,9 @@ module Renalware
         create(:pathology_lab, :uknown)
         create(:user, username: Renalware::SystemUser.username)
         create(:modality_description, :aki)
+        allow(Renalware.config)
+          .to receive(:hl7_patient_locator_strategy)
+          .and_return(:nhs_or_any_assigning_auth_number)
       end
 
       describe "#oru_message_arrived" do
