@@ -79,7 +79,6 @@ module Renalware
           expect(log.error).to eq([])
           expect(log.payload_hash).to eq(xml_md5_hash)
 
-          puts patient.nhs_number
           expect(log.file_path).to eq(
             File.join(dir, "RJZ_#{batch.number}_#{patient.nhs_number}.xml")
           )

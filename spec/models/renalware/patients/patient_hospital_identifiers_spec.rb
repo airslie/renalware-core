@@ -7,16 +7,14 @@ module Renalware::Patients
     # This represents the order of preference of local_patient_ids database columns and also
     # their 'display names' for use e.g. in the patient banner
     def configure_patient_hospital_identifiers
-      Renalware.configure do |config|
-        # Note mixing up the order here is intentional
-        config.patient_hospital_identifiers = {
-          KCH: :local_patient_id,
-          HOSP2: :local_patient_id_4,
-          HOSP3: :local_patient_id_2,
-          HOSP4: :local_patient_id_3,
-          HOSP5: :local_patient_id_5
-        }
-      end
+      # Note mixing up the order here is intentional
+      allow(Renalware.config).to receive(:patient_hospital_identifiers).and_return(
+        KCH: :local_patient_id,
+        HOSP2: :local_patient_id_4,
+        HOSP3: :local_patient_id_2,
+        HOSP4: :local_patient_id_3,
+        HOSP5: :local_patient_id_5
+      )
     end
 
     describe "#all" do
