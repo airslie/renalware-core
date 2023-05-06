@@ -18,13 +18,13 @@
     thead
       tr
         th.col-width-tiny
-        th Title
-        th Category
+        th= sort_link(search, :title)
+        th= sort_link(search, :sub_category, "Category")
         - if current_user_is_super_admin?
-          th View name
-          th Type
-        th.col-width-date-time Updated
-        th Last refreshed
+          th= sort_link(search, :view_name)
+          th= sort_link(search, :display_type, "Type")
+        th.col-width-date-time= sort_link(search, :updated_at, "Updated")
+        th.col-width-date-time= sort_link(search, :materialized_view_refreshed_at, " Last refreshed")
         th
     tbody
       - reports.each do |report|
