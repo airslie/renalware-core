@@ -4879,11 +4879,16 @@ CREATE TABLE renalware.feed_messages (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     body_hash text,
-    patient_identifier character varying,
+    nhs_number character varying,
     processed boolean DEFAULT false,
     patient_identifiers jsonb DEFAULT '{}'::jsonb NOT NULL,
     message_type renalware.hl7_message_type,
-    event_type renalware.hl7_event_type
+    event_type renalware.hl7_event_type,
+    local_patient_id character varying,
+    local_patient_id_2 character varying,
+    local_patient_id_3 character varying,
+    local_patient_id_4 character varying,
+    local_patient_id_5 character varying
 );
 
 
@@ -18653,6 +18658,41 @@ CREATE UNIQUE INDEX index_feed_messages_on_body_hash ON renalware.feed_messages 
 
 
 --
+-- Name: index_feed_messages_on_local_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_on_local_patient_id ON renalware.feed_messages USING btree (local_patient_id);
+
+
+--
+-- Name: index_feed_messages_on_local_patient_id_2; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_on_local_patient_id_2 ON renalware.feed_messages USING btree (local_patient_id_2);
+
+
+--
+-- Name: index_feed_messages_on_local_patient_id_3; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_on_local_patient_id_3 ON renalware.feed_messages USING btree (local_patient_id_3);
+
+
+--
+-- Name: index_feed_messages_on_local_patient_id_4; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_on_local_patient_id_4 ON renalware.feed_messages USING btree (local_patient_id_4);
+
+
+--
+-- Name: index_feed_messages_on_local_patient_id_5; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_on_local_patient_id_5 ON renalware.feed_messages USING btree (local_patient_id_5);
+
+
+--
 -- Name: index_feed_messages_on_message_type_event_type; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -18660,10 +18700,10 @@ CREATE INDEX index_feed_messages_on_message_type_event_type ON renalware.feed_me
 
 
 --
--- Name: index_feed_messages_on_patient_identifier; Type: INDEX; Schema: renalware; Owner: -
+-- Name: index_feed_messages_on_nhs_number; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_feed_messages_on_patient_identifier ON renalware.feed_messages USING btree (patient_identifier);
+CREATE INDEX index_feed_messages_on_nhs_number ON renalware.feed_messages USING btree (nhs_number);
 
 
 --
@@ -27071,6 +27111,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230427073423'),
 ('20230503143211'),
 ('20230503161542'),
-('20230503185921');
+('20230503185921'),
+('20230510144745');
 
 

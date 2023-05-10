@@ -3,7 +3,7 @@
 module Renalware
   log "Adding dummy feeds messages" do
     sql = <<-SQL.squish
-      INSERT INTO "renalware"."feed_messages" ("event_code", "header_id", "body", "created_at", "updated_at", "body_hash", "patient_identifier")
+      INSERT INTO "renalware"."feed_messages" ("event_code", "header_id", "body", "created_at", "updated_at", "body_hash", "nhs_number")
       VALUES ('ORU^R01', '1258271', 'MSH|^~\&|HM|LBE|SCM||20190327094925||ORU^R01|1258271|P|2.3.1|||AL||||
       PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
       PV1||Inpatient|NIBC^^^^^^^^|||||MID^KINGS MIDWIVES||||||||||NHS|HXF888888^^^Visit Number|||||||||
