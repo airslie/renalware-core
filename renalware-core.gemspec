@@ -54,7 +54,7 @@ Gem::Specification.new do |s|
   s.add_dependency "dumb_delegator", "~> 0.8.0"
   s.add_dependency "ed25519"
   s.add_dependency "email_validator", "> 1.6.0"
-  s.add_dependency "enumerize", "~> 2.5.0"
+  s.add_dependency "enumerize", "~> 2.5"
   s.add_dependency "faraday"
   s.add_dependency "faraday-retry"
   s.add_dependency "font-awesome-sass", "~> 5.6" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
@@ -63,7 +63,7 @@ Gem::Specification.new do |s|
   s.add_dependency "hashdiff", "~> 1.0"
   s.add_dependency "httparty", "~> 0.16"
   s.add_dependency "i18n" #, "~> 1.8.9"
-  s.add_dependency "inline_svg", "~> 1.8.0"
+  s.add_dependency "inline_svg", "~> 1.8"
   s.add_dependency "jbuilder", "~> 2.8"
   s.add_dependency "jquery-rails", "~> 4.4.0"
   s.add_dependency "jquery-ui-rails", "~> 6.0.1"
