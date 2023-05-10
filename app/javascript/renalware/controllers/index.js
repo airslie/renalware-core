@@ -33,6 +33,7 @@ import InputValueAlerterController from "./input_value_alerter_controller"
 import SelectUpdateFrameController from "./select_update_frame_controller"
 import AddTopHorizontalScrollbarController from "./add_top_horizontal_scrollbar_controller"
 import PreviewController from "./preview_controller"
+import ReadMoreController from "./read_more_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -82,3 +83,4 @@ application.register(
   AddTopHorizontalScrollbarController
 )
 application.register("preview", PreviewController)
+application.register("read-more", ReadMoreController)
