@@ -24,7 +24,7 @@ table
 
   tbody
     - event_types.each do |event_type|
-      tr
+      tr(id=dom_id(event_type))
         td.actions
           - if policy(event_type).edit?
             = link_to t("btn.edit"), edit_events_type_path(event_type.id)
