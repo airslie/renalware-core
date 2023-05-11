@@ -149,7 +149,7 @@ module Renalware
         # rubocop:disable Layout/LineLength
         def call
           output = []
-          output << "<dt>Mean URR</dt><dd>#{urr_value}</dd><dd>#{urr_date}</dd>" if urr_value
+          output << "<dt>URR</dt><dd>#{urr_value}</dd><dd>#{urr_date}</dd>" if urr_value
           output << "<dt>Transplant status</dt><dd>#{transplant_status&.description}</dd><dd>#{::I18n.l(transplant_status&.started_on)}</dd>" if transplant_status
           "<dl>#{output.join}</dl>".html_safe
         end
