@@ -16,7 +16,7 @@ module Renalware
           header_id: hl7_message.header_id,
           body: hl7_message.to_s,
           body_hash: body_hash,
-          patient_identifier: hl7_message.patient_identification&.nhs_number,
+          nhs_number: hl7_message.patient_identification&.nhs_number,
           patient_identifiers: hl7_message.patient_identification&.hospital_identifiers
         )
       rescue ActiveRecord::RecordNotUnique

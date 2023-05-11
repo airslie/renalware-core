@@ -125,7 +125,7 @@ describe "HL7 message handling end to end" do
       }.to change(Renalware::Feeds::Message, :count).by(1)
 
       msg = Renalware::Feeds::Message.last
-      expect(msg.patient_identifier).to be_nil
+      expect(msg.nhs_number).to be_nil
       expect(msg.header_id).to eq("1861609776")
     end
   end
