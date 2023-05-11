@@ -3768,7 +3768,7 @@ CREATE VIEW renalware.dietetic_mdm_patients AS
      LEFT JOIN renalware.patient_current_modalities mx ON ((mx.patient_id = p.id)))
      LEFT JOIN renalware.hospital_centres hospital_centre ON ((hospital_centre.id = p.hospital_centre_id)))
   WHERE ((mx.modality_name)::text <> 'death'::text)
-  ORDER BY latest_dietetic_clinic_visits.date;
+  ORDER BY latest_dietetic_clinic_visits.date DESC;
 
 
 --
@@ -27112,6 +27112,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230503143211'),
 ('20230503161542'),
 ('20230503185921'),
-('20230510144745');
+('20230510144745'),
+('20230511151434');
 
 
