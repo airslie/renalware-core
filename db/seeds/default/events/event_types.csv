@@ -10,3 +10,4 @@
 "General","Clinical Frailty Score","Renalware::Events::ClinicalFrailtyScore","clinical_frailty_score"
 "General","Medication Review","Renalware::Medications::Review","medication_reviews"
 "General","Iron Clinic",,"iron_clinic"
+"General","Transplant Review","Renalware::Transplants::Review","transplant_reviews"
