@@ -2,7 +2,7 @@
 - edit_proc = local_assigns[:edit_proc]
 - destroy_proc = local_assigns[:destroy_proc]
 
-tr
+tr(id="event_#{event.id}")
   td.noprint= toggler("##{row_id}")
   td.actions
     / If the event supports editing (most don't as they are immuatble once created, to ensure a

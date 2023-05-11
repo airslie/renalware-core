@@ -55,7 +55,7 @@ module Renalware
       end
 
       def fallback_event_type
-        Events::Type.new(edit_window_hours: 0)
+        Events::Type.new
       end
     end
   end

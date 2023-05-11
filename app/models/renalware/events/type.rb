@@ -10,12 +10,15 @@ module Renalware
         foreign_key: :event_type_id,
         dependent: :destroy
       )
+      # Disabling the missing :dependent check here as I am not sure which option to chose for
+      # a paranoid has_many (ie a soft-deleted Events::Type)
+      # rubocop:disable Rails/HasManyOrHasOneDependent
       has_many(
         :events,
         class_name: "Events::Event",
-        foreign_key: :event_type_id,
-        dependent: :restrict_with_exception
+        foreign_key: :event_type_id
       )
+      # rubocop:enable Rails/HasManyOrHasOneDependent
       has_many(
         :subtypes,
         class_name: "Events::Subtype",

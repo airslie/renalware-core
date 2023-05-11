@@ -20,7 +20,7 @@ module Renalware
       attr_accessor :disable_selection_of_event_type
 
       belongs_to :patient, touch: true
-      belongs_to :event_type, class_name: "Type", counter_cache: true
+      belongs_to :event_type, -> { with_deleted }, class_name: "Type", counter_cache: true
       belongs_to :subtype, class_name: "Events::Subtype"
 
       validates :patient, presence: true
