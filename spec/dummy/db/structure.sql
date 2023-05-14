@@ -18056,13 +18056,6 @@ CREATE INDEX index_clinic_clinics_on_deleted_at ON renalware.clinic_clinics USIN
 
 
 --
--- Name: index_clinic_clinics_on_name; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_clinic_clinics_on_name ON renalware.clinic_clinics USING btree (name);
-
-
---
 -- Name: index_clinic_clinics_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
