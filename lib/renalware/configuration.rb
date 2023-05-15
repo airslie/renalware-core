@@ -130,6 +130,19 @@ module Renalware
     config_accessor(:render_pdf_as_html_for_debugging) { false }
     config_accessor(:enable_new_mdms) { true }
 
+    # If true, we use a cron-scheduled good_job to poll the renalware.feed_raw_hl7_messages table
+    # for new incoming messages (most likely inserted by Mirth) and spin each off as a new
+    # active job. Because we currently load the good_job cron config in engine.rb,
+    # the host app cannot seem to override this config setting in eg a renalware_core.rb initializer
+    # and instead we use an ENV var here. This might be solvable by using an after
+    # hook during initialisation etc; it is likely I do not understand the nuances of intialisation
+    # order sufficiently, but I been unable so far to get GoodJob to honour cron config
+    # unless it is set in the early stagings of app initialisation.
+    # We default to false because this is an opt-in approach we want sites to migrate to.
+    config_accessor(:process_hl7_via_raw_messages_table) {
+      ENV.fetch("PROCESS_HL7_VIA_RAW_MESSAGES_TABLE", "false") == "true"
+    }
+
     config_accessor(:hd_session_prescriptions_require_signoff) { true }
     config_accessor(:batch_printing_enabled) { true }
     config_accessor(:allow_uploading_patient_attachments) { true }

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # Here is where we configure the settings for the Renalware::Core engine.
-
 Renalware.configure do |config|
   config.patient_hospital_identifiers = {
     KCH: :local_patient_id,
@@ -28,4 +27,5 @@ Renalware.configure do |config|
   config.max_batch_print_size = 50
   config.patient_visibility_restrictions = :by_site # or :by_site_and_research_study or :none
   config.allow_qr_codes_in_letters = true
+  config.process_hl7_via_raw_messages_table = true
 end
