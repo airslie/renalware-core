@@ -1,0 +1,23 @@
+= within_new_admin_layout(title: "API Logs") do
+  table
+    thead
+      tr
+        th Id
+        th.col-width-date-time Date
+        th Identifier
+        th Status
+        th Records added
+        th Records updated
+        th Error
+    tbody
+      - api_logs.each do |log|
+        tr
+          td= log.id
+          td= l(log.created_at)
+          td= log.identifier
+          th= log.status
+          th= log.records_added
+          th= log.records_updated
+          th= log.error&.truncate(500)
+
+  == pagy_foundation_nav pagy

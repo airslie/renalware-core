@@ -12,6 +12,7 @@ namespace :system do
     patch :restore, on: :member
   end
   resources :nag_definitions, except: :show
+  resources :api_logs, only: :index
 end
 
 match "/404", to: "system/errors#not_found", via: :all
