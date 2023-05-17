@@ -81,4 +81,16 @@ namespace :ukrdc do
 
     Renalware::UKRDC::Incoming::ImportSurveys.new(logger: logger).call
   end
+
+  desc "SFTP waiting files in the outgoing folder to the UKRDC SFTP server"
+  task transfer_outgoing_files: :environment do
+    logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    logger.level     = Logger::INFO
+    Rails.logger     = logger
+
+    # Using perform_now here because the delayed_job retry mechanism is a bit odd
+    # (there seems to be a retry at the delayed_job level and at the ActiveJob level..) anyway
+    # we do not to retry at all so making it synchronous.
+    Renalware::UKRDC::Outgoing::TransferFilesJob.perform_now
+  end
 end

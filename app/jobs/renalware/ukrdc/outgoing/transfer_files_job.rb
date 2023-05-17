@@ -13,7 +13,7 @@ module Renalware
       #   docker run -p 22:2222 -d atmoz/sftp foo:pass:::upload
       # and remember you need to copy files into the remote 'upload' folder and so need to set
       #   UKRDC_SFTP_REMOTE_PATH="upload"
-      #   UKRDC_SFTP_REMOTE_PORT="2222"
+      #   UKRDC_SFTP_PORT="2222"
       # e.g. in a .env file
       class TransferFilesJob < ApplicationJob
         def perform
@@ -53,13 +53,16 @@ module Renalware
           end
         end
 
+        # Note if credentials invalid, non_interactive: true means Net::SFTP will raise an error
+        # rather that prompt for a password (in a possibly non-existent pty..)
         def sftp_options
           [
             Renalware.config.ukrdc_sftp_host,
             Renalware.config.ukrdc_sftp_user,
             {
               password: Renalware.config.ukrdc_sftp_password,
-              port: Renalware.config.ukrdc_sftp_port
+              port: Renalware.config.ukrdc_sftp_port,
+              non_interactive: true
             }
           ]
         end
