@@ -11,12 +11,7 @@ module Renalware
       let(:new_episode) { PeritonitisEpisode.new(patient_id: patient.id) }
       let(:existing_episode) { create(:peritonitis_episode, patient: patient) }
       let(:date) { Time.zone.today }
-      let(:episode_type_descriptions) do
-        [
-          create(:peritonitis_episode_type_description),
-          create(:peritonitis_episode_type_description)
-        ]
-      end
+      let(:episode_type_descriptions) { create_list(:peritonitis_episode_type_description, 2) }
 
       describe "#call" do
         context "when there are no validation errors" do

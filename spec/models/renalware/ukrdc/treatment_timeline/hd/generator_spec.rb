@@ -215,7 +215,7 @@ module Renalware
         describe "patient has 4 HD modalities and 3 HD profiles" do
           it "uses the first found hd profile in order to resolve the unit id " \
              "and creates two more treatments for the profile changes" do
-            units = [create(:hospital_unit), create(:hospital_unit)]
+            units = create_list(:hospital_unit, 2)
 
             modality_start_dates = [
               "2016-01-01",
