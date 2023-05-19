@@ -15,9 +15,9 @@
           td= log.id
           td= l(log.created_at)
           td= log.identifier
-          th= log.status
-          th= log.records_added
-          th= log.records_updated
-          th= log.error&.truncate(500)
+          td= log.status
+          td= log.records_added
+          td= log.records_updated
+          td= log.error&.truncate(500)
 
   == pagy_foundation_nav pagy
