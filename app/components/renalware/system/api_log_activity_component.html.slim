@@ -2,6 +2,8 @@
   article.api-log-activity
     header
       h2= t(".title")
+      ul
+        li= link_to t("btn.view_all"), renalware.system_api_logs_path, class: "button"
 
     table
       thead
@@ -19,9 +21,4 @@
             td= log.status
             td= log.records_added
             td= log.records_updated
-            td.col-width-small-with-ellipsis(title=log.error)= log.error
-
-            / td= summary.total
-            / td= summary.sent
-            / td= summary.error
-            / td= summary.unsent_no_change
+            td.col-width-small-with-ellipsis(title=log.error&.truncate(500))= log.error
