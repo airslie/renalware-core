@@ -1,5 +1,5 @@
 = form.input :patient_id, as: :hidden
-= form.input :performed_on, as: :flatpickr, wrapper: :hz_datepicker
+= form.input :performed_on, as: :flatpickr, wrapper: :horizontal_datepicker
 = form.input :test_type, as: :inline_radio_buttons, wrapper: :hz_sm
 = form.input :dextrose_concentration_id, collection: Renalware::PD::PETDextroseConcentration.order(position: :asc), wrapper: :hz_sm
 = form.input :volume_in, wrapper: :hz_sm

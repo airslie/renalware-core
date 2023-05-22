@@ -36,31 +36,6 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers(
-    :hz_datepicker,
-    tag: :div,
-    class: "row wrapper wrapper_style_horizontal wrapper_size_datepicker",
-    hint_class: :field_with_hint,
-    error_class: :error
-  ) do |b|
-    b.use :html5
-    b.use :placeholder
-    b.optional :maxlength
-    b.optional :pattern
-    b.optional :min_max
-    b.optional :readonly
-    configure_label(b)
-
-    b.wrapper :right_input_wrapper, tag: :div, class: "wrapper__input" do |ba|
-      ba.wrapper :x, tag: :div, class: "row collapse datepicker-wrapper" do |bc|
-        bc.use :prefix_column
-        bc.use :input_column
-        bc.use :error, wrap_with: { tag: :small, class: [:error, :datepicker_error] }
-        bc.use :hint,  wrap_with: { tag: :span, class: :hint }
-      end
-    end
-  end
-
   # This is a move towards tailwindcss (with layout based on tailwind-ui) for checkboxes.
   # It is not the default wrapper for them but if you have a tailwind form you can specify
   # e.g. in a filter form
