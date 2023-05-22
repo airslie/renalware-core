@@ -9,7 +9,7 @@
       = f.input :minimum_weight, label: "Min (kg)", wrapper: :tw_default, wrapper_html: { class: "mr-2 mb-2" }
       = f.input :maximum_weight, label: "Max (kg)", wrapper: :tw_default, wrapper_html: { }
 
-= f.input :assessed_on, as: :flatpickr, wrapper: :hz_datepicker
+= f.input :assessed_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
 = f.association :assessor,
                 as: :user_picker,

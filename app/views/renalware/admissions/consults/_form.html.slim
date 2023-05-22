@@ -29,19 +29,19 @@
     wrapper: :hz_md)
 
   = f.input :other_site_or_ward, wrapper: :hz_md
-  = f.input :started_on, as: :flatpickr, wrapper: :hz_datepicker
+  = f.input :started_on, as: :flatpickr, wrapper: :horizontal_datepicker
   = f.input :e_alert, wrapper: :hz_md
   = f.association(:specialty,
                   wrapper: :hz_md,
                   collection: Renalware::Admissions::Specialty.ordered)
   = f.input :consult_type, wrapper: :hz_md
-  = f.input :decided_on, as: :flatpickr, wrapper: :hz_datepicker
+  = f.input :decided_on, as: :flatpickr, wrapper: :horizontal_datepicker
   = f.input :transfer_priority, include_blank: false, wrapper: :hz_sm
   = f.input :priority,
             include_blank: true,
             collection: Renalware::Admissions::Consult::PRIORITY_VALUES,
             wrapper: :hz_xs
-  = f.input :transferred_on, as: :flatpickr, wrapper: :hz_datepicker
+  = f.input :transferred_on, as: :flatpickr, wrapper: :horizontal_datepicker
   = f.association :seen_by,
                   as: :user_picker,
                   collection: Renalware::User.ordered,
@@ -52,5 +52,5 @@
   = f.input :requires_aki_nurse, as: :inline_radio_buttons, wrapper: :hz_sm
   = f.input :rrt, as: :inline_radio_buttons, wrapper: :hz_sm
   = f.input :description, wrapper: :hz_lg, input_html: { rows: 10 }
-  
+
   = save_or_cancel(form: f, back_path: admissions_consults_path)
