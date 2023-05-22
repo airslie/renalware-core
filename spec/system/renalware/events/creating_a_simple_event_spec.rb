@@ -12,7 +12,7 @@ describe "Creating an event", js: true do
       visit new_patient_event_path(patient)
 
       slim_select "Access--Clinic", from: "Event type"
-
+      sleep 0.1
       expect(page).to have_content("Description")
 
       fill_in "Description", with: "Test"
