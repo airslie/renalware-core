@@ -11744,7 +11744,8 @@ CREATE TABLE renalware.system_api_logs (
     error text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    pages integer DEFAULT 0 NOT NULL
+    pages integer DEFAULT 0 NOT NULL,
+    "values" text[] DEFAULT '{}'::text[]
 );
 
 
@@ -27106,6 +27107,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230503161542'),
 ('20230503185921'),
 ('20230510144745'),
-('20230511151434');
+('20230511151434'),
+('20230523121919');
 
 

@@ -1,4 +1,4 @@
-.columns.medium-12.large-6
+.columns.medium-12.large-12
   article.api-log-activity
     header
       h2= t(".title")
@@ -12,6 +12,7 @@
         th Status
         th Added
         th Updated
+        th Elapsed
         th Error
       tbody
         - logs.each do |log|
@@ -21,4 +22,5 @@
             td= log.status
             td= log.records_added
             td= log.records_updated
-            td.col-width-small-with-ellipsis(title=log.error&.truncate(500))= log.error
+            td= "#{log.updated_at.to_i - log.created_at.to_i}s"
+            td.col-width-large-with-ellipsis(title=log.error&.truncate(2000))= log.error
