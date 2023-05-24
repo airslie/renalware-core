@@ -12,12 +12,30 @@ This project adheres to Semantic Versioning.
 ## 2.4.0
 
 ### Added
+- Add QR code links to online articles to letters #4103
+- Add VND Risk Assessments #4272
+- Add notes and admin notes to toggled dietetic row #4293
+- Create a Transplant Review event similar to Medication Review. Will be invokeable from a new Tx Dashboard screen #4300
+- Add an 'API log' page in the admin section to make it easier to debug issues #4324
+- Add a job type that can execute a SQL function, eg via cron #4328
+- Add 'View All' button to API logs component on superadmin dashboard #4327
 - Switch to using dm+d drugs in prescriptions. The drug list is updated automatically #4247
 - Introduce a Hospitals::Department model to capture the telephone/address of an administrative department #4250
 - Add RR19 malignancy sites to database #4219
 - Add Visit Type filters at the top of Dietetic MDM list #4210
 - Add RR outcome code to Death::Location in preperation for RR5 dataset #4203
 ### Changed
+- Prescriptions column heading changes - add a new column 'Stop on' after 'Prescribed on' - rename 'Terminated on' to 'Stopped on' #4260
+- Add missing dietetic CV data items to the toggled table cell #4258
+- Add rounded borders and add more spacing to form inputs #4273
+- Add new columns to drug_frequencies to allow dose calculation #4259
+- Trim leading/trailing space around items in HL7 PID segment #4296
+- Add sortable columns to reports page #4269
+- New patient locator strategy using NHS or any hosp number and ignoring DOB #4288
+- Ensure soft-deleted event types remain visible where previously used #4311
+- Rename Mean URR to to URR in HD letter template and add URR date #4312
+- Add new columns to feed_messages (local_patient_id etc) to support (later) migration of patient_identifiers to local_patient_id* columns #4310
+- Sort Dietetic MDMs by clinic visit date descending #4315
 - Move to Rails 7 and Ruby 3.2
 - Convert UpdateRollingPatientStatisticsJob to an Active Job #4256
 - Date picker and time picker enhancements #4254
@@ -29,6 +47,9 @@ This project adheres to Semantic Versioning.
 - HD Session form PDF changes - Add Solution flow from HD profile next to Blood Flow and indicate if Worry #4164
 - Refresh browser page automatically in development #4243
 ### Fixed
+- Ensure termination date is editable when editing a prescription #4276
+- Fixed bug creating an event when changing dropdown from eg Clinical Frailty Score to Medication Review (missing partial) #4303
+- Fixed error creating letter from dietetic visit #4292
 - Use the ClinicVisitPolicy for Dietetic clinic visits so they are no longer editbale after 7 days #4261
 - Include a name when JIT-creating Kt/V observation description #4220
 - Reply to a message should reply to all recipients in original message #4208
