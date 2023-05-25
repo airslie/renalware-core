@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :hd_diary_slot, class: "Renalware::HD::Scheduling::DiarySlot" do
-    association :diurnal_period_code_id, :am, factory: :hd_diurnal_period_code
-    association :patient
-    association :station, factory: :hd_station
+    diurnal_period_code_id factory: %i(hd_diurnal_period_code am)
+    patient
+    station factory: %i(hd_station)
   end
 end

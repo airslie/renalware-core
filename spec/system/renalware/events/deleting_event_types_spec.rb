@@ -35,7 +35,7 @@ describe "Deleting event types" do
     within("##{dom_id(type)}") do
       click_on "Delete"
     end
-    expect(type.reload.deleted?).to eq(true)
+    expect(type.reload.deleted?).to be(true)
 
     # 5. Go back to the events list and even though the event's type was deleted, the type name is
     #    still there.

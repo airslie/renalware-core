@@ -12,7 +12,7 @@ FactoryBot.define do
     pulse { 100 }
     systolic_bp { 112 }
     diastolic_bp { 71 }
-    clinic { create(:clinic) }
+    clinic factory: %i(clinic)
   end
 
   factory(

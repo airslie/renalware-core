@@ -47,7 +47,7 @@ module Renalware::Drugs
         described_class.new.call
 
         match.reload
-        expect(match.vtm_name).to be nil
+        expect(match.vtm_name).to be_nil
         expect(match.approved_vtm_match).to be false
       end
     end

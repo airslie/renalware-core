@@ -8,7 +8,7 @@ FactoryBot.define do
         x.lab = lab
       end
     }
-    association :lab, factory: :pathology_lab
+    lab factory: %i(pathology_lab)
     code { "FBC" }
     name { "FBC" }
   end

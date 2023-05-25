@@ -37,7 +37,7 @@ describe Renalware::HD::VNDRiskAssessmentsComponent, type: :component do
 
     render_inline(component)
 
-    expect(component.render?).to eq(false)
+    expect(component.render?).to be(false)
     expect(page.text).to be_blank
   end
 end

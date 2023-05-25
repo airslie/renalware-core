@@ -3,8 +3,8 @@
 FactoryBot.define do
   factory :patient_attachment, class: "Renalware::Patients::Attachment" do
     accountable
-    association :patient, factory: :patient
-    association :attachment_type, factory: :patient_attachment_type
+    patient
+    attachment_type factory: %i(patient_attachment_type)
     name { Faker::File.file_name }
     description { Faker::Lorem.sentence }
     document_date { Faker::Date.between(from: 1.year.ago, to: Time.zone.today) }

@@ -133,8 +133,8 @@ module Renalware
 
               expect {
                 Renalware::Feeds.message_processor.call(raw_message)
-              }.to change(Renalware::Patient, :count).by(0)
-                .and change(Renalware::Modalities::Modality, :count).by(0)
+              }.to not_change(Renalware::Patient, :count)
+                .and not_change(Renalware::Modalities::Modality, :count)
                 .and change(Renalware::Renal::AKIAlert, :count).by(1)
             end
           end

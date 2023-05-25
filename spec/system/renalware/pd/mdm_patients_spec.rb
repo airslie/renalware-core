@@ -49,7 +49,7 @@ describe "PD MDM Patients" do
         click_on t("renalware.pd.mdm_patients.tabs.tab.on_worryboard")
 
         expect(page).to have_content(patient2.family_name)
-        expect(page).to have_no_content(patient1.family_name)
+        expect(page).not_to have_content(patient1.family_name)
       end
     end
   end

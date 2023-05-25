@@ -11,7 +11,7 @@ FactoryBot.define do
     postcode { "NW1 6BB" }
 
     trait :in_uk do
-      association(:country, factory: :united_kingdom)
+      country factory: %i(united_kingdom)
     end
   end
 end

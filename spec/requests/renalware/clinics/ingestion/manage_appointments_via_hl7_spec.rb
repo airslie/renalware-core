@@ -178,7 +178,7 @@ describe "manage appointments via HL7 ADT messages" do
           expect {
             Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
           }.to change(Renalware::Clinics::Appointment, :count).by(1)
-            .and change(Renalware::Modalities::Modality, :count).by(0)
+            .and not_change(Renalware::Modalities::Modality, :count)
         end
       end
     end

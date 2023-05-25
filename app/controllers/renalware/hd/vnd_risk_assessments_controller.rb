@@ -14,6 +14,14 @@ module Renalware
         render locals: { assessment: presenter }
       end
 
+      def edit
+        assessment = hd_patient.vnd_risk_assessments.find(params[:id])
+        authorize assessment
+        save_path_to_return_to
+        presenter = VNDRiskAssessmentPresenter.new(assessment)
+        render locals: { assessment: presenter }
+      end
+
       def create
         assessment = hd_patient.vnd_risk_assessments.build(assessment_params)
         authorize assessment
@@ -23,14 +31,6 @@ module Renalware
         else
           render_new(assessment)
         end
-      end
-
-      def edit
-        assessment = hd_patient.vnd_risk_assessments.find(params[:id])
-        authorize assessment
-        save_path_to_return_to
-        presenter = VNDRiskAssessmentPresenter.new(assessment)
-        render locals: { assessment: presenter }
       end
 
       def update

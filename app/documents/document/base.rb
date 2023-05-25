@@ -9,7 +9,7 @@ module Document
       def has_document(class_name: "Document")
         document_class = const_get(class_name)
 
-        define_method("document_class".to_sym) do
+        define_method(:document_class) do
           document_class
         end
       end

@@ -5,6 +5,6 @@ FactoryBot.define do
     patient
     clinic
     starts_at { Time.zone.now }
-    association :consultant, factory: :consultant
+    consultant
   end
 end

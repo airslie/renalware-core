@@ -8,7 +8,7 @@ FactoryBot.define do
     urgent { false }
     association :author, factory: :author
     sent_at { Time.zone.now }
-    association :patient
+    patient
     public { true }
     receipts { [] }
   end

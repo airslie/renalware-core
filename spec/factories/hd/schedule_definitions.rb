@@ -12,13 +12,13 @@ FactoryBot.define do
     trait :mon_wed_fri_am do
       days { [1, 3, 5] }
       days_text { "Mon Wed Fri" }
-      association :diurnal_period, :am, factory: :hd_diurnal_period_code
+      diurnal_period factory: %i(hd_diurnal_period_code am)
     end
 
     trait :mon_wed_fri_pm do
       days { [1, 3, 5] }
       days_text { "Mon Wed Fri" }
-      association :diurnal_period, :pm, factory: :hd_diurnal_period_code
+      diurnal_period factory: %i(hd_diurnal_period_code pm)
     end
   end
 end

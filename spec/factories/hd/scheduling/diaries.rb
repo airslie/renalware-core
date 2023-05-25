@@ -7,7 +7,7 @@ FactoryBot.define do
     week_number { 2 }
     master { false }
     hospital_unit_id { nil }
-    association :master_diary, factory: :hd_master_diary
+    master_diary factory: %i(hd_master_diary)
   end
 
   factory :hd_master_diary, class: "Renalware::HD::Scheduling::MasterDiary" do

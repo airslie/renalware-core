@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :pathology_chart_series, class: "Renalware::Pathology::Charts::Series" do
-    association :chart, factory: :pathology_chart
-    association :observation_description, factory: :pathology_observation_description
+    chart factory: %i(pathology_chart)
+    observation_description factory: %i(pathology_observation_description)
   end
 end

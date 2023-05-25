@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :admissions_consult, class: "Renalware::Admissions::Consult" do
     accountable
     patient { create(:patient, by: accountable_actor) }
-    association :consult_site, factory: :admissions_consult_site
+    consult_site factory: %i(admissions_consult_site)
     consult_type { "x" }
     started_on { Time.zone.now - 2.days }
     ended_on { nil }
