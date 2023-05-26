@@ -54,7 +54,7 @@ describe Renalware::HD::PrescriptionAdministrationsQuery do
     context "when the prescription was given multiple times" do
       let(:prescription) { create(:prescription) }
 
-      it "returns most recently recorded ones first, using created_at if > 1 row with "\
+      it "returns most recently recorded ones first, using created_at if > 1 row with " \
          "same recorded_on" do
         administrations = [
           create_prescription_administration_for(prescription, recorded_on: 1.year.ago),

@@ -5,9 +5,9 @@ FactoryBot.define do
     accountable
     patient
     prescription
-    association :administered_by, factory: :user
+    administered_by factory: %i(user)
     administrator_authorised { true }
-    association :witnessed_by, factory: :user
+    witnessed_by factory: %i(user)
     witness_authorised { true }
     administered { true }
     notes { "some notes" }

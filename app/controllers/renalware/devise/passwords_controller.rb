@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Renalware::Devise::PasswordsController < ::Devise::PasswordsController
+class Renalware::Devise::PasswordsController < Devise::PasswordsController
   helper Renalware::ApplicationHelper
   include Renalware::Concerns::DeviseControllerMethods
 end

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  describe "Viewing API logs", type: :system do
+  describe "Viewing API logs" do
     let(:user) { create(:user) }
 
     it "displays a paginated list of API Log events" do

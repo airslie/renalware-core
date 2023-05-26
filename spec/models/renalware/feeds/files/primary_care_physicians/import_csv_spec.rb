@@ -114,8 +114,8 @@ module Renalware
                 expect {
                   described_class.new(tmpfile).call
                 }
-                  .to change(Patients::PrimaryCarePhysician, :count).by(0)
-                  .and change(Patients::PrimaryCarePhysician.deleted, :count).by(0)
+                  .to not_change(Patients::PrimaryCarePhysician, :count)
+                  .and not_change(Patients::PrimaryCarePhysician.deleted, :count)
               end
 
               gp.reload

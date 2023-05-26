@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Renalware
-  describe "Managing online reference links", type: :system do
+  describe "Managing online reference links" do
     let(:user) { create(:user) }
 
     describe "Displaying a list" do

@@ -14,7 +14,7 @@ FactoryBot.define do
 
     body { "I am pleased to report a marked improvement in her condition." }
 
-    association :letterhead, factory: [:letter_letterhead]
+    letterhead factory: %i(letter_letterhead)
 
     author { accountable_actor }
 

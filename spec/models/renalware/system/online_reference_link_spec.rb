@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Renalware::System::OnlineReferenceLink, type: :model do
+describe Renalware::System::OnlineReferenceLink do
   let(:user) { create(:user) }
 
   it :aggregate_failures do

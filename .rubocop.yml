@@ -98,6 +98,8 @@ Rails/DurationArithmetic:
   Enabled: false
 Style/OpenStructUse:
   Enabled: false
+RSpec/IndexedLet:
+  Enabled: false
 
 # HL7 messages contain strings which seem to be escaped and aren't so its safest to disable this
 # cop on all specs

@@ -21,8 +21,8 @@ describe "Editing a swab", js: true do
     # On Clinical Profile..
     within("article.swabs") do
       expect(page).to have_selector("tbody tr", count: 1)
-      expect(page).to have_no_content(swab_site)
-      expect(page).to have_no_content(swab_result)
+      expect(page).not_to have_content(swab_site)
+      expect(page).not_to have_content(swab_result)
       click_on t("btn.edit")
     end
 

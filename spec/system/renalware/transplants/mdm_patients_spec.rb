@@ -25,7 +25,7 @@ describe "Transplants MDM Patients" do
       click_on t("renalware.transplants.mdm_patients.tabs.tab.recent")
 
       expect(page).to have_content(patient2.local_patient_id)
-      expect(page).to have_no_content(patient1.local_patient_id)
+      expect(page).not_to have_content(patient1.local_patient_id)
     end
 
     it "'on worryboard' filter displays transplant patients on the worryboard" do
@@ -39,7 +39,7 @@ describe "Transplants MDM Patients" do
       click_on t("renalware.transplants.mdm_patients.tabs.tab.on_worryboard")
 
       expect(page).to have_content(patient2.local_patient_id)
-      expect(page).to have_no_content(patient1.local_patient_id)
+      expect(page).not_to have_content(patient1.local_patient_id)
     end
 
     it "`past_year` filter displays transplant patients in the last year" do
@@ -64,8 +64,8 @@ describe "Transplants MDM Patients" do
       click_on t("renalware.transplants.mdm_patients.tabs.tab.past_year")
 
       expect(page).to have_content(matched_patient.local_patient_id)
-      expect(page).to have_no_content(no_op_patient.local_patient_id)
-      expect(page).to have_no_content(unmatched_patient.local_patient_id)
+      expect(page).not_to have_content(no_op_patient.local_patient_id)
+      expect(page).not_to have_content(unmatched_patient.local_patient_id)
     end
 
     def create_donor_patient(user)

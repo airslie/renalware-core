@@ -3,8 +3,8 @@
 FactoryBot.define do
   factory :access_assessment, class: "Renalware::Accesses::Assessment" do
     accountable
-    association :patient, factory: :accesses_patient
-    association :type, factory: :access_type
+    patient factory: %i(accesses_patient)
+    type factory: %i(access_type)
     side { :left }
     performed_on { Time.zone.now }
     document {

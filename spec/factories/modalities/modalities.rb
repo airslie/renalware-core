@@ -4,8 +4,8 @@ FactoryBot.define do
   factory :modality, class: "Renalware::Modalities::Modality" do
     accountable
     patient
-    association :description, factory: :modality_description
-    association :reason, factory: :modality_reason
+    description factory: %i(modality_description)
+    reason factory: %i(modality_reason)
     started_on { Date.parse("2015-04-01") }
 
     trait :terminated do

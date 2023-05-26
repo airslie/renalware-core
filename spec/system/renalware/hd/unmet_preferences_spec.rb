@@ -77,7 +77,7 @@ describe "Viewing patients whose HD preferences do not match their profile" do
 
       expect(page).to have_content(patient_schedule.family_name.upcase)
       expect(page).to have_content(patient_unit.family_name.upcase)
-      expect(page).to have_no_content(patient_met.family_name.upcase)
+      expect(page).not_to have_content(patient_met.family_name.upcase)
     end
 
     context "when filtering" do
@@ -94,8 +94,8 @@ describe "Viewing patients whose HD preferences do not match their profile" do
         click_on t("btn.filter")
 
         expect(page).to have_content(patient_unit.family_name.upcase)
-        expect(page).to have_no_content(patient_met.family_name.upcase)
-        expect(page).to have_no_content(patient_schedule.family_name.upcase)
+        expect(page).not_to have_content(patient_met.family_name.upcase)
+        expect(page).not_to have_content(patient_schedule.family_name.upcase)
       end
     end
   end

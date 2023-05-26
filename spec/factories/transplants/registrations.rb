@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :transplant_registration, class: "Renalware::Transplants::Registration" do
-    patient { build(:transplant_patient) }
+    # patient { build(:transplant_patient) }
+    patient factory: %i(transplant_patient)
 
     trait :with_statuses do
       after(:create) do |registration|

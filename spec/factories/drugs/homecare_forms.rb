@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :homecare_form, class: "Renalware::Drugs::HomecareForm" do
-    association :supplier, factory: :drug_supplier
+    supplier factory: %i(drug_supplier)
     drug_type
     form_name { "form_name" }
     form_version { "form_version" }

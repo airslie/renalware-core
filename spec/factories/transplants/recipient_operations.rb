@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :transplant_recipient_operation, class: "Renalware::Transplants::RecipientOperation" do
-    patient { build(:transplant_patient) }
+    patient factory: %i(transplant_patient)
 
     performed_on                      { 1.week.ago }
     theatre_case_start_time           { "11:00" }
@@ -12,6 +12,6 @@ FactoryBot.define do
     cold_ischaemic_time               { "00:45" }
     warm_ischaemic_time               { "00:12" }
 
-    association :hospital_centre, factory: :hospital_centre
+    hospital_centre
   end
 end

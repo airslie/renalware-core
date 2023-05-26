@@ -5,8 +5,8 @@ FactoryBot.define do
     accountable
     patient
     active { true }
-    association :hospital_unit, factory: :hospital_unit
-    association :dialysate, factory: :hd_dialysate
+    hospital_unit
+    dialysate factory: %i(hd_dialysate)
     scheduled_time { "11:00" }
     prescriber { accountable_actor }
 

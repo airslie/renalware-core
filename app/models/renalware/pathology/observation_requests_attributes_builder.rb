@@ -98,7 +98,7 @@ module Renalware
       # Returns an array of hashes where each has the attributes used to create a new
       # pathology_observation in the datbase when passed inside the observation_request hash]
       # built in build_observation_request_params { observations_attributes: [..] }
-      # rubocop:disable Performance/MapCompact, Style/EmptyElse
+      # rubocop:disable Style/EmptyElse
       def build_observations_params(request)
         request.observations.map do |observation|
           observation_description = FindOrCreateObservationDescription.new(
@@ -128,7 +128,7 @@ module Renalware
           end
         end.compact
       end
-      # rubocop:enable Performance/MapCompact, Style/EmptyElse
+      # rubocop:enable Style/EmptyElse
 
       def find_request_description(code:, name:)
         RequestDescription.find_or_create_by!(code: code) do |desc|

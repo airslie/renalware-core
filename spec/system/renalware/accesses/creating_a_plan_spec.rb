@@ -17,7 +17,7 @@ describe "Creating an Access Plan" do
     # and causes the CSS to compile, taking 20s or so
     visit patient_accesses_dashboard_path(patient)
 
-    expect(page).to have_no_content("Plan History")
+    expect(page).not_to have_content("Plan History")
 
     within ".page-actions" do
       click_on t("btn.add")

@@ -22,6 +22,8 @@ RSpec.configure do |config|
     Time.use_zone(example.metadata[:tz]) { example.run }
   end
 
+  RSpec::Matchers.define_negated_matcher :not_change, :change
+
   # config.full_backtrace = false
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

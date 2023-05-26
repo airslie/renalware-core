@@ -42,7 +42,7 @@ module Renalware
           define_method(:to_s, ->(_x) { patient_name })
           define_method(:to_param, -> { secure_id })
         end.tap do |klass|
-          Object.const_set("AnonymousView", klass) # required for ransack search_form_for
+          Object.const_set(:AnonymousView, klass) # required for ransack search_form_for
           klass.connection
         end
       end
