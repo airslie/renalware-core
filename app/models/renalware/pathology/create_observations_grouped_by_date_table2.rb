@@ -5,13 +5,14 @@ module Renalware
     class CreateObservationsGroupedByDateTable2
       include Pagy::Backend
 
-      attr_reader :patient, :code_group_name, :options, :per_page
+      attr_reader :patient, :code_group_name, :options, :per_page, :page
 
-      def initialize(patient:, code_group_name:, per_page: 25, **options)
+      def initialize(patient:, code_group_name:, per_page: 25, page: 1, **options)
         @patient = patient
         @code_group_name = code_group_name
         @options = options
         @per_page = per_page
+        @page = page
       end
 
       def call
@@ -25,9 +26,11 @@ module Renalware
       private
 
       def create_observations_table
+        pagy, obs = observations
         ObservationsGroupedByDateTable2.new(
-          relation: observations,
-          observation_descriptions: code_group.observation_descriptions
+          relation: obs,
+          observation_descriptions: code_group.observation_descriptions,
+          pagy: pagy
         )
       end
 
@@ -35,8 +38,9 @@ module Renalware
       def observations
         pagy(
           ObservationsGroupedByDate.where(group: code_group.name, patient_id: patient.id),
-          items: per_page
-        )[1]
+          items: per_page,
+          page: page
+        )
       end
 
       # code_group_name might be eg :pd_mdm so we try and find it but the hospital might not

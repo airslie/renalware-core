@@ -9,23 +9,25 @@ table#observations.column_hover
     tr
       th Year
       - table.rows.each do |row|
-        th.date= row.observed_on.year
+        th.date= row.observed_at.year
   thead
     tr
       th Date
       - table.rows.each do |row|
-        th= row.observed_on.strftime("%d/%m")
+        th= row.observed_at.strftime("%d/%m")
   tbody
     - table.observation_descriptions.each do |desc|
       - code = desc.code
+      - bg_class = "bg-#{desc.colour}-100" if desc.colour.present?
       tr
-        th(title=desc.name)
+        th(title=desc.name class=bg_class)
           = render(Renalware::Pathology::ChartLinkComponent.new(patient: patient, chartable: desc))
         observation
         - table.rows.each do |row|
           - if row.comment_for(code).present?
-            td(class=code.downcase aria-label=row.comment_for(code) data-balloon-pos="up")
+            td(class=bg_class aria-label=row.comment_for(code) data-balloon-pos="up")
               .triangle-top-right
               = row.result_for(code)
           - else
-            td(class=code.downcase)= row.result_for(code)
+            - style = "background-color: #{desc.colour}" if desc.colour.present?
+            td(class=bg_class)= row.result_for(code)

@@ -31,7 +31,7 @@ module Renalware
     # = paginate(table)
     #
     class ObservationsGroupedByDateTable2
-      attr_reader_initialize [:observation_descriptions!, :relation!]
+      attr_reader_initialize [:observation_descriptions!, :relation!, :pagy]
       delegate :current_page, :total_pages, :limit_value, to: :relation
 
       def rows

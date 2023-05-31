@@ -8,7 +8,8 @@ table#observations.column_hover
     tr
       th Date
       - table.observation_descriptions.each do |desc|
-        th(title=desc.name style="text-align: center")
+        - bg_class = "bg-#{desc.colour}-200" if desc.colour.present?
+        th(title=desc.name style="text-align: center;" class=bg_class)
           = render(Renalware::Pathology::ChartLinkComponent.new(patient: patient, chartable: desc))
 
   tbody
@@ -17,9 +18,10 @@ table#observations.column_hover
         th.date= l(row.observed_at)
         - table.observation_descriptions.each do |desc|
           - code = desc.code
+          - bg_class = "bg-#{desc.colour}-100" if desc.colour.present?
           - if row.comment_for(code).present?
-            td.triangle_in_corner(class=code.downcase aria-label=row.comment_for(code) data-balloon-pos="up")
+            td.triangle_in_corner(class=bg_class aria-label=row.comment_for(code) data-balloon-pos="up")
               .triangle-top-right
               = row.result_for(code)
           - else
-            td(class=code.downcase title=row.result_for(code))= row.result_for(code)
+            td(class=bg_class title=row.result_for(code))= row.result_for(code)

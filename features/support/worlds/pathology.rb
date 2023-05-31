@@ -101,6 +101,7 @@ module World
       end
 
       def expect_pathology_recent_observations(user:, patient:, rows:)
+        create_default_code_group
         expected_rows = rows
         patient = Renalware::Pathology.cast_patient(patient)
         codes = expected_rows.slice(2..-1).map(&:first)
@@ -127,6 +128,7 @@ module World
       end
 
       def expect_pathology_historical_observations(user:, patient:, rows:)
+        create_default_code_group
         expected_rows = rows
         patient = Renalware::Pathology.cast_patient(patient)
         codes = expected_rows.first[1..]
@@ -160,6 +162,23 @@ module World
         expect(codes - curr_obs_set.values.keys).to eq([])
       end
 
+      def create_default_code_group
+        FactoryBot.create(:pathology_code_group, :default).tap do |cg|
+          cg.memberships.create!(
+            observation_description:
+              Renalware::Pathology::ObservationDescription.find_by(code: "HGB")
+          )
+          cg.memberships.create!(
+            observation_description:
+              Renalware::Pathology::ObservationDescription.find_by(code: "MCV")
+          )
+          cg.memberships.create!(
+            observation_description:
+              Renalware::Pathology::ObservationDescription.find_by(code: "WBC")
+          )
+        end
+      end
+
       private
 
       def find_last_observation_request
@@ -185,6 +204,7 @@ module World
       # ]
       # TODO: improve this test to examine the actual values not just the counts
       def expect_pathology_recent_observations(user:, patient:, rows:)
+        create_default_code_group
         login_as user
 
         visit patient_pathology_recent_observations_path(patient)
@@ -198,6 +218,7 @@ module World
       end
 
       def expect_pathology_historical_observations(user:, patient:, rows:)
+        create_default_code_group
         login_as user
 
         visit patient_pathology_historical_observations_path(patient)

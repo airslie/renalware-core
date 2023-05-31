@@ -2,14 +2,34 @@
 
 = within_patient_layout title: "Current Pathology Results",
                         navigation_partial: "renalware/pathology/navigation" do
-  - observation_set.each_display_group do |observations, group_number|
-    table.current-observations.auto-layout
-      tbody
-        - observations.each do |observation|
-          tr
-            th
-              = render(Renalware::Pathology::ChartLinkComponent.new(patient: patient,
-                chartable: observation.description))
 
-            td= observation.result
-            td= l(observation.observed_at&.to_date)
+  = turbo_frame_tag "path" do
+    = render Renalware::SpinnerComponent.new do |spinner|
+      = spinner.pre_content do
+        = render "renalware/pathology/turbo_code_group_filter",
+                 patient: patient,
+                 filter_form: filter_form,
+                 url: patient_pathology_current_observations_path(patient)
+      = spinner.main_content do
+        .grid-curr-observations.grid-flow-row.auto-rows-auto.mt-6(data-controller="grid-row-auto-span")
+          - observation_set.each_display_group do |observations, group_number|
+            - subgroup_border_colour = (filter_form.code_group.subgroup_colours || [])[group_number - 1]
+            - title = (filter_form.code_group.subgroup_titles || [])[group_number - 1]
+            - style = "border-left-width: 3px;" if subgroup_border_colour.present?
+            - border_class = "border-l-#{subgroup_border_colour}-300" if subgroup_border_colour.present?
+
+            .w-auto.rounded.px-3.pt-1.pb-0.mr-4.mb-4.min-w-max(style=style class=border_class data-grid-row-auto-span-target="content")
+              table.current_observations.content.no-border-on-last-row.mt-1
+                tbody
+                  - if title.present?
+                    tr
+                      th.font-normal.text-sm.text-gray-500.pb-2.pt-0(colspan=3 style="text-overflow: ellipsis;max-width: 9rem; overflow: hidden")= title
+                  - observations.each do |observation|
+                    - bg_class = "bg-#{observation.description.colour}-100" if observation.description.colour.present?
+                    tr
+                      th(class=bg_class)
+                        = render(Renalware::Pathology::ChartLinkComponent.new(patient: patient,
+                          chartable: observation.description))
+                      td.px-3(style="text-overflow: ellipsis;white-space: nowrap; max-width: 5rem;" title=observation.result class=bg_class)= observation.result
+                      td.nowrap.text-right(class=bg_class)= l(observation.observed_at&.to_date)
+

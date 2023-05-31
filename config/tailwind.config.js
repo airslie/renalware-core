@@ -24,6 +24,18 @@ module.exports = {
       `${process.cwd()}/app/javascript/**/*`,
     ],
   },
+  safelist: [
+    {
+      /*
+      We need to whitelist these classes as are they are used dynamically from the database eg in
+        pathology_observation_description.colour = 'lime' becomes 'bg-lime-100'
+        pathology_code_group.subgroup_colours[] = ['lime'] becomes ['border-l-lime-300']
+      The idea here is that we allow users to configure colours but we control their intensity
+      by mapping them to tailwindcss classes.
+      */
+      pattern: /(bg|border-l)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(100|300)/,
+    },
+  ],
   theme: {
     extend: {
       fontFamily: {
