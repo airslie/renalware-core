@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe Renalware::Clinical::Patient do
   it { is_expected.to have_many :allergies }
+  it { is_expected.to have_one(:igan_risk) }
 
   describe "#allergy_status default value" do
     subject(:allergy_status) { described_class.new.allergy_status }

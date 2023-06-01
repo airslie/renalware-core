@@ -30,6 +30,8 @@ describe "Viewing clinical profile" do
           hospital_centre_id: hospital_centre.id,
           preferred_death_location_id: death_location.id,
           preferred_death_location_notes: "ABC",
+          igan_risk: "99.99",
+          igan_workings: "XYZ",
           document: {
             history: { smoking: "ex", alcohol: "rarely" },
             diabetes: { diagnosis: "true", diagnosed_on: "12-12-2017" }
@@ -54,7 +56,9 @@ describe "Viewing clinical profile" do
       expect(patient).to have_attributes(
         hospital_centre: hospital_centre,
         preferred_death_location: death_location,
-        preferred_death_location_notes: "ABC"
+        preferred_death_location_notes: "ABC",
+        igan_risk: 99.99,
+        igan_workings: "XYZ"
       )
     end
   end

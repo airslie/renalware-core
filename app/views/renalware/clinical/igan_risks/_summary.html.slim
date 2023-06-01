@@ -1,0 +1,21 @@
+article#igan_risk
+  header
+    h2 IgAN Risk
+    - btn_title = patient.igan_risk&.persisted? ? t("btn.update") : t("btn.add")
+    = link_to btn_title, edit_patient_clinical_igan_risk_path(patient), class: "button"
+
+  .rounded-md.bg-blue-50.px-3.py-2.flex.items-start.shadow.mb-5
+      i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+      | The risk of a 50% decline in estimated GFR or progression to end-stage renal disease 4.2 years after renal biopsy
+  dl.dl-horizontal
+    dt Risk
+    dd= patient.igan_risk&.risk
+    dt Workings
+    dd.line-clamp.mb-4(data-controller="read-more"
+                  data-read-more-more-text-value="More&hellip;"
+                  data-read-more-less-text-value="Less&hellip;"
+                  data-read-more-target="content")
+      - if patient.igan_risk&.workings.present?
+          pre.inline.font-sans= patient.igan_risk&.workings
+          = link_to("#", class: "ml-2 mb-2 inline text-yellow-600", data: { action: "read-more#toggle" }) do
+            | More&hellip;

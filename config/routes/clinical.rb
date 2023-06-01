@@ -2,6 +2,7 @@
 
 resources :patients, only: [] do
   namespace :clinical do
+    resource :igan_risk, only: [:edit, :update]
     resources :allergies, only: [:create, :destroy]
     resource :allergy_status, only: [:update]
     resource :profile, only: [:show, :edit, :update]

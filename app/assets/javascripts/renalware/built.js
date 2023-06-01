@@ -1281,7 +1281,7 @@ var addToUnscopables$3 = function (key) {
   ArrayPrototype$1[UNSCOPABLES][key] = true;
 };
 
-var $$m = _export;
+var $$n = _export;
 var $find = arrayIteration.find;
 var addToUnscopables$2 = addToUnscopables$3;
 var FIND = 'find';
@@ -1294,7 +1294,7 @@ if (FIND in []) Array(1)[FIND](function () {
 
 // `Array.prototype.find` method
 // https://tc39.es/ecma262/#sec-array.prototype.find
-$$m({
+$$n({
   target: 'Array',
   proto: true,
   forced: SKIPS_HOLES$1
@@ -1316,7 +1316,7 @@ var entryUnbind$3 = function (CONSTRUCTOR, METHOD) {
 var entryUnbind$2 = entryUnbind$3;
 entryUnbind$2('Array', 'find');
 
-var $$l = _export;
+var $$m = _export;
 var $findIndex = arrayIteration.findIndex;
 var addToUnscopables$1 = addToUnscopables$3;
 var FIND_INDEX = 'findIndex';
@@ -1329,7 +1329,7 @@ if (FIND_INDEX in []) Array(1)[FIND_INDEX](function () {
 
 // `Array.prototype.findIndex` method
 // https://tc39.es/ecma262/#sec-array.prototype.findindex
-$$l({
+$$m({
   target: 'Array',
   proto: true,
   forced: SKIPS_HOLES
@@ -1521,7 +1521,7 @@ var objectSetPrototypeOf = Object.setPrototypeOf || ('__proto__' in {} ? functio
   };
 }() : undefined);
 
-var $$k = _export;
+var $$l = _export;
 var call$c = functionCall;
 var FunctionName = functionName;
 var isCallable$7 = isCallable$n;
@@ -1615,7 +1615,7 @@ var defineIterator$3 = function (Iterable, NAME, IteratorConstructor, next, DEFA
       if (BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME || !(KEY in IterablePrototype)) {
         defineBuiltIn$6(IterablePrototype, KEY, methods[KEY]);
       }
-    } else $$k({
+    } else $$l({
       target: NAME,
       proto: true,
       forced: BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME
@@ -1830,7 +1830,7 @@ var checkCorrectnessOfIteration$3 = function (exec, SKIP_CLOSING) {
   return ITERATION_SUPPORT;
 };
 
-var $$j = _export;
+var $$k = _export;
 var from = arrayFrom;
 var checkCorrectnessOfIteration$2 = checkCorrectnessOfIteration$3;
 var INCORRECT_ITERATION = !checkCorrectnessOfIteration$2(function (iterable) {
@@ -1840,7 +1840,7 @@ var INCORRECT_ITERATION = !checkCorrectnessOfIteration$2(function (iterable) {
 
 // `Array.from` method
 // https://tc39.es/ecma262/#sec-array.from
-$$j({
+$$k({
   target: 'Array',
   stat: true,
   forced: INCORRECT_ITERATION
@@ -2006,7 +2006,7 @@ var freezing = !fails$5(function () {
   return Object.isExtensible(Object.preventExtensions({}));
 });
 
-var $$i = _export;
+var $$j = _export;
 var uncurryThis$5 = functionUncurryThis;
 var hiddenKeys = hiddenKeys$5;
 var isObject$6 = isObject$e;
@@ -2082,7 +2082,7 @@ var enable = function () {
       }
       return result;
     };
-    $$i({
+    $$j({
       target: 'Object',
       stat: true,
       forced: true
@@ -2184,7 +2184,7 @@ var inheritIfRequired$1 = function ($this, dummy, Wrapper) {
   return $this;
 };
 
-var $$h = _export;
+var $$i = _export;
 var global$e = global$K;
 var uncurryThis$4 = functionUncurryThis;
 var isForced$1 = isForced_1;
@@ -2274,7 +2274,7 @@ var collection$2 = function (CONSTRUCTOR_NAME, wrapper, common) {
     if (IS_WEAK && NativePrototype.clear) delete NativePrototype.clear;
   }
   exported[CONSTRUCTOR_NAME] = Constructor;
-  $$h({
+  $$i({
     global: true,
     constructor: true,
     forced: Constructor != NativeConstructor
@@ -2618,13 +2618,13 @@ var objectAssign = !$assign || fails$3(function () {
   return T;
 } : $assign;
 
-var $$g = _export;
+var $$h = _export;
 var assign$1 = objectAssign;
 
 // `Object.assign` method
 // https://tc39.es/ecma262/#sec-object.assign
 // eslint-disable-next-line es-x/no-object-assign -- required for testing
-$$g({
+$$h({
   target: 'Object',
   stat: true,
   arity: 2,
@@ -2677,7 +2677,7 @@ var errorStackInstallable = !fails$2(function () {
   return error.stack !== 7;
 });
 
-var $$f = _export;
+var $$g = _export;
 var global$d = global$K;
 var isPrototypeOf = objectIsPrototypeOf;
 var getPrototypeOf = objectGetPrototypeOf;
@@ -2726,7 +2726,7 @@ var AggregateErrorPrototype = $AggregateError.prototype = create(Error$1.prototy
 
 // `AggregateError` constructor
 // https://tc39.es/ecma262/#sec-aggregate-error-constructor
-$$f({
+$$g({
   global: true,
   constructor: true,
   arity: 2
@@ -3099,7 +3099,7 @@ newPromiseCapability$2.f = function (C) {
   return new PromiseCapability(C);
 };
 
-var $$e = _export;
+var $$f = _export;
 var IS_NODE = engineIsNode;
 var global$3 = global$K;
 var call$5 = functionCall;
@@ -3362,7 +3362,7 @@ if (FORCED_PROMISE_CONSTRUCTOR$4) {
     }
   }
 }
-$$e({
+$$f({
   global: true,
   constructor: true,
   wrap: true,
@@ -3380,7 +3380,7 @@ var promiseStaticsIncorrectIteration = FORCED_PROMISE_CONSTRUCTOR$3 || !checkCor
   NativePromiseConstructor$2.all(iterable).then(undefined, function () {/* empty */});
 });
 
-var $$d = _export;
+var $$e = _export;
 var call$4 = functionCall;
 var aCallable$3 = aCallable$9;
 var newPromiseCapabilityModule$4 = newPromiseCapability$2;
@@ -3390,7 +3390,7 @@ var PROMISE_STATICS_INCORRECT_ITERATION$1 = promiseStaticsIncorrectIteration;
 
 // `Promise.all` method
 // https://tc39.es/ecma262/#sec-promise.all
-$$d({
+$$e({
   target: 'Promise',
   stat: true,
   forced: PROMISE_STATICS_INCORRECT_ITERATION$1
@@ -3423,7 +3423,7 @@ $$d({
   }
 });
 
-var $$c = _export;
+var $$d = _export;
 var FORCED_PROMISE_CONSTRUCTOR$2 = promiseConstructorDetection.CONSTRUCTOR;
 var NativePromiseConstructor$1 = promiseNativeConstructor;
 var getBuiltIn$3 = getBuiltIn$a;
@@ -3433,7 +3433,7 @@ var NativePromisePrototype$1 = NativePromiseConstructor$1 && NativePromiseConstr
 
 // `Promise.prototype.catch` method
 // https://tc39.es/ecma262/#sec-promise.prototype.catch
-$$c({
+$$d({
   target: 'Promise',
   proto: true,
   forced: FORCED_PROMISE_CONSTRUCTOR$2,
@@ -3454,7 +3454,7 @@ if (isCallable$1(NativePromiseConstructor$1)) {
   }
 }
 
-var $$b = _export;
+var $$c = _export;
 var call$3 = functionCall;
 var aCallable$2 = aCallable$9;
 var newPromiseCapabilityModule$3 = newPromiseCapability$2;
@@ -3464,7 +3464,7 @@ var PROMISE_STATICS_INCORRECT_ITERATION = promiseStaticsIncorrectIteration;
 
 // `Promise.race` method
 // https://tc39.es/ecma262/#sec-promise.race
-$$b({
+$$c({
   target: 'Promise',
   stat: true,
   forced: PROMISE_STATICS_INCORRECT_ITERATION
@@ -3484,14 +3484,14 @@ $$b({
   }
 });
 
-var $$a = _export;
+var $$b = _export;
 var call$2 = functionCall;
 var newPromiseCapabilityModule$2 = newPromiseCapability$2;
 var FORCED_PROMISE_CONSTRUCTOR$1 = promiseConstructorDetection.CONSTRUCTOR;
 
 // `Promise.reject` method
 // https://tc39.es/ecma262/#sec-promise.reject
-$$a({
+$$b({
   target: 'Promise',
   stat: true,
   forced: FORCED_PROMISE_CONSTRUCTOR$1
@@ -3515,7 +3515,7 @@ var promiseResolve$2 = function (C, x) {
   return promiseCapability.promise;
 };
 
-var $$9 = _export;
+var $$a = _export;
 var getBuiltIn$2 = getBuiltIn$a;
 var FORCED_PROMISE_CONSTRUCTOR = promiseConstructorDetection.CONSTRUCTOR;
 var promiseResolve$1 = promiseResolve$2;
@@ -3523,7 +3523,7 @@ getBuiltIn$2('Promise');
 
 // `Promise.resolve` method
 // https://tc39.es/ecma262/#sec-promise.resolve
-$$9({
+$$a({
   target: 'Promise',
   stat: true,
   forced: FORCED_PROMISE_CONSTRUCTOR
@@ -3533,7 +3533,7 @@ $$9({
   }
 });
 
-var $$8 = _export;
+var $$9 = _export;
 var call$1 = functionCall;
 var aCallable$1 = aCallable$9;
 var newPromiseCapabilityModule$1 = newPromiseCapability$2;
@@ -3542,7 +3542,7 @@ var iterate$1 = iterate$7;
 
 // `Promise.allSettled` method
 // https://tc39.es/ecma262/#sec-promise.allsettled
-$$8({
+$$9({
   target: 'Promise',
   stat: true
 }, {
@@ -3585,7 +3585,7 @@ $$8({
   }
 });
 
-var $$7 = _export;
+var $$8 = _export;
 var call = functionCall;
 var aCallable = aCallable$9;
 var getBuiltIn$1 = getBuiltIn$a;
@@ -3596,7 +3596,7 @@ var PROMISE_ANY_ERROR = 'No one promise resolved';
 
 // `Promise.any` method
 // https://tc39.es/ecma262/#sec-promise.any
-$$7({
+$$8({
   target: 'Promise',
   stat: true
 }, {
@@ -3634,7 +3634,7 @@ $$7({
   }
 });
 
-var $$6 = _export;
+var $$7 = _export;
 var NativePromiseConstructor = promiseNativeConstructor;
 var fails = fails$j;
 var getBuiltIn = getBuiltIn$a;
@@ -3654,7 +3654,7 @@ var NON_GENERIC = !!NativePromiseConstructor && fails(function () {
 
 // `Promise.prototype.finally` method
 // https://tc39.es/ecma262/#sec-promise.prototype.finally
-$$6({
+$$7({
   target: 'Promise',
   proto: true,
   real: true,
@@ -3739,7 +3739,7 @@ var correctIsRegexpLogic = function (METHOD_NAME) {
   return false;
 };
 
-var $$5 = _export;
+var $$6 = _export;
 var uncurryThis = functionUncurryThis;
 var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
 var toLength = toLength$2;
@@ -3761,7 +3761,7 @@ var MDN_POLYFILL_BUG = !CORRECT_IS_REGEXP_LOGIC && !!function () {
 
 // `String.prototype.startsWith` method
 // https://tc39.es/ecma262/#sec-string.prototype.startswith
-$$5({
+$$6({
   target: 'String',
   proto: true,
   forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGEXP_LOGIC
@@ -6871,7 +6871,7 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
-var $$4 = window.$;
+var $$5 = window.$;
 
 // Used when a table has toggleable rows (initially hidden rows that can be toggled open
 // to see e.g. notes or extended details) and each master row and its toggleable sibling are
@@ -6896,7 +6896,7 @@ var _default$y = /*#__PURE__*/function (_Controller) {
       var tbody = event.target.closest("tbody");
       tbody.classList.toggle("toggleable--open");
       // Update masonry - TODO: move to a module
-      $$4(".mgrid > .row").masonry("layout");
+      $$5(".mgrid > .row").masonry("layout");
     }
 
     // Toggle the last tr in each tbody in the current table.
@@ -6916,7 +6916,7 @@ var _default$y = /*#__PURE__*/function (_Controller) {
         tbody.classList.toggle("toggleable--open", !hide);
       });
       // Update masonry - TODO: move to a module
-      $$4(".mgrid > .row").masonry("layout");
+      $$5(".mgrid > .row").masonry("layout");
     }
   }]);
   return _default;
@@ -7052,7 +7052,7 @@ var _default$v = /*#__PURE__*/function (_Controller) {
 }(Controller);
 _defineProperty$x(_default$v, "targets", ["proteinIntake", "output"]);
 
-var $$3 = window.$;
+var $$4 = window.$;
 var _default$u = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
@@ -7068,10 +7068,10 @@ var _default$u = /*#__PURE__*/function (_Controller) {
       this.containerTarget.classList.toggle("not-administered", !checked);
       this.containerTarget.classList.remove("undecided");
       // The rest of this actions are using jQuery for now.
-      $$3(".authentication", this.containerTarget).toggle(checked);
-      $$3(".authentication", this.containerTarget).toggleClass("disabled-with-faded-overlay", !checked);
-      $$3(".reason-why-not-administered", this.containerTarget).toggle(!checked);
-      $$3("#btn_save_and_witness_later").toggle(checked);
+      $$4(".authentication", this.containerTarget).toggle(checked);
+      $$4(".authentication", this.containerTarget).toggleClass("disabled-with-faded-overlay", !checked);
+      $$4(".reason-why-not-administered", this.containerTarget).toggle(!checked);
+      $$4("#btn_save_and_witness_later").toggle(checked);
     }
   }]);
   return _default;
@@ -7114,7 +7114,7 @@ var _default$t = /*#__PURE__*/function (_Controller) {
 }(Controller);
 _defineProperty$x(_default$t, "targets", ["form", "printOptions", "printFeedback"]);
 
-var $$2 = window.$;
+var $$3 = window.$;
 var _default$s = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
@@ -7126,17 +7126,17 @@ var _default$s = /*#__PURE__*/function (_Controller) {
     key: "insert",
     value: function insert(event) {
       // TODO: set up the trix editor in each page as data-target="snippets.trix"
-      var modal = $$2("#snippets-modal");
-      var snippetBody = $$2(event.target).parent().closest("tr").find(".body").html();
+      var modal = $$3("#snippets-modal");
+      var snippetBody = $$3(event.target).parent().closest("tr").find(".body").html();
       var trix = document.querySelector("trix-editor");
       trix.editor.insertHTML(snippetBody);
-      $$2(modal).foundation("reveal", "close");
+      $$3(modal).foundation("reveal", "close");
     }
   }]);
   return _default;
 }(Controller);
 
-var $$1 = window.$;
+var $$2 = window.$;
 var _default$r = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
   var _super = _createSuper$w(_default);
@@ -7148,7 +7148,7 @@ var _default$r = /*#__PURE__*/function (_Controller) {
     key: "initInsertEventNotesIntoTrixEditor",
     value: function initInsertEventNotesIntoTrixEditor(event) {
       event.preventDefault();
-      var notes = $$1(event.target).data("notes");
+      var notes = $$2(event.target).data("notes");
       if (notes && this.trix) {
         this.trix.insertHTML(notes);
       } else {
@@ -24299,7 +24299,7 @@ var More = highchartsMore.exports;
 
 // NB: importing Highcharts rather than the Chart module as could not quite get
 // highcharts-more working using Chart or when both Chart + Highcharts loaded.
-var $ = window.$;
+var $$1 = window.$;
 More(Highcharts$1);
 var _default$k = /*#__PURE__*/function (_Controller) {
   _inherits$w(_default, _Controller);
@@ -24312,7 +24312,7 @@ var _default$k = /*#__PURE__*/function (_Controller) {
     key: "connect",
     value: function connect() {
       var _this = this;
-      $.getJSON(this.data.get("url"), function (data) {
+      $$1.getJSON(this.data.get("url"), function (data) {
         Highcharts$1.chart(_this.element, {
           chart: {
             scrollablePlotArea: {
@@ -39543,6 +39543,7 @@ var _default = /*#__PURE__*/function (_Controller) {
       var target = event.target;
       target.innerHTML = this.lessTextValue;
       this.contentTarget.style.setProperty("--read-more-line-clamp", "'unset'");
+      $('.mgrid > .row').masonry('layout');
     }
   }, {
     key: "hide",
@@ -39551,6 +39552,7 @@ var _default = /*#__PURE__*/function (_Controller) {
       var target = event.target;
       target.innerHTML = this.moreTextValue;
       this.contentTarget.style.removeProperty("--read-more-line-clamp");
+      $('.mgrid > .row').masonry('layout');
     }
   }]);
   return _default;

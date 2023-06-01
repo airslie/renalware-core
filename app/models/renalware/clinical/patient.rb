@@ -5,6 +5,7 @@ module Renalware
     class Patient < ActiveType::Record[Renalware::Patient]
       has_many :allergies, dependent: :restrict_with_exception
       has_many :dry_weights, dependent: :restrict_with_exception
+      has_one :igan_risk, dependent: :destroy
 
       # These statuses match NHS standards for the display of recorded allergy status.
       # Note that

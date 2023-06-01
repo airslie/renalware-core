@@ -24,6 +24,10 @@
     @apply bg-white text-gray-700 focus:ring-gray-500 border-gray-300;
   }
 
+  .btn-tertiary {
+    @apply bg-blue-100 text-gray-700 focus:ring-gray-500 border-gray-300;
+  }
+
   .btn-secondary:hover,
   .btn-secondary:focus {
     @apply bg-gray-100 text-gray-700;
