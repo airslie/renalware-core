@@ -23,7 +23,8 @@
               dt= profile.document.class.human_attribute_name(document_attribute)
               dd= profile.send(document_attribute).to_s
 
-      .columns.medium-6
+      - if patient.igan_risk.present?
+        .columns.medium-6
           = render "renalware/clinical/igan_risks/summary", patient: patient
 
       .columns.medium-6
