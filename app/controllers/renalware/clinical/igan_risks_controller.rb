@@ -16,7 +16,7 @@ module Renalware
       def update
         igan_risk = clinical_patient.igan_risk || clinical_patient.build_igan_risk
         authorize igan_risk
-        if igan_risk.update(igan_params)
+        if igan_risk.update_by(current_user, igan_params)
           redirect_to patient_clinical_profile_path(clinical_patient)
         else
           render_edit(igan_risk)

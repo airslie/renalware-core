@@ -3544,7 +3544,11 @@ CREATE TABLE renalware.clinical_igan_risks (
     patient_id bigint NOT NULL,
     risk numeric(5,2) NOT NULL,
     workings text,
-    text text
+    text text,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -18417,10 +18421,24 @@ CREATE INDEX index_clinical_dry_weights_on_updated_by_id ON renalware.clinical_d
 
 
 --
+-- Name: index_clinical_igan_risks_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinical_igan_risks_on_created_by_id ON renalware.clinical_igan_risks USING btree (created_by_id);
+
+
+--
 -- Name: index_clinical_igan_risks_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_clinical_igan_risks_on_patient_id ON renalware.clinical_igan_risks USING btree (patient_id);
+
+
+--
+-- Name: index_clinical_igan_risks_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinical_igan_risks_on_updated_by_id ON renalware.clinical_igan_risks USING btree (updated_by_id);
 
 
 --
@@ -23381,6 +23399,14 @@ ALTER TABLE ONLY renalware.patients
 
 
 --
+-- Name: clinical_igan_risks fk_rails_0341ed8b89; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinical_igan_risks
+    ADD CONSTRAINT fk_rails_0341ed8b89 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: patients fk_rails_042462eeb9; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -26109,6 +26135,14 @@ ALTER TABLE ONLY renalware.problem_problems
 
 
 --
+-- Name: clinical_igan_risks fk_rails_ef1fbb24e2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinical_igan_risks
+    ADD CONSTRAINT fk_rails_ef1fbb24e2 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: pathology_chart_series fk_rails_ef96d4fa3a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -27332,6 +27366,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230511151434'),
 ('20230523121919'),
 ('20230531155854'),
+('20230602083513'),
 ('20230607104435'),
 ('20230608154421'),
 ('20230608171855');

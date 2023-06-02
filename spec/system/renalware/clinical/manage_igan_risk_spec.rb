@@ -33,8 +33,8 @@ module Renalware
 
       it "updating the IgAN risk" do
         clinical_patient = create(:clinical_patient)
-        login_as_clinical
-        clinical_patient.build_igan_risk(risk: 12.34, workings: "abc").save!
+        user = login_as_clinical
+        clinical_patient.build_igan_risk(risk: 12.34, workings: "abc", by: user).save!
         visit patient_clinical_profile_path(clinical_patient)
 
         within "#igan_risk" do
