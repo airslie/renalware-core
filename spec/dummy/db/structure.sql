@@ -10449,6 +10449,69 @@ ALTER SEQUENCE renalware.problem_problems_id_seq OWNED BY renalware.problem_prob
 
 
 --
+-- Name: problem_radar_cohorts; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.problem_radar_cohorts (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: problem_radar_cohorts_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.problem_radar_cohorts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: problem_radar_cohorts_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.problem_radar_cohorts_id_seq OWNED BY renalware.problem_radar_cohorts.id;
+
+
+--
+-- Name: problem_radar_diagnoses; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.problem_radar_diagnoses (
+    id bigint NOT NULL,
+    cohort_id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: problem_radar_diagnoses_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.problem_radar_diagnoses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: problem_radar_diagnoses_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.problem_radar_diagnoses_id_seq OWNED BY renalware.problem_radar_diagnoses.id;
+
+
+--
 -- Name: problem_versions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -14898,6 +14961,20 @@ ALTER TABLE ONLY renalware.problem_problems ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: problem_radar_cohorts id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_radar_cohorts ALTER COLUMN id SET DEFAULT nextval('renalware.problem_radar_cohorts_id_seq'::regclass);
+
+
+--
+-- Name: problem_radar_diagnoses id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_radar_diagnoses ALTER COLUMN id SET DEFAULT nextval('renalware.problem_radar_diagnoses_id_seq'::regclass);
+
+
+--
 -- Name: problem_versions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -16864,6 +16941,22 @@ ALTER TABLE ONLY renalware.problem_notes
 
 ALTER TABLE ONLY renalware.problem_problems
     ADD CONSTRAINT problem_problems_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: problem_radar_cohorts problem_radar_cohorts_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_radar_cohorts
+    ADD CONSTRAINT problem_radar_cohorts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: problem_radar_diagnoses problem_radar_diagnoses_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_radar_diagnoses
+    ADD CONSTRAINT problem_radar_diagnoses_pkey PRIMARY KEY (id);
 
 
 --
@@ -21515,6 +21608,27 @@ CREATE INDEX index_problem_problems_on_updated_by_id ON renalware.problem_proble
 
 
 --
+-- Name: index_problem_radar_cohorts_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_problem_radar_cohorts_on_name ON renalware.problem_radar_cohorts USING btree (name);
+
+
+--
+-- Name: index_problem_radar_diagnoses_on_cohort_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_problem_radar_diagnoses_on_cohort_id ON renalware.problem_radar_diagnoses USING btree (cohort_id);
+
+
+--
+-- Name: index_problem_radar_diagnoses_on_cohort_id_and_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_problem_radar_diagnoses_on_cohort_id_and_name ON renalware.problem_radar_diagnoses USING btree (cohort_id, name);
+
+
+--
 -- Name: index_problem_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -23404,6 +23518,14 @@ ALTER TABLE ONLY renalware.medication_prescription_terminations
 
 ALTER TABLE ONLY renalware.pd_pet_adequacy_results
     ADD CONSTRAINT fk_rails_1f91303c21 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: problem_radar_diagnoses fk_rails_205f920f0a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_radar_diagnoses
+    ADD CONSTRAINT fk_rails_205f920f0a FOREIGN KEY (cohort_id) REFERENCES renalware.problem_radar_cohorts(id);
 
 
 --
@@ -27108,6 +27230,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230503185921'),
 ('20230510144745'),
 ('20230511151434'),
-('20230523121919');
+('20230523121919'),
+('20230607104435');
 
 

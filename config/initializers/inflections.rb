@@ -55,6 +55,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "PRD"
   inflect.acronym "PV1"
   inflect.acronym "PV2"
+  inflect.acronym "RaDaR"
   inflect.acronym "RTF"
   inflect.acronym "SFTP"
   inflect.acronym "TRUD"
