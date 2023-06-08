@@ -169,6 +169,36 @@ CREATE TYPE renalware.duration AS ENUM (
 
 
 --
+-- Name: enum_colour_name; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.enum_colour_name AS ENUM (
+    'slate',
+    'gray',
+    'zinc',
+    'neutral',
+    'stone',
+    'red',
+    'orange',
+    'amber',
+    'yellow',
+    'lime',
+    'green',
+    'emerald',
+    'teal',
+    'cyan',
+    'sky',
+    'blue',
+    'indigo',
+    'violet',
+    'purple',
+    'fuchsia',
+    'pink',
+    'rose'
+);
+
+
+--
 -- Name: feed_outgoing_document_state; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -2312,7 +2342,8 @@ CREATE TABLE renalware.access_types (
     updated_at timestamp without time zone NOT NULL,
     abbreviation character varying,
     rr02_code character varying,
-    rr41_code character varying
+    rr41_code character varying,
+    hd_vascular boolean DEFAULT true NOT NULL
 );
 
 
@@ -6853,6 +6884,16 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
+
+
+--
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7911,7 +7952,11 @@ CREATE TABLE renalware.pathology_code_groups (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     created_by_id bigint,
-    updated_by_id bigint
+    updated_by_id bigint,
+    title character varying,
+    context_specific boolean DEFAULT false NOT NULL,
+    subgroup_colours renalware.enum_colour_name[],
+    subgroup_titles text[] DEFAULT '{}'::text[]
 );
 
 
@@ -7981,7 +8026,8 @@ CREATE TABLE renalware.pathology_observation_descriptions (
     chart_sql_function_name character varying,
     created_by_sender_id bigint,
     observations_count integer DEFAULT 0,
-    last_observed_at timestamp without time zone
+    last_observed_at timestamp without time zone,
+    colour renalware.enum_colour_name
 );
 
 
@@ -10488,8 +10534,24 @@ CREATE TABLE renalware.problem_radar_diagnoses (
     cohort_id bigint NOT NULL,
     name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    description_regex text,
+    snomed_regex text
 );
+
+
+--
+-- Name: COLUMN problem_radar_diagnoses.description_regex; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.problem_radar_diagnoses.description_regex IS 'Optional regex eg ''AH (amyloidosis|amylidos.*)'' against which patient problem descriptions will be matched (in addition to matching purely against the diagnosis.name) when trying to ascertain if the patient has this rare renal diagnosis. Supporting regexes allows for problem variants and for spelling mistakes in non-SNOMED coded problems.';
+
+
+--
+-- Name: COLUMN problem_radar_diagnoses.snomed_regex; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.problem_radar_diagnoses.snomed_regex IS 'Optional regex eg ''(123123|345345|123123123123.*)'' against which patient problem snomed_codes will be matched (in addition to matching purely against the diagnosis.name) when trying to ascertain if the patient has this rare renal disease. Supporting regexes allows us to match a problem that has a SNOMED code that is the exact match, parent or child of the target RaDaR diagnosis SNOMED code.';
 
 
 --
@@ -27231,6 +27293,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230510144745'),
 ('20230511151434'),
 ('20230523121919'),
-('20230607104435');
+('20230531112529'),
+('20230607104435'),
+('20230608081348'),
+('20230608110737'),
+('20230608154421'),
+('20230608171855');
 
 
