@@ -169,36 +169,6 @@ CREATE TYPE renalware.duration AS ENUM (
 
 
 --
--- Name: enum_colour_name; Type: TYPE; Schema: renalware; Owner: -
---
-
-CREATE TYPE renalware.enum_colour_name AS ENUM (
-    'slate',
-    'gray',
-    'zinc',
-    'neutral',
-    'stone',
-    'red',
-    'orange',
-    'amber',
-    'yellow',
-    'lime',
-    'green',
-    'emerald',
-    'teal',
-    'cyan',
-    'sky',
-    'blue',
-    'indigo',
-    'violet',
-    'purple',
-    'fuchsia',
-    'pink',
-    'rose'
-);
-
-
---
 -- Name: feed_outgoing_document_state; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -6884,16 +6854,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7952,11 +7912,7 @@ CREATE TABLE renalware.pathology_code_groups (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     created_by_id bigint,
-    updated_by_id bigint,
-    title character varying,
-    context_specific boolean DEFAULT false NOT NULL,
-    subgroup_colours renalware.enum_colour_name[],
-    subgroup_titles text[] DEFAULT '{}'::text[]
+    updated_by_id bigint
 );
 
 
@@ -8026,8 +7982,7 @@ CREATE TABLE renalware.pathology_observation_descriptions (
     chart_sql_function_name character varying,
     created_by_sender_id bigint,
     observations_count integer DEFAULT 0,
-    last_observed_at timestamp without time zone,
-    colour renalware.enum_colour_name
+    last_observed_at timestamp without time zone
 );
 
 
@@ -27293,10 +27248,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230510144745'),
 ('20230511151434'),
 ('20230523121919'),
-('20230531112529'),
 ('20230607104435'),
-('20230608081348'),
-('20230608110737'),
 ('20230608154421'),
 ('20230608171855');
 
