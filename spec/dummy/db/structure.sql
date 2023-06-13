@@ -3536,6 +3536,63 @@ ALTER SEQUENCE renalware.clinical_dry_weights_id_seq OWNED BY renalware.clinical
 
 
 --
+-- Name: clinical_igan_risks; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.clinical_igan_risks (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    risk numeric(5,2) NOT NULL,
+    workings text,
+    text text,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: COLUMN clinical_igan_risks.risk; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.clinical_igan_risks.risk IS 'The risk of a 50% decline in estimated GFR or progression to end-stage renal disease 4.2 years after renal biopsy. Calculated using an external website and is a %value eg 40.1%';
+
+
+--
+-- Name: COLUMN clinical_igan_risks.workings; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.clinical_igan_risks.workings IS 'The calculation output or summary (a block of text) which the user can copy to the clipboard manually from the from the external website, and paste into RW to be saved here. Details the parameters they input as well as the calculated risk';
+
+
+--
+-- Name: COLUMN clinical_igan_risks.text; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.clinical_igan_risks.text IS 'The calculation output or summary (a block of text) which the user can copy to the clipboard manually from the from the external website, and paste into RW to be saved here. Details the parameters they input as well as the calculated risk';
+
+
+--
+-- Name: clinical_igan_risks_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.clinical_igan_risks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinical_igan_risks_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.clinical_igan_risks_id_seq OWNED BY renalware.clinical_igan_risks.id;
+
+
+--
 -- Name: clinical_versions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -13893,6 +13950,13 @@ ALTER TABLE ONLY renalware.clinical_dry_weights ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: clinical_igan_risks id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinical_igan_risks ALTER COLUMN id SET DEFAULT nextval('renalware.clinical_igan_risks_id_seq'::regclass);
+
+
+--
 -- Name: clinical_versions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -15678,6 +15742,14 @@ ALTER TABLE ONLY renalware.clinical_body_compositions
 
 ALTER TABLE ONLY renalware.clinical_dry_weights
     ADD CONSTRAINT clinical_dry_weights_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clinical_igan_risks clinical_igan_risks_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinical_igan_risks
+    ADD CONSTRAINT clinical_igan_risks_pkey PRIMARY KEY (id);
 
 
 --
@@ -18346,6 +18418,27 @@ CREATE INDEX index_clinical_dry_weights_on_patient_id ON renalware.clinical_dry_
 --
 
 CREATE INDEX index_clinical_dry_weights_on_updated_by_id ON renalware.clinical_dry_weights USING btree (updated_by_id);
+
+
+--
+-- Name: index_clinical_igan_risks_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinical_igan_risks_on_created_by_id ON renalware.clinical_igan_risks USING btree (created_by_id);
+
+
+--
+-- Name: index_clinical_igan_risks_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinical_igan_risks_on_patient_id ON renalware.clinical_igan_risks USING btree (patient_id);
+
+
+--
+-- Name: index_clinical_igan_risks_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinical_igan_risks_on_updated_by_id ON renalware.clinical_igan_risks USING btree (updated_by_id);
 
 
 --
@@ -23306,6 +23399,14 @@ ALTER TABLE ONLY renalware.patients
 
 
 --
+-- Name: clinical_igan_risks fk_rails_0341ed8b89; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinical_igan_risks
+    ADD CONSTRAINT fk_rails_0341ed8b89 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: patients fk_rails_042462eeb9; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -25026,6 +25127,14 @@ ALTER TABLE ONLY renalware.admission_admissions
 
 
 --
+-- Name: clinical_igan_risks fk_rails_9b3432e846; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinical_igan_risks
+    ADD CONSTRAINT fk_rails_9b3432e846 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: research_participations fk_rails_9c3d41afbe; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -26023,6 +26132,14 @@ ALTER TABLE ONLY renalware.users
 
 ALTER TABLE ONLY renalware.problem_problems
     ADD CONSTRAINT fk_rails_edf3902cb0 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
+-- Name: clinical_igan_risks fk_rails_ef1fbb24e2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinical_igan_risks
+    ADD CONSTRAINT fk_rails_ef1fbb24e2 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -27248,6 +27365,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230510144745'),
 ('20230511151434'),
 ('20230523121919'),
+('20230531155854'),
+('20230602083513'),
 ('20230607104435'),
 ('20230608154421'),
 ('20230608171855');

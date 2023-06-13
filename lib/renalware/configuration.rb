@@ -224,6 +224,16 @@ module Renalware
     config_accessor(:pathology_kfre_5y_obx_code) { "KFRE5" }
     config_accessor(:pathology_kfre_obr_code) { "KFRE" }
 
+    config_accessor(:igan_prediction_tool_title) {
+      ENV.fetch("IGAN_PREDICTION_TOOL_TITLE", "IgAN Prediction Tool")
+    }
+    config_accessor(:igan_prediction_tool_url) {
+      ENV.fetch(
+        "IGAN_PREDICTION_TOOL_URL",
+        "https://qxmd.com/calculate/calculator_499/international-igan-prediction-tool-at-biopsy-adults"
+      )
+    }
+
     # patient_visilbility_restriction_options = %i(none by_site by_site_and_research_study)
 
     config_accessor(:patient_visibility_restrictions) { :none }

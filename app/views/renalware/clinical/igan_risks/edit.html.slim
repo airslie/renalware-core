@@ -1,0 +1,34 @@
+= within_patient_layout(title: "International IgAN Prediction at biopsy - Adults") do
+  = simple_form_for igan_risk,
+                    as: :igan_risk,
+                    method: :put,
+                    url: patient_clinical_igan_risk_path(igan_risk.patient, igan_risk) do |f|
+
+    .rounded-md.bg-blue-50.px-3.py-2.flex.items-start.shadow.mb-8
+      i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+      | Please launch the external website tool to calculate the IgAN risk,
+      | and then enter it below.
+      br
+      ' Please use the value 60 (5 years)
+      ' for the question:
+      ' 'At how many months after renal biopsy would you like to determine
+      ' risk of renal progression?'
+
+    = link_to(Renalware.config.igan_prediction_tool_url,
+              target: "_blank",
+              rel: "noopener",
+              class: "btn btn-tertiary") do
+      = inline_icon(:external, class: "inline")
+      = "Launch the #{Renalware.config.igan_prediction_tool_title}"
+
+    .mt-10
+    = f.input :risk,
+              wrapper: :horizontal_small,
+              label: "Risk %",
+              hint: "The risk of a 50% decline in estimated GFR or progression to end-stage renal disease 4.2 years after renal biopsy"
+    = f.input :workings,
+              wrapper: :horizontal_large,
+              hint: "Paste into here after clicking 'Copy Results' on the IgAN prediction tool website",
+              input_html: { rows: 5 }
+
+    = save_or_cancel(form: f, back_path: patient_clinical_profile_path(igan_risk.patient))
