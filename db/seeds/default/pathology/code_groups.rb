@@ -5,6 +5,8 @@ module Renalware
     user = User.first
     Pathology::CodeGroup.find_or_create_by!(name: "hd_session_form_recent") do |group|
       group.description = "Recent pathology shown on the HD Sessions printable form"
+      group.title = "HD Session printable form"
+      group.context_specific = true
       group.created_by = user
       group.updated_by = user
 

@@ -1,9 +1,18 @@
 = within_new_admin_layout(title: "Pathology Code Groups") do
+  .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
+    i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+    ' Context-specific groups will not appear in filter dropdown in lists.
+    ' Groups ending in _mdm are automcatically used in their corresponding MDM view eg 'hd_mdm'
+
   table.code-groups-table
     thead
       tr
-        th Group name
+        td
+        th System name
+        th Displayed title
         th= t("thead.description")
+        th.col-width-tiny Context specific
+
     tbody
       - groups.each do |group|
         tr
@@ -11,4 +20,10 @@
             - if policy(group).edit?
               = link_to t("btn.view"), pathology_code_group_path(group)
           td= group.name
+          td= group.title
           td= group.description
+          td = inline_check_icon(group.context_specific)
+
+
+
+
