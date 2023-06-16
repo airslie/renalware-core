@@ -125,7 +125,6 @@ PATH
       validates_timeliness (~> 7.0.0.beta1)
       view_component (< 3.0)
       virtus (~> 1.0.5)
-      whenever
       wicked_pdf (~> 2.6.3)
       wisper (~> 2.0.0)
       wisper-activejob (~> 1.0.0)
@@ -281,7 +280,6 @@ GEM
     character_set (1.6.0)
       sorted_set (~> 1.0)
     childprocess (4.1.0)
-    chronic (0.10.2)
     chunky_png (1.4.0)
     client_side_validations (21.0.0)
       js_regex (~> 3.7)
@@ -916,8 +914,6 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    whenever (1.0.0)
-      chronic (>= 0.6.3)
     wicked_pdf (2.6.3)
       activesupport
     wisper (2.0.1)

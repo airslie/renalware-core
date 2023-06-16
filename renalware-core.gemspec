@@ -103,7 +103,6 @@ Gem::Specification.new do |s|
   s.add_dependency "validates_timeliness", "~> 7.0.0.beta1"
   s.add_dependency "view_component", "< 3.0"
   s.add_dependency "virtus", "~> 1.0.5"
-  s.add_dependency "whenever" # For managing/deploying cron jobs see config/schedule.rb
   s.add_dependency "wicked_pdf", "~> 2.6.3"
   s.add_dependency "wisper", "~> 2.0.0"
   s.add_dependency "wisper-activejob", "~> 1.0.0"

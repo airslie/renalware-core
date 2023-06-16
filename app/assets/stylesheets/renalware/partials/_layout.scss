@@ -20,11 +20,6 @@ body.uat {
   border-top: 3px solid $nhs-yellow;
 }
 
-/* tailwind override for foundation compatability */
-.collapse {
-  visibility: initial;
-}
-
 html {
   body {
     display: flex;
