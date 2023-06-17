@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware
   module Feeds
-    describe ProcessRawHL7MessagesCron do
+    describe ProcessRawHL7MessagesJob do
       let(:instance) { described_class.new }
       let(:message_processor) { instance_double(MessageProcessor, call: nil) }
 

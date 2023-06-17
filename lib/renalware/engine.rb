@@ -140,7 +140,7 @@ module Renalware
       {
         mirth_raw_message_processor: {
           cron: "every 2 minutes",
-          class: "Renalware::Feeds::ProcessRawHL7MessagesCron",
+          class: "Renalware::Feeds::ProcessRawHL7MessagesJob",
           description: "Process Mirth messages"
         }
       }
