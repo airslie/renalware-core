@@ -48,10 +48,13 @@ namespace :pathology do
       # raw_msg = raw_msg.gsub("20091112164645", Time.zone.now.strftime("%Y%m%d%H%M%S.%L"))
       raw_msg = raw_msg.gsub("20091112164645", Time.zone.now.strftime("%Y%m%d%H%M%S"))
 
-      ActiveRecord::Base.connection.execute(
-        "select renalware.new_hl7_message('#{raw_msg}'::text);"
-      )
-      # end
+      sql = if Renalware.config.process_hl7_via_raw_messages_table
+              "select renalware.insert_raw_hl7_message('#{raw_msg}'::text);"
+            else
+              "select renalware.new_hl7_message('#{raw_msg}'::text);"
+            end
+
+      ActiveRecord::Base.connection.execute(sql)
     end
   end
 

@@ -26,7 +26,7 @@ module Dummy
     # number of seconds between polls for jobs when execution_mode is set to :async
     config.good_job.poll_interval = 30
     config.good_job.cron = Renalware::Engine.scheduled_jobs_config
-    config.good_job.enable_cron = false # Switch to true to enable cron jobs
+    config.good_job.enable_cron = true # Switch to true to enable cron jobs
     config.good_job.smaller_number_is_higher_priority = true
 
     # Important!!

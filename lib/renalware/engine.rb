@@ -130,8 +130,20 @@ module Renalware
             description: "Use the NHS Digital Terminology Service APIs to fetch DM+D updates to " \
                          "Drugs"
           }
-        }
+        }.merge(good_job_config_to_enable_feed_import_via_raw_hl7_messages_table)
       end
+    end
+
+    def good_job_config_to_enable_feed_import_via_raw_hl7_messages_table
+      return {} unless Renalware.config.process_hl7_via_raw_messages_table
+
+      {
+        mirth_raw_message_processor: {
+          cron: "every 2 minutes",
+          class: "Renalware::Feeds::ProcessRawHL7MessagesJob",
+          description: "Process Mirth messages"
+        }
+      }
     end
 
     # config.view_component.test_controller = "Renalware::BaseController"
@@ -144,6 +156,7 @@ module Renalware
       gens.fixture_replacement :factory_bot, dir: "spec/factories", suffix: "factory"
     end
 
+    # rubocop:disable Layout/ClassStructure
     initializer :add_locales do |app|
       app.config.i18n.load_path += Dir[config.root.join("config/locales/**/*.yml")]
       app.config.i18n.load_path += Dir[config.root.join("app/components/**/*.yml")]
@@ -151,6 +164,7 @@ module Renalware
       app.config.i18n.default_locale = :"en-GB"
       app.config.i18n.fallbacks = [:en]
     end
+    # rubocop:enable Layout/ClassStructure
 
     # In production use lograge to help us tame a verbose logs/production.log.
     # Note that the timestamp will be added before the lograge output by whatever Rails
