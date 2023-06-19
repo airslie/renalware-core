@@ -65,6 +65,11 @@ module Renalware
       %i(unapproved inactive expired)
     end
 
+    # Send devise emails using activejob
+    def send_devise_notification(notification, *args)
+      devise_mailer.send(notification, self, *args).deliver_later
+    end
+
     # rubocop:disable Naming/PredicateName
     def has_role?(name)
       role_names.include?(name.to_s)
