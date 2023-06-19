@@ -154,7 +154,7 @@ module Renalware
         UKRDC::SummaryMailer.export_summary(
           to: email_recipients,
           summary: summary
-        ).deliver
+        ).deliver_later
       end
 
       def email_recipients
