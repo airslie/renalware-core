@@ -12,6 +12,12 @@ This project adheres to Semantic Versioning.
 ## 2.4.0
 
 ### Added
+- Schedule materialised view refreshing #4349
+- Add support for using good_job HL7 processing via a feed_raw_hl7_messages queue table #4267
+- Allow choosing a code group when viewing historical pathology #4336
+- IgAN prediction tool #4335
+- Add regex columns to RaDaR diagnoses table #4341
+- Store RaDaR cohorts and diagnoses #4338
 - Add QR code links to online articles to letters #4103
 - Add VND Risk Assessments #4272
 - Add notes and admin notes to toggled dietetic row #4293
@@ -25,6 +31,8 @@ This project adheres to Semantic Versioning.
 - Add Visit Type filters at the top of Dietetic MDM list #4210
 - Add RR outcome code to Death::Location in preperation for RR5 dataset #4203
 ### Changed
+- Ensure all emails are sent using ActiveJob #4347
+- Restrict HD Session access type choice by hd_vascular=true #4340
 - Prescriptions column heading changes - add a new column 'Stop on' after 'Prescribed on' - rename 'Terminated on' to 'Stopped on' #4260
 - Add missing dietetic CV data items to the toggled table cell #4258
 - Add rounded borders and add more spacing to form inputs #4273
@@ -47,6 +55,7 @@ This project adheres to Semantic Versioning.
 - HD Session form PDF changes - Add Solution flow from HD profile next to Blood Flow and indicate if Worry #4164
 - Refresh browser page automatically in development #4243
 ### Fixed
+- Fix default_patient_link usage in dynamic reports #4350
 - Ensure termination date is editable when editing a prescription #4276
 - Fixed bug creating an event when changing dropdown from eg Clinical Frailty Score to Medication Review (missing partial) #4303
 - Fixed error creating letter from dietetic visit #4292
