@@ -6992,6 +6992,16 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
+
+
+--
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -12597,7 +12607,9 @@ CREATE TABLE renalware.system_view_metadata (
     category renalware.system_view_category DEFAULT 'mdm'::renalware.system_view_category NOT NULL,
     sub_category character varying,
     materialized boolean DEFAULT false,
-    materialized_view_refreshed_at timestamp without time zone
+    materialized_view_refreshed_at timestamp without time zone,
+    refresh_schedule text,
+    refresh_concurrently boolean DEFAULT false NOT NULL
 );
 
 
@@ -12655,6 +12667,20 @@ COMMENT ON COLUMN renalware.system_view_metadata.filters IS 'Array of filter def
 --
 
 COMMENT ON COLUMN renalware.system_view_metadata.description IS 'A description of the SQL view''s function';
+
+
+--
+-- Name: COLUMN system_view_metadata.refresh_schedule; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_view_metadata.refresh_schedule IS 'e.g. ''1 0 * * 1-6'' = At 00:01 on every day-of-week from Monday through Saturday.';
+
+
+--
+-- Name: COLUMN system_view_metadata.refresh_concurrently; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_view_metadata.refresh_concurrently IS 'If true the materialised view is refreshed concurrently reducing the chance of locking';
 
 
 --
@@ -13837,6 +13863,16 @@ CREATE SEQUENCE renalware.virology_versions_id_seq
 --
 
 ALTER SEQUENCE renalware.virology_versions_id_seq OWNED BY renalware.virology_versions.id;
+
+
+--
+-- Name: xxx; Type: MATERIALIZED VIEW; Schema: renalware; Owner: -
+--
+
+CREATE MATERIALIZED VIEW renalware.xxx AS
+ SELECT patients.family_name AS patient_name
+   FROM renalware.patients
+  WITH NO DATA;
 
 
 --
@@ -27475,6 +27511,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230608081348'),
 ('20230608110737'),
 ('20230608154421'),
-('20230608171855');
+('20230608171855'),
+('20230621103930');
 
 

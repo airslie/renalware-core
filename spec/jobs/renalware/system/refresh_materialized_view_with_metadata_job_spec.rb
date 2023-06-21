@@ -3,12 +3,14 @@
 require "rails_helper"
 
 module Renalware
-  describe Reporting::RefreshViewMetadataJob do
+  describe System::RefreshMaterializedViewWithMetadataJob do
     let(:view_metadata) do
-      create( \
+      create(
         :view_metadata,
         materialized: materialized,
-        view_name: "test"
+        view_name: "test",
+        schema_name: "xxx",
+        refresh_concurrently: true
       )
     end
 
@@ -27,9 +29,9 @@ module Renalware
           described_class.perform_now(view_metadata)
           expect(postgres_adapter).to have_received(:refresh_materialized_view)
             .with \
-              "test",
+              "xxx.test",
               cascade: false,
-              concurrently: false
+              concurrently: true
           expect(view_metadata.materialized_view_refreshed_at)
             .to be_within(3.seconds).of(Time.zone.now)
         end
