@@ -34,7 +34,7 @@ namespace :db do
   task refresh_materialized_view: :environment do
     RefreshMaterializedViewJob.perform_now(
       view_name: ENV.fetch("view_name"),
-      concurrently: ENV.fetch("concurrently", nil)
+      concurrently: "true" == ENV.fetch("concurrently", "false")
     )
   end
 end

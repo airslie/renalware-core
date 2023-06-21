@@ -7,7 +7,7 @@ module Renalware
       def create
         authorize view_metadata
 
-        RefreshViewMetadataJob.perform_later(view_metadata)
+        System::RefreshMaterializedViewWithMetadataJob.perform_later(view_metadata)
 
         redirect_back fallback_location: reporting_reports_path,
                       notice: "Materialized View will be refreshed in the " \

@@ -30,7 +30,7 @@ describe "Refreshing materialized view" do
       click_button "Refresh Data"
     end
 
-    expect(Renalware::Reporting::RefreshViewMetadataJob).to have_been_enqueued
+    expect(Renalware::System::RefreshMaterializedViewWithMetadataJob).to have_been_enqueued
     expect(page).to have_content "Materialized View will be refreshed in the " \
                                  "background"
 
