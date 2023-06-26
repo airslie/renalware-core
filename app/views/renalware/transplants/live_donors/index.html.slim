@@ -1,2 +1,5 @@
 = within_admin_layout(title: t(".page_title")) do
-  = render "index", q: q, live_donors: live_donors
+  = turbo_frame_tag "live_donors" do
+    = render Renalware::SpinnerComponent.new do |spinner|
+      = spinner.main_content do
+        = render "index", q: q, live_donors: live_donors, pagy: pagy

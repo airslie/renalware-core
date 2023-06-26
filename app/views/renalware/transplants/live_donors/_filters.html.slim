@@ -1,15 +1,25 @@
-= search_form_for(search,
+= simple_form_for(search,
                   url: transplants_live_donors_path,
                   class: "fn-form",
-                  method: :get) do |f|
-  .row
-    .columns.small-6.medium-4
-      = f.select(:current_donor_stage_stage_position_id_eq,
-          options_from_collection_for_select(Renalware::Transplants::DonorStagePosition.all,
-                                             :id,
-                                             :name,
-                                             search.current_donor_stage_stage_position_id_eq),
-          include_blank: "All stages")
+                  method: :get,
+                  data: { turbo_frame: "live_donors",
+                          turbo: true,
+                          turbo_advance: true,
+                          controller: "form",
+                          action: "input->form#submit" }) do |f|
+  .flex.flex-row
+    = f.input(:current_donor_stage_stage_position_id_eq,
+              collection: Renalware::Transplants::DonorStagePosition.pluck(:name, :id),
+              include_blank: "All stages",
+              label: "Stage")
 
-    .columns.small-6.medium-4.end
-      .mb-px= filter_or_reset(form: f, reset_path: transplants_live_donors_path)
+    .columns.small-4.medium-5
+      = f.input(:hospital_centre_id_eq,
+                collection: Renalware::Hospitals::Centre.order(host_site: :desc, name: :asc).pluck(:name, :id),
+                include_blank: "Any",
+                input_html: { data: { controller: "slimselect", action: "change->form#submit" }},
+                label: "Hospital")
+
+    .columns.small-2.medium-2.end
+      noscript
+        .mb-px= filter_or_reset(form: f, reset_path: transplants_live_donors_path)

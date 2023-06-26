@@ -4,19 +4,20 @@ module Renalware
   module Transplants
     class LiveDonorsController < BaseController
       include Renalware::Concerns::PatientVisibility
-      include Renalware::Concerns::Pageable
+      include Pagy::Backend
 
       def index
         query = LiveDonorsQuery.new(
           params: params[:q],
-          relation: policy_scope(Transplants::Patient.all)
+          relation: policy_scope(Transplants::Patient.includes(:hospital_centre))
         )
-        live_donors = query.call.page(page).per(per_page || 50)
+        pagy, live_donors = pagy(query.call)
 
         authorize live_donors
         render locals: {
           live_donors: live_donors,
-          q: query.search
+          q: query.search,
+          pagy: pagy
         }
       end
     end
