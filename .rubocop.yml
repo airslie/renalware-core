@@ -72,6 +72,8 @@ RSpec/MultipleExpectations:
   Max: 6
   Exclude:
     - "spec/system/**/*"
+Lint/RedundantSafeNavigation:
+  Enabled: false
 RSpec/DescribeClass:
   Enabled: false
 RSpec/ImplicitSubject:
