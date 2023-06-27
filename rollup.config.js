@@ -1,4 +1,5 @@
 // rollupjs setup adapted from the approach used by ActiveStorage
+var devEnv = (process.env.NODE_ENV || "development") == "development";
 
 import resolve from "@rollup/plugin-node-resolve"
 import commonjs from "@rollup/plugin-commonjs" // required for uglify
@@ -32,7 +33,7 @@ export default {
     babel(),
     resolve(),
     commonjs(),
-    process.env.ROLLUP_WATCH &&
+    process.env.ROLLUP_WATCH && devEnv &&
       livereload({
         watch: watchDirectories,
         // If true, set `config.assets.digest = false` in development.rb
