@@ -17,7 +17,13 @@ module Renalware::Feeds
           to_hl7: "::message body::",
           patient_identification: double(
             internal_id: "123",
-            hospital_identifiers: {},
+            hospital_identifiers: {
+              "HOSP1" => "1111",
+              "HOSP2" => "2222",
+              "HOSP3" => "3333",
+              "HOSP4" => "4444",
+              "HOSP5" => "5555"
+            },
             nhs_number: "1"
           )
         )
@@ -27,8 +33,100 @@ module Renalware::Feeds
         expect { service.call(hl7_message) }.to change(Message, :count).by(1)
       end
 
+      describe "patient identifiers => local_patient_ids mapping" do
+        it "splits out the patient identifiers into local_patient_id* columns" do
+          allow(Renalware.config)
+            .to receive(:patient_hospital_identifiers)
+            .and_return(
+              HOSP1: :local_patient_id,
+              HOSP2: :local_patient_id_2,
+              HOSP3: :local_patient_id_3,
+              HOSP4: :local_patient_id_4,
+              HOSP5: :local_patient_id_5
+            )
+
+          feed_message = service.call(hl7_message)
+
+          expect(feed_message).to have_attributes(
+            nhs_number: "1",
+            local_patient_id: "1111",
+            local_patient_id_2: "2222",
+            local_patient_id_3: "3333",
+            local_patient_id_4: "4444",
+            local_patient_id_5: "5555"
+          )
+        end
+
+        # |                    |	HL7   |	config | Persisted
+        # |                    |	Msg   |	map    |
+        # |--------------------|--------|--------|---------
+        # | local_patient_id   |	HOSP1 |	HOSP1  |	Y
+        # | local_patient_id_2 |	HOSPX |	HOSP2  |	N
+        # | local_patient_id_3 |	HOSP3 |	HOSPY  |	N
+        # | local_patient_id_4 |	HOSP4 |	HOSP4  |	Y
+        # | local_patient_id_5 |	nil   | HOSP5  |	N
+        it "silenty fails to update unmatched data" do
+          hl7_message = instance_double(
+            HL7Message,
+            type: "::message type code::",
+            message_type: "ADT",
+            event_type: "A31",
+            header_id: "::header id::",
+            to_hl7: "::message body::",
+            patient_identification: double(
+              internal_id: "123",
+              hospital_identifiers: {
+                "HOSP1" => "1111",
+                "HOSP2" => "2222",
+                "HOSPY" => "3333",
+                "HOSP4" => "4444"
+              },
+              nhs_number: "1"
+            )
+          )
+
+          allow(Renalware.config)
+            .to receive(:patient_hospital_identifiers)
+            .and_return(
+              HOSP1: :local_patient_id,
+              HOSPX: :local_patient_id_2,
+              HOSP3: :local_patient_id_3,
+              HOSP4: :local_patient_id_4
+            )
+
+          feed_message = service.call(hl7_message)
+
+          expect(feed_message).to have_attributes(
+            nhs_number: "1",
+            local_patient_id: "1111",
+            local_patient_id_2: nil,
+            local_patient_id_3: nil,
+            local_patient_id_4: "4444",
+            local_patient_id_5: nil
+          )
+        end
+
+        it "does not fall over if hospital_identifiers is empty" do
+          hl7_message = instance_double(
+            HL7Message,
+            type: "::message type code::",
+            message_type: "ADT",
+            event_type: "A31",
+            header_id: "::header id::",
+            to_hl7: "::message body::",
+            patient_identification: double(
+              internal_id: "123",
+              hospital_identifiers: {},
+              nhs_number: "1"
+            )
+          )
+
+          expect { service.call(hl7_message) }.to change(Message, :count).by(1)
+        end
+      end
+
       it "generates an MD5 hash of the payload which should be unique and therefore " \
-         "prevent duplicate" do
+         "prevent duplicates" do
         service.call(hl7_message)
 
         expect(Message.first.body_hash).to eq(Digest::MD5.hexdigest("::message body::"))
