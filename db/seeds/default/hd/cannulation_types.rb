@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "../../seeds_helper"
+
 module Renalware
+  extend SeedsHelper
+
   log "Adding HD Cannulation Types" do
     file_path = File.join(File.dirname(__FILE__), "cannulation_types.csv")
 

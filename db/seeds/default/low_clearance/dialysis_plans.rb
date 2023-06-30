@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "../../seeds_helper"
+
 module Renalware
+  extend SeedsHelper
+
   log "Adding AKCC dialysis plans" do
     {
       pd: "PD",

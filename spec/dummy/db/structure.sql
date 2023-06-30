@@ -6992,16 +6992,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -12673,14 +12663,14 @@ COMMENT ON COLUMN renalware.system_view_metadata.description IS 'A description o
 -- Name: COLUMN system_view_metadata.refresh_schedule; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.system_view_metadata.refresh_schedule IS 'e.g. ''1 0 * * 1-6'' = At 00:01 on every day-of-week from Monday through Saturday.';
+COMMENT ON COLUMN renalware.system_view_metadata.refresh_schedule IS 'Cron or fugit schedule string for refreshing the view if it is materialized eg ''every day at 6am'' or ''0 * * * *'' (every hour) or @hourly (turns into ''0 * * * *'') or ''0 0 L * *'' (last day of month at 00:00)';
 
 
 --
 -- Name: COLUMN system_view_metadata.refresh_concurrently; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.system_view_metadata.refresh_concurrently IS 'If true the materialised view is refreshed concurrently reducing the chance of locking';
+COMMENT ON COLUMN renalware.system_view_metadata.refresh_concurrently IS 'where refresh_schedule is set, if refresh_concurrently is true then provided the materialised view has a unique index, the data will be reloaded without locking the table for selects - which is clearly advantageous';
 
 
 --
@@ -13863,16 +13853,6 @@ CREATE SEQUENCE renalware.virology_versions_id_seq
 --
 
 ALTER SEQUENCE renalware.virology_versions_id_seq OWNED BY renalware.virology_versions.id;
-
-
---
--- Name: xxx; Type: MATERIALIZED VIEW; Schema: renalware; Owner: -
---
-
-CREATE MATERIALIZED VIEW renalware.xxx AS
- SELECT patients.family_name AS patient_name
-   FROM renalware.patients
-  WITH NO DATA;
 
 
 --
