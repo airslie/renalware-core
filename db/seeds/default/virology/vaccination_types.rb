@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require_relative "../../seeds_helper"
+
 module Renalware
   module Virology
+    extend SeedsHelper
+
     log "Adding virology vaccination types" do
       {
         hbv1: "HBV Vaccination 1",

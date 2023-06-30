@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "../../seeds_helper"
+
 module Renalware
+  extend SeedsHelper
+
   log "Adding malignancy sites" do
     file_path = File.join(File.dirname(__FILE__), "malignancy_sites.csv")
     malignancy_sites = CSV.foreach(file_path, headers: true).map do |row|

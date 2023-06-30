@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "../../seeds_helper"
+
 module Renalware
+  extend SeedsHelper
+
   log "Adding System User" do
     Renalware::User.find_or_create_by!(given_name: "System", family_name: "User") do |user|
       user.username = Renalware::SystemUser.username

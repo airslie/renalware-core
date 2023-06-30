@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "../../seeds_helper"
+
 module Renalware
+  extend SeedsHelper
+
   log "Adding Pathology Code Groups" do
     user = User.first
     Pathology::CodeGroup.find_or_create_by!(name: "hd_session_form_recent") do |group|

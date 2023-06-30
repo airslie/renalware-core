@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require_relative "../../seeds_helper"
+
 module Renalware
   module Modalities
+    extend SeedsHelper
+
     log "Adding PD To Haemodialysis (Reasons for Change)" do
       PDToHaemodialysis.find_or_create_by!(rr_code: 201, description: "Patient/partner choice")
       PDToHaemodialysis.find_or_create_by!(rr_code: 202, description: "Loss of supporting partner")

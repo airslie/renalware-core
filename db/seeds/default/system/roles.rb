@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "../../seeds_helper"
+
 module Renalware
+  extend SeedsHelper
+
   log "Adding Roles" do
     Role::ROLES.each do |role|
       hidden = [:super_admin, :devops].include?(role)
