@@ -63,7 +63,7 @@ namespace :pathology do
        "duplicated otherwise"
   task reprocess_feed_messages: :environment do
     reprocess_from = Time.zone.parse(ENV.fetch("reprocess_from"))
-    event_code = ENV.fetch("event_code", "ORU^R01")
+    message_type = ENV.fetch("message_type", :ORU)
 
     unless reprocess_from
       raise ArgumentError, "pass a valid datetime string eg '2029-01-01 12:01:01'"
@@ -72,7 +72,7 @@ namespace :pathology do
     puts "Reprocessing from #{reprocess_from}"
 
     Renalware::Feeds::Message
-      .where(event_code: event_code)
+      .where(message_type: message_type)
       .where("created_at >= ?", reprocess_from)
       .order(created_at: :asc)
       .select(:id)

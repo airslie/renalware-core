@@ -13,7 +13,6 @@ module Renalware
         hl7_message.patient_identification&.hospital_identifiers
 
         Message.create!(
-          event_code: hl7_message.type,
           message_type: hl7_message.message_type,
           event_type: hl7_message.event_type,
           header_id: hl7_message.header_id,

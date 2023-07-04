@@ -4981,7 +4981,7 @@ ALTER SEQUENCE renalware.feed_hl7_test_messages_id_seq OWNED BY renalware.feed_h
 
 CREATE TABLE renalware.feed_messages (
     id integer NOT NULL,
-    event_code character varying NOT NULL,
+    event_code_deprecated character varying,
     header_id character varying NOT NULL,
     body text NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -18973,6 +18973,13 @@ CREATE INDEX index_feed_hl7_test_messages_on_name ON renalware.feed_hl7_test_mes
 
 
 --
+-- Name: index_feed_messages_created_at_nonauto; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_created_at_nonauto ON renalware.feed_messages USING btree (created_at DESC);
+
+
+--
 -- Name: index_feed_messages_on_body_hash; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -27508,6 +27515,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230608154421'),
 ('20230608171855'),
 ('20230621103930'),
+('20230703164605'),
+('20230704072649'),
 ('20230704100221');
 
 
