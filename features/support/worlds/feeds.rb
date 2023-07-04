@@ -12,7 +12,10 @@ module World
       end
 
       def expect_message_to_be_recorded(message)
-        message_record = Renalware::Feeds::Message.find_by(event_code: message.type)
+        message_record = Renalware::Feeds::Message.find_by(
+          message_type: message.message_type,
+          event_type: message.event_type
+        )
         expect(message_record).to be_present
       end
     end

@@ -4981,7 +4981,7 @@ ALTER SEQUENCE renalware.feed_hl7_test_messages_id_seq OWNED BY renalware.feed_h
 
 CREATE TABLE renalware.feed_messages (
     id integer NOT NULL,
-    event_code character varying NOT NULL,
+    event_code_deprecated character varying,
     header_id character varying NOT NULL,
     body text NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -27516,6 +27516,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230608171855'),
 ('20230621103930'),
 ('20230703164605'),
+('20230704072649'),
 ('20230704100221');
 
 

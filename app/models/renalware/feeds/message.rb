@@ -7,7 +7,8 @@ module Renalware
     #
     class Message < ApplicationRecord
       validates :header_id, presence: true
-      validates :event_code, presence: true
+      validates :message_type, presence: true
+      validates :event_type, presence: true
       validates :body, presence: true
 
       def to_s
