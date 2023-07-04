@@ -28,6 +28,19 @@ module Renalware::Pathology
         expect(patient.observations.count).to eq(1)
       end
 
+      it "saves the feed_message_id if passed in as an argument", :aggregate_failures do
+        patient = pathology_patient(create(:patient))
+        request_description = create(:pathology_request_description)
+        observation_description = create(:pathology_observation_description)
+        params = build_params(patient.id, request_description, observation_description)
+
+        service.call(params, feed_message_id: 123)
+
+        expect(patient.observation_requests.reload.first).to have_attributes(
+          feed_message_id: 123
+        )
+      end
+
       it "broadcasts before and after events around the persistence of each ObservationRequest" do
         patient = pathology_patient(create(:patient))
         request_description = create(:pathology_request_description)

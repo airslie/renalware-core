@@ -10,12 +10,14 @@ module Renalware
     class CreateObservationRequests
       include Wisper::Publisher
 
-      def call(params)
+      def call(params, feed_message_id: nil)
         Array(params).each do |request|
           patient = find_patient(request.fetch(:patient_id))
           observation_params = request.fetch(:observation_request)
           broadcast :before_observation_request_persisted, observation_params
-          obr = patient.observation_requests.create!(observation_params)
+          obr = patient.observation_requests.create!(
+            observation_params.merge(feed_message_id: feed_message_id)
+          )
           broadcast :after_observation_request_persisted, obr
         end
       end

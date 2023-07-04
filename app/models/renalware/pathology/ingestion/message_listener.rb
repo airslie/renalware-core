@@ -10,8 +10,12 @@ module Renalware
       class MessageListener
         # NOTE: We are already inside a transaction here
         def oru_message_arrived(args)
+          feed_message_id = args[:feed_message]&.id
           pathology_params = parse_pathology_params(args[:hl7_message])
-          create_observation_requests_and_their_child_observations_from(pathology_params)
+          create_observation_requests_and_their_child_observations_from(
+            pathology_params,
+            feed_message_id
+          )
           #
           # Note: The current_observation_set for the patient is updated by a trigger here!
           #
@@ -23,10 +27,13 @@ module Renalware
           ObservationRequestsAttributesBuilder.new(hl7_message).parse
         end
 
-        def create_observation_requests_and_their_child_observations_from(pathology_params)
+        def create_observation_requests_and_their_child_observations_from(
+          pathology_params,
+          feed_message_id
+        )
           return if pathology_params.nil? # e.g. patient does not exist
 
-          CreateObservationRequests.new.call(pathology_params)
+          CreateObservationRequests.new.call(pathology_params, feed_message_id: feed_message_id)
         end
       end
     end
