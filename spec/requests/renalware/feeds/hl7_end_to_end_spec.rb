@@ -35,7 +35,7 @@ describe "HL7 message handling end to end" do
       Array(codes).each { |code| create(:pathology_request_description, code: code) }
     end
 
-    # rubocop:disable RSpec/MultipleExpectations
+    # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
     it "creates the required patient observation requests and their observations" do
       # This tests that we create both the results (observation_request -> observations) and
       # their descriptors if missing (observation_request -> observation -> measurement_unit).
@@ -50,13 +50,17 @@ describe "HL7 message handling end to end" do
       patient = create(:pathology_patient, local_patient_id: "Z999990")
 
       # Simulate delayed_job picking up the job Mirth had inserted
-      Renalware::Feeds.message_processor.call(raw_message)
-
-      # ...
       # Renalware::Pathology::MessageListener kicks in and creates the requests and observations
-      # ...
-      #
+      expect {
+        Renalware::Feeds.message_processor.call(raw_message)
+      }.to change(Renalware::Pathology::ObservationRequest, :count).by(2)
+        .and change(Renalware::Pathology::Observation, :count).by(7)
+
       patient.reload
+
+      # All requests should have the feed_message.id of the last added feed_message.
+      last_feed_message_id = Renalware::Feeds::Message.order(created_at: :desc).last.id
+      expect(patient.observation_requests.map(&:feed_message_id).uniq).to eq([last_feed_message_id])
 
       expect(patient.observation_requests.count).to eq(2)
       request_fbc = patient.observation_requests.first
@@ -105,7 +109,7 @@ describe "HL7 message handling end to end" do
         description: Renalware::Pathology::ObservationDescription.find_by(code: "EGFR")
       )
     end
-    # rubocop:enable RSpec/MultipleExpectations
+    # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
   end
 
   context "when the HL7 message is not specific to a patient eg MFN^M02" do

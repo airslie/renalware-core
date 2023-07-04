@@ -8170,8 +8170,16 @@ CREATE TABLE renalware.pathology_observation_requests (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     description_id integer NOT NULL,
-    filler_order_number character varying
+    filler_order_number character varying,
+    feed_message_id integer
 );
+
+
+--
+-- Name: COLUMN pathology_observation_requests.feed_message_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_observation_requests.feed_message_id IS 'Reference to the feed_message from which this observation_request was created. There is no constraint on this relationship as feed_messages can be housekept.';
 
 
 --
@@ -20750,6 +20758,13 @@ CREATE INDEX index_pathology_observation_requests_on_description_id ON renalware
 
 
 --
+-- Name: index_pathology_observation_requests_on_feed_message_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_requests_on_feed_message_id ON renalware.pathology_observation_requests USING btree (feed_message_id);
+
+
+--
 -- Name: index_pathology_observation_requests_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -27492,6 +27507,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230608110737'),
 ('20230608154421'),
 ('20230608171855'),
-('20230621103930');
+('20230621103930'),
+('20230704100221');
 
 
