@@ -19071,6 +19071,20 @@ CREATE INDEX index_feed_outgoing_documents_on_updated_by_id ON renalware.feed_ou
 
 
 --
+-- Name: index_feed_raw_hl7_messages_on_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_raw_hl7_messages_on_created_at ON renalware.feed_raw_hl7_messages USING btree (created_at);
+
+
+--
+-- Name: INDEX index_feed_raw_hl7_messages_on_created_at; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON INDEX renalware.index_feed_raw_hl7_messages_on_created_at IS 'We query for rows ordering by created_at asc to give us a chance to procsess in FIFO order, so having a an ordered index means when we use a LIMIT (batching) in the query, rows will be determined by index scan without having to look to the end of the table - or something like that! In fact the index is implcitly ordered already but having created_at: :asc her makes it a bit more explicit about our intention.';
+
+
+--
 -- Name: index_good_job_settings_on_key; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -27517,6 +27531,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230621103930'),
 ('20230703164605'),
 ('20230704072649'),
-('20230704100221');
+('20230704100221'),
+('20230705144308');
 
 
