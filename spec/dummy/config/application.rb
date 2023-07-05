@@ -18,17 +18,6 @@ module Dummy
     config.active_record.belongs_to_required_by_default = false
     config.active_record.collection_cache_versioning = false
 
-    #
-    # Good job
-    #
-    # :async = executes jobs in separate threads within the Rails web server process
-    config.good_job.execution_mode = :external
-    # number of seconds between polls for jobs when execution_mode is set to :async
-    config.good_job.poll_interval = 30
-    config.good_job.cron = Renalware::Engine.scheduled_jobs_config
-    config.good_job.enable_cron = true # Switch to true to enable cron jobs
-    config.good_job.smaller_number_is_higher_priority = true
-
     # Important!!
     # Unless set to :all, pg extensions are not put into structure.sql so certain
     # functions will not exist.

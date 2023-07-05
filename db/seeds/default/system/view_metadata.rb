@@ -98,7 +98,9 @@ module Renalware
       scope: "dietetics",
       category: "mdm",
       slug: "all",
-      schema_name: "renalware"
+      schema_name: "renalware",
+      materialized: true,
+      refresh_schedule: "0 * * * *" # every hour
     ) do |view|
       view.title = "Dietetic"
       view.position = 1
