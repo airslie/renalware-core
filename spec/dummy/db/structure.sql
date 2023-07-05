@@ -18540,6 +18540,13 @@ CREATE INDEX index_clinical_dry_weights_on_patient_id_created_at ON renalware.cl
 
 
 --
+-- Name: INDEX index_clinical_dry_weights_on_patient_id_created_at; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON INDEX renalware.index_clinical_dry_weights_on_patient_id_created_at IS 'Ordered index to speed up latest dry weight queries';
+
+
+--
 -- Name: index_clinical_dry_weights_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 

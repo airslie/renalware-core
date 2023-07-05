@@ -21,11 +21,15 @@
       - filter_type = ActiveSupport::StringInquirer.new(type)
 
       - if filter_type.list?
+        / Build and cache the filter dropdown options
+        - cache_key = [options.current_view.view_name, column, filter.type]
+        - collection = Rails.cache.fetch(cache_key, expires_in: Renalware.config.report_filter_cache_expiry_seconds.seconds) do
+          - options.search.klass.distinct(column.to_sym).pluck(column.to_sym).compact
         / Unique values selected from a dropdown
         .w-full.sm:max-w-xs.pr-2
           = f.input "#{column}_eq",
                     include_blank: true,
-                    collection: options.search.klass.distinct(column.to_sym).order(column.to_sym).pluck(column.to_sym).compact,
+                    collection: collection,
                     label: column.humanize
           / input_html: { onchange: "this.form.submit();" }
       - elsif filter_type.search?

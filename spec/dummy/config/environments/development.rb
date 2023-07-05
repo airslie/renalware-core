@@ -37,10 +37,7 @@ Rails.application.configure do
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=172800"
     }
-    config.cache_store = :redis_cache_store,
-                         {
-                           url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0/renalware")
-                         }
+    config.cache_store = :memory_store, { size: 64.megabytes }
   else
     config.action_controller.perform_caching = false
 
