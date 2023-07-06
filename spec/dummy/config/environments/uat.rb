@@ -3,6 +3,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.good_job.execution_mode = :external # queue for processing by external process
+
   # On uat if this is the demo site e.g.
   #   HEROKU_APP_URL=renalware-demo.herokuapp.com
   #   HEROKU_CUSTOM_DOMAIN=demo.renalware.app
@@ -108,7 +110,6 @@ Rails.application.configure do
                        }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "renalware_#{Rails.env}"
   config.action_mailer.perform_caching = false
 

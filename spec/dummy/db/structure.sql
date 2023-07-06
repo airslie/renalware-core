@@ -5163,6 +5163,24 @@ CREATE TABLE renalware.good_job_batches (
 
 
 --
+-- Name: good_job_executions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.good_job_executions (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    active_job_id uuid NOT NULL,
+    job_class text,
+    queue_name text,
+    serialized_params jsonb,
+    scheduled_at timestamp(6) without time zone,
+    finished_at timestamp(6) without time zone,
+    error text
+);
+
+
+--
 -- Name: good_job_processes; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -5208,7 +5226,10 @@ CREATE TABLE renalware.good_jobs (
     retried_good_job_id uuid,
     cron_at timestamp without time zone,
     batch_id uuid,
-    batch_callback_id uuid
+    batch_callback_id uuid,
+    is_discrete boolean,
+    executions_count integer,
+    job_class text
 );
 
 
@@ -6983,6 +7004,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -10930,7 +10961,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -11010,7 +11041,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -16160,6 +16191,14 @@ ALTER TABLE ONLY renalware.good_job_batches
 
 
 --
+-- Name: good_job_executions good_job_executions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.good_job_executions
+    ADD CONSTRAINT good_job_executions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: good_job_processes good_job_processes_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -19090,6 +19129,13 @@ CREATE INDEX index_feed_raw_hl7_messages_on_created_at ON renalware.feed_raw_hl7
 --
 
 COMMENT ON INDEX renalware.index_feed_raw_hl7_messages_on_created_at IS 'We query for rows ordering by created_at asc to give us a chance to procsess in FIFO order, so having an ordered index means when we use a LIMIT (batching) in the query, rows will be determined by index scan without having to look to the end of the table - or something like that! In fact the index is implcitly ordered already but having created_at: :asc here makes our intention more explicit.';
+
+
+--
+-- Name: index_good_job_executions_on_active_job_id_and_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_job_executions_on_active_job_id_and_created_at ON renalware.good_job_executions USING btree (active_job_id, created_at);
 
 
 --
@@ -27542,6 +27588,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230704100221'),
 ('20230705144308'),
 ('20230705151013'),
-('20230705153656');
+('20230705153656'),
+('20230706094637');
 
 

@@ -15,6 +15,10 @@ Rails.application.configure do
     Bullet.rails_logger = true
   end
 
+  # Execute jobs in separate thread in the web process. This makes debugging easier and we do not
+  # need to run bin/good_job unless testing cron-style jobs.
+  config.good_job.execution_mode = :async
+
   config.hosts << "dev.test"
 
   # Settings specified here will take precedence over those in config/application.rb.

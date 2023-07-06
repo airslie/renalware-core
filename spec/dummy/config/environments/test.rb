@@ -3,6 +3,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.good_job.execution_mode = :inline # executes jobs immediately when adapter is :good_job
+  config.active_job.queue_adapter = :test
+
   # Tests will store ActiveStorage uploads in the dir specified :test in config/storage.yml
   config.active_storage.service = :test
 
@@ -61,6 +64,4 @@ Rails.application.configure do
   config.i18n.raise_on_missing_translations = true
 
   Rails.application.default_url_options = { host: "localhost", port: 3000 }
-
-  config.active_job.queue_adapter = :test
 end

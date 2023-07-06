@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Start good_job in the dummy app
+cd spec/dummy && bundle exec good_job start && cd -
