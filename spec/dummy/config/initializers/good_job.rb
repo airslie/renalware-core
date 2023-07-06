@@ -1,11 +1,23 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
-  # :async = executes jobs in separate threads within the Rails web server process
-  config.good_job.execution_mode = :external
+  # NB: good_job.execution_mode is set differently in each environment so see those config files.
+  # Good job recommends (and defaults to)
+  #   development => :async => executes jobs in separate threads within the Rails web server process
+  #   test => :inline => :inline executes jobs immediately in whatever process queued them
+  #   production/uat => :external = queue for processing by external process
+  # Note the following env vars are available
+  # (see https://github.com/bensheldon/good_job#execute-jobs-async--in-process)
+  # GOOD_JOB_EXECUTION_MODE=async
+  # GOOD_JOB_MAX_THREADS=4
+  # GOOD_JOB_POLL_INTERVAL=30
 
   # number of seconds between polls for jobs when execution_mode is set to :async
   config.good_job.poll_interval = 30
+
+  # Note that cron jobs are not invoked in development/test as they are only relevant when using
+  # execution_mode = :async ie an external process. No harm in setting them globally here though.
+  config.good_job.enable_cron = true
   config.good_job.cron = Renalware::Engine.scheduled_jobs_config.merge(
     schedule_refresh_of_materialized_views: {
       cron: "every day at 10:00pm",
@@ -22,6 +34,5 @@ Rails.application.configure do
                     "Hope to replace this with pg_cron soon."
     }
   )
-  config.good_job.enable_cron = true
-  config.good_job.smaller_number_is_higher_priority = true
+  config.good_job.smaller_number_is_higher_priority = true # refers to queue priority
 end
