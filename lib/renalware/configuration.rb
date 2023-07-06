@@ -21,6 +21,9 @@ module Renalware
     # Force dotenv to load the .env file at this stage so we can read in the config defaults
     Dotenv::Railtie.load
 
+    config_accessor(:report_filter_cache_expiry_seconds) {
+      ENV.fetch("REPORT_FILTER_CACHE_EXPIRY_SECONDS", "60").to_i
+    }
     config_accessor(:force_cast_active_types) { true }
     config_accessor(:allow_qr_codes_in_letters) { false }
     config_accessor(:site_name) { "Renalware" }
