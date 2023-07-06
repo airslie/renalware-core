@@ -59,17 +59,6 @@ RSpec.configure do |config|
   end
 
   Capybara.register_driver(:rw_headless_chrome) do |app|
-    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      # This makes logs available, but doesn't cause them to appear
-      # in real time on the console
-      "goog:loggingPrefs": {
-        browser: "ALL",
-        client: "ALL",
-        driver: "ALL",
-        server: "ALL"
-      }
-    )
-
     options = Selenium::WebDriver::Chrome::Options.new
     options.add_preference(:download, prompt_for_download: false)
     options.add_preference(:download, default_directory: Rails.root.join("tmp"))
@@ -91,7 +80,6 @@ RSpec.configure do |config|
       app,
       browser: :chrome,
       http_client: client,
-      capabilities: capabilities,
       options: options
     )
   end

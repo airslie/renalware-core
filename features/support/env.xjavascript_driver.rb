@@ -1,17 +1,6 @@
 # frozen_string_literal: true
 
 Capybara.register_driver(:rw_headless_chrome) do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    # This makes logs available, but doesn't cause them to appear
-    # in real time on the console
-    "goog:loggingPrefs": {
-      browser: "ALL",
-      client: "ALL",
-      driver: "ALL",
-      server: "ALL"
-    }
-  )
-
   options = Selenium::WebDriver::Chrome::Options.new
   options.add_argument("window-size=1366,1768")
   options.add_argument("headless")
@@ -25,7 +14,6 @@ Capybara.register_driver(:rw_headless_chrome) do |app|
   Capybara::Selenium::Driver.new(
     app,
     browser: :chrome,
-    capabilities: capabilities,
     options: options
   )
 end
