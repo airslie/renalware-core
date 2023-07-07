@@ -15,7 +15,7 @@ module Renalware
         :url,
         presence: true,
         uniqueness: true,
-        format: %r{\Ahttp(s{0,1})://.+}i # keeping it simple
+        format: %r(\A(https?://)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*/?\z)
       )
       validates :title, presence: true, uniqueness: true
     end
