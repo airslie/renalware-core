@@ -10,9 +10,13 @@
 
 = simple_form_for options.search,
                   url: options.report_path_without_params,
+                  method: :get,
                   remote: false,
-                  data: { controller: "form", action: "input->form#submit" },
-                  method: :get do |f|
+                  data: { turbo_frame: "report_content",
+                          turbo: true,
+                          turbo_advance: true,
+                          controller: "form",
+                          action: "input->form#submit" } do |f|
 
   .flex.flex-col.sm:flex-row.items-start.pb-4
     - options.current_view.filters.each do |filter|
