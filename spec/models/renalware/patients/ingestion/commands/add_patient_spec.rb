@@ -6,6 +6,7 @@ module Renalware::Patients::Ingestion
   describe Commands::AddPatient do
     include HL7Helpers
     include PatientsSpecHelper
+
     subject(:service) { described_class }
 
     let(:system_user) { create(:user, username: Renalware::SystemUser.username) }
@@ -74,6 +75,53 @@ module Renalware::Patients::Ingestion
           expect(patient).to have_attributes(pattrs.to_h.slice!(:sex))
           expect(patient.sex.to_s).to eq(pattrs.to_h[:sex])
           expect(patient.current_address).to have_attributes(aattrs.to_h)
+        end
+      end
+
+      describe "broadcasting" do
+        context "when the patient is not found" do
+          it "broadcasts a :patient_added event when the patient is added" do
+            # Mock up a an HL7 message
+            hl7_message = Renalware::Feeds::HL7Message.new(HL7::Message.new)
+            # Stub the PatientLocator to not find the patient
+            allow(Renalware::Feeds::PatientLocator).to receive(:call).and_return(nil)
+            # Stub UpdateMasterPatientIndex so it does not get in the way
+            allow(Renalware::Patients::Ingestion::UpdateMasterPatientIndex).to receive(:call)
+            # Mock a patient..
+            patient = instance_double(Renalware::Patient, "by=": nil, new_record?: true)
+            allow(patient).to receive(:save!).and_return(true)
+            # ..that is returned by a mock MessageMappers::Patient builder
+            mapper_class = Renalware::Patients::Ingestion::MessageMappers::Patient
+            allow(mapper_class)
+              .to receive(:new)
+              .and_return(instance_double(mapper_class, fetch: patient))
+
+            # As the patient is not found by the Locator, the mapper will return our mock patient
+            # and we will 'save' it and broadcast an event, passing the new patient as an arg
+            expect {
+              described_class.call(hl7_message)
+            }.to broadcast(:patient_added, patient)
+
+            # Sanity check that we did try and save the patient
+            expect(patient).to have_received(:save!)
+          end
+        end
+
+        context "when the patient was found " do
+          it "does not broadcast an event" do
+            # Mock up a an HL7 message
+            hl7_message = Renalware::Feeds::HL7Message.new(HL7::Message.new)
+            # Mock a patient..
+            patient = instance_double(Renalware::Patient, "by=": nil, new_record?: true)
+            # Stub the PatientLocator to find the patient
+            allow(Renalware::Feeds::PatientLocator).to receive(:call).and_return(patient)
+            # Stub UpdateMasterPatientIndex so it does not get in the way
+            allow(Renalware::Patients::Ingestion::UpdateMasterPatientIndex).to receive(:call)
+
+            expect {
+              described_class.call(hl7_message)
+            }.not_to broadcast(:patient_added, patient)
+          end
         end
       end
     end
