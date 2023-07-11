@@ -26,6 +26,8 @@ describe "Managing patients" do
         )
         document = build_document
 
+        allow(Renalware::Patients::BroadcastPatientAddedEvent).to receive(:call)
+
         post patients_path, params: { patient: attributes.merge(document: document) }
 
         expect(response).to have_http_status(:redirect)
@@ -44,6 +46,7 @@ describe "Managing patients" do
         follow_redirect!
 
         expect(response).to be_successful
+        expect(Renalware::Patients::BroadcastPatientAddedEvent).to have_received(:call)
       end
     end
 

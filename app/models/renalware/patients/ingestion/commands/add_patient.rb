@@ -5,13 +5,7 @@ module Renalware
     module Ingestion
       module Commands
         class AddPatient < Command
-          include Broadcasting
-
-          def self.call(...)
-            new(...)
-              .broadcasting_to_configured_subscribers
-              .call
-          end
+          def self.call(...) = new(...).call
 
           def initialize(message, mapper_factory: MessageMappers::Patient)
             @mapper_factory = mapper_factory
@@ -39,7 +33,7 @@ module Renalware
             new_record = patient.new_record?
             patient.save!
 
-            broadcast(:patient_added, patient) if new_record
+            BroadcastPatientAddedEvent.call(patient) if new_record
 
             patient
           end
