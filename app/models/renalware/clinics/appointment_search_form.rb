@@ -4,13 +4,13 @@ module Renalware
   module Clinics
     class AppointmentSearchForm
       include ActiveModel::Model
-      include Virtus::Model
+      include ActiveModel::Attributes
 
-      attribute :from_date, Date, default: Time.zone.today
-      attribute :from_date_only, Boolean
-      attribute :clinic_id, Integer
-      attribute :consultant_id, Integer
-      attribute :s, String # ransack sort_links
+      attribute :from_date, :date, default: -> { Time.zone.today }
+      attribute :from_date_only, :boolean
+      attribute :clinic_id, :integer
+      attribute :consultant_id, :integer
+      attribute :s, :string # ransack sort_links
 
       def query
         @query ||= AppointmentQuery.new(query_options)
