@@ -56,10 +56,10 @@
                 td.departments_count
                   .flex
                     .w-8= centre.departments_count
-                    .p-0= link_to "View", hospitals_centre_departments_path(centre)
+                    .p-0= link_to "View", hospitals_centre_departments_path(centre), target: "_top"
                 td.units_count
                   .flex
                     .w-8= centre.units_count
-                    .p-0= link_to "View", hospitals_units_path
+                    .p-0= link_to "View", hospitals_units_path, target: "_top"
 
         == pagy_foundation_nav pagy

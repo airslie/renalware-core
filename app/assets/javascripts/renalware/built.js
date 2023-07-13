@@ -40811,7 +40811,9 @@ class TurboCableStreamSourceElement extends HTMLElement {
   async connectedCallback() {
     connectStreamSource(this);
     this.subscription = await subscribeTo(this.channel, {
-      received: this.dispatchMessageEvent.bind(this)
+      received: this.dispatchMessageEvent.bind(this),
+      connected: this.subscriptionConnected.bind(this),
+      disconnected: this.subscriptionDisconnected.bind(this)
     });
   }
   disconnectedCallback() {
@@ -40823,6 +40825,12 @@ class TurboCableStreamSourceElement extends HTMLElement {
       data
     });
     return this.dispatchEvent(event);
+  }
+  subscriptionConnected() {
+    this.setAttribute("connected", "");
+  }
+  subscriptionDisconnected() {
+    this.removeAttribute("connected");
   }
   get channel() {
     const channel = this.getAttribute("channel");

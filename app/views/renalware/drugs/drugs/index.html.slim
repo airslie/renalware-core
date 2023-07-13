@@ -20,12 +20,13 @@
             - @drugs.each do |drug|
               tr
                 td.actions
-                  = link_to t("btn.edit"), edit_drugs_drug_path(drug)
+                  = link_to t("btn.edit"), edit_drugs_drug_path(drug), target: "_top"
                   = link_to t("btn.delete"), drugs_drug_path(drug),
                     id: "#{drug.id}-drug",
                     method: :delete,
-                    data: { confirm: I18n.t("prompts.confirm_delete") }
-                td= link_to drug, edit_drugs_drug_path(drug)
+                    data: { confirm: I18n.t("prompts.confirm_delete") },
+                    target: "_top"
+                td= drug
                 td= drug.code
 
         = paginate @drugs
