@@ -100,7 +100,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sprockets-rails"#, ">= 3.2.2"
   s.add_dependency "store_model", "0.8.0"
   s.add_dependency "tailwindcss-rails", "~> 2.0.25"
-  s.add_dependency "turbo-rails", "1.3.3" # matches "@hotwired/turbo-rails" => "7.2.5"
+  s.add_dependency "turbo-rails", "1.4.0" # matches "@hotwired/turbo-rails" => "7.3.0"
   s.add_dependency "validates_timeliness", "~> 7.0.0.beta1"
   s.add_dependency "view_component", "< 3.0"
   s.add_dependency "virtus", "~> 1.0.5"
