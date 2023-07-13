@@ -3,12 +3,21 @@
   padding-top: 2px;
   padding-bottom: 2px;
 
-  &.ss-option-selected {
-    color: $darkish-grey;
+  &.ss-option-selected,
+  &.ss-option.ss-selected,
+  {
+    color: $dark-grey;
     background-color: $off-white;
   }
 }
 
 .ss-main {
   color: $darkish-grey;
+  padding-right: 0.5rem;
+  border-color: #ccc;
+
+  .ss-arrow {
+    width: 8px;
+    height: 8px;
+  }
 }

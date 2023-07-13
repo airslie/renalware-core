@@ -10,6 +10,7 @@ en:
           nhs_no: NHS no
           page_title: Live Donors
           sex: Sex
+          hospital_centre: Hospital
           stage:
             position: Position
             status: Status

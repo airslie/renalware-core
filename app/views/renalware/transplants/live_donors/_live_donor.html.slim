@@ -3,6 +3,7 @@ tr
   td= link_to(live_donor, patient_transplants_donor_dashboard_path(live_donor))
   td= live_donor.nhs_number
   td= live_donor.hospital_identifier
+  td= live_donor.hospital_centre
   td= stage&.stage_position
   td= stage&.stage_status
   td= live_donor.sex
