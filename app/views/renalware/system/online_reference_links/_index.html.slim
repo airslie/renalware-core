@@ -34,7 +34,7 @@
         tr(id=dom_id(reference))
           td.actions
             /= link_to "Use", "#"
-            = link_to "Edit", renalware.edit_system_online_reference_link_path(reference)
+            = link_to "Edit", renalware.edit_system_online_reference_link_path(reference), target: "_top"
           td= reference.title
           td
             = link_to reference.url, target: :_blank, rel: "noopener", class: "block mb-1" do
