@@ -39,5 +39,6 @@
   = list.definition(:next_review_in) { |value| value&.text }
 
   = definition_list_for(clinic_visit, size: :xlarge) do |list|
+    = list.definition(:location){ |value| value }
     = list.definition(:notes){ |value| render Renalware::ReadMoreComponent.new(value) }
     = list.definition(:admin_notes) { |value| render Renalware::ReadMoreComponent.new(value) }

@@ -19,6 +19,7 @@ sending.
 
 1. Create an Office 365 developer sandbox and login. You can see under Active Directory that is
    has created some sample users.
+   https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade/quickStartType~/null/sourceType/Microsoft_AAD_IAM?Microsoft_AAD_IAM_legacyAADRedirect=true
 2. Show all in LH menu
 3. Create an app registration - go to Azure AD -> Applications -> App registrations
   e.g. Name oauthtest, Single tenant, No redirect uri required
