@@ -6,9 +6,10 @@ module Renalware
   extend SeedsHelper
 
   log "Adding Clinica Visit Locations" do
-    Clinics::VisitLocation.create(name: "In clinic", default_location: true)
-    Clinics::VisitLocation.create(name: "By telephone")
-    Clinics::VisitLocation.create(name: "Over Teams")
-    Clinics::VisitLocation.create(name: "Other")
+    user = Renalware::User.first
+    Clinics::VisitLocation.create(name: "In clinic", default_location: true, by: user)
+    Clinics::VisitLocation.create(name: "By telephone", by: user)
+    Clinics::VisitLocation.create(name: "Over Teams", by: user)
+    Clinics::VisitLocation.create(name: "Other", by: user)
   end
 end

@@ -3433,7 +3433,12 @@ ALTER SEQUENCE renalware.clinic_versions_id_seq OWNED BY renalware.clinic_versio
 CREATE TABLE renalware.clinic_visit_locations (
     id bigint NOT NULL,
     name character varying NOT NULL,
-    default_location boolean DEFAULT false NOT NULL
+    default_location boolean DEFAULT false NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -7043,6 +7048,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -18490,10 +18505,24 @@ CREATE INDEX index_clinic_consultants_on_updated_by_id ON renalware.clinic_consu
 
 
 --
+-- Name: index_clinic_visit_locations_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_visit_locations_on_created_by_id ON renalware.clinic_visit_locations USING btree (created_by_id);
+
+
+--
 -- Name: index_clinic_visit_locations_on_default_location; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_clinic_visit_locations_on_default_location ON renalware.clinic_visit_locations USING btree (default_location) WHERE (default_location = true);
+CREATE UNIQUE INDEX index_clinic_visit_locations_on_default_location ON renalware.clinic_visit_locations USING btree (default_location) WHERE ((default_location = true) AND (deleted_at IS NULL));
+
+
+--
+-- Name: index_clinic_visit_locations_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_visit_locations_on_deleted_at ON renalware.clinic_visit_locations USING btree (deleted_at);
 
 
 --
@@ -18501,6 +18530,13 @@ CREATE UNIQUE INDEX index_clinic_visit_locations_on_default_location ON renalwar
 --
 
 CREATE UNIQUE INDEX index_clinic_visit_locations_on_name ON renalware.clinic_visit_locations USING btree (name);
+
+
+--
+-- Name: index_clinic_visit_locations_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_visit_locations_on_updated_by_id ON renalware.clinic_visit_locations USING btree (updated_by_id);
 
 
 --
@@ -24701,6 +24737,14 @@ ALTER TABLE ONLY renalware.patient_practice_memberships
 
 
 --
+-- Name: clinic_visit_locations fk_rails_5e2f7e37cf; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_visit_locations
+    ADD CONSTRAINT fk_rails_5e2f7e37cf FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: low_clearance_profiles fk_rails_5e7ea491eb; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -25074,6 +25118,14 @@ ALTER TABLE ONLY renalware.snippets_snippets
 
 ALTER TABLE ONLY renalware.letter_archives
     ADD CONSTRAINT fk_rails_7dc4363735 FOREIGN KEY (letter_id) REFERENCES renalware.letter_letters(id);
+
+
+--
+-- Name: clinic_visit_locations fk_rails_7f880fe872; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_visit_locations
+    ADD CONSTRAINT fk_rails_7f880fe872 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --

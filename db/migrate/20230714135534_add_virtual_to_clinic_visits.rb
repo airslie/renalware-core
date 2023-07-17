@@ -10,9 +10,13 @@ class AddVirtualToClinicVisits < ActiveRecord::Migration[7.0]
             null: false,
             index: {
               unique: true,
-              where: "default_location = true"
+              where: "default_location = true and deleted_at is null"
             }
           )
+          t.references :created_by, index: true, null: false, foreign_key: { to_table: :users }
+          t.references :updated_by, index: true, null: false, foreign_key: { to_table: :users }
+          t.datetime :deleted_at, index: true
+          t.timestamps null: false
         end
         add_reference(
           :clinic_visits,

@@ -16,7 +16,7 @@ module Renalware
                             weight: 123,
                             assessed_on: Date.parse("2020-10-10"))
       }
-      let(:location) { create(:clinic_visit_location, :telephone) }
+      let(:location) { create(:clinic_visit_location, :telephone, by: user) }
 
       before do
         clinic && dry_weight && location
