@@ -2845,7 +2845,8 @@ CREATE TABLE renalware.clinic_visits (
     body_surface_area numeric(8,2),
     total_body_water numeric(8,2),
     bmi numeric(10,1),
-    location_id bigint
+    location_id bigint,
+    urine_glucose character varying
 );
 
 
@@ -7048,16 +7049,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -27730,6 +27721,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230705153656'),
 ('20230706094637'),
 ('20230714135534'),
+('20230718171106'),
 ('20230808150041');
 
 

@@ -34,7 +34,9 @@ describe "Clinic Visits Management" do
                clinic_id: clinic,
                did_not_attend: false,
                height: 1.75, weight: 89.2, bp: "110/78",
-               urine_blood: "neg", urine_protein: "neg",
+               urine_blood: "neg",
+               urine_protein: "neg",
+               urine_glucose: "high",
                notes: "Nothing unusual"
              }
            }
@@ -66,7 +68,9 @@ describe "Clinic Visits Management" do
               time: Time.zone.now,
               did_not_attend: false,
               height: 1.75, weight: 89.2, bp: "110/70",
-              urine_blood: "neg", urine_protein: "neg",
+              urine_blood: "neg",
+              urine_protein: "neg",
+              urine_glucose: "high",
               notes: "Nothing unusual"
             }
           }

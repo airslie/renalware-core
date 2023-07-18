@@ -8,6 +8,7 @@ en:
         standing_bp: Standing BP
         urine_blood: Urine Blood
         urine_protein: Urine Protein
+        urine_glucose: Urine Glucose
     errors:
       models:
         renalware/clinics/clinic_visit:
@@ -36,6 +37,11 @@ en:
         neg: Negative
         trace: Trace
         very_low: "+"
+      urine_glucose:
+        high: "+++"
+        medium: "++"
+        low: "+"
+        neg: Negative
   renalware:
     clinics:
       clinic_visits:
