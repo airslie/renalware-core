@@ -3,7 +3,7 @@
 module Renalware
   module Medications
     class PrescriptionPresenter < DumbDelegator
-      delegate :drug_types, to: :drug
+      delegate :drug_types, :code, to: :drug
       delegate :local_patient_id, :age, :sex, :current_modality, to: :patient, prefix: true
 
       def patient_name
