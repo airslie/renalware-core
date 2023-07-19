@@ -68,7 +68,7 @@ module Renalware
               .update_all(enabled: true)
           end
 
-          redirect_to edit_drugs_drug_path(@drug), notice: success_msg_for("drug")
+          redirect_to drugs_drugs_path, notice: success_msg_for("drug")
         else
           flash.now[:error] = failed_msg_for("drug")
           render :edit
