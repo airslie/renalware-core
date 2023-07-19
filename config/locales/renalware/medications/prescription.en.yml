@@ -12,6 +12,7 @@ en:
         next_delivery_date: Next home prescription date
         prescribed_on: Prescribed on
         terminated_on: Terminated on
+        code: "dm+d code"
     errors:
       models:
         renalware/medications/prescription:
