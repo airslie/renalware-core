@@ -68,11 +68,10 @@ group :test do
   gem "rspec-html-matchers", require: false
   gem "rspec_junit_formatter", "~> 0.4"
   gem "rspec-retry"
-  gem "selenium-webdriver", "~> 4.5"
+  gem "selenium-webdriver", "~> 4.11"
   gem "shoulda-matchers", "~> 5.1"
   gem "simplecov", "~> 0.17", require: false # only loaded if required
   gem "test-prof"
-  gem "webdrivers", "~> 5.0"
   gem "webmock", "~> 3.7", require: false
   gem "wisper-rspec", "~> 1.1.0"
 end

@@ -790,7 +790,7 @@ GEM
     scenic (1.7.0)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
-    selenium-webdriver (4.10.0)
+    selenium-webdriver (4.11.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -896,10 +896,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (5.2.0)
-      nokogiri (~> 1.6)
-      rubyzip (>= 1.3.0)
-      selenium-webdriver (~> 4.0)
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -985,7 +981,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   ruby-prof
-  selenium-webdriver (~> 4.5)
+  selenium-webdriver (~> 4.11)
   shoulda-matchers (~> 5.1)
   simplecov (~> 0.17)
   solargraph
@@ -997,7 +993,6 @@ DEPENDENCIES
   test-prof
   turnip (~> 4.0)!
   web-console
-  webdrivers (~> 5.0)
   webmock (~> 3.7)
   wisper-rspec (~> 1.1.0)
   wkhtmltopdf-binary (= 0.12.3.1)
