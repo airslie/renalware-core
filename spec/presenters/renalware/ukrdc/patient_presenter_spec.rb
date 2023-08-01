@@ -115,7 +115,7 @@ module Renalware
 
       context "when the patient has not opted-in to PKB (previously RPV)" do
         it "returns an empty array even if the patient has letters" do
-          patient = build_stubbed(:patient, send_to_rpv: false,  send_to_renalreg: true)
+          patient = build_stubbed(:patient, send_to_rpv: false, send_to_renalreg: true)
           letters_patient = stub_letters_patient(patient)
 
           UKRDC::PatientPresenter.new(patient).letters
