@@ -79,12 +79,10 @@ module Renalware
             operation.document.donor.relationship&.to_sym
           end
 
-          # rubocop:disable Style/StringLiterals
           def ukrr_modality_code_for_live_donor_relationship
             key = :"live_related_#{donor_relationship || 'other'}"
             ukrr_modality_code_for_txt(UKRR_TXT.fetch(key))
           end
-          # rubocop:enable Style/StringLiterals
 
           def ukrr_modality_code_for_txt(txt_code)
             UKRDC::ModalityCode.find_by(txt_code: txt_code)
