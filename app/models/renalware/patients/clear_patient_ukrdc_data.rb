@@ -3,11 +3,9 @@
 module Renalware
   module Patients
     class ClearPatientUKRDCData
-      pattr_initialize [:patient!, :by!]
+      include Callable
 
-      def self.call(...)
-        new(...).call
-      end
+      pattr_initialize [:patient!, :by!]
 
       # Note that we want to avoid any patient validation errors (email is invalid etc)
       # at this important stage, so we use validate: false. While we validate patient data

@@ -6,14 +6,12 @@ module Renalware
   module Patients
     module Ingestion
       class UpdateMasterPatientIndex
+        include Callable
+
         pattr_initialize :hl7_message
         attr_reader :rw_patient
 
         delegate :patient_identification, to: :hl7_message
-
-        def self.call(...)
-          new(...).call
-        end
 
         def call
           return unless hl7_message.adt?

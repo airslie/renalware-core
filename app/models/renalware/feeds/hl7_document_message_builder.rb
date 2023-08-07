@@ -11,15 +11,13 @@ module Renalware
     #   ||||123||||RAJ01_12345_JONES_202109020_123.pdf|AU
     # OBX|1|ED|||^TODO^PDF^Base64^BERi0xLjMKJeTjz9IKNSI (more bytes...)||||||
     class HL7DocumentMessageBuilder
+      include Callable
+
       delegate :patient,
                :external_document_type_code,
                :external_document_type_description,
                :author,
                to: :renderable
-
-      def self.call(...)
-        new(...).call
-      end
 
       def initialize(renderable:, message_id:)
         @renderable = renderable

@@ -4,6 +4,8 @@ module Renalware
   module HD
     module Sessions
       class CloseStaleOpenSessions
+        include Callable
+
         attr_reader :closed_session_ids, :unclosed_session_ids, :performed_before
 
         class CloseableSessionQuery
@@ -46,10 +48,6 @@ module Renalware
           def url
             edit_patient_hd_session_path(patient, self)
           end
-        end
-
-        def self.call(...)
-          new(...).call
         end
 
         def initialize(performed_before: 3.days.ago)

@@ -12,12 +12,10 @@ module Renalware
       # needs housekeeping. This class removes these stale files. The Batch record helpfully stores
       # the path to the file to remove. We set the batch.filepath to null after removing the file.
       class RemoveStaleFiles
+        include Callable
+
         def initialize(created_before: nil)
           @created_before = created_before || 2.days.ago
-        end
-
-        def self.call(...)
-          new(...).call
         end
 
         def call
