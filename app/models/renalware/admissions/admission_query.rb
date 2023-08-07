@@ -3,11 +3,8 @@
 module Renalware
   module Admissions
     class AdmissionQuery
+      include Callable
       pattr_initialize :query
-
-      def self.call(...)
-        new(...).call
-      end
 
       def call
         search.result

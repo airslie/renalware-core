@@ -5,14 +5,12 @@ module Renalware
     module Ingestion
       module Commands
         class CreateOrUpdateAppointment
+          include Callable
+
           pattr_initialize :message
           delegate :patient_identification, :pv1, :pv2, to: :message
           delegate :clinic, :visit_number, :consulting_doctor, to: :pv1
           delegate :expected_admit_date, to: :pv2
-
-          def self.call(...)
-            new(...).call
-          end
 
           # If we match incomining clinic code then we create an appointment. This might mean
           # creating the patient and consultant JIT if they do not yet exist in Renalware.

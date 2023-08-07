@@ -20,6 +20,7 @@ module Renalware
       #
       # Returns a KFREResult object containing 5 and 5 uear re
       class CalculateKFRE
+        include Callable
         attr_reader :sex, :age, :acr, :egfr
 
         UK_ADJUSTMENT_5_YR = 0.9570
@@ -30,10 +31,6 @@ module Renalware
           @age = age.to_i
           @acr = acr.to_f
           @egfr = egfr.to_f
-        end
-
-        def self.call(...)
-          new(...).call
         end
 
         # rubocop:disable Metrics/AbcSize

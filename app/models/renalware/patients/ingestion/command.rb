@@ -4,14 +4,12 @@ module Renalware
   module Patients
     module Ingestion
       class Command
+        include Callable
+
         attr_reader :message
 
         def initialize(message)
           @message = message
-        end
-
-        def self.call(...)
-          new(...).call
         end
 
         def self.for(message)

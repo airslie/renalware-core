@@ -10,11 +10,8 @@ module Renalware
       # location. The filepath is assigned to the batch and saved, so it can be served to
       # a user via the user later.
       class BatchCompilePdfs
+        include Callable
         include PdfCompilation
-
-        def self.call(...)
-          new(...).call
-        end
 
         def initialize(batch, user)
           @batch = batch

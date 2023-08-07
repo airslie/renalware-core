@@ -5,13 +5,11 @@ module Renalware
     module Ingestion
       module Commands
         class DeleteAppointment
+          include Callable
+
           pattr_initialize :message
           delegate :patient_identification, :pv1, to: :message
           delegate :clinic, :visit_number, to: :pv1
-
-          def self.call(...)
-            new(...).call
-          end
 
           def call
             return unless patient && appointment

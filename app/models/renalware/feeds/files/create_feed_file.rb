@@ -7,13 +7,11 @@ module Renalware
     module Files
       class CreateFeedFile
         include Virtus.model
+        include Callable
+
         attribute :uploaded_file, Pathname
         attribute :file_type, Renalware::Feeds::FileType
         attribute :user, Renalware::User
-
-        def self.call(...)
-          new(...).call
-        end
 
         def call
           copy_uploaded_file_to_uploads_dir

@@ -8,12 +8,10 @@ module Renalware
       # one of their hospital numbers, where each number on the PID patient_id_list has been mapped
       # to a local_patient_id* column in PatientIdentification#identifiers
       class NHSOrAnyAssigningAuthNumber
+        include Callable
+
         pattr_initialize [:patient_identification!]
         delegate :identifiers, to: :patient_identification
-
-        def self.call(...)
-          new(...).call
-        end
 
         # Build an AR query to try and find the target patient
         def call
