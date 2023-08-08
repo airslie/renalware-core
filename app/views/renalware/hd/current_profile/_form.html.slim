@@ -25,12 +25,13 @@ ruby:
                 wrapper: :horizontal_clockpicker
       = f.input :other_schedule,
                 wrapper: :horizontal_small
-
       = f.input :named_nurse_id,
                 as: :user_picker,
                 collection: Renalware::User.ordered,
                 wrapper: :horizontal_medium
-
+      = f.input :home_machine_identifier,
+                wrapper: :horizontal_medium,
+                hint: "For example a Baxter AK98 serial number"
     = render layout: "renalware/shared/fieldset",
              locals: { legend: "Prescription", name: "prescription" } do
 
