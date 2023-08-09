@@ -99,6 +99,8 @@ describe "Editing a patient's current HD profile", js: false do
         fill_in "Assessment Date", with: "01-04-2018"
       end
 
+      fill_in "Home Machine Identifier", with: "ABC123"
+
       submit_form
 
       expect(page).to have_current_path(patient_hd_dashboard_path(patient))
@@ -119,7 +121,8 @@ describe "Editing a patient's current HD profile", js: false do
       expect(profile).to have_attributes(
         hospital_unit: hospital_unit,
         prescriber: user,
-        schedule_definition: schedule_definition
+        schedule_definition: schedule_definition,
+        home_machine_identifier: "ABC123"
       )
 
       expect(profile.document.dialysis).to have_attributes(

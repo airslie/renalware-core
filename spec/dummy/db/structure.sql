@@ -5645,8 +5645,16 @@ CREATE TABLE renalware.hd_profiles (
     active boolean DEFAULT true,
     schedule_definition_id integer,
     dialysate_id bigint,
-    scheduled_time time without time zone
+    scheduled_time time without time zone,
+    home_machine_identifier character varying
 );
+
+
+--
+-- Name: COLUMN hd_profiles.home_machine_identifier; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_profiles.home_machine_identifier IS 'eg serial number of Baxter Home AK98 dialyser with which we sync via HDCloud API';
 
 
 --
@@ -7004,16 +7012,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -19559,6 +19557,20 @@ CREATE INDEX index_hd_profiles_on_document ON renalware.hd_profiles USING gin (d
 
 
 --
+-- Name: index_hd_profiles_on_home_machine_identifier; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_profiles_on_home_machine_identifier ON renalware.hd_profiles USING btree (home_machine_identifier) WHERE ((deactivated_at IS NULL) AND ((COALESCE(home_machine_identifier, ''::character varying))::text <> ''::text));
+
+
+--
+-- Name: INDEX index_hd_profiles_on_home_machine_identifier; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON INDEX renalware.index_hd_profiles_on_home_machine_identifier IS 'Must be unique among active HD Profiles';
+
+
+--
 -- Name: index_hd_profiles_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -27589,6 +27601,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230705144308'),
 ('20230705151013'),
 ('20230705153656'),
-('20230706094637');
+('20230706094637'),
+('20230808150041');
 
 

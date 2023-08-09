@@ -29,6 +29,9 @@ module Renalware
 
       validates :patient, presence: true
       validates :prescriber, presence: true
+      validates :home_machine_identifier,
+                uniqueness: { case_sensitive: false },
+                if: -> { deactivated_at.nil? && home_machine_identifier.present? }
 
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
 

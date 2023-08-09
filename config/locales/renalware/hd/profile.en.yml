@@ -44,6 +44,7 @@ en:
         prescribed_time: Prescribed Time on HD
         schedule: Schedule
         transport_decider: Transport Decider
+        home_machine_identifier: Home Machine Identifier
   enumerize:
     renalware/hd/profile_document/anticoagulant:
       type:
@@ -74,6 +75,7 @@ en:
             loading_dose: 'Loading dose:'
             stop_time: "  Stop time:"
             type: 'Anticoagulant:'
+          home_machine_identifier: Home Machine Identifier
           bicarbonate: 'Bicarbonate:'
           blood_flow: 'Blood flow:'
           cannulation_type: 'Cannulation Type:'
