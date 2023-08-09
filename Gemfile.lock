@@ -121,7 +121,7 @@ PATH
       sinatra (>= 2, < 4)
       slim-rails
       sprockets-rails
-      store_model (= 0.8.0)
+      store_model (< 3)
       tailwindcss-rails (~> 2.0.25)
       turbo-rails (= 1.4.0)
       validates_timeliness (~> 7.0.0.beta1)
@@ -847,7 +847,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    store_model (0.8.0)
+    store_model (2.1.0)
       activerecord (>= 5.2)
     strong_migrations (1.6.0)
       activerecord (>= 5.2)
