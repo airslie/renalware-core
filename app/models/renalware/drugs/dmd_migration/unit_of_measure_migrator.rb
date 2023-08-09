@@ -12,7 +12,7 @@ module Renalware
           gram: "gram",
           international_unit: "iu",
           microgram: "microgram",
-          milligram: "ml/gram",
+          milligram: "mg",
           millilitre: "ml/l",
           millimole: "mmol",
           nanogram: "nanogram",
