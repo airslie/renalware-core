@@ -7,10 +7,10 @@ module Renalware
       #
       class VMPClassificationSynchroniser
         def call # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          drug_code_to_id = Drug.all.pluck(:code, :id).to_h
+          drug_code_to_id_map = Drugs::DrugCodeToIdMap.new
           forms = Form.all.index_by(&:code)
           units_of_measure = UnitOfMeasure.all.index_by(&:code)
-          routes = Medications::MedicationRoute.all.index_by(&:code)
+          routes = Medications::RoutesIndexedByCodeMap.new
           trade_family_code_to_id = TradeFamily.pluck(:code, :id).to_h
 
           # Create a mapping between vmp code and trade family codes:
@@ -30,7 +30,7 @@ module Renalware
             batch.each do |vmp|
               form = forms[vmp.form_code]
               unit_of_measure = units_of_measure[vmp.unit_of_measure_code]
-              drug_id = drug_code_to_id[vmp.virtual_therapeutic_moiety_code]
+              drug_id = drug_code_to_id_map[vmp.virtual_therapeutic_moiety_code]
               route = routes[vmp.route_code]
               trade_family_codes = (vmp_code_to_trade_family_codes[vmp.code] || [])
               trade_family_ids = trade_family_codes.map { |trade_family_code|
