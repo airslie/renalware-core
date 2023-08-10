@@ -12,6 +12,14 @@ This project adheres to Semantic Versioning.
 ## 2.4.0
 
 ### Added
+- Add drop-down urine glucose to clinic visits and then include in the letters #4386
+- Add clinic visit location in order to support virtual clinics #4391
+- Add drug type and dmd+d filters to drugs list #4409
+- Add home_machine_identifier to HD Profile for Baxter HDCloud support #4405
+- Add 'Relaxation of restrictions' option to dietetic CV interventions #4382
+- Add hospital centre filter to the live donor list #4342
+- Support html and text mail in MS Graph API #4383
+- Support sending email via MS Graph API from NHSMail mailbox #4353
 - Schedule materialised view refreshing #4349
 - Add support for using good_job HL7 processing via a feed_raw_hl7_messages queue table #4267
 - Allow choosing a code group when viewing historical pathology #4336
@@ -31,6 +39,11 @@ This project adheres to Semantic Versioning.
 - Add Visit Type filters at the top of Dietetic MDM list #4210
 - Add RR outcome code to Death::Location in preperation for RR5 dataset #4203
 ### Changed
+- Make Dietetic MDM Patients a materialised view #4369
+- Persist HL7 msg patient identification to feed_messages.local_patient_id* #4357
+- Save id of source feed_message on pathology_observation_request #4365
+- Add N/A to the drop down list for sga_assessment in dietetic clinic #4343
+- Display spinner when Ajax-loading report table #4374
 - Ensure all emails are sent using ActiveJob #4347
 - Restrict HD Session access type choice by hd_vascular=true #4340
 - Prescriptions column heading changes - add a new column 'Stop on' after 'Prescribed on' - rename 'Terminated on' to 'Stopped on' #4260
@@ -55,6 +68,8 @@ This project adheres to Semantic Versioning.
 - HD Session form PDF changes - Add Solution flow from HD profile next to Blood Flow and indicate if Worry #4164
 - Refresh browser page automatically in development #4243
 ### Fixed
+- Correct the default date in the filter in Appointments list #4390
+- Address dmd+d mapping issues #4408
 - Fix default_patient_link usage in dynamic reports #4350
 - Ensure termination date is editable when editing a prescription #4276
 - Fixed bug creating an event when changing dropdown from eg Clinical Frailty Score to Medication Review (missing partial) #4303
