@@ -24,6 +24,10 @@
                           }
         = f.input :date, as: :flatpickr, wrapper: :horizontal_datepicker
         = f.input :time, as: :clock_picker, wrapper: :horizontal_clockpicker
+        = f.association :location,
+                        collection: Renalware::Clinics::VisitLocation.order(default_location: :desc, name: :asc).pluck(:name, :id),
+                        include_blank: false,
+                        wrapper: :horizontal_small
         = f.input :did_not_attend,
                   as: :boolean,
                   boolean_style: :inline,

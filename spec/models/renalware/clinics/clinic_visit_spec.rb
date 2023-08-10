@@ -15,6 +15,8 @@ describe Renalware::Clinics::ClinicVisit do
     is_expected.not_to validate_presence_of :pulse
     is_expected.not_to validate_presence_of :temperature
     is_expected.not_to validate_presence_of(:admin_notes)
+    is_expected.to have_db_index(:location_id)
+    is_expected.to belong_to(:location)
   end
 
   describe "bmi" do

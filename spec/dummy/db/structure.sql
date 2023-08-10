@@ -2844,7 +2844,8 @@ CREATE TABLE renalware.clinic_visits (
     type character varying,
     body_surface_area numeric(8,2),
     total_body_water numeric(8,2),
-    bmi numeric(10,1)
+    bmi numeric(10,1),
+    location_id bigint
 );
 
 
@@ -3423,6 +3424,41 @@ CREATE SEQUENCE renalware.clinic_versions_id_seq
 --
 
 ALTER SEQUENCE renalware.clinic_versions_id_seq OWNED BY renalware.clinic_versions.id;
+
+
+--
+-- Name: clinic_visit_locations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.clinic_visit_locations (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    default_location boolean DEFAULT false NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: clinic_visit_locations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.clinic_visit_locations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinic_visit_locations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.clinic_visit_locations_id_seq OWNED BY renalware.clinic_visit_locations.id;
 
 
 --
@@ -7012,6 +7048,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -14055,6 +14101,13 @@ ALTER TABLE ONLY renalware.clinic_versions ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: clinic_visit_locations id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_visit_locations ALTER COLUMN id SET DEFAULT nextval('renalware.clinic_visit_locations_id_seq'::regclass);
+
+
+--
 -- Name: clinic_visits id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -15850,6 +15903,14 @@ ALTER TABLE ONLY renalware.clinic_consultants
 
 ALTER TABLE ONLY renalware.clinic_versions
     ADD CONSTRAINT clinic_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clinic_visit_locations clinic_visit_locations_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_visit_locations
+    ADD CONSTRAINT clinic_visit_locations_pkey PRIMARY KEY (id);
 
 
 --
@@ -18444,6 +18505,41 @@ CREATE INDEX index_clinic_consultants_on_updated_by_id ON renalware.clinic_consu
 
 
 --
+-- Name: index_clinic_visit_locations_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_visit_locations_on_created_by_id ON renalware.clinic_visit_locations USING btree (created_by_id);
+
+
+--
+-- Name: index_clinic_visit_locations_on_default_location; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_clinic_visit_locations_on_default_location ON renalware.clinic_visit_locations USING btree (default_location) WHERE ((default_location = true) AND (deleted_at IS NULL));
+
+
+--
+-- Name: index_clinic_visit_locations_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_visit_locations_on_deleted_at ON renalware.clinic_visit_locations USING btree (deleted_at);
+
+
+--
+-- Name: index_clinic_visit_locations_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_clinic_visit_locations_on_name ON renalware.clinic_visit_locations USING btree (name);
+
+
+--
+-- Name: index_clinic_visit_locations_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_visit_locations_on_updated_by_id ON renalware.clinic_visit_locations USING btree (updated_by_id);
+
+
+--
 -- Name: index_clinic_visits_on_clinic_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -18462,6 +18558,13 @@ CREATE INDEX index_clinic_visits_on_created_by_id ON renalware.clinic_visits USI
 --
 
 CREATE INDEX index_clinic_visits_on_document ON renalware.clinic_visits USING gin (document);
+
+
+--
+-- Name: index_clinic_visits_on_location_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_clinic_visits_on_location_id ON renalware.clinic_visits USING btree (location_id);
 
 
 --
@@ -24634,6 +24737,14 @@ ALTER TABLE ONLY renalware.patient_practice_memberships
 
 
 --
+-- Name: clinic_visit_locations fk_rails_5e2f7e37cf; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_visit_locations
+    ADD CONSTRAINT fk_rails_5e2f7e37cf FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: low_clearance_profiles fk_rails_5e7ea491eb; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -25007,6 +25118,14 @@ ALTER TABLE ONLY renalware.snippets_snippets
 
 ALTER TABLE ONLY renalware.letter_archives
     ADD CONSTRAINT fk_rails_7dc4363735 FOREIGN KEY (letter_id) REFERENCES renalware.letter_letters(id);
+
+
+--
+-- Name: clinic_visit_locations fk_rails_7f880fe872; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_visit_locations
+    ADD CONSTRAINT fk_rails_7f880fe872 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -25767,6 +25886,14 @@ ALTER TABLE ONLY renalware.access_plans
 
 ALTER TABLE ONLY renalware.hd_sessions
     ADD CONSTRAINT fk_rails_b92ec653ce FOREIGN KEY (hd_station_id) REFERENCES renalware.hd_stations(id);
+
+
+--
+-- Name: clinic_visits fk_rails_bb1c2fadb7; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.clinic_visits
+    ADD CONSTRAINT fk_rails_bb1c2fadb7 FOREIGN KEY (location_id) REFERENCES renalware.clinic_visit_locations(id);
 
 
 --
@@ -27602,6 +27729,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230705151013'),
 ('20230705153656'),
 ('20230706094637'),
+('20230714135534'),
 ('20230808150041');
 
 

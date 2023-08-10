@@ -17,6 +17,7 @@ module Renalware
 
       belongs_to :patient, touch: true
       belongs_to :clinic, -> { with_deleted }, counter_cache: true
+      belongs_to :location, -> { with_deleted }, class_name: "VisitLocation"
       has_many :clinic_letters # TODO: remove as possibly redundant
 
       validates :date, presence: true

@@ -16,9 +16,10 @@ module Renalware
                             weight: 123,
                             assessed_on: Date.parse("2020-10-10"))
       }
+      let(:location) { create(:clinic_visit_location, :telephone, by: user) }
 
       before do
-        clinic && dry_weight
+        clinic && dry_weight && location
       end
 
       it "allows the user to create & update a dietetic visit" do
@@ -27,6 +28,8 @@ module Renalware
         visit new_patient_clinic_visit_path(patient_id: patient)
 
         slim_select "Dietetic D1", from: "Clinic"
+
+        select location.name, from: "Location"
 
         # Test validations
         expect(page).to have_field "Previous weight"
@@ -102,7 +105,7 @@ module Renalware
         click_link "Toggle all rows"
 
         expect(page).to have_content "Assessment type\nDietetic phone assessment"
-
+        expect(page).to have_content "Location\nBy telephone"
         expect(page).to have_content "Weight"
         expect(page).to have_content "Weight notes\nWeight test notes"
         expect(page).to have_content "Previous weight\n70 kg"
