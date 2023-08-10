@@ -9,7 +9,7 @@ module Renalware::Letters
     let(:visit) {
       Renalware::Clinics::ClinicVisit.new(
         height: 1.80, weight: 90.0, bp: "110/70", bmi: 27.8,
-        urine_blood: :very_low, urine_protein: :trace
+        urine_blood: :very_low, urine_protein: :trace, urine_glucose: :medium
       )
     }
 
@@ -35,6 +35,10 @@ module Renalware::Letters
 
     it "delegates the urine_protein to the event" do
       expect(part.urine_protein.text).to eq("Trace")
+    end
+
+    it "delegates the urine_glucose to the event" do
+      expect(part.urine_glucose.text).to eq("++")
     end
   end
 end

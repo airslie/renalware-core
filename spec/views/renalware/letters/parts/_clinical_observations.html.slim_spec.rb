@@ -20,7 +20,8 @@ module Renalware
         bmi: 27.8,
         bp: "110/70",
         urine_blood: :low,
-        urine_protein: :trace
+        urine_protein: :trace,
+        urine_glucose: :high
       )
     }
 
@@ -37,6 +38,8 @@ module Renalware
       is_expected.to include("+")
       is_expected.to include("Urine Protein")
       is_expected.to include("Trace")
+      is_expected.to include("Urine Glucose")
+      is_expected.to include("+++")
     end
 
     context "when some observations are missing" do
