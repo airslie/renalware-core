@@ -299,23 +299,11 @@ scss:
     }
   }
   .qr-codes {
-    display: table;
-    margin: 50px 0 0 0;
+    margin-left: -10px;
 
     .qr-code {
-      display: table-row;
-      white-space: nowrap;
-
-      .qr-code_image {
-        display: table-cell;
-        padding: 0 0 20px 0;
-        width: 150px;
-      }
-
       .qr-code_text {
-        display: table-cell;
-        vertical-align: middle;
-        padding: 0 0 20px 20px;
+        width: 800px;
         white-space: break-spaces;
 
         .qr-code_text_title {
@@ -415,6 +403,6 @@ scss:
               = cc.statment_to_indicate_letter_will_be_emailed
 
     - if letter.qr_encoded_online_reference_links.any?
-      .qr-codes
+      table.qr-codes
         = render partial: "renalware/letters/qr_encoded_online_reference_links/qr_encoded_online_reference_link",
                  collection: letter.qr_encoded_online_reference_links
