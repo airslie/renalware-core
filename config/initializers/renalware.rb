@@ -25,6 +25,9 @@ require_relative "../../app/models/concerns/renalware/broadcasting"
 # application with confusing outcomes.
 Renalware.configure do |config|
   config.broadcast_subscription_map = {
+    "Renalware::Patients::BroadcastPatientAddedEvent" => [
+      "Renalware::Patients::PatientListener"
+    ],
     "Renalware::Modalities::ChangePatientModality" => [
       "Renalware::Medications::PatientListener",
       "Renalware::Letters::PatientListener",
