@@ -24,7 +24,7 @@ module Renalware
       class MissingMessageTypesError < StandardError; end
       class InvalidMessageTypesError < StandardError; end
 
-      MESSAGE_TYPES = %i(oru adt).freeze
+      MESSAGE_TYPES = %i(ORU ADT).freeze
       PATIENT_IDENTIFICATION_COLUMNS = %i(
         nhs_number
         local_patient_id
@@ -62,8 +62,8 @@ module Renalware
       # For now assume ORU R01
       def feed_messages_scoped_by_message_type
         Renalware::Feeds::Message
-          .where(message_type: "ORU") # NOTE: not honouring message_types here (yet)
-          .where(event_type: "R01")
+          .where(message_type: "ORU", event_type: "R01") # NOTE: not honouring message_types here
+          .where.not(processed: true)
       end
 
       def validate_message_types
