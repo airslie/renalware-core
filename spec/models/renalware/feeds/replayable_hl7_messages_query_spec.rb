@@ -26,13 +26,29 @@ module Renalware
         )
       end
 
+      it "raises an error if no message types passed" do
+        patient = build(:patient, nhs_number: sample_nhs_number)
+
+        expect {
+          described_class.new(patient: patient, message_types: []).call
+        }.to raise_error(ReplayableHL7MessagesQuery::MissingMessageTypesError)
+      end
+
+      it "raises an error if incorrect message types passed" do
+        patient = build(:patient, nhs_number: sample_nhs_number)
+
+        expect {
+          described_class.new(patient: patient, message_types: [:RUBBISH]).call
+        }.to raise_error(ReplayableHL7MessagesQuery::InvalidMessageTypesError)
+      end
+
       it "finds messages by nhs_number" do
         patient = build(:patient, nhs_number: sample_nhs_number)
         create_message(nhs_number: "nomatch")
         msg_matched1 = create_message(nhs_number: sample_nhs_number, body: "y", created_at: 1.day.ago)
         msg_matched2 = create_message(nhs_number: sample_nhs_number, body: "x", created_at: 2.days.ago)
 
-        results = described_class.new(patient, :oru).call
+        results = described_class.new(patient: patient, message_types: :oru).call
 
         expect(results).to eq([msg_matched2, msg_matched1])
       end
@@ -53,7 +69,7 @@ module Renalware
           msg_matched2 = create_message(local_id_attribute => hospno, body: "x", created_at: 2.days.ago)
           msg_matched1 = create_message(local_id_attribute => hospno, body: "y", created_at: 1.day.ago)
 
-          results = described_class.new(patient, :oru).call
+          results = described_class.call(patient: patient, message_types: :oru)
 
           expect(results.to_a).to eq([msg_matched2, msg_matched1])
         end
@@ -72,7 +88,7 @@ module Renalware
             msg_matched2 = create_message(nhs_number: sample_nhs_number, body: "x", created_at: 2.days.ago)
             msg_matched1 = create_message(local_patient_id: "P1", body: "y", created_at: 1.day.ago)
 
-            results = described_class.new(patient, :oru).call
+            results = described_class.new(patient: patient, message_types: :oru).call
 
             expect(results.to_a).to eq([msg_matched2, msg_matched1])
           end
@@ -86,7 +102,7 @@ module Renalware
             # Note only one number matches
             msg = create_message(nhs_number: sample_nhs_number, local_patient_id: "P2")
 
-            results = described_class.new(patient, :oru).call
+            results = described_class.new(patient: patient, message_types: :oru).call
 
             expect(results.to_a).to eq([msg])
           end
@@ -100,7 +116,7 @@ module Renalware
             # Note only one number matches
             msg = create_message(nhs_number: "1791963196", local_patient_id: "P1")
 
-            results = described_class.new(patient, :oru).call
+            results = described_class.new(patient: patient, message_types: :oru).call
 
             expect(results.to_a).to eq([msg])
           end

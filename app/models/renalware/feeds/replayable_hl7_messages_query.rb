@@ -2,10 +2,29 @@
 
 module Renalware
   module Feeds
+    # When a new patient is added to Renalware, its possible and likely we will have received
+    # HL7 messages for them at some point in the past given that we store all ADT (demographics)
+    # and ORU (pathology) messages for all patients in the hospital, routed via our Mirth server.
+    # So it would be nice to replay a patient's historical messages, but this time, instead of
+    # ignoring their content becuase the patient is not in Renalware, they will be imported and
+    # associated with the patient.
+    #
+    # This query object finds feed_messages that
+    # - relate to the supplied patient
+    # - have not been imported yet
+    # and replays them.
+    # We can in theory replay ADT or ORU messages but currently do only ORU (pathology) becuase it
+    # it is deemed that ince the patient is added to Renalware, subsequent ADT HL7 messages which
+    # will soon arrive will being the demographic data up to date - so no point replaying ADT
+    # messages really, and might in fact lead to confusion.
     class ReplayableHL7MessagesQuery
-      pattr_initialize :patient, :message_types
+      include Callable
+      attr_reader :patient, :message_types
 
-      BATCH_SIZE = 200
+      class MissingMessageTypesError < StandardError; end
+      class InvalidMessageTypesError < StandardError; end
+
+      MESSAGE_TYPES = %i(oru adt).freeze
       PATIENT_IDENTIFICATION_COLUMNS = %i(
         nhs_number
         local_patient_id
@@ -15,19 +34,17 @@ module Renalware
         local_patient_id_5
       ).freeze
 
-      def self.call(patient, message_types)
-        message_types = ensure_message_types_are_lowercase_symbols(message_types)
-        raise(ArgumentError, "No message_types specified") if message_types.empty?
-
-        new(patient, message_types).call
+      def initialize(patient:, message_types:)
+        @patient = patient
+        @message_types = Array(message_types)
       end
 
       def call
-        scope = feed_messages_scoped_by_message_type
+        validate_message_types
+
+        feed_messages_scoped_by_message_type
           .merge(feed_messages_scoped_by_patient)
           .order(created_at: :asc)
-        # puts scope.to_sql
-        # scope.all #find_in_batches(batch_size: BATCH_SIZE)
       end
 
       private
@@ -45,12 +62,17 @@ module Renalware
       # For now assume ORU R01
       def feed_messages_scoped_by_message_type
         Renalware::Feeds::Message
-          .where(message_type: "ORU")
+          .where(message_type: "ORU") # NOTE: not honouring message_types here (yet)
           .where(event_type: "R01")
       end
 
-      def ensure_message_types_are_lowercase_symbols(message_types)
-        Array(message_types).map { |mt| mt.to_s.downcase.to_sym }
+      def validate_message_types
+        raise(MissingMessageTypesError) if message_types.empty?
+
+        unrecognised_message_types = message_types - MESSAGE_TYPES
+        if unrecognised_message_types.any?
+          raise InvalidMessageTypesError, unrecognised_message_types.to_s
+        end
       end
     end
   end
