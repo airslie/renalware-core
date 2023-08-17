@@ -32,11 +32,11 @@ module Renalware
         ObservationDescriptionsByCodeQuery.new(codes: codes).call
       end
 
+      def self.policy_class = BasePolicy
+
       def to_s
         code
       end
-
-      def self.policy_class = BasePolicy
 
       private
 

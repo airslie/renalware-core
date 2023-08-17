@@ -6,13 +6,13 @@ module Renalware
       DEFAULT_SORT = "aki_date desc"
       attr_reader :query
 
+      def self.call(query)
+        new(query).call
+      end
+
       def initialize(query = nil)
         @query = query || {}
         @query[:s] = DEFAULT_SORT if @query[:s].blank?
-      end
-
-      def self.call(query)
-        new(query).call
       end
 
       def call

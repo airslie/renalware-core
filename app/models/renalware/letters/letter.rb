@@ -88,12 +88,12 @@ module Renalware
 
       attribute :effective_date_sort
 
-      def effective_date_sort
-        self.class.effective_date_sort
-      end
-
       def self.effective_date_sort
         Arel.sql("coalesce(completed_at, approved_at, submitted_for_approval_at, created_at)")
+      end
+
+      def effective_date_sort
+        self.class.effective_date_sort
       end
 
       # A Letter Event is unrelated to Events::Event. Instead it is an un-persisted decorator

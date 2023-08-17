@@ -36,11 +36,11 @@ module Renalware
 
       enumerize :modality_at_esrf, in: %i(HD PD Tx CM)
 
+      def self.policy_class = BasePolicy
+
       def to_s
         [I18n.l(esrf_on), prd_description].compact.join(" ")
       end
-
-      def self.policy_class = BasePolicy
     end
   end
 end

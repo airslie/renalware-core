@@ -25,11 +25,11 @@ module Renalware
       validates :abbrev, uniqueness: true, allow_blank: true
       validates :name, presence: true
 
+      def self.policy_class = BasePolicy
+
       def hd_sites
         units.hd_sites.ordered
       end
-
-      def self.policy_class = BasePolicy
 
       def to_s
         if location.present?

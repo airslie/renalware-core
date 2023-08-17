@@ -20,6 +20,8 @@ module Renalware
     # before_validation :strip_spaces_from_nhs_number
     friendly_id :secure_id, use: [:finders]
 
+    def self.policy_class = Renalware::Patients::PatientPolicy
+
     # For compactness in urls, remove the dashes, so that
     #  a12d9a8e-9cc9-4fbe-88dd-2d1c983ea04f
     # becomes
@@ -138,8 +140,6 @@ module Renalware
     scope :dead, -> { where.not(died_on: nil) }
 
     delegate :patient_at?, to: :hospital_identifiers
-
-    def self.policy_class = Renalware::Patients::PatientPolicy
 
     def diabetic?
       document&.diabetes&.diagnosis == true

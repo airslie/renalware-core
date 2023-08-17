@@ -9,6 +9,12 @@ module Renalware
 
           attr_reader :relation, :query_params
 
+          def self.missing_data_for(_patient)
+            [
+              :cause_of_death
+            ]
+          end
+
           def initialize(relation: nil, query_params: {})
             @relation = relation || default_relation
             @query_params = query_params
@@ -30,12 +36,6 @@ module Renalware
 
           def search
             @search ||= relation.ransack(query_params)
-          end
-
-          def self.missing_data_for(_patient)
-            [
-              :cause_of_death
-            ]
           end
         end
       end

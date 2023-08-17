@@ -50,6 +50,11 @@ module Renalware
         author_and_all_admins: "author_and_all_admins"
       }
 
+      # For use in migrations to reset the events_count counter cache column
+      def self.reset_counters!
+        all.find_each(&:reset_counters!)
+      end
+
       def to_s = name
 
       def event_class_name
@@ -58,11 +63,6 @@ module Renalware
 
       def event_class
         event_class_name.constantize
-      end
-
-      # For use in migrations to reset the events_count counter cache column
-      def self.reset_counters!
-        all.find_each(&:reset_counters!)
       end
 
       def reset_counters!

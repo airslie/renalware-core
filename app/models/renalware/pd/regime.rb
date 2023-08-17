@@ -47,6 +47,8 @@ module Renalware
         Regime.order("pd_regimes.created_at DESC").limit(1).with_bags.first
       end
 
+      def self.policy_class = RegimePolicy
+
       def current?
         Regime.current == self
       end
@@ -54,8 +56,6 @@ module Renalware
       def terminated?
         termination.present?
       end
-
-      def self.policy_class = RegimePolicy
 
       def apd?
         pd_type == :apd

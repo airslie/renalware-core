@@ -16,12 +16,12 @@ module Renalware
       end
       has_document
 
-      def partial_for(partial_type)
-        File.join("renalware/research/study_events", partial_type)
-      end
-
       def self.subtypes?
         true
+      end
+
+      def partial_for(partial_type)
+        File.join("renalware/research/study_events", partial_type)
       end
     end
   end

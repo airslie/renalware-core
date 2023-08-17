@@ -16,6 +16,15 @@ module Renalware
           :id
         end
 
+        def self.base_class
+          Renalware::Pathology::Requests::HighRiskRuleSet
+        end
+
+        # Required for Rails 5.2
+        def self.polymorphic_name
+          name
+        end
+
         # NOTE: required so ActiveRecord doesn't try to create a new associated HighRiskRuleSet
         #       record with the audit
         def new_record?
@@ -32,15 +41,6 @@ module Renalware
 
         def _read_attribute(name)
           # noop
-        end
-
-        def self.base_class
-          Renalware::Pathology::Requests::HighRiskRuleSet
-        end
-
-        # Required for Rails 5.2
-        def self.polymorphic_name
-          name
         end
 
         def marked_for_destruction?

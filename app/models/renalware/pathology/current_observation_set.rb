@@ -28,6 +28,10 @@ module Renalware
       validates :patient, presence: true
       serialize :values, ObservationsJsonbSerializer
 
+      def self.null_values_hash
+        ActiveSupport::HashWithIndifferentAccess.new.extend(ObservationSetMethods)
+      end
+
       # Select values frm the set where the code matches the code or array of codes
       # requested.
       # When the code is not found in the set, return an empty hash for that code.
@@ -41,10 +45,6 @@ module Renalware
           hash[code] = values[code] || CurrentObservationSet.null_values_hash
         end
         hash.extend(ObservationSetMethods)
-      end
-
-      def self.null_values_hash
-        ActiveSupport::HashWithIndifferentAccess.new.extend(ObservationSetMethods)
       end
     end
   end

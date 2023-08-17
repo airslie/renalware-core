@@ -63,7 +63,8 @@ module Renalware
         end
         str.html_safe
       end
-            def observations_as_string(observations)
+
+      def observations_as_string(observations)
         observations.map do |code, result|
           format_code_and_result_string(code, result)
         end.join(", ")

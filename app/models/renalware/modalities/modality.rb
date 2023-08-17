@@ -20,6 +20,8 @@ module Renalware
       validates :started_on, timeliness: { type: :date, on_or_before: -> { Date.current } }
       validate :validate_modality_starts_later_than_previous, on: :create, if: :patient
 
+      def self.policy_class = BasePolicy
+
       def terminate_by(user, on:)
         self.ended_on = on
         self.state = "terminated"
@@ -33,8 +35,6 @@ module Renalware
       def terminated?
         state == "terminated"
       end
-
-      def self.policy_class = BasePolicy
 
       private
 
