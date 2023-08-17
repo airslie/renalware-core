@@ -29,6 +29,8 @@ module Renalware
         with_person.find_by(directory_people: { given_name: name })
       end
 
+      def self.policy_class = BasePolicy
+
       def described_as?(description)
         (self.description == description) || (other_description == description)
       end
@@ -36,8 +38,6 @@ module Renalware
       def unspecified_description?
         description.try(:unspecified?)
       end
-
-      def self.policy_class = BasePolicy
     end
   end
 end

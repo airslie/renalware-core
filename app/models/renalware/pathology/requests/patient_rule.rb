@@ -20,6 +20,8 @@ module Renalware
         OBSERVATION_REQUIRED = true
         OBSERVATION_NOT_REQUIRED = false
 
+        def self.policy_class = BasePolicy
+
         def required?(date)
           return OBSERVATION_NOT_REQUIRED unless today_within_range?(date)
           return OBSERVATION_REQUIRED if last_observed_at.nil?
@@ -35,8 +37,6 @@ module Renalware
 
           last_request.created_at
         end
-
-        def self.policy_class = BasePolicy
 
         private
 

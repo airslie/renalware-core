@@ -77,20 +77,6 @@ module Renalware
           element
         end
 
-        def handle_entry(element, state)
-          return if state == :ins
-
-          unless @state == state
-            @output.push "</span>" unless @state == :init
-            @state = state
-            @output.push %Q(<span style="display: inline-block; #{@styles[state]}">)
-          end
-
-          @output.push(to_html(element))
-        end
-
-        private :handle_entry
-
         # This will be called with both lines are the same
         def match(event)
           handle_entry(event.old_element, :eq)
@@ -105,6 +91,20 @@ module Renalware
         def discard_b(event)
           handle_entry(event.new_element, :ins)
         end
+
+        def handle_entry(element, state)
+          return if state == :ins
+
+          unless @state == state
+            @output.push "</span>" unless @state == :init
+            @state = state
+            @output.push %Q(<span style="display: inline-block; #{@styles[state]}">)
+          end
+
+          @output.push(to_html(element))
+        end
+
+        private :handle_entry
       end
 
       class LCSDiffRightCallbacks
@@ -125,20 +125,6 @@ module Renalware
           element
         end
 
-        def handle_entry(element, state)
-          return if state == :del
-
-          unless @state == state
-            @output.push "</span>" unless @state == :init
-            @state = state
-            @output.push %Q(<span style="display: inline-block; #{@styles[state]}">)
-          end
-
-          @output.push(to_html(element))
-        end
-
-        private :handle_entry
-
         # This will be called with both lines are the same
         def match(event)
           handle_entry(event.old_element, :eq)
@@ -153,6 +139,20 @@ module Renalware
         def discard_b(event)
           handle_entry(event.new_element, :ins)
         end
+
+        def handle_entry(element, state)
+          return if state == :del
+
+          unless @state == state
+            @output.push "</span>" unless @state == :init
+            @state = state
+            @output.push %Q(<span style="display: inline-block; #{@styles[state]}">)
+          end
+
+          @output.push(to_html(element))
+        end
+
+        private :handle_entry
       end
     end
   end

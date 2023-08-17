@@ -32,6 +32,10 @@ module Renalware
 
       scope :ordered, -> { order(date_time: :desc, updated_at: :desc) }
 
+      def self.subtypes?
+        false
+      end
+
       # By default an event has no embedded document but a subclass may
       # implement one using has_document
       def document
@@ -71,10 +75,6 @@ module Renalware
 
       def decorator_class_when_rendering_to_a_document
         EventPdfPresenter
-      end
-
-      def self.subtypes?
-        false
       end
 
       private

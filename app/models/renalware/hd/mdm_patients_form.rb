@@ -18,6 +18,11 @@ module Renalware
       attribute :schedule_definition_ids, String # an Integer array in string form e.g. "[1 ,2]"
       attribute :url
 
+      # StrongParameter support. Called by a controller when whitelisting params.
+      def self.permittable_attributes
+        attribute_set.map(&:name)
+      end
+
       # The hash returned here is passed into the Ransack #search method later i the ouery object.
       def ransacked_parameters
         {
@@ -27,11 +32,6 @@ module Renalware
           named_nurse_id_eq: named_nurse_id,
           named_consultant_id_eq: named_consultant_id
         }
-      end
-
-      # StrongParameter support. Called by a controller when whitelisting params.
-      def self.permittable_attributes
-        attribute_set.map(&:name)
       end
 
       private

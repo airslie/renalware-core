@@ -17,6 +17,8 @@ module Renalware
 
       validate :constraint_started_on_today_or_before, if: :started_on
 
+      def self.policy_class = BasePolicy
+
       def terminated?
         terminated_on.present?
       end
@@ -28,8 +30,6 @@ module Renalware
       def to_s
         description&.to_s
       end
-
-      def self.policy_class = BasePolicy
     end
   end
 end

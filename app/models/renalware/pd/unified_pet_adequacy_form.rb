@@ -14,6 +14,13 @@ module Renalware
       attribute :pet_missing, Boolean
       attribute :adequacy_missing, Boolean
 
+      # This method lets us just use eg simple_form_for in the view without
+      # having to specify the url option i.e. PatientPDUnifiedPetAdequacy here will
+      # resolve to 'patient_pd_pet_adequacy_results_path'
+      def self.model_name
+        ActiveModel::Name.new(self, nil, "PatientPDUnifiedPetAdequacy")
+      end
+
       def valid?
         objects_to_save.each(&:validate).all?(&:valid?)
       end
@@ -31,13 +38,6 @@ module Renalware
             arr << adequacy unless adequacy_missing
           end
         end
-      end
-
-      # This method lets us just use eg simple_form_for in the view without
-      # having to specify the url option i.e. PatientPDUnifiedPetAdequacy here will
-      # resolve to 'patient_pd_pet_adequacy_results_path'
-      def self.model_name
-        ActiveModel::Name.new(self, nil, "PatientPDUnifiedPetAdequacy")
       end
     end
   end

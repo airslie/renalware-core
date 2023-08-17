@@ -9,6 +9,20 @@ module Renalware
           MODALITY_NAMES = %w(HD PD Transplant).freeze
           attr_reader :relation, :query_params
 
+          # Putting this here for now so all incomplete data criteria is all in one place.
+          # Build an array of symbols for all missing data identified by the above query
+          def self.missing_data_for(patient)
+            renal_profile = Renal.cast_patient(patient).profile
+            missing = []
+            missing << :ethnicity if patient.ethnicity_id.blank?
+            missing << :prd if renal_profile&.prd_description_id.blank?
+            missing << :first_seen_on if renal_profile&.first_seen_on.blank?
+            if renal_profile&.document&.comorbidities&.ischaemic_heart_dis&.status.blank?
+              missing << :comorbidities_at_esrf
+            end
+            missing
+          end
+
           def initialize(relation: nil, query_params: {})
             @relation = relation || default_relation
             @query_params = query_params
@@ -67,20 +81,6 @@ module Renalware
               OR
               (renal_profiles.document #>> '{comorbidities,ischaemic_heart_dis,status}' is null)
             SQL
-          end
-
-          # Putting this here for now so all incomplete data criteria is all in one place.
-          # Build an array of symbols for all missing data identified by the above query
-          def self.missing_data_for(patient)
-            renal_profile = Renal.cast_patient(patient).profile
-            missing = []
-            missing << :ethnicity if patient.ethnicity_id.blank?
-            missing << :prd if renal_profile&.prd_description_id.blank?
-            missing << :first_seen_on if renal_profile&.first_seen_on.blank?
-            if renal_profile&.document&.comorbidities&.ischaemic_heart_dis&.status.blank?
-              missing << :comorbidities_at_esrf
-            end
-            missing
           end
 
           module QueryablePatient

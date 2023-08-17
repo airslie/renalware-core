@@ -20,11 +20,11 @@ module Renalware
 
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
 
+      def self.policy_class = BasePolicy
+
       def preferred_schedule
         other_schedule || schedule_definition&.to_s
       end
-
-      def self.policy_class = BasePolicy
     end
   end
 end
