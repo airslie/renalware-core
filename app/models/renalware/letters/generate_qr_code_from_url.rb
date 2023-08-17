@@ -9,8 +9,8 @@ module Renalware
       DEFAULT_ERROR_CORRECTION = :m # 15% of code can be restored
       pattr_initialize :url
 
-      def self.call(url, **opts)
-        new(url).call(**opts)
+      def self.call(url, **)
+        new(url).call(**)
       end
 
       def call(**opts)
@@ -23,7 +23,7 @@ module Renalware
 
       private
 
-      def svg(**opts)
+      def svg(**)
         RQRCode::QRCode.new(url, level: DEFAULT_ERROR_CORRECTION).as_svg(
           {
             color: "333",
@@ -32,17 +32,17 @@ module Renalware
             standalone: true,
             use_path: true,
             viewbox: true # means we have to explictly add a width using css
-          }.merge(**opts)
+          }.merge(**)
         )
       end
 
-      def png(**opts)
+      def png(**)
         RQRCode::QRCode.new(url, level: DEFAULT_ERROR_CORRECTION).as_png(
           {
             size: 120,
             border_modules: 0,
             color: "#333"
-          }.merge(**opts)
+          }.merge(**)
         )
       end
     end

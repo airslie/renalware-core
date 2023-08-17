@@ -6,8 +6,8 @@ module Renalware
     # Called from a rake task.
     # See doc/ods.md
     class SyncPracticesViaAPI
-      def self.call(**args)
-        new(**args).call
+      def self.call(**)
+        new(**).call
       end
 
       def initialize(api_log:, client: nil, dry_run: false)

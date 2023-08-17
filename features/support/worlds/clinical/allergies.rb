@@ -4,8 +4,8 @@ module World
   module Clinics
     module Appointments
       module Domain
-        def create_allergies_for(**args)
-          seed_allergies_for(**args)
+        def create_allergies_for(**)
+          seed_allergies_for(**)
         end
 
         def seed_allergies_for(patient:, user:, allergies:)

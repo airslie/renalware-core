@@ -6,8 +6,8 @@ module Renalware
     # message object.
     #
     class MessageParser
-      def self.parse(*args)
-        new.parse(*args)
+      def self.parse(*)
+        new.parse(*)
       end
 
       def parse(message_string)

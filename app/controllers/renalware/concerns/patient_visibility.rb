@@ -19,10 +19,10 @@ module Renalware
         # Example usage:
         #   skip_verify_policy_scoped only: :search
         #
-        def skip_verify_policy_scoped(**options)
+        def skip_verify_policy_scoped(**)
           return if Renalware.config.patient_visibility_restrictions == :none
 
-          skip_after_action :verify_policy_scoped, **options
+          skip_after_action(:verify_policy_scoped, **)
         end
       end
 

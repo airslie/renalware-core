@@ -9,8 +9,8 @@ module Renalware
       class Simple
         pattr_initialize [:patient_identification!]
 
-        def self.call(**kwargs)
-          new(**kwargs).call
+        def self.call(**)
+          new(**).call
         end
 
         def call

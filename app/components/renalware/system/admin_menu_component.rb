@@ -8,25 +8,25 @@ module Renalware
 
       rattr_initialize [:current_user!]
 
-      def admin_menu_item(*args)
+      def admin_menu_item(*)
         return unless
           current_user_is_admin? ||
           current_user_is_super_admin? ||
           current_user_is_developer?
 
-        menu_item(*args)
+        menu_item(*)
       end
 
-      def super_admin_menu_item(*args)
+      def super_admin_menu_item(*)
         return unless current_user_is_super_admin? || current_user_is_developer?
 
-        menu_item(*args)
+        menu_item(*)
       end
 
-      def developer_menu_item(*args)
+      def developer_menu_item(*)
         return unless current_user_is_developer?
 
-        menu_item(*args)
+        menu_item(*)
       end
 
       def menu_item(title, path, active_when_controller_matches, enabled = true)

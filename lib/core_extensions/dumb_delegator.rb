@@ -5,11 +5,11 @@ class DumbDelegator < BasicObject
   # Handle public_send correctly when ActionView calls this method
   # Reference: https://github.com/stevenharman/dumb_delegator/issues/9
   #
-  def public_send(method, *args, &block)
+  def public_send(method, *, &block)
     if respond_to?(method)
-      __send__(method, *args, &block)
+      __send__(method, *, &block)
     else
-      __getobj__.public_send(method, *args, &block)
+      __getobj__.public_send(method, *, &block)
     end
   end
 
@@ -21,8 +21,8 @@ class DumbDelegator < BasicObject
     raise "Cannot call #try! on a BasicObject"
   end
 
-  def send(method_name, *args, &block)
-    __send__(method_name, *args, &block)
+  def send(method_name, *, &block)
+    __send__(method_name, *, &block)
   end
 
   def inspect

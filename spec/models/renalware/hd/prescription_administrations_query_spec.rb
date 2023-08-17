@@ -90,7 +90,7 @@ describe Renalware::HD::PrescriptionAdministrationsQuery do
     end
   end
 
-  def create_prescription_administration_for(prescription, **options)
+  def create_prescription_administration_for(prescription, **)
     create(
       :hd_prescription_administration,
       prescription: prescription,
@@ -101,7 +101,7 @@ describe Renalware::HD::PrescriptionAdministrationsQuery do
       witnessed_by_password: "password",
       administrator_authorised: true,
       witness_authorised: true,
-      **options
+      **
     )
   end
 end

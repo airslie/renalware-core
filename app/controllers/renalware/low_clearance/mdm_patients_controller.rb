@@ -50,8 +50,8 @@ module Renalware
         @filter_form ||= form_object_class.new(filter_form_params.merge(url: request.path))
       end
 
-      def render_index(filter_form:, **args)
-        presenter = build_presenter(params: params, **args)
+      def render_index(filter_form:, **)
+        presenter = build_presenter(params: params, **)
         authorize presenter.patients
         render(
           :index,

@@ -24,8 +24,8 @@ module Renalware
           )
         end
 
-        def create_terminated_prescription(patient, terminated_on:, **args)
-          terminated_prescription = create_prescription_for(patient, **args)
+        def create_terminated_prescription(patient, terminated_on:, **)
+          terminated_prescription = create_prescription_for(patient, **)
           terminated_prescription.terminate(by: create(:user), terminated_on: terminated_on).save!
           terminated_prescription
         end

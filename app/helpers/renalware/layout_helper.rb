@@ -10,10 +10,10 @@ module Renalware
                     **opts) { yield }
     end
 
-    def within_patient_layout(args = {}, **opts)
+    def within_patient_layout(args = {}, **)
       within_layout(layout: "renalware/layouts/patient",
                     title: args[:title],
-                    **opts) { yield }
+                    **) { yield }
     end
 
     def within_non_patient_layout

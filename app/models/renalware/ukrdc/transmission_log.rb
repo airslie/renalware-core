@@ -17,12 +17,12 @@ module Renalware
       scope :ordered, -> { order(created_at: :asc) }
       belongs_to :batch
 
-      def self.with_logging(patient: nil, batch: nil, **options)
+      def self.with_logging(patient: nil, batch: nil, **)
         log = new(
           patient: patient,
           created_at: Time.zone.now,
           batch: batch,
-          **options
+          **
         )
         yield log if block_given?
         log.save!

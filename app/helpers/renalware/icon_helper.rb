@@ -36,8 +36,8 @@ module Renalware
     end
 
     # Display a checked icon if boolean value is true, otherwise display an unchecked icon.
-    def inline_check_icon(checked, **options)
-      checked ? inline_checked_icon(**options) : inline_unchecked_icon(**options)
+    def inline_check_icon(checked, **)
+      checked ? inline_checked_icon(**) : inline_unchecked_icon(**)
     end
   end
 end

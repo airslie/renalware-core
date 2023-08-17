@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module RansackHelper
-  def sort_link_if(condition, query, attribute, label, *args)
+  def sort_link_if(condition, query, attribute, label, *)
     if condition
-      sort_link([:renalware, query], attribute, label, *args)
+      sort_link([:renalware, query], attribute, label, *)
     else
       label
     end

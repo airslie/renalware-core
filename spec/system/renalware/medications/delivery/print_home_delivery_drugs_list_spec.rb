@@ -27,7 +27,7 @@ describe "Print a patient's ESA drug list", js: true do
     )
   end
 
-  def create_homecare_form_definintion_for(drug_type, prescription_durations: [3, 6, 9], **options)
+  def create_homecare_form_definintion_for(drug_type, prescription_durations: [3, 6, 9], **)
     create(
       :homecare_form,
       drug_type: drug_type,
@@ -36,7 +36,7 @@ describe "Print a patient's ESA drug list", js: true do
       prescription_duration_unit: "week",
       form_name: "generic",
       form_version: 1,
-      **options
+      **
     )
   end
 
