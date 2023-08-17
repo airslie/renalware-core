@@ -36,9 +36,7 @@ module Renalware
         code
       end
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
 
       private
 

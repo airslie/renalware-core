@@ -9,13 +9,8 @@ module Renalware
       has_document class_name: "Renalware::HD::SessionDocument"
       validates :started_at, presence: true
 
-      def self.policy_class
-        OpenSessionPolicy
-      end
-
-      def immutable?
-        false
-      end
+      def self.policy_class = OpenSessionPolicy
+      def immutable? = false
     end
   end
 end

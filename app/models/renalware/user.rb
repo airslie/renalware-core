@@ -56,9 +56,7 @@ module Renalware
     # Non-persistent attribute to signify we want to unlock access
     attr_accessor :access_unlock
 
-    def self.policy_class
-      UserPolicy
-    end
+    def self.policy_class = UserPolicy
 
     # So we can uses these scopes as Ransack predicates eg. { expired: true }
     def self.ransackable_scopes(_auth_object = nil)

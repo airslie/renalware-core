@@ -5,9 +5,7 @@ module Renalware
     class ClinicVisit < Renalware::Clinics::ClinicVisit
       include ::Document::Base
 
-      def self.policy_class
-        Renalware::Clinics::ClinicVisitPolicy
-      end
+      def self.policy_class = Renalware::Clinics::ClinicVisitPolicy
 
       def to_form_partial_path
         "renalware/dietetics/clinic_visits/form"

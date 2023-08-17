@@ -50,9 +50,7 @@ module Renalware
         author_and_all_admins: "author_and_all_admins"
       }
 
-      def to_s
-        name
-      end
+      def to_s = name
 
       def event_class_name
         super || DEFAULT_EVENT_CLASS_NAME

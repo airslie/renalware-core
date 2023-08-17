@@ -139,9 +139,7 @@ module Renalware
 
     delegate :patient_at?, to: :hospital_identifiers
 
-    def self.policy_class
-      Renalware::Patients::PatientPolicy
-    end
+    def self.policy_class = Renalware::Patients::PatientPolicy
 
     def diabetic?
       document&.diabetes&.diagnosis == true

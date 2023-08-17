@@ -33,9 +33,7 @@ module Renalware
       # Note sure if needed so commenting out
       # belongs_to :consultant, class_name: "Renalware::User", foreign_key: :user_id
 
-      def to_s
-        name
-      end
+      def to_s = name
 
       def description
         [name, code].compact_blank.uniq.join(Renalware.config.clinic_name_code_separator)

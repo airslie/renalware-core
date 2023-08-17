@@ -23,9 +23,7 @@ module Renalware
                   less_than_or_equal_to: 50
                 }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
 
       def full_description
         [manufacturer, description].join(" ")

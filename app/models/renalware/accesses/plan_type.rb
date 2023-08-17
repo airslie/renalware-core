@@ -9,13 +9,9 @@ module Renalware
 
       scope :ordered, -> { order(:name) }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
 
-      def to_s
-        name
-      end
+      def to_s = name
     end
   end
 end

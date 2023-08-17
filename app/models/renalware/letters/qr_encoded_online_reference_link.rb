@@ -9,9 +9,7 @@ module Renalware
                  touch: :last_used_at # so we can find 'most recently used' links
       belongs_to :letter
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

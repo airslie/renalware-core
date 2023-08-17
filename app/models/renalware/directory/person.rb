@@ -13,9 +13,7 @@ module Renalware
       scope :ordered, -> { order(:family_name, :given_name) }
       scope :with_address, -> { includes(:address) }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
 
       def self.build(attributes = {})
         person = new(attributes)

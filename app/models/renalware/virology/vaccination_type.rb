@@ -22,9 +22,7 @@ module Renalware
 
       scope :ordered, -> { order(deleted_at: :desc, position: :asc, name: :asc) }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
 
       def underscore_code
         return if code.blank?

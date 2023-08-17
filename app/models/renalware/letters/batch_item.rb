@@ -7,9 +7,7 @@ module Renalware
       belongs_to :batch, counter_cache: true
       enum status: { queued: 0, compiled: 10 }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

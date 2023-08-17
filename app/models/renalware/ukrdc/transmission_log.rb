@@ -40,9 +40,7 @@ module Renalware
         ].join("\n")
       end
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

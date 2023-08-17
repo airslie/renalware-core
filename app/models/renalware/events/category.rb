@@ -11,9 +11,7 @@ module Renalware
                class_name: "Renalware::Events::Type"
       validates :name, presence: true, uniqueness: true
 
-      def to_s
-        name
-      end
+      def to_s = name
     end
   end
 end

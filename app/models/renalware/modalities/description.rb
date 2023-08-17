@@ -10,17 +10,13 @@ module Renalware
       scope :ignorable_for_aki_alerts, -> { where(ignore_for_aki_alerts: true) }
       scope :ignorable_for_kfre, -> { where(ignore_for_kfre: true) }
 
-      def to_s
-        name
-      end
+      def to_s = name
 
       def to_sym
         nil
       end
 
-      def self.policy_class
-        DescriptionPolicy
-      end
+      def self.policy_class = DescriptionPolicy
 
       # Modalities::Description subclasses can override this to for instance add
       # the patient's 'HD Site' add after 'HD'

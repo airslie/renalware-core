@@ -6,9 +6,7 @@ module Clinics
   class MyVisit < Renalware::Clinics::ClinicVisit
     include ::Document::Base
 
-    def self.policy_class
-      ::Renalware::BasePolicy
-    end
+    def self.policy_class = ::Renalware::BasePolicy
 
     def to_form_partial_path
       "/clinics/my_visits/visit_specific_form_fields"

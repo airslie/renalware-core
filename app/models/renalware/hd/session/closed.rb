@@ -14,9 +14,7 @@ module Renalware
       validates :signed_off_at, presence: true
       validates :dialysate, presence: true
 
-      def self.policy_class
-        ClosedSessionPolicy
-      end
+      def self.policy_class = ClosedSessionPolicy
 
       def immutable?
         return true unless persisted?

@@ -34,9 +34,7 @@ module Renalware
         state == "terminated"
       end
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
 
       private
 

@@ -32,9 +32,7 @@ module Renalware
       scope :ordered, -> { order(:name) }
       scope :hd_sites, -> { where(is_hd_site: true) }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
 
       def to_s
         "#{name} (#{unit_code})"

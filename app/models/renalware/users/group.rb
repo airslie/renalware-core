@@ -20,9 +20,7 @@ module Renalware
 
       scope :ordered, -> { order(name: :asc) }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

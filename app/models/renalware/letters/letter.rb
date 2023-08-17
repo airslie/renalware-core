@@ -80,9 +80,7 @@ module Renalware
         NilClass => Event::Unknown
       }.freeze
 
-      def self.policy_class
-        LetterPolicy
-      end
+      def self.policy_class = LetterPolicy
 
       def self.for_event(event)
         where(event: event).first

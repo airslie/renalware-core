@@ -26,9 +26,7 @@ module Renalware
                       WeekPeriod.new(week_number: week_number, year: year)
                     }
 
-        def self.policy_class
-          DiaryPolicy
-        end
+        def self.policy_class = DiaryPolicy
 
         # Searchs the object graph rather than a SQL search
         def slot_for(diurnal_period_code_id, station_id, day_of_week, valid_from: nil)

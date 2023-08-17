@@ -39,9 +39,7 @@ module Renalware
       scope :current, -> { ordered.where(deactivated_at: nil).limit(1) }
       scope :dialysing_at_unit, ->(unit_id) { where(hospital_unit_id: unit_id) }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

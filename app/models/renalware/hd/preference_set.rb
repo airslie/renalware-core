@@ -24,9 +24,7 @@ module Renalware
         other_schedule || schedule_definition&.to_s
       end
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

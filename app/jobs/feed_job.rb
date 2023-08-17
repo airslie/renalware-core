@@ -16,13 +16,8 @@ FeedJob = Struct.new(:raw_message) do
     Renalware::Feeds.message_processor.call(raw_message)
   end
 
-  def max_attempts
-    2
-  end
-
-  def destroy_failed_jobs?
-    false
-  end
+  def max_attempts = 2
+  def destroy_failed_jobs? = false
 
   # Reschedule after an error. No point trying straight away, so try at these intervals:
   # After attempt no. Wait for hours
