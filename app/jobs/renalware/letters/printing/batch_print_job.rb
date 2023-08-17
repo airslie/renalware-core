@@ -15,9 +15,7 @@ module Renalware
           end
         end
 
-        def max_attempts
-          1
-        end
+        def max_attempts = 1
       end
     end
   end

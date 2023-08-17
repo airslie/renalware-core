@@ -46,37 +46,17 @@ module Renalware
         only_deleted.with_notes.with_updated_by.with_created_by.ordered
       end
 
-      def archived?
-        deleted?
-      end
-
-      def archived_at
-        deleted_at
-      end
-
-      def archived_on
-        deleted_at.to_date
-      end
-
-      def created_on
-        created_at.to_date
-      end
-
-      def updated_on
-        updated_at.to_date
-      end
-
       def self.reject_if_proc
         proc { |attrs| attrs[:description].blank? }
       end
 
-      def full_description
-        description
-      end
-
-      def formatted
-        "#{full_description}, #{date}"
-      end
+      def archived? = deleted?
+      def archived_at = deleted_at
+      def archived_on = deleted_at.to_date
+      def created_on = created_at.to_date
+      def updated_on = updated_at.to_date
+      def full_description = description
+      def formatted = "#{full_description}, #{date}"
     end
   end
 end

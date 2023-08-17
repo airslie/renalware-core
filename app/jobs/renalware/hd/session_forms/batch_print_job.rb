@@ -19,17 +19,9 @@ module Renalware
 
         discard_on StandardError
 
-        def queue_name
-          "hd_session_forms"
-        end
-
-        def priority
-          0 # high
-        end
-
-        def destroy_failed_jobs?
-          true
-        end
+        def queue_name = "hd_session_forms"
+        def priority = 0
+        def destroy_failed_jobs? = true
       end
     end
   end
