@@ -23,15 +23,30 @@ module Renalware
             patients = patients.or(Renalware::Patient.where(column => hosp_no))
           end
 
+          # Store the query so far, ie without the DOB 'where' clause below
+          query_by_number_only = patients
+
           # Add an AND where condition so we might end up with
           #   WHERE ("nhs_number= '123' OR local_patient_id = '456') AND born_on = '2000-01-01'
           patients = patients.where(born_on: born_on) if born_on.present?
 
-          if patients.length > 1 # avoid a count query
+          # avoid a count query by using #length
+          if patients.length == 1
+            patients.first
+          elsif patients.length > 1
             raise ArgumentError, "More than one patient matches! #{identifiers}"
-            # Will go back in the queue
-          else
-            patients.first # may be null if no match
+          elsif query_by_number_only.exists? # patients.length == 0 so be sure to return nil
+            # No number+dob match, but there is a partial match by number only - if could be the
+            # patient's DOB is incorrect in RW and we are for example receiving an ADT^A31 to
+            # correct it. Make sure we return nil.
+            Feeds::Log.create!(
+              log_type: :close_match,
+              log_reason: :number_hit_dob_miss,
+              patient: query_by_number_only.first,
+              message: nil, # TODO: inject feed_message_id somehow
+              note: born_on
+            )
+            nil
           end
         end
 

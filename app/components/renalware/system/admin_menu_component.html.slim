@@ -16,12 +16,6 @@ ul.side-nav.side-nav--admin(data-controller="collapsible-DISABLED" data-collapsi
   li= link_to "PD", "#", data: { action: "collapsible#open", collapsible_target: "link" }
   ul.collapsible(data-collapsible-target="section")
     = super_admin_menu_item "Bags", renalware.pd_bag_types_path, %r{pd/bag_types}
-  = super_admin_menu_item "Primary Care Physicians", renalware.patients_primary_care_physicians_path, %r{patients/primary_care_physicians}
-  = super_admin_menu_item "Cache", renalware.admin_cache_path, %r{admin/cache}
-  /li= link_to "File Imports", renalware.admin_feeds_files_path
-  = super_admin_menu_item "User Feedback", renalware.system_user_feedback_index_path, %r{system/user_feedback}
-  = super_admin_menu_item "System Messages", renalware.system_messages_path, %r{system/messages}
-  = super_admin_menu_item "Nags (Missing Data)", renalware.system_nag_definitions_path, %r{system/nag_definitions}
 
   li= link_to "HD", "#", data: { action: "collapsible#open", collapsible_target: "link" }
   ul.collapsible(data-collapsible-target="section")
@@ -30,7 +24,6 @@ ul.side-nav.side-nav--admin(data-controller="collapsible-DISABLED" data-collapsi
     = super_admin_menu_item "Dialysers", renalware.hd_dialysers_path, %r{hd/dialysers}
     = super_admin_menu_item "Cannulation Types", renalware.hd_cannulation_types_path, %r{hd/cannulation_types}
 
-  = super_admin_menu_item "Print batches", renalware.letters_batches_path, %r{letters/batches}
   li= link_to "Pathology", "#", data: { action: "collapsible#open", collapsible_target: "link" }
   ul.collapsible(data-collapsible-target="section")
     = super_admin_menu_item "Labs", renalware.pathology_labs_path, %r{pathology/labs}
@@ -40,24 +33,40 @@ ul.side-nav.side-nav--admin(data-controller="collapsible-DISABLED" data-collapsi
     = admin_menu_item "Request Form Print History", renalware.pathology_requests_requests_path, %r{pathology/requests/requests}
     = admin_menu_item "Request Config", renalware.pathology_requests_rules_path, %r{pathology/requests/rules}
 
-  = super_admin_menu_item "Virology Vaccination Types", renalware.virology_vaccination_types_path, %r{virology/vaccination_types}
-  = admin_menu_item "Mailshots", renalware.letters_mailshots_path, %r{letters/mailshots}
-  = admin_menu_item "Letter Topics", renalware.letters_topics_path, %r{letters/topics}
-
-  li= link_to "UKRDC", "#", data: { action: "collapsible#open", collapsible_target: "link" }
+  = super_admin_menu_item "Virology Vaccn Types", renalware.virology_vaccination_types_path, %r{virology/vaccination_types}
+  li= link_to "Letters", "#", data: { action: "collapsible#open", collapsible_target: "link" }
   ul.collapsible(data-collapsible-target="section")
-    = super_admin_menu_item "Transmission Logs", renalware.ukrdc_transmission_logs_path, %r{ukrdc/transmission_logs}
+    = admin_menu_item "Mailshots", renalware.letters_mailshots_path, %r{letters/mailshots}
+    = admin_menu_item "Letter Topics", renalware.letters_topics_path, %r{letters/topics}
+    = super_admin_menu_item "Print batches", renalware.letters_batches_path, %r{letters/batches}
+    = admin_menu_item "QR Code Links", renalware.system_online_reference_links_path, %r{system/online_reference}
 
-  = super_admin_menu_item "Playground", renalware.admin_playground_path, %r{admin/playground}
+
+  /= super_admin_menu_item "Playground", renalware.admin_playground_path, %r{admin/playground}
 
 
   - unless Rails.env.production?
     = super_admin_menu_item "Email Templates", renalware.system_email_templates_path, %r{system/email_templates}
 
-  = super_admin_menu_item "Outgoing Documents", renalware.feeds_outgoing_documents_path, %r{outgoing_documents}
   = super_admin_menu_item "Worry Categories", renalware.worry_categories_path, %r{worry_categories}
-  = super_admin_menu_item "Config Settings", renalware.admin_config_path, %r{config}
+
   = super_admin_menu_item "Death locations", renalware.deaths_locations_path, %r{deaths/locations}
-  = super_admin_menu_item "Hospital Centres", renalware.hospitals_centres_path, %r{hospitals/centres}
-  = admin_menu_item "Online Reference Libary", renalware.system_online_reference_links_path, %r{system/online_reference}
-  = super_admin_menu_item "API Logs", renalware.system_api_logs_path, %r{system/api_logs}
+
+  li= link_to "Feeds", "#", data: { action: "collapsible#open", collapsible_target: "link" }
+  ul.collapsible(data-collapsible-target="section")
+    = super_admin_menu_item "Outgoing Documents", renalware.feeds_outgoing_documents_path, %r{outgoing_documents}
+    = super_admin_menu_item "Logs", renalware.feeds_logs_path, %r{feeds/logs}
+  li= link_to "System", "#", data: { action: "collapsible#open", collapsible_target: "link" }
+  ul.collapsible(data-collapsible-target="section")
+    = super_admin_menu_item "API Logs", renalware.system_api_logs_path, %r{system/api_logs}
+    = super_admin_menu_item "UKRDC Logs", renalware.ukrdc_transmission_logs_path, %r{ukrdc/transmission_logs}
+    = super_admin_menu_item "Cache", renalware.admin_cache_path, %r{admin/cache}
+    = super_admin_menu_item "System Messages", renalware.system_messages_path, %r{system/messages}
+    = super_admin_menu_item "Nags (Missing Data)", renalware.system_nag_definitions_path, %r{system/nag_definitions}
+    = super_admin_menu_item "Hospital Centres", renalware.hospitals_centres_path, %r{hospitals/centres}
+    = super_admin_menu_item "GPs", renalware.patients_primary_care_physicians_path, %r{patients/primary_care_physicians}
+    = super_admin_menu_item "User Feedback", renalware.system_user_feedback_index_path, %r{system/user_feedback}
+    = super_admin_menu_item "Config Settings", renalware.admin_config_path, %r{config}
+
+
+

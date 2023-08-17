@@ -23,7 +23,8 @@ module Renalware::Feeds
         {
           patient_args: { born_on: "1900-01-01", nhs_number: "5928173695" },
           locator_args: { born_on: "2000-01-01", nhs_number: "5928173695" },
-          found: false
+          found: false,
+          log_close_match: true
         },
         {
           patient_args: { born_on: "2000-01-01", nhs_number: "9000386780" },
@@ -87,12 +88,20 @@ module Renalware::Feeds
             identifiers: locator_args
           )
 
+          if hash[:log_close_match] == true
+            allow(Log).to receive(:create!)
+          end
+
           result = described_class.call(patient_identification: patient_identification)
 
           if hash[:found]
             expect(result).to eq(patient)
           else
             expect(result).to be_nil
+          end
+
+          if hash[:log_close_match] == true
+            expect(Log).to have_received(:create!)
           end
         end
       end
