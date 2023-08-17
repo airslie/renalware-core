@@ -20,9 +20,7 @@ module Renalware
         system_code == UNSPECIFIED_SYSTEM_CODE
       end
 
-      def to_s
-        name
-      end
+      def to_s = name
     end
   end
 end

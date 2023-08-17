@@ -7,9 +7,7 @@ module Renalware
 
       scope :ordered, -> { order(position: :asc) }
 
-      def to_s
-        name
-      end
+      def to_s = name
     end
   end
 end

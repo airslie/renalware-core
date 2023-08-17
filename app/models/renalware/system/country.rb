@@ -9,9 +9,7 @@ module Renalware
 
       default_scope -> { order(position: :asc) }
 
-      def to_s
-        name
-      end
+      def to_s = name
 
       def uk?
         (alpha3 || "").casecmp("GBR").zero?

@@ -12,9 +12,7 @@ module Renalware
       validates :glucose_content, numericality: true, allow_blank: true
       validates :potassium_content, numericality: true, allow_blank: true
 
-      def to_s
-        name
-      end
+      def to_s = name
     end
   end
 end

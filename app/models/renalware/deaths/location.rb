@@ -8,9 +8,7 @@ module Renalware
       before_validation { self.name = name&.strip }
       scope :ordered, -> { order(:name) }
 
-      def to_s
-        name
-      end
+      def to_s = name
 
       def self.policy_class = BasePolicy
     end

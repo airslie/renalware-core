@@ -11,9 +11,7 @@ module Renalware
       scope :ordered, -> { order(:name) }
       scope :active, -> { where(active: true) }
 
-      def to_s
-        name
-      end
+      def to_s = name
     end
   end
 end

@@ -10,9 +10,7 @@ module Renalware
       scope :ignorable_for_aki_alerts, -> { where(ignore_for_aki_alerts: true) }
       scope :ignorable_for_kfre, -> { where(ignore_for_kfre: true) }
 
-      def to_s
-        name
-      end
+      def to_s = name
 
       def to_sym
         nil
