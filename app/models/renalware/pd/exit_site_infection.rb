@@ -24,9 +24,7 @@ module Renalware
 
       scope :ordered, -> { order(diagnosis_date: :desc) }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

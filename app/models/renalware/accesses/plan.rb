@@ -16,9 +16,7 @@ module Renalware
       scope :current, -> { where(terminated_at: nil) }
       scope :historical, -> { where.not(terminated_at: nil) }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
 
       def self.attributes_to_ignore_when_comparing
         [:id, :created_at, :updated_at, :created_by_id, :updated_by_id]

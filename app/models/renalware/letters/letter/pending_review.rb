@@ -3,9 +3,7 @@
 module Renalware
   module Letters
     class Letter::PendingReview < Letter
-      def self.policy_class
-        PendingReviewLetterPolicy
-      end
+      def self.policy_class = PendingReviewLetterPolicy
 
       def revise(params)
         params = LetterParamsProcessor.new(patient).call(params)

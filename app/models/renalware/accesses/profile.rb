@@ -37,9 +37,7 @@ module Renalware
 
       enumerize :side, in: %i(left right)
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

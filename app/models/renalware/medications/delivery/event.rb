@@ -29,9 +29,7 @@ module Renalware
         validates :prescription_duration, presence: true, if: :printed?
         validate :renalware_forms_args, on: :update
 
-        def self.policy_class
-          Renalware::BasePolicy
-        end
+        def self.policy_class = Renalware::BasePolicy
 
         def renalware_forms_args
           adapater = Delivery::HomecareFormsAdapter.new(delivery_event: self)

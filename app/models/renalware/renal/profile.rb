@@ -40,9 +40,7 @@ module Renalware
         [I18n.l(esrf_on), prd_description].compact.join(" ")
       end
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

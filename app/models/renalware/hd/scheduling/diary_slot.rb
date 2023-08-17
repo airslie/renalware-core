@@ -59,9 +59,7 @@ module Renalware
 
         delegate :id, to: :diary, prefix: true
 
-        def self.policy_class
-          DiaryPolicy
-        end
+        def self.policy_class = DiaryPolicy
 
         def on_master_diary?
           diary&.master?

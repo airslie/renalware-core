@@ -3,9 +3,7 @@
 module Renalware
   module Letters
     class Letter::Approved < Letter
-      def self.policy_class
-        ApprovedLetterPolicy
-      end
+      def self.policy_class = ApprovedLetterPolicy
 
       def complete(by:)
         becomes!(Completed).tap do |letter|

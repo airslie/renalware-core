@@ -30,9 +30,7 @@ module Renalware
                 numericality: { less_than_or_equal_to: :minimum_weigh_plus_max_range },
                 unless: -> { minimum_weigh_plus_max_range.blank? }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
 
       def self.latest
         ordered.first

@@ -15,9 +15,7 @@ module Renalware
 
       has_document class_name: "Renalware::HD::Session::DNA::Document"
 
-      def self.policy_class
-        DNASessionPolicy
-      end
+      def self.policy_class = DNASessionPolicy
 
       def immutable?
         return true unless persisted?

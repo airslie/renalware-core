@@ -16,9 +16,7 @@ module Renalware
                dependent: :destroy
       belongs_to :parent, class_name: "TransmissionLog"
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

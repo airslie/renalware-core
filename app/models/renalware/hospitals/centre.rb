@@ -29,9 +29,7 @@ module Renalware
         units.hd_sites.ordered
       end
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
 
       def to_s
         if location.present?

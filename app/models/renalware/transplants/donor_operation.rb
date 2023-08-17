@@ -35,9 +35,7 @@ module Renalware
 
       validates :performed_on, presence: true
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

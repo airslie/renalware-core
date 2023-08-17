@@ -40,9 +40,7 @@ module Renalware
       # Define this explicity so that an subclasses will inherit it - otherwise Pundit will try
       # and resolve eg DummyStudy::ParticipationPolicy which won't exist and not need to the
       # impementor to create.
-      def self.policy_class
-        ParticipationPolicy
-      end
+      def self.policy_class = ParticipationPolicy
 
       class Document < Document::Embedded
       end

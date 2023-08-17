@@ -16,9 +16,7 @@ module Renalware
       )
       has_document class_name: "Renalware::Transplants::DonorWorkupDocument"
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

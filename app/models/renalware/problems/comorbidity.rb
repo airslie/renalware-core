@@ -28,9 +28,7 @@ module Renalware
       }
       scope :at_date, ->(date) { where("recognised_at <= ?", date) }
 
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end

@@ -3,9 +3,7 @@
 module Renalware
   module Letters
     class Letter::Draft < Letter
-      def self.policy_class
-        DraftLetterPolicy
-      end
+      def self.policy_class = DraftLetterPolicy
 
       def revise(params)
         params = LetterParamsProcessor.new(patient).call(params)

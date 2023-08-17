@@ -55,9 +55,7 @@ module Renalware
         termination.present?
       end
 
-      def self.policy_class
-        RegimePolicy
-      end
+      def self.policy_class = RegimePolicy
 
       def apd?
         pd_type == :apd

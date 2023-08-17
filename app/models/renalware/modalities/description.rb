@@ -18,9 +18,7 @@ module Renalware
         nil
       end
 
-      def self.policy_class
-        DescriptionPolicy
-      end
+      def self.policy_class = DescriptionPolicy
 
       # Modalities::Description subclasses can override this to for instance add
       # the patient's 'HD Site' add after 'HD'

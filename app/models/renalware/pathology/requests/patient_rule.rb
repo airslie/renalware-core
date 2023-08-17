@@ -36,9 +36,7 @@ module Renalware
           last_request.created_at
         end
 
-        def self.policy_class
-          BasePolicy
-        end
+        def self.policy_class = BasePolicy
 
         private
 

@@ -16,9 +16,7 @@ module Renalware
         versions: { class_name: "Renalware::Clinical::Version" },
         on: [:create, :update, :destroy]
       )
-      def self.policy_class
-        BasePolicy
-      end
+      def self.policy_class = BasePolicy
     end
   end
 end
