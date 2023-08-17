@@ -190,7 +190,7 @@ module Renalware
       it "validates sex" do
         patient.sex = "X"
 
-        expect(patient).to be_invalid
+        expect(patient).not_to be_valid
       end
 
       describe "patient identification validation" do
@@ -221,7 +221,7 @@ module Renalware
           it "is invalid" do
             patient = Patient.new
 
-            expect(patient).to be_invalid
+            expect(patient).not_to be_valid
             expect(patient.errors[:base]).to include(error_message)
           end
         end
@@ -236,7 +236,7 @@ module Renalware
           it "is invalid when no nhs_number supplied" do
             patient = Patient.new
 
-            expect(patient).to be_invalid
+            expect(patient).not_to be_valid
 
             expect(patient.errors[:base]).to include(error_message2)
           end
@@ -245,7 +245,7 @@ module Renalware
             patient = Patient.new
             patient.nhs_number = "9999999999"
 
-            expect(patient).to be_invalid
+            expect(patient).not_to be_valid
 
             expect(patient.errors[:base]).not_to include(error_message2)
           end

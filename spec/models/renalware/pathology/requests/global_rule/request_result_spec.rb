@@ -48,7 +48,7 @@ describe Renalware::Pathology::Requests::GlobalRule::RequestResult do
         )
       end
 
-      it { expect(global_rule).to be_invalid }
+      it { expect(global_rule).not_to be_valid }
     end
 
     context "with no request_description" do
@@ -61,7 +61,7 @@ describe Renalware::Pathology::Requests::GlobalRule::RequestResult do
         )
       end
 
-      it { expect(global_rule).to be_invalid }
+      it { expect(global_rule).not_to be_valid }
     end
   end
 end
