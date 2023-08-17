@@ -12,8 +12,8 @@ module Renalware
         @observation_descriptions = observation_descriptions
       end
 
-      def map(&block)
-        to_a.map(&block)
+      def map(&)
+        to_a.map(&)
       end
 
       def to_a

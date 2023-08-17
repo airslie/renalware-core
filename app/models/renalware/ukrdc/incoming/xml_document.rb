@@ -29,7 +29,7 @@ module Renalware
         # Accessing eg XmlDocument.new(file).nhs_number will search the document with looked-up
         # entry in the XPATHS constant, to save us having to write attributes for the things we
         # need.
-        def method_missing(method_name, *_args, &_block)
+        def method_missing(method_name, *_args, &)
           xpath = XPATHS[method_name]
           return root.xpath(xpath) if xpath
 

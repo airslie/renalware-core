@@ -38,12 +38,12 @@ module Renalware
       class << self
         delegate :clear, :cleanup, to: :store
 
-        def fetch(letter, **, &block)
+        def fetch(letter, **, &)
           store.fetch(
             cache_key_for(letter),
             version: cache_version_for(letter, **),
             expires_in: 4.weeks,
-            &block
+            &
           )
         end
 

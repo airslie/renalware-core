@@ -183,7 +183,7 @@ module Document
     end
 
     # Don't raise exception if known missing attribute
-    def method_missing(method_sym, *arguments, &block)
+    def method_missing(method_sym, *arguments, &)
       super unless @@methods_to_ignore.include? method_sym
     end
   end

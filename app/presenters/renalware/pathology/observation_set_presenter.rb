@@ -16,7 +16,7 @@ module Renalware
         attr_reader_initialize [:code, :description, :result, :observed_at]
       end
 
-      def method_missing(method_name, **_args, &_block)
+      def method_missing(method_name, **_args, &)
         values&.public_send(method_name)
       end
 
