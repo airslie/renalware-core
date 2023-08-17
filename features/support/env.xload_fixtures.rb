@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "database_cleaner"
-require_relative "./env"
+require_relative "env"
 
 class Fixtures
   MODELS = [

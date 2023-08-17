@@ -4,7 +4,7 @@ module Renalware
   module Research
     class InvestigatorshipPolicy < ResearchPolicy
       def destroy?
-        return if record.study.blank?
+        return false if record.study.blank?
 
         user_is_super_admin? || user_is_a_manager_in_this_study?
       end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./transplant_steps"
+require_relative "transplant_steps"
 
 module Renalware
   module Transplants

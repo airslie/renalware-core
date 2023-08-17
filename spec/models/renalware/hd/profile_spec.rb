@@ -70,7 +70,7 @@ module Renalware
           }.not_to raise_error
         end
 
-        it "disallows case-variable duplicates " do
+        it "disallows case-variable duplicates" do
           active_profile = described_class.create!(
             patient: patient,
             prescriber: user,

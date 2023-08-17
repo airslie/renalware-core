@@ -24,7 +24,7 @@ module Renalware
       }
 
       def fully_qualified_view_name
-        [schema_name, view_name].reject(&:blank?).join(".")
+        [schema_name, view_name].compact_blank.join(".")
       end
     end
   end

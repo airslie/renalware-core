@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./glucose_calculator"
+require_relative "glucose_calculator"
 
 module Renalware
   module PD

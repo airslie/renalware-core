@@ -41,16 +41,16 @@ describe MicrosoftGraph::Client do
       stub_fetch_token("thetoken")
 
       expected_body = {
-        "message": {
-          "subject": "The subject",
-          "body": {
-            "contentType": "Text",
-            "content": "The body"
+        message: {
+          subject: "The subject",
+          body: {
+            contentType: "Text",
+            content: "The body"
           },
-          "toRecipients": [
+          toRecipients: [
             {
-              "emailAddress": {
-                "address": "test@example.com"
+              emailAddress: {
+                address: "test@example.com"
               }
             }
           ]
