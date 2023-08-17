@@ -214,8 +214,10 @@ module Renalware
         context "when residual_renal_function and pertitoneal_creatinine_clearance are present" do
           it "sums them" do
             calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
-            allow(calcs).to receive(:residual_renal_function).and_return(1)
-            allow(calcs).to receive(:pertitoneal_creatinine_clearance).and_return(2)
+            allow(calcs).to receive_messages(
+              residual_renal_function: 1,
+              pertitoneal_creatinine_clearance: 2
+            )
 
             expect(calcs.total_creatinine_clearance).to eq(3)
           end
@@ -224,8 +226,10 @@ module Renalware
         context "when residual_renal_function is nil" do
           it "returns nil" do
             calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
-            allow(calcs).to receive(:residual_renal_function).and_return(nil)
-            allow(calcs).to receive(:pertitoneal_creatinine_clearance).and_return(2)
+            allow(calcs).to receive_messages(
+              residual_renal_function: nil,
+              pertitoneal_creatinine_clearance: 2
+            )
 
             expect(calcs.total_creatinine_clearance).to be_nil
           end
@@ -234,8 +238,10 @@ module Renalware
         context "when pertitoneal_creatinine_clearance is nil" do
           it "returns nil" do
             calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
-            allow(calcs).to receive(:residual_renal_function).and_return(1)
-            allow(calcs).to receive(:pertitoneal_creatinine_clearance).and_return(nil)
+            allow(calcs).to receive_messages(
+              residual_renal_function: 1,
+              pertitoneal_creatinine_clearance: nil
+            )
 
             expect(calcs.total_creatinine_clearance).to be_nil
           end
@@ -387,8 +393,7 @@ module Renalware
         context "when renal_ktv and pertitoneal_ktv are present" do
           it "sums them" do
             calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
-            allow(calcs).to receive(:renal_ktv).and_return(1.1)
-            allow(calcs).to receive(:pertitoneal_ktv).and_return(2.2)
+            allow(calcs).to receive_messages(renal_ktv: 1.1, pertitoneal_ktv: 2.2)
 
             expect(calcs.total_ktv).to eq(3.3)
           end
@@ -397,8 +402,7 @@ module Renalware
         context "when renal_ktv is nil" do
           it "returns nil" do
             calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
-            allow(calcs).to receive(:renal_ktv).and_return(nil)
-            allow(calcs).to receive(:pertitoneal_ktv).and_return(2.2)
+            allow(calcs).to receive_messages(renal_ktv: nil, pertitoneal_ktv: 2.2)
 
             expect(calcs.total_ktv).to be_nil
           end
@@ -407,8 +411,7 @@ module Renalware
         context "when pertitoneal_ktv is nil" do
           it "returns nil" do
             calcs = described_class.new(adequacy: nil, age: 50, sex: "F")
-            allow(calcs).to receive(:renal_ktv).and_return(1.1)
-            allow(calcs).to receive(:pertitoneal_ktv).and_return(nil)
+            allow(calcs).to receive_messages(renal_ktv: 1.1, pertitoneal_ktv: nil)
 
             expect(calcs.total_ktv).to be_nil
           end

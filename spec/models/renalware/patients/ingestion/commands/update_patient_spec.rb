@@ -98,16 +98,16 @@ module Renalware::Patients::Ingestion
 
       context "when updating a patient and the strategy=nhs_or_any_assigning_auth_number" do
         it "updates the correct patient number columns" do
-          allow(Renalware.config).to receive(:patient_hospital_identifiers).and_return(
-            HOSP_A: :local_patient_id,
-            HOSP_B: :local_patient_id_2,
-            HOSP_E: :local_patient_id_5,
-            HOSP_C: :local_patient_id_3,
-            HOSP_D: :local_patient_id_4
+          allow(Renalware.config).to receive_messages(
+            patient_hospital_identifiers: {
+              HOSP_A: :local_patient_id,
+              HOSP_B: :local_patient_id_2,
+              HOSP_E: :local_patient_id_5,
+              HOSP_C: :local_patient_id_3,
+              HOSP_D: :local_patient_id_4
+            },
+            hl7_patient_locator_strategy: :nhs_or_any_assigning_auth_number
           )
-          allow(Renalware.config)
-            .to receive(:hl7_patient_locator_strategy)
-            .and_return(:nhs_or_any_assigning_auth_number)
 
           # The patient is known on the system only as local_patient_id_2 (HOSP_B) => "HB123"
           # so after the update any other numbers passed in the HL7 should be populated.
@@ -153,12 +153,12 @@ module Renalware::Patients::Ingestion
 
       context "when updating a patient found by nhs_number with the 'simple' strategy" do
         it "does not change the local_patient_id" do
-          allow(Renalware.config).to receive(:patient_hospital_identifiers).and_return(
-            HOSP_A: :local_patient_id
+          allow(Renalware.config).to receive_messages(
+            patient_hospital_identifiers: {
+              HOSP_A: :local_patient_id
+            },
+            hl7_patient_locator_strategy: :simple
           )
-          allow(Renalware.config)
-            .to receive(:hl7_patient_locator_strategy)
-            .and_return(:simple)
 
           # The patient is known on the system only as NHS number "1791963196"
           # so after the update the local_patient_id using the number in the HL7 message

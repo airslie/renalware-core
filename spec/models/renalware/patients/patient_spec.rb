@@ -195,17 +195,16 @@ module Renalware
 
       describe "patient identification validation" do
         before do
-          allow(Renalware.config).to receive(:patient_hospital_identifiers).and_return(
-            HOSP1: :local_patient_id,
-            HOSP2: :local_patient_id_2,
-            HOSP3: :local_patient_id_3,
-            HOSP4: :local_patient_id_4,
-            HOSP5: :local_patient_id_5
+          allow(Renalware.config).to receive_messages(
+            patient_hospital_identifiers: {
+              HOSP1: :local_patient_id,
+              HOSP2: :local_patient_id_2,
+              HOSP3: :local_patient_id_3,
+              HOSP4: :local_patient_id_4,
+              HOSP5: :local_patient_id_5
+            },
+            patients_must_have_at_least_one_hosp_number: true
           )
-
-          allow(Renalware.config)
-            .to receive(:patients_must_have_at_least_one_hosp_number)
-            .and_return(true)
         end
 
         let(:error_message) {

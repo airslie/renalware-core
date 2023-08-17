@@ -12,16 +12,16 @@ module Renalware::Patients::Ingestion
     let(:system_user) { create(:user, username: Renalware::SystemUser.username) }
 
     before do
-      allow(Renalware.config).to receive(:patient_hospital_identifiers).and_return(
-        HOSP_A: :local_patient_id,
-        HOSP_B: :local_patient_id_2,
-        HOSP_E: :local_patient_id_5,
-        HOSP_C: :local_patient_id_3,
-        HOSP_D: :local_patient_id_4
+      allow(Renalware.config).to receive_messages(
+        patient_hospital_identifiers: {
+          HOSP_A: :local_patient_id,
+          HOSP_B: :local_patient_id_2,
+          HOSP_E: :local_patient_id_5,
+          HOSP_C: :local_patient_id_3,
+          HOSP_D: :local_patient_id_4
+        },
+        hl7_patient_locator_strategy: :nhs_or_any_assigning_auth_number
       )
-      allow(Renalware.config)
-        .to receive(:hl7_patient_locator_strategy)
-        .and_return(:nhs_or_any_assigning_auth_number)
       system_user
     end
 

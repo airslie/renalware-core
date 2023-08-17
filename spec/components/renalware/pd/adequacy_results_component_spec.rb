@@ -23,8 +23,10 @@ describe Renalware::PD::AdequacyResultsComponent, type: :component do
       component = described_class.new(patient: patient, current_user: user)
 
       result = build_stubbed(:pd_adequacy_result, patient: patient, performed_on: "2020-01-01")
-      allow(component).to receive(:results).and_return([result])
-      allow(component).to receive(:pagination).and_return(Renalware::NullObject.instance)
+      allow(component).to receive_messages(
+        results: [result],
+        pagination: Renalware::NullObject.instance
+      )
 
       html = render_inline(component).to_html
 
