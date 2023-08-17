@@ -15,6 +15,8 @@ module Renalware
       enum log_reason: {
         number_hit_dob_miss: "number_hit_dob_miss"
       }
+
+      def self.policy_class = BasePolicy
     end
   end
 end

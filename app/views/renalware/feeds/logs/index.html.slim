@@ -1,0 +1,59 @@
+
+= content_for(:filters) do
+  .rounded-md.bg-blue-100.px-3.py-2.flex.items-start.shadow.mb-5
+    i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+    ' Warnings and notifcations about incoming feed messages, for example when the patient in an
+    ' HL7 message can be resolved by their hospital or NHS number, but not their DOB does not match
+
+  .search-form.filters
+    = simple_form_for query,
+        as: :q,
+        url: renalware.feeds_logs_path,
+        method: :get do |f|
+      .flex.flex-wrap.-mx-3.mb-6
+        .w-full.md:w-1/5.px-3.mb-6.md:mb-0
+          = f.input :log_type_eq,
+                    label: "Type",
+                    collection: Renalware::Feeds::Log.log_types.values,
+                    class: "mr-4"
+        .w-full.md:w-1/5.px-3.mb-6.md:mb-0
+          = f.input :log_reason_eq,
+                    label: "Reason",
+                    collection: Renalware::Feeds::Log.log_reasons.values
+        .w-full.md:w-1/5.px-3.mb-6.md:mb-0
+          .mt-6= filter_or_reset(form: f, reset_path: renalware.feeds_logs_path)
+
+= within_new_admin_layout(title: "Feed Log Messages") do
+  table
+    thead
+      tr
+        th(colspan=2)
+        th.text-center.bg-orange-50(colspan=2) HL7
+        th(colspan=6)
+      tr
+        th Id
+        th.col-width-date-time= sort_link(query, :created_at, "Date")
+        th.col-width-tiny.bg-orange-50 Type
+        th.col-width-tiny.bg-orange-50 Event
+        th.col-width-medium Type
+        th.col-width-medium Reason
+        th.col-width-small Patient ID
+        th Patient
+        th.col-width-small Msg ID
+        th Note
+
+    tbody
+      - logs.each do |log|
+        tr
+          td= log.id
+          td= l(log.created_at)
+          td.bg-orange-50= log.message_type
+          td.bg-orange-50= log.event_type
+          td= log.log_type
+          td= log.log_reason
+          td= log.patient_id
+          td= link_to(log.patient, log.patient)
+          td= log.message_id
+          td= log.note
+
+  == pagy_foundation_nav pagy

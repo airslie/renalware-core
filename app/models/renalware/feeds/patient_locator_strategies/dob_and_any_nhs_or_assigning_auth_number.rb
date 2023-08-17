@@ -43,7 +43,8 @@ module Renalware
               log_type: :close_match,
               log_reason: :number_hit_dob_miss,
               patient: query_by_number_only.first,
-              message: nil # TODO: inject feed_message_id somehow
+              message: nil, # TODO: inject feed_message_id somehow
+              note: born_on
             )
             nil
           end

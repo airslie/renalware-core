@@ -5083,6 +5083,9 @@ CREATE TABLE renalware.feed_logs (
     log_reason renalware.enum_feed_log_reason NOT NULL,
     patient_id bigint,
     message_id bigint,
+    message_type renalware.hl7_message_type,
+    event_type renalware.hl7_event_type,
+    note text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
