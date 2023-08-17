@@ -46,6 +46,9 @@ AllCops:
     - "config/initializers/devise.rb"
     - "features/support/env.xaction_view.rb"
 
+RSpec/ReceiveMessages:
+  Enabled: true
+
 Layout/LineLength:
   Exclude:
     - "spec/acceptance/renalware/steps/**/*"
@@ -112,7 +115,7 @@ Style/RedundantStringEscape:
 
 # This is Ruby >=3.1 so we have to wait for Kings to upgrade
 Naming/BlockForwarding:
-  Enabled: false
+  Enabled: true
 
 Lint/MissingSuper:
   Enabled: true
