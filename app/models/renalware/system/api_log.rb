@@ -9,8 +9,8 @@ module Renalware
       STATUS_DONE = "done"
       STATUS_ERROR = "error"
 
-      def self.with_log(identifier, **args)
-        log = create!(identifier: identifier, status: STATUS_WORKING, **args)
+      def self.with_log(identifier, **)
+        log = create!(identifier: identifier, status: STATUS_WORKING, **)
         yield(log) if block_given?
         log.update!(status: STATUS_DONE)
         log

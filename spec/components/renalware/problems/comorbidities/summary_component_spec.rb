@@ -17,11 +17,11 @@ describe Renalware::Problems::Comorbidities::SummaryComponent, type: :component 
   let(:at_date) { nil }
   let(:display_blank) { false }
 
-  def create_comorbidity(name: "xx", pos: 1, **args)
+  def create_comorbidity(name: "xx", pos: 1, **)
     patient.comorbidities.create!(
       description: create(:comorbidity_description, name: name, position: pos),
       by: user,
-      **args
+      **
     )
   end
 

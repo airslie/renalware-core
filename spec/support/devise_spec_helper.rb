@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "devise"
-require_relative "./login_macros"
+require_relative "login_macros"
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller

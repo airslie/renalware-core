@@ -30,7 +30,7 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugCategory do
         )
       end
 
-      it { is_expected.to be_invalid }
+      it { is_expected.not_to be_valid }
     end
   end
 

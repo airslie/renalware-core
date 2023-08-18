@@ -2,7 +2,7 @@
 
 module Renalware
   module HospitalsHelper
-    def ward_dropdown_grouped_by_hospital_unit(form, attribute, **options)
+    def ward_dropdown_grouped_by_hospital_unit(form, attribute, **)
       form.input(
         attribute.to_sym,
         as: :grouped_select,
@@ -13,7 +13,7 @@ module Renalware
         },
         wrapper: :horizontal_medium,
         input_html: { class: "searchable_select" },
-        **options
+        **
       )
     end
 

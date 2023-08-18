@@ -206,13 +206,13 @@ module Renalware
         end
       end
 
-      def create_hgb_observation(patient:, **observation_options)
+      def create_hgb_observation(patient:, **)
         request = create(:pathology_observation_request, patient: patient)
         create(
           :pathology_observation,
           request: request,
           description: create(:pathology_observation_description, code: "HGB"),
-          **observation_options
+          **
         )
       end
 

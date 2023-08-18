@@ -10,16 +10,16 @@ module Renalware
         subject { described_class.new(message) }
 
         before do
-          allow(Renalware.config).to receive(:patient_hospital_identifiers).and_return(
-            KCH: :local_patient_id,
-            QEH: :local_patient_id_2,
-            DVH: :local_patient_id_3,
-            PRUH: :local_patient_id_4,
-            GUYS: :local_patient_id_5
+          allow(Renalware.config).to receive_messages(
+            patient_hospital_identifiers: {
+              KCH: :local_patient_id,
+              QEH: :local_patient_id_2,
+              DVH: :local_patient_id_3,
+              PRUH: :local_patient_id_4,
+              GUYS: :local_patient_id_5
+            },
+            hl7_patient_locator_strategy: :simple
           )
-          allow(Renalware.config)
-            .to receive(:hl7_patient_locator_strategy)
-            .and_return(:simple)
         end
 
         def hl7_data

@@ -64,8 +64,8 @@ module Renalware
           expect(dig(extension_contains, "inactive")).to be false
         end
 
-        def dig(*args, **kwargs)
-          described_class.dig_property_out(*args, **kwargs)
+        def dig(*, **)
+          described_class.dig_property_out(*, **)
         end
       end
     end

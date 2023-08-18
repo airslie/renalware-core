@@ -22,7 +22,7 @@ module Renalware
         )
       end
 
-      def create_profile(start_date:, end_date: nil, hd_type: :hd, active: true, **args)
+      def create_profile(start_date:, end_date: nil, hd_type: :hd, active: true, **)
         create(
           :hd_profile,
           hd_type, # trait eg :hdf_pre
@@ -30,7 +30,7 @@ module Renalware
           created_at: start_date,
           deactivated_at: end_date,
           active: active,
-          **args
+          **
         )
       end
 

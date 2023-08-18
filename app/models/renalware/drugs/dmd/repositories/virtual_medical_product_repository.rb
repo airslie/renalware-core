@@ -58,8 +58,8 @@ module Renalware
 
         private
 
-        def dig(*args, **kwargs)
-          ParseHelper.dig_property_out(*args, **kwargs)
+        def dig(*, **)
+          ParseHelper.dig_property_out(*, **)
         end
 
         # rubocop:disable Layout/LineLength

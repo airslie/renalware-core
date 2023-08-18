@@ -14,10 +14,10 @@ module World
       def record_exit_site_infection_for(patient:,
                                          user:,
                                          diagnosed_on:,
-                                         **args)
+                                         **)
         patient.exit_site_infections.create(
           diagnosis_date: diagnosed_on,
-          **args
+          **
         )
       end
 

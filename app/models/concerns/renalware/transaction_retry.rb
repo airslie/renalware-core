@@ -20,7 +20,7 @@ module Renalware
       # use to get around this. See comments in
       # https://github.com/rails/rails/blob/master/activesupport/lib/active_support/concern.rb
       #
-      def self.transaction(*args, &block)
+      def self.transaction(*args, &)
         retried ||= false
         super
       rescue ActiveRecord::PreparedStatementCacheExpired

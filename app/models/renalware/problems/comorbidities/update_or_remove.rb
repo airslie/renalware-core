@@ -12,8 +12,8 @@ module Renalware
           created_at updated_at created_by_id updated_by_id
         ).freeze
 
-        def self.call(**args)
-          new(**args).call
+        def self.call(**)
+          new(**).call
         end
 
         def call

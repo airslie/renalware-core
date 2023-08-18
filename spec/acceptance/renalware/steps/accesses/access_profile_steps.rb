@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./access_steps"
+require_relative "access_steps"
 
 module Renalware
   module Accesses

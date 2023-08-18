@@ -135,8 +135,8 @@ module Renalware
         end
       end
 
-      def expect_subject_to_broadcast(*args)
-        expect(subject).to receive(:broadcast).with(*args).and_call_original
+      def expect_subject_to_broadcast(*)
+        expect(subject).to receive(:broadcast).with(*).and_call_original
       end
     end
   end

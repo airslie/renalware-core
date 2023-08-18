@@ -52,4 +52,4 @@ Capybara.default_max_wait_time = 7 # in seconds
 #
 ActionController::Base.allow_rescue = false
 
-require_relative "./world"
+require_relative "world"

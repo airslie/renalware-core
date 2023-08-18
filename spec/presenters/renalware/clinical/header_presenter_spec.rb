@@ -101,8 +101,8 @@ describe Renalware::Clinical::HeaderPresenter do
       it { is_expected.to eq(35.6) }
     end
 
-    def create_clinic_visit(date, **args)
-      create(:clinic_visit, patient_id: patient.id, date: date, clinic: clinic, by: user, **args)
+    def create_clinic_visit(date, **)
+      create(:clinic_visit, patient_id: patient.id, date: date, clinic: clinic, by: user, **)
     end
   end
 end

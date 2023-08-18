@@ -33,7 +33,7 @@ describe Renalware::Pathology::Requests::GlobalRule::ObservationResult do
         )
       end
 
-      it { expect(global_rule).to be_invalid }
+      it { expect(global_rule).not_to be_valid }
     end
   end
 end

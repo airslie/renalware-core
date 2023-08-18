@@ -53,12 +53,10 @@ module Renalware
         describe "#build_args" do
           it "delegates to Forms::Homecare::Pdf" do
             allow(Renalware.config)
-              .to receive(:hospital_name)
-              .and_return("HospitalX")
-
-            allow(Renalware.config)
-              .to receive(:hospital_address)
-              .and_return("address1, address2, address3")
+              .to receive_messages(
+                hospital_name: "HospitalX",
+                hospital_address: "address1, address2, address3"
+              )
 
             set_modality(
               patient: patient,

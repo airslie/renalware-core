@@ -38,12 +38,12 @@ module Renalware
       class << self
         delegate :clear, :cleanup, to: :store
 
-        def fetch(letter, **options, &block)
+        def fetch(letter, **, &)
           store.fetch(
             cache_key_for(letter),
-            version: cache_version_for(letter, **options),
+            version: cache_version_for(letter, **),
             expires_in: 4.weeks,
-            &block
+            &
           )
         end
 
@@ -78,10 +78,10 @@ module Renalware
           ].join("-")
         end
 
-        def cache_version_for(letter, **options)
+        def cache_version_for(letter, **)
           [
             letter&.updated_at&.strftime("%Y%m%d%H%M%S"),
-            Digest::MD5.hexdigest(letter.to_html(**options))
+            Digest::MD5.hexdigest(letter.to_html(**))
           ].join("-")
         end
       end

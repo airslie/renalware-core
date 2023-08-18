@@ -28,14 +28,14 @@ describe Renalware::Pathology::Requests::GlobalRuleSet do
     context "without a request_description" do
       let(:request_description) { nil }
 
-      it { expect(global_rule_set).to be_invalid }
+      it { expect(global_rule_set).not_to be_valid }
     end
 
     context "with a request_description" do
       context "without a required_observation_description" do
         let(:request_description) { build(:pathology_request_description, bottle_type: "serum") }
 
-        it { expect(global_rule_set).to be_invalid }
+        it { expect(global_rule_set).not_to be_valid }
       end
 
       context "without a bottle_type" do
@@ -47,7 +47,7 @@ describe Renalware::Pathology::Requests::GlobalRuleSet do
           )
         end
 
-        it { expect(global_rule_set).to be_invalid }
+        it { expect(global_rule_set).not_to be_valid }
       end
 
       context "with the necessary fields set" do

@@ -9,8 +9,8 @@ module Renalware
       pattr_initialize [:event!, :params!, :by!]
 
       # Returns the boolean result of event.update_by
-      def self.call(**args)
-        new(**args)
+      def self.call(**)
+        new(**)
           .broadcasting_to_configured_subscribers
           .call
       end

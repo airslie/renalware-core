@@ -51,8 +51,8 @@ module Renalware
         params[:named_filter]
       end
 
-      def render_index(filter_form:, **args)
-        presenter = build_presenter(params: params, **args)
+      def render_index(filter_form:, **)
+        presenter = build_presenter(params: params, **)
         authorize presenter.patients
         render(
           :index,

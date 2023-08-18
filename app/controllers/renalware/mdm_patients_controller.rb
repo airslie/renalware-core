@@ -11,8 +11,8 @@ module Renalware
 
     protected
 
-    def render_index(**args)
-      presenter = build_presenter(params: params, **args)
+    def render_index(**)
+      presenter = build_presenter(params: params, **)
       authorize presenter.patients
       render :index, locals: { presenter: presenter }
     end

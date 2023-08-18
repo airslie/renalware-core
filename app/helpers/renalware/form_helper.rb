@@ -40,11 +40,11 @@ module Renalware
       back_path:,
       submit_title: nil,
       cancel_title: I18n.t("btn.cancel"),
-      **cancel_link_options # e.g. remote: true
+      ** # e.g. remote: true
     )
       tag.div(class: "form-actions") do
         concat(
-          link_to(cancel_title, back_path, class: "btn btn-secondary mr-3", **cancel_link_options)
+          link_to(cancel_title, back_path, class: "btn btn-secondary mr-3", **)
         )
         concat(form.submit(submit_title, class: "btn btn-primary"))
       end

@@ -9,7 +9,7 @@ module Renalware
     #   </header>
     #   [yielded content]
     # </article>
-    def article_tag(title = nil, options = nil, &block)
+    def article_tag(title = nil, options = nil, &)
       output = tag(:article, options, true)
       if title.present?
         output.safe_concat(
@@ -18,7 +18,7 @@ module Renalware
           end
         )
       end
-      output.concat(capture(&block)) if block_given?
+      output.concat(capture(&)) if block_given?
       output.safe_concat("</article>")
     end
 

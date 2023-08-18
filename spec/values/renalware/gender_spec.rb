@@ -14,14 +14,14 @@ module Renalware
       it "is invalid given a unknown code" do
         valid_gender = Gender.new("X")
 
-        expect(valid_gender).to be_invalid
+        expect(valid_gender).not_to be_valid
         expect(valid_gender.errors[:code]).to include(/included/)
       end
 
       it "is invalid given a no code" do
         valid_gender = Gender.new("")
 
-        expect(valid_gender).to be_invalid
+        expect(valid_gender).not_to be_valid
         expect(valid_gender.errors[:code]).to include(/included/)
       end
 

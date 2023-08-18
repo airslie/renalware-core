@@ -24,8 +24,8 @@ module Renalware
       }.freeze
       NOOP = ->(**) { NullObject.instance }
 
-      def self.calculate(dp: 2, **args)
-        new(**args).calculate(dp: dp)
+      def self.calculate(dp: 2, **)
+        new(**).calculate(dp: dp)
       end
 
       def calculate(dp: 2)

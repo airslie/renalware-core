@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./clinical_steps"
+require_relative "clinical_steps"
 
 module Renalware
   module Clinical

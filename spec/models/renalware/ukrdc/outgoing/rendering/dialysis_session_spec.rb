@@ -55,8 +55,10 @@ module Renalware
           session.document.dialysis.blood_flow = 99
           allow(session).to receive(:uuid).and_return("UUID")
           presenter = Renalware::HD::SessionPresenter.new(session)
-          allow(presenter).to receive(:access_rr02_code).and_return("RR02")
-          allow(presenter).to receive(:access_rr41_code).and_return("UA")
+          allow(presenter).to receive_messages(
+            access_rr02_code: "RR02",
+            access_rr41_code: "UA"
+          )
 
           # start="2018-11-01" stop="2018-11-01"
 

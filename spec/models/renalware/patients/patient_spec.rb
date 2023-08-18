@@ -190,22 +190,21 @@ module Renalware
       it "validates sex" do
         patient.sex = "X"
 
-        expect(patient).to be_invalid
+        expect(patient).not_to be_valid
       end
 
       describe "patient identification validation" do
         before do
-          allow(Renalware.config).to receive(:patient_hospital_identifiers).and_return(
-            HOSP1: :local_patient_id,
-            HOSP2: :local_patient_id_2,
-            HOSP3: :local_patient_id_3,
-            HOSP4: :local_patient_id_4,
-            HOSP5: :local_patient_id_5
+          allow(Renalware.config).to receive_messages(
+            patient_hospital_identifiers: {
+              HOSP1: :local_patient_id,
+              HOSP2: :local_patient_id_2,
+              HOSP3: :local_patient_id_3,
+              HOSP4: :local_patient_id_4,
+              HOSP5: :local_patient_id_5
+            },
+            patients_must_have_at_least_one_hosp_number: true
           )
-
-          allow(Renalware.config)
-            .to receive(:patients_must_have_at_least_one_hosp_number)
-            .and_return(true)
         end
 
         let(:error_message) {
@@ -221,7 +220,7 @@ module Renalware
           it "is invalid" do
             patient = Patient.new
 
-            expect(patient).to be_invalid
+            expect(patient).not_to be_valid
             expect(patient.errors[:base]).to include(error_message)
           end
         end
@@ -236,7 +235,7 @@ module Renalware
           it "is invalid when no nhs_number supplied" do
             patient = Patient.new
 
-            expect(patient).to be_invalid
+            expect(patient).not_to be_valid
 
             expect(patient.errors[:base]).to include(error_message2)
           end
@@ -245,7 +244,7 @@ module Renalware
             patient = Patient.new
             patient.nhs_number = "9999999999"
 
-            expect(patient).to be_invalid
+            expect(patient).not_to be_valid
 
             expect(patient.errors[:base]).not_to include(error_message2)
           end

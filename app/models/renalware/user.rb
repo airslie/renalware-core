@@ -64,8 +64,8 @@ module Renalware
     end
 
     # Send devise emails using activejob
-    def send_devise_notification(notification, *args)
-      devise_mailer.send(notification, self, *args).deliver_later
+    def send_devise_notification(notification, *)
+      devise_mailer.send(notification, self, *).deliver_later
     end
 
     # rubocop:disable Naming/PredicateName
