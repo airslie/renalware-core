@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 #
-# Render a Letter to PDF. Try and get it from the cachefirst
+# Render a Letter to PDF. Try and get it from the cache first.
 # Lean on Letters::HtmlRenderer which already renders the letter to html via
 # LetterPresenter#content.
 #

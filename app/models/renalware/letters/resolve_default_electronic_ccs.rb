@@ -11,7 +11,7 @@ module Renalware
     # example to the user's current modality and the corresponding module (HD, PD, Transplant etc).
     # So here all we can do is broadcast a (synchronous) event asking anyone listening (ie any
     # class that is configured to listen in the broadcast_map) to add their eCC users to the
-    # passed in array_of_user_ids array. We will then dedupe and return that array,
+    # passed in array_of_user_ids array. We will then de-dupe and return that array,
     # where it will be used to initialize the eCC component on the letters UI form with the correct
     # initial default set up eCC users. This only applies to new letters, ie when displaying the
     # the UI form for a new letter.

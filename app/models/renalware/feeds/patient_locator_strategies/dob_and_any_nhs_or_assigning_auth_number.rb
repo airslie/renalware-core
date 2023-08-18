@@ -17,7 +17,7 @@ module Renalware
         def call
           patients = Renalware::Patient.none
 
-          # OR together all the identifers eg if the PID segment contained an NHS number and one
+          # OR together all the identifiers eg if the PID segment contained an NHS number and one
           # hospital number: WHERE ("nhs_number= '123' OR local_patient_id = '456')
           identifiers.each do |column, hosp_no|
             patients = patients.or(Renalware::Patient.where(column => hosp_no))

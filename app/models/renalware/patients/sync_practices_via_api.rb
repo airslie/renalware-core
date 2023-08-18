@@ -2,7 +2,7 @@
 
 module Renalware
   module Patients
-    # Fetches pratice changes and additions from the NHS ODS API.
+    # Fetches practice changes and additions from the NHS ODS API.
     # Called from a rake task.
     # See doc/ods.md
     class SyncPracticesViaAPI

@@ -17,7 +17,7 @@ module Renalware
         when :nhs_or_any_assigning_auth_number
           Renalware::Feeds::PatientLocatorStrategies::NHSOrAnyAssigningAuthNumber
         else
-          raise "Invalid Renaware.config.hl7_patient_locator_strategy: #{configured_strategy}"
+          raise "Invalid Renalware.config.hl7_patient_locator_strategy: #{configured_strategy}"
         end
       end
     end

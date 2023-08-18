@@ -27,7 +27,7 @@ module Renalware
           user.consultant = true?(params[:consultant])
           user.nursing_experience_level = params[:nursing_experience_level]
           user.hidden = true?(params[:hidden])
-          if params[:prescriber] # if not a supperadmin, may not be submitted
+          if params[:prescriber] # if not a superadmin, may not be submitted
             user.prescriber = true?(params[:prescriber])
           end
           authorise(params)

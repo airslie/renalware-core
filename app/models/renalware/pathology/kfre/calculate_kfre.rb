@@ -18,7 +18,7 @@ module Renalware
       # - The last exponent line is a double exponent using e, so rather then using
       #   (x ^ sum) we need to use (x ^ Math.exp(sum)).
       #
-      # Returns a KFREResult object containing 5 and 5 uear re
+      # Returns a KFREResult object containing 5 and 5 year re
       class CalculateKFRE
         include Callable
         attr_reader :sex, :age, :acr, :egfr

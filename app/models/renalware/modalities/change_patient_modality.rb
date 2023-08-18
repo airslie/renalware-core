@@ -21,7 +21,7 @@ module Renalware
       # Example usage:
       #
       #   result = Modalities::ChangePatientModality
-      #    .new(patient: patient, user: curret_user)
+      #    .new(patient: patient, user: current_user)
       #    .call(
       #       description: HD::ModalityDescription.first!,
       #       started_on: Time.zone.now
@@ -34,7 +34,7 @@ module Renalware
       #    started_on: Time.zone.now
       #  )
       #  result = Modalities::ChangePatientModality
-      #    .new(patient: patient, user: curret_user)
+      #    .new(patient: patient, user: current_user)
       #    .call(modality: modality)
       #  )
       #
@@ -70,7 +70,7 @@ module Renalware
       # modality changes to Death.
       #
       # The list of subscribers/listeners who will receive the message is set in the Broadcasting
-      # module which we mix in above _proveided_ the caller has chained the
+      # module which we mix in above _provided_ the caller has chained the
       # #broadcasting_to_configured_subscribers method like so
       #
       # result = Modalities::ChangePatientModality
@@ -81,7 +81,7 @@ module Renalware
       # If you wish to add more listeners and these are site/hospital-specific, this can be done
       # by configuring Renalware.config.broadcast_subscription_map. Be careful to append to rather
       # than replace the default entries in the hash map.
-      # For example in a your applications config/initalizers/renalware_core.rb, add:
+      # For example in a your applications config/initializers/renalware_core.rb, add:
       #  Renalware.configure do |config|
       #   map = config.broadcast_subscription_map
       #   map["Renalware::Modalities::ChangePatientModality"] << "SomeNamespace::SomeListenerClass"

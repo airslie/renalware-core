@@ -13,13 +13,13 @@ module Renalware
     #
     # A couple of things to note:
     # - GoodJob of course has its own cron manager, but its cron jobs are whatever is defined in
-    #   eg application.rb and are loaded into memory at app boot - ie they are imutable, so event if
+    #   eg application.rb and are loaded into memory at app boot ie they are immutable, so event if
     #   we could cron-schedule individual mat view refreshes, any new mat view definitions added to
     #   system_view_metadata will not be be picked up without an app restart. There is also the
     #   issue of the order of initialisation and the fact that the system_view_metadata cron
-    #   definitions are not available to be quered at the point that GoodJoB initializes, though
-    #   that might be solveable.
-    # - A better solution to the one below is to use the pg_cron postgres extensiom with perhaps
+    #   definitions are not available to be queried at the point that GoodJoB initializes, though
+    #   that might be solvable.
+    # - A better solution to the one below is to use the pg_cron postgres extension with perhaps
     #   a trigger on system_view_metadata to update pg_cron when rows are edited/added/deleted
     #   but unfortunately this is not yet available on Postgres Single Server, but will be when we
     #   migrate to Flexible server.

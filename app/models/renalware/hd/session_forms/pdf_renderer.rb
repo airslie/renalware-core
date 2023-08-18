@@ -60,7 +60,7 @@ module Renalware
         end
 
         # Local ProtocolsController controller used for 'rendering anywhere'.
-        # Using ProtocolsController here m,ainly to benefit from the view paths associated with it.
+        # Using ProtocolsController here mainly to benefit from the view paths associated with it.
         class MyController < ProtocolsController
           def url_options
             {

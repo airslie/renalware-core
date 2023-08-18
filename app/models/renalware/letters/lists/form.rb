@@ -5,8 +5,8 @@ module Renalware
     module Lists
       # Form object to help us build and parse the appropriate filters for the
       # letters_lists controller #show action, where we display all/batch_printable letters etc.
-      # For example, when displaying batchprintable letters we need to disable the enclosures
-      # filter (setting it to No), and restrict the optionsin the letter states dropdown so only
+      # For example, when displaying batch-printable letters we need to disable the enclosures
+      # filter (setting it to No), and restrict the options in the letter states dropdown so only
       # Approved or Completed letters can be batch printed.
       # We delegate logic to an instance of a private class which is (or is a subclass of)
       # AllLetters.

@@ -11,7 +11,7 @@ module Renalware
             :description!,
             :onset_time,
             :identification_time,
-            root_elemment_name!: "Diagnosis"
+            root_element_name!: "Diagnosis"
           ]
           attr_accessor :onset_time, :identification_time
 
@@ -23,7 +23,7 @@ module Renalware
 
           # The nested Diagnosis is correct.
           def diagnosis_element
-            create_node(root_elemment_name) do |elem|
+            create_node(root_element_name) do |elem|
               elem << create_node("Diagnosis") do |diagnosis_elem|
                 diagnosis_elem << create_node("CodingStandard", coding_standard)
                 diagnosis_elem << create_node("Code", code)

@@ -107,7 +107,7 @@ module Renalware::Patients::Ingestion
           end
         end
 
-        context "when the patient was found" do
+        context "when the patient was found " do
           it "does not broadcast an event" do
             # Mock up a an HL7 message
             hl7_message = Renalware::Feeds::HL7Message.new(HL7::Message.new)

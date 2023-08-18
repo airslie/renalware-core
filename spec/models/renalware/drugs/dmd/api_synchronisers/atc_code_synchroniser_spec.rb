@@ -7,10 +7,10 @@ module Renalware
     describe APISynchronisers::AtcCodeSynchroniser do
       describe "#call" do
         let(:instance) {
-          described_class.new(atc_vmp_mapping_reposotory: atc_vmp_mapping_reposotory)
+          described_class.new(atc_vmp_mapping_repository: atc_vmp_mapping_repository)
         }
 
-        let(:atc_vmp_mapping_reposotory) do
+        let(:atc_vmp_mapping_repository) do
           instance_double \
             Repositories::AtcVMPMappingRepository,
             call: []
@@ -25,7 +25,7 @@ module Renalware
           end
 
           before do
-            allow(atc_vmp_mapping_reposotory).to receive(:call)
+            allow(atc_vmp_mapping_repository).to receive(:call)
               .and_return([entry])
           end
 

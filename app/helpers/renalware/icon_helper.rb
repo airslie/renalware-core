@@ -10,7 +10,7 @@ module Renalware
       xl: " h-7 w-7"
     }.freeze
 
-    # A generic icon helper rendering an inlince svg icon file using inline_svg_tag
+    # A generic icon helper rendering an inline svg icon file using inline_svg_tag
     # Example usage in a view:
     # = inline_icon(:exclamation)
     # = inline_icon(:exclamation, size: :lg)

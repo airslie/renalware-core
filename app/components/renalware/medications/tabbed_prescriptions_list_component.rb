@@ -3,7 +3,7 @@
 module Renalware
   module Medications
     # Accepts a group of prescriptions -  see example usage - and renders a tabs for each of the
-    # group names with their corresponding tablular content.
+    # group names with their corresponding tabular content.
     # Various options - see PrescriptionGroup - drive what columns are shown.
     #
     # Example usage:
@@ -25,7 +25,7 @@ module Renalware
           show_drug_types: false
         ]
 
-        # The markup expects each prescription to have been decorated with a PresriptionPresenter.
+        # The markup expects each prescription to have been decorated with a PrescriptionPresenter.
         # However there may be cases where they might have been, so we check by
         # (looking for a method which is defined by the presenter) and decorate them if necessary.
         def prescriptions

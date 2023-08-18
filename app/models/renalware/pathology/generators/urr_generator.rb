@@ -5,7 +5,7 @@ module Renalware
     module Generators
       # Generate missing urr pathology_observations and also a simple ktv.
       # Used when the lab does not provide these. We call a SQL fn which
-      # finds post-HD Urea results and looks 'around' that time to find the corresponsing pre-HD
+      # finds post-HD Urea results and looks 'around' that time to find the corresponding pre-HD
       # Urea. The pre Urea might have arrived before or slightly after the post-HD one. The number
       # of hours to look ahead and behind is configurable.
       class UrrGenerator

@@ -4,7 +4,7 @@ module Renalware
   module HD
     module Sessions
       # Renders an HTML table in a modal dialog. The table is as an aide-memoire to help
-      # nurses choose the correct value for washback quality. We diplay
+      # nurses choose the correct value for washback quality. We display
       # - the grade eg "1"
       # - the name eg "Good"
       # - a description eg "No clotting. Clean filter"

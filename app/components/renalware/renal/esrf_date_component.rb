@@ -2,9 +2,9 @@
 
 module Renalware
   module Renal
-    # Encapusaltes the UI display of a patient's ESRF date for example in the
+    # Encapsulates the UI display of a patient's ESRF date for example in the
     # mini profile at the top of patient pages.
-    # If the patient has a current modality in the speficied set then always
+    # If the patient has a current modality in the specified set then always
     # display the ESRF: label and the esrf_on date, but if the date is missing
     # then add a css class to make e.g. red, so that it becomes a 'nag'.
     # If the patient has any other modality, only display the ESRF if one is

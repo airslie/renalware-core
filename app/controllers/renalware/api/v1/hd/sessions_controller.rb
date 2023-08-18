@@ -24,7 +24,7 @@ module Renalware
           #
           # Outstanding issues:
           # - if 2 patients have same mrn (eg on in local_patient_id and one in local_patient_id_2)
-          #   we could add the sessin to the wrong patient. We don't have DOB in the JSON so can't
+          #   we could add the session to the wrong patient. We don't have DOB in the JSON so can't
           #   use that. We should know the hospital unit - could use that perhaps?
           def update
             form = build_form_object_from_incoming_session_json

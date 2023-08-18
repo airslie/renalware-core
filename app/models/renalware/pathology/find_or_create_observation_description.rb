@@ -12,7 +12,7 @@ module Renalware
       # Finds an observation_description or creates one if not found.
       # Makes sure the description.measurement_unit, if unset, is set to the HL7 unit (eg mg) if
       # passed in. Also set the suggested_measurement_unit, which may be different to the
-      # observation_description if was set uncorrectly at some point.
+      # observation_description if was set incorrectly at some point.
       # The idea of suggested_measurement_unit is that it always updated dynamically if missing,
       # whereas measurement_unit is only updated if missing. This is to cope with the case where
       # the units of an OBX changes (eg by a factor of 10 as HB was a while back at KCH); in this

@@ -9,7 +9,7 @@ module Renalware
       include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::Pageable
 
-      before_action :find_and_load_patient_from_prescrption, except: [:index]
+      before_action :find_and_load_patient_from_prescription, except: [:index]
 
       def index
         administrations = hd_patient
@@ -67,7 +67,7 @@ module Renalware
       # the url, here we set @patient (normally set in BaseController) based on the
       # prescription.patient_id. We need @patient set before calling hd_patient which is defined
       # dynamically in the PatientCasting concern (and will memoise on first call).
-      def find_and_load_patient_from_prescrption
+      def find_and_load_patient_from_prescription
         @patient ||= patient_scope.find(prescription&.patient_id)
       end
 

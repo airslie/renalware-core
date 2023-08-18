@@ -5,9 +5,9 @@ module Renalware
     # Represents a URL to an online reference that a patient can view to get more information
     # about their condition or treatment. We can generate a QRCode for this URL at any point
     # eg for inserting into a letter.
-    # A clinican can add these records through the admin UI or while creating a letter.
+    # A clinician can add these records through the admin UI or while creating a letter.
     # We could enhance at some point to fetch the og:title and og:description from the head of the
-    # html document that is referenced, in order to prepopulate title and description.
+    # html document that is referenced, in order to pre-populate title and description.
     class OnlineReferenceLink < ApplicationRecord
       include Accountable
 

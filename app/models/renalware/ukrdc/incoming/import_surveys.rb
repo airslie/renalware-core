@@ -39,7 +39,7 @@ module Renalware
           TransmissionLog.exists?(file_path: filepath.to_s, status: :imported)
         end
 
-        # Import all surverys (they will be for the same patient) in the XML file.
+        # Import all surveys (they will be for the same patient) in the XML file.
         # Note that #with_logging yields a block that will catch and save any error to
         # ukrdc_transmission_logs
         def import_surveys_from_file(file)

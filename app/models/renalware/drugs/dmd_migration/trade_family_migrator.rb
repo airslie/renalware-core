@@ -6,7 +6,9 @@ module Renalware
       class TradeFamilyMigrator
         def call
           trade_family_ids_by_name = Drugs::TradeFamily.pluck(:name, :id).to_h
-          dmd_matches = DMDMatch.where(approved_trade_family_match: true).where.not(trade_family_name: nil)
+          dmd_matches = DMDMatch.where(
+            approved_trade_family_match: true
+          ).where.not(trade_family_name: nil)
 
           dmd_matches.each do |dmd_match|
             new_trade_family_id = trade_family_ids_by_name[dmd_match.trade_family_name]

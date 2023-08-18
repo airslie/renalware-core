@@ -10,7 +10,7 @@ module Renalware
       # to each display the patients Yes/No + date if they have a corresponding comorbidity
       # record for this description.
       # If #display_blank = false we display the same list but only where the patient has a
-      # comorbidiy record - so the list could be empty or perhaps only a few.
+      # comorbidity record - so the list could be empty or perhaps only a few.
       # If #at_date is present (eg an ESRF date) we only display comorbidities recognised on or
       # before that date.
       class SummaryComponent < ApplicationComponent
@@ -41,7 +41,7 @@ module Renalware
           rows.any?
         end
 
-        # Viewmodel to represent a comorbidity description and its corrsponding comorbidity (which
+        # View-model to represent a comorbidity description and its corresponding comorbidity (which
         # may be missing).
         class ComorbidityPresenter
           rattr_initialize [:description!, :comorbidity!]

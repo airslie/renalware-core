@@ -24,7 +24,7 @@ module Renalware
           tablet: "tablet",
           teaspoon: "ml",
           unit: "unit"
-        }
+        }.freeze
 
         def call
           units_of_measure_ids_by_name = Drugs::UnitOfMeasure.pluck(:name, :id).to_h

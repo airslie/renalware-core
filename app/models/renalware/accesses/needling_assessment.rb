@@ -9,7 +9,7 @@ module Renalware
       validates :patient, presence: true
       enum difficulty_type: { easy: "easy", moderate: "moderate", hard: "hard" }
 
-      DIFFICULTY_DESCRIPTONS = {
+      DIFFICULTY_DESCRIPTIONS = {
         easy: "Easy (green)",
         moderate: "Moderate (amber)",
         hard: "Hard (red)"
@@ -23,12 +23,12 @@ module Renalware
 
       def self.difficulty_type_collection_options
         difficulty_types.keys.map { |key|
-          [DIFFICULTY_DESCRIPTONS[key.to_sym], key, { class: key }]
+          [DIFFICULTY_DESCRIPTIONS[key.to_sym], key, { class: key }]
         }
       end
 
       def difficulty_description
-        DIFFICULTY_DESCRIPTONS[difficulty.to_sym]
+        DIFFICULTY_DESCRIPTIONS[difficulty.to_sym]
       end
     end
   end

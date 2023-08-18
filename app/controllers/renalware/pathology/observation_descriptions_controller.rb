@@ -53,7 +53,7 @@ module Renalware
         if description.update(description_params)
           redirect_to(
             pathology_observation_descriptions_path,
-            notice: success_msg_for("observation descrition")
+            notice: success_msg_for("observation description")
           )
         else
           render_edit(description)

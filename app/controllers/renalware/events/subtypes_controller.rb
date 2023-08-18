@@ -81,7 +81,7 @@ module Renalware
         labels_hash.except!(*obsolete_attrs)
 
         # 1. Build field_infos using existing layout definition if there is one.
-        # Note this will only really be signinficant if we are editing a layout
+        # Note this will only really be significant if we are editing a layout
         # otherwise labels_hash is empty
         field_infos = labels_hash.map.with_index do |arr, idx|
           name, label = arr
@@ -110,9 +110,9 @@ module Renalware
       # rubocop:enable Metrics/AbcSize
 
       # Converts
-      # [{"number1"=>{"label"=>"sd"}}, {"text1"=>{"label"=>"dsds"}}, ..
+      # [{"number1"=>{"label"=>"sd"}}, {"text1"=>{"label"=>"dsd"}}, ..
       # to
-      # {"number1"=>"sd", "text1"=>"dsds", ...
+      # {"number1"=>"sd", "text1"=>"dsd", ...
       # Order is maintained
       def definition_to_simple_field_label_hash(layout)
         layout.definition.each_with_object(ActiveSupport::OrderedHash.new) do |field, hash|

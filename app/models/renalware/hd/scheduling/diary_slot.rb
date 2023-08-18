@@ -5,7 +5,7 @@ module Renalware
     module Scheduling
       class DiarySlot < ApplicationRecord
         self.table_name = :hd_diary_slots
-        # Changing to_ary from private to public here is a hack required to remove a SimpleDelgator
+        # Changing to_ary from private to public here is a hack required to remove a SimpleDelegator
         # warning in eg Renalware::HD::Scheduling::WeeklyDiary::WeeklySlotDecorator:
         #
         #   `respond_to?': delegator does not forward private method #to_ary
@@ -20,13 +20,13 @@ module Renalware
         #      super
         #    end
         #
-        #  or to use method_missnig instead of SimpleDelegator in Slot Decorators.
+        #  or to use method_missing instead of SimpleDelegator in Slot Decorators.
         #
         public :to_ary
 
         # Virtual attribute used on a form to determine what action as preformed on the slot
         attr_accessor :change_type
-        # Virtual to help the prepopulation of select2 with the offending patient if an error
+        # Virtual to help the pre-population of select2 with the offending patient if an error
         attr_accessor :patient_ids
 
         include Accountable

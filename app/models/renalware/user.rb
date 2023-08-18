@@ -50,7 +50,7 @@ module Renalware
     store_accessor :preferences, :experimental_features
 
     # Non-persistent attribute to signify we want to use extended validation.
-    # We need to refactor this by ising a form object for updating a user.
+    # We need to refactor this by using a form object for updating a user.
     attr_accessor :with_extended_validation
 
     # Non-persistent attribute to signify we want to unlock access

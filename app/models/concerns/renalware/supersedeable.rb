@@ -26,12 +26,12 @@ module Renalware
       # Make a deep copy of the current object (self) into a successor, and update it with any
       # changes. Mark self as deleted.
       # Note 'update' callbacks will not be called on our successor until it has been saved first.
-      # So we save the copy without any modifictions first, so that on a subsequent update!
+      # So we save the copy without any modifications first, so that on a subsequent update!
       # the update callbacks in the Accountable module will be called and if the
       # caller of this fn has supplied :by in attrs, it will cause the updated_by_id
       # column to be updated. Its a bit odd saving twice, but required here.
       # Without this 2 phase save, updated_by_id (if present) will remain at whatever it was
-      # set at to in the object we are superceding.
+      # set at to in the object we are superseding.
       def supersede!(attrs = {})
         attrs = attrs.to_h unless attrs.is_a?(Hash)
         transaction do

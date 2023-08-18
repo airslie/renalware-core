@@ -27,9 +27,9 @@ module Renalware
       #   participation.update_column(:external_id, Digest::MD5.hexdigest(id.to_s))
       # end
 
-      # Define this explicity so that an subclasses will inherit it - otherwise Pundit will try
+      # Define this explicitly so that an subclasses will inherit it - otherwise Pundit will try
       # and resolve eg DummyStudy::ParticipationPolicy which won't exist and not need to the
-      # impementor to create.
+      # implementer to create.
       def self.policy_class = ParticipationPolicy
 
       def to_s

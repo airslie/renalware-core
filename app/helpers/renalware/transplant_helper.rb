@@ -7,7 +7,7 @@ module Renalware
                      patient_transplants_donor_dashboard_path(patient))
     end
 
-    def donor_workup_breadrumb(patient)
+    def donor_workup_breadcrumb(patient)
       breadcrumb_for("Workup", patient_transplants_donor_workup_path(patient))
     end
 

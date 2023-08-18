@@ -5,7 +5,7 @@ require "gpg_encrypt_folder"
 module Renalware
   module UKRDC
     # Using a working folder with a timestamp name, find matching patients and for each, generate
-    # an XML file (see UKRDC Schema) containing changes since the last time we sent the URDC data
+    # an XML file (see UKRDC Schema) containing changes since the last time we sent the UKRDC data
     # about them. Encrypt the xml files and copy to an outgoing folder
     # which might for example be a symlink to an outgoing folder in /media/ukrdc which in turn
     # is mount on a remote share for example on an SFTP server.
@@ -61,7 +61,7 @@ module Renalware
       end
 
       # If UKRDC_THREADS is set to a nonzero value (eg 4 but depending on CPUs/cores),
-      # a threadpool containing that number of threads is created and XML creation
+      # a thread pool containing that number of threads is created and XML creation
       # (including PDF letter rendering) for that patient happens in a separate thread.
       # The performance increase in doing it this way is marginal unless there are
       # PDFs to be rendered, which can introduce significant IO wait. As PDFs are cached

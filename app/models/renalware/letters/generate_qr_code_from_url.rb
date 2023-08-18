@@ -31,7 +31,7 @@ module Renalware
             module_size: DEFAULT_MODULE_SIZE,
             standalone: true,
             use_path: true,
-            viewbox: true # means we have to explictly add a width using css
+            viewbox: true # means we have to explicitly add a width using css
           }.merge(**)
         )
       end

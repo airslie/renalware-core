@@ -6,7 +6,7 @@ module Renalware
       # When a letter batch operation is executed by e.g a receptionist from the
       # the Renal => Letters => Batch Printable page, some temporary files are created including
       # the final batched PDF which is a concatenation of all the PDFs they chose to include
-      # in the final PDF (which they go on to Print and put through an evelope stuffer).
+      # in the final PDF (which they go on to Print and put through an envelope stuffer).
       # While some of the tmp files created in this process use the Tempfile class to create a
       # file that the OS will remove, the final PDF does not (I can't recall why) and so this file
       # needs housekeeping. This class removes these stale files. The Batch record helpfully stores

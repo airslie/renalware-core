@@ -342,7 +342,7 @@ scss:
       .address
         p
           = letter.main_recipient.to_html
-          - email_statement = letter.main_recipient.statment_to_indicate_letter_will_be_emailed
+          - email_statement = letter.main_recipient.statement_to_indicate_letter_will_be_emailed
           - if email_statement.present?
             br
             = email_statement
@@ -398,9 +398,9 @@ scss:
         .address.nobreak
           p
             = cc.to_html
-            - if cc.statment_to_indicate_letter_will_be_emailed.present?
+            - if cc.statement_to_indicate_letter_will_be_emailed.present?
               br
-              = cc.statment_to_indicate_letter_will_be_emailed
+              = cc.statement_to_indicate_letter_will_be_emailed
 
     - if letter.qr_encoded_online_reference_links.any?
       table.qr-codes

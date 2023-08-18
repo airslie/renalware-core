@@ -20,7 +20,7 @@ module Renalware
           form: form_for(named_filter)
         }
 
-        # Could pass back a batchprint summary
+        # Could pass back a batch print summary
         # {
         #   count: 123,
         #   excluded_enc: 3

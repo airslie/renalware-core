@@ -53,7 +53,7 @@ module Renalware
       end
 
       # A Clinics::Clinic may hint the visit_class_name column which specific class name should be
-      # instanciated when creating a new Visit. If blank then it is just a vailla Visit.
+      # instantiated when creating a new Visit. If blank then it is just a vanilla Visit.
       def class_for_new_visit
         return Clinics::ClinicVisit if clinic&.visit_class_name.blank?
 

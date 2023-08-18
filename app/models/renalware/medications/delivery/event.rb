@@ -32,9 +32,9 @@ module Renalware
         def self.policy_class = Renalware::BasePolicy
 
         def renalware_forms_args
-          adapater = Delivery::HomecareFormsAdapter.new(delivery_event: self)
-          args = adapater.build_args
-          unless adapater.valid?(args)
+          adapter = Delivery::HomecareFormsAdapter.new(delivery_event: self)
+          args = adapter.build_args
+          unless adapter.valid?(args)
             errors.add(:base, args.errors.full_messages&.join(", "))
           end
         end

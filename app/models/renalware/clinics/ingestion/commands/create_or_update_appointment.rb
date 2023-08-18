@@ -12,7 +12,7 @@ module Renalware
           delegate :clinic, :visit_number, :consulting_doctor, to: :pv1
           delegate :expected_admit_date, to: :pv2
 
-          # If we match incomining clinic code then we create an appointment. This might mean
+          # If we match incoming clinic code then we create an appointment. This might mean
           # creating the patient and consultant JIT if they do not yet exist in Renalware.
           def call
             return if rwclinic.blank?

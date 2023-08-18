@@ -9,7 +9,7 @@ module Renalware
               data: { behaviour: "css-toggler", turbo: "false" }
     end
 
-    # Non-stimulus implemention for adding a link to toggle open all an adjacent row
+    # Non-stimulus implementation for adding a link to toggle open all an adjacent row
     def toggler(row_selector, link_title: "Toggle")
       link_to(
         row_selector,
@@ -21,7 +21,7 @@ module Renalware
       end
     end
 
-    # Non-stimulus implemention for adding a link to toggle open all togglebale rows in the table
+    # Non-stimulus implementation for adding a link to toggle open all togglebale rows in the table
     def table_toggler(link_title: "Toggle all rows")
       link_to(
         "#",

@@ -3,7 +3,7 @@
 module Renalware
   module Letters
     # Responsible for allowing a user to view/download a printable PDF that can be sent to an
-    # envelope stuffer. It will contain intervleaved address sheets and letters so that the machine
+    # envelope stuffer. It will contain interleaved address sheets and letters so that the machine
     # can stuff a letter for each letter recipient.
     class PrintableLettersController < Letters::BaseController
       def show

@@ -138,7 +138,7 @@ module Renalware
     # active job. Because we currently load the good_job cron config in engine.rb,
     # the host app cannot seem to override this config setting in eg a renalware_core.rb initializer
     # and instead we use an ENV var here. This might be solvable by using an after
-    # hook during initialisation etc; it is likely I do not understand the nuances of intialisation
+    # hook during initialisation etc; it is likely I do not understand the nuances of initialisation
     # order sufficiently, but I been unable so far to get GoodJob to honour cron config
     # unless it is set in the early stagings of app initialisation.
     # We default to false because this is an opt-in approach we want sites to migrate to.
@@ -220,7 +220,7 @@ module Renalware
     config_accessor(:demo_password) { "renalware" }
     config_accessor(:password_policy_description) { "Passwords must be at least 8 characters" }
 
-    # The warning to display to IE users, because we want to disuade users from
+    # The warning to display to IE users, because we want to dissuade users from
     # using IE11. If you set this to nil the warning will not be shown
     config_accessor(:ie_deprecation_warning) {
       "Internet Explorer is no longer fully supported. Please use Edge, Chrome or Firefox"
@@ -249,8 +249,6 @@ module Renalware
         "https://qxmd.com/calculate/calculator_499/international-igan-prediction-tool-at-biopsy-adults"
       )
     }
-
-    # patient_visilbility_restriction_options = %i(none by_site by_site_and_research_study)
 
     config_accessor(:patient_visibility_restrictions) { :none }
 

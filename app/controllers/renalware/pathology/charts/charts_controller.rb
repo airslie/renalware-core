@@ -14,7 +14,7 @@ module Renalware
         end
 
         # GET json: render json required to display the chart for the current patient and period
-        # GET html: render the modal dialog markup - a subequent call will fetch the chart json
+        # GET html: render the modal dialog markup - a subsequent call will fetch the chart json
         def show
           authorize patient
           respond_to do |format|

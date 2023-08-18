@@ -40,7 +40,7 @@ module Renalware
           XPATHS.key?(method_name)
         end
 
-        # Turn the surveys XML into a hash becuase it is easier to consume
+        # Turn the surveys XML into a hash because it is easier to consume
         def surveys
           root.xpath("Surveys/Survey").each_with_object([]) do |survey_node, arr|
             hash = {}

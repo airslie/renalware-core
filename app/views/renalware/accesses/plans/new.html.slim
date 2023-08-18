@@ -1,5 +1,5 @@
 = within_patient_layout(title: "New Access Plan",
-                        breadcrumbs: access_summary_breadrumb(patient)) do
+                        breadcrumbs: access_summary_breadcrumb(patient)) do
 
   = simple_form_for [patient, plan],
                     html: { autocomplete: "off" },
@@ -18,4 +18,3 @@
                       wrapper: :horizontal_medium
 
       = save_or_cancel(form: f, back_path: patient_accesses_dashboard_path(patient))
-      

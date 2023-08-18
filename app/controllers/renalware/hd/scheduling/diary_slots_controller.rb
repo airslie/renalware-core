@@ -22,7 +22,7 @@ module Renalware
         # GET html -  renders a form
         # Here we will have been passed in the query string:
         # - the unit id
-        # - the dirunal_period_code id
+        # - the diurnal_period_code id
         # - the week and year (and thus the diary)
         # and from that lot we could look up the master and weekly diaries
         def new

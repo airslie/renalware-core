@@ -58,7 +58,7 @@ module Renalware
           # rubocop:enable Lint/AssignmentInCondition, Metrics/AbcSize
 
           # See db/functions/import_feed_practice_gps_v02.sql
-          # Using a SQL fn here as originally there wasquite a bit of SQL involved.
+          # Using a SQL fn here as originally there was quite a bit of SQL involved.
           # Could move this to Ruby.
           def import_feed_practice_gps_using_sql_function
             ActiveRecord::Base.connection.execute("SELECT renalware.import_feed_practice_gps()")

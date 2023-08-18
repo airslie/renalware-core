@@ -43,7 +43,7 @@ module Renalware
       # We may be complete even if some calculated fields are null, provided an appropriate
       # urine-missing/dialysate-missing boolean is set. These indicate that the patient's urine
       # or dialysate samples where missing so the renal calculations (relating to urine) or the
-      # peritioneal calculations (relating to dialysate) could not happen.
+      # peritoneal calculations (relating to dialysate) could not happen.
       # Note we allow urine_24_vol to be 0 as this indicates anuric.
       def update_completed
         self.complete =

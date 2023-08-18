@@ -96,7 +96,7 @@ module Renalware
       end
 
       # Returns an array of hashes where each has the attributes used to create a new
-      # pathology_observation in the datbase when passed inside the observation_request hash]
+      # pathology_observation in the database when passed inside the observation_request hash]
       # built in build_observation_request_params { observations_attributes: [..] }
       # rubocop:disable Style/EmptyElse
       def build_observations_params(request)

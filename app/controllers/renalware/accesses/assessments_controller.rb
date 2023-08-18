@@ -9,7 +9,7 @@ module Renalware
       def show
         render locals: {
           patient: accesses_patient,
-          assessment: AssessmentPresenter.new(find__and_authorize_assessement)
+          assessment: AssessmentPresenter.new(find_and_authorize_assessment)
         }
       end
 
@@ -20,7 +20,7 @@ module Renalware
       end
 
       def edit
-        render_edit(find__and_authorize_assessement)
+        render_edit(find_and_authorize_assessment)
       end
 
       def create
@@ -37,7 +37,7 @@ module Renalware
       end
 
       def update
-        assessment = find__and_authorize_assessement
+        assessment = find_and_authorize_assessment
 
         if assessment.update_by(current_user, assessment_params)
           redirect_to patient_accesses_dashboard_path(accesses_patient),
@@ -50,7 +50,7 @@ module Renalware
 
       protected
 
-      def find__and_authorize_assessement
+      def find_and_authorize_assessment
         accesses_patient.assessments.find(params[:id]).tap { |ass| authorize ass }
       end
 

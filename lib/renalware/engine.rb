@@ -72,7 +72,7 @@ module Renalware
     isolate_namespace Renalware
 
     # Define a attr on the Engine's eigenclass so a host application
-    # can set an exception handler instance. It must accept a .notify(excetion) method.
+    # can set an exception handler instance. It must accept a .notify(exception) method.
     # We use the exception handler when logging errors in background jobs only.
     # Errors in the UI are bubbled up and handled in the host app in the usual way.
     class << self

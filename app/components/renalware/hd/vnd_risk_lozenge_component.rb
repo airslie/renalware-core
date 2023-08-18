@@ -17,9 +17,8 @@ module Renalware
 
       def render? = risk.present?
       def description = risk.to_s.humanize.titleize
-      def call = tag.div(class: "flex rounded px-2 ml-2 py-0 #{css_classses}") { description }
-
-      def css_classses = CSS_MAP.fetch(risk_level_without_leading_score, "")
+      def call = tag.div(class: "flex rounded px-2 ml-2 py-0 #{css_classes}") { description }
+      def css_classes = CSS_MAP.fetch(risk_level_without_leading_score, "")
 
       # maps eg "0_very_low" to :very_low
       def risk_level_without_leading_score

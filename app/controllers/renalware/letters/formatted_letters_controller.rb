@@ -32,7 +32,7 @@ module Renalware
         LetterPresenterFactory.new(letter)
       end
 
-      # Here we are just printing an ahoc letter for manual stuffing so we pass in
+      # Here we are just printing an adhoc letter for manual stuffing so we pass in
       # an argument to prompt adhoc CSS to be included so for example the CCs at the bottom of the
       # letter will render with more padding. See LetterPresenter
       def render_pdf(letter)

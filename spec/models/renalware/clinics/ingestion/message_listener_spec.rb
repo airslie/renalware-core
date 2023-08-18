@@ -9,7 +9,7 @@ module Renalware
 
       describe "#adt_message_arrived" do
         {
-          schedule_new_appointmment: Ingestion::Commands::CreateOrUpdateAppointment,
+          schedule_new_appointment: Ingestion::Commands::CreateOrUpdateAppointment,
           cancel_appointment: Ingestion::Commands::DeleteAppointment
         }.each do |action, receiver|
           it "calls #{receiver} when HL7 message action is #{action}" do

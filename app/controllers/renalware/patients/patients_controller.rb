@@ -69,7 +69,7 @@ module Renalware
         end
       end
 
-      # This differs from the base controller implementation becuase we are looking
+      # This differs from the base controller implementation because we are looking
       # up by id not patient_id
       def patient
         @patient ||= begin

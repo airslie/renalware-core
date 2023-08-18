@@ -5,7 +5,7 @@ module Renalware
     # Form object to help us map chosen input values in the HD MDM patient list filters form
     # into ransack predicates. Used in this instance because mapping the form's
     # schedule_definition_ids dropdown value in the format of e.g "[1, 3, 6]" into the
-    # integer arry [1, 3, 6] is not something Ransack can do - hence this intermediate form object
+    # integer array [1, 3, 6] is not something Ransack can do - hence this intermediate form object
     # to do the mapping.
     class MDMPatientsForm
       include ActiveModel::Model
@@ -23,7 +23,7 @@ module Renalware
         attribute_set.map(&:name)
       end
 
-      # The hash returned here is passed into the Ransack #search method later i the ouery object.
+      # The hash returned here is passed into the Ransack #search method later i the query object.
       def ransacked_parameters
         {
           hospital_centre_id_eq: hospital_centre_id,
