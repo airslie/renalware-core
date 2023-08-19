@@ -5,7 +5,7 @@ module Renalware
     # An ObservationDescription can be a member of many groups (a set of descriptions used for
     # displaying or printing a subset of context-specific results). Within each group,
     # say, 'letters', a description might be in a sub group (which merely serves to pull results
-    # together in groups on the page for clarity) and within that group might have a position wich
+    # together in groups on the page for clarity) and within that group might have a position which
     # determines its order in the subgroup.
     class CodeGroupMembership < ApplicationRecord
       include Accountable

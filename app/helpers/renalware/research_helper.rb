@@ -3,7 +3,7 @@
 module Renalware
   module ResearchHelper
     # Given an STI class name like "Renalware::Heroic::Research::Study" we extract the
-    # namespace so we can build derive the partial path for a type like :participaton, e.g.
+    # namespace so we can build derive the partial path for a type like :participation, e.g.
     # "Renalware::Heroic::Research::Participation"
     #
     # Example usage:

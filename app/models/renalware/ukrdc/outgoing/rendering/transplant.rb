@@ -54,7 +54,7 @@ module Renalware
             end
           end
 
-          # Not sending TRA76 yet as defined as datetime in XSD and needs changeing there.
+          # Not sending TRA76 yet as defined as datetime in XSD and needs changing there.
           # if operation.rr_tra76_options.present?
           #   xml.TRA76 do
           #     xml.CodingStandard "CF_RR7_TREATMENT"

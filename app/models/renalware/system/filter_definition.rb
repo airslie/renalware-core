@@ -2,12 +2,12 @@
 
 module Renalware
   module System
-    # Backed by JSONB, stored in view_metadata.fitlers, a model to allow
+    # Backed by JSONB, stored in view_metadata.filters, a model to allow
     # us to specify how filters for a SQL view are displayed in HTML
     class FilterDefinition
       include StoreModel::Model
       attribute :code, :string
-      # The type enum detemines how the filter is constructed eg as a list of distinct values
+      # The type enum determines how the filter is constructed eg as a list of distinct values
       enum(
         :type,
         %i(

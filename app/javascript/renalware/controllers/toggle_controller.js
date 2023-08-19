@@ -4,7 +4,7 @@ import { Controller } from "@hotwired/stimulus"
 // Used when a table has toggleable rows (initially hidden rows that can be toggled open
 // to see e.g. notes or extended details) and each master row and its toggleable sibling are
 // nested in a tbody (this is valid HTML) - ie there are probably two trs per tbody, and the last
-// one is toggleable. If you need anyting more complex you'll need to clone or adapt this
+// one is toggleable. If you need anything more complex you'll need to clone or adapt this
 // controller
 export default class extends Controller {
   // This handler toggles the last tr in the current tbody. We use multiple tbodys in each table
@@ -19,7 +19,7 @@ export default class extends Controller {
   }
 
   // Toggle the last tr in each tbody in the current table.
-  // The link that triggers this event will most likelt be a double chevron icon
+  // The link that triggers this event will most likely be a double chevron icon
   // sitting in a thead.
   table(event) {
     event.preventDefault

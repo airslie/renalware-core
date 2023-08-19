@@ -9,7 +9,7 @@ module Renalware
         def self.for(letter)
           recipients = [letter.main_recipient]
           recipients.concat(letter.cc_recipients)
-          recipients.reject!(&:statment_to_indicate_letter_will_be_emailed)
+          recipients.reject!(&:statement_to_indicate_letter_will_be_emailed)
           CollectionPresenter.new(recipients, RecipientPresenter::WithCurrentAddress)
         end
       end

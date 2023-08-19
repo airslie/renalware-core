@@ -19,7 +19,7 @@ module Renalware
       # It might be better to refactor PatientsRansackHelper so we can include where required
       # eg below using .extending(PatientsRansackHelper) rather than relying on it being in
       # included in the model file.
-      # note that adding .includes(:created_by) here creates an ambigous column
+      # note that adding .includes(:created_by) here creates an ambiguous column
       # 'family_name' error
       def search
         @search ||= begin

@@ -18,7 +18,7 @@ module Renalware
         attribute_set.map(&:name)
       end
 
-      # The hash returned here is passed into the Ransack #search method later i the ouery object.
+      # The hash returned here is passed into the Ransack #search method later in the query object.
       def ransacked_parameters
         {
           hospital_centre_id_eq: hospital_centre_id,

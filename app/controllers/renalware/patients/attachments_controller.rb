@@ -76,7 +76,7 @@ module Renalware
 
       private
 
-      # The user may have selected the file to upload, then changed the atachment_type to one that
+      # The user may have selected the file to upload, then changed the attachment_type to one that
       # has store_file_externally = true, thus hiding the file input, but the file still gets sent.
       def discard_uploaded_file_if_attachment_type_suggests_external_storage(attachment)
         if attachment.file.attached? && attachment.attachment_type&.store_file_externally?

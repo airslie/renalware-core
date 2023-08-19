@@ -9,7 +9,7 @@ module Renalware
       include AccessSteps
       extend WebSteps
       step :create_assessment, ":user records an access assessment for :patient"
-      step :assert_assesment_exists, ":patient has a new access assessment"
+      step :assert_assessment_exists, ":patient has a new access assessment"
 
       # Using a splat because we will be passed a user name and a patient name arguments,
       # but we don't need them because we have patient and user as attr_readers, so we throw them away.
@@ -22,7 +22,7 @@ module Renalware
         accesses_patient.assessments.create!(attrs)
       end
 
-      def assert_assesment_exists(*)
+      def assert_assessment_exists(*)
         expect(accesses_patient.assessments.first).to be_present
       end
 
@@ -35,18 +35,18 @@ module Renalware
         #   ::AClinicianRecordedAnAccessAssessment (scenario name)
         # So the scope of member variables, and overwritten methods (ie including this module for @web
         # tags) is always within the scope of the scenario.
-        def assert_assesment_exists(*)
+        def assert_assessment_exists(*)
           p "web version called"
           login_as_clinical
           visit dashboard_path
-          # Do something with a capyabara page here, prefereble with a page object
+          # Do something with a Capybara page here, preferable with a page object
           expect(accesses_patient.assessments.first).to be_present
         end
       end
     end
     # If @web is specified in the the feature file for this scenario, we include these steps.
     # They will often override some methods defined earlier in AccessSteps.
-    # In Cucumber World paralance, AccessSteps is the Domain world and steps_for(:web) defines
+    # In Cucumber World parlance, AccessSteps is the Domain world and steps_for(:web) defines
     # the Web world.
     # steps_for is a shortcut for defining a Web module - it does this
     # Module.new do

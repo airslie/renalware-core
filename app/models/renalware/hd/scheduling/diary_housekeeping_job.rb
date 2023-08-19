@@ -12,7 +12,7 @@ module Renalware
   module HD
     module Scheduling
       class DiaryHousekeepingJob < ApplicationJob
-        queue_as :hd_diary_houskeeping
+        queue_as :hd_diary_housekeeping
 
         # :reek:UtilityFunction
         def perform

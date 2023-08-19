@@ -9,7 +9,7 @@ module Renalware
 
       # Execute the SQL function specified in the nag definition, passing the patient id.
       # It returns OUT params severity (an enum, eg high) and content (eg a date as a string).
-      # Parse the results into an Nag obejct for ease of handling.
+      # Parse the results into an Nag object for ease of handling.
       # Do not allow a SQL error to stop UI rendering, so in this case return a Null object.
       def execute_sql_function_for(patient)
         result = ActiveRecord::Base.connection.execute(<<-SQL.squish)
@@ -25,7 +25,7 @@ module Renalware
         )
       rescue StandardError => e
         # TODO: Is there a way to inform a developer that the nag function failed?
-        # One way would be to return the error descrition in a pseudo nag object
+        # One way would be to return the error description in a pseudo nag object
         # and render this in a hidden div? To think about.
         Nag.new(definition: self, sql_error: e)
       end

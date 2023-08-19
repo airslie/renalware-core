@@ -23,7 +23,7 @@ module Renalware
         .order(:sending_facility, sending_application: :desc) # desc here allows * to come last
         .first
 
-        sender || create!(sending_facility: sending_facility) # application defauilts to *
+        sender || create!(sending_facility: sending_facility) # application defaults to *
       end
 
       def to_s

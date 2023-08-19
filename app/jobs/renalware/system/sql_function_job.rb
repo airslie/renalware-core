@@ -45,7 +45,7 @@ module Renalware
         if result.fields.sort != %w(records_added records_updated)
           raise(
             InvalidSqlFunctionDefinitionError,
-            "SQL function should have integer OUT paramters 'rows_added' and 'rows_updated'"
+            "SQL function should have integer OUT parameters 'rows_added' and 'rows_updated'"
           )
         end
       end

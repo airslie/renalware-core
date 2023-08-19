@@ -52,7 +52,7 @@ module Renalware
       @patient_search ||= Patients::PatientSearch.call(params, patient_scope)
     end
 
-    # Will be overriden if a controller includes PatientVisiblity
+    # Will be overridden if a controller includes PatientVisibility
     def patient_scope(default_scope = Renalware::Patient.all)
       default_scope
     end

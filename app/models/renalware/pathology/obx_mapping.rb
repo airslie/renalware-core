@@ -52,7 +52,7 @@ module Renalware
         # So if there are two rows returned
         # 1 the obx_mapping onto 'CODE'
         # 2 the observation_description with code 'CODE' (which should not exist as it is unused but
-        #   might as afterall we create missing OBX codes automatically..) then
+        #   might as after all we create missing OBX codes automatically..) then
         # Then 1 should always float to the top and be returned.
         ObservationDescription
           .left_outer_joins(:obx_mappings)

@@ -25,7 +25,7 @@ describe "Remembering last used letter choices in the user's session", js: true 
 
     visit new_patient_letters_letter_path(patient)
 
-    # Check the intial defaults - all to be blank (because its a new session) apart from author
+    # Check the initial defaults - all to be blank (because its a new session) apart from author
     # which will default to current user
     expect(page.find("#letter_author_id option[selected='selected']").value)
       .to eq(users[0].id.to_s)
@@ -41,11 +41,11 @@ describe "Remembering last used letter choices in the user's session", js: true 
 
     submit_form
 
-    # Now create another letter to test it has remebered our previous choices
+    # Now create another letter to test it has remembered our previous choices
     visit new_patient_letters_letter_path(patient)
 
     expect(page.find_by_id("letter_letterhead_id").value).to eq(letterheads[1].id.to_s)
-    expect(page).to have_field "Topic", with: descriptions[1].id.to_s, visible: false
+    expect(page).to have_field "Topic", with: descriptions[1].id.to_s, visible: :all
     expect(page.find("#letter_author_id option[selected='selected']").value)
       .to eq(users[1].id.to_s)
   end

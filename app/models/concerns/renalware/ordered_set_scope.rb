@@ -5,7 +5,7 @@ module Renalware
     extend ActiveSupport::Concern
 
     class_methods do
-      # Produces a scope that orders a relation based on a attribue and the
+      # Produces a scope that orders a relation based on a attribute and the
       # order of the values.
       #
       # @example
@@ -38,7 +38,7 @@ module Renalware
       private
 
       # Verify the values exist in the database, prevents a SQL inject attack
-      # when ordering, as order scopes doen't sanitize.
+      # when ordering, as order scopes doesn't sanitize.
       #
       def verify_values(attribute, values)
         values & where(attribute => values).pluck(attribute)

@@ -27,7 +27,7 @@ module Renalware
     # -o = overwrite if files already there (to avoid unattended)
     # -j = junk (throw away) the path structure in the zip file - this has the risk that
     #      files in separate folders but with the same name could overwrite each other..
-    # Unrar aguments
+    # Unrar arguments
     #  - e extract files
     #  - o+ overwrite existing
     def unzip_to_tmp_dir_and_return_pathames_array(dir)

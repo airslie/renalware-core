@@ -120,7 +120,7 @@ module Document
         # If the type is in STRIPPABLE_TYPES ie its a numeric type,
         # and it has arrived as a string (which responds to :strip) then
         # ensure there are no leading or trailing spaces, otherwise Virtus cannot
-        # coerce it into the correct type. For example Virtus won't corece
+        # coerce it into the correct type. For example Virtus won't coerce
         # " 1" into 1 but will coerce "1" into 1 (FYI the Dry::Types gem (the successor to Virtus)
         # rectifies this).
         # Note also that here in this before_validation callback, the act of assignment in
@@ -172,7 +172,7 @@ module Document
       @@methods_to_ignore << "#{attribute}=".to_sym
     end
 
-    # Flag a list of old attribtues to be ignored
+    # Flag a list of old attributes to be ignored
     # when the document is deserialized from the database
     #
     #   class RecipientWorkupDocument < Document::Base

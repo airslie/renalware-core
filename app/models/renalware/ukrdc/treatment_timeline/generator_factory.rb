@@ -8,7 +8,7 @@ module Renalware
       class GeneratorFactory
         DEFAULT_TYPE = "Generic"
 
-        # Each modality_description has a :code fiekd
+        # Each modality_description has a :code field
         def self.call(modality)
           type = modality.description.code&.to_s&.camelize
           klass = (klass_for(type) || klass_for(DEFAULT_TYPE)).new(modality)

@@ -4,7 +4,7 @@
 # initially into hospital id where they were assigned the id e.g. KCH123. Subsequently
 # they might move to or be treated in another hospital and may be assigned a different number.
 # We capture all these numbers in the database. The hospital hosting Renalware will have a
-# preference for certain numbers; for example it may wich KCH numbers to float to the top and
+# preference for certain numbers; for example it may which KCH numbers to float to the top and
 # always be displayed if present; if no KCH number is found continue down the list of numbers
 # in order of preferred until one is. That number becomes the one displayed for example in the
 # patient number, at least until another number with a higher 'preference' is assigned to the

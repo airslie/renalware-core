@@ -32,8 +32,8 @@ module Renalware
           # for some reason. Also moved presenter.content to a new line so we can more easily see
           # if that is causing the error as it does a lot of processing to build the letter.
           # TODO: investigate
-          achived_letter_content = presenter.content
-          letter.build_archive(by: by, content: achived_letter_content, letter_id: id)
+          archived_letter_content = presenter.content
+          letter.build_archive(by: by, content: archived_letter_content, letter_id: id)
         end
       end
 

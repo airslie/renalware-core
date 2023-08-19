@@ -15,7 +15,7 @@ module Renalware
 
       private
 
-      # Piggybacks on the reporting mechanism used elswhere for generating reports from json.
+      # Piggybacks on the reporting mechanism used elsewhere for generating reports from json.
       #
       # returns e.g.
       # {
@@ -42,7 +42,7 @@ module Renalware
       # e.g.
       # ["reporting_daily_pathology", "reporting_daily_letters"]
       def reporting_daily_views
-        result = ActiveRecord::Base.connection.execute(<<-SQL)
+        result = ActiveRecord::Base.connection.execute(<<-SQL.squish)
           SELECT relname FROM pg_class
           WHERE relkind = 'v'
           AND relname like 'reporting_daily_%'

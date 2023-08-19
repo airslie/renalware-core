@@ -25,7 +25,7 @@ module Renalware
 
         private
 
-        # Note we are already in a tx here from the letterlistener, so for safety we call
+        # Note we are already in a tx here from the letter_listener, so for safety we call
         # call #deliver_later and not #deliver; its possible we could get a
         # LetterIsNotApprovedOrCompletedError error in the mailer we and we don't want that to
         # roll back the txn. We could possibly use an async Listener and remove the

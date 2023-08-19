@@ -9,7 +9,7 @@ module Renalware
     # ctor.
     # A component can be included for example on a dashboard (see Dashboard
     # and DashboardComponent) provided component.dashboard == true.
-    # A component has these properies
+    # A component has these properties
     #  - class_name eg "Renalware::Letters::LettersInProgress"
     #  - name eg "Letters In Progress"
     #  - dashboard - if true then this component can be added to a dashboard

@@ -24,7 +24,7 @@ module Renalware
       # Download the relevant zip file, save it as a Feeds::File (the zip file will be copied to
       # the uploads dir) and kick off a sync job to import the data, which it does by unzipping
       # the file, extracting the csv and using a PG function to upsert the contents.
-      # Note we cannot reliably use an aysnc job here as the order of execution of the 3 updates -
+      # Note we cannot reliably use an async job here as the order of execution of the 3 updates -
       # practices, gps, practice memberships - is strict.
       def perform
         ODS_DOWNLOADABLES.each do |type, options|

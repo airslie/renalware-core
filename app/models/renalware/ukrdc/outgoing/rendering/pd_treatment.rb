@@ -4,7 +4,7 @@ module Renalware
   module UKRDC
     module Outgoing
       module Rendering
-        # Handles rendering a PD Trweatment (aka modality). We defer to the base Treatment
+        # Handles rendering a PD Treatment (aka modality). We defer to the base Treatment
         # class but pass in some extra arguments to the ctor.
         class PDTreatment < Rendering::Treatment
           def initialize(treatment:)

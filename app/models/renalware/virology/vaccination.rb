@@ -25,8 +25,8 @@ module Renalware
 
         # Try and find the proper name for the vaccination type - we only store the vaccination
         # type code in the jsonb document. If no match found just display the code eg 'hbv_booster'.
-        # The Type mighjt have been deleted (has a deleted_at date) but we still want to display the
-        # actual name depite this, we include deleted rows when searching.
+        # The Type might have been deleted (has a deleted_at date) but we still want to display the
+        # actual name despite this, we include deleted rows when searching.
         def type_name
           @type_name ||= (VaccinationType.with_deleted.find_by(code: type)&.name || type)
         end

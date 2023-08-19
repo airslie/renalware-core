@@ -15,9 +15,9 @@ module Renalware
     # A custom study has several elements:
     #  1 study#type - this is the STI type of the class and must be added manually to the row in the
     #    research_studies table in the database. An example might be ::Heroic::Study"
-    #  2 study#namespace - this determines which classes are instanciated when building new
+    #  2 study#namespace - this determines which classes are instantiated when building new
     #    Study children (e.g. Participations, Investigatorships) - for example if set to
-    #    "::Heroic" then we will try to instanciate an ::Heroic::Participation etc.
+    #    "::Heroic" then we will try to instantiate an ::Heroic::Participation etc.
     #  3 In the host app you must, in this example, define the following models
     #    app/models/my_study/study.rb
     #    app/models/my_study/participation.rb
@@ -79,9 +79,9 @@ module Renalware
         define_method(:participation_class) { Renalware::Research::Participation }
       end
 
-      # Define this explicity so that an subclasses will inherit it - otherwise Pundit will try
+      # Define this explicitly so that an subclasses will inherit it - otherwise Pundit will try
       # and resolve eg MyStudy::XxxPolicy which won't exist and not need to the
-      # impementor to create.
+      # implementer to create.
       def self.policy_class = StudyPolicy
 
       class Document < Document::Embedded

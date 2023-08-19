@@ -2,7 +2,7 @@ const Rails = window.Rails
 import { Controller } from "@hotwired/stimulus"
 
 // Handles the modal dialog used for presenting Home Delivery print options to
-// the user. Used on the prescrptions page.
+// the user. Used on the prescriptions page.
 export default class extends Controller {
   static targets = [ "form", "printOptions", "printFeedback" ]
 

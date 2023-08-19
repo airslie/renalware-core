@@ -6,7 +6,7 @@ module Renalware
       pattr_initialize [:patient!, :from!, :to!]
 
       # We are looking for HD Profiles within a certain period.
-      # Some HD profiles have no prescribed_on populated (and it is not always acurate - if the
+      # Some HD profiles have no prescribed_on populated (and it is not always accurate - if the
       # profile is edited and a copy made, they sometimes to do not change the prescribed_on date)
       # so for the start date of the profile we always use created_at and ignore prescribed_on,
       # even if it is present.

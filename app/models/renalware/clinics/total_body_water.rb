@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Total Body Water (TBW) calcuated using WATSON
+# Total Body Water (TBW) calculated using WATSON
 # References:
 # - https://qxmd.com/calculate/calculator_344/total-body-water-watson-formula
 #

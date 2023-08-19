@@ -7,7 +7,7 @@ module Renalware
     delegate :current_user, :policy, to: :helpers
 
     # Not sure why include Renalware::Engine.routes.url_helpers does not make the
-    # engine urls visible in the views (seems to resolve alwatys to /assets?..)
+    # engine urls visible in the views (seems to resolve always to /assets?..)
     # so we expose routes here so inside a component html file we can use
     # e.g. renalware.bookmarks_path
     def renalware

@@ -9,7 +9,7 @@ module Renalware
 
       # Note that we want to avoid any patient validation errors (email is invalid etc)
       # at this important stage, so we use validate: false. While we validate patient data
-      # entered thorugh the UI, its possible that some migrated data might be invalid
+      # entered through the UI, its possible that some migrated data might be invalid
       # and would cause an error to be raised during a callback in save!
       def call
         patient.send_to_rpv = false

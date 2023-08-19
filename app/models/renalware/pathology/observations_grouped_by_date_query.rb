@@ -2,7 +2,7 @@
 
 module Renalware
   module Pathology
-    # A custom relation-like object, implementing a kaminiari-like pagination interface.
+    # A custom relation-like object, implementing a kaminari-like pagination interface.
     # Its a query object but means to be used like a relation. If passed into a view you can
     # do = paginate(relation).
     # See ObservationsGroupedByDateTable for intended usage.

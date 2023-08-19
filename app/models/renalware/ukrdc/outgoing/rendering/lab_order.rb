@@ -66,7 +66,7 @@ module Renalware
             end
           end
 
-          # If the rr_type of the observation_description is interpretation (ie an interpretted
+          # If the rr_type of the observation_description is interpretation (ie an interpreted
           # result like POS NEG then output the interpretation_code
           def rr_type_value_elements_for(observation, append_to:)
             if observation.rr_type_interpretation?

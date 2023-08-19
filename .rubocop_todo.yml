@@ -385,7 +385,7 @@ RSpec/ExampleWording:
   Exclude:
     - 'spec/presenters/renalware/pathology/observations_diff_spec.rb'
     - 'spec/system/renalware/events/creating_a_simple_event_spec.rb'
-    - 'spec/system/renalware/events/creating_an_investgation_event_spec.rb'
+    - 'spec/system/renalware/events/creating_an_investigation_event_spec.rb'
 
 # Offense count: 1
 # Configuration parameters: Include, CustomTransform, IgnoreMethods, SpecSuffixOnly.

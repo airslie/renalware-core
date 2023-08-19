@@ -7,7 +7,7 @@
  * where <VALUE> is the value of the option or a JSON encoded array of options,
  * that when selected, should cause the field to be shown.
  *
- * Example useage with multiple options:
+ * Example usage with multiple options:
  *
  * ```
  * <section data-controller="show-on-selected">
@@ -21,7 +21,7 @@
  *    data-show-on-selected-target="item"
  *    data-show-on-selected-option="<%= ["test", "best"].to_json %>"
  *   >
- *    <input name="some_conditionaly_show_input"/>
+ *    <input name="some_conditionally_show_input"/>
  *   </div>
  * </section>
  * ```

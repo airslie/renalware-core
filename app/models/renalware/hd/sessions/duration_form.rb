@@ -57,7 +57,7 @@ module Renalware
           form.start_date = session.started_at
 
           # If started_at was at midnight exactly we are going to assume that session was saved with
-          # just a date and no time chosen, so rather than say the time is "00:00" we shold make it
+          # just a date and no time chosen, so rather than say the time is "00:00" we should make it
           # null
           if session.started_at && session.started_at.seconds_since_midnight > 0
             form.start_time = session.started_at

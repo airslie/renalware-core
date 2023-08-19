@@ -45,10 +45,10 @@ module Renalware
         extend ActiveSupport::Concern
         included do
           # Using a custom ransacker to be able to order by access plan create_at
-          # becuase I believe using an implcit :access_plan_create_at in the sort_link
+          # because I believe using an implicit :access_plan_create_at in the sort_link
           # will not work because there is no belongs_to access_plan on HD::Patient
           # and even adding a custom join to access_plans as we do, Ransack will not resolve
-          # :access_plans_created_at. Still this seens a reasonable solution.
+          # :access_plans_created_at. Still this seems a reasonable solution.
           # We mix this module into HD::Patient at runtime.
           ransacker :access_plan_date, type: :date do
             Arel.sql("coalesce(access_plans.created_at, '1900-01-01'::timestamp)")

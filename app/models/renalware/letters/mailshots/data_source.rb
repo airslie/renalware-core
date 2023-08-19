@@ -3,7 +3,7 @@
 module Renalware
   module Letters
     module Mailshots
-      # A list of SQL views with a name startingwith "letters_mailshot_"
+      # A list of SQL views with a name starting with "letters_mailshot_"
       # along with some metadata about the view
       class DataSource < ApplicationRecord
         self.table_name = "pg_catalog.pg_views"

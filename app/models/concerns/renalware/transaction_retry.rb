@@ -15,7 +15,7 @@ module Renalware
       # for these side-effects to occasionally happen twice.
       #
       # Note we define this method in the included block (not the class_methods block as you would
-      # expect) becuase in the latter case a client calling #transaction would get the including
+      # expect) because in the latter case a client calling #transaction would get the including
       # class's transaction method, not the overriding one defined here. Using 'included' allows
       # use to get around this. See comments in
       # https://github.com/rails/rails/blob/master/activesupport/lib/active_support/concern.rb

@@ -11,7 +11,7 @@ import { Controller } from "@hotwired/stimulus"
 //   expiring and throwing them out when they are for example writing a long
 //   letter (which they would otherwise not finish before their session expires)
 // - Auto logging-out a user after a period of inactivity
-//   Check after a period of intactivity to see if their session has expired.
+//   Check after a period of inactivity to see if their session has expired.
 //   If it has then refresh the page which will redirect them to the login page.
 // - Signalling to other open tabs when the user's session has expired or they
 //   have manually logged out - so that all tabs go to the login page at around
@@ -33,13 +33,13 @@ import { Controller } from "@hotwired/stimulus"
 //
 // Scenarios to test:
 // - Keypresses, clicks and window resizing - any of these should reset session
-//   and thus the user remains logged in as long as one of these events ocurrs
+//   and thus the user remains logged in as long as one of these events occurs
 //   within sessionTimeoutSeconds
 // - User closes lid on laptop overnight and reopens in the morning - what is
 //   expected?
 // - Network disconnected - what do we do?
-// - user gets withing 10 seconds of session timeout and starts typing - session
-//   window shoud be reset
+// - user gets within 10 seconds of session timeout and starts typing - session
+//   window should be reset
 // - user has > 1 tab open and logs out of one - ideally it should log out of
 //   other tabs before too long. We do by setting a localStorage value to signal
 //   to other tabs
@@ -118,7 +118,7 @@ export default class extends Controller {
     this.resetCheckForSessionExpiryTimeout(this.sessionTimeoutSeconds)
   }
 
-  // Timeout handler for checking if the sesison has expired
+  // Timeout handler for checking if the session has expired
   resetCheckForSessionExpiryTimeout(intervalSeconds) {
     this.log(`resetting session expiry timeout ${intervalSeconds}`)
     clearTimeout(this.checkForSessionExpiryTimeout)

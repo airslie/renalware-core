@@ -2,7 +2,7 @@
 
 module Renalware
   module System
-    # Stores the data returned from calling a NagDefnition.sql_function_name
+    # Stores the data returned from calling a NagDefinition.sql_function_name
     class Nag
       attr_reader :definition, :severity, :value, :date, :sql_error
 
@@ -18,7 +18,7 @@ module Renalware
 
       private
 
-      # Date from sql function may not be a date so parse it. Unlike a tanle or view, AR does not
+      # Date from sql function may not be a date so parse it. Unlike a table or view, AR does not
       # know the column type.
       def parse_date(date)
         return if date.blank?

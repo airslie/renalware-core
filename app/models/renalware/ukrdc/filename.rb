@@ -20,7 +20,7 @@ module Renalware
         Renalware.config.ukrdc_site_code # e.g. RJZ
       end
 
-      # For an patient identifer to put in the filename (to make it easierto look up the patient)
+      # For an patient identifier to put in the filename (to make it easier to look up the patient)
       # choose the NHS Number is there is one, falling back to local_patient_id(2,3,4) then
       # ukrdc_external_id - the latter at least is guaranteed to be present.
       def patient_identifier

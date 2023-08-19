@@ -45,7 +45,7 @@ class FlatpickrInput < SimpleForm::Inputs::StringInput
   # Note that datestamp will be some kind of Date object *unless* its an invalid date string
   # e.g. "12-00-2010" that has for example been imported from another system, and its one we
   # happen to store in Rw2 in jsonb where there is no database type checking.
-  # We have seen this in LowClerance::Profile.document.
+  # We have seen this in LowClearance::Profile.document.
   # So if we get an error converting an invalid date string, return it as is and let the
   # user correct it in the UI. Note that without this error handling, the user will
   # not be able to view the form to correct the data.

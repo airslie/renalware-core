@@ -3,12 +3,12 @@
 module Renalware
   module Events
     # Query object that returns, for a patient, the most recent matching event (if any) for each
-    # event_type_alert_trigger row in the databse. The results are used to display
+    # event_type_alert_trigger row in the database. The results are used to display
     # alerts in the UI.
     # For example given a vaccination Event::Type and an EventTypeAlertTrigger
     # which is configured to find any vaccination event with the word "covid" in
     # anywhere in the document, this query will return the most matching event.
-    # It is possible to have mltiple triggers rows for the same event type, so for eample one
+    # It is possible to have multiple triggers rows for the same event type, so for example one
     # could display triggers for the most recent covid vaccination, and the most recent HBV
     # vaccination.
     class AlertableEventsQuery

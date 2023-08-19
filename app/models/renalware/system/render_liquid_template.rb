@@ -21,7 +21,7 @@ module Renalware
       # embedded as binary data.
       #
       # This approach allows us to render hospital-defined content in a small number of places -
-      # for Barts can print an ESI as a PDF form (eg at patients/xxx/pd/peritonitis_eposides/1.pdf)
+      # for Barts can print an ESI as a PDF form (eg at patients/xxx/pd/peritonitis_episodes/1.pdf)
       # to let them capture extra detail manually. Using this class lets us search for and load a
       # hospital-defined template to use in an instance as this. It reduces support overhead as
       # the templates table can be updated manually (by someone qualified); for example a designer

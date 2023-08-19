@@ -18,7 +18,7 @@ module Renalware
 
       scope :ordered, -> { order(requested_at: :desc) }
 
-      # Exlucludes duplicate rows; there may be an original OBR and one or more updates (with more
+      # Excludes duplicate rows; there may be an original OBR and one or more updates (with more
       # complete results) and we only want the last received one got any requestor_order_number
       # (actually for any requestor_order_number + requested_at + description_id) combination
       # because requestor_order_number is sometimes blank

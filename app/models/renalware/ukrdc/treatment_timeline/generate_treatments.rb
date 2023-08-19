@@ -33,7 +33,7 @@ module Renalware
           patient_scope.find_each.with_index do |patient, _index|
             print "\n#{patient.id}: "
             GenerateTimeline.new(patient).call
-            # Start gargbage collection periodically to prevent server ram issues.
+            # Start garbage collection periodically to prevent server ram issues.
             # GC.start if (index % 50).zero?
           end
         end

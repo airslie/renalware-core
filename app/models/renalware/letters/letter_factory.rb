@@ -5,7 +5,7 @@ module Renalware
     # Build a new draft letter.
     # Used e.g from:
     # - LettersController#new - when building the initial letter form
-    #   (in which case params are those suppplied in #new)
+    #   (in which case params are those supplied in #new)
     # - LettersController#create via DraftLetter.build - before saving the letter, in which case
     #   params is the posted hash of letter attributes from the html form.
     # TODO: think about spitting this into 2 classes, one for build (new/get) and one for creating
@@ -87,7 +87,7 @@ module Renalware
         end
       end
 
-      # Here we are doing thwo things:
+      # Here we are doing two things:
       #
       # 1 We overwrite the ActiveRecord-generated 'electronic_cc_recipient_ids' property that would,
       #   if any electronic_cc_recipients where saved against the letter, return the ids of those
@@ -95,7 +95,7 @@ module Renalware
       #   users in a multi-select list. It works as expected when editing
       #   letters that have a saved set of eCC recipients. But for the case when we are creating a
       #   new letter, where there are no saved eCC recipients BUT we want to *pre-select* zero or
-      #   more default eCCs, ovewriting this property lets us spoof what AR would have done but
+      #   more default eCCs, overwriting this property lets us spoof what AR would have done but
       #   instead of returning user ids resolved through the AR relationship (which would require
       #   those records to be saved) we return our own array. More on this next...
       #
@@ -103,7 +103,7 @@ module Renalware
       #   the complete set of default eCC users (as an array of user ids) and return them.
       #   This lets us pre-select the default eCCs in the eCC multi-select
       #   UI component in the new letter form. The array of user ids is resolved by raising an
-      #   event and asking any listeners to addd in their eCC suggestions.
+      #   event and asking any listeners to add in their eCC suggestions.
       #   See ResolveDefaultElectronicCCs for details.
       def stub_letter_electronic_cc_recipient_ids_using_patients_default_eccs
         return unless building_new_letter?

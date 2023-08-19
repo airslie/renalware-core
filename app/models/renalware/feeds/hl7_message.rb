@@ -17,7 +17,7 @@ module Renalware
         "ADT^A02" => :transfer_patient,
         "ADT^A03" => :discharge_patient,
         "ADT^A11" => :cancel_admission,
-        "ADT^A05" => :schedule_new_appointmment,
+        "ADT^A05" => :schedule_new_appointment,
         "ADT^A38" => :cancel_appointment,
         "MFN^M02" => :add_consultant, # no
         "ADT^A34" => :merge_patient, # no
@@ -95,12 +95,12 @@ module Renalware
         #   ##TEST CANCELLED## Insufficient specimen received
         # in which case replace with something more concise.
         # We could save the actual message somewhere.
-        # If the value containes eg
+        # If the value contains eg
         #   "12.8\.br\This result bla bla"
         # then we
         # However the best way to handle this is to use Mirth preprocessor script to
         # map \.br\ to eg '¬' and then we can handle that more easily as as / is a escape char
-        # and breaks all sorrs of things
+        # and breaks all sorts of things
         def observation_value
           if super.upcase.at("CANCELLED")
             @comment = super

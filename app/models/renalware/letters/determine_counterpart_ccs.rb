@@ -10,7 +10,7 @@ module Renalware
       def call
         counterpart_css = []
         counterpart_css << build_recipient("patient", patient) if cc_patient?
-        if cc_primary_care_physican?
+        if cc_primary_care_physician?
           counterpart_css << build_recipient("primary_care_physician", primary_care_physician)
         end
         counterpart_css
@@ -18,7 +18,7 @@ module Renalware
 
       private
 
-      def cc_primary_care_physican?
+      def cc_primary_care_physician?
         pcp = patient.primary_care_physician
         pcp&.cc_on_letter?(self)
       end

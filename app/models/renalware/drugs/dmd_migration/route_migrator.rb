@@ -26,7 +26,7 @@ module Renalware
           # Best to leave, as this ties with the now removed "Route Description" textbox
           # "Other" => "",
           "PerRectum" => "Rectal" # ?
-        }
+        }.freeze
 
         def call
           dmd_only_routes_by_name = Medications::MedicationRoute.where(rr_code: nil)

@@ -40,7 +40,7 @@ module Renalware
           .pluck(:d_pcr, :net_uf)
       end
 
-      # TODO: Finish adding plot bands and fix xaxis. Need to build this graph
+      # TODO: Finish adding plot bands and fix x-axis. Need to build this graph
       # in codepen outside of the app so we can experiment - at the moment
       # the x axis is built from the data series (pcr), which is not linear.
       # So we need to specify the x axis and the series data separately.

@@ -2,8 +2,8 @@
 
 module Renalware
   module Feeds
-    # A superamdin dashhboard component displaying the status of outgoing documents in the last
-    # 30 days, with some logic to colour-code values of note, eg if the nimber of documents waiting
+    # A superadmin dashboard component displaying the status of outgoing documents in the last
+    # 30 days, with some logic to colour-code values of note, eg if the number of documents waiting
     # in the queue is >= 50
     class OutgoingDocumentsStatusComponent < ApplicationComponent
       DEFAULT_TEXT_CSS_CLASS = "text-indigo-600"

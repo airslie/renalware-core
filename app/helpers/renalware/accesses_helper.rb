@@ -2,11 +2,11 @@
 
 module Renalware
   module AccessesHelper
-    def access_summary_breadrumb(patient)
+    def access_summary_breadcrumb(patient)
       breadcrumb_for("Access Summary", patient_accesses_dashboard_path(patient))
     end
 
-    def access_assesment_breadcrumb(patient, assessment)
+    def access_assessment_breadcrumb(patient, assessment)
       breadcrumb_for("Access Assessment", patient_accesses_assessment_path(patient, assessment))
     end
 

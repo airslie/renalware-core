@@ -126,7 +126,7 @@ export default class extends Controller {
                   overflow: 'visible'
               },
 
-              // small optimalization, saves 1-2 ms each sparkline
+              // small optimization, saves 1-2 ms each sparkline
               skipClone: true
           },
           title: {

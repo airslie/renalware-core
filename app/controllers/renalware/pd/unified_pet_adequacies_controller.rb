@@ -2,7 +2,7 @@
 
 module Renalware
   module PD
-    # PET and Adequacy are two distinct, descrete PD tests.
+    # PET and Adequacy are two distinct, discrete PD tests.
     # The function of this unified PET + Adequacy controller is to provide the functionality for
     # a user to add the data for both at the same time.
     # This is because
@@ -11,14 +11,14 @@ module Renalware
     #
     # Note that we never edit a unified PET + Adequacy; as they create separate rows in the db
     # and are separate models, once created they are treated distinctly. This is mainly because
-    # the processing of the tests is quicte different.
+    # the processing of the tests is quite different.
     # See pet.rb and adequacy.rb for more detail.
     class UnifiedPETAdequaciesController < BaseController
       include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::PatientVisibility
       include PresenterHelper
 
-      # We use an activbe model form to present a unified model api for the view
+      # We use an active model form to present a unified model api for the view
       # to display and submit in the #new template.
       def new
         form = UnifiedPETAdequacyForm.new(

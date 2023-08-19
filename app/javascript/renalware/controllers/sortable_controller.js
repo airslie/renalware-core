@@ -24,7 +24,7 @@ export default class extends Controller {
   end(event) {
     const url = this.data.get("url")
 
-    // No direct server persistance
+    // No direct server persistence
     if (!url) return
 
     let id = event.item.dataset.id

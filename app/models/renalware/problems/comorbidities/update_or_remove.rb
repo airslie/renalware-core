@@ -4,7 +4,7 @@ module Renalware
   module Problems
     module Comorbidities
       # Service object encapsulating the logic around how to update a comorbidity submitted via
-      # the form object, and whether to remove it if it is no lobger significant.
+      # the form object, and whether to remove it if it is no longer significant.
       class UpdateOrRemove
         pattr_initialize [:comorbidity!, :params!, :by!]
 

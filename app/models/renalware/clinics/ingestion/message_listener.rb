@@ -12,8 +12,8 @@ module Renalware
           return unless hl7_message.adt?
 
           case hl7_message.action
-          when :schedule_new_appointmment then Commands::CreateOrUpdateAppointment.call(hl7_message)
-          when :cancel_appointment        then Commands::DeleteAppointment.call(hl7_message)
+          when :schedule_new_appointment then Commands::CreateOrUpdateAppointment.call(hl7_message)
+          when :cancel_appointment then Commands::DeleteAppointment.call(hl7_message)
           else noop
           end
         end

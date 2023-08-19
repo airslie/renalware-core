@@ -32,7 +32,7 @@ describe Renalware::HD::VNDRiskAssessmentsComponent, type: :component do
     expect(page).to have_css("tbody tr td", text: user.to_s)
   end
 
-  it "renders nothing if the patient has no assessements" do
+  it "renders nothing if the patient has no assessments" do
     component = described_class.new(current_user: user, patient: patient)
 
     render_inline(component)

@@ -21,7 +21,7 @@ module Renalware
       end
 
       # Removing caching for now as on production on Azure the patient.cache_key was not
-      # rendering (returning just an id and not an updated timestamp) resultsing in stale
+      # rendering (returning just an id and not an updated timestamp) resulting in stale
       # cache for this component being displayed.
       # TODO: investigate
       def cache?

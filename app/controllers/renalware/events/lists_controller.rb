@@ -18,7 +18,7 @@ module Renalware
         @form ||= form_for(named_filter)
       end
 
-      # Get requests to #show may have a filter param {} if filters where selectec (eg an event
+      # Get requests to #show may have a filter param {} if filters where selected (eg an event
       # type) and if any sorting was done there will also be e.g. params[:q][:s] = "something asc"
       # The EventListQuery just accepts our form object, from which it attributes to ransack, so
       # here we need to make sure the search

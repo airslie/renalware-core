@@ -21,7 +21,7 @@ module Renalware
               coding_standard: "EDTA2",
               code: patient.prd_description_code,
               description: patient.prd_description_term,
-              root_elemment_name: "RenalDiagnosis"
+              root_element_name: "RenalDiagnosis"
             )
             if patient.first_seen_on.present?
               elem.identification_time = patient.first_seen_on

@@ -24,7 +24,7 @@ module Renalware
     #   multiple custom event properties (defined in the event's document) or do we need to allow
     #   partials that control table structure?
     #
-    # Perhaps a datavase-backed component configuration model could be passed into this component to
+    # Perhaps a database-backed component configuration model could be passed into this component to
     # drive the display - eg hide_if_no_data of not.
     class EventListComponent < ApplicationComponent
       pattr_initialize [
@@ -80,7 +80,7 @@ module Renalware
               event_type.events.for_patient(patient)
             else
               # We didn't find the event type! Do not error otherwise the rest of the page
-              # is unuseable. Think about outputing a message somewhere.
+              # is unusable. Think about outputting a message somewhere.
               @warning = "No event type found with slug '#{event_type_slug}'!"
               Renalware::Events::Event.none
             end
