@@ -10,12 +10,12 @@
 
     = turbo_frame_tag "path" do
       = render Renalware::SpinnerComponent.new do |spinner|
-        = spinner.pre_content do
+        = spinner.with_pre_content do
           = render "renalware/pathology/turbo_code_group_filter",
                    patient: patient,
                    filter_form: filter_form,
                    url: patient_pathology_recent_observations_path(patient)
-        = spinner.main_content do
+        = spinner.with_main_content do
           .overflow-auto.pathology data-controller="add-top-horizontal-scrollbar"
             = render "table", table: table, patient: patient
 

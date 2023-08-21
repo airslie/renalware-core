@@ -7,7 +7,7 @@
 
 = render Renalware::TurboModalComponent.new(title: "H") do |modal|
  = render "index", pagy: pagy, search: search, references: references
- - modal.bottom_buttons_nav do
+ - modal.with_bottom_buttons_nav do
   = button_tag "Close",
                 data: { action: "turbo-modal#hideModal" },
                 type: "button", class: "rounded py-2 px-3 bg-nhs-blue text-white"

@@ -7374,7 +7374,7 @@ var $$5 = window.$;
 // Used when a table has toggleable rows (initially hidden rows that can be toggled open
 // to see e.g. notes or extended details) and each master row and its toggleable sibling are
 // nested in a tbody (this is valid HTML) - ie there are probably two trs per tbody, and the last
-// one is toggleable. If you need anyting more complex you'll need to clone or adapt this
+// one is toggleable. If you need anything more complex you'll need to clone or adapt this
 // controller
 var _default$z = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
@@ -7398,7 +7398,7 @@ var _default$z = /*#__PURE__*/function (_Controller) {
     }
 
     // Toggle the last tr in each tbody in the current table.
-    // The link that triggers this event will most likelt be a double chevron icon
+    // The link that triggers this event will most likely be a double chevron icon
     // sitting in a thead.
   }, {
     key: "table",
@@ -7579,7 +7579,7 @@ _defineProperty$2(_default$v, "targets", ["container", "radio"]);
 var Rails$3 = window.Rails;
 
 // Handles the modal dialog used for presenting Home Delivery print options to
-// the user. Used on the prescrptions page.
+// the user. Used on the prescriptions page.
 var _default$u = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
@@ -7664,7 +7664,7 @@ var _default$s = /*#__PURE__*/function (_Controller) {
 _defineProperty$2(_default$s, "targets", ["trix"]);
 
 // Handles the modal dialog used for presenting Home Delivery print options to
-// the user. Used on the prescrptions page.
+// the user. Used on the prescriptions page.
 var _default$r = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
@@ -20372,7 +20372,7 @@ var _ = window._;
 //   expiring and throwing them out when they are for example writing a long
 //   letter (which they would otherwise not finish before their session expires)
 // - Auto logging-out a user after a period of inactivity
-//   Check after a period of intactivity to see if their session has expired.
+//   Check after a period of inactivity to see if their session has expired.
 //   If it has then refresh the page which will redirect them to the login page.
 // - Signalling to other open tabs when the user's session has expired or they
 //   have manually logged out - so that all tabs go to the login page at around
@@ -20394,13 +20394,13 @@ var _ = window._;
 //
 // Scenarios to test:
 // - Keypresses, clicks and window resizing - any of these should reset session
-//   and thus the user remains logged in as long as one of these events ocurrs
+//   and thus the user remains logged in as long as one of these events occurs
 //   within sessionTimeoutSeconds
 // - User closes lid on laptop overnight and reopens in the morning - what is
 //   expected?
 // - Network disconnected - what do we do?
-// - user gets withing 10 seconds of session timeout and starts typing - session
-//   window shoud be reset
+// - user gets within 10 seconds of session timeout and starts typing - session
+//   window should be reset
 // - user has > 1 tab open and logs out of one - ideally it should log out of
 //   other tabs before too long. We do by setting a localStorage value to signal
 //   to other tabs
@@ -20496,7 +20496,7 @@ var _default$p = /*#__PURE__*/function (_Controller) {
       this.resetCheckForSessionExpiryTimeout(this.sessionTimeoutSeconds);
     }
 
-    // Timeout handler for checking if the sesison has expired
+    // Timeout handler for checking if the session has expired
   }, {
     key: "resetCheckForSessionExpiryTimeout",
     value: function resetCheckForSessionExpiryTimeout(intervalSeconds) {
@@ -25084,7 +25084,7 @@ var hasRenderToArg = typeof a === 'string' || a.nodeName,
             style: {
                 overflow: 'visible'
             },
-             // small optimalization, saves 1-2 ms each sparkline
+             // small optimization, saves 1-2 ms each sparkline
             skipClone: true
         },
         title: {
@@ -27883,7 +27883,7 @@ var _default$g = /*#__PURE__*/function (_Controller) {
     value: function end(event) {
       var url = this.data.get("url");
 
-      // No direct server persistance
+      // No direct server persistence
       if (!url) return;
       var id = event.item.dataset.id;
       var data = new FormData();
@@ -27941,7 +27941,7 @@ var _default$f = /*#__PURE__*/function (_Controller) {
 }(Controller);
 
 // Set all radio inputs within the controller's element to checked if their
-// value = matchValue (eg "no" in the case of tristate Yes No Uknown radio
+// value = matchValue (eg "no" in the case of tristate Yes No Unknown radio
 // groups).
 // Example usage:
 // div(data-controller="radio-reset" data-radio-reset-match-value="no")
@@ -27984,7 +27984,7 @@ var _default$d = /*#__PURE__*/function (_Controller) {
     key: "showhide",
     value:
     /*
-    For a SELECT, find the chosen option, and the data atribute we need (a boolean eg "true" whose
+    For a SELECT, find the chosen option, and the data attribute we need (a boolean eg "true" whose
     name is in the attributeToTest value).  Hide or show the target element according to the boolean
     'test' attribute.
     */
@@ -28002,7 +28002,7 @@ var _default$d = /*#__PURE__*/function (_Controller) {
 _defineProperty$2(_default$d, "targets", ["displayable"]);
 // element we are going to show/hide
 // attributeToTest: Name of the boolean data attribute on the selected option that determines if
-//                  the displayable target shoule be visible or not
+//                  the displayable target should be visible or not
 _defineProperty$2(_default$d, "values", {
   attributeToTest: String
 });

@@ -4,7 +4,7 @@
 require "renalware/broadcasting"
 
 # New subscription registry - previous implementation does not work across threads.
-# Each key in the map (hash) is the name of a class that broadacasts/publishes messages.
+# Each key in the map (hash) is the name of a class that broadcasts/publishes messages.
 # Entries in the array (value) for that key are classes which subscribe to events in the
 # publishing class. If you want a subscriber to listen asynchronously for events via ActiveJob,
 # use an Subscriber instance like so
