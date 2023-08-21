@@ -25,6 +25,7 @@ module Renalware
         ActiveRecord::Base.transaction do
           create_feed_message_using_raw_message_and_basic_extracted_patient_data
           allow_listeners_to_process_the_message
+          feed_message.update!(processed: true)
         end
 
         allow_listeners_to_post_process_the_message
