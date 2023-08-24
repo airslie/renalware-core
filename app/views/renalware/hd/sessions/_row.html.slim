@@ -3,7 +3,13 @@ tbody.hd-session-row(class=[session.state, stripe_class])
     td.toggleable--toggler-container.noprint(rowspan=2)= row_toggler
     td.noprint(rowspan=2)= session.edit_or_view_url
     td.col-width-date(rowspan=2)= session.performed_on
-    td= session.hospital_unit_unit_code
+    td
+      - if session.hospital_unit_unit_type == "home"
+        .flex.p-0
+          .mr-1.p-0= inline_icon(:home, size: :md, class: "stroke-neutral-500 stroke-1 fill-orange-100" )
+          .mt-px= session.hospital_unit_unit_code
+      - else
+        = session.hospital_unit_unit_code
     td= session.start_time
     td.derived(rowspan=2)= session.duration
     td= session.before_measurement_for(:weight)
@@ -17,7 +23,7 @@ tbody.hd-session-row(class=[session.state, stripe_class])
     td.nowrap(rowspan=2)= session.blood_flow
     td.nowrap(rowspan=2)= session.litres_processed
     td.nowrap(rowspan=2)= session.fluid_removed
-    td.col-width-small-with-ellipsis.nowrap.noprint(rowspan=2 title=session.station)= session.station 
+    td.col-width-small-with-ellipsis.nowrap.noprint(rowspan=2 title=session.station)= session.station
     td.nowrap(rowspan=2)= session.machine_no
     td.nowrap(rowspan=2)= session.machine_ktv
     td.nowrap(rowspan=2)= session.machine_urr
