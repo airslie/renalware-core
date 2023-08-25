@@ -37,7 +37,7 @@ gem "net-smtp", require: false # remove in Rails 7
 gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
-gem "rails", "~> 7.0.7"
+gem "rails", "~> 7.0.7.1"
 gem "redis", "~> 4.8"
 gem "renalware-forms", ">=0.1", github: "airslie/renalware-forms", branch: "main"
 gem "ruby-prof", require: false
