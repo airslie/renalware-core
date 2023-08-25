@@ -144,6 +144,10 @@ module Renalware
         Array(self[:OBR]).map { |obr| ObservationRequest.new(obr) }
       end
 
+      def orc_order_status
+        Array(self[:ORC]).first&.order_status
+      end
+
       def patient_identification
         Renalware::Feeds::PatientIdentification.new(self[:PID])
       end
