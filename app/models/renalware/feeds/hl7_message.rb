@@ -145,7 +145,11 @@ module Renalware
       end
 
       def orc_order_status
-        Array(self[:ORC]).first&.order_status
+        first_orc_segment.order_status
+      end
+
+      def orc_filler_order_number
+        first_orc_segment.filler_order_number
       end
 
       def patient_dob
@@ -213,6 +217,12 @@ module Renalware
 
       def gp_code
         self[:PD1].e4.split("^")[0] if self[:PD1]
+      end
+
+      private
+
+      def first_orc_segment
+        Array(self[:ORC]).first || NullObject.instance
       end
     end
   end

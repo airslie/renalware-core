@@ -5108,7 +5108,8 @@ CREATE TABLE renalware.feed_messages (
     local_patient_id_4 character varying,
     local_patient_id_5 character varying,
     orc_order_status renalware.enum_hl7_orc_order_status,
-    dob date
+    dob date,
+    orc_filler_order_number character varying
 );
 
 
@@ -7130,6 +7131,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -19299,6 +19310,13 @@ CREATE INDEX index_feed_messages_on_nhs_number ON renalware.feed_messages USING 
 
 
 --
+-- Name: index_feed_messages_on_orc_filler_order_number; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_on_orc_filler_order_number ON renalware.feed_messages USING btree (orc_filler_order_number);
+
+
+--
 -- Name: index_feed_messages_on_patient_identifiers; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -27865,6 +27883,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230808150041'),
 ('20230816111543'),
 ('20230825083329'),
-('20230825104746');
+('20230825104746'),
+('20230825141714'),
+('20230825143006');
 
 
