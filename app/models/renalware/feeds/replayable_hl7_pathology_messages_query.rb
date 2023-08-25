@@ -21,9 +21,6 @@ module Renalware
       include Callable
       pattr_initialize [:patient!]
 
-      class MissingMessageTypesError < StandardError; end
-      class InvalidMessageTypesError < StandardError; end
-
       PATIENT_IDENTIFICATION_COLUMNS = %i(
         nhs_number
         local_patient_id
@@ -34,27 +31,74 @@ module Renalware
       ).freeze
 
       def call
-        feed_messages_scoped_by_message_type
-          .merge(feed_messages_scoped_by_patient)
+        final_pathology_feed_messages
+          .merge(scoped_by_patient)
           .order(created_at: :asc)
       end
 
       private
 
-      def feed_messages_scoped_by_patient
+      # We want to find results hitting at least 2-out-of-3 search terms
+      # - nhs_number and any hosp number
+      # - nhs_number and dob
+      # - hosp number and dob
+      #
+      # e.g.
+      #   where
+      #   (
+      #     fm.nhs_number = p.nhs_number
+      #     and (
+      #       fm.local_patient_id = p.local_patient_id or
+      #       fm.local_patient_id_2 = p.local_patient_id_2 or etc...
+      #     )
+      #   )
+      #   or (
+      #     fm.nhs_number = p.nhs_number
+      #     and fm.dob = p.born_on
+      #   )
+      #   or
+      #   (
+      #     (
+      #       fm.local_patient_id = p.local_patient_id or
+      #       fm.local_patient_id_2 = p.local_patient_id_2 or etc..
+      #     )
+      #     and fm.dob = p.born_on
+      #  )
+      #
+      def scoped_by_patient
         scope = Renalware::Feeds::Message.none
+        scope.or(
+          Message
+            .where(nhs_number: patient.nhs_number)
+            .and(hospital_numbers_where_clause)
+        )
+        if patient.born_on.present?
+          scope.or(
+            Message
+              .where(dob: patient.born_on, nhs_number: patient.nhs_number)
+          )
+          scope.or(
+            Message
+              .where(dob: patient.born_on)
+              .and(hospital_numbers_where_clause)
+          )
+        end
+        scope
+      end
+
+      def hospital_numbers_where_clause
         PATIENT_IDENTIFICATION_COLUMNS.each do |col|
           if patient.public_send(col).present?
             scope = scope.or(Message.where(col => patient.public_send(col)))
           end
         end
-        scope
       end
 
-      def feed_messages_scoped_by_message_type
+      def final_pathology_feed_messages
         Renalware::Feeds::Message
           .where(message_type: "ORU", event_type: "R01")
-          .where.not(processed: true)
+          .where(orc_order_status: "CM") # ie completed
+          .where.not(processed: true) # could be nil or false
       end
     end
   end
