@@ -13,6 +13,7 @@ module Renalware::Feeds
           type: "::message type code::",
           message_type: "ADT",
           event_type: "A31",
+          orc_order_status: "CM",
           header_id: "::header id::",
           to_hl7: "::message body::",
           patient_identification: double(
@@ -31,6 +32,13 @@ module Renalware::Feeds
 
       it "persists the payload" do
         expect { service.call(hl7_message) }.to change(Message, :count).by(1)
+
+        expect(Message.last).to have_attributes(
+          orc_order_status: "CM",
+          header_id: "::header id::",
+          message_type: "ADT",
+          event_type: "A31"
+        )
       end
 
       describe "patient identifiers => local_patient_ids mapping" do
@@ -65,12 +73,13 @@ module Renalware::Feeds
         # | local_patient_id_3 |	HOSP3 |	HOSPY  |	N
         # | local_patient_id_4 |	HOSP4 |	HOSP4  |	Y
         # | local_patient_id_5 |	nil   | HOSP5  |	N
-        it "silenty fails to update unmatched data" do
+        it "silently fails to update unmatched data" do
           hl7_message = instance_double(
             HL7Message,
             type: "::message type code::",
             message_type: "ADT",
             event_type: "A31",
+            orc_order_status: nil,
             header_id: "::header id::",
             to_hl7: "::message body::",
             patient_identification: double(
@@ -112,6 +121,7 @@ module Renalware::Feeds
             type: "::message type code::",
             message_type: "ADT",
             event_type: "A31",
+            orc_order_status: nil,
             header_id: "::header id::",
             to_hl7: "::message body::",
             patient_identification: double(

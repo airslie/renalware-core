@@ -217,6 +217,23 @@ CREATE TYPE renalware.enum_feed_log_type AS ENUM (
 
 
 --
+-- Name: enum_hl7_orc_order_status; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.enum_hl7_orc_order_status AS ENUM (
+    'A',
+    'CA',
+    'CM',
+    'DC',
+    'ER',
+    'HD',
+    'IP',
+    'RP',
+    'SC'
+);
+
+
+--
 -- Name: feed_outgoing_document_state; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -5089,7 +5106,8 @@ CREATE TABLE renalware.feed_messages (
     local_patient_id_2 character varying,
     local_patient_id_3 character varying,
     local_patient_id_4 character varying,
-    local_patient_id_5 character varying
+    local_patient_id_5 character varying,
+    orc_order_status renalware.enum_hl7_orc_order_status
 );
 
 
@@ -7111,6 +7129,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -27844,6 +27872,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230714135534'),
 ('20230718171106'),
 ('20230808150041'),
-('20230816111543');
+('20230816111543'),
+('20230825083329');
 
 
