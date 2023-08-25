@@ -148,6 +148,11 @@ module Renalware
         Array(self[:ORC]).first&.order_status
       end
 
+      def patient_dob
+        dob = self[:PID]&.patient_dob
+        Date.parse(dob) if dob.present?
+      end
+
       def patient_identification
         Renalware::Feeds::PatientIdentification.new(self[:PID])
       end
