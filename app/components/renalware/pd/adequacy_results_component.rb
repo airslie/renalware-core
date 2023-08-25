@@ -14,7 +14,7 @@ module Renalware
 
       def results
         @results ||= begin
-          @pagination, @results = pagy(scope, items: 6) # , link_extra: "data-remote='true'")
+          @pagination, @results = pagy(scope, items: 6)
           @results
         end
       end

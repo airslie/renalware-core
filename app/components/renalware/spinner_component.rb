@@ -8,9 +8,9 @@ module Renalware
   # slim:
   #   = turbo_frame_tag "mydiv" do
   #     = render Renalware::SpinnerComponent.new do |spinner|
-  #       = spinner.pre_content do
+  #       = spinner.with_pre_content do
   #         / content above the spinner/main content that does not change. A title etc?
-  #       = spinner.main_content do
+  #       = spinner.with_main_content do
   #        / content here will be overlaid with a spinner svg during a turboframe busy event
   #        / for any frame wrapping SpinnerComponent
   #

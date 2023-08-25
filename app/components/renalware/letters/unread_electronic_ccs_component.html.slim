@@ -2,6 +2,6 @@ article.electonic_ccs
   header
     h2= t(".title")
   - if unread_electronic_ccs.any?
-    = render "renalware/letters/electronic_receipts/table", receipts: unread_electronic_ccs
+    = render "renalware/letters/electronic_receipts/table", receipts: unread_electronic_ccs, current_user: current_user
   - else
     p.empty-section= t(".none")

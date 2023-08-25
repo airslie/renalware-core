@@ -5,12 +5,12 @@
 
   = turbo_frame_tag "path" do
     = render Renalware::SpinnerComponent.new do |spinner|
-      = spinner.pre_content do
+      = spinner.with_pre_content do
         = render "renalware/pathology/turbo_code_group_filter",
                  patient: patient,
                  filter_form: filter_form,
                  url: patient_pathology_current_observations_path(patient)
-      = spinner.main_content do
+      = spinner.with_main_content do
         .grid-curr-observations.grid-flow-row.auto-rows-auto.mt-6(data-controller="grid-row-auto-span")
           - observation_set.each_display_group do |observations, group_number|
             - subgroup_border_colour = (filter_form.code_group.subgroup_colours || [])[group_number - 1]

@@ -5,7 +5,6 @@ require_relative "login_macros"
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include Devise::Test::ControllerHelpers, type: :component
 
   %i(feature system request component).each do |type|
     config.include Warden::Test::Helpers, type: type

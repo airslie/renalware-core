@@ -1,6 +1,9 @@
 {
   "version": "0.2",
-  "ignorePaths": [],
+  "ignorePaths": [
+    "**/*.pt.yml",
+    "**/seeds/**/*.*"
+  ],
   "dictionaryDefinitions": [],
   "dictionaries": [],
   "language": "en-GB",

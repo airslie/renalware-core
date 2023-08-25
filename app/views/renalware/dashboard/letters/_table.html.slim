@@ -9,4 +9,4 @@ table.auto-layout.letters
       th.col-width-small
 
   tbody
-    = render partial: "renalware/dashboard/letters/letter", collection: letters
+    = render partial: "renalware/dashboard/letters/letter", collection: letters, locals: { current_user: current_user }
