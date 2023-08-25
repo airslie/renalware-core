@@ -15,6 +15,7 @@ module Renalware::Feeds
           event_type: "A31",
           orc_order_status: "CM",
           header_id: "::header id::",
+          patient_dob: Date.parse("20010101"),
           to_hl7: "::message body::",
           patient_identification: double(
             internal_id: "123",
@@ -37,7 +38,8 @@ module Renalware::Feeds
           orc_order_status: "CM",
           header_id: "::header id::",
           message_type: "ADT",
-          event_type: "A31"
+          event_type: "A31",
+          dob: Date.parse("20010101")
         )
       end
 
@@ -80,6 +82,7 @@ module Renalware::Feeds
             message_type: "ADT",
             event_type: "A31",
             orc_order_status: nil,
+            patient_dob: Date.parse("20010101"),
             header_id: "::header id::",
             to_hl7: "::message body::",
             patient_identification: double(
@@ -122,6 +125,7 @@ module Renalware::Feeds
             message_type: "ADT",
             event_type: "A31",
             orc_order_status: nil,
+            patient_dob: Date.parse("20010101"),
             header_id: "::header id::",
             to_hl7: "::message body::",
             patient_identification: double(

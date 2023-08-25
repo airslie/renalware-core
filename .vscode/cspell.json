@@ -341,6 +341,10 @@
     "xsddoc"
   ],
   "ignoreWords": [
+    "BBKA",
+    "HOSPX",
+    "NIBC",
+    "RABBITHOLE",
     "xtitle",
     "ytitle"
   ],

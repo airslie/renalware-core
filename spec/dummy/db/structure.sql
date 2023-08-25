@@ -5107,7 +5107,8 @@ CREATE TABLE renalware.feed_messages (
     local_patient_id_3 character varying,
     local_patient_id_4 character varying,
     local_patient_id_5 character varying,
-    orc_order_status renalware.enum_hl7_orc_order_status
+    orc_order_status renalware.enum_hl7_orc_order_status,
+    dob date
 );
 
 
@@ -7129,16 +7130,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -27873,6 +27864,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230718171106'),
 ('20230808150041'),
 ('20230816111543'),
-('20230825083329');
+('20230825083329'),
+('20230825104746');
 
 

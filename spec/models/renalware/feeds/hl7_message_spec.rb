@@ -22,6 +22,12 @@ module Renalware::Feeds
       msg
     end
 
+    describe "#patient_dob" do
+      it "extracts the PID.5 Date of birth" do
+        expect(decorator.patient_dob).to eq(Date.parse("19880924"))
+      end
+    end
+
     describe "#orc_order_status" do
       context "when an ORC segment exists in the HL7 message" do
         it "extracts the ORC .5 Order Status" do

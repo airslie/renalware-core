@@ -19,6 +19,7 @@ module Renalware
           body: hl7_message.to_s,
           body_hash: body_hash,
           orc_order_status: hl7_message.orc_order_status,
+          dob: hl7_message.patient_dob,
           nhs_number: hl7_message.patient_identification&.nhs_number,
           patient_identifiers: hl7_message.patient_identification&.hospital_identifiers,
           **mapped_hash_of_local_patient_ids(hl7_message.patient_identification)
