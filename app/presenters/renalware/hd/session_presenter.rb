@@ -32,6 +32,7 @@ module Renalware
                to: :dialysis, allow_nil: true
       delegate :unit_code,
                :name,
+               :unit_type,
                :renal_registry_code,
                to: :hospital_unit,
                prefix: true, allow_nil: true
