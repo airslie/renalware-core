@@ -22,7 +22,6 @@ module Renalware
       pattr_initialize [:patient!]
 
       PATIENT_IDENTIFICATION_COLUMNS = %i(
-        nhs_number
         local_patient_id
         local_patient_id_2
         local_patient_id_3
@@ -31,7 +30,7 @@ module Renalware
       ).freeze
 
       def call
-        final_pathology_feed_messages
+        complete_pathology_feed_messages
           .merge(scoped_by_patient)
           .order(created_at: :asc)
       end
@@ -64,41 +63,56 @@ module Renalware
       #     )
       #     and fm.dob = p.born_on
       #  )
+      # In fact what AR comes uo with using our logic below is e.g.:
       #
+      # select
+      #   "feed_messages" .*
+      # from
+      #   "feed_messages"
+      # where
+      #   "feed_messages"."message_type" = 'ORU'
+      #   and "feed_messages"."event_type" = 'R01'
+      #   and "feed_messages"."orc_order_status" = 'CM'
+      #   and "feed_messages"."processed" != true
+      #   and ("feed_messages"."nhs_number" = '4001540037'
+      #     and ("feed_messages"."local_patient_id" = 'Z99994'
+      #       or "feed_messages"."local_patient_id_5" = 'LOCAL_PATIENT_ID_5'
+      #       or "feed_messages"."dob" = '1988-01-01')
+      #     or "feed_messages"."dob" = '1988-01-01'
+      #     and ("feed_messages"."local_patient_id" = 'Z99994'
+      #       or "feed_messages"."local_patient_id_5" = 'LOCAL_PATIENT_ID_5'))
+      # order by
+      #   "feed_messages"."created_at" asc
       def scoped_by_patient
-        scope = Renalware::Feeds::Message.none
-        scope.or(
-          Message
-            .where(nhs_number: patient.nhs_number)
-            .and(hospital_numbers_where_clause)
+        scope = Message.none
+        scope = scope.or(
+          Message.where(nhs_number: patient.nhs_number).merge(or_where_hospital_numbers)
         )
         if patient.born_on.present?
-          scope.or(
-            Message
-              .where(dob: patient.born_on, nhs_number: patient.nhs_number)
-          )
-          scope.or(
-            Message
-              .where(dob: patient.born_on)
-              .and(hospital_numbers_where_clause)
-          )
+          scope = scope.or(Message.where(dob: patient.born_on, nhs_number: patient.nhs_number))
+          scope = scope.or(Message.where(dob: patient.born_on).merge(or_where_hospital_numbers))
         end
         scope
       end
 
-      def hospital_numbers_where_clause
+      def or_where_hospital_numbers
+        scope = Message.none
         PATIENT_IDENTIFICATION_COLUMNS.each do |col|
           if patient.public_send(col).present?
             scope = scope.or(Message.where(col => patient.public_send(col)))
           end
         end
+        scope
       end
 
-      def final_pathology_feed_messages
+      # Select only complete (not partial) ORU messages that have not already been imported
+      def complete_pathology_feed_messages
         Renalware::Feeds::Message
-          .where(message_type: "ORU", event_type: "R01")
-          .where(orc_order_status: "CM") # ie completed
-          .where.not(processed: true) # could be nil or false
+          .where(
+            message_type: "ORU",
+            event_type: "R01",
+            orc_order_status: "CM" # ie completed
+          ).where.not(processed: true) # could be nil or false if unprocessed, so using !true
       end
     end
   end

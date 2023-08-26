@@ -2,15 +2,15 @@
 
 require "rails_helper"
 
-# rubocop:disable Layout/LineLength
 module Renalware
   module Feeds
     describe ReplayableHL7PathologyMessagesQuery do
-      let(:sample_nhs_number) { "4001540037" }
+      let(:nhs_num) { "4001540037" }
+      let(:dob) { Date.parse("2001-01-01") }
 
       def create_message(
         nhs_number: nil,
-        body: "some-hl7",
+        body: "some-hl7#{Time.zone.now.to_i}",
         created_at: Time.zone.now,
         processed: false,
         **
@@ -19,6 +19,7 @@ module Renalware
           nhs_number: nhs_number,
           message_type: :ORU,
           event_type: :R01,
+          orc_order_status: "CM",
           header_id: 1,
           body: body,
           created_at: created_at,
@@ -28,22 +29,94 @@ module Renalware
         )
       end
 
-      it "finds messages by nhs_number" do
-        patient = build(:patient, nhs_number: sample_nhs_number)
+      it "finds messages by nhs_number + DOB (oldest first) if local_patient_ids don't match" do
+        patient = build(:patient, nhs_number: nhs_num, born_on: dob)
         create_message(nhs_number: "nomatch")
-        msg_matched1 = create_message(nhs_number: sample_nhs_number, body: "y", created_at: 1.day.ago)
-        msg_matched2 = create_message(nhs_number: sample_nhs_number, body: "x", created_at: 2.days.ago)
+        msg_matched1 = create_message(nhs_number: nhs_num, created_at: 1.day.ago, dob: dob)
+        msg_matched2 = create_message(
+          nhs_number: nhs_num,
+          created_at: 2.days.ago,
+          dob: dob,
+          local_patient_id: "does not match patient's local_patient_id",
+          local_patient_id_2: "does not match patient's local_patient_id_2"
+        )
 
         results = described_class.new(patient: patient).call
 
         expect(results).to eq([msg_matched2, msg_matched1])
       end
 
+      describe "matrix of patient <=> feed_message match conditions" do
+        [
+          {
+            comment: "no matching data",
+            patient: { nhs_number: "a", born_on: "2001-01-01" },
+            feed_message: { nhs_number: "b", dob: "111-01-01" },
+            match: false
+          },
+          {
+            comment: "nhs_number match, dob match",
+            patient: { nhs_number: "4001540037", born_on: "2001-01-01" },
+            feed_message: { nhs_number: "4001540037", dob: "2001-01-01" },
+            match: true
+          },
+          {
+            comment: "no nhs_number match, dob match",
+            patient: { nhs_number: "1111111111", born_on: "2001-01-01" },
+            feed_message: { nhs_number: "4001540037", dob: "2001-01-01" },
+            match: false
+          },
+          {
+            comment: "nhs_number match, dob no match",
+            patient: { nhs_number: "4001540037", born_on: "1111-01-01" },
+            feed_message: { nhs_number: "4001540037", dob: "2001-01-01" },
+            match: false
+          },
+          {
+            comment: "no nhs_number match, dob match, local_patient_id match",
+            patient: { nhs_number: "4001540037", born_on: "2001-01-01", local_patient_id: "123" },
+            feed_message: { nhs_number: "nomatch", dob: "2001-01-01", local_patient_id: "123" },
+            match: true
+          },
+          {
+            comment: "no nhs_number match, dob match, local_patient_id_2 match",
+            patient: { nhs_number: "", born_on: "2001-01-01", local_patient_id_2: "222" },
+            feed_message: { nhs_number: "nomatch", dob: "2001-01-01", local_patient_id_2: "222" },
+            match: true
+          },
+          {
+            comment: "no nhs_number match, dob match, local_patient_id_3 match",
+            patient: { nhs_number: "", born_on: "2001-01-01", local_patient_id_3: "333" },
+            feed_message: { nhs_number: "nomatch", dob: "2001-01-01", local_patient_id_3: "333" },
+            match: true
+          },
+          {
+            comment: "no nhs_number match, dob match, local_patient_id_4 match",
+            patient: { nhs_number: "", born_on: "2001-01-01", local_patient_id_4: "444" },
+            feed_message: { nhs_number: "nomatch", dob: "2001-01-01", local_patient_id_4: "444" },
+            match: true
+          }
+        ].each do |example|
+          it example[:comment] do
+            patient = build(:patient, local_patient_id: nil, **example[:patient])
+            message = create_message(**example[:feed_message])
+
+            results = described_class.new(patient: patient).call
+
+            if example[:match]
+              expect(results).to eq([message])
+            else
+              expect(results).to be_empty
+            end
+          end
+        end
+      end
+
       it "does not find messages that are already processed" do
-        patient = build(:patient, nhs_number: sample_nhs_number)
-        create_message(nhs_number: "nomatch")
-        create_message(nhs_number: sample_nhs_number, processed: true)
-        unprocessed_msg = create_message(nhs_number: sample_nhs_number, processed: false)
+        patient = build(:patient, nhs_number: nhs_num, born_on: dob)
+        create_message(nhs_number: "nomatch", dob: dob) # no hit
+        create_message(nhs_number: nhs_num, dob: dob, processed: true) # a miss as processed is true
+        unprocessed_msg = create_message(nhs_number: nhs_num, dob: dob, processed: false)
 
         results = described_class.new(patient: patient).call
 
@@ -57,69 +130,28 @@ module Renalware
         local_patient_id_4
         local_patient_id_5
       ).each do |local_id_attribute|
-        it "finds messages by a patient's #{local_id_attribute}" do
+        it "finds messages by a patient's #{local_id_attribute} if an nhs_number also matches" do
           hospno = local_id_attribute.to_s.upcase
-          patient = build(:patient, nhs_number: nil, local_id_attribute => hospno)
+          patient = build(:patient, nhs_number: nhs_num, local_id_attribute => hospno)
           # This message is for another patient and will never be found
           create_message(local_id_attribute => "nomatch")
           # These 2 messages will be returned, oldest first
-          msg_matched2 = create_message(local_id_attribute => hospno, body: "x", created_at: 2.days.ago)
-          msg_matched1 = create_message(local_id_attribute => hospno, body: "y", created_at: 1.day.ago)
+          msg_matched2 = create_message(
+            local_id_attribute => hospno,
+            nhs_number: nhs_num,
+            created_at: 2.days.ago
+          )
+          msg_matched1 = create_message(
+            local_id_attribute => hospno,
+            nhs_number: nhs_num,
+            created_at: 1.day.ago
+          )
 
           results = described_class.call(patient: patient)
 
           expect(results.to_a).to eq([msg_matched2, msg_matched1])
         end
       end
-
-      context "when the patient has an nhs_number and a local_patient_id" do
-        context "when there are two messages, one with a matching nhs_number and one " \
-                "with a matching local_patient_id" do
-          it "finds both messages" do
-            # patient with both an NHS and hospno
-            patient = build(:patient, nhs_number: sample_nhs_number, local_patient_id: "P1")
-            # This message is for another patient and will never be found
-            create_message(local_patient_id: "nomatch", nhs_number: "1741581516")
-            # These 2 messages will be returned, oldest first. The first matches on nhs_number and
-            # the second matches on local_patient_id
-            msg_matched2 = create_message(nhs_number: sample_nhs_number, body: "x", created_at: 2.days.ago)
-            msg_matched1 = create_message(local_patient_id: "P1", body: "y", created_at: 1.day.ago)
-
-            results = described_class.new(patient: patient).call
-
-            expect(results.to_a).to eq([msg_matched2, msg_matched1])
-          end
-        end
-
-        context "when there is a potentially matching message but it's nhs number matches " \
-                "but the local_patient_id does not" do
-          it "still matches it" do
-            # patient with both an NHS and local_patient_id
-            patient = build(:patient, nhs_number: sample_nhs_number, local_patient_id: "P1")
-            # Note only one number matches
-            msg = create_message(nhs_number: sample_nhs_number, local_patient_id: "P2")
-
-            results = described_class.new(patient: patient).call
-
-            expect(results.to_a).to eq([msg])
-          end
-        end
-
-        context "when there is a potentially matching message but it's local_patient_id matches " \
-                "but the nhs_number does not" do
-          it "still matches it" do
-            # patient with both an NHS and local_patient_id
-            patient = build(:patient, nhs_number: sample_nhs_number, local_patient_id: "P1")
-            # Note only one number matches
-            msg = create_message(nhs_number: "1791963196", local_patient_id: "P1")
-
-            results = described_class.new(patient: patient).call
-
-            expect(results.to_a).to eq([msg])
-          end
-        end
-      end
     end
   end
 end
-# rubocop:enable Layout/LineLength
