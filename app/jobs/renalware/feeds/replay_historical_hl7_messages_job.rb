@@ -12,12 +12,11 @@
 #             -> Renalware::Clinics::Ingestion::MessageListener
 #             -> Renalware::Pathology::KFRE::Listener
 #             -> ... extensible list
-
 module Renalware
   module Feeds
-    class PatientListener
-      def patient_added(patient)
-        ReplayHistoricalHL7MessagesJob.perform_later(patient)
+    class ReplayHistoricalHL7MessagesJob
+      def perform
+        ReplayHistoricalHL7Messages.call(patient: patient)
       end
     end
   end
