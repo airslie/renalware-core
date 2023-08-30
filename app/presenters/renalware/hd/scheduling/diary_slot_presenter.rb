@@ -58,8 +58,8 @@ module Renalware
           patients.map do |patient|
             hd_profile = patient.hd_profile
             text = "#{patient.to_s(:long)} - " \
-                  "#{hd_profile&.schedule_definition} " \
-                  "#{hd_profile&.hospital_unit&.unit_code}".strip.truncate(65)
+                   "#{hd_profile&.schedule_definition} " \
+                   "#{hd_profile&.hospital_unit&.unit_code}".strip.truncate(65)
             OpenStruct.new(id: patient.id, text: text)
           end
         end
