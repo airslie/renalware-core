@@ -46,12 +46,8 @@ Renalware.configure do |config|
     "Renalware::Pathology::CreateObservationRequests" => [],
     "Renalware::Events::CreateEvent" => [],
     "Renalware::Events::UpdateEvent" => [],
-    "Renalware::Feeds::ReplayHistoricalHL7Messages" => [
-      "Renalware::Patients::Ingestion::MessageListener",
-      "Renalware::Pathology::Ingestion::AKIListener",
-      "Renalware::Pathology::Ingestion::MessageListener",
-      "Renalware::Clinics::Ingestion::MessageListener",
-      "Renalware::Pathology::KFRE::Listener"
+    "Renalware::Feeds::ReplayHistoricalHL7PathologyMessages" => [
+      "Renalware::Pathology::Ingestion::MessageListener"
     ],
     "Renalware::Feeds::MessageProcessor" => [
       "Renalware::Patients::Ingestion::MessageListener",

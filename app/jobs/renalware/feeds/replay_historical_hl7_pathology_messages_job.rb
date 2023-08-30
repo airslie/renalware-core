@@ -8,12 +8,11 @@
 #           -> broadcast oru_message_arrived event
 #             -> Renalware::Pathology::Ingestion::MessageListener
 #             -> ... extensible list
-
 module Renalware
   module Feeds
-    class PatientListener
-      def patient_added(patient)
-        ReplayHistoricalHL7PathologyMessagesJob.perform_later(patient)
+    class ReplayHistoricalHL7PathologyMessagesJob
+      def perform
+        ReplayHistoricalHL7PathologyMessages.call(patient: patient)
       end
     end
   end
