@@ -35,6 +35,7 @@ import AddTopHorizontalScrollbarController from "./add_top_horizontal_scrollbar_
 import PreviewController from "./preview_controller"
 import ReadMoreController from "./read_more_controller"
 import GridRowAutoSpanController from "./grid_row_auto_span_controller"
+import TableColumnHoverController from "./table_column_hover_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -86,4 +87,6 @@ application.register(
 application.register("preview", PreviewController)
 application.register("read-more", ReadMoreController)
 application.register("grid-row-auto-span", GridRowAutoSpanController)
+application.register("table_column_hover", TableColumnHoverController)
+
 

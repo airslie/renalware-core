@@ -1,7 +1,7 @@
 = render partial: "/renalware/pathology/charts/modal_dialog_placeholder"
 
-table#observations.column_hover
-  / colgroups are required for js highlighting of column on hover - see table.js
+table#observations.column_hover(data-controller="table_column_hover")
+  / colgroups are required for js highlighting of column on hover
   - (table.observation_descriptions.size + 1).times do
     <colgroup></colgroup>
   thead
