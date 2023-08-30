@@ -346,7 +346,9 @@
     "NIBC",
     "RABBITHOLE",
     "xtitle",
-    "ytitle"
+    "ytitle",
+    "colgroups",
+    "unhighlight"
   ],
   "import": []
 }

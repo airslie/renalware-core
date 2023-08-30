@@ -1279,7 +1279,7 @@ var addToUnscopables$3 = function (key) {
   ArrayPrototype$1[UNSCOPABLES][key] = true;
 };
 
-var $$n = _export;
+var $$o = _export;
 var $find = arrayIteration.find;
 var addToUnscopables$2 = addToUnscopables$3;
 var FIND = 'find';
@@ -1292,7 +1292,7 @@ if (FIND in []) Array(1)[FIND](function () {
 
 // `Array.prototype.find` method
 // https://tc39.es/ecma262/#sec-array.prototype.find
-$$n({
+$$o({
   target: 'Array',
   proto: true,
   forced: SKIPS_HOLES$1
@@ -1314,7 +1314,7 @@ var entryUnbind$3 = function (CONSTRUCTOR, METHOD) {
 var entryUnbind$2 = entryUnbind$3;
 entryUnbind$2('Array', 'find');
 
-var $$m = _export;
+var $$n = _export;
 var $findIndex = arrayIteration.findIndex;
 var addToUnscopables$1 = addToUnscopables$3;
 var FIND_INDEX = 'findIndex';
@@ -1327,7 +1327,7 @@ if (FIND_INDEX in []) Array(1)[FIND_INDEX](function () {
 
 // `Array.prototype.findIndex` method
 // https://tc39.es/ecma262/#sec-array.prototype.findindex
-$$m({
+$$n({
   target: 'Array',
   proto: true,
   forced: SKIPS_HOLES
@@ -1519,7 +1519,7 @@ var objectSetPrototypeOf = Object.setPrototypeOf || ('__proto__' in {} ? functio
   };
 }() : undefined);
 
-var $$l = _export;
+var $$m = _export;
 var call$c = functionCall;
 var FunctionName = functionName;
 var isCallable$7 = isCallable$n;
@@ -1613,7 +1613,7 @@ var defineIterator$3 = function (Iterable, NAME, IteratorConstructor, next, DEFA
       if (BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME || !(KEY in IterablePrototype)) {
         defineBuiltIn$6(IterablePrototype, KEY, methods[KEY]);
       }
-    } else $$l({
+    } else $$m({
       target: NAME,
       proto: true,
       forced: BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME
@@ -1828,7 +1828,7 @@ var checkCorrectnessOfIteration$3 = function (exec, SKIP_CLOSING) {
   return ITERATION_SUPPORT;
 };
 
-var $$k = _export;
+var $$l = _export;
 var from = arrayFrom;
 var checkCorrectnessOfIteration$2 = checkCorrectnessOfIteration$3;
 var INCORRECT_ITERATION = !checkCorrectnessOfIteration$2(function (iterable) {
@@ -1838,7 +1838,7 @@ var INCORRECT_ITERATION = !checkCorrectnessOfIteration$2(function (iterable) {
 
 // `Array.from` method
 // https://tc39.es/ecma262/#sec-array.from
-$$k({
+$$l({
   target: 'Array',
   stat: true,
   forced: INCORRECT_ITERATION
@@ -2004,7 +2004,7 @@ var freezing = !fails$5(function () {
   return Object.isExtensible(Object.preventExtensions({}));
 });
 
-var $$j = _export;
+var $$k = _export;
 var uncurryThis$5 = functionUncurryThis;
 var hiddenKeys = hiddenKeys$5;
 var isObject$6 = isObject$e;
@@ -2080,7 +2080,7 @@ var enable = function () {
       }
       return result;
     };
-    $$j({
+    $$k({
       target: 'Object',
       stat: true,
       forced: true
@@ -2182,7 +2182,7 @@ var inheritIfRequired$1 = function ($this, dummy, Wrapper) {
   return $this;
 };
 
-var $$i = _export;
+var $$j = _export;
 var global$e = global$K;
 var uncurryThis$4 = functionUncurryThis;
 var isForced$1 = isForced_1;
@@ -2272,7 +2272,7 @@ var collection$2 = function (CONSTRUCTOR_NAME, wrapper, common) {
     if (IS_WEAK && NativePrototype.clear) delete NativePrototype.clear;
   }
   exported[CONSTRUCTOR_NAME] = Constructor;
-  $$i({
+  $$j({
     global: true,
     constructor: true,
     forced: Constructor != NativeConstructor
@@ -2616,13 +2616,13 @@ var objectAssign = !$assign || fails$3(function () {
   return T;
 } : $assign;
 
-var $$h = _export;
+var $$i = _export;
 var assign$1 = objectAssign;
 
 // `Object.assign` method
 // https://tc39.es/ecma262/#sec-object.assign
 // eslint-disable-next-line es-x/no-object-assign -- required for testing
-$$h({
+$$i({
   target: 'Object',
   stat: true,
   arity: 2,
@@ -2675,7 +2675,7 @@ var errorStackInstallable = !fails$2(function () {
   return error.stack !== 7;
 });
 
-var $$g = _export;
+var $$h = _export;
 var global$d = global$K;
 var isPrototypeOf = objectIsPrototypeOf;
 var getPrototypeOf = objectGetPrototypeOf;
@@ -2724,7 +2724,7 @@ var AggregateErrorPrototype = $AggregateError.prototype = create(Error$1.prototy
 
 // `AggregateError` constructor
 // https://tc39.es/ecma262/#sec-aggregate-error-constructor
-$$g({
+$$h({
   global: true,
   constructor: true,
   arity: 2
@@ -3097,7 +3097,7 @@ newPromiseCapability$2.f = function (C) {
   return new PromiseCapability(C);
 };
 
-var $$f = _export;
+var $$g = _export;
 var IS_NODE = engineIsNode;
 var global$3 = global$K;
 var call$5 = functionCall;
@@ -3360,7 +3360,7 @@ if (FORCED_PROMISE_CONSTRUCTOR$4) {
     }
   }
 }
-$$f({
+$$g({
   global: true,
   constructor: true,
   wrap: true,
@@ -3378,7 +3378,7 @@ var promiseStaticsIncorrectIteration = FORCED_PROMISE_CONSTRUCTOR$3 || !checkCor
   NativePromiseConstructor$2.all(iterable).then(undefined, function () {/* empty */});
 });
 
-var $$e = _export;
+var $$f = _export;
 var call$4 = functionCall;
 var aCallable$3 = aCallable$9;
 var newPromiseCapabilityModule$4 = newPromiseCapability$2;
@@ -3388,7 +3388,7 @@ var PROMISE_STATICS_INCORRECT_ITERATION$1 = promiseStaticsIncorrectIteration;
 
 // `Promise.all` method
 // https://tc39.es/ecma262/#sec-promise.all
-$$e({
+$$f({
   target: 'Promise',
   stat: true,
   forced: PROMISE_STATICS_INCORRECT_ITERATION$1
@@ -3421,7 +3421,7 @@ $$e({
   }
 });
 
-var $$d = _export;
+var $$e = _export;
 var FORCED_PROMISE_CONSTRUCTOR$2 = promiseConstructorDetection.CONSTRUCTOR;
 var NativePromiseConstructor$1 = promiseNativeConstructor;
 var getBuiltIn$3 = getBuiltIn$a;
@@ -3431,7 +3431,7 @@ var NativePromisePrototype$1 = NativePromiseConstructor$1 && NativePromiseConstr
 
 // `Promise.prototype.catch` method
 // https://tc39.es/ecma262/#sec-promise.prototype.catch
-$$d({
+$$e({
   target: 'Promise',
   proto: true,
   forced: FORCED_PROMISE_CONSTRUCTOR$2,
@@ -3452,7 +3452,7 @@ if (isCallable$1(NativePromiseConstructor$1)) {
   }
 }
 
-var $$c = _export;
+var $$d = _export;
 var call$3 = functionCall;
 var aCallable$2 = aCallable$9;
 var newPromiseCapabilityModule$3 = newPromiseCapability$2;
@@ -3462,7 +3462,7 @@ var PROMISE_STATICS_INCORRECT_ITERATION = promiseStaticsIncorrectIteration;
 
 // `Promise.race` method
 // https://tc39.es/ecma262/#sec-promise.race
-$$c({
+$$d({
   target: 'Promise',
   stat: true,
   forced: PROMISE_STATICS_INCORRECT_ITERATION
@@ -3482,14 +3482,14 @@ $$c({
   }
 });
 
-var $$b = _export;
+var $$c = _export;
 var call$2 = functionCall;
 var newPromiseCapabilityModule$2 = newPromiseCapability$2;
 var FORCED_PROMISE_CONSTRUCTOR$1 = promiseConstructorDetection.CONSTRUCTOR;
 
 // `Promise.reject` method
 // https://tc39.es/ecma262/#sec-promise.reject
-$$b({
+$$c({
   target: 'Promise',
   stat: true,
   forced: FORCED_PROMISE_CONSTRUCTOR$1
@@ -3513,7 +3513,7 @@ var promiseResolve$2 = function (C, x) {
   return promiseCapability.promise;
 };
 
-var $$a = _export;
+var $$b = _export;
 var getBuiltIn$2 = getBuiltIn$a;
 var FORCED_PROMISE_CONSTRUCTOR = promiseConstructorDetection.CONSTRUCTOR;
 var promiseResolve$1 = promiseResolve$2;
@@ -3521,7 +3521,7 @@ getBuiltIn$2('Promise');
 
 // `Promise.resolve` method
 // https://tc39.es/ecma262/#sec-promise.resolve
-$$a({
+$$b({
   target: 'Promise',
   stat: true,
   forced: FORCED_PROMISE_CONSTRUCTOR
@@ -3531,7 +3531,7 @@ $$a({
   }
 });
 
-var $$9 = _export;
+var $$a = _export;
 var call$1 = functionCall;
 var aCallable$1 = aCallable$9;
 var newPromiseCapabilityModule$1 = newPromiseCapability$2;
@@ -3540,7 +3540,7 @@ var iterate$1 = iterate$7;
 
 // `Promise.allSettled` method
 // https://tc39.es/ecma262/#sec-promise.allsettled
-$$9({
+$$a({
   target: 'Promise',
   stat: true
 }, {
@@ -3583,7 +3583,7 @@ $$9({
   }
 });
 
-var $$8 = _export;
+var $$9 = _export;
 var call = functionCall;
 var aCallable = aCallable$9;
 var getBuiltIn$1 = getBuiltIn$a;
@@ -3594,7 +3594,7 @@ var PROMISE_ANY_ERROR = 'No one promise resolved';
 
 // `Promise.any` method
 // https://tc39.es/ecma262/#sec-promise.any
-$$8({
+$$9({
   target: 'Promise',
   stat: true
 }, {
@@ -3632,7 +3632,7 @@ $$8({
   }
 });
 
-var $$7 = _export;
+var $$8 = _export;
 var NativePromiseConstructor = promiseNativeConstructor;
 var fails = fails$j;
 var getBuiltIn = getBuiltIn$a;
@@ -3652,7 +3652,7 @@ var NON_GENERIC = !!NativePromiseConstructor && fails(function () {
 
 // `Promise.prototype.finally` method
 // https://tc39.es/ecma262/#sec-promise.prototype.finally
-$$7({
+$$8({
   target: 'Promise',
   proto: true,
   real: true,
@@ -3737,7 +3737,7 @@ var correctIsRegexpLogic = function (METHOD_NAME) {
   return false;
 };
 
-var $$6 = _export;
+var $$7 = _export;
 var uncurryThis = functionUncurryThis;
 var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
 var toLength = toLength$2;
@@ -3759,7 +3759,7 @@ var MDN_POLYFILL_BUG = !CORRECT_IS_REGEXP_LOGIC && !!function () {
 
 // `String.prototype.startsWith` method
 // https://tc39.es/ecma262/#sec-string.prototype.startswith
-$$6({
+$$7({
   target: 'String',
   proto: true,
   forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGEXP_LOGIC
@@ -7369,14 +7369,14 @@ function _toPropertyKey$1(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
-var $$5 = window.$;
+var $$6 = window.$;
 
 // Used when a table has toggleable rows (initially hidden rows that can be toggled open
 // to see e.g. notes or extended details) and each master row and its toggleable sibling are
 // nested in a tbody (this is valid HTML) - ie there are probably two trs per tbody, and the last
 // one is toggleable. If you need anything more complex you'll need to clone or adapt this
 // controller
-var _default$z = /*#__PURE__*/function (_Controller) {
+var _default$A = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7394,7 +7394,7 @@ var _default$z = /*#__PURE__*/function (_Controller) {
       var tbody = event.target.closest("tbody");
       tbody.classList.toggle("toggleable--open");
       // Update masonry - TODO: move to a module
-      $$5(".mgrid > .row").masonry("layout");
+      $$6(".mgrid > .row").masonry("layout");
     }
 
     // Toggle the last tr in each tbody in the current table.
@@ -7414,14 +7414,14 @@ var _default$z = /*#__PURE__*/function (_Controller) {
         tbody.classList.toggle("toggleable--open", !hide);
       });
       // Update masonry - TODO: move to a module
-      $$5(".mgrid > .row").masonry("layout");
+      $$6(".mgrid > .row").masonry("layout");
     }
   }]);
   return _default;
 }(Controller);
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$y = /*#__PURE__*/function (_Controller) {
+var _default$z = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7461,14 +7461,14 @@ var _default$y = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$y, "targets", ["output"]);
-_defineProperty$2(_default$y, "values", {
+_defineProperty$2(_default$z, "targets", ["output"]);
+_defineProperty$2(_default$z, "values", {
   weightSelector: String,
   heightSelector: String
 });
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$x = /*#__PURE__*/function (_Controller) {
+var _default$y = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7505,13 +7505,13 @@ var _default$x = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$x, "targets", ["previousWeight", "output"]);
-_defineProperty$2(_default$x, "values", {
+_defineProperty$2(_default$y, "targets", ["previousWeight", "output"]);
+_defineProperty$2(_default$y, "values", {
   weightSelector: String
 });
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$w = /*#__PURE__*/function (_Controller) {
+var _default$x = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7548,10 +7548,10 @@ var _default$w = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$w, "targets", ["proteinIntake", "output"]);
+_defineProperty$2(_default$x, "targets", ["proteinIntake", "output"]);
 
-var $$4 = window.$;
-var _default$v = /*#__PURE__*/function (_Controller) {
+var $$5 = window.$;
+var _default$w = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7566,21 +7566,21 @@ var _default$v = /*#__PURE__*/function (_Controller) {
       this.containerTarget.classList.toggle("not-administered", !checked);
       this.containerTarget.classList.remove("undecided");
       // The rest of this actions are using jQuery for now.
-      $$4(".authentication", this.containerTarget).toggle(checked);
-      $$4(".authentication", this.containerTarget).toggleClass("disabled-with-faded-overlay", !checked);
-      $$4(".reason-why-not-administered", this.containerTarget).toggle(!checked);
-      $$4("#btn_save_and_witness_later").toggle(checked);
+      $$5(".authentication", this.containerTarget).toggle(checked);
+      $$5(".authentication", this.containerTarget).toggleClass("disabled-with-faded-overlay", !checked);
+      $$5(".reason-why-not-administered", this.containerTarget).toggle(!checked);
+      $$5("#btn_save_and_witness_later").toggle(checked);
     }
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$v, "targets", ["container", "radio"]);
+_defineProperty$2(_default$w, "targets", ["container", "radio"]);
 
 var Rails$3 = window.Rails;
 
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescriptions page.
-var _default$u = /*#__PURE__*/function (_Controller) {
+var _default$v = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7610,10 +7610,10 @@ var _default$u = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$u, "targets", ["form", "printOptions", "printFeedback"]);
+_defineProperty$2(_default$v, "targets", ["form", "printOptions", "printFeedback"]);
 
-var $$3 = window.$;
-var _default$t = /*#__PURE__*/function (_Controller) {
+var $$4 = window.$;
+var _default$u = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7624,18 +7624,18 @@ var _default$t = /*#__PURE__*/function (_Controller) {
     key: "insert",
     value: function insert(event) {
       // TODO: set up the trix editor in each page as data-target="snippets.trix"
-      var modal = $$3("#snippets-modal");
-      var snippetBody = $$3(event.target).parent().closest("tr").find(".body").html();
+      var modal = $$4("#snippets-modal");
+      var snippetBody = $$4(event.target).parent().closest("tr").find(".body").html();
       var trix = document.querySelector("trix-editor");
       trix.editor.insertHTML(snippetBody);
-      $$3(modal).foundation("reveal", "close");
+      $$4(modal).foundation("reveal", "close");
     }
   }]);
   return _default;
 }(Controller);
 
-var $$2 = window.$;
-var _default$s = /*#__PURE__*/function (_Controller) {
+var $$3 = window.$;
+var _default$t = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7646,7 +7646,7 @@ var _default$s = /*#__PURE__*/function (_Controller) {
     key: "initInsertEventNotesIntoTrixEditor",
     value: function initInsertEventNotesIntoTrixEditor(event) {
       event.preventDefault();
-      var notes = $$2(event.target).data("notes");
+      var notes = $$3(event.target).data("notes");
       if (notes && this.trix) {
         this.trix.insertHTML(notes);
       } else {
@@ -7661,11 +7661,11 @@ var _default$s = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$s, "targets", ["trix"]);
+_defineProperty$2(_default$t, "targets", ["trix"]);
 
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescriptions page.
-var _default$r = /*#__PURE__*/function (_Controller) {
+var _default$s = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7695,7 +7695,7 @@ var _default$r = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$r, "targets", ["homeDeliveryDates", "providers"]);
+_defineProperty$2(_default$s, "targets", ["homeDeliveryDates", "providers"]);
 
 /*! (c) Andrea Giammarchi - ISC */
 var self$1 = {};
@@ -20219,7 +20219,7 @@ var highcharts = {exports: {}};
 
 var Highcharts$1 = highcharts.exports;
 
-var _default$q = /*#__PURE__*/function (_Controller) {
+var _default$r = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -20343,11 +20343,11 @@ var _default$q = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$q, "targets", ["chart",
+_defineProperty$2(_default$r, "targets", ["chart",
 // chart container
 "period" // array of period (10y, 3y..) links
 ]);
-_defineProperty$2(_default$q, "values", {
+_defineProperty$2(_default$r, "values", {
   url: String,
   // API endpoint for chart json
   title: String,
@@ -20358,7 +20358,7 @@ _defineProperty$2(_default$q, "values", {
   // eg Kg
   yAxisType: String // linear or logarithmic
 });
-_defineProperty$2(_default$q, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
+_defineProperty$2(_default$r, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
 ]);
 
 var Rails$2 = window.Rails;
@@ -20416,7 +20416,7 @@ var _ = window._;
 //   active
 // - Not quite sure if putting the data attribute config settings in the body
 //   tag is the right thing to do - perhaps should be in a config .js.erb
-var _default$p = /*#__PURE__*/function (_Controller) {
+var _default$q = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -20616,7 +20616,7 @@ var _default$p = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$o = /*#__PURE__*/function (_Controller) {
+var _default$p = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -20640,9 +20640,9 @@ var _default$o = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$o, "targets", ["toggleable"]);
+_defineProperty$2(_default$p, "targets", ["toggleable"]);
 
-var _default$n = /*#__PURE__*/function (_Controller) {
+var _default$o = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -20698,9 +20698,9 @@ var _default$n = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$n, "targets", ["item"]);
+_defineProperty$2(_default$o, "targets", ["item"]);
 
-var _default$m = /*#__PURE__*/function (_Controller) {
+var _default$n = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -20751,7 +20751,7 @@ var _default$m = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$m, "targets", ["tab", "panel"]);
+_defineProperty$2(_default$n, "targets", ["tab", "panel"]);
 
 var highchartsMore = {exports: {}};
 
@@ -24798,9 +24798,9 @@ var More = highchartsMore.exports;
 
 // NB: importing Highcharts rather than the Chart module as could not quite get
 // highcharts-more working using Chart or when both Chart + Highcharts loaded.
-var $$1 = window.$;
+var $$2 = window.$;
 More(Highcharts$1);
-var _default$l = /*#__PURE__*/function (_Controller) {
+var _default$m = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -24811,7 +24811,7 @@ var _default$l = /*#__PURE__*/function (_Controller) {
     key: "connect",
     value: function connect() {
       var _this = this;
-      $$1.getJSON(this.data.get("url"), function (data) {
+      $$2.getJSON(this.data.get("url"), function (data) {
         Highcharts$1.chart(_this.element, {
           chart: {
             scrollablePlotArea: {
@@ -24952,7 +24952,7 @@ var _default$l = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$k = /*#__PURE__*/function (_Controller) {
+var _default$l = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -25155,7 +25155,7 @@ var hasRenderToArg = typeof a === 'string' || a.nodeName,
     new Highcharts.Chart(options, b)
 }
  */
-_defineProperty$2(_default$k, "targets", ["chart"]);
+_defineProperty$2(_default$l, "targets", ["chart"]);
 
 // Controller to enable collapsing elements of a nav/menu to for example
 // allow a more dense menu that can simplifies by hiding/collapsing sections.
@@ -25169,7 +25169,7 @@ _defineProperty$2(_default$k, "targets", ["chart"]);
 //   a(data-action="collapsible#open" data-collapsible-target="link" href="#") Y
 //   div.collapsible(data-collapsible-target="section")
 //     p YYY
-var _default$j = /*#__PURE__*/function (_Controller) {
+var _default$k = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -25200,10 +25200,10 @@ var _default$j = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$j, "targets", ["section", "link"]);
-_defineProperty$2(_default$j, "classes", ["open"]);
+_defineProperty$2(_default$k, "targets", ["section", "link"]);
+_defineProperty$2(_default$k, "classes", ["open"]);
 
-var _default$i = /*#__PURE__*/function (_Controller) {
+var _default$j = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -25240,10 +25240,10 @@ var _default$i = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$i, "targets", ["source", "target"]);
+_defineProperty$2(_default$j, "targets", ["source", "target"]);
 
 // Used with patient attachments aka linked files.
-var _default$h = /*#__PURE__*/function (_Controller) {
+var _default$i = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -25265,7 +25265,7 @@ var _default$h = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$h, "targets", ["fileBrowser", "externalLocation"]);
+_defineProperty$2(_default$i, "targets", ["fileBrowser", "externalLocation"]);
 
 /**!
  * Sortable 1.15.0
@@ -27862,7 +27862,7 @@ Sortable.mount(Remove, Revert);
 //     <div data-id=item.id>...</div>
 //   <% end %>
 // </div>
-var _default$g = /*#__PURE__*/function (_Controller) {
+var _default$h = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -27899,7 +27899,7 @@ var _default$g = /*#__PURE__*/function (_Controller) {
 }(Controller);
 
 var Rails$1 = window.Rails;
-var _default$f = /*#__PURE__*/function (_Controller) {
+var _default$g = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -27948,7 +27948,7 @@ var _default$f = /*#__PURE__*/function (_Controller) {
 //   input(type="radio" value="yes" ..)
 //   input(type="radio" value="no" ..)
 //   ...
-var _default$e = /*#__PURE__*/function (_Controller) {
+var _default$f = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -27969,11 +27969,11 @@ var _default$e = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$e, "values", {
+_defineProperty$2(_default$f, "values", {
   match: String
 });
 
-var _default$d = /*#__PURE__*/function (_Controller) {
+var _default$e = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -27999,11 +27999,11 @@ var _default$d = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$d, "targets", ["displayable"]);
+_defineProperty$2(_default$e, "targets", ["displayable"]);
 // element we are going to show/hide
 // attributeToTest: Name of the boolean data attribute on the selected option that determines if
 //                  the displayable target should be visible or not
-_defineProperty$2(_default$d, "values", {
+_defineProperty$2(_default$e, "values", {
   attributeToTest: String
 });
 
@@ -29781,7 +29781,7 @@ class SlimSelect {
   }
 }
 
-var _default$c = /*#__PURE__*/function (_Controller) {
+var _default$d = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -29803,11 +29803,11 @@ var _default$c = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$c, "values", {
+_defineProperty$2(_default$d, "values", {
   options: Object
 });
 
-var _default$b = /*#__PURE__*/function (_Controller) {
+var _default$c = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -29951,8 +29951,8 @@ var _default$b = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$b, "targets", ["container", "turboFrame"]);
-_defineProperty$2(_default$b, "values", {
+_defineProperty$2(_default$c, "targets", ["container", "turboFrame"]);
+_defineProperty$2(_default$c, "values", {
   backdropColor: {
     type: String,
     default: "rgba(0, 0, 0, 0.8)"
@@ -30045,7 +30045,7 @@ var debounce_1 = debounce$1;
     - action: "input->form#submit" will need to change depending on input type eg
       select, radio, but will cause the form to submit
 */
-var _default$a = /*#__PURE__*/function (_Controller) {
+var _default$b = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -30084,7 +30084,7 @@ var _default$a = /*#__PURE__*/function (_Controller) {
       as: :toggle,
       data: { "action": "change->alternative-form-submitter#submit" }
 */
-var _default$9 = /*#__PURE__*/function (_Controller) {
+var _default$a = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -30106,10 +30106,10 @@ var _default$9 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$9, "targets", ["form"]);
+_defineProperty$2(_default$a, "targets", ["form"]);
 
 // Inspired by https://www.youtube.com/watch?v=gk_qDsKMIrM&t=528s
-var _default$8 = /*#__PURE__*/function (_Controller) {
+var _default$9 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -32264,7 +32264,7 @@ if (typeof window !== "undefined") {
   window.flatpickr = flatpickr;
 }
 
-var _default$7 = {exports: {}};
+var _default$8 = {exports: {}};
 
 (function (module, exports) {
 	(function (global, factory) {
@@ -32313,7 +32313,7 @@ var _default$7 = {exports: {}};
 	    value: true
 	  });
 	});
-} (_default$7, _default$7.exports));
+} (_default$8, _default$8.exports));
 
 function _typeof(obj) {
   "@babel/helpers - typeof";
@@ -36418,8 +36418,8 @@ var dateConfig = {
   },
   locale: {
     firstDayOfWeek: 1,
-    months: _objectSpread2$1(_objectSpread2$1({}, _default$7.exports.english.months), {}, {
-      shorthand: [].concat(_toConsumableArray(_default$7.exports.english.months.shorthand), [
+    months: _objectSpread2$1(_objectSpread2$1({}, _default$8.exports.english.months), {}, {
+      shorthand: [].concat(_toConsumableArray(_default$8.exports.english.months.shorthand), [
       // Allow users to input numbers in date field instead of Jan, Feb
       // Because we can't directly change `tokenRegex`, add the numbers to the
       // month shorthand locale, so they'll end up in the regexp string
@@ -36456,7 +36456,7 @@ var dateWithTimeConfig = {
   enableTime: true,
   dateFormat: "d-M-Y H:i"
 };
-var _default$6 = /*#__PURE__*/function (_Controller) {
+var _default$7 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36487,7 +36487,7 @@ var _default$6 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$6, "values", {
+_defineProperty$2(_default$7, "values", {
   timeOnly: Boolean,
   dateWithTime: Boolean
 });
@@ -36495,7 +36495,7 @@ _defineProperty$2(_default$6, "values", {
 /*
   Adds a warning if selected value is not allowed
 */
-var _default$5 = /*#__PURE__*/function (_Controller) {
+var _default$6 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36524,12 +36524,12 @@ var _default$5 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$5, "values", {
+_defineProperty$2(_default$6, "values", {
   notRecommended: Array
 });
-_defineProperty$2(_default$5, "targets", ["input", "message"]);
+_defineProperty$2(_default$6, "targets", ["input", "message"]);
 
-var _default$4 = /*#__PURE__*/function (_Controller) {
+var _default$5 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36546,12 +36546,12 @@ var _default$4 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$4, "values", {
+_defineProperty$2(_default$5, "values", {
   frameId: String
 });
 
 // Inspired by https://stackoverflow.com/a/56952952/4405214
-var _default$3 = /*#__PURE__*/function (_Controller) {
+var _default$4 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36599,7 +36599,7 @@ var _default$3 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$2 = /*#__PURE__*/function (_Controller) {
+var _default$3 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36621,13 +36621,13 @@ var _default$2 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$2, "targets", ["turboframe"]);
-_defineProperty$2(_default$2, "values", {
+_defineProperty$2(_default$3, "targets", ["turboframe"]);
+_defineProperty$2(_default$3, "values", {
   src: String,
   queryParam: String
 });
 
-var _default$1 = /*#__PURE__*/function (_Controller) {
+var _default$2 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36665,13 +36665,13 @@ var _default$1 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$1, "targets", ["content"]);
-_defineProperty$2(_default$1, "values", {
+_defineProperty$2(_default$2, "targets", ["content"]);
+_defineProperty$2(_default$2, "values", {
   moreText: String,
   lessText: String
 });
 
-var _default = /*#__PURE__*/function (_Controller) {
+var _default$1 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36694,43 +36694,86 @@ var _default = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default, "targets", ["content"]);
+_defineProperty$2(_default$1, "targets", ["content"]);
 
-application.register("toggle", _default$z);
-application.register("hd-prescription-administration", _default$v);
-application.register("home-delivery-modal", _default$u);
-application.register("snippets", _default$t);
-application.register("letters-form", _default$s);
-application.register("prescriptions", _default$r);
-application.register("charts", _default$q);
-application.register("session", _default$p);
-application.register("simple-toggle", _default$o);
-application.register("show-on-selected", _default$n);
-application.register("tabs", _default$m);
-application.register("pd-pet-chart", _default$l);
-application.register("pathology-sparklines", _default$k);
-application.register("collapsible", _default$j);
-application.register("dependent-select", _default$i);
-application.register("patient-attachments", _default$h);
-application.register("sortable", _default$g);
-application.register("select", _default$f);
-application.register("radio-reset", _default$e);
-application.register("conditional-display", _default$d);
-application.register("slimselect", _default$c);
-application.register("modal", _default$b);
-application.register("form", _default$a);
-application.register("alternative-form-submitter", _default$9);
-application.register("flash", _default$8);
-application.register("flatpickr", _default$6);
-application.register("input-value-alerter", _default$5);
-application.register("select-update-frame", _default$4);
-application.register("clinics--bmi-calculator", _default$y);
-application.register("clinics--weight-change-calculator", _default$x);
-application.register("clinics--dietary-protein-calculator", _default$w);
-application.register("add-top-horizontal-scrollbar", _default$3);
-application.register("preview", _default$2);
-application.register("read-more", _default$1);
-application.register("grid-row-auto-span", _default);
+var $$1 = window.$;
+
+/*
+When this is controller is added to a table, if the table uses colgroups (eg historical pathology)
+then as the mouse enters and leaves
+*/
+var _default = /*#__PURE__*/function (_Controller) {
+  _inherits$1(_default, _Controller);
+  var _super = _createSuper$1(_default);
+  function _default() {
+    _classCallCheck$1(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass$1(_default, [{
+    key: "connect",
+    value: function connect() {
+      var _this = this;
+      this.element.addEventListener('mouseenter', function (e) {
+        _this.highlight_colgroup(e);
+      }, true);
+      this.element.addEventListener('mouseleave', function (e) {
+        _this.unhighlight_colgroup(e);
+      }, true);
+    }
+  }, {
+    key: "highlight_colgroup",
+    value: function highlight_colgroup(e) {
+      if (e.target.tagName == "TD") {
+        $$1("colgroup").eq($$1(e.target).index()).addClass("hover");
+      }
+    }
+  }, {
+    key: "unhighlight_colgroup",
+    value: function unhighlight_colgroup(e) {
+      if (e.target.tagName == "TD") {
+        $$1("colgroup").eq($$1(e.target).index()).removeClass("hover");
+      }
+    }
+  }]);
+  return _default;
+}(Controller);
+
+application.register("toggle", _default$A);
+application.register("hd-prescription-administration", _default$w);
+application.register("home-delivery-modal", _default$v);
+application.register("snippets", _default$u);
+application.register("letters-form", _default$t);
+application.register("prescriptions", _default$s);
+application.register("charts", _default$r);
+application.register("session", _default$q);
+application.register("simple-toggle", _default$p);
+application.register("show-on-selected", _default$o);
+application.register("tabs", _default$n);
+application.register("pd-pet-chart", _default$m);
+application.register("pathology-sparklines", _default$l);
+application.register("collapsible", _default$k);
+application.register("dependent-select", _default$j);
+application.register("patient-attachments", _default$i);
+application.register("sortable", _default$h);
+application.register("select", _default$g);
+application.register("radio-reset", _default$f);
+application.register("conditional-display", _default$e);
+application.register("slimselect", _default$d);
+application.register("modal", _default$c);
+application.register("form", _default$b);
+application.register("alternative-form-submitter", _default$a);
+application.register("flash", _default$9);
+application.register("flatpickr", _default$7);
+application.register("input-value-alerter", _default$6);
+application.register("select-update-frame", _default$5);
+application.register("clinics--bmi-calculator", _default$z);
+application.register("clinics--weight-change-calculator", _default$y);
+application.register("clinics--dietary-protein-calculator", _default$x);
+application.register("add-top-horizontal-scrollbar", _default$4);
+application.register("preview", _default$3);
+application.register("read-more", _default$2);
+application.register("grid-row-auto-span", _default$1);
+application.register("table_column_hover", _default);
 
 /*
 Turbo 7.3.0

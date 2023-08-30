@@ -14,8 +14,7 @@ table thead th {
 }
 
 table tbody tr:hover,
-table.column_hover .hover {
-  // for js column hovering see table.js
+table.column_hover .hover { // for js column hovering via stimulus controller
   background-color: $table-row-hover-colour;
 }
 

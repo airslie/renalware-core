@@ -1,8 +1,8 @@
 / Here we build a table of results grouped by date, but in contrast to
 / historical results, we transpose the cols and rows so we have
 / dates along the top and OBX codes down the left.
-table#observations.column_hover
-  / colgroups are required for js highlighting of column on hover - see table.js
+table#observations.column_hover(data-controller="table_column_hover")
+  / colgroups are required for js highlighting of column on hover
   - (table.rows.size + 1).times do
     <colgroup></colgroup>
   thead
@@ -25,7 +25,7 @@ table#observations.column_hover
         observation
         - table.rows.each do |row|
           - if row.comment_for(code).present?
-            td(class=bg_class aria-label=row.comment_for(code) data-balloon-pos="up")
+            td.triangle_in_corner(class=bg_class aria-label=row.comment_for(code) data-balloon-pos="up")
               .triangle-top-right
               = row.result_for(code)
           - else
