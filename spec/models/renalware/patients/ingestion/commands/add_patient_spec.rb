@@ -92,7 +92,7 @@ module Renalware::Patients::Ingestion
             # Stub UpdateMasterPatientIndex so it does not get in the way
             allow(Renalware::Patients::Ingestion::UpdateMasterPatientIndex).to receive(:call)
             # Mock a patient..
-            patient = instance_double(Renalware::Patient, "by=": nil, new_record?: true)
+            patient = build(:patient, id: 123)
             allow(patient).to receive(:save!).and_return(true)
             # ..that is returned by a mock MessageMappers::Patient builder
             mapper_class = Renalware::Patients::Ingestion::MessageMappers::Patient
