@@ -11,9 +11,10 @@ module Renalware
       end
 
       def users_for_filtering
-        User.where(id: ids_of_users_having_created_events_for_this_patient)
-            .distinct
-            .order(family_name: :asc)
+        User
+          .where(id: ids_of_users_having_created_events_for_this_patient)
+          .distinct
+          .order(family_name: :asc)
       end
 
       def event_types_for_filtering

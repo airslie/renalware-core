@@ -23,10 +23,10 @@ module Renalware
         # Flag those already assigned so they cannot be chosen.
         def patients_preferring_to_dialyse_today
           patients = Renalware::HD::PatientsDialysingByDayQuery
-          .new(
-            diary.hospital_unit_id,
-            day_of_week
-          ).call.all
+            .new(
+              diary.hospital_unit_id,
+              day_of_week
+            ).call.all
           simplify(patients)
         end
 
@@ -58,8 +58,8 @@ module Renalware
           patients.map do |patient|
             hd_profile = patient.hd_profile
             text = "#{patient.to_s(:long)} - " \
-                  "#{hd_profile&.schedule_definition} " \
-                  "#{hd_profile&.hospital_unit&.unit_code}".strip.truncate(65)
+                   "#{hd_profile&.schedule_definition} " \
+                   "#{hd_profile&.hospital_unit&.unit_code}".strip.truncate(65)
             OpenStruct.new(id: patient.id, text: text)
           end
         end

@@ -23,10 +23,11 @@ module Renalware::Drugs
 
       described_class.new.call
       expect(Type.count).to eq 14
-      expect(Type.pluck(:name)).to match_array \
-        ["Antibiotics", "Anticoag Antiplatelet", "Antivirl", "Bone / Calcium / Phosphate",
-         "Cardiac", "Diabetes", "ESA", "Hypertension", "Immunosuppressant", "Iron", "Laxative",
-         "Psychiatric Medication", "Test", "Vaccine"]
+      expect(Type.pluck(:name)).to contain_exactly(
+        "Antibiotics", "Anticoag Antiplatelet", "Antivirl", "Bone / Calcium / Phosphate",
+        "Cardiac", "Diabetes", "ESA", "Hypertension", "Immunosuppressant", "Iron", "Laxative",
+        "Psychiatric Medication", "Test", "Vaccine"
+      )
       drug_type = Type.find_by(code: "controlled")
       expect(drug_type).to have_attributes \
         name: "Test",

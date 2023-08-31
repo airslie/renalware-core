@@ -134,9 +134,10 @@ module Renalware
       def problem_params
         params[:problems_problem][:date_display_style] = derive_display_style
         fixup_onset_date_params
-        params.require(:problems_problem)
-              .permit(:description, :snomed_id, :date, :date_display_style)
-              .merge(by: current_user)
+        params
+          .require(:problems_problem)
+          .permit(:description, :snomed_id, :date, :date_display_style)
+          .merge(by: current_user)
       end
     end
   end

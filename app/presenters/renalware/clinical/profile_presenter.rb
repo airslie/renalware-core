@@ -13,10 +13,11 @@ module Renalware
       end
 
       def swabs
-        @swabs ||= Renalware::Events::Swab.for_patient(patient)
-                                          .ordered
-                                          .page(params[:page])
-                                          .per(params.fetch(:per_page, 10))
+        @swabs ||= Renalware::Events::Swab
+          .for_patient(patient)
+          .ordered
+          .page(params[:page])
+          .per(params.fetch(:per_page, 10))
       end
 
       def smoking_history

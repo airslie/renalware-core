@@ -12,9 +12,15 @@ module Renalware
       let!(:unknown_ukrdc_modality_code) { create(:ukrdc_modality_code, :type_unknown) }
       let!(:cadaver_ukrdc_modality_code) { create(:ukrdc_modality_code, :cadaver) }
       let!(:nhb_ukrdc_modality_code) { create(:ukrdc_modality_code, :non_heart_beating) }
-      let!(:live_related_sibling_modality_code) { create(:ukrdc_modality_code, :live_related_sibling) }
-      let!(:live_related_father_modality_code) { create(:ukrdc_modality_code, :live_related_father) }
-      let!(:live_related_mother_modality_code) { create(:ukrdc_modality_code, :live_related_mother) }
+      let!(:live_related_sibling_modality_code) {
+        create(:ukrdc_modality_code, :live_related_sibling)
+      }
+      let!(:live_related_father_modality_code) {
+        create(:ukrdc_modality_code, :live_related_father)
+      }
+      let!(:live_related_mother_modality_code) {
+        create(:ukrdc_modality_code, :live_related_mother)
+      }
       let!(:live_related_child_modality_code) { create(:ukrdc_modality_code, :live_related_child) }
       let!(:live_related_other_modality_code) { create(:ukrdc_modality_code, :live_related_other) }
       let!(:live_unrelated_ukrdc_modality_code) { create(:ukrdc_modality_code, :live_unrelated) }

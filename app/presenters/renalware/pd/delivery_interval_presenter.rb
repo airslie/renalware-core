@@ -3,14 +3,6 @@
 module Renalware
   module PD
     class DeliveryIntervalPresenter
-      def initialize(duration)
-        @interval = duration.present? ? parse_iso8601_duration(duration) : NullObject.instance
-      end
-
-      def to_s
-        interval.to_formatted_s
-      end
-
       # An array of delivery interval options derived from the PD configuration, and using an
       # iso8601 representation of the duration (eg "P4W" for 4 weeks), e.g.
       # [
@@ -25,6 +17,14 @@ module Renalware
         PD.config.delivery_intervals.map do |duration|
           [duration.to_formatted_s, duration.iso8601]
         end
+      end
+
+      def initialize(duration)
+        @interval = duration.present? ? parse_iso8601_duration(duration) : NullObject.instance
+      end
+
+      def to_s
+        interval.to_fs
       end
 
       private

@@ -93,64 +93,64 @@ module Renalware
       end
 
       describe ClinicVisit::Document do
-        it do
-          expect(subject).to respond_to(:assessment_type)
-          expect(subject).to respond_to(:visit_type)
-          expect(subject).to respond_to(:attendance)
-          expect(subject).to respond_to(:weight_notes)
-          expect(subject).to respond_to(:previous_weight_date)
-          expect(subject).to respond_to(:weight_change)
+        it :aggregate_failures do
+          is_expected.to respond_to(:assessment_type)
+          is_expected.to respond_to(:visit_type)
+          is_expected.to respond_to(:attendance)
+          is_expected.to respond_to(:weight_notes)
+          is_expected.to respond_to(:previous_weight_date)
+          is_expected.to respond_to(:weight_change)
 
-          expect(subject).to validate_numericality_of(:previous_weight)
+          is_expected.to validate_numericality_of(:previous_weight)
             .is_greater_than_or_equal_to(15)
             .is_less_than_or_equal_to(300)
 
-          expect(subject).to validate_numericality_of(:ideal_body_weight)
+          is_expected.to validate_numericality_of(:ideal_body_weight)
             .is_greater_than_or_equal_to(15)
             .is_less_than_or_equal_to(300)
 
-          expect(subject).to validate_numericality_of(:waist_circumference)
+          is_expected.to validate_numericality_of(:waist_circumference)
             .is_greater_than_or_equal_to(30)
             .is_less_than_or_equal_to(300)
 
-          expect(subject).to validate_numericality_of(:dietary_protein_intake)
+          is_expected.to validate_numericality_of(:dietary_protein_intake)
             .is_greater_than_or_equal_to(5)
             .is_less_than_or_equal_to(250)
 
-          expect(subject).to validate_numericality_of(:dietary_protein_requirement)
+          is_expected.to validate_numericality_of(:dietary_protein_requirement)
             .is_greater_than_or_equal_to(5)
             .is_less_than_or_equal_to(250)
 
-          expect(subject).to validate_numericality_of(:high_biological_value)
+          is_expected.to validate_numericality_of(:high_biological_value)
             .is_greater_than_or_equal_to(0)
             .is_less_than_or_equal_to(100)
 
-          expect(subject).to validate_numericality_of(:energy_requirement)
+          is_expected.to validate_numericality_of(:energy_requirement)
             .is_greater_than_or_equal_to(500)
             .is_less_than_or_equal_to(4000)
 
-          expect(subject).to validate_numericality_of(:energy_intake)
+          is_expected.to validate_numericality_of(:energy_intake)
             .is_greater_than_or_equal_to(500)
             .is_less_than_or_equal_to(4000)
 
-          expect(subject).to validate_numericality_of(:handgrip_left)
+          is_expected.to validate_numericality_of(:handgrip_left)
             .is_greater_than_or_equal_to(1)
             .is_less_than_or_equal_to(150)
 
-          expect(subject).to validate_numericality_of(:handgrip_right)
+          is_expected.to validate_numericality_of(:handgrip_right)
             .is_greater_than_or_equal_to(1)
             .is_less_than_or_equal_to(150)
 
-          expect(subject).to respond_to(:sga_assessment)
-          expect(subject).to respond_to(:plan)
-          expect(subject).to respond_to(:intervention_a)
-          expect(subject).to respond_to(:intervention_b)
-          expect(subject).to respond_to(:intervention_c)
+          is_expected.to respond_to(:sga_assessment)
+          is_expected.to respond_to(:plan)
+          is_expected.to respond_to(:intervention_a)
+          is_expected.to respond_to(:intervention_b)
+          is_expected.to respond_to(:intervention_c)
 
-          expect(subject).to respond_to(:time_for_consultation)
-          expect(subject).to respond_to(:time_for_documentation)
-          expect(subject).to respond_to(:next_review_in)
-          expect(subject).to respond_to(:next_review_on)
+          is_expected.to respond_to(:time_for_consultation)
+          is_expected.to respond_to(:time_for_documentation)
+          is_expected.to respond_to(:next_review_in)
+          is_expected.to respond_to(:next_review_on)
         end
       end
     end

@@ -28,14 +28,14 @@ module Renalware
             "DISTINCT ON (patient_id, requestor_order_number, requested_at, description_id) id"
           )
         )
-        .where(patient_id: patient_id)
-        .order(
-          patient_id: :asc,
-          requestor_order_number: :asc,
-          requested_at: :asc,
-          description_id: :asc,
-          created_at: :desc
-        )
+          .where(patient_id: patient_id)
+          .order(
+            patient_id: :asc,
+            requestor_order_number: :asc,
+            requested_at: :asc,
+            description_id: :asc,
+            created_at: :desc
+          )
       end
 
       def requested_on

@@ -6,6 +6,8 @@ module Renalware
   module Letters
     RSpec.describe ReviseLetter do
       include LettersSpecHelper
+      subject(:service) { described_class.new }
+
       let(:user) { create(:user) }
       let(:patient) { create(:letter_patient) }
       let(:topic) { nil }
@@ -25,7 +27,7 @@ module Renalware
           it "updates the letter" do
             expect_subject_to_broadcast(:revise_letter_successful, letter)
 
-            subject.call(patient, letter.id, description: "Foo", by: user)
+            service.call(patient, letter.id, description: "Foo", by: user)
               .on(:revise_letter_successful) do |letter|
                 # Those don't work
                 expect(letter.description).to eq("Foo")
@@ -39,7 +41,7 @@ module Renalware
             it "doesn't generate snapshots" do
               expect(letter.section_snapshots.count).to eq 0
 
-              subject.call(patient, letter.id, by: user, topic_id: topic.id)
+              service.call(patient, letter.id, by: user, topic_id: topic.id)
 
               expect(letter.section_snapshots.count).to eq 0
             end
@@ -53,7 +55,7 @@ module Renalware
               it "generates snapshots for those letter sections" do
                 expect(letter.section_snapshots.count).to eq 0
 
-                subject.call(patient, letter.id, by: user, topic_id: new_topic.id)
+                service.call(patient, letter.id, by: user, topic_id: new_topic.id)
 
                 expect(letter.section_snapshots.count).to eq 1
 
@@ -72,7 +74,7 @@ module Renalware
               it "keeps it as it is" do
                 expect(letter.section_snapshots.first.content).to eq "test"
 
-                subject.call(patient, letter.id, by: user, topic_id: new_topic.id)
+                service.call(patient, letter.id, by: user, topic_id: new_topic.id)
 
                 expect(letter.section_snapshots.count).to eq 1
 
@@ -92,13 +94,13 @@ module Renalware
 
               context "when also a true value has been passed in" do
                 it "updates the snapshot content" do
-                  subject.call(patient, letter.id, by: user, update_sections: { hd_section: "1" })
+                  service.call(patient, letter.id, by: user, update_sections: { hd_section: "1" })
                   expect(section_snapshot.reload.content).to include "<dl></dl>"
                 end
 
                 context "when also a false value has been passed in" do
                   it "doesn't update" do
-                    subject.call(patient, letter.id, by: user, update_sections: { hd_section: "0" })
+                    service.call(patient, letter.id, by: user, update_sections: { hd_section: "0" })
                     expect(section_snapshot.reload.content).to eq "old content"
                   end
                 end
@@ -108,7 +110,7 @@ module Renalware
             context "when section snapshots have not existed for this letter" do
               context "when also a true value has been passed in" do
                 it "creates the snapshot content" do
-                  subject.call(patient, letter.id, by: user, update_sections: { hd_section: "1" })
+                  service.call(patient, letter.id, by: user, update_sections: { hd_section: "1" })
 
                   expect(letter.section_snapshots.count).to eq 1
 
@@ -125,7 +127,7 @@ module Renalware
           it "broadcasts :revise_letter_failed" do
             expect_subject_to_broadcast(:revise_letter_failed, kind_of(Letters::Letter))
 
-            subject.call(patient, letter.id, description: nil, by: nil)
+            service.call(patient, letter.id, description: nil, by: nil)
               .on(:revise_letter_failed) do |letter|
                 # Those don't work
                 expect(letter.description).to eq("TestDescription")

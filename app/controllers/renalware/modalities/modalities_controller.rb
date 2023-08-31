@@ -8,9 +8,9 @@ module Renalware
       def index
         authorize Modality, :index?
         modalities = patient
-                       .modalities
-                       .includes([:description, :created_by])
-                       .ordered
+          .modalities
+          .includes([:description, :created_by])
+          .ordered
         render locals: { patient: patient, modalities: modalities }
       end
 
@@ -45,8 +45,9 @@ module Renalware
       end
 
       def modality_params
-        params.require(:modality)
-              .permit(:description_id, :modal_change_type, :reason_id, :notes, :started_on)
+        params
+          .require(:modality)
+          .permit(:description_id, :modal_change_type, :reason_id, :notes, :started_on)
       end
 
       # TODO: refactor

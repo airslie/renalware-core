@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Simulation of Mirth inserting an HL7 message through a function and into the" \
-  "raw HL7 messages table (supersedes new_hl7_message function)" do
+         "raw HL7 messages table (supersedes new_hl7_message function)" do
   let(:hl7_with_uom_caret_encoded_as_slash_s_slash) do
     <<~RAW
       MSH| the folowing OBX line is required in this test

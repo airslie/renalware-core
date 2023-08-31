@@ -16,10 +16,6 @@ module Renalware
       end
     end
 
-    def initialize(seconds)
-      @seconds = seconds
-    end
-
     def self.from_string(value)
       Duration.new(to_seconds(value))
     end
@@ -28,15 +24,6 @@ module Renalware
       minutes = 0 if minutes.nil? || minutes.blank?
       seconds = minutes.to_i * 60
       Duration.new(seconds)
-    end
-
-    # Returns the duration in hours and minutes format: "hh:mm"
-    def to_s
-      return "" if @seconds.nil?
-
-      hours, seconds = @seconds.divmod(Hour.to_seconds(1))
-      minutes = seconds / Minute.to_seconds(1)
-      sprintf("%d:%02d", hours, minutes)
     end
 
     def self.to_seconds(string)
@@ -49,6 +36,19 @@ module Renalware
       else
         Minute.to_seconds(string)
       end
+    end
+
+    def initialize(seconds)
+      @seconds = seconds
+    end
+
+    # Returns the duration in hours and minutes format: "hh:mm"
+    def to_s
+      return "" if @seconds.nil?
+
+      hours, seconds = @seconds.divmod(Hour.to_seconds(1))
+      minutes = seconds / Minute.to_seconds(1)
+      sprintf("%d:%02d", hours, minutes)
     end
 
     private_class_method :to_seconds

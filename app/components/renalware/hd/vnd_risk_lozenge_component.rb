@@ -9,10 +9,10 @@ module Renalware
       pattr_initialize [:risk!]
 
       CSS_MAP = {
-        "very_low": "bg-green-300",
-        "low": "bg-green-400",
-        "medium": "bg-orange-300",
-        "high": "bg-red-400 text-neutral-100"
+        very_low: "bg-green-300",
+        low: "bg-green-400",
+        medium: "bg-orange-300",
+        high: "bg-red-400 text-neutral-100"
       }.freeze
 
       def render? = risk.present?

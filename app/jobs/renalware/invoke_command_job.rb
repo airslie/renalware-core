@@ -7,7 +7,7 @@ module Renalware
     def perform(command)
       stdout, stderr, status = Open3.capture3(command)
 
-      puts stdout
+      puts stdout # rubocop:disable Rails/Output
 
       unless status.success?
         raise InvokeCommandJobError,

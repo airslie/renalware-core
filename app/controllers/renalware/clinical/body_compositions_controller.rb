@@ -11,9 +11,10 @@ module Renalware
 
       def index
         authorize BodyComposition, :index?
-        body_compositions = BodyComposition.for_patient(clinical_patient)
-                                           .ordered.page(page)
-                                           .per(per_page)
+        body_compositions = BodyComposition
+          .for_patient(clinical_patient)
+          .ordered.page(page)
+          .per(per_page)
         render locals: { patient: clinical_patient, body_compositions: body_compositions }
       end
 

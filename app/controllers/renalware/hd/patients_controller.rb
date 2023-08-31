@@ -7,8 +7,8 @@ module Renalware
         skip_authorization
         unit_id = params.fetch(:unit_id)
         patients = all_hd_patients_matching_search_term
-                    .eager_load(:hd_profile)
-                    .merge(HD::Profile.dialysing_at_unit(unit_id))
+          .eager_load(:hd_profile)
+          .merge(HD::Profile.dialysing_at_unit(unit_id))
         render json: simplify(patients).to_json
       end
 

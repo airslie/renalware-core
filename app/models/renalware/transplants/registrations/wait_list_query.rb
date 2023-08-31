@@ -49,26 +49,26 @@ module Renalware
             case filter
             when :status_mismatch
               joins(statuses: :description)
-              .where(transplant_registration_statuses: { terminated_on: nil })
-              .where(
-                <<-SQL.squish
-                (
-                  transplant_registration_status_descriptions.code in ('active')
-                  and
+                .where(transplant_registration_statuses: { terminated_on: nil })
+                .where(
+                  <<-SQL.squish
                   (
-                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' not ilike 'A'
+                    transplant_registration_status_descriptions.code in ('active')
+                    and
+                    (
+                      transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' not ilike 'A'
+                    )
                   )
-                )
-                or
-                (
-                  transplant_registration_status_descriptions.code not in ('active')
-                  and
+                  or
                   (
-                    transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike 'A'
+                    transplant_registration_status_descriptions.code not in ('active')
+                    and
+                    (
+                      transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike 'A'
+                    )
                   )
+                  SQL
                 )
-                SQL
-              )
             else
               all
             end

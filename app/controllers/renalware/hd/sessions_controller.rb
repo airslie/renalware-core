@@ -110,9 +110,10 @@ module Renalware
       def session_params
         @session_params ||= begin
           params.require(:hd_session).require(:type)
-          params.require(:hd_session)
-                        .permit(attributes)
-                        .merge(document: document_attributes, by: current_user)
+          params
+            .require(:hd_session)
+            .permit(attributes)
+            .merge(document: document_attributes, by: current_user)
         end
       end
 
