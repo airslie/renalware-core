@@ -134,7 +134,7 @@ module Renalware
       def access_rr02_code
         return if access_type_abbreviation.blank?
 
-        access_type_abbreviation.split(" ").first
+        access_type_abbreviation.split.first
       end
 
       # We only store the abbreviated access (rr02 + " " + rr41) so to resolve rr41, take the last
@@ -142,8 +142,8 @@ module Renalware
       def access_rr41_code
         return if access_type_abbreviation.blank?
 
-        parts = access_type_abbreviation.split(" ")
-        return parts.last if parts.length > 1
+        parts = access_type_abbreviation.split
+        parts.last if parts.length > 1
       end
 
       # Ensure drug administrations are always in the same order.

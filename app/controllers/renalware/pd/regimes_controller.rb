@@ -50,8 +50,9 @@ module Renalware
 
       def create
         authorize Regime, :create?
-        result = CreateRegime.new(patient: pd_patient)
-                             .call(by: current_user, params: pd_regime_params)
+        result = CreateRegime
+          .new(patient: pd_patient)
+          .call(by: current_user, params: pd_regime_params)
 
         if result.success?
           redirect_to patient_pd_dashboard_path(pd_patient), notice: success_msg_for("PD regime")
@@ -96,9 +97,10 @@ module Renalware
       end
 
       def cloned_last_known_regime_of_type
-        regime = patient.pd_regimes
-                        .order(start_date: :desc, created_at: :desc)
-                        .where(type: regime_type).first
+        regime = patient
+          .pd_regimes
+          .order(start_date: :desc, created_at: :desc)
+          .where(type: regime_type).first
         regime&.start_date = Time.zone.today
         regime&.deep_dup
       end

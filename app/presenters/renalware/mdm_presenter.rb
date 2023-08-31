@@ -120,14 +120,15 @@ module Renalware
 
     def letters
       patient_ = Renalware::Letters.cast_patient(patient)
-      letters_ = patient_.letters
-                         .ordered
-                         .with_main_recipient
-                         .with_letterhead
-                         .with_author
-                         .with_event
-                         .with_patient
-                         .limit(6)
+      letters_ = patient_
+        .letters
+        .ordered
+        .with_main_recipient
+        .with_letterhead
+        .with_author
+        .with_event
+        .with_patient
+        .limit(6)
 
       CollectionPresenter.new(letters_, Renalware::Letters::LetterPresenterFactory)
     end
@@ -167,13 +168,14 @@ module Renalware
 
     def execute_prescriptions_query(relation)
       query = Medications::PrescriptionsQuery.new(relation: relation)
-      query.call
-           .with_created_by
-           .with_medication_route
-           .with_drugs
-           .with_classifications
-           .eager_load(drug: [:drug_types])
-           .map { |prescrip| Medications::PrescriptionPresenter.new(prescrip) }
+      query
+        .call
+        .with_created_by
+        .with_medication_route
+        .with_drugs
+        .with_classifications
+        .eager_load(drug: [:drug_types])
+        .map { |prescrip| Medications::PrescriptionPresenter.new(prescrip) }
     end
   end
 end

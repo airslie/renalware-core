@@ -81,7 +81,7 @@ module Renalware
       end
 
       def full_name_params(query)
-        family_name, given_name = query.split(" ")
+        family_name, given_name = query.split
         { family_name: "#{family_name}%", given_name: "#{given_name}%" }
       end
 

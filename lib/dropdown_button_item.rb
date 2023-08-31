@@ -49,4 +49,4 @@ class DropdownButtonItem < ActionView::Base
 
     "<i class='fa fa-link-annotation #{icon}'></i>".html_safe
   end
-  end
+end

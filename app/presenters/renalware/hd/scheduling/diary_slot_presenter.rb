@@ -23,10 +23,10 @@ module Renalware
         # Flag those already assigned so they cannot be chosen.
         def patients_preferring_to_dialyse_today
           patients = Renalware::HD::PatientsDialysingByDayQuery
-          .new(
-            diary.hospital_unit_id,
-            day_of_week
-          ).call.all
+            .new(
+              diary.hospital_unit_id,
+              day_of_week
+            ).call.all
           simplify(patients)
         end
 

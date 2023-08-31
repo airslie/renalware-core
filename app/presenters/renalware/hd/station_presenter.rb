@@ -3,6 +3,8 @@
 module Renalware
   module HD
     class StationPresenter < DumbDelegator
+      def self.policy_class = StationPolicy
+
       def name
         super.presence || "Unnamed Station"
       end
@@ -12,8 +14,6 @@ module Renalware
 
         "background-color: #{location&.colour}"
       end
-
-      def self.policy_class = StationPolicy
     end
   end
 end

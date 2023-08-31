@@ -52,4 +52,3 @@ module CucumberTranslation
 end
 
 World(CucumberTranslation)
-

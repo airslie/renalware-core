@@ -48,7 +48,7 @@ module Renalware
             LEFT JOIN transplant_recipient_operations
             ON patients.id = transplant_recipient_operations.patient_id
           SQL
-          .where("transplant_recipient_operations.performed_on >= ?", 3.months.ago)
+            .where("transplant_recipient_operations.performed_on >= ?", 3.months.ago)
         end
         alias_method :recent, :patients_with_a_transplant_date_in_the_past_3_months
 
@@ -62,7 +62,7 @@ module Renalware
             LEFT JOIN transplant_recipient_operations
             ON patients.id = transplant_recipient_operations.patient_id
           SQL
-          .where("transplant_recipient_operations.performed_on >= ?", 1.year.ago)
+            .where("transplant_recipient_operations.performed_on >= ?", 1.year.ago)
         end
         alias_method :past_year, :patients_with_a_transplant_operation_in_the_past_year
       end

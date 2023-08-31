@@ -24,7 +24,7 @@ module Renalware
 
         def find_match(name, trade_family_names)
           trade_family_names.each do |trade_family_name|
-            trade_family_name.downcase.tr("()", "").split(" ").each do |word|
+            trade_family_name.downcase.tr("()", "").split.each do |word|
               if name.include? word
                 return trade_family_name
               end

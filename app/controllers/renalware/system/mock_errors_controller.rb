@@ -4,7 +4,7 @@ module Renalware
   module System
     class MockErrorsController < BaseController
       def index
-        0 / 0 # ZeroDivisionError
+        0 / 0 # ZeroDivisionError # rubocop:disable Lint/BinaryOperatorWithIdenticalOperands
       end
     end
   end

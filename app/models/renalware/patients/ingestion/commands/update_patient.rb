@@ -73,11 +73,11 @@ module Renalware
               patient: patient,
               user: Renalware::SystemUser.find
             )
-            .broadcasting_to_configured_subscribers
-            .call(
-              description: Deaths::ModalityDescription.first!,
-              started_on: Time.zone.now
-            )
+              .broadcasting_to_configured_subscribers
+              .call(
+                description: Deaths::ModalityDescription.first!,
+                started_on: Time.zone.now
+              )
             raise(ActiveModel::ValidationError, result.object) if result.failure?
           end
         end

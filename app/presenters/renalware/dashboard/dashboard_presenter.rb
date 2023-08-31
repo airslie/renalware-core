@@ -11,10 +11,11 @@ module Renalware
 
       def bookmarks
         @bookmarks ||= begin
-          Patients.cast_user(user)
-                  .bookmarks
-                  .ordered
-                  .includes(patient: [current_modality: :description])
+          Patients
+            .cast_user(user)
+            .bookmarks
+            .ordered
+            .includes(patient: [current_modality: :description])
         end
       end
 

@@ -64,7 +64,8 @@ module Renalware
         html << ADHOC_PRINTING_CSS.html_safe if adhoc_printing
         html
       end
-            def content
+
+      def content
         if archived?
           archive.content
         else
