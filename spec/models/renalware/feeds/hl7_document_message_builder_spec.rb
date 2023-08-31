@@ -2,6 +2,7 @@
 
 require "rails_helper"
 
+# rubocop:disable Layout/LineLength
 module Renalware
   module Feeds
     describe HL7DocumentMessageBuilder do
@@ -154,3 +155,4 @@ module Renalware
     end
   end
 end
+# rubocop:enable Layout/LineLength
