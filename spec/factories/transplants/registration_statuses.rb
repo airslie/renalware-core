@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :transplant_registration_status, class: "Renalware::Transplants::RegistrationStatus" do
     accountable
-    description factory: :transplant_registration_status_description
+    description { create(:transplant_registration_status_description) } # rubocop:disable FactoryBot/FactoryAssociationWithStrategy
     started_on { Time.zone.today }
   end
 end
