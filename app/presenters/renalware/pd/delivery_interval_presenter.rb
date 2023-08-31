@@ -15,7 +15,7 @@ module Renalware
       # Note use Duration#to_formatted_s when rendering out a duration anywhere in the app.
       def self.dropdown_options
         PD.config.delivery_intervals.map do |duration|
-          [duration.to_fs, duration.iso8601]
+          [duration.to_formatted_s, duration.iso8601]
         end
       end
 

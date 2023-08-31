@@ -45,7 +45,7 @@ module Renalware
             SQL
           end
 
-          def apply_filter(filter) # rubocop:disable Metrics/MethodLength
+          def apply_filter(filter)
             case filter
             when :status_mismatch
               joins(statuses: :description)

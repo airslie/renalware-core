@@ -6,7 +6,7 @@ FactoryBot.define do
     subject { "The subject" }
 
     urgent { false }
-    author
+    association :author, factory: :author
     sent_at { Time.zone.now }
     patient
     public { true }

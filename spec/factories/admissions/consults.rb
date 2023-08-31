@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :admissions_consult, class: "Renalware::Admissions::Consult" do
     accountable
-    patient { create(:patient, by: accountable_actor) } # rubocop:disable FactoryBot/FactoryAssociationWithStrategy
+    patient { create(:patient, by: accountable_actor) }
     consult_site factory: %i(admissions_consult_site)
     consult_type { "x" }
     started_on { Time.zone.now - 2.days }
