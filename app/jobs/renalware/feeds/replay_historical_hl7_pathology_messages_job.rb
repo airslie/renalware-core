@@ -10,7 +10,7 @@
 #             -> ... extensible list
 module Renalware
   module Feeds
-    class ReplayHistoricalHL7PathologyMessagesJob
+    class ReplayHistoricalHL7PathologyMessagesJob < ApplicationJob
       def perform
         ReplayHistoricalHL7PathologyMessages.call(patient: patient)
       end
