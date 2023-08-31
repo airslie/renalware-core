@@ -55,10 +55,46 @@ module Renalware
             match: false
           },
           {
+            comment: "nhs_number match, dob match, but orc_order_status is not CM",
+            patient: { nhs_number: "4001540037", born_on: "2001-01-01" },
+            feed_message: { nhs_number: "4001540037", dob: "2001-01-01", orc_order_status: "A" },
+            match: false
+          },
+          {
+            comment: "nhs_number match, dob match, but message_type is not ORU",
+            patient: { nhs_number: "4001540037", born_on: "2001-01-01" },
+            feed_message: { nhs_number: "4001540037", dob: "2001-01-01", message_type: "ADT" },
+            match: false
+          },
+          {
+            comment: "nhs_number match, dob match, but event_type is not R01",
+            patient: { nhs_number: "4001540037", born_on: "2001-01-01" },
+            feed_message: { nhs_number: "4001540037", dob: "2001-01-01", event_type: "A01" },
+            match: false
+          },
+          {
             comment: "nhs_number match, dob match",
             patient: { nhs_number: "4001540037", born_on: "2001-01-01" },
             feed_message: { nhs_number: "4001540037", dob: "2001-01-01" },
             match: true
+          },
+          {
+            comment: "nhs_number match, dob match, note processed: false",
+            patient: { nhs_number: "4001540037", born_on: "2001-01-01" },
+            feed_message: { nhs_number: "4001540037", dob: "2001-01-01", processed: false },
+            match: true
+          },
+          {
+            comment: "nhs_number match, dob match, note processed: nil",
+            patient: { nhs_number: "4001540037", born_on: "2001-01-01" },
+            feed_message: { nhs_number: "4001540037", dob: "2001-01-01", processed: nil },
+            match: true
+          },
+          {
+            comment: "nhs_number match, dob match",
+            patient: { nhs_number: "4001540037", born_on: "2001-01-01" },
+            feed_message: { nhs_number: "4001540037", dob: "2001-01-01", processed: true },
+            match: false
           },
           {
             comment: "no nhs_number match, dob match",
@@ -116,11 +152,12 @@ module Renalware
         patient = build(:patient, nhs_number: nhs_num, born_on: dob)
         create_message(nhs_number: "nomatch", dob: dob) # no hit
         create_message(nhs_number: nhs_num, dob: dob, processed: true) # a miss as processed is true
-        unprocessed_msg = create_message(nhs_number: nhs_num, dob: dob, processed: false)
+        unprocessed_msg1 = create_message(nhs_number: nhs_num, dob: dob, processed: nil)
+        unprocessed_msg2 = create_message(nhs_number: nhs_num, dob: dob, processed: false)
 
         results = described_class.new(patient: patient).call
 
-        expect(results).to eq([unprocessed_msg])
+        expect(results).to contain_exactly(unprocessed_msg1, unprocessed_msg2)
       end
 
       %i(

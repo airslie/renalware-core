@@ -112,7 +112,7 @@ module Renalware
             message_type: "ORU",
             event_type: "R01",
             orc_order_status: "CM" # ie completed
-          ).where.not(processed: true) # could be nil or false if unprocessed, so using !true
+          ).where("processed is null or processed = false")
       end
     end
   end

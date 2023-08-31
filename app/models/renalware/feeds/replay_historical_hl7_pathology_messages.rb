@@ -26,7 +26,7 @@ module Renalware
         query = ReplayableHL7MessagesQuery.call(patient: patient)
         query.find_in_batches(batch_size: BATCH_SIZE) do |batch|
           batch.each do |feed_message|
-            Rails.logger.debug(feed_message) # TODO: replay message
+            Rails.logger.debug(feed_message)
             allow_listeners_to_process_the_message(feed_message)
             feed_message.update!(processed: true)
           end
