@@ -23,12 +23,14 @@ module Renalware
       end
 
       def call
-        query = ReplayableHL7MessagesQuery.call(patient: patient)
-        query.find_in_batches(batch_size: BATCH_SIZE) do |batch|
-          batch.each do |feed_message|
-            Rails.logger.debug(feed_message)
-            allow_listeners_to_process_the_message(feed_message)
-            feed_message.update!(processed: true)
+        query = ReplayableHL7PathologyMessagesQuery.call(patient: patient)
+        Replay.start_logging do |replay|
+          query.find_in_batches(batch_size: BATCH_SIZE) do |batch|
+            batch.each do |feed_message|
+              replay.log(feed_message) do
+                allow_listeners_to_process_the_message(feed_message)
+              end
+            end
           end
         end
       end
