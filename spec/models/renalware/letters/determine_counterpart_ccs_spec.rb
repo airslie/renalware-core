@@ -7,7 +7,7 @@ module Renalware
     describe DetermineCounterpartCCs do
       include LettersSpecHelper
 
-      subject(:service) { DetermineCounterpartCCs.new(letter) }
+      subject(:service) { described_class.new(letter) }
 
       let(:patient) { build(:letter_patient) }
 

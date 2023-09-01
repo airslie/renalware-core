@@ -16,7 +16,8 @@ module Renalware
                 where(hd_sessions: {
                         type: Session::DNA.sti_name,
                         started_at: range
-                      }))
+                      })
+              )
       end
 
       def with_finished_sessions

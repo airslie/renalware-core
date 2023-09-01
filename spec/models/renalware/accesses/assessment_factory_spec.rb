@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   module Accesses
     describe AssessmentFactory do
-      subject(:assessment) { AssessmentFactory.new(patient: patient).build }
+      subject(:assessment) { described_class.new(patient: patient).build }
 
       let(:patient) { Accesses.cast_patient(create(:patient)) }
 

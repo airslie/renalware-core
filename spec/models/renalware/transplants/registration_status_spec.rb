@@ -16,7 +16,7 @@ module Renalware
 
       describe "#valid?" do
         subject {
-          RegistrationStatus.new(
+          described_class.new(
             attributes_for(:transplant_registration_status).merge(attributes)
           )
         }

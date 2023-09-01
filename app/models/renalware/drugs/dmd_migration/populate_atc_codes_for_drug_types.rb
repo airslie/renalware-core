@@ -77,7 +77,7 @@ module Renalware
             code: "Psychiatric Medication",
             atc_codes: %w(N05 N06)
           }
-        ]
+        ].freeze
 
         def call
           DRUG_TYPES.each_with_index do |drug_type, index|

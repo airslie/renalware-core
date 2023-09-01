@@ -9,7 +9,7 @@ module Renalware
       let(:patient) { create(:hd_patient) }
 
       describe "building a new ongoing session" do
-        subject(:factory) { SessionFactory.new(patient: patient, user: user) }
+        subject(:factory) { described_class.new(patient: patient, user: user) }
 
         describe "#build" do
           it "applies defaults to the session" do
@@ -51,7 +51,7 @@ module Renalware
       end
 
       describe "building a dna session" do
-        subject(:factory) { SessionFactory.new(patient: patient, user: user, type: "dna") }
+        subject(:factory) { described_class.new(patient: patient, user: user, type: "dna") }
 
         describe "#build" do
           it "applies defaults to the session" do

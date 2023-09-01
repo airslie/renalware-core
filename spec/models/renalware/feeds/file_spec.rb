@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware::Feeds
   describe File do
-    subject { Renalware::Feeds::File.new }
+    subject { described_class.new }
 
     it_behaves_like "an Accountable model"
     it :aggregate_failures do

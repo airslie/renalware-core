@@ -14,7 +14,7 @@ module Renalware::System
       end
 
       context "with an unapproved user" do
-        subject(:commmand) { UpdateUser.new(user) }
+        subject(:commmand) { described_class.new(user) }
 
         let(:user) { create(:user, :clinical, :unapproved) }
 
@@ -46,7 +46,7 @@ module Renalware::System
       end
 
       context "with an approved user" do
-        subject(:command) { UpdateUser.new(user) }
+        subject(:command) { described_class.new(user) }
 
         let(:user) { create(:user) }
 
@@ -74,7 +74,7 @@ module Renalware::System
       end
 
       context "with an expired user" do
-        subject(:command) { UpdateUser.new(user) }
+        subject(:command) { described_class.new(user) }
 
         let(:user) { build(:user, :expired) }
 
@@ -94,7 +94,7 @@ module Renalware::System
       end
 
       context "with an unexpired user" do
-        subject(:command) { UpdateUser.new(user) }
+        subject(:command) { described_class.new(user) }
 
         let(:user) { build(:user) }
 
@@ -117,7 +117,7 @@ module Renalware::System
         it "assigns them the consultant flag" do
           user = build(:user, consultant: false)
 
-          UpdateUser.new(user).call(consultant: "true")
+          described_class.new(user).call(consultant: "true")
 
           expect(user.reload.consultant).to be(true)
         end
@@ -125,7 +125,7 @@ module Renalware::System
         it "does not send an email" do
           user = build(:user, consultant: false)
           expect {
-            UpdateUser.new(user).call(consultant: "true")
+            described_class.new(user).call(consultant: "true")
           }.not_to change(adapter.enqueued_jobs, :size)
         end
       end
@@ -134,7 +134,7 @@ module Renalware::System
         it "can remove the consultant flag" do
           user = build(:user, consultant: true)
 
-          UpdateUser.new(user).call(consultant: "bla")
+          described_class.new(user).call(consultant: "bla")
 
           expect(user.reload.consultant).to be(false)
         end
@@ -143,13 +143,13 @@ module Renalware::System
           user = build(:user, consultant: true)
 
           expect {
-            UpdateUser.new(user).call(consultant: "bla")
+            described_class.new(user).call(consultant: "bla")
           }.not_to change(adapter.enqueued_jobs, :size)
         end
       end
 
       context "with a locked user" do
-        subject(:command) { UpdateUser.new(user) }
+        subject(:command) { described_class.new(user) }
 
         let(:user) { create(:user, :access_locked) }
 

@@ -32,7 +32,7 @@ module Renalware::Patients
           HOSP2: "LP4",
           HOSP5: "LP5"
         }
-        expect(PatientHospitalIdentifiers.new(patient).all).to eq(expected)
+        expect(described_class.new(patient).all).to eq(expected)
       end
 
       it "returns an empty hash if the patient has no local_patient_ids" do
@@ -43,7 +43,7 @@ module Renalware::Patients
                         local_patient_id_3: nil,
                         local_patient_id_4: "",
                         local_patient_id_5: "")
-        expect(PatientHospitalIdentifiers.new(patient).all).to eq({})
+        expect(described_class.new(patient).all).to eq({})
       end
     end
 
@@ -58,7 +58,7 @@ module Renalware::Patients
                         local_patient_id_5: "C")
 
         expected = "KCH: A HOSP3: B HOSP5: C"
-        expect(PatientHospitalIdentifiers.new(patient).to_s).to eq(expected)
+        expect(described_class.new(patient).to_s).to eq(expected)
       end
     end
 
@@ -72,7 +72,7 @@ module Renalware::Patients
                         local_patient_id_4: "LP4",
                         local_patient_id_5: "LP5")
 
-        identifiers = PatientHospitalIdentifiers.new(patient)
+        identifiers = described_class.new(patient)
         expect(identifiers.id).to eq("LP4")
         # expect(identifiers.to_s).to eq("HOSP2: LP4")
 
@@ -92,7 +92,7 @@ module Renalware::Patients
                           local_patient_id_4: "",
                           local_patient_id_5: "")
 
-          identifiers = PatientHospitalIdentifiers.new(patient)
+          identifiers = described_class.new(patient)
           expect(identifiers.id).to be_nil
           expect(identifiers.name).to be_nil
         end

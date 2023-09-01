@@ -13,7 +13,7 @@ module Renalware
     include PolicySpecHelper
 
     subject(:policy) do
-      YAMLPermissionConfiguration.new(
+      described_class.new(
         model,
         Renalware::Engine.root.join("spec", "fixtures", "permissions.yml")
       )

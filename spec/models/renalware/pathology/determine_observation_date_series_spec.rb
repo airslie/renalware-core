@@ -12,7 +12,7 @@ module Renalware
             patient, "2014-01-01", "2016-01-01", "2015-01-01", "2016-01-01", "2013-01-01"
           )
 
-          query = DetermineObservationDateSeries.new
+          query = described_class.new
           actual_series = query.call
 
           expected_series = [

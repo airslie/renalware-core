@@ -16,18 +16,20 @@ module Renalware::Events
       end
 
       describe "uniqueness" do
-        subject { Type.new(name: "X", category: create(:event_category)) }
+        subject { described_class.new(name: "X", category: create(:event_category)) }
 
         it { is_expected.to validate_uniqueness_of :name }
       end
 
       describe "#event_class_name" do
         it "returns the correct event_class_name if one provided" do
-          expect(Type.new(event_class_name: "SomeClass").event_class_name).to eq("SomeClass")
+          expect(
+            described_class.new(event_class_name: "SomeClass").event_class_name
+          ).to eq("SomeClass")
         end
 
         it "returns the the default event_class_name done provided" do
-          expect(Type.new.event_class_name).to eq(Type::DEFAULT_EVENT_CLASS_NAME)
+          expect(described_class.new.event_class_name).to eq(Type::DEFAULT_EVENT_CLASS_NAME)
         end
       end
 

@@ -13,7 +13,7 @@ module Renalware
 
     describe "uniqueness" do
       subject {
-        Research::Participation.new(
+        described_class.new(
           patient_id: patient.id,
           study_id: study.id,
           joined_on: "2018-01-01"

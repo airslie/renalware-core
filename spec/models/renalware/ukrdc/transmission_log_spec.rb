@@ -19,7 +19,7 @@ module Renalware
             patient = create(:patient)
 
             expect {
-              UKRDC::TransmissionLog.with_logging(
+              described_class.with_logging(
                 patient: patient,
                 request_uuid: uuid,
                 status: :undefined

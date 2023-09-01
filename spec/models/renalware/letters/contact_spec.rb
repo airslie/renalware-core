@@ -14,7 +14,7 @@ module Renalware
         end
 
         context "when a contact has a specific description" do
-          subject { Contact.new(description: specific_contact_description) }
+          subject { described_class.new(description: specific_contact_description) }
 
           let(:specific_contact_description) do
             build(:letter_contact_description, system_code: "sibling")
@@ -24,7 +24,7 @@ module Renalware
         end
 
         context "when a contact has a non-specific description" do
-          subject { Contact.new(description: non_specific_contact_description) }
+          subject { described_class.new(description: non_specific_contact_description) }
 
           let(:non_specific_contact_description) do
             build(:letter_contact_description, system_code: "other")

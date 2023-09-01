@@ -17,8 +17,8 @@ module Renalware::Drugs
     describe "destroy" do
       it "soft deletes the drug" do
         drug.save!
-        expect { drug.destroy! }.to change(Drug, :count).by(-1)
-        soft_deleted = Drug.with_deleted.find(drug.id)
+        expect { drug.destroy! }.to change(described_class, :count).by(-1)
+        soft_deleted = described_class.with_deleted.find(drug.id)
         expect(soft_deleted).to eq(drug)
         expect(soft_deleted.deleted_at).not_to be_nil
       end

@@ -6,21 +6,17 @@ describe "Add person to directory and assign as a contact for a patient",
          js: true do
   include AjaxHelpers
 
-  before do
-    @user = login_as_clinical
-  end
-
-  let(:patient) { create(:patient, by: @user) }
-  let(:person) { build(:directory_person, by: @user, address: build(:address)) }
-
   describe "creating a person and assign as a contact" do
     context "with valid attributes" do
       it "responds successfully" do
+        user = login_as_clinical
+        patient = create(:patient, by: user)
+        person = build(:directory_person, by: user, address: build(:address))
         contact_description = create(:letter_contact_description)
 
         visit patient_letters_contacts_path(patient)
 
-        try_create_contact_with_valid_params(contact_description)
+        try_create_contact_with_valid_params(contact_description, person)
 
         expect_new_contact_for_patient
       end
@@ -28,6 +24,9 @@ describe "Add person to directory and assign as a contact for a patient",
 
     context "with invalid attributes" do
       it "responds with errors" do
+        user = login_as_clinical
+        patient = create(:patient, by: user)
+
         visit patient_letters_contacts_path(patient)
 
         try_create_contact_with_invalid_params
@@ -36,7 +35,7 @@ describe "Add person to directory and assign as a contact for a patient",
       end
     end
 
-    def try_create_contact_with_valid_params(contact_description)
+    def try_create_contact_with_valid_params(contact_description, person)
       click_on t("btn.add")
 
       within("#add-patient-contact-modal") do

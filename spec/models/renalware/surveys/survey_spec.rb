@@ -14,7 +14,7 @@ module Renalware
       end
 
       describe "#uniqueness" do
-        subject { Survey.new(name: "x", code: "x") }
+        subject { described_class.new(name: "x", code: "x") }
 
         it { is_expected.to validate_uniqueness_of :name }
       end

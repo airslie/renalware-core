@@ -82,7 +82,7 @@ describe Renalware::Clinics::ClinicVisit do
 
         expect {
           visit.destroy
-        }.to change(Renalware::Clinics::ClinicVisit, :count).by(-1)
+        }.to change(described_class, :count).by(-1)
       end
     end
 
@@ -94,7 +94,7 @@ describe Renalware::Clinics::ClinicVisit do
 
         expect {
           visit.destroy
-        }.to change(Renalware::Clinics::ClinicVisit, :count).by(-1)
+        }.to change(described_class, :count).by(-1)
 
         expect(appointment.reload.becomes_visit_id).to be_nil
       end

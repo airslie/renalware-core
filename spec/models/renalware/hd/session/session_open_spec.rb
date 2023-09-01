@@ -28,7 +28,7 @@ module Renalware
       end
 
       it "defines a policy class" do
-        expect(Session::Open.policy_class).to eq(OpenSessionPolicy)
+        expect(described_class.policy_class).to eq(OpenSessionPolicy)
       end
 
       it "is valid" do

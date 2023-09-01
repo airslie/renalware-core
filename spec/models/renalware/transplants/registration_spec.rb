@@ -39,7 +39,7 @@ module Renalware
               }
             }
 
-            registration = Registration.new
+            registration = described_class.new
             registration.update(params)
             expect(registration).to be_persisted
             expect(registration.statuses.count).to eq(1)

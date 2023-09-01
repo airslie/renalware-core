@@ -13,7 +13,7 @@ module Renalware
                                    author_id: 1)
           session = {}
 
-          RememberedLetterPreferences.new(session).persist(letter)
+          described_class.new(session).persist(letter)
 
           RememberedLetterPreferences::ATTRIBUTES_TO_REMEMBER.each do |attr|
             expect(session[:letter_preferences]).to have_key(attr)
@@ -34,7 +34,7 @@ module Renalware
                                   description: nil,
                                   author_id: nil)
 
-          RememberedLetterPreferences.new(session).apply_to(letter)
+          described_class.new(session).apply_to(letter)
 
           RememberedLetterPreferences::ATTRIBUTES_TO_REMEMBER.each do |attr|
             expect(letter.public_send(attr)).to eq(session[:letter_preferences][attr])

@@ -140,7 +140,7 @@ module Renalware
           "test" => "test",
           "012 345 6789" => "012 345 6789"
         }.each do |real, formatted|
-          expect(Patient.new(nhs_number: real).nhs_number_formatted).to eq(formatted)
+          expect(described_class.new(nhs_number: real).nhs_number_formatted).to eq(formatted)
         end
       end
     end
@@ -218,7 +218,7 @@ module Renalware
 
         context "when the patient has no local_patient_id" do
           it "is invalid" do
-            patient = Patient.new
+            patient = described_class.new
 
             expect(patient).not_to be_valid
             expect(patient.errors[:base]).to include(error_message)
@@ -233,7 +233,7 @@ module Renalware
           end
 
           it "is invalid when no nhs_number supplied" do
-            patient = Patient.new
+            patient = described_class.new
 
             expect(patient).not_to be_valid
 
@@ -241,7 +241,7 @@ module Renalware
           end
 
           it "is valid when an nhs_number is present" do
-            patient = Patient.new
+            patient = described_class.new
             patient.nhs_number = "9999999999"
 
             expect(patient).not_to be_valid
@@ -252,7 +252,7 @@ module Renalware
 
         context "when the patient has just a local_patient_id" do
           it "is valid" do
-            patient = Patient.new(local_patient_id: "A123")
+            patient = described_class.new(local_patient_id: "A123")
 
             expect(patient.errors[:base] || []).not_to include(error_message)
           end
@@ -260,7 +260,7 @@ module Renalware
 
         context "when the patient has just a local_patient_id_2" do
           it "is valid" do
-            patient = Patient.new(local_patient_id_2: "A123")
+            patient = described_class.new(local_patient_id_2: "A123")
 
             expect(patient.errors[:base] || []).not_to include(error_message)
           end
@@ -274,7 +274,7 @@ module Renalware
           patient = create(:patient)
           expect {
             patient.update(died_on: "2015-02-25", by: user)
-          }.not_to change(Patient, :count)
+          }.not_to change(described_class, :count)
         end
       end
     end

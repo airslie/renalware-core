@@ -5,7 +5,7 @@ require "rails_helper"
 describe "Edit Advanced Kidney Care" do
   include PatientsSpecHelper
 
-  let(:user) { @current_user }
+  let(:user) { create(:user) }
   let(:patient) do
     create(:low_clearance_patient).tap do |pat|
       set_modality(

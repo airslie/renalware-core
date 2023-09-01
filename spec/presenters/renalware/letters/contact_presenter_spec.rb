@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   module Letters
     describe ContactPresenter do
-      subject(:presenter) { ContactPresenter.new(contact) }
+      subject(:presenter) { described_class.new(contact) }
 
       let(:contact) { build(:letter_contact) }
 
@@ -44,7 +44,7 @@ module Renalware
             person = Directory::Person.new(title: "Mr", given_name: "John", family_name: "Smith")
             contact = Contact.new(person: person)
 
-            expect(ContactPresenter.new(contact).salutation).to eq("Dear Mr Smith")
+            expect(described_class.new(contact).salutation).to eq("Dear Mr Smith")
           end
         end
 
@@ -53,7 +53,7 @@ module Renalware
             person = Directory::Person.new(title: "", given_name: "John", family_name: "Smith")
             contact = Contact.new(person: person)
 
-            expect(ContactPresenter.new(contact).salutation).to eq("Dear John Smith")
+            expect(described_class.new(contact).salutation).to eq("Dear John Smith")
           end
         end
       end

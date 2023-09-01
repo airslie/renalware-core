@@ -64,7 +64,7 @@ module Renalware
         end
 
         describe ".current" do
-          subject(:prescriptions) { Prescription.current("2010-01-02") }
+          subject(:prescriptions) { described_class.current("2010-01-02") }
 
           it "returns prescriptions that terminate today or later, or not specified" do
             expect(prescriptions.map(&:notes)).to \
@@ -75,7 +75,7 @@ module Renalware
         end
 
         describe ".terminated" do
-          subject(:prescriptions) { Prescription.terminated("2010-01-02") }
+          subject(:prescriptions) { described_class.terminated("2010-01-02") }
 
           it "returns prescriptions that terminate today or later, or not specified" do
             expect(prescriptions.map(&:notes)).to \
@@ -100,7 +100,7 @@ module Renalware
                                   terminated_on: yesterday,
                                   notes: ":expired_yesterday:")
 
-              prescriptions = Prescription.to_be_administered_on_hd
+              prescriptions = described_class.to_be_administered_on_hd
               expect(prescriptions.length).to eq(1)
               expect(prescriptions.first.administer_on_hd).to be(true)
               expect(prescriptions.first).to eq(target)

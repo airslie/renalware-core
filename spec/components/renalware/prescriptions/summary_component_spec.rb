@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware::Prescriptions
   describe SummaryComponent do
-    subject(:component) { SummaryComponent.new(patient: patient) }
+    subject(:component) { described_class.new(patient: patient) }
 
     let(:user) { create(:user) }
     let(:patient) { create(:letter_patient, by: user) }

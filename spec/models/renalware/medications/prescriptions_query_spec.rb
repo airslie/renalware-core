@@ -7,7 +7,7 @@ module Renalware::Medications
     let(:patient) { create(:patient) }
 
     context "with no filter" do
-      subject(:query) { PrescriptionsQuery.new(relation: patient.prescriptions) }
+      subject(:query) { described_class.new(relation: patient.prescriptions) }
 
       let!(:current_prescription) do
         create(:prescription, notes: ":current:", patient: patient, treatable: patient)
@@ -22,7 +22,7 @@ module Renalware::Medications
 
     context "with a filter for a drug type" do
       subject(:query) do
-        PrescriptionsQuery.new(
+        described_class.new(
           relation: patient.prescriptions,
           search_params: { drug_drug_types_id_eq: target_drug_type.id }
         )

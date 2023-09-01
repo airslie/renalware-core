@@ -6,7 +6,7 @@ module Renalware
   module HD
     module Sessions
       describe AuditableSessionCollection do
-        subject(:audit) { AuditableSessionCollection.new(@sessions) }
+        subject(:audit) { described_class.new(@sessions) }
 
         let(:patient) { build_stubbed(:hd_patient) }
 
@@ -27,12 +27,12 @@ module Renalware
           end
         end
 
-        it { is_expected.to be_a(Renalware::HD::Sessions::AuditableSessionCollection) }
+        it { is_expected.to be_a(described_class) }
 
         # Most of the mean calculations use this strategy class
         # so we test all possible edge cases here.
         describe AuditableSessionCollection::MeanValueStrategy do
-          subject(:strategy) { AuditableSessionCollection::MeanValueStrategy }
+          subject(:strategy) { described_class }
 
           it "calculates the mean from a number of values" do
             sessions = [{ x: 1.1 }, { x: 1.2 }, { x: 1.3 }]

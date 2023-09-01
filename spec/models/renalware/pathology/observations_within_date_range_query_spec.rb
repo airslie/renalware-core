@@ -13,7 +13,7 @@ module Renalware
             patient, "2014-01-01", "2016-01-01", "2015-01-01", "2016-01-01", "2013-01-1"
           )
 
-          query = ObservationsWithinDateRangeQuery.new(
+          query = described_class.new(
             date_range: Range.new("2014-01-01", "2016-01-01")
           )
           records = query.call

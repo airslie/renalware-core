@@ -33,6 +33,7 @@ describe "View a user's read/unread electronic ccs" do
   let(:read_rcpt_for_completed_letter_sent_to_other) do
     create_receipt(read: true, to: user_who_is_not_me, letter: completed_letter)
   end
+  let(:me) { login_as_clinical }
 
   def create_letter_with_state(state)
     patient = create(
@@ -49,21 +50,13 @@ describe "View a user's read/unread electronic ccs" do
     )
   end
 
-  def create_receipt(letter:, read: false, to: @current_user)
+  def create_receipt(letter:, read: false, to: me)
     create(
       :letter_electronic_receipt,
       letter: letter,
       recipient: to,
       read_at: read ? Time.zone.now : nil
     )
-  end
-
-  def me
-    @current_user
-  end
-
-  before do
-    @current_user = login_as_clinical
   end
 
   describe "GET unread" do

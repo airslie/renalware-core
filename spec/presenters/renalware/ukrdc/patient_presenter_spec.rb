@@ -45,7 +45,7 @@ module Renalware
     end
 
     describe "#modalties" do
-      subject(:presenter) { UKRDC::PatientPresenter.new(patient) }
+      subject(:presenter) { described_class.new(patient) }
 
       let(:patient) { create(:patient) }
       let(:user) { create(:user) }
@@ -107,7 +107,7 @@ module Renalware
           patient = build_stubbed(:patient, send_to_rpv: true, send_to_renalreg: true)
           letters_patient = stub_letters_patient(patient)
 
-          UKRDC::PatientPresenter.new(patient).letters
+          described_class.new(patient).letters
 
           expect(letters_patient).to have_received(:letters)
         end
@@ -118,7 +118,7 @@ module Renalware
           patient = build_stubbed(:patient, send_to_rpv: false, send_to_renalreg: true)
           letters_patient = stub_letters_patient(patient)
 
-          UKRDC::PatientPresenter.new(patient).letters
+          described_class.new(patient).letters
 
           expect(letters_patient).not_to have_received(:letters)
         end
@@ -126,7 +126,7 @@ module Renalware
     end
 
     describe "#transplant_operations" do
-      subject(:presenter) { UKRDC::PatientPresenter.new(patient) }
+      subject(:presenter) { described_class.new(patient) }
 
       let(:patient) { create(:transplant_patient) }
       let(:user) { create(:user) }
@@ -140,7 +140,7 @@ module Renalware
     end
 
     describe "#prescriptions_with_numeric_dose_amount" do
-      subject(:presenter) { UKRDC::PatientPresenter.new(patient) }
+      subject(:presenter) { described_class.new(patient) }
 
       let(:patient) { create(:patient) }
       let(:user) { create(:user) }

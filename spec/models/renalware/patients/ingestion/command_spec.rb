@@ -15,7 +15,7 @@ module Renalware
             )
 
             expect_any_instance_of(CommandFactory).to receive(:for).with(message)
-            Command.for(message)
+            described_class.for(message)
           end
         end
       end

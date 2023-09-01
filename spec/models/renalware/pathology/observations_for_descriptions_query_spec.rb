@@ -14,7 +14,7 @@ module Renalware
           )
           target_descriptions = filter_targeted_descriptions(descriptions)
 
-          query = ObservationsForDescriptionsQuery.new(descriptions: target_descriptions)
+          query = described_class.new(descriptions: target_descriptions)
           results = query.call
 
           expect(results.map(&description_codes)).to match_array(%w(target-1 target-2))

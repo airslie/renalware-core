@@ -15,7 +15,7 @@ module Renalware
           ]
           expected_range = Range.new(date("2013-01-01"), date("2016-01-02"))
 
-          expect(ObservationDateRange.build(date_series)).to eq(expected_range)
+          expect(described_class.build(date_series)).to eq(expected_range)
         end
 
         def date(string)

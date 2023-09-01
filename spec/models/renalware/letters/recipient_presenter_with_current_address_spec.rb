@@ -7,7 +7,7 @@ module Renalware
     describe RecipientPresenter::WithCurrentAddress do
       include LettersSpecHelper
 
-      subject(:presenter) { RecipientPresenter::WithCurrentAddress.new(recipient) }
+      subject(:presenter) { described_class.new(recipient) }
 
       let(:practice_name) { "Practice1" }
       let(:address_organisation_name) { "AddressOrgName" }

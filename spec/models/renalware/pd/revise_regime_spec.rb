@@ -23,18 +23,18 @@ module Renalware
           let(:params) { {} }
 
           it "does not create a new regime" do
-            command = ReviseRegime.new(regime)
+            command = described_class.new(regime)
             expect { command.call(by: user, params: params) }.not_to change(Regime, :count)
           end
 
           it "does not terminate the regime" do
-            command = ReviseRegime.new(regime)
+            command = described_class.new(regime)
             expect { command.call(by: user, params: params) }
               .not_to change(RegimeTermination, :count)
           end
 
           it "returns true" do
-            result = ReviseRegime.new(regime).call(by: user, params: params)
+            result = described_class.new(regime).call(by: user, params: params)
             expect(result).to be_success
           end
         end
@@ -43,12 +43,12 @@ module Renalware
           let(:params) { { start_date: "2015-12-01", end_date: "2014-12-01" } }
 
           it "returns false" do
-            result = ReviseRegime.new(regime).call(by: user, params: params)
+            result = described_class.new(regime).call(by: user, params: params)
             expect(result).not_to be_success
           end
 
           it "does not terminate the regime" do
-            expect { ReviseRegime.new(regime).call(by: user, params: params) }
+            expect { described_class.new(regime).call(by: user, params: params) }
               .not_to change(RegimeTermination, :count)
           end
         end
@@ -57,7 +57,7 @@ module Renalware
           let(:params) { { add_hd: true } }
 
           it "creates a new regime" do
-            command = ReviseRegime.new(regime)
+            command = described_class.new(regime)
             expect { command.call(by: user, params: params) }.to change(Regime, :count).by(1)
           end
 
@@ -65,7 +65,7 @@ module Renalware
             expect(Regime.count).to eq(1)
             expect(RegimeTermination.count).to eq(0)
 
-            result = ReviseRegime.new(regime).call(by: user, params: params)
+            result = described_class.new(regime).call(by: user, params: params)
 
             expect(Regime.count).to eq(2)
             expect(RegimeTermination.count).to eq(1)
@@ -76,7 +76,7 @@ module Renalware
           it "sets the current regime to the newly created one" do
             expect(regime).to be_current
 
-            result = ReviseRegime.new(regime).call(by: user, params: params)
+            result = described_class.new(regime).call(by: user, params: params)
 
             expect(result).to be_success
             expect(result.object).to be_current
@@ -84,7 +84,7 @@ module Renalware
 
           it "sets the end on the replaced regime to be the start date of new one" do
             freeze_time do
-              result = ReviseRegime.new(regime).call(by: user, params: params)
+              result = described_class.new(regime).call(by: user, params: params)
 
               expect(result).to be_success
               expect(regime.end_date).to eq(result.object.start_date)
@@ -119,7 +119,7 @@ module Renalware
               }
             }
 
-            ReviseRegime.new(regime).call(by: user, params: params)
+            described_class.new(regime).call(by: user, params: params)
 
             expect(Regime.count).to eq(regime_count + 1)
             expect(RegimeBag.count).to eq(bag_count + 1)
@@ -155,7 +155,7 @@ module Renalware
             }
 
             expect(regime.bags.count).to eq(2)
-            result = ReviseRegime.new(regime).call(by: user, params: params)
+            result = described_class.new(regime).call(by: user, params: params)
 
             new_regime = result.object
             expect(new_regime.bags.count).to eq(1)
@@ -170,19 +170,19 @@ module Renalware
           let(:params) { { add_hd: true } }
 
           it "creates a new regime" do
-            command = ReviseRegime.new(regime)
+            command = described_class.new(regime)
             expect { command.call(by: user, params: params) }.to change(Regime, :count).by(1)
           end
 
           it "the new regime is not the original regime" do
-            new_regime = ReviseRegime.new(regime).call(by: user, params: params).object
+            new_regime = described_class.new(regime).call(by: user, params: params).object
             expect(new_regime).to be_present
             expect(new_regime.id).to be_present
             expect(new_regime.id).not_to eq(regime.id)
           end
 
           it "the new regime's bags are not those of the original" do
-            result = ReviseRegime.new(regime).call(by: user, params: params)
+            result = described_class.new(regime).call(by: user, params: params)
             new_regime = result.object
             original_bag_ids = regime.bags.map(&:id)
             new_bag_ids = new_regime.bags.map(&:id)

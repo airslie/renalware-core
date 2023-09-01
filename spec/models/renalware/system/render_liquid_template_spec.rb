@@ -24,8 +24,10 @@ module Renalware
         it "finds and renders a liquid template" do
           allow(Template).to receive(:find_by!).and_return(template)
 
-          output = RenderLiquidTemplate.call(template_name: "test",
-                                             variables: { "patient" => TestPatientDrop.new })
+          output = described_class.call(
+            template_name: "test",
+            variables: { "patient" => TestPatientDrop.new }
+          )
 
           expect(Template).to have_received(:find_by!)
           expect(output).to eq("<h1>John Smith</hi>")
@@ -35,14 +37,14 @@ module Renalware
           allow(Template).to receive(:find_by!).and_return(template)
 
           expect {
-            RenderLiquidTemplate.call(template_name: "test")
+            described_class.call(template_name: "test")
           }.to raise_error(Liquid::UndefinedVariable)
           expect(Template).to have_received(:find_by!)
         end
 
         it "raises an error if the template is not found" do
           expect {
-            RenderLiquidTemplate.call(template_name: "nonexistent_template_name")
+            described_class.call(template_name: "nonexistent_template_name")
           }.to raise_error(ActiveRecord::RecordNotFound)
         end
       end

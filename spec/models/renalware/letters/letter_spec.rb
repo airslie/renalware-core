@@ -56,7 +56,7 @@ module Renalware
 
       describe "#external_id" do
         it "pads the letter id with zeros and prefixes RW" do
-          letter = Letters::Letter.new(id: 123)
+          letter = described_class.new(id: 123)
 
           expect(letter.external_id).to eq("RW0000000123")
         end
@@ -74,7 +74,7 @@ module Renalware
           }
         }.each do |clinical_bool, doctype_hash|
           it "is #{doctype_hash[:code]}, #{doctype_hash[:name]} if clinical is #{clinical_bool}" do
-            letter = Letters::Letter.new(clinical: clinical_bool)
+            letter = described_class.new(clinical: clinical_bool)
 
             expect(letter.external_document_type_code).to eq(doctype_hash[:code])
             expect(letter.external_document_type_description).to eq(doctype_hash[:name])

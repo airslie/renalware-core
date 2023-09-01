@@ -20,7 +20,7 @@ module Renalware
       end
 
       describe "class methods" do
-        subject { DonorStage }
+        subject { described_class }
 
         it { is_expected.to respond_to(:for_patient) }
       end
@@ -42,7 +42,7 @@ module Renalware
                                     terminated_on: nil,
                                     by: user)
 
-            current = DonorStage.for_patient(patient).current
+            current = described_class.for_patient(patient).current
             expect(current.length).to eq(1)
             expect(current.first.id).to eq(current_status.id)
           end

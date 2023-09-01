@@ -19,30 +19,30 @@ module Renalware
             it "raises an error if the regime is not tidal" do
               regime.tidal_indicator = false
               expect {
-                TidalRegimeCalculations.new(regime).calculated_overnight_volume
+                described_class.new(regime).calculated_overnight_volume
               }.to raise_error(ArgumentError)
             end
 
             it "returns 0 if cycles is nil" do
               regime.cycles = nil
-              expect(TidalRegimeCalculations.new(regime).calculated_overnight_volume).to be_nil
+              expect(described_class.new(regime).calculated_overnight_volume).to be_nil
             end
 
             it "returns 0 if fill volume is zero" do
               regime.fill_volume = 0
-              expect(TidalRegimeCalculations.new(regime).calculated_overnight_volume).to be_nil
+              expect(described_class.new(regime).calculated_overnight_volume).to be_nil
             end
 
             it "returns 0 if tidal percentage is 0" do
               regime.tidal_percentage = 0
-              expect(TidalRegimeCalculations.new(regime).calculated_overnight_volume).to be_nil
+              expect(described_class.new(regime).calculated_overnight_volume).to be_nil
             end
 
             context "when draining every 3 cycles" do
               it "sums the full volume of 1,4,7 and the tidal_percentage of 2,3,5,6,8,9" do
                 regime.tidal_full_drain_every_three_cycles = true
 
-                overnight_volume = TidalRegimeCalculations.new(regime).calculated_overnight_volume
+                overnight_volume = described_class.new(regime).calculated_overnight_volume
 
                 # Fills 1,4,7 follow a complete drain, so are the full `fill_volumne`
                 # Fills 2,3,5,6,8,9 are fill_volume * tidal percentage e.g. 0.75
@@ -58,7 +58,7 @@ module Renalware
                  "volume of the remaining cycles" do
                 regime.tidal_full_drain_every_three_cycles = false
 
-                overnight_volume = TidalRegimeCalculations.new(regime).calculated_overnight_volume
+                overnight_volume = described_class.new(regime).calculated_overnight_volume
 
                 expected_overnight_volume = (1 * 1500) + (8 * (1500 * 0.8))
                 expect(overnight_volume).to eq(expected_overnight_volume)

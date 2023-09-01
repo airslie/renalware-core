@@ -6,7 +6,7 @@ module Renalware
   module Letters
     describe LetterQuery do
       include LettersSpecHelper
-      subject(:query) { LetterQuery.new }
+      subject(:query) { described_class.new }
 
       let(:primary_care_physician) { create(:letter_primary_care_physician) }
       let(:patient) { create(:letter_patient, primary_care_physician: primary_care_physician) }

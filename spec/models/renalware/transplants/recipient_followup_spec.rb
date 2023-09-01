@@ -18,7 +18,7 @@ module Renalware
 
       describe "#valid?" do
         subject do
-          RecipientFollowup.new(
+          described_class.new(
             attributes_for(:transplant_recipient_followup).merge(attributes)
           )
         end

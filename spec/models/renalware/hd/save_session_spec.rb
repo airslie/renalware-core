@@ -30,12 +30,12 @@ module Renalware
         end
 
         it "expects session params to contain type" do
-          obj = SaveSession.new(patient: patient, current_user: user)
+          obj = described_class.new(patient: patient, current_user: user)
           expect { obj.call(params: {}, signing_off: false, id: nil) }.to raise_error(ArgumentError)
         end
 
         it "broadcasts an event on success" do
-          obj = SaveSession.new(patient: patient, current_user: user)
+          obj = described_class.new(patient: patient, current_user: user)
 
           expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
           expect {
@@ -44,7 +44,7 @@ module Renalware
         end
 
         it "broadcasts an event on failure" do
-          obj = SaveSession.new(patient: patient, current_user: user)
+          obj = described_class.new(patient: patient, current_user: user)
 
           expect_any_instance_of(HD::Session).to receive(:save).and_return(false)
           expect {
@@ -53,7 +53,7 @@ module Renalware
         end
 
         it "doesn't enqueue a request to update rolling session stats if its an open session" do
-          obj = SaveSession.new(patient: patient, current_user: user)
+          obj = described_class.new(patient: patient, current_user: user)
 
           expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
 
@@ -63,7 +63,7 @@ module Renalware
         end
 
         it "enqueues a request to update rolling session stats if its an closed session" do
-          obj = SaveSession.new(patient: patient, current_user: user)
+          obj = described_class.new(patient: patient, current_user: user)
 
           expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
 
@@ -73,7 +73,7 @@ module Renalware
         end
 
         it "enqueues a request to update rolling session stats if its an dna session" do
-          obj = SaveSession.new(patient: patient, current_user: user)
+          obj = described_class.new(patient: patient, current_user: user)
 
           expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
 
@@ -102,7 +102,7 @@ module Renalware
           ).attributes
           session_attributes.delete("dry_weight_id")
 
-          obj = SaveSession.new(patient: patient, current_user: user)
+          obj = described_class.new(patient: patient, current_user: user)
 
           # Create a listener to receive broadcast success or failure from SaveSession
           listener = test_listener.new

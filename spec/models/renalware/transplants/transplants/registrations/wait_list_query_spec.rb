@@ -7,7 +7,7 @@ module Renalware
     module Registrations
       describe WaitListQuery do
         describe "#call" do
-          subject(:query) { WaitListQuery.new(named_filter: filter) }
+          subject(:query) { described_class.new(named_filter: filter) }
 
           before do
             %w(active suspended working_up working_up_lrf).each do |status|
@@ -56,7 +56,7 @@ module Renalware
           end
 
           context "with filter 'status_mismatch'" do
-            subject(:query) { WaitListQuery.new(named_filter: :status_mismatch) }
+            subject(:query) { described_class.new(named_filter: :status_mismatch) }
 
             context "when the patient is active and UKT status contains A" do
               it "does not choose the registration" do

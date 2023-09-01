@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   describe YearDatedConfirmation, type: :model do
     let(:year_dated_confirmation) {
-      YearDatedConfirmation.new(status: "yes", confirmed_on_year: 2015)
+      described_class.new(status: "yes", confirmed_on_year: 2015)
     }
 
     describe "#to_s" do

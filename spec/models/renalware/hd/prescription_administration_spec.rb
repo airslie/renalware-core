@@ -103,7 +103,7 @@ module Renalware
           it "does not allo this" do
             pwd = "password"
             user = create(:user, password: "password")
-            errors = PrescriptionAdministration.new(
+            errors = described_class.new(
               administered: true,
               administered_by: user,
               witnessed_by: user,

@@ -14,7 +14,7 @@ module Renalware
       end
 
       describe "#to_s" do
-        subject(:signature) { Signature.new(user: user, signed_at: "2016-08-01 12:05:55") }
+        subject(:signature) { described_class.new(user: user, signed_at: "2016-08-01 12:05:55") }
 
         let(:user) { build(:user, family_name: "Doe", given_name: "John") }
 

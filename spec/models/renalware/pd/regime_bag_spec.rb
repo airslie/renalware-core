@@ -7,7 +7,7 @@ module Renalware
   describe PD::RegimeBag do
     before do
       @patient = build_stubbed(:patient)
-      @pd_regime_bag_1 = PD::RegimeBag.new
+      @pd_regime_bag_1 = described_class.new
       @pd_regime_bag_2 = build(:pd_regime_bag,
                                sunday: true,
                                monday: false,
