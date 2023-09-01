@@ -10,6 +10,7 @@ module Renalware
       validates :message_type, presence: true
       validates :event_type, presence: true
       validates :body, presence: true
+      has_many :replay_messages, dependent: :destroy
 
       def to_s
         body

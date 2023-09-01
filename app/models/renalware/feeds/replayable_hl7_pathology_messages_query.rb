@@ -17,6 +17,9 @@ module Renalware
     # it is deemed that once the patient is added to Renalware, subsequent ADT HL7 messages which
     # will soon arrive will being the demographic data up to date - so no point replaying ADT
     # messages really, and might in fact lead to confusion.
+    #
+    # We also take into account previous replays and and do not import a messages if has a row in a
+    # 'replayed messages' table where success was indicated.
     class ReplayableHL7PathologyMessagesQuery
       include Callable
       pattr_initialize [:patient!]
@@ -105,14 +108,24 @@ module Renalware
         scope
       end
 
-      # Select only complete (not partial) ORU messages that have not already been imported
+      # Select only complete (not partial) ORU messages that have not already been imported.
+      # left join onto any previous message. We want to filter out feed messages where we
+      # successfully ran a replay on this message in the past.
       def complete_pathology_feed_messages
         Renalware::Feeds::Message
           .where(
             message_type: "ORU",
             event_type: "R01",
-            orc_order_status: "CM" # ie completed
-          ).where("processed is null or processed = false")
+            orc_order_status: "CM", # ie completed
+            processed: [nil, false],
+            feed_replay_messages: { id: nil }
+          )
+          .joins(<<-SQL.squish)
+            LEFT OUTER JOIN
+              feed_replay_messages
+              ON feed_replay_messages.message_id = feed_messages.id
+              AND feed_replay_messages.success = true
+          SQL
       end
     end
   end

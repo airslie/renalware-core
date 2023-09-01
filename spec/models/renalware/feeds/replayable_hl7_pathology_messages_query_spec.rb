@@ -189,6 +189,32 @@ module Renalware
           expect(results.to_a).to eq([msg_matched2, msg_matched1])
         end
       end
+
+      context "when there was a previous successful replay for a message" do
+        it "excludes that message" do
+          patient = build(:patient, nhs_number: nhs_num, born_on: dob)
+          msg = create_message(nhs_number: nhs_num, dob: dob, processed: false)
+          replay = Replay.create!(started_at: Time.zone.now)
+          replay.replay_messages.create!(replay: replay, message: msg, success: false)
+
+          results = described_class.new(patient: patient).call
+
+          expect(results).to contain_exactly(msg)
+        end
+      end
+
+      context "when there was a previous unsuccessful replay for a message" do
+        it "will include that message" do
+          patient = build(:patient, nhs_number: nhs_num, born_on: dob)
+          msg = create_message(nhs_number: nhs_num, dob: dob, processed: false)
+          replay = Replay.create!(started_at: Time.zone.now)
+          replay.replay_messages.create!(replay: replay, message: msg, success: true)
+
+          results = described_class.new(patient: patient).call
+
+          expect(results).to be_empty
+        end
+      end
     end
   end
 end
