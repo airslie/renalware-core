@@ -3,12 +3,12 @@
 require "rails_helper"
 
 module Renalware::Feeds
-  describe Replay do
+  describe ReplayRequest do
     subject { described_class.new }
 
     it :aggregate_failures do
       is_expected.to validate_presence_of(:started_at)
-      is_expected.to have_many :replay_messages
+      is_expected.to have_many :message_replays
     end
   end
 end

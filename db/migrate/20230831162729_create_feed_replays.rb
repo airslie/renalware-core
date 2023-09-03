@@ -1,7 +1,7 @@
 class CreateFeedReplays < ActiveRecord::Migration[7.0]
   def change
     within_renalware_schema do
-      create_table :feed_replays do |t|
+      create_table :feed_replay_requests do |t|
         # t.enum :message_type, enum_type: :hl7_message_type
         # t.enum :event_type, enum_type: :hl7_event_type
         # t.enum :orc_order_status, enum_type: :enum_hl7_orc_order_status
@@ -13,12 +13,12 @@ class CreateFeedReplays < ActiveRecord::Migration[7.0]
         t.timestamps null: false
       end
 
-      create_table :feed_replay_messages do |t|
+      create_table :feed_message_replays do |t|
         t.references(
-          :replay,
+          :replay_request,
           index: true,
           null: false,
-          foreign_key: { to_table: :feed_replays }
+          foreign_key: { to_table: :feed_replay_requests }
         )
         t.references(
           :message,

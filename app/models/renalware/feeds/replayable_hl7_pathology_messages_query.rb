@@ -118,13 +118,13 @@ module Renalware
             event_type: "R01",
             orc_order_status: "CM", # ie completed
             processed: [nil, false],
-            feed_replay_messages: { id: nil }
+            feed_message_replays: { id: nil }
           )
           .joins(<<-SQL.squish)
             LEFT OUTER JOIN
-              feed_replay_messages
-              ON feed_replay_messages.message_id = feed_messages.id
-              AND feed_replay_messages.success = true
+              feed_message_replays
+              ON feed_message_replays.message_id = feed_messages.id
+              AND feed_message_replays.success = true
           SQL
       end
     end

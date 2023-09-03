@@ -36,20 +36,19 @@ module Renalware
             expect {
               described_class.new(patient: patient).call
             }
-              .to change(Replay, :count).by(1)
-              .and change(ReplayMessage, :count).by(1)
+              .to change(ReplayRequest, :count).by(1)
+              .and change(MessageReplay, :count).by(1)
 
-            replay = Replay.last
-            expect(replay).to have_attributes(
+            replay_request = ReplayRequest.last
+            expect(replay_request).to have_attributes(
               started_at: now,
               finished_at: now,
               total_messages: 1,
               failed_messages: 0
             )
 
-            expect(ReplayMessage.last).to have_attributes(
+            expect(replay_request.message_replays.last).to have_attributes(
               message: feed_message,
-              replay: replay,
               success: true,
               error_message: nil
             )
@@ -88,25 +87,23 @@ module Renalware
               expect {
                 described_class.new(patient: patient).call
               }
-                .to change(Replay, :count).by(1)
-                .and change(ReplayMessage, :count).by(2)
+                .to change(ReplayRequest, :count).by(1)
+                .and change(MessageReplay, :count).by(2)
 
-              replay = Replay.last
-
-              expect(replay).to have_attributes(
+              expect(ReplayRequest.last).to have_attributes(
                 started_at: now,
                 finished_at: now,
                 total_messages: 2,
                 failed_messages: 1
               )
 
-              expect(ReplayMessage.first).to have_attributes(
+              expect(MessageReplay.first).to have_attributes(
                 success: false,
                 message: feed_message_fail,
                 error_message: "undefined method `message_type' for nil:NilClass"
               )
 
-              expect(ReplayMessage.last).to have_attributes(
+              expect(MessageReplay.last).to have_attributes(
                 success: true,
                 message: feed_message_ok,
                 error_message: nil

@@ -2,10 +2,10 @@
 
 module Renalware
   module Feeds
-    class ReplayMessage < ApplicationRecord
-      validates :replay_id, presence: true
+    class MessageReplay < ApplicationRecord
+      validates :replay_request_id, presence: true
       validates :message_id, presence: true
-      belongs_to :replay
+      belongs_to :replay_request
       belongs_to :message
     end
   end
