@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware::Medications::Delivery
   describe PrescriptionsDueForDeliveryQuery do
-    subject(:query) { PrescriptionsDueForDeliveryQuery.new.call }
+    subject(:query) { described_class.new.call }
 
     def create_home_del_prescription(patient, drug, next_delivery_date)
       create(
@@ -55,7 +55,7 @@ module Renalware::Medications::Delivery
             create_home_del_prescription(patient, drug, 5.weeks.ago)
           ]
 
-          results = PrescriptionsDueForDeliveryQuery.new.call
+          results = described_class.new.call
           expect(results.length).to eq(2)
           expect(results.map(&:id)).to eq(
             [
@@ -78,7 +78,7 @@ module Renalware::Medications::Delivery
             terminated_on: 1.day.ago
           )
 
-          results = PrescriptionsDueForDeliveryQuery.new.call
+          results = described_class.new.call
           expect(results.length).to eq(0)
         end
       end
@@ -99,7 +99,7 @@ module Renalware::Medications::Delivery
             create_home_del_prescription(patient, immuno_drug, 1.day.from_now)
           ]
 
-          results = PrescriptionsDueForDeliveryQuery.new(drug_type_code: :esa).call
+          results = described_class.new(drug_type_code: :esa).call
           expect(results.length).to eq(1)
           expect(results.map(&:id)).to eq([prescriptions[0].id])
         end

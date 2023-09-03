@@ -15,7 +15,7 @@ module Renalware
       end
 
       describe "uniqueness scoped to survey" do
-        subject { Question.new(code: "x", survey: survey) }
+        subject { described_class.new(code: "x", survey: survey) }
 
         let(:survey) { Survey.create(name: "Survey1", code: "x") }
 

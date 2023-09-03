@@ -6,7 +6,7 @@ module Renalware
   module PD
     module APD
       describe NonTidalRegimeCalculations do
-        subject { NonTidalRegimeCalculations.new(regime) }
+        subject { described_class.new(regime) }
 
         let(:regime) do
           reg = build(:apd_regime, no_cycles_per_apd: 7, fill_volume: 1500)
@@ -18,16 +18,16 @@ module Renalware
         describe "#calculated_overnight_volume" do
           it "returns 0 if fill_volume is zero" do
             regime.fill_volume = 0
-            expect(NonTidalRegimeCalculations.new(regime).calculated_overnight_volume).to be_nil
+            expect(described_class.new(regime).calculated_overnight_volume).to be_nil
           end
 
           it "returns 0 if no_cycles_per_apd is nil" do
             regime.cycles = nil
-            expect(NonTidalRegimeCalculations.new(regime).calculated_overnight_volume).to be_nil
+            expect(described_class.new(regime).calculated_overnight_volume).to be_nil
           end
 
           it "returns the number of exchanges (cycles) * volume of each exchange (fill_volume)" do
-            overnight_volume = NonTidalRegimeCalculations.new(regime).calculated_overnight_volume
+            overnight_volume = described_class.new(regime).calculated_overnight_volume
 
             expect(overnight_volume).to eq(regime_overnight_volume)
             expect(overnight_volume).to be_a(Integer)

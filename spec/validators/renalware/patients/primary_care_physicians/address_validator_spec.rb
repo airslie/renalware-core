@@ -7,7 +7,7 @@ module Renalware::Patients::PrimaryCarePhysicians
     describe "validate" do
       it "validates an address is present on the Primary Care Physician" do
         doc = build_stubbed(:primary_care_physician)
-        AddressValidator.new.validate(doc)
+        described_class.new.validate(doc)
         expect(doc.errors[:address]).to contain_exactly("or practice must be present")
       end
 
@@ -17,7 +17,7 @@ module Renalware::Patients::PrimaryCarePhysicians
           address: build_stubbed(:address),
           practices: [build_stubbed(:practice)]
         )
-        AddressValidator.new.validate(doc)
+        described_class.new.validate(doc)
         expect(doc.errors[:address]).to be_empty
       end
     end

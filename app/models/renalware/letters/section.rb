@@ -25,7 +25,8 @@ module Renalware
         output = []
         Diff::LCS.traverse_balanced(
           snapshotted, build_snapshot,
-          Renalware::Letters::SectionManager::LCSDiffLeftCallbacks.new(output))
+          Renalware::Letters::SectionManager::LCSDiffLeftCallbacks.new(output)
+        )
         output.join.html_safe
       end
 
@@ -33,7 +34,8 @@ module Renalware
         output = []
         Diff::LCS.traverse_balanced(
           snapshotted, build_snapshot,
-          Renalware::Letters::SectionManager::LCSDiffRightCallbacks.new(output))
+          Renalware::Letters::SectionManager::LCSDiffRightCallbacks.new(output)
+        )
         output.join.html_safe
       end
 
@@ -73,7 +75,8 @@ module Renalware
         def content_from_snapshot(letter:)
           snapshot = Letters::SectionSnapshot.find_by(
             section_identifier: identifier,
-            letter: letter)
+            letter: letter
+          )
           snapshot&.content
         end
       end

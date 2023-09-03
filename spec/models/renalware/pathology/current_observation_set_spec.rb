@@ -64,10 +64,10 @@ module Renalware
             patient = create(:pathology_patient)
             expect {
               create_hgb_observation(patient: patient, observed_at: time, result: 123.1)
-            }.to change(CurrentObservationSet, :count).by(1)
+            }.to change(described_class, :count).by(1)
             # trigger has now updated the current_observation_set
 
-            obs_set = CurrentObservationSet.find_by(patient_id: patient.id)
+            obs_set = described_class.find_by(patient_id: patient.id)
             hgb = obs_set.values[:HGB]
             expect_obs_to_match(hgb, "123.1", time)
           end
@@ -80,14 +80,14 @@ module Renalware
               patient = create(:pathology_patient)
               obs = create_hgb_observation(patient: patient, observed_at: time, result: 111.1)
 
-              obs_set = CurrentObservationSet.find_by(patient_id: patient.id)
+              obs_set = described_class.find_by(patient_id: patient.id)
               hgb = obs_set.values[:HGB]
               expect_obs_to_match(hgb, 111.1, time)
 
               new_time = time + 1.hour
               expect {
                 obs = create_hgb_observation(patient: patient, observed_at: new_time, result: 222.2)
-              }.not_to change(CurrentObservationSet, :count)
+              }.not_to change(described_class, :count)
               # trigger has now updated the current_observation_set
 
               new_hgb = obs_set.reload.values[:HGB]
@@ -103,7 +103,7 @@ module Renalware
               obs = create_hgb_observation(patient: patient, observed_at: time, result: 111.1)
               # trigger has now updated the current_observation_set
 
-              obs_set = CurrentObservationSet.find_by(patient_id: patient.id)
+              obs_set = described_class.find_by(patient_id: patient.id)
               hgb = obs_set.values[:HGB]
               expect_obs_to_match(hgb, obs.result, time)
 
@@ -113,7 +113,7 @@ module Renalware
                   observed_at: time - 1.hour, # an older date,
                   result: 222.2
                 )
-              }.not_to change(CurrentObservationSet, :count)
+              }.not_to change(described_class, :count)
 
               expect(obs_set.reload.values[:HGB]).to eq(hgb)
             end
@@ -130,7 +130,7 @@ module Renalware
               obs.update!(observed_at: new_time, result: 222.2)
 
               obs.reload
-              obs_set = CurrentObservationSet.find_by(patient_id: patient.id)
+              obs_set = described_class.find_by(patient_id: patient.id)
               hgb = obs_set.values[:HGB]
               expect_obs_to_match(hgb, obs.result, new_time)
             end
@@ -145,7 +145,7 @@ module Renalware
 
               obs.update!(result: 222.2)
 
-              obs_set = CurrentObservationSet.find_by(patient_id: patient.id)
+              obs_set = described_class.find_by(patient_id: patient.id)
               hgb = obs_set.values[:HGB]
               expect_obs_to_match(hgb, obs.result, time)
             end
@@ -154,7 +154,7 @@ module Renalware
           describe "#updated_at" do
             let(:time_format) { "%d-%m-%Y %Hh" }
             let(:patient) { create(:pathology_patient) }
-            let(:obs_set) { CurrentObservationSet.find_by(patient_id: patient.id) }
+            let(:obs_set) { described_class.find_by(patient_id: patient.id) }
 
             context "when the triggered fn updates the obs set because a new value arrives" do
               it "sets updated_at to the current time" do

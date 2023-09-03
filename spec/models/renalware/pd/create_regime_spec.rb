@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   module PD
     describe CreateRegime do
-      subject(:service) { CreateRegime.new(patient: patient).call(by: user, params: params) }
+      subject(:service) { described_class.new(patient: patient).call(by: user, params: params) }
 
       let(:user) { create(:user) }
       let(:patient) { create(:patient, by: user) }

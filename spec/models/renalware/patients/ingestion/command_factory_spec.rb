@@ -6,7 +6,7 @@ module Renalware
   module Patients
     module Ingestion
       describe CommandFactory do
-        subject(:factory) { CommandFactory.new }
+        subject(:factory) { described_class.new }
 
         def message_returning_action(action)
           instance_double(Renalware::Feeds::HL7Message, action: action)

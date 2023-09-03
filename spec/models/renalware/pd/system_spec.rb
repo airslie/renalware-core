@@ -15,7 +15,7 @@ module Renalware
       it "only returns apd systems" do
         create(:capd_system)
         apd_system = create(:apd_system)
-        expect(Renalware::PD::System.for_apd).to eq [apd_system]
+        expect(described_class.for_apd).to eq [apd_system]
       end
     end
 
@@ -23,7 +23,7 @@ module Renalware
       it "only returns capd systems" do
         capd_system = create(:capd_system)
         create(:apd_system)
-        expect(Renalware::PD::System.for_capd).to eq [capd_system]
+        expect(described_class.for_capd).to eq [capd_system]
       end
     end
   end

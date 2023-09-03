@@ -10,7 +10,7 @@ module Renalware
       describe ".fetch" do
         context "with an empty collection of id's" do
           it "returns none" do
-            expect(Role.fetch([])).to be_empty
+            expect(described_class.fetch([])).to be_empty
           end
         end
 
@@ -18,7 +18,7 @@ module Renalware
           let!(:role) { create(:role, name: "fake_role") }
 
           it "returns the specified roles" do
-            expect(Role.fetch([role.id]).map(&:name)).to include("fake_role")
+            expect(described_class.fetch([role.id]).map(&:name)).to include("fake_role")
           end
         end
       end

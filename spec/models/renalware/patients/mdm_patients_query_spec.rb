@@ -25,7 +25,7 @@ module Renalware
                      modality_description: pd_modality_description,
                      started_on: Time.zone.today)
 
-        patients = Patients::MDMPatientsQuery.new(modality_names: "HD", q: nil).call
+        patients = described_class.new(modality_names: "HD", q: nil).call
 
         expect(patients.count).to eq(1)
         expect(patients.first.id).to be(hd_patient.id)

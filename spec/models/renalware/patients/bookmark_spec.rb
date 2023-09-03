@@ -8,7 +8,7 @@ module Renalware
       it_behaves_like "a Paranoid model"
 
       describe "validation" do
-        subject { Bookmark.new(patient: patient, user: user) }
+        subject { described_class.new(patient: patient, user: user) }
 
         let(:patient) { build(:patient, by: user) }
         let(:user) { build(:patients_user) }
@@ -17,7 +17,7 @@ module Renalware
       end
 
       describe "class methods" do
-        subject { Bookmark }
+        subject { described_class }
 
         it { is_expected.to respond_to(:with_deleted) }
       end

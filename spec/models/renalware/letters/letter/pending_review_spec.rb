@@ -6,7 +6,7 @@ module Renalware::Letters
   describe Letter::PendingReview do
     include LettersSpecHelper
 
-    subject(:letter) { raw_letter.becomes(Letter::PendingReview) }
+    subject(:letter) { raw_letter.becomes(described_class) }
 
     let(:user) { build(:user) }
     let(:primary_care_physician) { build(:letter_primary_care_physician) }

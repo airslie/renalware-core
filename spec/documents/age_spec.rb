@@ -6,26 +6,26 @@ module Renalware
   describe Age, type: :model do
     describe "#valid?" do
       context "when born in the last 3 years" do
-        subject { Age.new(amount: 2, unit: :years) }
+        subject { described_class.new(amount: 2, unit: :years) }
 
         it { is_expected.not_to be_valid }
       end
 
       context "when amount is a string starting with a number" do
-        subject { Age.new(amount: "10s", unit: :years) }
+        subject { described_class.new(amount: "10s", unit: :years) }
 
         it { is_expected.to be_valid }
       end
 
       context "when amount is a string and it is coerced to 0" do
-        subject { Age.new(amount: "s10", unit: :years) }
+        subject { described_class.new(amount: "s10", unit: :years) }
 
         it { is_expected.not_to be_valid }
       end
     end
 
     describe ".new_from" do
-      subject { Age.new_from(**parts) }
+      subject { described_class.new_from(**parts) }
 
       context "when params are blank" do
         let(:parts) { { years: nil, months: nil, days: nil } }

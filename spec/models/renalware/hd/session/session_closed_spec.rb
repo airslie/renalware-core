@@ -16,7 +16,7 @@ module Renalware
         end
 
         it "defines a policy class" do
-          expect(Session::Closed.policy_class).to eq(ClosedSessionPolicy)
+          expect(described_class.policy_class).to eq(ClosedSessionPolicy)
         end
 
         describe "immutable?" do
@@ -44,7 +44,7 @@ module Renalware
       end
 
       describe Session::Closed::SessionDocument do
-        subject(:document) { Session::Closed::SessionDocument.new }
+        subject(:document) { described_class.new }
 
         %i(hdf_pre hdf_post).each do |hd_type|
           it "validates presence of #hdf if hd_type is hdf" do
@@ -91,7 +91,7 @@ module Renalware
 
       describe Session::Closed::SessionDocument::Observations do
         subject(:observations) {
-          Session::Closed::SessionDocument::Observations.new(blood_pressure: BloodPressure.new)
+          described_class.new(blood_pressure: BloodPressure.new)
         }
 
         describe "validation" do

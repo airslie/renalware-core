@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   module HD
     describe SessionPresenter do
-      subject(:presenter) { SessionPresenter.new(session) }
+      subject(:presenter) { described_class.new(session) }
 
       let(:session) { instance_double(Session, document: Renalware::HD::SessionDocument.new) }
 

@@ -15,13 +15,13 @@ module Renalware::HD
 
       it "raises an error if the supplied profile is new and not persisted" do
         expect {
-          ReviseHDProfile.new(Profile.new)
+          described_class.new(Profile.new)
         }.to raise_error(ArgumentError)
       end
 
       context "when updating the profile other_schedule with a valid value" do
         subject!(:revised_profile) do
-          ReviseHDProfile.new(original_profile).call(new_params)
+          described_class.new(original_profile).call(new_params)
         end
 
         let(:new_params) do
@@ -97,7 +97,7 @@ module Renalware::HD
 
       context "when updating with an invalid value" do
         subject!(:revised_profile) do
-          ReviseHDProfile
+          described_class
             .new(original_profile)
             .call(prescriber: revised_prescriber, by: user)
         end

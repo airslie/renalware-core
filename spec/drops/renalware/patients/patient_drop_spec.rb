@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware::Patients
   describe PatientDrop, type: :model do
-    subject(:drop) { PatientDrop.new(patient) }
+    subject(:drop) { described_class.new(patient) }
 
     let(:patient) { build(:patient) }
 

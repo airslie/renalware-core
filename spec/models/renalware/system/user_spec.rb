@@ -49,10 +49,10 @@ module Renalware
 
     describe "class" do
       it "includes Deviseable to authenticate using Devise" do
-        expect(User.ancestors).to include(Deviseable)
+        expect(described_class.ancestors).to include(Deviseable)
         arr = %i(expirable database_authenticatable rememberable registerable
                  validatable trackable timeoutable recoverable lockable)
-        expect(User.devise_modules).to match_array(arr)
+        expect(described_class.devise_modules).to match_array(arr)
       end
     end
 
@@ -67,7 +67,7 @@ module Renalware
     end
 
     describe "#professional_signature" do
-      subject(:user) { User.new(given_name: "X", family_name: "Y") }
+      subject(:user) { described_class.new(given_name: "X", family_name: "Y") }
 
       context "when there is no professional_position" do
         context "when there is no signature" do
@@ -108,7 +108,7 @@ module Renalware
           approved = create(:user)
           unapproved = create(:user, :unapproved)
 
-          actual = User.unapproved
+          actual = described_class.unapproved
           expect(actual.size).to eq(1)
           expect(actual).to include(unapproved)
           expect(actual).not_to include(approved)
@@ -120,7 +120,7 @@ module Renalware
           active = create(:user, last_activity_at: 1.minute.ago)
           inactive = create(:user, last_activity_at: 90.days.ago)
 
-          actual = User.inactive
+          actual = described_class.inactive
           expect(actual.size).to eq(1)
           expect(actual).to include(inactive)
           expect(actual).not_to include(active)
@@ -132,7 +132,7 @@ module Renalware
           author = create(:user, signature: "Dr D.O. Good")
           unsigned = create(:user, signature: nil)
 
-          actual = User.author
+          actual = described_class.author
           expect(actual).to include(author)
           expect(actual).not_to include(unsigned)
         end
@@ -143,7 +143,7 @@ module Renalware
           consultant = create(:user, consultant: true)
           create(:user)
 
-          consultants = User.consultants
+          consultants = described_class.consultants
 
           expect(consultants).to eq([consultant])
         end
@@ -153,7 +153,7 @@ module Renalware
         it "omits hidden users" do
           create(:user, hidden: true)
           user = create(:user, hidden: false)
-          expect(User.picklist).to eq([user])
+          expect(described_class.picklist).to eq([user])
         end
       end
     end

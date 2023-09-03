@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   describe UKRDC::Filename do
     describe "#to_s" do
-      subject { UKRDC::Filename.new(patient: patient, batch_number: batch_number).to_s }
+      subject { described_class.new(patient: patient, batch_number: batch_number).to_s }
 
       let(:batch_number) { instance_double(UKRDC::Batch, to_s: "000001") }
       let(:ukrdc_external_id) { nil }

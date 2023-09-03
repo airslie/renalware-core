@@ -16,9 +16,9 @@ module Renalware
           user = create(:user)
           patient = create(:patient, by: user)
 
-          Worry.create!(patient: patient, by: user)
+          described_class.create!(patient: patient, by: user)
 
-          expect { Worry.create!(patient: patient, by: user) }
+          expect { described_class.create!(patient: patient, by: user) }
             .to raise_error(ActiveRecord::RecordInvalid)
         end
       end
@@ -30,7 +30,7 @@ module Renalware
             user = create(:user)
             patient = create(:patient, by: user)
 
-            worry = Worry.create!(patient: patient, by: user)
+            worry = described_class.create!(patient: patient, by: user)
 
             expect(worry.versions.count).to eq(1)
 

@@ -16,7 +16,7 @@ module Renalware
               .and_return(100)
             regime = build(:apd_regime, tidal_indicator: false)
 
-            CalculateVolumes.new(regime).call
+            described_class.new(regime).call
 
             expect(regime.overnight_volume).to eq(100)
           end
@@ -28,7 +28,7 @@ module Renalware
               .and_return(100)
             regime = build(:apd_regime, tidal_indicator: true)
 
-            CalculateVolumes.new(regime).call
+            described_class.new(regime).call
 
             expect(regime.overnight_volume).to eq(100)
           end

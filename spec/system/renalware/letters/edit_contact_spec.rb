@@ -65,7 +65,7 @@ describe "Managing an existing letter contact", js: true do
 
   context "with invalid parameters" do
     it "A user cannot change an existing patient contact" do
-      user = @current_user
+      user = login_as_clinical
       patient = create(:letter_patient)
       create(
         :letter_contact,

@@ -11,11 +11,8 @@ describe "Viewing patients whose HD preferences do not match their profile" do
     create(:hospital_unit, name: "Y", hospital_centre: hospital, is_hd_site: true)
   end
   let(:user) { Renalware::User.first }
-
-  before do
-    @mon_wed_fri_am = create(:schedule_definition, :mon_wed_fri_am)
-    @mon_wed_fri_pm = create(:schedule_definition, :mon_wed_fri_pm)
-  end
+  let(:mon_wed_fri_am) { create(:schedule_definition, :mon_wed_fri_am) }
+  let(:mon_wed_fri_pm) { create(:schedule_definition, :mon_wed_fri_pm) }
 
   def mon_wed_fri(am_pm_eve)
     period = Renalware::HD::DiurnalPeriodCode.find_or_create_by!(code: am_pm_eve)
@@ -29,11 +26,11 @@ describe "Viewing patients whose HD preferences do not match their profile" do
     create(:hd_patient, family_name: name).tap do |patient|
       create(:hd_profile,
              patient: patient,
-             schedule_definition: @mon_wed_fri_am,
+             schedule_definition: mon_wed_fri_am,
              hospital_unit: current_unit)
       create(:hd_preference_set,
              patient: patient,
-             schedule_definition: @mon_wed_fri_pm,
+             schedule_definition: mon_wed_fri_pm,
              hospital_unit: current_unit,
              by: user)
     end
@@ -43,7 +40,7 @@ describe "Viewing patients whose HD preferences do not match their profile" do
     create(:hd_patient, family_name: name).tap do |patient|
       create(:hd_profile,
              patient: patient,
-             schedule_definition: @mon_wed_fri_am,
+             schedule_definition: mon_wed_fri_am,
              hospital_unit: current_unit) # !
       create(:hd_preference_set,
              patient: patient,
@@ -57,11 +54,11 @@ describe "Viewing patients whose HD preferences do not match their profile" do
       create(:hd_profile,
              patient: patient,
              hospital_unit: current_unit,
-             schedule_definition: @mon_wed_fri_am)
+             schedule_definition: mon_wed_fri_am)
       create(:hd_preference_set,
              patient: patient,
              hospital_unit: current_unit,
-             schedule_definition: @mon_wed_fri_am,
+             schedule_definition: mon_wed_fri_am,
              by: user)
     end
   end

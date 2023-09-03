@@ -6,7 +6,7 @@ require "core_extensions/i18n/handle_blank_value"
 module CoreExtensions
   describe I18n::HandleBlankValue, type: :lib do
     before do
-      ::I18n.extend CoreExtensions::I18n::HandleBlankValue
+      ::I18n.extend described_class
     end
 
     describe ".localize" do

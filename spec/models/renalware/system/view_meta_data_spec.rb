@@ -13,7 +13,7 @@ module Renalware::System
           ["schema", "", "schema"]
         ].each do |(schema, view, fqn)|
           expect(
-            ViewMetadata.new(schema_name: schema, view_name: view).fully_qualified_view_name
+            described_class.new(schema_name: schema, view_name: view).fully_qualified_view_name
           ).to eq(fqn)
         end
       end

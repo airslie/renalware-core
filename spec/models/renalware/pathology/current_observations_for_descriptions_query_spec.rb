@@ -14,7 +14,7 @@ module Renalware
           create_observations(patient, descriptions)
           target_descriptions = filter_targeted_descriptions(descriptions)
 
-          query = CurrentObservationsForDescriptionsQuery.new(
+          query = described_class.new(
             patient: patient, descriptions: target_descriptions
           )
           results = query.call
@@ -25,7 +25,7 @@ module Renalware
         it "returns the null observations for descriptions not yet observed" do
           missing_descriptions = add_descriptions_not_observed_for_patient("missing-1", "missing-2")
 
-          query = CurrentObservationsForDescriptionsQuery.new(
+          query = described_class.new(
             patient: patient, descriptions: missing_descriptions
           )
           results = query.call
@@ -38,7 +38,7 @@ module Renalware
           create_observations(patient, descriptions)
           create_observations(patient, descriptions)
 
-          query = CurrentObservationsForDescriptionsQuery.new(
+          query = described_class.new(
             patient: patient, descriptions: descriptions
           )
           results = query.call

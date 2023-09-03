@@ -8,7 +8,7 @@ module Renalware
       it "assigns the default consenter if the workup is a new record" do
         consenter_name = "John Smith"
 
-        workup = RecipientWorkupBuilder.new(
+        workup = described_class.new(
           workup: RecipientWorkup.new,
           default_consenter_name: consenter_name
         ).build
@@ -24,7 +24,7 @@ module Renalware
         workup = RecipientWorkup.new
         allow(workup).to receive(:new_record?).and_return(false)
 
-        workup = RecipientWorkupBuilder.new(
+        workup = described_class.new(
           workup: workup,
           default_consenter_name: consenter_name
         ).build

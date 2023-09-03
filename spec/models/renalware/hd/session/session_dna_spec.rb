@@ -6,7 +6,7 @@ module Renalware
   module HD
     describe Session::DNA do
       it "defines a policy class" do
-        expect(Session::DNA.policy_class).to eq(DNASessionPolicy)
+        expect(described_class.policy_class).to eq(DNASessionPolicy)
       end
     end
   end

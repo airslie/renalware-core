@@ -10,7 +10,7 @@ module Renalware
           visit = instance_double(ClinicVisit, date: Time.zone.now, clinic_id: 1)
           session = {}
 
-          RememberedClinicVisitPreferences.new(session).persist(visit)
+          described_class.new(session).persist(visit)
 
           RememberedClinicVisitPreferences::ATTRIBUTES_TO_REMEMBER.each do |attr|
             expect(session[:clinic_visit_preferences]).to have_key(attr)
@@ -25,7 +25,7 @@ module Renalware
           session = { clinic_visit_preferences: { date: date, clinic_id: clinic_id } }
           visit = OpenStruct.new(date: nil, clinic_id: nil)
 
-          RememberedClinicVisitPreferences.new(session).apply_to(visit)
+          described_class.new(session).apply_to(visit)
 
           expect(visit).to have_attributes(date: date, clinic_id: clinic_id)
         end
