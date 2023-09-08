@@ -18,7 +18,6 @@ module Renalware
         validate_numericality_of(:glucose_content)
         .is_greater_than_or_equal_to(0)
         .is_less_than_or_equal_to(50)
-        .allow_nil
       )
     }
 
