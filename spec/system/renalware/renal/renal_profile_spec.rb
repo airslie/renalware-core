@@ -10,7 +10,7 @@ describe "Renal Profile", js: true do
       prd = create(:prd_description, term: "PRD1")
 
       esrf_date = "24-Mar-2017"
-      patient = Renalware::Renal.cast_patient(create(:patient, by: user))
+      patient = create(:renal_patient, by: user)
       profile = patient.build_profile
       profile.esrf_on = esrf_date
       profile.save!
@@ -64,7 +64,7 @@ describe "Renal Profile", js: true do
 
     it "pulling in the patient's current address" do
       user = login_as_clinical
-      patient = Renalware::Renal.cast_patient(create(:patient, by: user))
+      patient = create(:renal_patient, by: user)
 
       visit edit_patient_renal_profile_path(patient)
 

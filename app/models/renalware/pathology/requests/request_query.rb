@@ -16,12 +16,15 @@ module Renalware
         end
 
         def search
-          @search ||= QueryableRequest.ransack(@q)
+          @search ||= Request.include(QueryableRequest).ransack(@q)
         end
 
-        class QueryableRequest < ActiveType::Record[Request]
-          ransacker :created_on, type: :date do
-            Arel.sql("DATE(created_at)")
+        module QueryableRequest
+          extend ActiveSupport::Concern
+          included do
+            ransacker :created_on, type: :date do
+              Arel.sql("DATE(created_at)")
+            end
           end
         end
       end

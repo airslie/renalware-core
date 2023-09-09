@@ -7,7 +7,7 @@ describe "New Visit from existing Appointment" do
     context "with no appointment id" do
       it "does not pre-populate the form" do
         user = login_as_clinical
-        patient = Renalware::Clinics.cast_patient(create(:patient, by: user))
+        patient = create(:clinics_patient, by: user)
 
         visit new_patient_clinic_visit_path(patient)
 
@@ -21,7 +21,7 @@ describe "New Visit from existing Appointment" do
       it "pre-populates the form with the details copied from the appointment" do
         user = login_as_clinical
         clinic = create(:clinic) # consultant: user)
-        patient = Renalware::Clinics.cast_patient(create(:patient, by: user))
+        patient = create(:clinics_patient, by: user)
         appointment = create(:appointment,
                              patient: patient,
                              clinic: clinic,

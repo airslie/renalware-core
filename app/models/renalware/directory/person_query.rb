@@ -13,11 +13,14 @@ module Renalware
       end
 
       def search
-        @search ||= QueryablePerson.ransack(@q)
+        @search ||= Person.include(QueryablePerson).ransack(@q)
       end
 
-      class QueryablePerson < ActiveType::Record[Person]
-        ransack_alias :name, :family_name_or_given_name
+      module QueryablePerson
+        extend ActiveSupport::Concern
+        included do
+          ransack_alias :name, :family_name_or_given_name
+        end
       end
     end
   end

@@ -5,13 +5,15 @@ require "rails_helper"
 # rubocop:disable RSpec/PredicateMatcher
 describe Renalware::Renal::ESRFDateComponent, type: :component do
   let(:esrf_on) { nil }
-  let(:profile) { Renalware::Renal::Profile.new(esrf_on: esrf_on) }
+  let(:profile) { create(:renal_profile, patient: patient, esrf_on: esrf_on) }
   let(:patient) do
-    Renalware::Renal::Patient.new(profile: profile).tap do |pat|
+    create(:renal_patient).tap do |pat|
       # Make url generation work for patients
       allow(pat).to receive(:to_param).and_return("1")
     end
   end
+
+  before { patient && profile }
 
   def change_current_modality(patient:, code:)
     modality_desc = instance_double(Renalware::Modalities::Description, code: code)
@@ -47,7 +49,7 @@ describe Renalware::Renal::ESRFDateComponent, type: :component do
     end
   end
 
-  context "when the patient's current modality does not expect an ESFR date" do
+  context "when the patient's current modality does not expect an ESRF date" do
     %w(akcc).each do |modality_code|
       before { change_current_modality(patient: patient, code: modality_code) }
 

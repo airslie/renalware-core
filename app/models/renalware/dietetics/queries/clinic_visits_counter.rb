@@ -5,7 +5,8 @@ module Renalware
     module Queries
       class ClinicVisitsCounter
         def call(patient:)
-          Renalware::Clinics.cast_patient(patient)
+          Renalware::Clinics
+            .cast_patient(patient)
             .clinic_visits
             .where(type: Renalware::Dietetics::ClinicVisit.name)
             .count

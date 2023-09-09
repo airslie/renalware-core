@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware::Messaging::Internal
   describe RecipientOptions do
     let(:author) { create(:internal_author) }
-    let(:another_user) { Renalware::Messaging::Internal.cast_recipient(create(:user)) }
+    let(:another_user) { create(:internal_recipient) }
     let(:patient_a) { create(:messaging_patient) }
     let(:patient_b) { create(:messaging_patient) }
     let(:recipient_for_message_re_patient_a) { create(:internal_recipient) }
@@ -45,13 +45,7 @@ module Renalware::Messaging::Internal
       vanilla_user(user).update_column(:hidden, true)
     end
 
-    def vanilla_user(user)
-      ActiveType.cast(
-        user,
-        ::Renalware::User,
-        force: Renalware.config.force_cast_active_types
-      )
-    end
+    def vanilla_user(user) = user.becomes(Renalware::User)
 
     describe "#to_h" do
       before do

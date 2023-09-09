@@ -60,7 +60,7 @@ describe "API request for a single UKRDC patient XML document" do
       # So medications elements are triggered
       create(:prescription, patient: patient, by: user)
 
-      get api_ukrdc_patient_path(patient)
+      get renalware.api_ukrdc_patient_path(patient)
 
       expect(response).to be_successful
 
@@ -84,7 +84,7 @@ describe "API request for a single UKRDC patient XML document" do
 
         expect(patient.reload).to be_current_modality_death
 
-        get api_ukrdc_patient_path(patient)
+        get renalware.api_ukrdc_patient_path(patient)
 
         expect(response).to be_successful
 
@@ -103,7 +103,7 @@ describe "API request for a single UKRDC patient XML document" do
       descriptions = create_descriptions(%w(HGB WBC))
       create_observations(Renalware::Pathology.cast_patient(patient), descriptions)
 
-      get api_ukrdc_patient_path(patient)
+      get renalware.api_ukrdc_patient_path(patient)
 
       expect(response).to be_successful
 
@@ -130,7 +130,7 @@ describe "API request for a single UKRDC patient XML document" do
         patient: Renalware::Letters.cast_patient(patient),
         description: "xxx"
       )
-      get api_ukrdc_patient_path(patient)
+      get renalware.api_ukrdc_patient_path(patient)
 
       expect(response).to be_successful
       xml = response.body

@@ -7,7 +7,8 @@ module Renalware
         DEFAULT_LIMIT = 100
 
         def call(patient:, limit: DEFAULT_LIMIT)
-          Renalware::Clinics.cast_patient(patient)
+          Renalware::Clinics
+            .cast_patient(patient)
             .clinic_visits
             .order(date: :desc)
             .limit(limit)

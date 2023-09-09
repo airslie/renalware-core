@@ -2,7 +2,7 @@
 
 module Renalware
   module Clinics
-    class Patient < ActiveType::Record[Renalware::Patient]
+    class Patient < Renalware::Patient
       has_many :clinic_visits,
                class_name: "Clinics::ClinicVisit",
                dependent: :restrict_with_exception
@@ -15,6 +15,8 @@ module Renalware
       has_many :appointments,
                class_name: "Clinics::Appointment",
                dependent: :restrict_with_exception
+
+      def self.model_name = ActiveModel::Name.new(self, nil, "Patient")
     end
   end
 end

@@ -2,7 +2,6 @@
 
 require "rubygems"
 require "view_component"
-require "active_type"
 require "activerecord-import"
 require "ahoy"
 require "acts_as_list"

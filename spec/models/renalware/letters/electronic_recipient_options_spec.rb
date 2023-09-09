@@ -29,13 +29,7 @@ module Renalware
         vanilla_user(user).update_column(:last_activity_at, 10.years.ago)
       end
 
-      def vanilla_user(user)
-        ActiveType.cast(
-          user,
-          ::Renalware::User,
-          force: Renalware.config.force_cast_active_types
-        )
-      end
+      def vanilla_user(user) = user.becomes(Renalware::User)
 
       before do
         disinterested_user # create this user

@@ -2,7 +2,7 @@
 
 module Renalware
   module Renal
-    class Patient < ActiveType::Record[Renalware::Patient]
+    class Patient < Renalware::Patient
       has_one :profile
       scope :having_no_primary_renal_diagnosis, lambda {
         where(renal_profile: nil)
@@ -15,6 +15,8 @@ module Renalware
       scope :with_profile_avoiding_redefinition_of_renal_profiles_alias, lambda {
         eager_load(:profile)
       }
+
+      def self.model_name = ActiveModel::Name.new(self, nil, "Patient")
     end
   end
 end

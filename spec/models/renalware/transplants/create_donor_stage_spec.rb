@@ -19,7 +19,7 @@ module Renalware
 
         context "when the donor has no status" do
           it "creates a new status" do
-            patient = Renalware::Transplants.cast_patient(create(:patient))
+            patient = create(:transplant_patient)
             user = create(:user)
             position = create(:donor_stage_position, name: "P")
             status = create(:donor_stage_status, name: "S")
@@ -45,7 +45,7 @@ module Renalware
 
         context "when the donor already has a status" do
           it "terminates the old status and creates a new one" do
-            patient = Renalware::Transplants.cast_patient(create(:patient))
+            patient = create(:transplant_patient)
             user = create(:user)
             status = create(:donor_stage_status, name: "S")
             position1 = create(:donor_stage_position, name: "A")

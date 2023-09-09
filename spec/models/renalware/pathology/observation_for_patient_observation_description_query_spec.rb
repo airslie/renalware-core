@@ -5,8 +5,8 @@ require "rails_helper"
 describe Renalware::Pathology::ObservationForPatientObservationDescriptionQuery do
   describe "#call" do
     it "returns the most recent observation for the specified observation description" do
-      patient_a = Renalware::Pathology.cast_patient(build(:patient))
-      patient_b = Renalware::Pathology.cast_patient(build(:patient))
+      patient_a = build(:pathology_patient)
+      patient_b = build(:pathology_patient)
       description = build(:pathology_observation_description)
       most_recent_observation = create_observation(
         patient: patient_a,

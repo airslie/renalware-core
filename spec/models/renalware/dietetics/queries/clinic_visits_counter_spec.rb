@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware
   describe Dietetics::Queries::ClinicVisitsCounter, type: :component do
     describe "#call" do
-      let(:patient) { Renalware::Clinics.cast_patient(create(:patient)) }
+      let(:patient) { create(:clinics_patient) }
       let(:instance) { described_class.new }
 
       context "with dietetic clinic visits for patient" do

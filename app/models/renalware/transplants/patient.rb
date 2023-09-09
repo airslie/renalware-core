@@ -2,7 +2,7 @@
 
 module Renalware
   module Transplants
-    class Patient < ActiveType::Record[Renalware::Patient]
+    class Patient < Renalware::Patient
       has_one :current_donor_stage, -> { current }, class_name: "DonorStage"
 
       scope :with_registration_statuses, lambda {
@@ -18,6 +18,8 @@ module Renalware
               transplant_registration_status_descriptions.id
         SQL
       }
+
+      def self.model_name = ActiveModel::Name.new(self, nil, "Patient")
 
       def ever_been_a_donor?
         @ever_been_a_donor ||= begin

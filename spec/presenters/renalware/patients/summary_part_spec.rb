@@ -7,7 +7,7 @@ module Renalware
     subject(:summary_part) { described_class.new(patient, user) }
 
     let(:patient) { build_stubbed(:patient) }
-    let(:user) { Patients.cast_user(build_stubbed(:user)) }
+    let(:user) { build_stubbed(:patients_user) }
 
     it { is_expected.to respond_to(:to_partial_path) }
 

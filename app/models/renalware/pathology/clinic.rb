@@ -2,7 +2,7 @@
 
 module Renalware
   module Pathology
-    class Clinic < ActiveType::Record[Renalware::Clinics::Clinic]
+    class Clinic < Renalware::Clinics::Clinic
       has_many :global_rule_sets, class_name: "Requests::GlobalRuleSet"
 
       scope :for_algorithm, lambda {
@@ -11,6 +11,8 @@ module Renalware
           .not(pathology_requests_global_rule_sets: { id: nil })
           .ordered
       }
+
+      # def self.model_name = ActiveModel::Name.new(self, nil, "Clinic")
     end
   end
 end

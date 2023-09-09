@@ -54,7 +54,6 @@ PATH
   remote: .
   specs:
     renalware-core (2.4.0)
-      active_type (~> 2.3.2)
       activerecord-import (~> 1.0)
       activerecord-postgres_enum (~> 2.0)
       acts_as_list (~> 1.1)
@@ -181,8 +180,6 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_type (2.3.3)
-      activerecord (>= 3.2)
     activejob (7.0.7.2)
       activesupport (= 7.0.7.2)
       globalid (>= 0.3.6)

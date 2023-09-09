@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Viewing clinical profile" do
-  let(:patient) { Renalware::Clinical.cast_patient(create(:patient, by: user)) }
+  let(:patient) { create(:clinical_patient, by: user) }
   let(:user) { @current_user }
 
   describe "GET show" do
@@ -43,7 +43,9 @@ describe "Viewing clinical profile" do
       follow_redirect!
       expect(response).to be_successful
 
-      expect(patient.reload.document.history).to have_attributes(
+      patient = Renalware::Clinical::Patient.last
+
+      expect(patient.document.history).to have_attributes(
         alcohol: "rarely",
         smoking: "ex"
       )

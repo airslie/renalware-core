@@ -3,7 +3,7 @@
 module Renalware
   procedure1 = procedure2 = nil
   users = User.limit(3).to_a
-  patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
+  patient = Accesses::Patient.find_by(local_patient_id: "Z100003")
   dummy_text = <<-TEXT.squish
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
     sit amet, consectetur adipiscing elit."
@@ -34,7 +34,7 @@ module Renalware
   end
 
   log "Assign Access profiles to Francois RABBIT" do
-    patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
+    patient = Accesses::Patient.find_by(local_patient_id: "Z100003")
     patient.profiles.destroy_all
     users = User.limit(3).to_a
 
@@ -71,7 +71,7 @@ module Renalware
   end
 
   log "Assign Access assessments to Francois RABBIT" do
-    patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
+    patient = Accesses::Patient.find_by(local_patient_id: "Z100003")
     patient.assessments.destroy_all
     patient.assessments.create!(
       patient: patient,
