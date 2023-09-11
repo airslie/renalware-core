@@ -1,0 +1,26 @@
+= within_new_admin_layout(title: "Replay Requests") do
+
+  table
+    thead
+      tr
+        th.col-width-tiny
+        th.col-width-date-time Started
+        th.col-width-date-time Finished
+        th.col-width-large Patient
+        th.col-width-small Type
+        th.col-width-tiny Total msgs
+        th.col-width-tiny Failed msgs
+    tbody
+      - replay_requests.each do |rr|
+        tr
+          td.actions
+            = link_to 'Edit', "#"
+            = link_to 'View Msgs', "#"
+          td= l(rr.started_at)
+          td= l(rr.finished_at)
+          td= rr.patient
+          td ORU
+          td= rr.total_messages
+          td= rr.failed_messages
+          td= rr.error_message
+

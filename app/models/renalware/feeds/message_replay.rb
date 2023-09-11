@@ -8,6 +8,8 @@ module Renalware
 
       belongs_to :replay_request
       belongs_to :message
+
+      def self.policy_class = BasePolicy
     end
   end
 end

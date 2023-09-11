@@ -8,6 +8,8 @@ module Renalware
       has_many :message_replays, dependent: :destroy
       belongs_to :patient, class_name: "Renalware::Patient"
 
+      def self.policy_class = BasePolicy
+
       # Class method creates and yields a new replay_request which spans an
       # entire replay operation
       def self.start_logging(patient)
