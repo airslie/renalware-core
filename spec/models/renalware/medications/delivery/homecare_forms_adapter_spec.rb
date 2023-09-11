@@ -194,8 +194,6 @@ module Renalware
             end
 
             it "supplies allergy status" do
-              pending "Fix me!"
-
               clinical_patient = Renalware::Clinical.cast_patient(patient)
               clinical_patient.allergy_status = :no_known_allergies
               clinical_patient.save_by!(create(:user))

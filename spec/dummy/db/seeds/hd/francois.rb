@@ -2,7 +2,7 @@
 
 # rubocop:disable Metrics/MethodLength
 module Renalware
-  patient = HD.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
+  patient = HD::Patient.find_by(local_patient_id: "Z100003")
   kch_doc = User.find_by!(username: "kchdoc")
   barts_doc = User.find_by!(username: "bartsdoc")
   kent_doc = User.find_by!(username: "kentdoc")

@@ -12,7 +12,7 @@ describe Renalware::Clinics::BuildVisitFromAppointment do
                     starts_at: Time.zone.now)
     }
 
-    let(:patient) { Renalware::Clinics.cast_patient(build(:patient)) }
+    let(:patient) { build(:clinics_patient) }
     let(:instance) { described_class.new(appointment) }
 
     before do

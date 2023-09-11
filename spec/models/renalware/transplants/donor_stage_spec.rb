@@ -30,7 +30,7 @@ module Renalware
           it "returns the one and only current status ie the only one (for this patient) " \
              "without a termination date" do
             user = create(:user)
-            patient = Transplants.cast_patient(create(:patient))
+            patient = create(:transplant_patient)
             terminated_status = create(:donor_stage,
                                        patient: patient,
                                        started_on: 1.week.ago,

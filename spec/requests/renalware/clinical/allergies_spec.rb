@@ -4,7 +4,7 @@ require "rails_helper"
 require "renalware/clinical"
 
 describe "Allergy management" do
-  let(:patient) { Renalware::Clinical.cast_patient(create(:patient, by: user)) }
+  let(:patient) { create(:clinical_patient, by: user) }
   let(:user) { @current_user }
 
   describe "POST create" do

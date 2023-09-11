@@ -7,7 +7,7 @@ describe "Appointments" do
     it "responds with a a list of appointments" do
       user = login_as_clinical
       consultant = create(:consultant)
-      patient = Renalware::Clinics.cast_patient(create(:patient, by: user))
+      patient = create(:clinics_patient, by: user)
       create(
         :appointment,
         patient: patient,

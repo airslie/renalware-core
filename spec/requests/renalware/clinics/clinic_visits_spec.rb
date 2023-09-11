@@ -5,7 +5,7 @@ require "rails_helper"
 describe "Clinic Visits Management" do
   let(:user) { @current_user }
   let(:clinic) { create(:clinic) }
-  let(:patient) { Renalware::Clinics.cast_patient(create(:patient, by: user)) }
+  let(:patient) { create(:clinics_patient, by: user) }
 
   describe "GET index" do
     before do

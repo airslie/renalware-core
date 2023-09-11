@@ -89,7 +89,7 @@ describe "Managing bookmarks" do
       ]
 
       puser = Renalware::Patients.cast_user(@current_user)
-      other_user = Renalware::Patients.cast_user(create(:user, username: "x"))
+      other_user = create(:patients_user, username: "x")
 
       bookmarks = [
         create(:patients_bookmark, user: puser, patient: patients[0]),

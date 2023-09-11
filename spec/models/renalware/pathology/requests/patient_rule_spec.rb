@@ -13,7 +13,7 @@ describe Renalware::Pathology::Requests::PatientRule do
     )
   end
 
-  let(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
+  let(:patient) { create(:pathology_patient) }
 
   it :aggregate_failures do
     is_expected.to validate_presence_of(:lab)

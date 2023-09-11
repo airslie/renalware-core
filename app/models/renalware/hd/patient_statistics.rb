@@ -5,7 +5,7 @@ module Renalware
     class PatientStatistics < ApplicationRecord
       include PatientScope
 
-      belongs_to :patient
+      belongs_to :patient, class_name: "Renalware::Patient"
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
 
       validates :hospital_unit, presence: true

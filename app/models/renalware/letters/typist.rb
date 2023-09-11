@@ -6,7 +6,7 @@ module Renalware
     # played by support staff of the doctor such as a secretary. This is
     # different from the role of Author who will always be a doctor.
     #
-    class Typist < ActiveType::Record[Renalware::User]
+    class Typist < Renalware::User
       has_many :letters, foreign_key: :created_by_id
     end
   end

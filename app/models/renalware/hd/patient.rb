@@ -2,7 +2,7 @@
 
 module Renalware
   module HD
-    class Patient < ActiveType::Record[Renalware::Patient]
+    class Patient < Renalware::Patient
       has_one :hd_profile, class_name: "Profile"
       has_many :vnd_risk_assessments
       has_one :hd_preference_set, class_name: "PreferenceSet"
@@ -12,6 +12,8 @@ module Renalware
       has_one :rolling_patient_statistics, lambda {
                                              merge(PatientStatistics.rolling)
                                            }, class_name: "PatientStatistics"
+
+      def self.model_name = ActiveModel::Name.new(self, nil, "Patient")
 
       scope :with_profile, lambda {
         includes(hd_profile: :hospital_unit)

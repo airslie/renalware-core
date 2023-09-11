@@ -11,7 +11,7 @@ describe Renalware::Clinics::AppointmentSearchForm do
   describe "#query" do
     context "when there is no from_date" do
       it "returns all appointments" do
-        patient = Renalware::Clinics.cast_patient(create(:patient))
+        patient = create(:clinics_patient)
         app1 = create(:appointment, patient: patient, starts_at: 1.year.ago)
         app2 = create(:appointment, patient: patient, starts_at: 1.year.from_now)
 
@@ -23,7 +23,7 @@ describe Renalware::Clinics::AppointmentSearchForm do
 
     context "when from_date is present" do
       it "finds appointments starting from that day" do
-        patient = Renalware::Clinics.cast_patient(create(:patient))
+        patient = create(:clinics_patient)
         date = Time.zone.today
         app1 = create(:appointment, patient: patient, starts_at: date + 3.hours)
         app2 = create(:appointment, patient: patient, starts_at: date + 3.days)
@@ -41,7 +41,7 @@ describe Renalware::Clinics::AppointmentSearchForm do
 
     context "when from_date is present and from_date_only is true" do
       it "finds appointments just on that day" do
-        patient = Renalware::Clinics.cast_patient(create(:patient))
+        patient = create(:clinics_patient)
         date = Time.zone.today
         create(:appointment, patient: patient, starts_at: date + 1.day + 1.hour)
         app2 = create(:appointment, patient: patient, starts_at: date + 3.hours)

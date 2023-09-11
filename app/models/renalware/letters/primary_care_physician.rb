@@ -2,7 +2,7 @@
 
 module Renalware
   module Letters
-    class PrimaryCarePhysician < ActiveType::Record[Renalware::Patients::PrimaryCarePhysician]
+    class PrimaryCarePhysician < Renalware::Patients::PrimaryCarePhysician
       has_many :patients, dependent: :restrict_with_exception
       has_many :letters, through: :patients
 

@@ -2,20 +2,16 @@
 
 module Renalware
   module Accesses
-    class Patient < ActiveType::Record[Renalware::Patient]
+    class Patient < Renalware::Patient
       has_many :profiles, dependent: :destroy
       has_many :plans, dependent: :destroy
       has_many :procedures, dependent: :destroy
       has_many :assessments, dependent: :destroy
       has_many :needling_assessments, -> { ordered }, dependent: :destroy
 
-      def current_profile
-        profiles.current.first
-      end
-
-      def current_plan
-        plans.current.first
-      end
+      def self.model_name = ActiveModel::Name.new(self, nil, "Patient")
+      def current_profile = profiles.current.first
+      def current_plan = plans.current.first
 
       scope :with_current_plan, lambda {
         joins(<<-SQL.squish)

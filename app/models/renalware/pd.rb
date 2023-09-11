@@ -3,16 +3,7 @@
 module Renalware
   module PD
     def self.table_name_prefix = "pd_"
-
-    def self.cast_patient(patient)
-      return patient if patient.is_a?(::Renalware::PD::Patient)
-
-      ActiveType.cast(
-        patient,
-        ::Renalware::PD::Patient,
-        force: Renalware.config.force_cast_active_types
-      )
-    end
+    def self.cast_patient(patient) = patient.becomes(PD::Patient)
 
     # PD-specific configuration
     #

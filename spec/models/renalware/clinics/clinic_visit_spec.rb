@@ -22,7 +22,7 @@ describe Renalware::Clinics::ClinicVisit do
   describe "bmi" do
     subject(:visit) { create(:clinic_visit, height: 1.7, weight: 82.5, patient: patient) }
 
-    let(:patient) { Renalware::Clinics.cast_patient(create(:patient)) }
+    let(:patient) { create(:clinics_patient) }
 
     it "is calculated from height and weight" do
       expect(visit.bmi).to eq(28.5)
@@ -54,7 +54,7 @@ describe Renalware::Clinics::ClinicVisit do
         :clinic_visit,
         weight: 100.0,
         height: 1.23,
-        patient: Renalware::Clinics.cast_patient(create(:patient))
+        patient: create(:clinics_patient)
       )
 
       expect(visit.reload.body_surface_area).to satisfy("be greater than 0") { |val| val.to_i > 0 }
@@ -67,7 +67,7 @@ describe Renalware::Clinics::ClinicVisit do
         :clinic_visit,
         weight: 100.0,
         height: 1.23,
-        patient: Renalware::Clinics.cast_patient(create(:patient))
+        patient: create(:clinics_patient)
       )
 
       expect(visit.reload.total_body_water).to satisfy("be greater than 0") { |val| val.to_i > 0 }
@@ -77,7 +77,7 @@ describe Renalware::Clinics::ClinicVisit do
   describe "deleting a clinic visit" do
     context "when the visit was not created from an appointment" do
       it "is deleted" do
-        patient = Renalware::Clinics.cast_patient(create(:patient))
+        patient = create(:clinics_patient)
         visit = create(:clinic_visit, patient: patient)
 
         expect {
@@ -88,7 +88,7 @@ describe Renalware::Clinics::ClinicVisit do
 
     context "when the visit as created from an appointment" do
       it "is deleted and the appointment updated" do
-        patient = Renalware::Clinics.cast_patient(create(:patient))
+        patient = create(:clinics_patient)
         visit = create(:clinic_visit, patient: patient)
         appointment = create(:appointment, patient: patient, becomes_visit_id: visit.id)
 

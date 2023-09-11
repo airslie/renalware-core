@@ -8,7 +8,7 @@ module Renalware
       extend ActiveSupport::Concern
 
       included do
-        # Create a method in the controller to cast the patient to its ActiveType version
+        # Create a method in the controller to cast the patient to its module version
         # if there is one eg if we are in the HD module and there is an HD::Patient class
         # defined then create a memoised getter
         # equivalent to:
@@ -16,7 +16,7 @@ module Renalware
         #     @hd_patient ||= HD.cast_patient(patient)
         #   end
         # This assumes #patient is defined in a superclass probably Renalware::BaseController
-        def self.create_activetype_casted_patient_getter
+        def self.create_casted_patient_getter
           namespace_name = to_s.deconstantize # e.g. "Renalware::HD"
           module_name = namespace_name.split("::")[1] # e.g. "HD"
           method_name = :"#{module_name.underscore}_patient" # e.g. hd_patient
@@ -31,7 +31,7 @@ module Renalware
           end
         end
 
-        create_activetype_casted_patient_getter
+        create_casted_patient_getter
       end
     end
   end

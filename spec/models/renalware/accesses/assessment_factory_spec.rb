@@ -7,7 +7,7 @@ module Renalware
     describe AssessmentFactory do
       subject(:assessment) { described_class.new(patient: patient).build }
 
-      let(:patient) { Accesses.cast_patient(create(:patient)) }
+      let(:patient) { create(:accesses_patient) }
 
       describe "#build" do
         it "applies default to the assessment" do

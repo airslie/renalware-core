@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-#  
-
 require_relative "../../app/models/concerns/renalware/broadcasting"
 
 namespace :demo_data do

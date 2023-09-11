@@ -7,7 +7,7 @@ module Renalware
 
   describe Dietetics::Queries::RecentWeightsQuery, type: :component do
     describe "#call" do
-      let(:patient) { Renalware::Clinics.cast_patient(create(:patient)) }
+      let(:patient) { create(:clinics_patient) }
 
       context "with clinic visits for patient" do
         let!(:clinic_visit_second) {

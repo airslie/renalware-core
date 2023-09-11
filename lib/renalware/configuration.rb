@@ -24,7 +24,6 @@ module Renalware
     config_accessor(:report_filter_cache_expiry_seconds) {
       ENV.fetch("REPORT_FILTER_CACHE_EXPIRY_SECONDS", "60").to_i
     }
-    config_accessor(:force_cast_active_types) { true }
     config_accessor(:allow_qr_codes_in_letters) { false }
     config_accessor(:site_name) { "Renalware" }
     config_accessor(:hospital_name) { ENV.fetch("HOSPITAL_NAME", "KINGS COLLEGE HOSPITAL") }

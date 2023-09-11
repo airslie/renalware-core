@@ -21,7 +21,8 @@ module Renalware
         def search
           @search ||= begin
             query = query_for_filter(named_filter).merge(q)
-            QueryableRegistration
+            Registration
+              .include(QueryableRegistration)
               .eager_load(patient: [current_modality: :description])
               .eager_load(current_status: :description)
               .merge(HD::Patient.with_profile)
@@ -98,50 +99,54 @@ module Renalware
           end
         end
 
-        class QueryableRegistration < ActiveType::Record[Registration]
-          scope :current_status_in, lambda { |codes|
-            codes ||= %w(active)
-            joins(statuses: :description)
-              .where(transplant_registration_statuses: { terminated_on: nil })
-              .where(transplant_registration_status_descriptions: { code: codes })
-          }
+        module QueryableRegistration
+          extend ActiveSupport::Concern
 
-          ransacker :crf_highest_value do
-            Arel.sql("transplant_registrations.document -> 'crf' -> 'highest' ->> 'result'")
-          end
+          included do
+            scope :current_status_in, lambda { |codes|
+              codes ||= %w(active)
+              joins(statuses: :description)
+                .where(transplant_registration_statuses: { terminated_on: nil })
+                .where(transplant_registration_status_descriptions: { code: codes })
+            }
 
-          ransacker :crf_latest_value do
-            Arel.sql("transplant_registrations.document -> 'crf' -> 'latest' ->> 'result'")
-          end
+            ransacker :crf_highest_value do
+              Arel.sql("transplant_registrations.document -> 'crf' -> 'highest' ->> 'result'")
+            end
 
-          # TODO: move ransacker to HD namespace
-          ransacker :hd_site do
-            Arel.sql("hospital_units.unit_code")
-          end
+            ransacker :crf_latest_value do
+              Arel.sql("transplant_registrations.document -> 'crf' -> 'latest' ->> 'result'")
+            end
 
-          # TODO: move ransacker to Renal namespace
-          ransacker :esrf_on do
-            Arel.sql("renal_profiles.esrf_on")
-          end
+            # TODO: move ransacker to HD namespace
+            ransacker :hd_site do
+              Arel.sql("hospital_units.unit_code")
+            end
 
-          # TODO: move ransacker to Renal namespace
-          ransacker :patient_current_status_description_name do
-            Arel.sql("transplant_registration_status_descriptions.name")
-          end
+            # TODO: move ransacker to Renal namespace
+            ransacker :esrf_on do
+              Arel.sql("renal_profiles.esrf_on")
+            end
 
-          ransacker :ukt_status do
-            Arel.sql(<<-SQL.squish)
-              COALESCE(
-                transplant_registrations.document -> 'uk_transplant_centre' ->> 'status',
-                ''
-              )
-            SQL
-          end
+            # TODO: move ransacker to Renal namespace
+            ransacker :patient_current_status_description_name do
+              Arel.sql("transplant_registration_status_descriptions.name")
+            end
 
-          private_class_method :ransackable_scopes
+            ransacker :ukt_status do
+              Arel.sql(<<-SQL.squish)
+                COALESCE(
+                  transplant_registrations.document -> 'uk_transplant_centre' ->> 'status',
+                  ''
+                )
+              SQL
+            end
 
-          def self.ransackable_scopes(_auth_object = nil)
-            %i(current_status_in ukt_recipient_number_eq)
+            private_class_method :ransackable_scopes
+
+            def self.ransackable_scopes(_auth_object = nil)
+              %i(current_status_in ukt_recipient_number_eq)
+            end
           end
         end
       end

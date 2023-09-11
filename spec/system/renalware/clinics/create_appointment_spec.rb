@@ -6,7 +6,7 @@ describe "Create new appointment manually (not via HL7 message)", js: true do
   context "with valid inputs" do
     it "creates a new clinic appointment" do
       user = login_as_clinical
-      patient = Renalware::Clinics.cast_patient(create(:patient, by: user))
+      patient = create(:clinics_patient, by: user)
       clinic = create(:clinic, name: "Clinic A")
 
       visit appointments_path
