@@ -33,6 +33,7 @@ module Renalware
       ).freeze
 
       def call
+        # .merge(never_successfully_replayed)
         complete_pathology_feed_messages
           .merge(scoped_by_patient)
           .order(created_at: :asc)
@@ -127,6 +128,11 @@ module Renalware
               AND feed_message_replays.success = true
           SQL
       end
+
+      # def never_successfully_replayed
+      #   Renalware::Feeds::Message
+      #     .joins()
+      # end
     end
   end
 end

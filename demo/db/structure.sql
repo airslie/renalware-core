@@ -5570,7 +5570,9 @@ CREATE TABLE renalware.feed_replay_requests (
     total_messages integer DEFAULT 0 NOT NULL,
     failed_messages integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    patient_id bigint NOT NULL,
+    error_message text
 );
 
 
@@ -20279,6 +20281,13 @@ CREATE INDEX index_feed_replay_requests_on_criteria ON renalware.feed_replay_req
 
 
 --
+-- Name: index_feed_replay_requests_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_replay_requests_on_patient_id ON renalware.feed_replay_requests USING btree (patient_id);
+
+
+--
 -- Name: index_good_job_executions_on_active_job_id_and_created_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -27485,6 +27494,14 @@ ALTER TABLE ONLY renalware.ukrdc_treatments
 
 
 --
+-- Name: feed_replay_requests fk_rails_d5fd4c152e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_replay_requests
+    ADD CONSTRAINT fk_rails_d5fd4c152e FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: access_plans fk_rails_d61e7c4674; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -28400,6 +28417,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230915144448'),
 ('20230913133958'),
 ('20230913132527'),
+('20230911114828'),
 ('20230831162729'),
 ('20230825143006'),
 ('20230825141714'),

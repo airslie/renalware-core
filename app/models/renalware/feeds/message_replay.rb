@@ -5,6 +5,7 @@ module Renalware
     class MessageReplay < ApplicationRecord
       validates :replay_request_id, presence: true
       validates :message_id, presence: true
+
       belongs_to :replay_request
       belongs_to :message
     end
