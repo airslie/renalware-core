@@ -12,7 +12,7 @@ module Renalware
   module Feeds
     class ReplayHistoricalHL7PathologyMessages
       include Broadcasting
-      pattr_initialize [:patient!]
+      pattr_initialize [:patient!, reason: ""]
 
       BATCH_SIZE = 200
 
@@ -24,7 +24,7 @@ module Renalware
 
       def call
         query = ReplayableHL7PathologyMessagesQuery.call(patient: patient)
-        ReplayRequest.start_logging(patient) do |replay_request|
+        ReplayRequest.start_logging(patient, reason) do |replay_request|
           query.find_in_batches(batch_size: BATCH_SIZE) do |batch|
             batch.each do |feed_message|
               replay_request.log(feed_message) do

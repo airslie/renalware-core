@@ -12,9 +12,9 @@
 module Renalware
   module Feeds
     class PatientListener
-      def patient_added(patient)
+      def patient_added(patient, reason)
         if Renalware.config.replay_historical_pathology_when_new_patient_added
-          ReplayHistoricalHL7PathologyMessagesJob.perform_later(patient)
+          ReplayHistoricalHL7PathologyMessagesJob.perform_later(patient, reason)
         end
       end
     end

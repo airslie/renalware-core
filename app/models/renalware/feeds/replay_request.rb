@@ -15,7 +15,11 @@ module Renalware
       def self.start_logging(patient)
         log_ongoing_replay(patient) && return if another_replay_ongoing?(patient)
 
-        replay_request = create!(started_at: Time.zone.now, patient: patient)
+        replay_request = create!(
+          started_at: Time.zone.now,
+          patient: patient,
+          reason: reason
+        )
         yield replay_request
       ensure
         replay_request&.update!(finished_at: Time.zone.now)

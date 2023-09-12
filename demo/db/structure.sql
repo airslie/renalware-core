@@ -5572,7 +5572,8 @@ CREATE TABLE renalware.feed_replay_requests (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     patient_id bigint NOT NULL,
-    error_message text
+    error_message text,
+    reason text
 );
 
 
@@ -28417,6 +28418,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230915144448'),
 ('20230913133958'),
 ('20230913132527'),
+('20230912091352'),
 ('20230911114828'),
 ('20230831162729'),
 ('20230825143006'),

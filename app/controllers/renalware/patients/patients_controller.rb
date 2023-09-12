@@ -51,7 +51,7 @@ module Renalware
         if patient.save_by(current_user)
           # Reload in order to let pg generate the secure id
           patient.reload
-          BroadcastPatientAddedEvent.call(patient)
+          BroadcastPatientAddedEvent.call(patient, "Manual")
           redirect_to_patient_demographics(patient)
         else
           flash.now[:error] = failed_msg_for("patient")

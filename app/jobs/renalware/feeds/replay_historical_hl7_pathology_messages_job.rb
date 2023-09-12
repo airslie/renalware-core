@@ -11,8 +11,8 @@
 module Renalware
   module Feeds
     class ReplayHistoricalHL7PathologyMessagesJob < ApplicationJob
-      def perform
-        ReplayHistoricalHL7PathologyMessages.call(patient: patient)
+      def perform(patient, reason)
+        ReplayHistoricalHL7PathologyMessages.call(patient: patient, reason: reason)
       end
     end
   end

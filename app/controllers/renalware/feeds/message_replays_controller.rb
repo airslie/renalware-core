@@ -6,11 +6,11 @@ module Renalware
       def index
         replays = replay_request.message_replays.all
         authorize replays
-        render locals: { replays: replays }
+        render locals: { replays: replays, replay_request: replay_request }
       end
 
       def replay_request
-        ReplayRequest.find(params[:replay_request_id])
+        @replay_request ||= ReplayRequest.find(params[:replay_request_id])
       end
     end
   end

@@ -194,7 +194,7 @@ module Renalware
         it "excludes that message" do
           patient = build(:patient, nhs_number: nhs_num, born_on: dob)
           msg = create_message(nhs_number: nhs_num, dob: dob, processed: false)
-          replay_request = ReplayRequest.create!(started_at: Time.zone.now)
+          replay_request = ReplayRequest.create!(started_at: Time.zone.now, patient: patient)
           replay_request.message_replays.create!(message: msg, success: false)
 
           results = described_class.new(patient: patient).call
@@ -207,7 +207,7 @@ module Renalware
         it "will include that message" do
           patient = build(:patient, nhs_number: nhs_num, born_on: dob)
           msg = create_message(nhs_number: nhs_num, dob: dob, processed: false)
-          replay_request = ReplayRequest.create!(started_at: Time.zone.now)
+          replay_request = ReplayRequest.create!(started_at: Time.zone.now, patient: patient)
           replay_request.message_replays.create!(message: msg, success: true)
 
           results = described_class.new(patient: patient).call
