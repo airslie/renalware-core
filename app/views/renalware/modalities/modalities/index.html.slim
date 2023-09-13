@@ -17,8 +17,11 @@
       tbody
         - modalities.each do |modality|
           tr
-            td= modality.description.name
-            td= modality.notes
-            td= l modality.started_on
-            td= l modality.ended_on
-            td= modality.created_by.full_name
+            - if modality.respond_to?(:description)
+              td= modality.description.name
+              td= modality.notes
+              td= l modality.started_on
+              td= l modality.ended_on
+              td= modality.created_by.full_name
+            - else
+              td.bg-red-50.text-gray-400.italic(colspan=5)= modality
