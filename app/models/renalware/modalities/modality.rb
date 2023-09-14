@@ -6,10 +6,9 @@ module Renalware
       include Accountable
       include PatientScope
 
-      belongs_to :description, class_name: "Description"
+      belongs_to :description
       belongs_to :patient, touch: true
-      belongs_to :reason, class_name: "Reason"
-
+      belongs_to :reason
       scope :ordered, -> { order(ended_on: :desc, updated_at: :desc) }
       scope :started_on_reversed, -> { order(started_on: :desc, updated_at: :desc) }
       scope :last_started_on, -> { started_on_reversed.where(ended_on: nil) }

@@ -6,5 +6,4 @@ end
 
 namespace :modalities do
   resources :descriptions, except: [:show]
-  resources :reasons, only: [:index]
 end
