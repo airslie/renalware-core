@@ -1,0 +1,6 @@
+other:
+  name: Other
+  code: other
+  updated_by: systemuser
+  created_by: systemuser
+  default: true

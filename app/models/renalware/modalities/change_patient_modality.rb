@@ -105,6 +105,8 @@ module Renalware
       def parse_options(options)
         return options[:modality] if options.key?(:modality)
 
+        change_type = options.delete(:change_type_id) || ChangeType.default&.id
+        options[:change_type_id] = change_type
         patient.modalities.new(options)
       end
 

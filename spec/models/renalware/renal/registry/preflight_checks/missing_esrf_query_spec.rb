@@ -12,6 +12,7 @@ module Renalware
         let(:transplant) { create(:transplant_modality_description) }
 
         def change_patient_modality(patient, modality_description, user)
+          create(:modality_change_type, :default)
           result = Modalities::ChangePatientModality
             .new(patient: patient, user: user)
             .call(description: modality_description, started_on: Time.zone.now)

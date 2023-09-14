@@ -40,12 +40,12 @@ describe "HL7 message handling end to end" do
       # This tests that we create both the results (observation_request -> observations) and
       # their descriptors if missing (observation_request -> observation -> measurement_unit).
       # That is to say, the process of importing HL7 pathology results should create at the same
-      # time any missing observation_request_description, observation_descripion and
+      # time any missing observation_request_description, observation_description and
       # measurement_unit rows required to satisfy the needs for storing the data.
 
       # Again, note we we don't need to create the OBR and OBX codes up front as these will be
-      # created if not found but a default 'uknown' lab must exist in case it cannot find and lookup
-      #  lab name from the HL7 msg
+      # created if not found but a default 'unknown' lab must exist in case it cannot find and
+      # lookup lab name from the HL7 msg
       create(:pathology_lab, name: "Lab: Unknown")
       patient = create(:pathology_patient, local_patient_id: "Z999990")
 

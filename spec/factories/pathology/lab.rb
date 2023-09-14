@@ -8,7 +8,7 @@ FactoryBot.define do
 
     name { %w(Biochemistry Microbiology Haemotology Virology).sample }
 
-    trait :uknown do
+    trait :unknown do
       name { Renalware::Pathology::Lab::UNKNOWN_LAB_NAME }
     end
   end

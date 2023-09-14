@@ -9,24 +9,54 @@ module Renalware
       belongs_to :description
       belongs_to :patient, touch: true
       belongs_to :reason
+      belongs_to :change_type
+      belongs_to :source_hospital_centre, class_name: "Hospitals::Centre"
+      belongs_to :destination_hospital_centre, class_name: "Hospitals::Centre"
+
       scope :ordered, -> { order(ended_on: :desc, updated_at: :desc) }
       scope :started_on_reversed, -> { order(started_on: :desc, updated_at: :desc) }
       scope :last_started_on, -> { started_on_reversed.where(ended_on: nil) }
 
       validates :patient, presence: true
       validates :started_on, presence: true
-      validates :description, presence: true
+      validates :description_id, presence: true
+      validates :change_type_id, presence: true
       validates :started_on, timeliness: { type: :date, on_or_before: -> { Date.current } }
       validate :validate_modality_starts_later_than_previous, on: :create, if: :patient
+
+      validates(
+        :source_hospital_centre_id,
+        presence: { if: ->(x) { x.change_type&.require_source_hospital_centre? } }
+      )
+      validates(
+        :destination_hospital_centre_id,
+        presence: { if: ->(x) { x.change_type&.require_destination_hospital_centre? } }
+      )
+
+      def self.policy_class = BasePolicy
 
       def terminate_by(user, on:)
         self.ended_on = on
         self.state = "terminated"
-        save_by!(user)
+        save_by!(user, validate: false) # Don't enforce validations here
       end
 
       def to_s
         description.name
+      end
+
+      def change_type_description
+        return nil if change_type.blank?
+
+        if change_type.require_source_hospital_centre? &&
+           source_hospital_centre.present?
+          "#{change_type.name} from #{source_hospital_centre}"
+        elsif change_type.require_destination_hospital_centre? &&
+              destination_hospital_centre.present?
+          "#{change_type.name} to #{destination_hospital_centre}"
+        else
+          change_type.name
+        end
       end
 
       def terminated?

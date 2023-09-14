@@ -23,6 +23,7 @@ class Fixtures
     Renalware::Hospitals::Unit,
     Renalware::Letters::Letterhead,
     Renalware::Letters::ContactDescription,
+    Renalware::Modalities::ChangeType,
     Renalware::Modalities::Description,
     Renalware::Modalities::Reason,
     Renalware::Medications::MedicationRoute,

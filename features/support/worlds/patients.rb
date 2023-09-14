@@ -3,6 +3,8 @@
 module World
   module Patients
     module Domain
+      include FactoryBot::Syntax::Methods
+
       def find_patient_by_given_name(given_name)
         Renalware::Patient.find_by!(given_name: given_name)
       end
