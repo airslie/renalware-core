@@ -217,6 +217,17 @@ CREATE TYPE renalware.enum_feed_log_type AS ENUM (
 
 
 --
+-- Name: enum_hd_slot_request_urgency; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.enum_hd_slot_request_urgency AS ENUM (
+    'routine',
+    'urgent',
+    'highly_urgent'
+);
+
+
+--
 -- Name: enum_hl7_orc_order_status; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -6462,6 +6473,101 @@ CREATE SEQUENCE renalware.hd_sessions_id_seq
 --
 
 ALTER SEQUENCE renalware.hd_sessions_id_seq OWNED BY renalware.hd_sessions.id;
+
+
+--
+-- Name: hd_slot_request_deletion_reasons; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.hd_slot_request_deletion_reasons (
+    id bigint NOT NULL,
+    reason character varying,
+    deleted_at timestamp(6) without time zone
+);
+
+
+--
+-- Name: hd_slot_request_deletion_reasons_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.hd_slot_request_deletion_reasons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_slot_request_deletion_reasons_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.hd_slot_request_deletion_reasons_id_seq OWNED BY renalware.hd_slot_request_deletion_reasons.id;
+
+
+--
+-- Name: hd_slot_requests; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.hd_slot_requests (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    urgency renalware.enum_hd_slot_request_urgency NOT NULL,
+    inpatient boolean DEFAULT false NOT NULL,
+    late_presenter boolean DEFAULT false NOT NULL,
+    "boolean" boolean DEFAULT false NOT NULL,
+    suitable_for_twilight_slots boolean DEFAULT false NOT NULL,
+    specific_requirements text,
+    notes text,
+    allocated_at timestamp(6) without time zone,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    deletion_reason_id bigint,
+    external_referral boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: COLUMN hd_slot_requests.late_presenter; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_slot_requests.late_presenter IS 'known to service <90 days';
+
+
+--
+-- Name: COLUMN hd_slot_requests."boolean"; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_slot_requests."boolean" IS 'known to service <90 days';
+
+
+--
+-- Name: COLUMN hd_slot_requests.specific_requirements; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_slot_requests.specific_requirements IS 'transport requirements, blood borne viruses etc';
+
+
+--
+-- Name: hd_slot_requests_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.hd_slot_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_slot_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.hd_slot_requests_id_seq OWNED BY renalware.hd_slot_requests.id;
 
 
 --
@@ -14623,6 +14729,20 @@ ALTER TABLE ONLY renalware.hd_sessions ALTER COLUMN id SET DEFAULT nextval('rena
 
 
 --
+-- Name: hd_slot_request_deletion_reasons id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_slot_request_deletion_reasons ALTER COLUMN id SET DEFAULT nextval('renalware.hd_slot_request_deletion_reasons_id_seq'::regclass);
+
+
+--
+-- Name: hd_slot_requests id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_slot_requests ALTER COLUMN id SET DEFAULT nextval('renalware.hd_slot_requests_id_seq'::regclass);
+
+
+--
 -- Name: hd_station_locations id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -16539,6 +16659,22 @@ ALTER TABLE ONLY renalware.hd_session_form_batches
 
 ALTER TABLE ONLY renalware.hd_sessions
     ADD CONSTRAINT hd_sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_slot_request_deletion_reasons hd_slot_request_deletion_reasons_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_slot_request_deletion_reasons
+    ADD CONSTRAINT hd_slot_request_deletion_reasons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_slot_requests hd_slot_requests_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_slot_requests
+    ADD CONSTRAINT hd_slot_requests_pkey PRIMARY KEY (id);
 
 
 --
@@ -20068,6 +20204,55 @@ CREATE INDEX index_hd_sessions_on_updated_by_id ON renalware.hd_sessions USING b
 --
 
 CREATE INDEX index_hd_sessions_on_uuid ON renalware.hd_sessions USING btree (uuid);
+
+
+--
+-- Name: index_hd_slot_request_deletion_reasons_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_slot_request_deletion_reasons_on_deleted_at ON renalware.hd_slot_request_deletion_reasons USING btree (deleted_at);
+
+
+--
+-- Name: index_hd_slot_requests_on_allocated_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_slot_requests_on_allocated_at ON renalware.hd_slot_requests USING btree (allocated_at);
+
+
+--
+-- Name: index_hd_slot_requests_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_slot_requests_on_created_by_id ON renalware.hd_slot_requests USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_slot_requests_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_slot_requests_on_deleted_at ON renalware.hd_slot_requests USING btree (deleted_at);
+
+
+--
+-- Name: index_hd_slot_requests_on_deletion_reason_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_slot_requests_on_deletion_reason_id ON renalware.hd_slot_requests USING btree (deletion_reason_id);
+
+
+--
+-- Name: index_hd_slot_requests_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_slot_requests_on_patient_id ON renalware.hd_slot_requests USING btree (patient_id);
+
+
+--
+-- Name: index_hd_slot_requests_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_slot_requests_on_updated_by_id ON renalware.hd_slot_requests USING btree (updated_by_id);
 
 
 --
@@ -23991,6 +24176,14 @@ ALTER TABLE ONLY renalware.hd_prescription_administrations
 
 
 --
+-- Name: hd_slot_requests fk_rails_0a97b4f5d5; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_slot_requests
+    ADD CONSTRAINT fk_rails_0a97b4f5d5 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: hd_profiles fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -24775,6 +24968,14 @@ ALTER TABLE ONLY renalware.hd_prescription_administrations
 
 
 --
+-- Name: hd_slot_requests fk_rails_5262597fc7; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_slot_requests
+    ADD CONSTRAINT fk_rails_5262597fc7 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: patients fk_rails_53c392b502; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -25092,6 +25293,14 @@ ALTER TABLE ONLY renalware.hd_vnd_risk_assessments
 
 ALTER TABLE ONLY renalware.hd_preference_sets
     ADD CONSTRAINT fk_rails_69555e3a94 FOREIGN KEY (schedule_definition_id) REFERENCES renalware.hd_schedule_definitions(id);
+
+
+--
+-- Name: hd_slot_requests fk_rails_6a3ab1b8b9; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_slot_requests
+    ADD CONSTRAINT fk_rails_6a3ab1b8b9 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
 
 
 --
@@ -26679,6 +26888,14 @@ ALTER TABLE ONLY renalware.pathology_chart_series
 
 
 --
+-- Name: hd_slot_requests fk_rails_ef9e3e268a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_slot_requests
+    ADD CONSTRAINT fk_rails_ef9e3e268a FOREIGN KEY (deletion_reason_id) REFERENCES renalware.hd_slot_request_deletion_reasons(id);
+
+
+--
 -- Name: letter_electronic_receipts fk_rails_f0ab49c550; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -27919,6 +28136,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230825104746'),
 ('20230825141714'),
 ('20230825143006'),
+('20230915144448'),
+('20230915220000'),
+('20230918172419'),
 ('20231004172532');
 
 

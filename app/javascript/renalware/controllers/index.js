@@ -1,4 +1,5 @@
 import { application } from "./application"
+import Dropdown from "stimulus-dropdown"
 
 import ToggleController from "./toggle_controller"
 import ClinicsBmiCalculatorController from "./clinics/bmi_calculator_controller"
@@ -37,6 +38,7 @@ import ReadMoreController from "./read_more_controller"
 import GridRowAutoSpanController from "./grid_row_auto_span_controller"
 import TableColumnHoverController from "./table_column_hover_controller"
 import NavbarController from "./navbar_controller"
+
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -90,3 +92,4 @@ application.register("read-more", ReadMoreController)
 application.register("grid-row-auto-span", GridRowAutoSpanController)
 application.register("table_column_hover", TableColumnHoverController)
 application.register("navbar", NavbarController)
+application.register("dropdown", Dropdown) // https://www.stimulus-components.com/docs/stimulus-dropdown/

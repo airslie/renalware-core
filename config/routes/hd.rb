@@ -40,6 +40,11 @@ namespace :hd do
   end
   resources :prescription_administration_authorisations, only: :create
   resources :transmission_logs, only: [:show, :index]
+  resources :slot_requests do
+    collection do
+      get :historical
+    end
+  end
   resources :cannulation_types, except: :show
   resources :dialysers, except: :show
   resources :dialysates, except: :show

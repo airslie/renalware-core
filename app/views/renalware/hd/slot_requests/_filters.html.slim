@@ -1,0 +1,52 @@
+.filters
+  .filters__form
+    = search_form_for query,
+                      url: url,
+                      html: { class: "fn-form",
+                              autocomplete: "off" },
+                      data: { turbo_frame: "hd-slot-requests-turbo-frame",
+                              turbo: true,
+                              turbo_advance: true,
+                              controller: "form",
+                              action: "input->form#submit" } do |f|
+      .flex.flex-row
+        .w-1/4
+          = label_tag :identity_match, "Patient name/NHS/MRN"
+          = f.search_field :identity_match, class: ""
+
+        .w-1/4.pl-2
+          = f.label "Urgency"
+          = f.select(:urgency_eq,
+                     urgency_dropdown_options,
+                     include_blank: true,
+                     data: {  action: "change->form#submit" })
+
+        .w-1/4.pl-2
+          = f.label "Modality"
+          = f.select(:patient_current_modality_description_id_eq,
+                     Renalware::Modalities::Description.pluck(:name, :id),
+                     include_blank: true,
+                     data: {  action: "change->form#submit" })
+
+        - boolean_options = [["Any",nil], ["True", true], ["False", false]]
+
+        .w-1/6.pl-2
+          = label_tag :inpatient_eq, "Inpatient"
+          = f.select :inpatient_eq, boolean_options
+
+        .w-1/6.pl-2
+          = label_tag :late_presenter_eq, "Late presenter"
+          = f.select :late_presenter_eq, boolean_options
+
+        .w-1/6.pl-2
+          = label_tag :suitable_for_twilight_slots_eq, "Twilight slots?"
+          = f.select :suitable_for_twilight_slots_eq, boolean_options
+
+        .w-1/6.pl-2
+          = label_tag :external_referral_eq, "External referral"
+          = f.select :external_referral_eq, boolean_options
+
+        .w-1/4.pt-6.pl-2
+          = link_to("Reset", url, class: "btn btn-secondary", target: "_top")
+          noscript
+            = filter_or_reset(form: f, reset_path: url)

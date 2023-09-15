@@ -17,7 +17,7 @@ Rails.application.configure do
 
   # Execute jobs in separate thread in the web process. This makes debugging easier and we do not
   # need to run bin/good_job unless testing cron-style jobs.
-  config.good_job.execution_mode = :async
+  config.good_job.execution_mode = :external
 
   config.hosts << "dev.test"
 

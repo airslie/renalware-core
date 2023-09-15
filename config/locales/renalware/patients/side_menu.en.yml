@@ -9,6 +9,7 @@ en:
           delete_bookmark: Remove bookmark
           heading: Actions
           request_admission: Request admission
+          request_hd_slots: Request HD Slot
           send_message: Send message
         general:
           access_profiles: Access Summary

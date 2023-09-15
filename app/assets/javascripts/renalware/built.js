@@ -1,3 +1,5 @@
+import Dropdown from 'stimulus-dropdown';
+
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 var check = function (it) {
@@ -36984,6 +36986,7 @@ application.register("read-more", _default$3);
 application.register("grid-row-auto-span", _default$2);
 application.register("table_column_hover", _default$1);
 application.register("navbar", _default);
+application.register("dropdown", Dropdown); // https://www.stimulus-components.com/docs/stimulus-dropdown/
 
 /*
 Turbo 7.3.0

@@ -1,6 +1,7 @@
 @layer components {
   .btn {
-    @apply inline-flex justify-center rounded border border-transparent px-4 py-2 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer;
+    @apply inline-flex justify-center rounded border border-transparent px-4 py-2
+      font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer;
   }
 
   .btn-sm {
@@ -31,5 +32,30 @@
   .btn-secondary:hover,
   .btn-secondary:focus {
     @apply bg-gray-100 text-gray-700;
+  }
+
+  .btn-compact {
+    @apply px-2 py-1;
+  }
+
+  .btn-dropdown {
+    /* @apply
+      inline-flex justify-center w-full rounded-md border border-gray-300
+      shadow-sm px-4 py-2 bg-white font-medium text-gray-700
+      hover:bg-gray-50 focus:outline-none focus:ring-2
+      focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500; */
+  }
+
+  .dropdown-drawer {
+    @apply transition transform origin-top-left absolute left-0 mt-2 w-56
+      rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none;
+  }
+
+  .dropdown-drawer a {
+    @apply text-gray-900 block px-4 py-2
+  }
+
+  .dropdown-drawer a:hover {
+    @apply bg-gray-100;
   }
 }

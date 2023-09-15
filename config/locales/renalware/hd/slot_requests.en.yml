@@ -1,0 +1,19 @@
+en:
+  renalware:
+    hd:
+      slot_requests:
+        index:
+          page-title: HD Slot Requests
+        historical:
+          page-title: HD Slot Requests
+        new:
+          page-title: New HD Slot Request
+        edit:
+          page-title: Edit HD Slot Request
+  activerecord:
+    attributes:
+      renalware/hd/slot_request:
+        urgencies:
+          urgent: "Urgent"
+          highly_urgent: "Highly urgent"
+          routine: "Routine"
