@@ -32,6 +32,20 @@ module Renalware
         end
       end
 
+      def destroy
+        modality_to_delete = patient.modalities.find(params[:id])
+        authorize modality_to_delete
+
+        deleting_the_current_modality = patient.current_modality&.id == params[:id].to_i
+        if deleting_the_current_modality
+          delete_current_modality_and_make_previous_one_current(modality_to_delete)
+        else
+          modality_to_delete.destroy!
+        end
+
+        redirect_to patient_modalities_path(patient)
+      end
+
       private
 
       # We allow 0 or 1 days difference between the end and start dates of successive
@@ -61,6 +75,18 @@ module Renalware
           .modalities
           .includes([:description, :created_by])
           .ordered
+      end
+
+      def delete_current_modality_and_make_previous_one_current(modality_to_delete)
+        Modality.transaction do
+          previous_modality = patient
+            .modalities
+            .where("started_on < ?", modality_to_delete.started_on)
+            .order(started_on: :desc)
+            .first
+          previous_modality&.update_by(current_user, ended_on: nil, state: :current)
+          modality_to_delete.destroy!
+        end
       end
 
       def change_patient_modality
