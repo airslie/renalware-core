@@ -4,14 +4,15 @@ module Renalware
   module Modalities
     class ModalitiesController < BaseController
       include Renalware::Concerns::PatientVisibility
+      include ActionView::Helpers::TextHelper
 
       def index
         authorize Modality, :index?
-        modalities = patient
-          .modalities
-          .includes([:description, :created_by])
-          .ordered
-        render locals: { patient: patient, modalities: modalities }
+
+        render locals: {
+          patient: patient,
+          modalities: modalities_with_noncontiguous_warnings_inserted
+        }
       end
 
       def new
@@ -32,6 +33,35 @@ module Renalware
       end
 
       private
+
+      # We allow 0 or 1 days difference between the end and start dates of successive
+      # modalities. Anything more than that and we add a warning to the array we return, and this
+      # gets displayed.
+      # Note we are iterate over modalities in reverse chronological order here, newest first, so,
+      # first time in, next_modality is nil, and on the second iteration, next_modality is the next
+      # modality in the future etc.
+      #
+      def modalities_with_noncontiguous_warnings_inserted
+        next_modality = nil
+        patient_modalities.to_a.each_with_object([]) do |modality, rows|
+          if next_modality && modality.ended_on
+            days_missing = (next_modality.started_on - modality.ended_on).to_i - 1
+            if days_missing > 0
+              rows << "Missing modality data between #{I18n.l(modality.ended_on)} and " \
+                "#{I18n.l(next_modality.started_on)} (#{pluralize(days_missing, 'day')})"
+            end
+          end
+          rows << modality
+          next_modality = modality
+        end
+      end
+
+      def patient_modalities
+        patient
+          .modalities
+          .includes([:description, :created_by])
+          .ordered
+      end
 
       def change_patient_modality
         Modalities::ChangePatientModality
