@@ -35,7 +35,7 @@ module Renalware
               ukrdc_patient_elem << medications_element
               ukrdc_patient_elem << procedures_element
               ukrdc_patient_elem << documents_element
-              ukrdc_patient_elem << encouters_element
+              ukrdc_patient_elem << encounters_element
             end
           end
           # rubocop:enable Metrics/AbcSize
@@ -144,7 +144,7 @@ module Renalware
           # Treatments are generated during the export process - see GenerateTimeline.
           # We derive the name of a Treatment class eg "HD Treatment" to handle the rendering of
           # the treatment, and if the class does not exist we just use the base Treatment class.
-          def encouters_element
+          def encounters_element
             create_node("Encounters") do |elem|
               patient.treatments.each do |treatment|
                 klass = treatment_class_for(treatment.modality_description)

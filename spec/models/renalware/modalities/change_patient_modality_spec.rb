@@ -10,7 +10,7 @@ module Renalware
     let(:user)                    { build_stubbed(:user) }
     let(:death)                   { build_stubbed(:death_modality_description) }
     let(:pd_modality_description) { build_stubbed(:pd_modality_description) }
-    let(:change_type)             { create(:modality_change_type) }
+    let(:change_type)             { create(:modality_change_type, default: true) }
 
     it { is_expected.to respond_to(:call) }
 

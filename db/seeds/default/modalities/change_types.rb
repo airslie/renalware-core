@@ -9,14 +9,8 @@ module Renalware
     log "Adding modality change types.." do
       user = SystemUser.find
       {
-        haemodialysis_to_pd: {
-          name: "Haemodialysis To PD"
-        },
-        pd_to_haemodialysis: {
-          name: "PD To Haemodialysis"
-        },
-        other: {
-          name: "Other",
+        change_in_modality: {
+          name: "Change in modality",
           default: true
         },
         transferred_in: {
@@ -26,6 +20,12 @@ module Renalware
         transferred_out: {
           name: "Transferred out",
           require_destination_hospital_centre: true
+        },
+        first_ever_dialysis: {
+          name: "First ever dialysis"
+        },
+        other: {
+          name: "Other"
         }
       }.each do |code, options|
         ChangeType.find_or_create_by!(code: code, name: name) do |ct|

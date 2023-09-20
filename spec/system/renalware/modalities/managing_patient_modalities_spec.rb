@@ -17,6 +17,10 @@ describe "Managing a patient's modalities", js: false do
     result.object
   end
 
+  before do
+    create(:modality_change_type, :other, default: true)
+  end
+
   pending "adding a modality"
 
   describe "editing a modality" do

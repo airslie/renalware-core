@@ -115,7 +115,7 @@ module Renalware
       def patient_modalities
         patient
           .modalities
-          .includes([:description, :created_by, :change_type])
+          .includes([:description, :created_by, :change_type, :source_hospital_centre])
           .ordered
       end
 
@@ -145,7 +145,7 @@ module Renalware
       def modality_params
         params
           .require(:modality)
-          .permit(:description_id, :change_type_id, :notes, :started_on,
+          .permit(:description_id, :change_type_id, :notes, :started_on, :ended_on,
                   :destination_hospital_centre_id, :source_hospital_centre_id)
       end
 
