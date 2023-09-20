@@ -44,7 +44,8 @@ module Renalware
 
           def sending_facility_element
             create_node("SendingFacility", Renalware.config.ukrdc_sending_facility_name) do |fac|
-              fac[:channelName] = "Renalware"
+              fac[:channelName] = "Renalware #{Renalware::VERSION}"
+              fac[:schemaVersion] = Renalware.config.ukrdc_schema_version
               fac[:time] = Time.zone.now.to_datetime.change(sec: 0)
             end
           end
