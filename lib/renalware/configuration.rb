@@ -65,6 +65,7 @@ module Renalware
       ENV.fetch("FALLBACK_EMAIL_ADDRESS_FOR_TEST_MESSAGES", nil)
     end
     config_accessor(:ukrdc_sending_facility_name) { ENV.fetch("UKRDC_SENDING_FACILITY_NAME", nil) }
+    config_accessor(:ukrdc_schema_version) { ENV.fetch("UKRDC_SCHEMA_VERSION", "3.3.1") }
     config_accessor(:ukrdc_default_changes_since_date) {
       Date.parse(ENV.fetch("UKRDC_DEFAULT_CHANGES_SINCE_DATE", "2018-01-01"))
     }
