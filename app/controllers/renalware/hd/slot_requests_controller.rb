@@ -22,14 +22,23 @@ module Renalware
       def new
         slot_request = SlotRequest.new
         authorize slot_request
+        patient = params.key?(:patient) && Patient.find_by(secure_id: params[:patient])
+        slot_request.patient = patient
         render_new(slot_request)
       end
 
       def create
         slot_request = SlotRequest.new(slot_request_params)
         authorize slot_request
+
         if slot_request.save_by(current_user)
-          redirect_to hd_slot_requests_path
+          # render turbo_stream: turbo_visit(hd_slot_requests_path)
+          if redirect_to_patient_on_success?
+            patient = Patient.find(slot_request_params[:patient_id].to_i)
+            render turbo_stream: turbo_visit(patient_clinical_summary_path(patient))
+          else
+            render turbo_stream: turbo_visit(hd_slot_requests_path)
+          end
         else
           render_new(slot_request)
         end
@@ -62,6 +71,8 @@ module Renalware
 
       private
 
+      def redirect_to_patient_on_success? = params[:redirect_to_patient_on_success] == "true"
+
       def make_allocated(update_params)
         update_params[:allocated_at] = Time.zone.now
         update_params.delete(:allocated)
@@ -77,7 +88,8 @@ module Renalware
           :edit,
           locals: {
             slot_request: slot_request,
-            urgency_dropdown_options: urgency_dropdown_options
+            urgency_dropdown_options: urgency_dropdown_options,
+            redirect_to_patient_on_success: true
           }
         )
       end
@@ -87,7 +99,8 @@ module Renalware
           :new,
           locals: {
             slot_request: slot_request,
-            urgency_dropdown_options: urgency_dropdown_options
+            urgency_dropdown_options: urgency_dropdown_options,
+            redirect_to_patient_on_success: redirect_to_patient_on_success?
           }
         )
       end

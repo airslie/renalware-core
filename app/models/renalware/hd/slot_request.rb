@@ -28,7 +28,10 @@ module Renalware
 
       validates :patient_id,
                 presence: true,
-                uniqueness: { scope: [:deleted_at, :allocated_at] }
+                uniqueness: {
+                  scope: [:deleted_at, :allocated_at],
+                  message: "already has an active slot request"
+                }
       validates :urgency, presence: true
       validates :deletion_reason, presence: { if: :deleted_at }
 

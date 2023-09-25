@@ -1,0 +1,5 @@
+- if model.errors.any?
+  ul.bg-red-100.py-2.px-3.m-0.rounded
+    - model.errors.full_messages.each do |msg|
+      li
+        = msg

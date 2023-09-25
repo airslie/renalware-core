@@ -20,6 +20,7 @@ import PathologySparklinesController from "./pathology/sparklines_controller"
 import CollapsibleController from "./collapsible_controller"
 import DependentSelectController from "./dependent_select_controller"
 import PatientAttachmentsController from "./patients/attachments_controller"
+import PatientSearchController from "./patients/search_controller"
 import SortableController from "./sortable_controller"
 import SelectController from "./select_controller"
 import RadioResetController from "./radio_reset_controller"
@@ -39,6 +40,8 @@ import GridRowAutoSpanController from "./grid_row_auto_span_controller"
 import TableColumnHoverController from "./table_column_hover_controller"
 import NavbarController from "./navbar_controller"
 
+import TabbedNavigationController from "./tabbed_navigation_controller"
+import TurboModalController from "./turbo_modal_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -59,6 +62,7 @@ application.register("pathology-sparklines", PathologySparklinesController)
 application.register("collapsible", CollapsibleController)
 application.register("dependent-select", DependentSelectController)
 application.register("patient-attachments", PatientAttachmentsController)
+application.register("patient-search", PatientSearchController)
 application.register("sortable", SortableController)
 application.register("select", SelectController)
 application.register("radio-reset", RadioResetController)
@@ -93,3 +97,5 @@ application.register("grid-row-auto-span", GridRowAutoSpanController)
 application.register("table_column_hover", TableColumnHoverController)
 application.register("navbar", NavbarController)
 application.register("dropdown", Dropdown) // https://www.stimulus-components.com/docs/stimulus-dropdown/
+application.register("tabbed-navigation", TabbedNavigationController)
+application.register("turbo-modal", TurboModalController)

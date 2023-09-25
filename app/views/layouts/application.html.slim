@@ -32,7 +32,7 @@ html lang="en"
        *Renalware::UserSessionPresenter.session_controller_data_attributes)
 
     #modals-wrapper
-    = turbo_frame_tag "modal"
+
     header
       - if Renalware.config.display_feedback_banner
         = render "renalware/system/user_feedback/banner"
@@ -49,6 +49,7 @@ html lang="en"
 
     main
       = yield
+      = turbo_frame_tag "modal"
 
     - unless user_signed_in?
       = render "renalware/navigation/footer"

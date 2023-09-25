@@ -1,23 +1,69 @@
-= simple_form_for(slot_request) do |f|
-  #person-id-select2
-    = f.input :patient_id,
-              wrapper: :hz_md,
-              collection: [[slot_request.patient&.to_s(:long), slot_request.patient&.id]],
-              selected: 1,
-              input_html: { \
-                class: "patient-id-select2 patient-ajax-search",
-                data: { "ajax--url" => search_patients_path(format: :json),
-                        placeholder: "Search by patient name or hospital/NHS no." } \
-              }
-  = f.input :urgency, collection: urgency_dropdown_options
-  = f.input :inpatient, as: :boolean
-  = f.input :late_presenter, as: :boolean, hint: "known to service < 90 days"
-  = f.input :suitable_for_twilight_slots, as: :boolean
-  = f.input :external_referral, as: :boolean
-  = f.input :specific_requirements,
-            as: :text,
-            input_html: { rows: 2 },
-            hint: "transport requirements, blood borne viruses etc"
-  = f.input :notes, as: :text, input_html: { rows: 2 }
 
-  = save_or_cancel(form: f, back_path: :back)
+= simple_form_for(slot_request, wrapper: :tw_default, html: { class: "" }) do |f|
+  = hidden_field_tag :redirect_to_patient_on_success, redirect_to_patient_on_success
+
+  = render "renalware/shared/tw_errors", model: slot_request
+
+  .mt-4
+      .max-w-xl
+        .grid.grid-cols-1.gap-1
+          #person-id-select2
+            - if slot_request.patient.present?
+              .bold.text-md = slot_request.patient
+              = f.input :patient_id, as: :hidden
+            - else
+              / [[slot_request.patient&.to_s(:long), slot_request.patient&.id]],
+              - collection = slot_request.patient.present? ? [[slot_request.patient&.to_s(:long), slot_request.patient&.id]] : []
+              = f.input :patient_id,
+                        collection: collection,
+                        selected: 1,
+                        input_html: { \
+                          class: "patient-id-select2 patient-ajax-search",
+                          data: { "ajax--url" => search_patients_path(format: :json),
+                                  controller: "patient-search",
+                                  placeholder: "Search by patient name or hospital/NHS no." } \
+                        }
+
+
+          = f.input :urgency, collection: urgency_dropdown_options, error: false
+
+          div.block
+            div.mt-3
+              div
+                = f.label :inpatient, class: "inline-flex items-center" do
+                  = f.check_box :inpatient
+                  span.ml-2 Inpatient
+
+          div.block
+            div.mt-1
+              div
+                = f.label :late_presenter, class: "inline-flex items-center" do
+                  = f.check_box :late_presenter
+                  span.ml-2 Late presenter
+                  span.ml-2.text-gray-400.italic known to service < 90 days
+
+          div.block
+            div.mt-1
+              div
+                = f.label :suitable_for_twilight_slots, class: "inline-flex items-center" do
+                  = f.check_box :suitable_for_twilight_slots
+                  span.ml-2 Suitable for twilight slots
+
+          div.block
+            div.mb-3.mt-1
+              div
+                = f.label :external_referral, class: "inline-flex items-center" do
+                  = f.check_box :external_referral
+                  span.ml-2 External_referral
+
+          = f.input :specific_requirements,
+                    as: :text,
+                    input_html: { rows: 2 },
+                    hint: "transport requirements, blood borne viruses etc"
+          = f.input :notes, as: :text, input_html: { rows: 2 }
+
+  .mt-5
+    div.form-actions
+      = link_to(I18n.t("btn.cancel"), "#", class: "btn btn-secondary mr-3", data: { action: "turbo-modal#close"} )
+      = f.submit(nil, class: "btn btn-primary")
+

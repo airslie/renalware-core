@@ -23,7 +23,7 @@ module Renalware
         u.hospital_centre_id = host_hospital_centre_id
       end
 
-      log "#{username} created.", type: :sub
+      log "#{username} created", type: :sub
 
       # admin
       username = "#{site_code}admin"
@@ -39,7 +39,7 @@ module Renalware
         u.hospital_centre_id = host_hospital_centre_id
       end
 
-      log "#{username} created.", type: :sub
+      log "#{username} created", type: :sub
 
       # clinician
       username = "#{site_code}doc"
@@ -56,7 +56,7 @@ module Renalware
         u.hospital_centre_id = host_hospital_centre_id
       end
 
-      log "#{username} created.", type: :sub
+      log "#{username} created", type: :sub
 
       # nurse NB same role as doc
       username = "#{site_code}nurse"
@@ -72,7 +72,7 @@ module Renalware
         u.hospital_centre_id = host_hospital_centre_id
       end
 
-      log "#{username} created.", type: :sub
+      log "#{username} created", type: :sub
 
       # guest i.e. readonly
       username = "#{site_code}guest"
@@ -88,7 +88,7 @@ module Renalware
         u.hospital_centre_id = host_hospital_centre_id
       end
 
-      log "#{username} created.", type: :sub
+      log "#{username} created", type: :sub
     end
     # add rwdev superadmin
     username = "rwdev"

@@ -1,37 +1,10 @@
-= tag.div data: { controller: "modal" }
-  = trigger
-
-  / The modal itself
-  = tag.div data: { action: "click->modal#closeBackground keyup@window->modal#closeWithKeyboard",
-                    modal_target: "container" },
-                    class: "hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center",
-                    style: "z-index: 9999;" do
-
-    div class="max-h-screen w-full max-w-lg relative"
-      div class="m-1 bg-white rounded shadow"
-        div.absolute.top-0.right-0.mr-4.mt-4
-          = button_tag(class: "rounded bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
-            data: { action: "modal#close" })
-
-            span.sr-only Close
-
-            / Heroicon name: outline/x-mark
-            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-
-
-        div class="p-8"
-          - if title.present?
-            h1.text-3xl.mt-8.mb-4 = title
-
-          - if remote
-            = turbo_frame_tag "modal-#{SecureRandom.hex}", data: { modal_target: "turboFrame" } do
-              p test
-          - else
-            = body
-
-          / Render any content (most likely Save/Close etc buttons) that the caller might specify in the
-          / bottom_buttons_nav block
-          .flex.flex-row-reverse
-            = bottom_buttons_nav
+= turbo_frame_tag "modal" do
+  div(data-controller="turbo-modal" data-action="turbo:submit-end->turbo-modal#submitEnd")
+    .relative.z-10[aria-labelledby="modal-title" role="dialog" aria-modal="true"]
+      .fixed.inset-0.bg-gray-500.bg-opacity-75.transition-opacity
+      .fixed.inset-0.z-10.w-screen.overflow-y-auto
+        .flex.min-h-full.items-end.justify-center.p-4.text-center.sm:items-center.sm:p-0
+          .relative.transform.overflow-hidden.rounded-lg.bg-white.px-4.pb-4.pt-3.text-left.shadow-xl.transition-all.sm:my-8.sm:w-full.sm:max-w-xl.sm:pt-0.sm:p-6
+            - if title.present?
+              h2.text-1xl.mt-5.mb-4 = title
+            = content

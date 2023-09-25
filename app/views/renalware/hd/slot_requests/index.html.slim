@@ -1,5 +1,8 @@
 = content_for(:actions) do
-  = link_to(t("btn.add"), new_hd_slot_request_path, class: :button)
+  = link_to t("btn.add"),
+            renalware.new_hd_slot_request_path,
+            class: :button,
+            data: { turbo: true, turbo_frame: "modal" }
 
 = content_for(:filters) do
   = render "filters",
@@ -11,4 +14,5 @@
   = render "tabs"
 
 = within_admin_layout(title: t(".page-title")) do
+  = turbo_page_requires_reload
   = render "table", **local_assigns

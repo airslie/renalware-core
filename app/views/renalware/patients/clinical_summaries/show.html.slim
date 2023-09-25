@@ -5,6 +5,7 @@
 / nested templates
 -# Template Dependency: renalware/**/summary_part
 = within_patient_layout(title: t(".page_title")) do
+  = turbo_page_requires_reload
   .row
     - summary_parts = clinical_summary.summary_parts(current_user).each do |summary_part|
       - if summary_part.respond_to?(:to_partial_path)
