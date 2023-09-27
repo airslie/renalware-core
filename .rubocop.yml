@@ -1,6 +1,6 @@
 # rubocop config vases loosely on
 # https://evilmartians.com/chronicles/rubocoping-with-legacy-bring-your-ruby-code-up-to-standard
-# but excluding standardrb for now as it removes spaces from hashses which is just plain ugly :)
+# but excluding standardrb for now as it removes spaces from hashes which is just plain ugly :)
 
 # We want Exclude directives from different
 # config files to get merged, not overwritten
@@ -46,8 +46,21 @@ AllCops:
     - "config/initializers/devise.rb"
     - "features/support/env.xaction_view.rb"
 
+FactoryBot/FactoryAssociationWithStrategy:
+  Enabled: true
+
 RSpec/ReceiveMessages:
   Enabled: true
+
+RSpec/MetadataStyle:
+  Enabled: false
+
+Capybara/ClickLinkOrButtonStyle:
+  Enabled: false
+
+RSpec/SpecFilePathFormat:
+  Exclude:
+    - "spec/components/renalware/letters/unread_electronic_ccs_component_spec.rb"
 
 Layout/LineLength:
   Exclude:

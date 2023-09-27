@@ -101,7 +101,7 @@ describe "Print a patient's ESA drug list", js: true do
 
       # refreshes the page.. so weill get a different set of durations, letting us
       # check they have appeared before we continue
-      expect(page).to have_selector("#event_prescription_duration option[value='111']")
+      expect(page).to have_css("#event_prescription_duration option[value='111']")
 
       expect(dialog.prescription_duration).to eq("9 weeks") # immuno default
 

@@ -4,7 +4,7 @@ module Renalware
   module System
     class MessagesController < BaseController
       def index
-        messages = Message.all.order(created_at: :desc)
+        messages = Message.order(created_at: :desc)
         authorize messages
         render locals: { messages: messages }
       end

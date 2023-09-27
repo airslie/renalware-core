@@ -22,7 +22,7 @@ describe "Alert management" do
     wait_for_ajax
     within ".patient-alerts" do
       expect(page).to have_content("Some note")
-      expect(page).to have_selector(".patient-alert", count: 1)
+      expect(page).to have_css(".patient-alert", count: 1)
     end
   end
 
@@ -38,7 +38,7 @@ describe "Alert management" do
 
     within ".patient-alerts" do
       expect(page).to have_content("Abc")
-      expect(page).to have_selector(".patient-alert", count: 1)
+      expect(page).to have_css(".patient-alert", count: 1)
     end
 
     within ".patient-alerts" do
@@ -46,7 +46,7 @@ describe "Alert management" do
       page.execute_script("window.confirm = function(){ return true; }")
       find(".actions a").click
       wait_for_ajax
-      expect(page).to have_selector(".patient-alert", count: 0)
+      expect(page).to have_css(".patient-alert", count: 0)
     end
   end
 end

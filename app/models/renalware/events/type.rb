@@ -52,7 +52,7 @@ module Renalware
 
       # For use in migrations to reset the events_count counter cache column
       def self.reset_counters!
-        all.find_each(&:reset_counters!)
+        find_each(&:reset_counters!)
       end
 
       def to_s = name

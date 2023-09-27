@@ -20,7 +20,7 @@ describe "Editing a swab", js: true do
 
     # On Clinical Profile..
     within("article.swabs") do
-      expect(page).to have_selector("tbody tr", count: 1)
+      expect(page).to have_css("tbody tr", count: 1)
       expect(page).not_to have_content(swab_site)
       expect(page).not_to have_content(swab_result)
       click_on t("btn.edit")
@@ -34,7 +34,7 @@ describe "Editing a swab", js: true do
     # Back on Clinical Profile..
     expect(page).to have_current_path(patient_clinical_profile_path(patient))
     within("article.swabs") do
-      expect(page).to have_selector("tbody tr", count: 1)
+      expect(page).to have_css("tbody tr", count: 1)
       expect(page).to have_content(swab_site)
       expect(page).to have_content(swab_result)
       click_on t("btn.edit")

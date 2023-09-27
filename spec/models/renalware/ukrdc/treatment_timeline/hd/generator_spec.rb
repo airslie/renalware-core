@@ -260,7 +260,7 @@ module Renalware
               end
             }.to change(UKRDC::Treatment, :count).by(6)
 
-            treatments = UKRDC::Treatment.all.order(:started_on)
+            treatments = UKRDC::Treatment.order(:started_on)
 
             expected = [
               # started_on,  ended_on,     hd_type,   unit

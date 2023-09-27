@@ -195,7 +195,7 @@ module World
       end
 
       def expect_all_patient_hd_sessions_to_be_present(patient:, **)
-        expected_ids = Renalware::HD::Session.where(patient: patient).all.pluck(:id).sort
+        expected_ids = Renalware::HD::Session.where(patient: patient).pluck(:id).sort
         actual_ids = Renalware::HD::Sessions::PatientQuery.new(patient: patient)
           .call
           .pluck(:id)

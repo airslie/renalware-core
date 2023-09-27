@@ -24,7 +24,7 @@ module Renalware
             acc[vmp_code] << trade_family_code
           end
 
-          DMD::VirtualMedicalProduct.all.find_in_batches(batch_size: 500) do |batch|
+          DMD::VirtualMedicalProduct.find_in_batches(batch_size: 500) do |batch|
             upserts = []
 
             batch.each do |vmp|
