@@ -14,7 +14,7 @@ describe "Managing Diaries" do
       weekly_diaries = Renalware::HD::Scheduling::WeeklyDiary.where(hospital_unit_id: unit.id)
       expect(weekly_diaries.count).to eq(1)
 
-      weekly_diary = weekly_diaries.all.first
+      weekly_diary = weekly_diaries.first
       expect(weekly_diary.week_number).to eq(33)
       expect(weekly_diary.year).to eq(2018)
 

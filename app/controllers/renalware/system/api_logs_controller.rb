@@ -7,7 +7,7 @@ module Renalware
 
       def index
         authorize System::Message, :new?
-        pagy, api_logs = pagy(APILog.all.order(created_at: :desc))
+        pagy, api_logs = pagy(APILog.order(created_at: :desc))
         render locals: { api_logs: api_logs, pagy: pagy }
       end
     end

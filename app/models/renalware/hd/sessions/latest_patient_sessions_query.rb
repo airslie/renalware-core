@@ -9,7 +9,7 @@ module Renalware
         end
 
         def call(starting_on: 4.weeks.ago, ending_on: Time.zone.today, max_sessions: 12)
-          Session.all
+          Session
             .extending(Scopes)
             .for_patient(patient)
             .not_ongoing

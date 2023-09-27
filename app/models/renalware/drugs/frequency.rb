@@ -13,7 +13,7 @@ module Renalware
 
       def self.title_for_name(name)
         # Load all records to avoid N+1 queries, and use Rails cache on selects
-        all.find { |frequency| frequency.name == name }&.title || name
+        find { |frequency| frequency.name == name }&.title || name
       end
     end
   end

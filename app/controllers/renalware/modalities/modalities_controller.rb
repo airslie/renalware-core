@@ -48,7 +48,7 @@ module Renalware
             days_missing = (next_modality.started_on - modality.ended_on).to_i - 1
             if days_missing > 0
               rows << "Missing modality data between #{I18n.l(modality.ended_on)} and " \
-                "#{I18n.l(next_modality.started_on)} (#{pluralize(days_missing, 'day')})"
+                      "#{I18n.l(next_modality.started_on)} (#{pluralize(days_missing, 'day')})"
             end
           end
           rows << modality

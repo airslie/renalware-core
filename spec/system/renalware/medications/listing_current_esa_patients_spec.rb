@@ -27,7 +27,7 @@ describe "/medications/esa_prescriptions" do
   it "allows to create, edit and terminate a drug" do
     visit medications_esa_prescriptions_path
 
-    expect(page).to have_selector("tbody tr", count: 1)
+    expect(page).to have_css("tbody tr", count: 1)
 
     within "tbody tr" do
       expect(page).to have_content "ESA Pill"

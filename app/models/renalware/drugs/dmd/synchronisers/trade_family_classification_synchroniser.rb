@@ -15,7 +15,7 @@ module Renalware
           ).to_h
           drug_vtm_code_to_id_mapping = Drugs::Drug.pluck(:code, :id).to_h
 
-          ActualMedicalProduct.all.find_in_batches(batch_size: 500) do |batch|
+          ActualMedicalProduct.find_in_batches(batch_size: 500) do |batch|
             upserts = []
 
             batch.each do |amp|

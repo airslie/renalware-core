@@ -31,7 +31,7 @@ describe "Editing an investigation", js: true do
 
     # On Tx Recip Dashboard, check we can see the investigation we just created
     within("article.investigations") do
-      expect(page).to have_selector("tbody tr", count: 1)
+      expect(page).to have_css("tbody tr", count: 1)
       expect(page).to have_content("initial_result")
       click_on t("btn.edit")
     end
@@ -53,7 +53,7 @@ describe "Editing an investigation", js: true do
     expect(page).to have_current_path(tx_dashboard_path)
 
     within("table.events-table") do
-      expect(page).to have_selector("tbody tr", count: 1)
+      expect(page).to have_css("tbody tr", count: 1)
       expect(page).to have_content("edited_result")
     end
   end
