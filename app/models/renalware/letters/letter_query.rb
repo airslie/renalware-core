@@ -10,11 +10,26 @@ module Renalware
         end
 
         def self.clinic_visit_clinic_id_eq(clinic_id)
-          joins("inner join clinic_visits on clinic_visits.id = letter_letters.event_id")
-            .where(
-              event_type: Renalware::Clinics::ClinicVisit.name,
-              clinic_visits: { clinic_id: clinic_id }
-            )
+          # Ransack scope issue, see https://github.com/activerecord-hackery/ransack/issues/593
+          # if the clinic_id is 1 it maps it to true, so revert this.
+          # There is a way to add a global setting to prevent this happening but I am not sure
+          # of the knock-on effects of doing this elsewhere in the app.
+          clinic_id = 1 if clinic_id == true
+
+          join_sql = <<-SQL.squish
+            inner join clinic_visits
+              on clinic_visits.clinic_id = ?
+              and clinic_visits.id = letter_letters.event_id
+              and letter_letters.event_type = ?
+          SQL
+          sanitized_join_sql = sanitize_sql_array(
+            [
+              join_sql,
+              clinic_id,
+              Renalware::Clinics::ClinicVisit.name
+            ]
+          )
+          joins(sanitized_join_sql)
         end
 
         def self.finder_needs_type_condition?
