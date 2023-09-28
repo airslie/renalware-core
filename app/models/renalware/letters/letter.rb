@@ -89,7 +89,14 @@ module Renalware
       attribute :effective_date_sort
 
       def self.effective_date_sort
-        Arel.sql("coalesce(completed_at, approved_at, submitted_for_approval_at, created_at)")
+        Arel.sql(<<~SQL.squish)
+          coalesce(
+            completed_at,
+            approved_at,
+            submitted_for_approval_at,
+            letter_letters.created_at
+          )
+        SQL
       end
 
       def effective_date_sort

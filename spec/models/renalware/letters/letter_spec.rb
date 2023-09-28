@@ -50,7 +50,10 @@ module Renalware
         it "generates a SQL coalesce statement to return the most relevant date for the letter" do
           expect(
             described_class.effective_date_sort
-          ).to eq("coalesce(completed_at, approved_at, submitted_for_approval_at, created_at)")
+          ).to eq(
+            "coalesce( completed_at, approved_at, submitted_for_approval_at, " \
+            "letter_letters.created_at )"
+          )
         end
       end
 
