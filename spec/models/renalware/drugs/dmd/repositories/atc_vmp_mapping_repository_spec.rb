@@ -17,6 +17,13 @@ module Renalware
         before do
           FileUtils.cp(test_zip_file, temp_zip.path)
 
+          stub_request(:get, described_class::API_ENDPOINT).to_return(
+            status: 200,
+            body: {
+              apiVersion: "1",
+              releases: [{ archiveFileUrl: "https://someurl/somefile.zip" }]
+            }.to_json
+          )
           allow(OpenURI).to receive(:open_uri).and_return temp_zip
         end
 
