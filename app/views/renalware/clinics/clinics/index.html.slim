@@ -18,18 +18,18 @@
         th
         th
         th
-        th.text-center.bg-pink-100(colspan=2) Appointments
-        th.text-center.bg-green-100(colspan=2) Clinic Visits
+        th.text-center.bg-pink-50(colspan=2) Appointments
+        th.text-center.bg-green-50(colspan=2) Clinic Visits
       tr
         th.actions.col-width-small
         th.col-width-medium= sort_link(search, :code)
         th= sort_link(search, :name)
         th Default modality
         th.col-width-date-time= sort_link(search, :deleted_at)
-        th.bg-pink-100= sort_link(search, :appointments_count, "Count")
-        th.col-width-date-time.bg-pink-100 Last
-        th.bg-green-100= sort_link(search, :clinic_visits_count, "Count")
-        th.bg-green-100.col-width-date-time Last
+        th.bg-pink-50= sort_link(search, :appointments_count, "Count")
+        th.col-width-date-time.bg-pink-50 Last
+        th.bg-green-50= sort_link(search, :clinic_visits_count, "Count")
+        th.bg-green-50.col-width-date-time Last
     tbody
       - clinics.each do |clinic|
         tr(id=dom_id(clinic) class="#{clinic.deleted? ? 'deleted' : ''}")
@@ -44,7 +44,7 @@
           td= clinic.name
           td= clinic.default_modality_description&.name
           td= l(clinic.deleted_at)
-          td.bg-pink-100= clinic.appointments_count
-          td.bg-pink-100= l(clinic.last_clinic_appointment)
-          td.bg-green-100= clinic.clinic_visits_count
-          td.bg-green-100= l(clinic.last_clinic_visit)
+          td.bg-pink-50= clinic.appointments_count
+          td.bg-pink-50= l(clinic.last_clinic_appointment)
+          td.bg-green-50= clinic.clinic_visits_count
+          td.bg-green-50= l(clinic.last_clinic_visit)
