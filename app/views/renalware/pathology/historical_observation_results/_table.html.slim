@@ -8,7 +8,7 @@ table#observations.column_hover(data-controller="table_column_hover")
     tr
       th Date
       - table.observation_descriptions.each do |desc|
-        - bg_class = "bg-#{desc.colour}-200" if desc.colour.present?
+        - bg_class = "bg-#{desc.colour}-100" if desc.colour.present?
         th(title=desc.name style="text-align: center;" class=bg_class)
           = render(Renalware::Pathology::ChartLinkComponent.new(patient: patient, chartable: desc))
 

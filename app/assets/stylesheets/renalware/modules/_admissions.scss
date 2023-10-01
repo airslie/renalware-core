@@ -2,16 +2,6 @@
   th.subhead {
     color: $black;
     text-align: center;
-
-    &.admission {
-      background-color: $light-yellow;
-      text-shadow: lighten($light-yellow, 20) 0.05rem 0.05rem;
-    }
-
-    &.discharge {
-      background-color: $light-green;
-      text-shadow: lighten($light-green, 20) 0.05rem 0.05rem;
-    }
   }
 }
 
