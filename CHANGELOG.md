@@ -12,6 +12,11 @@ This project adheres to Semantic Versioning.
 ## 2.4.0
 
 ### Added
+- Log near-match occurrences in HL7 ingestion #4413 Where we match on number but not DOB, log to a table and include the patient id and feed message id. Display these log entries in the backend so an admin can view and resolve manually if necessary.
+- Identify home HD Sessions in HD Sessions table with a home icon #4423
+- Extract ORC filler_order_number from HL7 when persisting to feed_messages (ready for historical pathology replay) #4427
+- Extract ORC order status from HL7 when persisting to feed_messages (ready for historical pathology replay) #4425
+- Highlight non-contiguous entries in the modality listing #4437
 - Add drop-down urine glucose to clinic visits and then include in the letters #4386
 - Add clinic visit location in order to support virtual clinics #4391
 - Add drug type and dmd+d filters to drugs list #4409
@@ -68,6 +73,10 @@ This project adheres to Semantic Versioning.
 - HD Session form PDF changes - Add Solution flow from HD profile next to Blood Flow and indicate if Worry #4164
 - Refresh browser page automatically in development #4243
 ### Fixed
+- Fix missing QR codes in PDF letter #4381
+- Fix dm+d millilitre mapping (ml/l is now ml) #4422
+- Fix column highlighting in pathology tables #4428 A bug had emerged where, if the 'view' onto the pathology changed, eg from 'default' to 'HD', the column would not highlight when hovered-over (a feature to help the user identify the relevant column header in the table). Also fix missing popup on blue triangle comments in the recent pathology view.
+- Fix error adding PD bag type if glucose-strength omitted #4432
 - Correct the default date in the filter in Appointments list #4390
 - Address dmd+d mapping issues #4408
 - Fix default_patient_link usage in dynamic reports #4350
