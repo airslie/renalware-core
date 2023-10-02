@@ -37764,14 +37764,32 @@ var _default = /*#__PURE__*/function (_Controller) {
     return _super.apply(this, arguments);
   }
   _createClass$1(_default, [{
-    key: "connect",
-    value: function connect() {
-      // console.log("ss")
-    }
-  }, {
     key: "submitEnd",
-    value: function submitEnd() {
-      // console.log("submitEnd")
+    value:
+    // Example usage:
+    //  div(data-controller="turbo-modal" data-action="turbo:submit-end->turbo-modal#submitEnd")
+    //
+    // Note that the current Turbo support for breaking out of say a modal form after a successful
+    // create, where we want to redirect somewhere else, is not very good. Until it is baked into to
+    // Turbo, or there is a good recommended approach, we are currently using a "turbo:frame-missing"
+    // handler in application.js
+    // However the below approach also works but we are not currently using it:
+    // When the Create button is hit in the modal and the rails controller successfully creates
+    // the modal, it should return eg
+    //   head :no_content, location: hd_slot_requests_path
+    // and as long as the markup looks like the above, we will come into submitEnd and
+    // detect the 204 and redirect to the specific url. This avoids a double render (a problem with
+    // the "turbo:frame-missing" redirect solution)
+    function submitEnd(event) {
+      var _event$detail, _response$headers$get, _response$headers;
+      var response = (_event$detail = event.detail) === null || _event$detail === void 0 || (_event$detail = _event$detail.fetchResponse) === null || _event$detail === void 0 ? void 0 : _event$detail.response;
+      var status = response === null || response === void 0 ? void 0 : response.status;
+      var url = (_response$headers$get = response === null || response === void 0 || (_response$headers = response.headers) === null || _response$headers === void 0 ? void 0 : _response$headers.get('location')) !== null && _response$headers$get !== void 0 ? _response$headers$get : null;
+      if (status === 204 && url) {
+        event.preventDefault();
+        window.location = url;
+        return false;
+      }
     }
   }, {
     key: "close",
@@ -42002,6 +42020,22 @@ addEventListener("turbo:before-fetch-request", encodeMethodIntoRequestBody);
 
 //
 session.drive = false; // By default disable Turbo on all pages
+
+// Handle the situation where a modal has created an object and the controller wants to
+// redirect to another page but not render it inside the frame. In this case we will get a
+// turbo:frame-missing event so handle this and redirect to the relevant page.
+// This does involve a double render though -
+// - create button in modal inside turbo_frame "modal" is clicked
+// - controller creates model successfully and returns 301 redirect
+// - browser redirects (first render)
+// - Turbo cannot find the "modal" turbo-frame tag in the page, so (below) we redirect again
+//   this time at the window level so there is a full navigation (second render)
+// Various discussion here
+// https://github.com/hotwired/turbo/issues/257#issuecomment-1591737862
+document.addEventListener("turbo:frame-missing", function (event) {
+  event.preventDefault();
+  event.detail.visit(event.detail.response);
+});
 
 var adapters = {
   logger: self.console,

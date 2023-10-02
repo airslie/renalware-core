@@ -318,6 +318,7 @@
     "TRUD",
     "tsquery",
     "tsvector",
+    "tuboframe",
     "turboframe",
     "ucase",
     "ukrdc",
@@ -361,6 +362,7 @@
     "colgroups",
     "noncontiguous",
     "puser",
+    "unfort",
     "unhighlight",
     "xtitle",
     "ytitle"

@@ -14,5 +14,4 @@
   = render "tabs"
 
 = within_admin_layout(title: t(".page-title")) do
-  = turbo_page_requires_reload
   = render "table", **local_assigns

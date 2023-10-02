@@ -8,7 +8,7 @@
       .max-w-xl
         .grid.grid-cols-1.gap-1
           #person-id-select2
-            - if slot_request.patient.present?
+            - if slot_request.patient.present? && params[:redirect_to_patient_on_success] == "true"
               .bold.text-md = slot_request.patient
               = f.input :patient_id, as: :hidden
             - else
