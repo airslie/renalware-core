@@ -1,4 +1,7 @@
-ul.side-nav
+ul.side-nav(data-controller="navbar"
+            data-navbar-rails-controller-value="#{params[:controller].gsub("renalware/","")}"
+            data-navbar-active-class="active")
+
   = render "renalware/patients/side_menu/general", patient: patient
   = render "renalware/patients/side_menu/site_specific_links", patient: patient
   = render "renalware/patients/side_menu/modalities", patient: patient

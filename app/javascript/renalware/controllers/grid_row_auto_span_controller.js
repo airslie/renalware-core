@@ -11,7 +11,6 @@ export default class extends Controller {
 
     this.contentTargets.forEach(el => {
       let rowSpan = Math.ceil((el.querySelector(".content").getBoundingClientRect().height + rowGap) / (rowHeight + rowGap)) + 1
-      console.log(rowSpan)
       el.style.gridRowEnd = "span " + rowSpan;
     })
   }
