@@ -1,85 +1,86 @@
-- summary = patient.summary
+- cache(patient) do
+  - summary = patient.summary
 
-li.heading= t(".heading")
+  li.heading= t(".heading")
 
-= patient_menu_item title: t(".clinical_summary"),
-                    path: patient_clinical_summary_path(patient),
-                    active_when_controller_matches: %r{renalware/patients/clinical_summaries}
+  = patient_menu_item title: t(".clinical_summary"),
+                      path: patient_clinical_summary_path(patient),
+                      active_when_controller_matches: "patients/clinical_summaries"
 
-= patient_menu_item title: t(".demographics"),
-                    path: patient_path(patient),
-                    active_when_controller_matches: %r{renalware/patients/patients}
+  = patient_menu_item title: t(".demographics"),
+                      path: patient_path(patient),
+                      active_when_controller_matches: "patients/patients"
 
-= patient_menu_item title: t(".contacts", count: summary.contacts_count),
-                    path: patient_letters_contacts_path(patient),
-                    active_when_controller_matches: %r{renalware/letters/contacts}
+  = patient_menu_item title: t(".contacts", count: summary.contacts_count),
+                      path: patient_letters_contacts_path(patient),
+                      active_when_controller_matches: "letters/contacts"
 
-= patient_menu_item title: t(".clinical_profile"),
-                    path: patient_clinical_profile_path(patient),
-                    active_when_controller_matches: %r{renalware/clinical/profiles}
+  = patient_menu_item title: t(".clinical_profile"),
+                      path: patient_clinical_profile_path(patient),
+                      active_when_controller_matches: "clinical/profiles"
 
-= patient_menu_item title: t(".esrf"),
-                    path: patient_renal_profile_path(patient),
-                    active_when_controller_matches: %r{renalware/renal}
+  = patient_menu_item title: t(".esrf"),
+                      path: patient_renal_profile_path(patient),
+                      active_when_controller_matches: "renal"
 
-= patient_menu_item title: t(".modalities", count: summary.modalities_count),
-                    path: patient_modalities_path(patient),
-                    active_when_controller_matches: %r{renalware/modalities}
+  = patient_menu_item title: t(".modalities", count: summary.modalities_count),
+                      path: patient_modalities_path(patient),
+                      active_when_controller_matches: "modalities"
 
-= patient_menu_item title: t(".problems", count: summary.problems_count),
-                    path: patient_problems_path(patient),
-                    active_when_controller_matches: %r{renalware/problems/problems}
+  = patient_menu_item title: t(".problems", count: summary.problems_count),
+                      path: patient_problems_path(patient),
+                      active_when_controller_matches: "problems/problems"
 
-- if Renalware.config.use_rolling_comorbidities
-  = patient_menu_item title: t(".comorbidities"),
-                      path: patient_comorbidities_path(patient),
-                      active_when_controller_matches: %r{renalware/problems/comorbidities}
+  - if Renalware.config.use_rolling_comorbidities
+    = patient_menu_item title: t(".comorbidities"),
+                        path: patient_comorbidities_path(patient),
+                        active_when_controller_matches: "problems/comorbidities"
 
-= patient_menu_item title: t(".pathology", count: summary.observation_requests_count),
-                    path: patient_pathology_historical_observations_path(patient),
-                    active_when_controller_matches: %r{renalware/pathology}
+  = patient_menu_item title: t(".pathology", count: summary.observation_requests_count),
+                      path: patient_pathology_historical_observations_path(patient),
+                      active_when_controller_matches: "pathology"
 
-= patient_menu_item title: t(".virology", count: 0),
-                    path: patient_virology_dashboard_path(patient),
-                    active_when_controller_matches: %r{renalware/virology}
+  = patient_menu_item title: t(".virology", count: 0),
+                      path: patient_virology_dashboard_path(patient),
+                      active_when_controller_matches: "virology"
 
-= patient_menu_item title: t(".prescriptions", count: summary.prescriptions_count),
-                    path: patient_prescriptions_path(patient),
-                    active_when_controller_matches: %r{renalware/medications}
+  = patient_menu_item title: t(".prescriptions", count: summary.prescriptions_count),
+                      path: patient_prescriptions_path(patient),
+                      active_when_controller_matches: "medications"
 
-= patient_menu_item title: t(".events", count: summary.events_count),
-                    path: patient_events_path(patient),
-                    active_when_controller_matches: %r{renalware/events}
+  = patient_menu_item title: t(".events", count: summary.events_count),
+                      path: patient_events_path(patient),
+                      active_when_controller_matches: "events"
 
-= patient_menu_item title: t(".clinic_visits", count: summary.clinic_visits_count),
-                    path: patient_clinic_visits_path(patient),
-                    active_when_controller_matches: %r{renalware/clinics}
+  = patient_menu_item title: t(".clinic_visits", count: summary.clinic_visits_count),
+                      path: patient_clinic_visits_path(patient),
+                      active_when_controller_matches: "clinics"
 
-= patient_menu_item title: t(".letters", count: summary.letters_count),
-                    path: patient_letters_letters_path(patient),
-                    active_when_controller_matches: %r{renalware/letters((?!\/contacts))}
+  = patient_menu_item title: t(".letters", count: summary.letters_count),
+                      path: patient_letters_letters_path(patient),
+                      active_when_controller_matches: "letters/letters"
 
-= patient_menu_item title: t(".access_profiles"),
-                    path: patient_accesses_dashboard_path(patient),
-                    active_when_controller_matches: %r{renalware/accesses}
+  = patient_menu_item title: t(".access_profiles"),
+                      path: patient_accesses_dashboard_path(patient),
+                      active_when_controller_matches: "accesses"
 
-= patient_menu_item title: t(".inpatient_admissions", count: summary.admissions_count),
-                    path: patient_admissions_path(patient),
-                    active_when_controller_matches: %r{renalware/admissions}
+  = patient_menu_item title: t(".inpatient_admissions", count: summary.admissions_count),
+                      path: patient_admissions_path(patient),
+                      active_when_controller_matches: "admissions"
 
-= patient_menu_item title: t(".messages", count: 1),
-                    path: patient_messaging_internal_messages_path(patient),
-                    active_when_controller_matches: %r{messaging/internal}
+  = patient_menu_item title: t(".messages", count: 1),
+                      path: patient_messaging_internal_messages_path(patient),
+                      active_when_controller_matches: "messaging/internal"
 
-= patient_menu_item title: t(".proms"),
-                    path: patient_surveys_dashboard_path(patient),
-                    active_when_controller_matches: %r{renalware/surveys}
+  = patient_menu_item title: t(".proms"),
+                      path: patient_surveys_dashboard_path(patient),
+                      active_when_controller_matches: "surveys"
 
-- if Renalware.config.allow_uploading_patient_attachments
-  = patient_menu_item title: t(".attachments", count: summary.attachments_count),
-                      path: patient_attachments_path(patient),
-                      active_when_controller_matches: %r{renalware/patients/attachments}
+  - if Renalware.config.allow_uploading_patient_attachments
+    = patient_menu_item title: t(".attachments", count: summary.attachments_count),
+                        path: patient_attachments_path(patient),
+                        active_when_controller_matches: "patients/attachments"
 
-= patient_menu_item title: t(".perspectives"),
-                    path: patient_anaemia_perspective_path(patient),
-                    active_when_controller_matches: %r{renalware/patients/perspectives}
+  = patient_menu_item title: t(".perspectives"),
+                      path: patient_anaemia_perspective_path(patient),
+                      active_when_controller_matches: "patients/perspectives"
