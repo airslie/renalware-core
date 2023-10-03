@@ -12,7 +12,7 @@ module Renalware
       tag.li(
         class: klasses.join(" "),
         "data-navbar-target": "nav",
-        "data-rails-controller-regex": active_when_controller_matches
+        "data-rails-controller": active_when_controller_matches
       ) do
         if enabled
           link_to(title, path)

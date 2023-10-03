@@ -38,7 +38,7 @@
 
   = patient_menu_item title: t(".pathology", count: summary.observation_requests_count),
                       path: patient_pathology_historical_observations_path(patient),
-                      active_when_controller_matches:"pathology"
+                      active_when_controller_matches: "pathology"
 
   = patient_menu_item title: t(".virology", count: 0),
                       path: patient_virology_dashboard_path(patient),
@@ -58,7 +58,7 @@
 
   = patient_menu_item title: t(".letters", count: summary.letters_count),
                       path: patient_letters_letters_path(patient),
-                      active_when_controller_matches: "letters((?!\/contacts))"
+                      active_when_controller_matches: "letters/letters"
 
   = patient_menu_item title: t(".access_profiles"),
                       path: patient_accesses_dashboard_path(patient),
