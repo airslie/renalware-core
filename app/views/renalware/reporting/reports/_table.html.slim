@@ -51,7 +51,7 @@ table
           - code = col.code
           - value = row.attributes[code]
           - if row["secure_id"].present? && %w(patient_name patient).include?(code)
-            td= default_patient_link(row)
+            td= patient_link(row, landing_page: view.patient_landing_page)
           - else
             - if value.respond_to?(:strftime)
               - value = l(value)

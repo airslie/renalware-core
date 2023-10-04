@@ -9,4 +9,6 @@ resources :patients, only: [] do
     resources :dry_weights, only: [:new, :create, :index]
     resources :body_compositions, except: :destroy
   end
+  # Convenience redirects eg for reporting
+  get "clinical", to: redirect("/patients/%{patient_id}/clinical/profile")
 end
