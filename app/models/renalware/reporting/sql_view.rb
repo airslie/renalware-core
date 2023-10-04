@@ -25,7 +25,6 @@ module Renalware
           end
         end.tap do |klass|
           Renalware.const_set(class_name, klass)
-          # klass.connection # not sure this is required.
         end
       end
 

@@ -19,6 +19,7 @@ resources :patients, only: [] do
       end
     end
   end
+  get "letters", to: redirect("/patients/%{patient_id}/letters/letters") # convenience
 end
 
 namespace :letters do
@@ -36,12 +37,12 @@ namespace :letters do
   end
   resource :pdf_letter_cache, only: [:destroy], controller: "pdf_letter_cache"
 
-  # Letters::ListsController displays prefined lists of letters. The default list is :all
-  # We want to support dynamic urls with letters_list_path(named_parameeter: :all)
+  # Letters::ListsController displays pre-defined lists of letters. The default list is :all
+  # We want to support dynamic urls with letters_list_path(named_parameter: :all)
   # as well as named routes eg letters_list_all_path.
   # If you use the helper list_batch_printable_path, the named route is used to build the url,
   # but when it is accessed it is actually the first, dynamic route definition that matches first,
-  # so the named_filter paramters is populated when we hit the controller.
+  # so the named_filter parameters is populated when we hit the controller.
   constraints(named_filter: /(all|batch_printable)/) do
     get "list/:named_filter", to: "lists#show", as: :filtered_letters_list
   end

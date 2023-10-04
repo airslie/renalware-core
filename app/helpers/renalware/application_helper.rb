@@ -9,6 +9,21 @@ module Renalware
     include Renalware::Engine.routes.url_helpers
     include Pagy::Frontend
 
+    # If a consumer (eg a report) wants to generate a link to a patient page in a certain module/
+    # context, as a convenience for the user, then this helper will generate a link to a url e.g.
+    # create the route "/patients/77f2348e49f4451b976e85bc635e71c6/hd" if "hd" is passed.
+    # This assume however that we have correctly defined convenience redirects in the various
+    # routes files so that , in this instance, ./hd redirects to ./hd/dashboard
+    # Using a simple convenience route like this means the routes file for each module can
+    # itself determine what the default page is, to avoid cross-module contamination.
+    def patient_link(patient, landing_page:)
+      landing_page ||= :clinical_summary
+      landing_page = "" if landing_page.to_sym == :demographics
+      route_name = "patient_#{landing_page.downcase}_path".gsub("__", "_")
+      url = renalware.public_send(route_name, patient)
+      link_to(patient.to_s(:default), url, "data-turbo-frame": "_top")
+    end
+
     def default_patient_link(patient)
       link_to(
         patient.to_s(:default),

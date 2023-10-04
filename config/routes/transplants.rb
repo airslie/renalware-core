@@ -31,6 +31,11 @@ resources :patients, only: [] do
       end
     end
   end
+  # Convenience redirects
+  get "transplants", to: redirect("/patients/%{patient_id}") # no rec or dnr specified
+  get "transplants/donor", to: redirect("/patients/%{patient_id}/transplants/donor/dashboard")
+  get "transplants/recipient",
+      to: redirect("/patients/%{patient_id}/transplants/recipient/dashboard")
 end
 
 namespace :transplants do

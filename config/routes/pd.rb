@@ -22,6 +22,7 @@ resources :patients, only: [] do
     resources :training_sessions, except: [:index, :destroy]
     resource :mdm, only: :show, controller: "mdm"
   end
+  get "pd", to: redirect("/patients/%{patient_id}/pd/dashboard")
 end
 
 namespace :pd do
