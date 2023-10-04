@@ -27,7 +27,7 @@ module Renalware
       validates :renal_registry_code, presence: true
       validates :unit_type, presence: true
 
-      enumerize :unit_type, in: %i(hospital satellite home)
+      enumerize :unit_type, in: %i(hospital hospital_ward satellite home)
 
       scope :ordered, -> { order(:name) }
       scope :hd_sites, -> { where(is_hd_site: true) }
