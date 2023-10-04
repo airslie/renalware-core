@@ -7134,16 +7134,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -22807,6 +22797,13 @@ CREATE INDEX index_system_logs_on_group ON renalware.system_logs USING btree ("g
 --
 
 CREATE INDEX index_system_logs_on_owner_id ON renalware.system_logs USING btree (owner_id);
+
+
+--
+-- Name: index_system_logs_on_severity; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_logs_on_severity ON renalware.system_logs USING btree (severity);
 
 
 --
