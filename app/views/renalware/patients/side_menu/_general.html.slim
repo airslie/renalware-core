@@ -1,4 +1,8 @@
-- cache(patient) do
+/ Cache expiry value chosen here to make navigating the patient pages faster but minimising the risk
+/ of caching incorrect counts (e.g. in the link 'Events (23)') for a long period if the underlying
+/ data should change via a mechanism that does not touch the patient's updated_at timestamp
+/ - eg a manual SQL update.
+- cache(patient, expires_in: 2.hours) do
   - summary = patient.summary
 
   li.heading= t(".heading")
