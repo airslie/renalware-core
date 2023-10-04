@@ -24,7 +24,9 @@ module Renalware
     config_accessor(:report_filter_cache_expiry_seconds) {
       ENV.fetch("REPORT_FILTER_CACHE_EXPIRY_SECONDS", "60").to_i
     }
-    config_accessor(:allow_qr_codes_in_letters) { false }
+    config_accessor(:allow_qr_codes_in_letters) do
+      ENV.fetch("ALLOW_QR_CODES_IN_LETTERS", "false") == "true"
+    end
     config_accessor(:site_name) { "Renalware" }
     config_accessor(:hospital_name) { ENV.fetch("HOSPITAL_NAME", "KINGS COLLEGE HOSPITAL") }
     config_accessor(:hospital_address) { ENV.fetch("HOSPITAL_ADDRESS", "") } # comma-delimited
