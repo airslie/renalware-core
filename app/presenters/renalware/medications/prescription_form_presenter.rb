@@ -66,7 +66,7 @@ module Renalware
         if prescription.drug&.inactive?
           [[prescription.drug.name,
             prescription.drug.id]]
-        elsif exit_site_or_peritonities?
+        elsif esi_or_peritonitis_episode?
           antibiotics_drug_list
         else
           drugs_and_trade_families_list
@@ -95,10 +95,10 @@ module Renalware
       private
 
       def antibiotics_drug_list
-        Drugs::Drug.for(:antibiotic).order(:name).pluck(:name, :id)
+        Drugs::Drug.active.for(:antibiotic).order(:name).pluck(:name, :id)
       end
 
-      def exit_site_or_peritonities?
+      def esi_or_peritonitis_episode?
         prescription.treatable.is_a?(Renalware::PD::PeritonitisEpisode) ||
           prescription.treatable.is_a?(Renalware::PD::ExitSiteInfection)
       end
