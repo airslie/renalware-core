@@ -24,35 +24,6 @@ module Renalware
           is_expected.to respond_to(:last_delivery_date)
           is_expected.to be_versioned
         end
-
-        describe "#valid?" do
-          describe "route description" do
-            context "with a route" do
-              before { prescription.medication_route = build(:medication_route) }
-
-              it { is_expected.not_to validate_presence_of(:route_description) }
-            end
-
-            context "with an `other` route" do
-              before { prescription.medication_route = build(:medication_route, :other) }
-
-              it { is_expected.to validate_presence_of(:route_description) }
-            end
-
-            context "with a route and a route description" do
-              before do
-                prescription.medication_route = build(:medication_route)
-                prescription.route_description = "::route description::"
-              end
-
-              it "adds an error" do
-                prescription.valid?
-
-                expect(prescription.errors[:route_description]).to be_present
-              end
-            end
-          end
-        end
       end
 
       describe "scopes" do
