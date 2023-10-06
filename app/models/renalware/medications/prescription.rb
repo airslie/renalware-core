@@ -46,7 +46,6 @@ module Renalware
       validates :frequency, presence: true
       validates :prescribed_on, presence: true
       validates :provider, presence: true
-      validate  :constrain_route_description
 
       enum provider: Provider.codes
 
@@ -118,20 +117,6 @@ module Renalware
 
       def terminate(by:, terminated_on: Date.current)
         build_termination(by: by, terminated_on: terminated_on)
-      end
-
-      private
-
-      def constrain_route_description
-        return unless medication_route
-
-        route_description_present = route_description.present?
-        route_other = medication_route.other?
-        if route_other && !route_description_present
-          errors.add(:route_description, :blank)
-        elsif !route_other && route_description_present
-          errors.add(:route_description, :not_other)
-        end
       end
     end
   end

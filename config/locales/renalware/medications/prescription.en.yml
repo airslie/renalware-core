@@ -13,12 +13,6 @@ en:
         prescribed_on: Prescribed on
         terminated_on: Terminated on
         code: "dm+d code"
-    errors:
-      models:
-        renalware/medications/prescription:
-          attributes:
-            route_description:
-              not_other: can't be present when a route has been selected
   enumerize:
     renalware:
       medications:
@@ -52,10 +46,6 @@ en:
       terminations:
         new:
           page_title: New Termination
-  simple_form:
-    hints:
-      prescription:
-        route_description: required only if above is "Other"
     prompts:
       prescription:
         medication_route: Please select route of administration
