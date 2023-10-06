@@ -3,7 +3,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.good_job.execution_mode = :external # queue for processing by external process
+  # For the dummy app, eg on Heroku demo, we use async mode
+  # so we can avoid running another dyno (mode external)
+  config.good_job.execution_mode = :async
 
   # Code is not reloaded between requests.
   config.cache_classes = true

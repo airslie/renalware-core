@@ -3,7 +3,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.good_job.execution_mode = :external # queue for processing by external process
+  config.good_job.execution_mode = :async
 
   # On uat if this is the demo site e.g.
   #   HEROKU_APP_URL=renalware-demo.herokuapp.com
