@@ -139,4 +139,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # On UAT in Heroku demo site the dmd sync job sets all drugs to inactive for some reason so
+  # disabling for now.
+  config.good_job.cron.delete(:dmd_sync) if Rail.env.uat?
 end
