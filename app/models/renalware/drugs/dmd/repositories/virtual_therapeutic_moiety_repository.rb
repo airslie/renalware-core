@@ -26,7 +26,7 @@ module Renalware
             Entry.new(
               name: row["display"],
               code: row["code"],
-              inactive: ParseHelper.dig_property_out(row["extension"], "inactive")
+              inactive: ParseHelper.dig_property_out(row["extension"], "inactive") # returns boolean
             )
           end
 
