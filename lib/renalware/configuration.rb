@@ -21,6 +21,8 @@ module Renalware
     # Force dotenv to load the .env file at this stage so we can read in the config defaults
     Dotenv::Railtie.load
 
+    config_accessor(:disable_dmd_synchroniser_job) { ENV["DISABLE_DMD_SYNCHRONISER_JOB"].to_i > 0 }
+
     config_accessor(:report_filter_cache_expiry_seconds) {
       ENV.fetch("REPORT_FILTER_CACHE_EXPIRY_SECONDS", "60").to_i
     }

@@ -46,6 +46,13 @@ AllCops:
     - "config/initializers/devise.rb"
     - "features/support/env.xaction_view.rb"
 
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - uat
+
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: true
 
