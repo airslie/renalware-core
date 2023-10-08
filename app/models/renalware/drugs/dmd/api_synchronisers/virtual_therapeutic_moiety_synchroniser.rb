@@ -20,7 +20,7 @@ module Renalware
             {
               code: entry.code,
               name: entry.name,
-              inactive: !entry.inactive.nil?,
+              inactive: entry.inactive,
               updated_at: now
             }
           end
