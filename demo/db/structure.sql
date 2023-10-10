@@ -22835,7 +22835,7 @@ CREATE INDEX index_research_versions_on_whodunnit ON renalware.research_versions
 -- Name: index_roles_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_roles_on_name ON renalware.roles USING btree (name);
+CREATE UNIQUE INDEX index_roles_on_name ON renalware.roles USING btree (name);
 
 
 --
@@ -28248,6 +28248,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230918172419'),
 ('20231004172532'),
 ('20231006132259'),
+('20231009170342'),
 ('20231019083713'),
 ('20231025115724'),
 ('20231101152934'),

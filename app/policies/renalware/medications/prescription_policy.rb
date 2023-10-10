@@ -28,7 +28,7 @@ module Renalware
       def user_is_a_prescriber?
         return true unless Renalware.config.enforce_user_prescriber_flag
 
-        user.prescriber?
+        user.has_role?(:prescriber)
       end
     end
   end

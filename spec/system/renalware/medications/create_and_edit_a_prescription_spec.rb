@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Prescriptions - create / edit / terminate", js: true do
-  let(:user) { create(:user, :clinical) }
+  let(:user) { create(:user, :clinical, additional_roles: :prescriber) }
   let(:patient) { create(:patient, by: user) }
   let(:drug) { create(:drug, name: "Blue Pill") }
   let(:route) { create(:medication_route, name: "Oral") }

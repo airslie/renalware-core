@@ -27,8 +27,16 @@ FactoryBot.define do
       role { nil }
     end
 
+    # If you want a user to have > 1 role then you can specify e.g.
+    #   additional_roles: [:prescriber, :hd_prescriber]
+    # - see after(:create) callback
+    transient do
+      additional_roles { nil }
+    end
+
     after(:create) do |user, obj|
       user.roles << create(:role, obj.role) if obj.role.present?
+      Array(obj.additional_roles).each { |role| user.roles << create(:role, role) }
     end
 
     trait :access_locked do

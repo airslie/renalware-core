@@ -16,12 +16,11 @@
       th.col-width-small= sort_link(user_search, :username, "Login")
       th= sort_link(user_search, :email, "Email")
       th.col-width-small Requested write access
-      th.col-width-medium Role
+      th.col-width-medium Roles
       th.col-width-tiny= sort_link(user_search, :approved, "Approved")
       th.col-width-tiny= sort_link(user_search, :hidden, "Hidden")
       th.col-width-tiny= sort_link(user_search, :banned, "Banned")
       th.col-width-tiny= sort_link(user_search, :consultant, "Consultant")
-      th.col-width-tiny= sort_link(user_search, :prescriber, "Prescriber")
       th.col-width-small= sort_link(user_search, :nursing_experience_level)
       th.col-width-date= sort_link(user_search, :expired_at, "Expired On")
       th.col-width-date-time.show-for-large-up= sort_link(user_search, :current_sign_in_at, "Current sign in")
@@ -47,7 +46,6 @@
           td.text-center= inline_check_icon(user.hidden?)
           td.text-center= inline_check_icon(user.banned?)
           td.text-center= inline_check_icon(user.consultant?)
-          td.text-center= inline_check_icon(user.prescriber?)
           td= user.nursing_experience_level&.titleize
           td.expired= l(user.expired_at&.to_date)
           td.show-for-large-up= l(user.current_sign_in_at)

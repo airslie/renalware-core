@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "Prescriptions - from a peritonitis episode - matches exit site infection 1-to-1",
          js: true do
-  let(:user) { create(:user, :clinical) }
+  let(:user) { create(:user, :clinical, additional_roles: :prescriber) }
   let(:patient) { create(:pd_patient, by: user) }
   let(:drug) { create(:drug, name: "Blue Pill") }
   let(:antibiotic_drug_type) { create(:drug_type, :antibiotic) }
