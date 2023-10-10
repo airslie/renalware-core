@@ -2150,212 +2150,6 @@ ALTER SEQUENCE renalware.access_assessments_id_seq OWNED BY renalware.access_ass
 
 
 --
--- Name: hospital_centres; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.hospital_centres (
-    id integer NOT NULL,
-    code character varying NOT NULL,
-    name character varying NOT NULL,
-    location character varying,
-    active boolean,
-    is_transplant_site boolean DEFAULT false,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    info text,
-    trust_name character varying,
-    trust_caption character varying,
-    host_site boolean DEFAULT false NOT NULL,
-    abbrev character varying,
-    default_site boolean DEFAULT false,
-    departments_count integer DEFAULT 0 NOT NULL,
-    units_count integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: COLUMN hospital_centres.departments_count; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.hospital_centres.departments_count IS 'Counter cache for the number of departments at this centre';
-
-
---
--- Name: COLUMN hospital_centres.units_count; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.hospital_centres.units_count IS 'Counter cache for the number of units at this centre';
-
-
---
--- Name: modality_descriptions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.modality_descriptions (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    type character varying,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    hidden boolean DEFAULT false NOT NULL,
-    ukrdc_modality_code_id bigint,
-    code character varying,
-    ignore_for_aki_alerts boolean DEFAULT false NOT NULL,
-    ignore_for_kfre boolean DEFAULT false NOT NULL
-);
-
-
---
--- Name: COLUMN modality_descriptions.ignore_for_aki_alerts; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_aki_alerts IS 'If true, HL7 AKI scores are ignored when the patient has this current modality';
-
-
---
--- Name: COLUMN modality_descriptions.ignore_for_kfre; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_kfre IS 'If true, we will attempt to generate a KFRE on receipt of ACR/PCR result when the patient has this current modality';
-
-
---
--- Name: modality_modalities; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.modality_modalities (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    description_id integer NOT NULL,
-    reason_id integer,
-    modal_change_type character varying,
-    notes text,
-    started_on date NOT NULL,
-    ended_on date,
-    state character varying DEFAULT 'current'::character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL
-);
-
-
---
--- Name: patients; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.patients (
-    id integer NOT NULL,
-    nhs_number character varying,
-    local_patient_id character varying,
-    family_name character varying NOT NULL,
-    given_name character varying NOT NULL,
-    born_on date NOT NULL,
-    paediatric_patient_indicator boolean,
-    sex character varying,
-    ethnicity_id integer,
-    hospital_centre_code character varying,
-    primary_esrf_centre character varying,
-    died_on date,
-    first_cause_id integer,
-    second_cause_id integer,
-    death_notes text,
-    cc_on_all_letters boolean DEFAULT true,
-    cc_decision_on date,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    practice_id integer,
-    primary_care_physician_id integer,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    title character varying,
-    suffix character varying,
-    marital_status character varying,
-    telephone1 character varying,
-    telephone2 character varying,
-    email character varying,
-    document jsonb,
-    religion_id integer,
-    language_id integer,
-    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
-    allergy_status_updated_at timestamp without time zone,
-    local_patient_id_2 character varying,
-    local_patient_id_3 character varying,
-    local_patient_id_4 character varying,
-    local_patient_id_5 character varying,
-    external_patient_id character varying,
-    send_to_renalreg boolean DEFAULT false NOT NULL,
-    send_to_rpv boolean DEFAULT false NOT NULL,
-    renalreg_decision_on date,
-    rpv_decision_on date,
-    renalreg_recorded_by character varying,
-    rpv_recorded_by character varying,
-    ukrdc_external_id text DEFAULT public.uuid_generate_v4(),
-    country_of_birth_id integer,
-    legacy_patient_id integer,
-    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    sent_to_ukrdc_at timestamp without time zone,
-    checked_for_ukrdc_changes_at timestamp without time zone,
-    hospital_centre_id bigint,
-    named_consultant_id bigint,
-    next_of_kin text,
-    named_nurse_id bigint,
-    preferred_death_location_id bigint,
-    preferred_death_location_notes text,
-    actual_death_location_id bigint
-);
-
-
---
--- Name: patient_current_modalities; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.patient_current_modalities AS
- SELECT patients.id AS patient_id,
-    patients.secure_id AS patient_secure_id,
-    current_modality.id AS modality_id,
-    modality_descriptions.id AS modality_description_id,
-    modality_descriptions.name AS modality_name,
-    current_modality.started_on,
-    modality_descriptions.code AS modality_code
-   FROM ((renalware.patients
-     LEFT JOIN ( SELECT DISTINCT ON (modality_modalities.patient_id) modality_modalities.id,
-            modality_modalities.patient_id,
-            modality_modalities.description_id,
-            modality_modalities.reason_id,
-            modality_modalities.modal_change_type,
-            modality_modalities.notes,
-            modality_modalities.started_on,
-            modality_modalities.ended_on,
-            modality_modalities.state,
-            modality_modalities.created_at,
-            modality_modalities.updated_at,
-            modality_modalities.created_by_id,
-            modality_modalities.updated_by_id
-           FROM renalware.modality_modalities
-          WHERE (modality_modalities.ended_on IS NULL)
-          ORDER BY modality_modalities.patient_id, modality_modalities.started_on DESC, modality_modalities.created_at DESC) current_modality ON ((patients.id = current_modality.patient_id)))
-     LEFT JOIN renalware.modality_descriptions ON ((modality_descriptions.id = current_modality.description_id)));
-
-
---
--- Name: access_awaits; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.access_awaits AS
- SELECT hc.name AS hospital,
-    p.nhs_number AS "Num",
-    (((p.family_name)::text || ' '::text) || (p.given_name)::text) AS patient_name,
-    pcm.modality_name AS modality,
-    p.secure_id
-   FROM ((renalware.patients p
-     LEFT JOIN renalware.hospital_centres hc ON ((hc.id = p.hospital_centre_id)))
-     JOIN renalware.patient_current_modalities pcm ON ((pcm.patient_id = p.id)))
-  ORDER BY p.family_name, p.given_name;
-
-
---
 -- Name: access_catheter_insertion_techniques; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -3127,6 +2921,98 @@ COMMENT ON COLUMN renalware.clinic_visits.bmi IS 'Body Mass Index calculated usi
 
 
 --
+-- Name: hospital_centres; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.hospital_centres (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    location character varying,
+    active boolean,
+    is_transplant_site boolean DEFAULT false,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    info text,
+    trust_name character varying,
+    trust_caption character varying,
+    host_site boolean DEFAULT false NOT NULL,
+    abbrev character varying,
+    default_site boolean DEFAULT false,
+    departments_count integer DEFAULT 0 NOT NULL,
+    units_count integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: COLUMN hospital_centres.departments_count; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hospital_centres.departments_count IS 'Counter cache for the number of departments at this centre';
+
+
+--
+-- Name: COLUMN hospital_centres.units_count; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hospital_centres.units_count IS 'Counter cache for the number of units at this centre';
+
+
+--
+-- Name: modality_descriptions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.modality_descriptions (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    type character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    hidden boolean DEFAULT false NOT NULL,
+    ukrdc_modality_code_id bigint,
+    code character varying,
+    ignore_for_aki_alerts boolean DEFAULT false NOT NULL,
+    ignore_for_kfre boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: COLUMN modality_descriptions.ignore_for_aki_alerts; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_aki_alerts IS 'If true, HL7 AKI scores are ignored when the patient has this current modality';
+
+
+--
+-- Name: COLUMN modality_descriptions.ignore_for_kfre; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_kfre IS 'If true, we will attempt to generate a KFRE on receipt of ACR/PCR result when the patient has this current modality';
+
+
+--
+-- Name: modality_modalities; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.modality_modalities (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    description_id integer NOT NULL,
+    reason_id integer,
+    modal_change_type character varying,
+    notes text,
+    started_on date NOT NULL,
+    ended_on date,
+    state character varying DEFAULT 'current'::character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL
+);
+
+
+--
 -- Name: pathology_current_observation_sets; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -3137,6 +3023,104 @@ CREATE TABLE renalware.pathology_current_observation_sets (
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
+
+
+--
+-- Name: patients; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.patients (
+    id integer NOT NULL,
+    nhs_number character varying,
+    local_patient_id character varying,
+    family_name character varying NOT NULL,
+    given_name character varying NOT NULL,
+    born_on date NOT NULL,
+    paediatric_patient_indicator boolean,
+    sex character varying,
+    ethnicity_id integer,
+    hospital_centre_code character varying,
+    primary_esrf_centre character varying,
+    died_on date,
+    first_cause_id integer,
+    second_cause_id integer,
+    death_notes text,
+    cc_on_all_letters boolean DEFAULT true,
+    cc_decision_on date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    practice_id integer,
+    primary_care_physician_id integer,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    title character varying,
+    suffix character varying,
+    marital_status character varying,
+    telephone1 character varying,
+    telephone2 character varying,
+    email character varying,
+    document jsonb,
+    religion_id integer,
+    language_id integer,
+    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
+    allergy_status_updated_at timestamp without time zone,
+    local_patient_id_2 character varying,
+    local_patient_id_3 character varying,
+    local_patient_id_4 character varying,
+    local_patient_id_5 character varying,
+    external_patient_id character varying,
+    send_to_renalreg boolean DEFAULT false NOT NULL,
+    send_to_rpv boolean DEFAULT false NOT NULL,
+    renalreg_decision_on date,
+    rpv_decision_on date,
+    renalreg_recorded_by character varying,
+    rpv_recorded_by character varying,
+    ukrdc_external_id text DEFAULT public.uuid_generate_v4(),
+    country_of_birth_id integer,
+    legacy_patient_id integer,
+    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    sent_to_ukrdc_at timestamp without time zone,
+    checked_for_ukrdc_changes_at timestamp without time zone,
+    hospital_centre_id bigint,
+    named_consultant_id bigint,
+    next_of_kin text,
+    named_nurse_id bigint,
+    preferred_death_location_id bigint,
+    preferred_death_location_notes text,
+    actual_death_location_id bigint
+);
+
+
+--
+-- Name: patient_current_modalities; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.patient_current_modalities AS
+ SELECT patients.id AS patient_id,
+    patients.secure_id AS patient_secure_id,
+    current_modality.id AS modality_id,
+    modality_descriptions.id AS modality_description_id,
+    modality_descriptions.name AS modality_name,
+    current_modality.started_on,
+    modality_descriptions.code AS modality_code
+   FROM ((renalware.patients
+     LEFT JOIN ( SELECT DISTINCT ON (modality_modalities.patient_id) modality_modalities.id,
+            modality_modalities.patient_id,
+            modality_modalities.description_id,
+            modality_modalities.reason_id,
+            modality_modalities.modal_change_type,
+            modality_modalities.notes,
+            modality_modalities.started_on,
+            modality_modalities.ended_on,
+            modality_modalities.state,
+            modality_modalities.created_at,
+            modality_modalities.updated_at,
+            modality_modalities.created_by_id,
+            modality_modalities.updated_by_id
+           FROM renalware.modality_modalities
+          WHERE (modality_modalities.ended_on IS NULL)
+          ORDER BY modality_modalities.patient_id, modality_modalities.started_on DESC, modality_modalities.created_at DESC) current_modality ON ((patients.id = current_modality.patient_id)))
+     LEFT JOIN renalware.modality_descriptions ON ((modality_descriptions.id = current_modality.description_id)));
 
 
 --
@@ -7175,16 +7159,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
