@@ -1279,7 +1279,7 @@ var addToUnscopables$3 = function (key) {
   ArrayPrototype$1[UNSCOPABLES][key] = true;
 };
 
-var $$o = _export;
+var $$p = _export;
 var $find = arrayIteration.find;
 var addToUnscopables$2 = addToUnscopables$3;
 var FIND = 'find';
@@ -1292,7 +1292,7 @@ if (FIND in []) Array(1)[FIND](function () {
 
 // `Array.prototype.find` method
 // https://tc39.es/ecma262/#sec-array.prototype.find
-$$o({
+$$p({
   target: 'Array',
   proto: true,
   forced: SKIPS_HOLES$1
@@ -1314,7 +1314,7 @@ var entryUnbind$3 = function (CONSTRUCTOR, METHOD) {
 var entryUnbind$2 = entryUnbind$3;
 entryUnbind$2('Array', 'find');
 
-var $$n = _export;
+var $$o = _export;
 var $findIndex = arrayIteration.findIndex;
 var addToUnscopables$1 = addToUnscopables$3;
 var FIND_INDEX = 'findIndex';
@@ -1327,7 +1327,7 @@ if (FIND_INDEX in []) Array(1)[FIND_INDEX](function () {
 
 // `Array.prototype.findIndex` method
 // https://tc39.es/ecma262/#sec-array.prototype.findindex
-$$n({
+$$o({
   target: 'Array',
   proto: true,
   forced: SKIPS_HOLES
@@ -1519,7 +1519,7 @@ var objectSetPrototypeOf = Object.setPrototypeOf || ('__proto__' in {} ? functio
   };
 }() : undefined);
 
-var $$m = _export;
+var $$n = _export;
 var call$c = functionCall;
 var FunctionName = functionName;
 var isCallable$7 = isCallable$n;
@@ -1613,7 +1613,7 @@ var defineIterator$3 = function (Iterable, NAME, IteratorConstructor, next, DEFA
       if (BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME || !(KEY in IterablePrototype)) {
         defineBuiltIn$6(IterablePrototype, KEY, methods[KEY]);
       }
-    } else $$m({
+    } else $$n({
       target: NAME,
       proto: true,
       forced: BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME
@@ -1828,7 +1828,7 @@ var checkCorrectnessOfIteration$3 = function (exec, SKIP_CLOSING) {
   return ITERATION_SUPPORT;
 };
 
-var $$l = _export;
+var $$m = _export;
 var from = arrayFrom;
 var checkCorrectnessOfIteration$2 = checkCorrectnessOfIteration$3;
 var INCORRECT_ITERATION = !checkCorrectnessOfIteration$2(function (iterable) {
@@ -1838,7 +1838,7 @@ var INCORRECT_ITERATION = !checkCorrectnessOfIteration$2(function (iterable) {
 
 // `Array.from` method
 // https://tc39.es/ecma262/#sec-array.from
-$$l({
+$$m({
   target: 'Array',
   stat: true,
   forced: INCORRECT_ITERATION
@@ -2004,7 +2004,7 @@ var freezing = !fails$5(function () {
   return Object.isExtensible(Object.preventExtensions({}));
 });
 
-var $$k = _export;
+var $$l = _export;
 var uncurryThis$5 = functionUncurryThis;
 var hiddenKeys = hiddenKeys$5;
 var isObject$6 = isObject$e;
@@ -2080,7 +2080,7 @@ var enable = function () {
       }
       return result;
     };
-    $$k({
+    $$l({
       target: 'Object',
       stat: true,
       forced: true
@@ -2182,7 +2182,7 @@ var inheritIfRequired$1 = function ($this, dummy, Wrapper) {
   return $this;
 };
 
-var $$j = _export;
+var $$k = _export;
 var global$e = global$K;
 var uncurryThis$4 = functionUncurryThis;
 var isForced$1 = isForced_1;
@@ -2272,7 +2272,7 @@ var collection$2 = function (CONSTRUCTOR_NAME, wrapper, common) {
     if (IS_WEAK && NativePrototype.clear) delete NativePrototype.clear;
   }
   exported[CONSTRUCTOR_NAME] = Constructor;
-  $$j({
+  $$k({
     global: true,
     constructor: true,
     forced: Constructor != NativeConstructor
@@ -2616,13 +2616,13 @@ var objectAssign = !$assign || fails$3(function () {
   return T;
 } : $assign;
 
-var $$i = _export;
+var $$j = _export;
 var assign$1 = objectAssign;
 
 // `Object.assign` method
 // https://tc39.es/ecma262/#sec-object.assign
 // eslint-disable-next-line es-x/no-object-assign -- required for testing
-$$i({
+$$j({
   target: 'Object',
   stat: true,
   arity: 2,
@@ -2675,7 +2675,7 @@ var errorStackInstallable = !fails$2(function () {
   return error.stack !== 7;
 });
 
-var $$h = _export;
+var $$i = _export;
 var global$d = global$K;
 var isPrototypeOf = objectIsPrototypeOf;
 var getPrototypeOf = objectGetPrototypeOf;
@@ -2724,7 +2724,7 @@ var AggregateErrorPrototype = $AggregateError.prototype = create(Error$1.prototy
 
 // `AggregateError` constructor
 // https://tc39.es/ecma262/#sec-aggregate-error-constructor
-$$h({
+$$i({
   global: true,
   constructor: true,
   arity: 2
@@ -3097,7 +3097,7 @@ newPromiseCapability$2.f = function (C) {
   return new PromiseCapability(C);
 };
 
-var $$g = _export;
+var $$h = _export;
 var IS_NODE = engineIsNode;
 var global$3 = global$K;
 var call$5 = functionCall;
@@ -3360,7 +3360,7 @@ if (FORCED_PROMISE_CONSTRUCTOR$4) {
     }
   }
 }
-$$g({
+$$h({
   global: true,
   constructor: true,
   wrap: true,
@@ -3378,7 +3378,7 @@ var promiseStaticsIncorrectIteration = FORCED_PROMISE_CONSTRUCTOR$3 || !checkCor
   NativePromiseConstructor$2.all(iterable).then(undefined, function () {/* empty */});
 });
 
-var $$f = _export;
+var $$g = _export;
 var call$4 = functionCall;
 var aCallable$3 = aCallable$9;
 var newPromiseCapabilityModule$4 = newPromiseCapability$2;
@@ -3388,7 +3388,7 @@ var PROMISE_STATICS_INCORRECT_ITERATION$1 = promiseStaticsIncorrectIteration;
 
 // `Promise.all` method
 // https://tc39.es/ecma262/#sec-promise.all
-$$f({
+$$g({
   target: 'Promise',
   stat: true,
   forced: PROMISE_STATICS_INCORRECT_ITERATION$1
@@ -3421,7 +3421,7 @@ $$f({
   }
 });
 
-var $$e = _export;
+var $$f = _export;
 var FORCED_PROMISE_CONSTRUCTOR$2 = promiseConstructorDetection.CONSTRUCTOR;
 var NativePromiseConstructor$1 = promiseNativeConstructor;
 var getBuiltIn$3 = getBuiltIn$a;
@@ -3431,7 +3431,7 @@ var NativePromisePrototype$1 = NativePromiseConstructor$1 && NativePromiseConstr
 
 // `Promise.prototype.catch` method
 // https://tc39.es/ecma262/#sec-promise.prototype.catch
-$$e({
+$$f({
   target: 'Promise',
   proto: true,
   forced: FORCED_PROMISE_CONSTRUCTOR$2,
@@ -3452,7 +3452,7 @@ if (isCallable$1(NativePromiseConstructor$1)) {
   }
 }
 
-var $$d = _export;
+var $$e = _export;
 var call$3 = functionCall;
 var aCallable$2 = aCallable$9;
 var newPromiseCapabilityModule$3 = newPromiseCapability$2;
@@ -3462,7 +3462,7 @@ var PROMISE_STATICS_INCORRECT_ITERATION = promiseStaticsIncorrectIteration;
 
 // `Promise.race` method
 // https://tc39.es/ecma262/#sec-promise.race
-$$d({
+$$e({
   target: 'Promise',
   stat: true,
   forced: PROMISE_STATICS_INCORRECT_ITERATION
@@ -3482,14 +3482,14 @@ $$d({
   }
 });
 
-var $$c = _export;
+var $$d = _export;
 var call$2 = functionCall;
 var newPromiseCapabilityModule$2 = newPromiseCapability$2;
 var FORCED_PROMISE_CONSTRUCTOR$1 = promiseConstructorDetection.CONSTRUCTOR;
 
 // `Promise.reject` method
 // https://tc39.es/ecma262/#sec-promise.reject
-$$c({
+$$d({
   target: 'Promise',
   stat: true,
   forced: FORCED_PROMISE_CONSTRUCTOR$1
@@ -3513,7 +3513,7 @@ var promiseResolve$2 = function (C, x) {
   return promiseCapability.promise;
 };
 
-var $$b = _export;
+var $$c = _export;
 var getBuiltIn$2 = getBuiltIn$a;
 var FORCED_PROMISE_CONSTRUCTOR = promiseConstructorDetection.CONSTRUCTOR;
 var promiseResolve$1 = promiseResolve$2;
@@ -3521,7 +3521,7 @@ getBuiltIn$2('Promise');
 
 // `Promise.resolve` method
 // https://tc39.es/ecma262/#sec-promise.resolve
-$$b({
+$$c({
   target: 'Promise',
   stat: true,
   forced: FORCED_PROMISE_CONSTRUCTOR
@@ -3531,7 +3531,7 @@ $$b({
   }
 });
 
-var $$a = _export;
+var $$b = _export;
 var call$1 = functionCall;
 var aCallable$1 = aCallable$9;
 var newPromiseCapabilityModule$1 = newPromiseCapability$2;
@@ -3540,7 +3540,7 @@ var iterate$1 = iterate$7;
 
 // `Promise.allSettled` method
 // https://tc39.es/ecma262/#sec-promise.allsettled
-$$a({
+$$b({
   target: 'Promise',
   stat: true
 }, {
@@ -3583,7 +3583,7 @@ $$a({
   }
 });
 
-var $$9 = _export;
+var $$a = _export;
 var call = functionCall;
 var aCallable = aCallable$9;
 var getBuiltIn$1 = getBuiltIn$a;
@@ -3594,7 +3594,7 @@ var PROMISE_ANY_ERROR = 'No one promise resolved';
 
 // `Promise.any` method
 // https://tc39.es/ecma262/#sec-promise.any
-$$9({
+$$a({
   target: 'Promise',
   stat: true
 }, {
@@ -3632,7 +3632,7 @@ $$9({
   }
 });
 
-var $$8 = _export;
+var $$9 = _export;
 var NativePromiseConstructor = promiseNativeConstructor;
 var fails = fails$j;
 var getBuiltIn = getBuiltIn$a;
@@ -3652,7 +3652,7 @@ var NON_GENERIC = !!NativePromiseConstructor && fails(function () {
 
 // `Promise.prototype.finally` method
 // https://tc39.es/ecma262/#sec-promise.prototype.finally
-$$8({
+$$9({
   target: 'Promise',
   proto: true,
   real: true,
@@ -3737,7 +3737,7 @@ var correctIsRegexpLogic = function (METHOD_NAME) {
   return false;
 };
 
-var $$7 = _export;
+var $$8 = _export;
 var uncurryThis = functionUncurryThis;
 var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
 var toLength = toLength$2;
@@ -3759,7 +3759,7 @@ var MDN_POLYFILL_BUG = !CORRECT_IS_REGEXP_LOGIC && !!function () {
 
 // `String.prototype.startsWith` method
 // https://tc39.es/ecma262/#sec-string.prototype.startswith
-$$7({
+$$8({
   target: 'String',
   proto: true,
   forced: !MDN_POLYFILL_BUG && !CORRECT_IS_REGEXP_LOGIC
@@ -7377,6 +7377,777 @@ application.warnings = true;
 application.debug = false;
 window.Stimulus = application;
 
+/**! 
+ * hotkeys-js v3.12.0 
+ * A simple micro-library for defining and dispatching keyboard shortcuts. It has no dependencies. 
+ * 
+ * Copyright (c) 2023 kenny wong <wowohoo@qq.com> 
+ * https://jaywcjlove.github.io/hotkeys-js 
+ * Licensed under the MIT license 
+ */
+
+var isff = typeof navigator !== 'undefined' ? navigator.userAgent.toLowerCase().indexOf('firefox') > 0 : false;
+
+// 绑定事件
+function addEvent(object, event, method, useCapture) {
+  if (object.addEventListener) {
+    object.addEventListener(event, method, useCapture);
+  } else if (object.attachEvent) {
+    object.attachEvent("on".concat(event), function () {
+      method(window.event);
+    });
+  }
+}
+
+// 修饰键转换成对应的键码
+function getMods(modifier, key) {
+  var mods = key.slice(0, key.length - 1);
+  for (var i = 0; i < mods.length; i++) mods[i] = modifier[mods[i].toLowerCase()];
+  return mods;
+}
+
+// 处理传的key字符串转换成数组
+function getKeys(key) {
+  if (typeof key !== 'string') key = '';
+  key = key.replace(/\s/g, ''); // 匹配任何空白字符,包括空格、制表符、换页符等等
+  var keys = key.split(','); // 同时设置多个快捷键，以','分割
+  var index = keys.lastIndexOf('');
+
+  // 快捷键可能包含','，需特殊处理
+  for (; index >= 0;) {
+    keys[index - 1] += ',';
+    keys.splice(index, 1);
+    index = keys.lastIndexOf('');
+  }
+  return keys;
+}
+
+// 比较修饰键的数组
+function compareArray(a1, a2) {
+  var arr1 = a1.length >= a2.length ? a1 : a2;
+  var arr2 = a1.length >= a2.length ? a2 : a1;
+  var isIndex = true;
+  for (var i = 0; i < arr1.length; i++) {
+    if (arr2.indexOf(arr1[i]) === -1) isIndex = false;
+  }
+  return isIndex;
+}
+
+// Special Keys
+var _keyMap = {
+  backspace: 8,
+  '⌫': 8,
+  tab: 9,
+  clear: 12,
+  enter: 13,
+  '↩': 13,
+  return: 13,
+  esc: 27,
+  escape: 27,
+  space: 32,
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40,
+  del: 46,
+  delete: 46,
+  ins: 45,
+  insert: 45,
+  home: 36,
+  end: 35,
+  pageup: 33,
+  pagedown: 34,
+  capslock: 20,
+  num_0: 96,
+  num_1: 97,
+  num_2: 98,
+  num_3: 99,
+  num_4: 100,
+  num_5: 101,
+  num_6: 102,
+  num_7: 103,
+  num_8: 104,
+  num_9: 105,
+  num_multiply: 106,
+  num_add: 107,
+  num_enter: 108,
+  num_subtract: 109,
+  num_decimal: 110,
+  num_divide: 111,
+  '⇪': 20,
+  ',': 188,
+  '.': 190,
+  '/': 191,
+  '`': 192,
+  '-': isff ? 173 : 189,
+  '=': isff ? 61 : 187,
+  ';': isff ? 59 : 186,
+  '\'': 222,
+  '[': 219,
+  ']': 221,
+  '\\': 220
+};
+
+// Modifier Keys
+var _modifier = {
+  // shiftKey
+  '⇧': 16,
+  shift: 16,
+  // altKey
+  '⌥': 18,
+  alt: 18,
+  option: 18,
+  // ctrlKey
+  '⌃': 17,
+  ctrl: 17,
+  control: 17,
+  // metaKey
+  '⌘': 91,
+  cmd: 91,
+  command: 91
+};
+var modifierMap = {
+  16: 'shiftKey',
+  18: 'altKey',
+  17: 'ctrlKey',
+  91: 'metaKey',
+  shiftKey: 16,
+  ctrlKey: 17,
+  altKey: 18,
+  metaKey: 91
+};
+var _mods = {
+  16: false,
+  18: false,
+  17: false,
+  91: false
+};
+var _handlers = {};
+
+// F1~F12 special key
+for (var k = 1; k < 20; k++) {
+  _keyMap["f".concat(k)] = 111 + k;
+}
+var _downKeys = []; // 记录摁下的绑定键
+var winListendFocus = false; // window是否已经监听了focus事件
+var _scope = 'all'; // 默认热键范围
+var elementHasBindEvent = []; // 已绑定事件的节点记录
+
+// 返回键码
+var code = function code(x) {
+  return _keyMap[x.toLowerCase()] || _modifier[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
+};
+var getKey = function getKey(x) {
+  return Object.keys(_keyMap).find(function (k) {
+    return _keyMap[k] === x;
+  });
+};
+var getModifier = function getModifier(x) {
+  return Object.keys(_modifier).find(function (k) {
+    return _modifier[k] === x;
+  });
+};
+
+// 设置获取当前范围（默认为'所有'）
+function setScope(scope) {
+  _scope = scope || 'all';
+}
+// 获取当前范围
+function getScope() {
+  return _scope || 'all';
+}
+// 获取摁下绑定键的键值
+function getPressedKeyCodes() {
+  return _downKeys.slice(0);
+}
+function getPressedKeyString() {
+  return _downKeys.map(function (c) {
+    return getKey(c) || getModifier(c) || String.fromCharCode(c);
+  });
+}
+function getAllKeyCodes() {
+  var result = [];
+  Object.keys(_handlers).forEach(function (k) {
+    _handlers[k].forEach(function (_ref) {
+      var key = _ref.key,
+        scope = _ref.scope,
+        mods = _ref.mods,
+        shortcut = _ref.shortcut;
+      result.push({
+        scope: scope,
+        shortcut: shortcut,
+        mods: mods,
+        keys: key.split('+').map(function (v) {
+          return code(v);
+        })
+      });
+    });
+  });
+  return result;
+}
+
+// 表单控件控件判断 返回 Boolean
+// hotkey is effective only when filter return true
+function filter(event) {
+  var target = event.target || event.srcElement;
+  var tagName = target.tagName;
+  var flag = true;
+  // ignore: isContentEditable === 'true', <input> and <textarea> when readOnly state is false, <select>
+  if (target.isContentEditable || (tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT') && !target.readOnly) {
+    flag = false;
+  }
+  return flag;
+}
+
+// 判断摁下的键是否为某个键，返回true或者false
+function isPressed(keyCode) {
+  if (typeof keyCode === 'string') {
+    keyCode = code(keyCode); // 转换成键码
+  }
+
+  return _downKeys.indexOf(keyCode) !== -1;
+}
+
+// 循环删除handlers中的所有 scope(范围)
+function deleteScope(scope, newScope) {
+  var handlers;
+  var i;
+
+  // 没有指定scope，获取scope
+  if (!scope) scope = getScope();
+  for (var key in _handlers) {
+    if (Object.prototype.hasOwnProperty.call(_handlers, key)) {
+      handlers = _handlers[key];
+      for (i = 0; i < handlers.length;) {
+        if (handlers[i].scope === scope) handlers.splice(i, 1);else i++;
+      }
+    }
+  }
+
+  // 如果scope被删除，将scope重置为all
+  if (getScope() === scope) setScope(newScope || 'all');
+}
+
+// 清除修饰键
+function clearModifier(event) {
+  var key = event.keyCode || event.which || event.charCode;
+  var i = _downKeys.indexOf(key);
+
+  // 从列表中清除按压过的键
+  if (i >= 0) {
+    _downKeys.splice(i, 1);
+  }
+  // 特殊处理 cmmand 键，在 cmmand 组合快捷键 keyup 只执行一次的问题
+  if (event.key && event.key.toLowerCase() === 'meta') {
+    _downKeys.splice(0, _downKeys.length);
+  }
+
+  // 修饰键 shiftKey altKey ctrlKey (command||metaKey) 清除
+  if (key === 93 || key === 224) key = 91;
+  if (key in _mods) {
+    _mods[key] = false;
+
+    // 将修饰键重置为false
+    for (var k in _modifier) if (_modifier[k] === key) hotkeys[k] = false;
+  }
+}
+function unbind(keysInfo) {
+  // unbind(), unbind all keys
+  if (typeof keysInfo === 'undefined') {
+    Object.keys(_handlers).forEach(function (key) {
+      return delete _handlers[key];
+    });
+  } else if (Array.isArray(keysInfo)) {
+    // support like : unbind([{key: 'ctrl+a', scope: 's1'}, {key: 'ctrl-a', scope: 's2', splitKey: '-'}])
+    keysInfo.forEach(function (info) {
+      if (info.key) eachUnbind(info);
+    });
+  } else if (typeof keysInfo === 'object') {
+    // support like unbind({key: 'ctrl+a, ctrl+b', scope:'abc'})
+    if (keysInfo.key) eachUnbind(keysInfo);
+  } else if (typeof keysInfo === 'string') {
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+    // support old method
+    // eslint-disable-line
+    var scope = args[0],
+      method = args[1];
+    if (typeof scope === 'function') {
+      method = scope;
+      scope = '';
+    }
+    eachUnbind({
+      key: keysInfo,
+      scope: scope,
+      method: method,
+      splitKey: '+'
+    });
+  }
+}
+
+// 解除绑定某个范围的快捷键
+var eachUnbind = function eachUnbind(_ref2) {
+  var key = _ref2.key,
+    scope = _ref2.scope,
+    method = _ref2.method,
+    _ref2$splitKey = _ref2.splitKey,
+    splitKey = _ref2$splitKey === void 0 ? '+' : _ref2$splitKey;
+  var multipleKeys = getKeys(key);
+  multipleKeys.forEach(function (originKey) {
+    var unbindKeys = originKey.split(splitKey);
+    var len = unbindKeys.length;
+    var lastKey = unbindKeys[len - 1];
+    var keyCode = lastKey === '*' ? '*' : code(lastKey);
+    if (!_handlers[keyCode]) return;
+    // 判断是否传入范围，没有就获取范围
+    if (!scope) scope = getScope();
+    var mods = len > 1 ? getMods(_modifier, unbindKeys) : [];
+    _handlers[keyCode] = _handlers[keyCode].filter(function (record) {
+      // 通过函数判断，是否解除绑定，函数相等直接返回
+      var isMatchingMethod = method ? record.method === method : true;
+      return !(isMatchingMethod && record.scope === scope && compareArray(record.mods, mods));
+    });
+  });
+};
+
+// 对监听对应快捷键的回调函数进行处理
+function eventHandler(event, handler, scope, element) {
+  if (handler.element !== element) {
+    return;
+  }
+  var modifiersMatch;
+
+  // 看它是否在当前范围
+  if (handler.scope === scope || handler.scope === 'all') {
+    // 检查是否匹配修饰符（如果有返回true）
+    modifiersMatch = handler.mods.length > 0;
+    for (var y in _mods) {
+      if (Object.prototype.hasOwnProperty.call(_mods, y)) {
+        if (!_mods[y] && handler.mods.indexOf(+y) > -1 || _mods[y] && handler.mods.indexOf(+y) === -1) {
+          modifiersMatch = false;
+        }
+      }
+    }
+
+    // 调用处理程序，如果是修饰键不做处理
+    if (handler.mods.length === 0 && !_mods[16] && !_mods[18] && !_mods[17] && !_mods[91] || modifiersMatch || handler.shortcut === '*') {
+      handler.keys = [];
+      handler.keys = handler.keys.concat(_downKeys);
+      if (handler.method(event, handler) === false) {
+        if (event.preventDefault) event.preventDefault();else event.returnValue = false;
+        if (event.stopPropagation) event.stopPropagation();
+        if (event.cancelBubble) event.cancelBubble = true;
+      }
+    }
+  }
+}
+
+// 处理keydown事件
+function dispatch$1(event, element) {
+  var asterisk = _handlers['*'];
+  var key = event.keyCode || event.which || event.charCode;
+
+  // 表单控件过滤 默认表单控件不触发快捷键
+  if (!hotkeys.filter.call(this, event)) return;
+
+  // Gecko(Firefox)的command键值224，在Webkit(Chrome)中保持一致
+  // Webkit左右 command 键值不一样
+  if (key === 93 || key === 224) key = 91;
+
+  /**
+   * Collect bound keys
+   * If an Input Method Editor is processing key input and the event is keydown, return 229.
+   * https://stackoverflow.com/questions/25043934/is-it-ok-to-ignore-keydown-events-with-keycode-229
+   * http://lists.w3.org/Archives/Public/www-dom/2010JulSep/att-0182/keyCode-spec.html
+   */
+  if (_downKeys.indexOf(key) === -1 && key !== 229) _downKeys.push(key);
+  /**
+   * Jest test cases are required.
+   * ===============================
+   */
+  ['ctrlKey', 'altKey', 'shiftKey', 'metaKey'].forEach(function (keyName) {
+    var keyNum = modifierMap[keyName];
+    if (event[keyName] && _downKeys.indexOf(keyNum) === -1) {
+      _downKeys.push(keyNum);
+    } else if (!event[keyName] && _downKeys.indexOf(keyNum) > -1) {
+      _downKeys.splice(_downKeys.indexOf(keyNum), 1);
+    } else if (keyName === 'metaKey' && event[keyName] && _downKeys.length === 3) {
+      /**
+       * Fix if Command is pressed:
+       * ===============================
+       */
+      if (!(event.ctrlKey || event.shiftKey || event.altKey)) {
+        _downKeys = _downKeys.slice(_downKeys.indexOf(keyNum));
+      }
+    }
+  });
+  /**
+   * -------------------------------
+   */
+
+  if (key in _mods) {
+    _mods[key] = true;
+
+    // 将特殊字符的key注册到 hotkeys 上
+    for (var k in _modifier) {
+      if (_modifier[k] === key) hotkeys[k] = true;
+    }
+    if (!asterisk) return;
+  }
+
+  // 将 modifierMap 里面的修饰键绑定到 event 中
+  for (var e in _mods) {
+    if (Object.prototype.hasOwnProperty.call(_mods, e)) {
+      _mods[e] = event[modifierMap[e]];
+    }
+  }
+  /**
+   * https://github.com/jaywcjlove/hotkeys/pull/129
+   * This solves the issue in Firefox on Windows where hotkeys corresponding to special characters would not trigger.
+   * An example of this is ctrl+alt+m on a Swedish keyboard which is used to type μ.
+   * Browser support: https://caniuse.com/#feat=keyboardevent-getmodifierstate
+   */
+  if (event.getModifierState && !(event.altKey && !event.ctrlKey) && event.getModifierState('AltGraph')) {
+    if (_downKeys.indexOf(17) === -1) {
+      _downKeys.push(17);
+    }
+    if (_downKeys.indexOf(18) === -1) {
+      _downKeys.push(18);
+    }
+    _mods[17] = true;
+    _mods[18] = true;
+  }
+
+  // 获取范围 默认为 `all`
+  var scope = getScope();
+  // 对任何快捷键都需要做的处理
+  if (asterisk) {
+    for (var i = 0; i < asterisk.length; i++) {
+      if (asterisk[i].scope === scope && (event.type === 'keydown' && asterisk[i].keydown || event.type === 'keyup' && asterisk[i].keyup)) {
+        eventHandler(event, asterisk[i], scope, element);
+      }
+    }
+  }
+  // key 不在 _handlers 中返回
+  if (!(key in _handlers)) return;
+  for (var _i = 0; _i < _handlers[key].length; _i++) {
+    if (event.type === 'keydown' && _handlers[key][_i].keydown || event.type === 'keyup' && _handlers[key][_i].keyup) {
+      if (_handlers[key][_i].key) {
+        var record = _handlers[key][_i];
+        var splitKey = record.splitKey;
+        var keyShortcut = record.key.split(splitKey);
+        var _downKeysCurrent = []; // 记录当前按键键值
+        for (var a = 0; a < keyShortcut.length; a++) {
+          _downKeysCurrent.push(code(keyShortcut[a]));
+        }
+        if (_downKeysCurrent.sort().join('') === _downKeys.sort().join('')) {
+          // 找到处理内容
+          eventHandler(event, record, scope, element);
+        }
+      }
+    }
+  }
+}
+
+// 判断 element 是否已经绑定事件
+function isElementBind(element) {
+  return elementHasBindEvent.indexOf(element) > -1;
+}
+function hotkeys(key, option, method) {
+  _downKeys = [];
+  var keys = getKeys(key); // 需要处理的快捷键列表
+  var mods = [];
+  var scope = 'all'; // scope默认为all，所有范围都有效
+  var element = document; // 快捷键事件绑定节点
+  var i = 0;
+  var keyup = false;
+  var keydown = true;
+  var splitKey = '+';
+  var capture = false;
+
+  // 对为设定范围的判断
+  if (method === undefined && typeof option === 'function') {
+    method = option;
+  }
+  if (Object.prototype.toString.call(option) === '[object Object]') {
+    if (option.scope) scope = option.scope; // eslint-disable-line
+    if (option.element) element = option.element; // eslint-disable-line
+    if (option.keyup) keyup = option.keyup; // eslint-disable-line
+    if (option.keydown !== undefined) keydown = option.keydown; // eslint-disable-line
+    if (option.capture !== undefined) capture = option.capture; // eslint-disable-line
+    if (typeof option.splitKey === 'string') splitKey = option.splitKey; // eslint-disable-line
+  }
+
+  if (typeof option === 'string') scope = option;
+
+  // 对于每个快捷键进行处理
+  for (; i < keys.length; i++) {
+    key = keys[i].split(splitKey); // 按键列表
+    mods = [];
+
+    // 如果是组合快捷键取得组合快捷键
+    if (key.length > 1) mods = getMods(_modifier, key);
+
+    // 将非修饰键转化为键码
+    key = key[key.length - 1];
+    key = key === '*' ? '*' : code(key); // *表示匹配所有快捷键
+
+    // 判断key是否在_handlers中，不在就赋一个空数组
+    if (!(key in _handlers)) _handlers[key] = [];
+    _handlers[key].push({
+      keyup: keyup,
+      keydown: keydown,
+      scope: scope,
+      mods: mods,
+      shortcut: keys[i],
+      method: method,
+      key: keys[i],
+      splitKey: splitKey,
+      element: element
+    });
+  }
+  // 在全局document上设置快捷键
+  if (typeof element !== 'undefined' && !isElementBind(element) && window) {
+    elementHasBindEvent.push(element);
+    addEvent(element, 'keydown', function (e) {
+      dispatch$1(e, element);
+    }, capture);
+    if (!winListendFocus) {
+      winListendFocus = true;
+      addEvent(window, 'focus', function () {
+        _downKeys = [];
+      }, capture);
+    }
+    addEvent(element, 'keyup', function (e) {
+      dispatch$1(e, element);
+      clearModifier(e);
+    }, capture);
+  }
+}
+function trigger(shortcut) {
+  var scope = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'all';
+  Object.keys(_handlers).forEach(function (key) {
+    var dataList = _handlers[key].filter(function (item) {
+      return item.scope === scope && item.shortcut === shortcut;
+    });
+    dataList.forEach(function (data) {
+      if (data && data.method) {
+        data.method();
+      }
+    });
+  });
+}
+var _api = {
+  getPressedKeyString: getPressedKeyString,
+  setScope: setScope,
+  getScope: getScope,
+  deleteScope: deleteScope,
+  getPressedKeyCodes: getPressedKeyCodes,
+  getAllKeyCodes: getAllKeyCodes,
+  isPressed: isPressed,
+  filter: filter,
+  trigger: trigger,
+  unbind: unbind,
+  keyMap: _keyMap,
+  modifier: _modifier,
+  modifierMap: modifierMap
+};
+for (var a in _api) {
+  if (Object.prototype.hasOwnProperty.call(_api, a)) {
+    hotkeys[a] = _api[a];
+  }
+}
+if (typeof window !== 'undefined') {
+  var _hotkeys = window.hotkeys;
+  hotkeys.noConflict = function (deep) {
+    if (deep && window.hotkeys === hotkeys) {
+      window.hotkeys = _hotkeys;
+    }
+    return hotkeys;
+  };
+  window.hotkeys = hotkeys;
+}
+
+/*
+Stimulus-Use 0.51.3
+*/
+class DebounceController extends Controller {}
+DebounceController.debounces = [];
+class ThrottleController extends Controller {}
+ThrottleController.throttles = [];
+const alpineNames = {
+  enterFromClass: 'enter',
+  enterActiveClass: 'enterStart',
+  enterToClass: 'enterEnd',
+  leaveFromClass: 'leave',
+  leaveActiveClass: 'leaveStart',
+  leaveToClass: 'leaveEnd'
+};
+const defaultOptions$1$1 = {
+  transitioned: false,
+  hiddenClass: 'hidden',
+  preserveOriginalClass: true,
+  removeToClasses: true
+};
+const useTransition = (composableController, options = {}) => {
+  var _a, _b, _c;
+  const controller = composableController;
+  const targetName = controller.element.dataset.transitionTarget;
+  let targetFromAttribute;
+  if (targetName) {
+    targetFromAttribute = controller[`${targetName}Target`];
+  }
+  const targetElement = (options === null || options === void 0 ? void 0 : options.element) || targetFromAttribute || controller.element;
+  if (!(targetElement instanceof HTMLElement || targetElement instanceof SVGElement)) return;
+  const dataset = targetElement.dataset;
+  const leaveAfter = parseInt(dataset.leaveAfter || '') || options.leaveAfter || 0;
+  const {
+    transitioned,
+    hiddenClass,
+    preserveOriginalClass,
+    removeToClasses
+  } = Object.assign({}, defaultOptions$1$1, options);
+  const controllerEnter = (_a = controller.enter) === null || _a === void 0 ? void 0 : _a.bind(controller);
+  const controllerLeave = (_b = controller.leave) === null || _b === void 0 ? void 0 : _b.bind(controller);
+  const controllerToggleTransition = (_c = controller.toggleTransition) === null || _c === void 0 ? void 0 : _c.bind(controller);
+  async function enter(event) {
+    if (controller.transitioned) return;
+    controller.transitioned = true;
+    controllerEnter && controllerEnter(event);
+    const enterFromClasses = getAttribute$1('enterFrom', options, dataset);
+    const enterActiveClasses = getAttribute$1('enterActive', options, dataset);
+    const enterToClasses = getAttribute$1('enterTo', options, dataset);
+    const leaveToClasses = getAttribute$1('leaveTo', options, dataset);
+    if (!!hiddenClass) {
+      targetElement.classList.remove(hiddenClass);
+    }
+    if (!removeToClasses) {
+      removeClasses(targetElement, leaveToClasses);
+    }
+    await transition(targetElement, enterFromClasses, enterActiveClasses, enterToClasses, hiddenClass, preserveOriginalClass, removeToClasses);
+    if (leaveAfter > 0) {
+      setTimeout(() => {
+        leave(event);
+      }, leaveAfter);
+    }
+  }
+  async function leave(event) {
+    if (!controller.transitioned) return;
+    controller.transitioned = false;
+    controllerLeave && controllerLeave(event);
+    const leaveFromClasses = getAttribute$1('leaveFrom', options, dataset);
+    const leaveActiveClasses = getAttribute$1('leaveActive', options, dataset);
+    const leaveToClasses = getAttribute$1('leaveTo', options, dataset);
+    const enterToClasses = getAttribute$1('enterTo', options, dataset);
+    if (!removeToClasses) {
+      removeClasses(targetElement, enterToClasses);
+    }
+    await transition(targetElement, leaveFromClasses, leaveActiveClasses, leaveToClasses, hiddenClass, preserveOriginalClass, removeToClasses);
+    if (!!hiddenClass) {
+      targetElement.classList.add(hiddenClass);
+    }
+  }
+  function toggleTransition(event) {
+    controllerToggleTransition && controllerToggleTransition(event);
+    if (controller.transitioned) {
+      leave();
+    } else {
+      enter();
+    }
+  }
+  async function transition(element, initialClasses, activeClasses, endClasses, hiddenClass, preserveOriginalClass, removeEndClasses) {
+    const stashedClasses = [];
+    if (preserveOriginalClass) {
+      initialClasses.forEach(cls => element.classList.contains(cls) && cls !== hiddenClass && stashedClasses.push(cls));
+      activeClasses.forEach(cls => element.classList.contains(cls) && cls !== hiddenClass && stashedClasses.push(cls));
+      endClasses.forEach(cls => element.classList.contains(cls) && cls !== hiddenClass && stashedClasses.push(cls));
+    }
+    addClasses(element, initialClasses);
+    removeClasses(element, stashedClasses);
+    addClasses(element, activeClasses);
+    await nextAnimationFrame$1();
+    removeClasses(element, initialClasses);
+    addClasses(element, endClasses);
+    await afterTransition(element);
+    removeClasses(element, activeClasses);
+    if (removeEndClasses) {
+      removeClasses(element, endClasses);
+    }
+    addClasses(element, stashedClasses);
+  }
+  function initialState() {
+    controller.transitioned = transitioned;
+    if (transitioned) {
+      if (!!hiddenClass) {
+        targetElement.classList.remove(hiddenClass);
+      }
+      enter();
+    } else {
+      if (!!hiddenClass) {
+        targetElement.classList.add(hiddenClass);
+      }
+      leave();
+    }
+  }
+  function addClasses(element, classes) {
+    if (classes.length > 0) {
+      element.classList.add(...classes);
+    }
+  }
+  function removeClasses(element, classes) {
+    if (classes.length > 0) {
+      element.classList.remove(...classes);
+    }
+  }
+  initialState();
+  Object.assign(controller, {
+    enter,
+    leave,
+    toggleTransition
+  });
+  return [enter, leave, toggleTransition];
+};
+function getAttribute$1(name, options, dataset) {
+  const datasetName = `transition${name[0].toUpperCase()}${name.substr(1)}`;
+  const datasetAlpineName = alpineNames[name];
+  const classes = options[name] || dataset[datasetName] || dataset[datasetAlpineName] || ' ';
+  return isEmpty(classes) ? [] : classes.split(' ');
+}
+async function afterTransition(element) {
+  return new Promise(resolve => {
+    const duration = Number(getComputedStyle(element).transitionDuration.split(',')[0].replace('s', '')) * 1000;
+    setTimeout(() => {
+      resolve(duration);
+    }, duration);
+  });
+}
+async function nextAnimationFrame$1() {
+  return new Promise(resolve => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(resolve);
+    });
+  });
+}
+function isEmpty(str) {
+  return str.length === 0 || !str.trim();
+}
+
+class i extends Controller {
+  connect() {
+    useTransition(this, {
+      element: this.menuTarget
+    });
+  }
+  toggle() {
+    this.toggleTransition();
+  }
+  hide(t) {
+    !this.element.contains(t.target) && !this.menuTarget.classList.contains("hidden") && this.leave();
+  }
+}
+i.targets = ["menu"];
+
 function ownKeys$1(e, r) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -7542,14 +8313,14 @@ function _toPropertyKey$1(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
-var $$6 = window.$;
+var $$7 = window.$;
 
 // Used when a table has toggleable rows (initially hidden rows that can be toggled open
 // to see e.g. notes or extended details) and each master row and its toggleable sibling are
 // nested in a tbody (this is valid HTML) - ie there are probably two trs per tbody, and the last
 // one is toggleable. If you need anything more complex you'll need to clone or adapt this
 // controller
-var _default$B = /*#__PURE__*/function (_Controller) {
+var _default$E = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7567,7 +8338,7 @@ var _default$B = /*#__PURE__*/function (_Controller) {
       var tbody = event.target.closest("tbody");
       tbody.classList.toggle("toggleable--open");
       // Update masonry - TODO: move to a module
-      $$6(".mgrid > .row").masonry("layout");
+      $$7(".mgrid > .row").masonry("layout");
     }
 
     // Toggle the last tr in each tbody in the current table.
@@ -7587,14 +8358,14 @@ var _default$B = /*#__PURE__*/function (_Controller) {
         tbody.classList.toggle("toggleable--open", !hide);
       });
       // Update masonry - TODO: move to a module
-      $$6(".mgrid > .row").masonry("layout");
+      $$7(".mgrid > .row").masonry("layout");
     }
   }]);
   return _default;
 }(Controller);
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$A = /*#__PURE__*/function (_Controller) {
+var _default$D = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7634,14 +8405,14 @@ var _default$A = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$A, "targets", ["output"]);
-_defineProperty$2(_default$A, "values", {
+_defineProperty$2(_default$D, "targets", ["output"]);
+_defineProperty$2(_default$D, "values", {
   weightSelector: String,
   heightSelector: String
 });
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$z = /*#__PURE__*/function (_Controller) {
+var _default$C = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7678,13 +8449,13 @@ var _default$z = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$z, "targets", ["previousWeight", "output"]);
-_defineProperty$2(_default$z, "values", {
+_defineProperty$2(_default$C, "targets", ["previousWeight", "output"]);
+_defineProperty$2(_default$C, "values", {
   weightSelector: String
 });
 
 /*  Single use controller only for the Dietetic Clinic Visit */
-var _default$y = /*#__PURE__*/function (_Controller) {
+var _default$B = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7721,10 +8492,10 @@ var _default$y = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$y, "targets", ["proteinIntake", "output"]);
+_defineProperty$2(_default$B, "targets", ["proteinIntake", "output"]);
 
-var $$5 = window.$;
-var _default$x = /*#__PURE__*/function (_Controller) {
+var $$6 = window.$;
+var _default$A = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7739,21 +8510,21 @@ var _default$x = /*#__PURE__*/function (_Controller) {
       this.containerTarget.classList.toggle("not-administered", !checked);
       this.containerTarget.classList.remove("undecided");
       // The rest of this actions are using jQuery for now.
-      $$5(".authentication", this.containerTarget).toggle(checked);
-      $$5(".authentication", this.containerTarget).toggleClass("disabled-with-faded-overlay", !checked);
-      $$5(".reason-why-not-administered", this.containerTarget).toggle(!checked);
-      $$5("#btn_save_and_witness_later").toggle(checked);
+      $$6(".authentication", this.containerTarget).toggle(checked);
+      $$6(".authentication", this.containerTarget).toggleClass("disabled-with-faded-overlay", !checked);
+      $$6(".reason-why-not-administered", this.containerTarget).toggle(!checked);
+      $$6("#btn_save_and_witness_later").toggle(checked);
     }
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$x, "targets", ["container", "radio"]);
+_defineProperty$2(_default$A, "targets", ["container", "radio"]);
 
 var Rails$3 = window.Rails;
 
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescriptions page.
-var _default$w = /*#__PURE__*/function (_Controller) {
+var _default$z = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7783,10 +8554,10 @@ var _default$w = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$w, "targets", ["form", "printOptions", "printFeedback"]);
+_defineProperty$2(_default$z, "targets", ["form", "printOptions", "printFeedback"]);
 
-var $$4 = window.$;
-var _default$v = /*#__PURE__*/function (_Controller) {
+var $$5 = window.$;
+var _default$y = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7797,18 +8568,18 @@ var _default$v = /*#__PURE__*/function (_Controller) {
     key: "insert",
     value: function insert(event) {
       // TODO: set up the trix editor in each page as data-target="snippets.trix"
-      var modal = $$4("#snippets-modal");
-      var snippetBody = $$4(event.target).parent().closest("tr").find(".body").html();
+      var modal = $$5("#snippets-modal");
+      var snippetBody = $$5(event.target).parent().closest("tr").find(".body").html();
       var trix = document.querySelector("trix-editor");
       trix.editor.insertHTML(snippetBody);
-      $$4(modal).foundation("reveal", "close");
+      $$5(modal).foundation("reveal", "close");
     }
   }]);
   return _default;
 }(Controller);
 
-var $$3 = window.$;
-var _default$u = /*#__PURE__*/function (_Controller) {
+var $$4 = window.$;
+var _default$x = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7819,7 +8590,7 @@ var _default$u = /*#__PURE__*/function (_Controller) {
     key: "initInsertEventNotesIntoTrixEditor",
     value: function initInsertEventNotesIntoTrixEditor(event) {
       event.preventDefault();
-      var notes = $$3(event.target).data("notes");
+      var notes = $$4(event.target).data("notes");
       if (notes && this.trix) {
         this.trix.insertHTML(notes);
       } else {
@@ -7834,11 +8605,11 @@ var _default$u = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$u, "targets", ["trix"]);
+_defineProperty$2(_default$x, "targets", ["trix"]);
 
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescriptions page.
-var _default$t = /*#__PURE__*/function (_Controller) {
+var _default$w = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -7868,7 +8639,7 @@ var _default$t = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$t, "targets", ["homeDeliveryDates", "providers"]);
+_defineProperty$2(_default$w, "targets", ["homeDeliveryDates", "providers"]);
 
 /*! (c) Andrea Giammarchi - ISC */
 var self$1 = {};
@@ -20392,7 +21163,7 @@ var highcharts = {exports: {}};
 
 var Highcharts$1 = highcharts.exports;
 
-var _default$s = /*#__PURE__*/function (_Controller) {
+var _default$v = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -20516,11 +21287,11 @@ var _default$s = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$s, "targets", ["chart",
+_defineProperty$2(_default$v, "targets", ["chart",
 // chart container
 "period" // array of period (10y, 3y..) links
 ]);
-_defineProperty$2(_default$s, "values", {
+_defineProperty$2(_default$v, "values", {
   url: String,
   // API endpoint for chart json
   title: String,
@@ -20531,7 +21302,7 @@ _defineProperty$2(_default$s, "values", {
   // eg Kg
   yAxisType: String // linear or logarithmic
 });
-_defineProperty$2(_default$s, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
+_defineProperty$2(_default$v, "classes", ["currentPeriod" // Maps to a CSS class name via data attribute on controller element
 ]);
 
 var Rails$2 = window.Rails;
@@ -20589,7 +21360,7 @@ var _ = window._;
 //   active
 // - Not quite sure if putting the data attribute config settings in the body
 //   tag is the right thing to do - perhaps should be in a config .js.erb
-var _default$r = /*#__PURE__*/function (_Controller) {
+var _default$u = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -20789,7 +21560,7 @@ var _default$r = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$q = /*#__PURE__*/function (_Controller) {
+var _default$t = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -20813,9 +21584,9 @@ var _default$q = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$q, "targets", ["toggleable"]);
+_defineProperty$2(_default$t, "targets", ["toggleable"]);
 
-var _default$p = /*#__PURE__*/function (_Controller) {
+var _default$s = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -20871,9 +21642,9 @@ var _default$p = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$p, "targets", ["item"]);
+_defineProperty$2(_default$s, "targets", ["item"]);
 
-var _default$o = /*#__PURE__*/function (_Controller) {
+var _default$r = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -20924,7 +21695,7 @@ var _default$o = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$o, "targets", ["tab", "panel"]);
+_defineProperty$2(_default$r, "targets", ["tab", "panel"]);
 
 var highchartsMore = {exports: {}};
 
@@ -24971,9 +25742,9 @@ var More = highchartsMore.exports;
 
 // NB: importing Highcharts rather than the Chart module as could not quite get
 // highcharts-more working using Chart or when both Chart + Highcharts loaded.
-var $$2 = window.$;
+var $$3 = window.$;
 More(Highcharts$1);
-var _default$n = /*#__PURE__*/function (_Controller) {
+var _default$q = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -24984,7 +25755,7 @@ var _default$n = /*#__PURE__*/function (_Controller) {
     key: "connect",
     value: function connect() {
       var _this = this;
-      $$2.getJSON(this.data.get("url"), function (data) {
+      $$3.getJSON(this.data.get("url"), function (data) {
         Highcharts$1.chart(_this.element, {
           chart: {
             scrollablePlotArea: {
@@ -25125,7 +25896,7 @@ var _default$n = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$m = /*#__PURE__*/function (_Controller) {
+var _default$p = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -25328,7 +26099,7 @@ var hasRenderToArg = typeof a === 'string' || a.nodeName,
     new Highcharts.Chart(options, b)
 }
  */
-_defineProperty$2(_default$m, "targets", ["chart"]);
+_defineProperty$2(_default$p, "targets", ["chart"]);
 
 // Controller to enable collapsing elements of a nav/menu to for example
 // allow a more dense menu that can simplifies by hiding/collapsing sections.
@@ -25342,7 +26113,7 @@ _defineProperty$2(_default$m, "targets", ["chart"]);
 //   a(data-action="collapsible#open" data-collapsible-target="link" href="#") Y
 //   div.collapsible(data-collapsible-target="section")
 //     p YYY
-var _default$l = /*#__PURE__*/function (_Controller) {
+var _default$o = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -25373,10 +26144,10 @@ var _default$l = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$l, "targets", ["section", "link"]);
-_defineProperty$2(_default$l, "classes", ["open"]);
+_defineProperty$2(_default$o, "targets", ["section", "link"]);
+_defineProperty$2(_default$o, "classes", ["open"]);
 
-var _default$k = /*#__PURE__*/function (_Controller) {
+var _default$n = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -25413,10 +26184,10 @@ var _default$k = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$k, "targets", ["source", "target"]);
+_defineProperty$2(_default$n, "targets", ["source", "target"]);
 
 // Used with patient attachments aka linked files.
-var _default$j = /*#__PURE__*/function (_Controller) {
+var _default$m = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -25438,7 +26209,23 @@ var _default$j = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$j, "targets", ["fileBrowser", "externalLocation"]);
+_defineProperty$2(_default$m, "targets", ["fileBrowser", "externalLocation"]);
+
+var _default$l = /*#__PURE__*/function (_Controller) {
+  _inherits$1(_default, _Controller);
+  var _super = _createSuper$1(_default);
+  function _default() {
+    _classCallCheck$1(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass$1(_default, [{
+    key: "connect",
+    value: function connect() {
+      Renalware.PatientSearch.init();
+    }
+  }]);
+  return _default;
+}(Controller);
 
 /**!
  * Sortable 1.15.0
@@ -28035,7 +28822,7 @@ Sortable.mount(Remove, Revert);
 //     <div data-id=item.id>...</div>
 //   <% end %>
 // </div>
-var _default$i = /*#__PURE__*/function (_Controller) {
+var _default$k = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -28072,7 +28859,7 @@ var _default$i = /*#__PURE__*/function (_Controller) {
 }(Controller);
 
 var Rails$1 = window.Rails;
-var _default$h = /*#__PURE__*/function (_Controller) {
+var _default$j = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -28121,7 +28908,7 @@ var _default$h = /*#__PURE__*/function (_Controller) {
 //   input(type="radio" value="yes" ..)
 //   input(type="radio" value="no" ..)
 //   ...
-var _default$g = /*#__PURE__*/function (_Controller) {
+var _default$i = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -28142,11 +28929,11 @@ var _default$g = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$g, "values", {
+_defineProperty$2(_default$i, "values", {
   match: String
 });
 
-var _default$f = /*#__PURE__*/function (_Controller) {
+var _default$h = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -28172,11 +28959,11 @@ var _default$f = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$f, "targets", ["displayable"]);
+_defineProperty$2(_default$h, "targets", ["displayable"]);
 // element we are going to show/hide
 // attributeToTest: Name of the boolean data attribute on the selected option that determines if
 //                  the displayable target should be visible or not
-_defineProperty$2(_default$f, "values", {
+_defineProperty$2(_default$h, "values", {
   attributeToTest: String
 });
 
@@ -29954,7 +30741,7 @@ class SlimSelect {
   }
 }
 
-var _default$e = /*#__PURE__*/function (_Controller) {
+var _default$g = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -29976,11 +30763,11 @@ var _default$e = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$e, "values", {
+_defineProperty$2(_default$g, "values", {
   options: Object
 });
 
-var _default$d = /*#__PURE__*/function (_Controller) {
+var _default$f = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -30124,8 +30911,8 @@ var _default$d = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$d, "targets", ["container", "turboFrame"]);
-_defineProperty$2(_default$d, "values", {
+_defineProperty$2(_default$f, "targets", ["container", "turboFrame"]);
+_defineProperty$2(_default$f, "values", {
   backdropColor: {
     type: String,
     default: "rgba(0, 0, 0, 0.8)"
@@ -30218,7 +31005,7 @@ var debounce_1 = debounce$1;
     - action: "input->form#submit" will need to change depending on input type eg
       select, radio, but will cause the form to submit
 */
-var _default$c = /*#__PURE__*/function (_Controller) {
+var _default$e = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -30257,7 +31044,7 @@ var _default$c = /*#__PURE__*/function (_Controller) {
       as: :toggle,
       data: { "action": "change->alternative-form-submitter#submit" }
 */
-var _default$b = /*#__PURE__*/function (_Controller) {
+var _default$d = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -30279,10 +31066,10 @@ var _default$b = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$b, "targets", ["form"]);
+_defineProperty$2(_default$d, "targets", ["form"]);
 
 // Inspired by https://www.youtube.com/watch?v=gk_qDsKMIrM&t=528s
-var _default$a = /*#__PURE__*/function (_Controller) {
+var _default$c = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -32437,7 +33224,7 @@ if (typeof window !== "undefined") {
   window.flatpickr = flatpickr;
 }
 
-var _default$9 = {exports: {}};
+var _default$b = {exports: {}};
 
 (function (module, exports) {
 	(function (global, factory) {
@@ -32486,7 +33273,7 @@ var _default$9 = {exports: {}};
 	    value: true
 	  });
 	});
-} (_default$9, _default$9.exports));
+} (_default$b, _default$b.exports));
 
 function _typeof(obj) {
   "@babel/helpers - typeof";
@@ -36591,8 +37378,8 @@ var dateConfig = {
   },
   locale: {
     firstDayOfWeek: 1,
-    months: _objectSpread2$1(_objectSpread2$1({}, _default$9.exports.english.months), {}, {
-      shorthand: [].concat(_toConsumableArray(_default$9.exports.english.months.shorthand), [
+    months: _objectSpread2$1(_objectSpread2$1({}, _default$b.exports.english.months), {}, {
+      shorthand: [].concat(_toConsumableArray(_default$b.exports.english.months.shorthand), [
       // Allow users to input numbers in date field instead of Jan, Feb
       // Because we can't directly change `tokenRegex`, add the numbers to the
       // month shorthand locale, so they'll end up in the regexp string
@@ -36629,7 +37416,7 @@ var dateWithTimeConfig = {
   enableTime: true,
   dateFormat: "d-M-Y H:i"
 };
-var _default$8 = /*#__PURE__*/function (_Controller) {
+var _default$a = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36660,7 +37447,7 @@ var _default$8 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$8, "values", {
+_defineProperty$2(_default$a, "values", {
   timeOnly: Boolean,
   dateWithTime: Boolean
 });
@@ -36668,7 +37455,7 @@ _defineProperty$2(_default$8, "values", {
 /*
   Adds a warning if selected value is not allowed
 */
-var _default$7 = /*#__PURE__*/function (_Controller) {
+var _default$9 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36697,12 +37484,12 @@ var _default$7 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$7, "values", {
+_defineProperty$2(_default$9, "values", {
   notRecommended: Array
 });
-_defineProperty$2(_default$7, "targets", ["input", "message"]);
+_defineProperty$2(_default$9, "targets", ["input", "message"]);
 
-var _default$6 = /*#__PURE__*/function (_Controller) {
+var _default$8 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36719,12 +37506,12 @@ var _default$6 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$6, "values", {
+_defineProperty$2(_default$8, "values", {
   frameId: String
 });
 
 // Inspired by https://stackoverflow.com/a/56952952/4405214
-var _default$5 = /*#__PURE__*/function (_Controller) {
+var _default$7 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36772,7 +37559,7 @@ var _default$5 = /*#__PURE__*/function (_Controller) {
   return _default;
 }(Controller);
 
-var _default$4 = /*#__PURE__*/function (_Controller) {
+var _default$6 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36794,13 +37581,13 @@ var _default$4 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$4, "targets", ["turboframe"]);
-_defineProperty$2(_default$4, "values", {
+_defineProperty$2(_default$6, "targets", ["turboframe"]);
+_defineProperty$2(_default$6, "values", {
   src: String,
   queryParam: String
 });
 
-var _default$3 = /*#__PURE__*/function (_Controller) {
+var _default$5 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36838,13 +37625,13 @@ var _default$3 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$3, "targets", ["content"]);
-_defineProperty$2(_default$3, "values", {
+_defineProperty$2(_default$5, "targets", ["content"]);
+_defineProperty$2(_default$5, "values", {
   moreText: String,
   lessText: String
 });
 
-var _default$2 = /*#__PURE__*/function (_Controller) {
+var _default$4 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36866,15 +37653,15 @@ var _default$2 = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default$2, "targets", ["content"]);
+_defineProperty$2(_default$4, "targets", ["content"]);
 
-var $$1 = window.$;
+var $$2 = window.$;
 
 /*
 When this is controller is added to a table, if the table uses colgroups (eg historical pathology)
 then as the mouse enters and leaves
 */
-var _default$1 = /*#__PURE__*/function (_Controller) {
+var _default$3 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36896,14 +37683,14 @@ var _default$1 = /*#__PURE__*/function (_Controller) {
     key: "highlight_colgroup",
     value: function highlight_colgroup(e) {
       if (e.target.tagName == "TD") {
-        $$1("colgroup").eq($$1(e.target).index()).addClass("hover");
+        $$2("colgroup").eq($$2(e.target).index()).addClass("hover");
       }
     }
   }, {
     key: "unhighlight_colgroup",
     value: function unhighlight_colgroup(e) {
       if (e.target.tagName == "TD") {
-        $$1("colgroup").eq($$1(e.target).index()).removeClass("hover");
+        $$2("colgroup").eq($$2(e.target).index()).removeClass("hover");
       }
     }
   }]);
@@ -36921,7 +37708,7 @@ var _default$1 = /*#__PURE__*/function (_Controller) {
 // eg for current controller pathology/historical, the nav with data-rails-controller="pathology"
 // will get the active class.
 // Using js to highlight the menu on this context means we can cache it's partial.
-var _default = /*#__PURE__*/function (_Controller) {
+var _default$2 = /*#__PURE__*/function (_Controller) {
   _inherits$1(_default, _Controller);
   var _super = _createSuper$1(_default);
   function _default() {
@@ -36941,49 +37728,120 @@ var _default = /*#__PURE__*/function (_Controller) {
   }]);
   return _default;
 }(Controller);
-_defineProperty$2(_default, "targets", ["nav"]);
-_defineProperty$2(_default, "values", {
+_defineProperty$2(_default$2, "targets", ["nav"]);
+_defineProperty$2(_default$2, "values", {
   railsController: String
 });
-_defineProperty$2(_default, "classes", ["active"]);
+_defineProperty$2(_default$2, "classes", ["active"]);
 
-application.register("toggle", _default$B);
-application.register("hd-prescription-administration", _default$x);
-application.register("home-delivery-modal", _default$w);
-application.register("snippets", _default$v);
-application.register("letters-form", _default$u);
-application.register("prescriptions", _default$t);
-application.register("charts", _default$s);
-application.register("session", _default$r);
-application.register("simple-toggle", _default$q);
-application.register("show-on-selected", _default$p);
-application.register("tabs", _default$o);
-application.register("pd-pet-chart", _default$n);
-application.register("pathology-sparklines", _default$m);
-application.register("collapsible", _default$l);
-application.register("dependent-select", _default$k);
-application.register("patient-attachments", _default$j);
-application.register("sortable", _default$i);
-application.register("select", _default$h);
-application.register("radio-reset", _default$g);
-application.register("conditional-display", _default$f);
-application.register("slimselect", _default$e);
-application.register("modal", _default$d);
-application.register("form", _default$c);
-application.register("alternative-form-submitter", _default$b);
-application.register("flash", _default$a);
-application.register("flatpickr", _default$8);
-application.register("input-value-alerter", _default$7);
-application.register("select-update-frame", _default$6);
-application.register("clinics--bmi-calculator", _default$A);
-application.register("clinics--weight-change-calculator", _default$z);
-application.register("clinics--dietary-protein-calculator", _default$y);
-application.register("add-top-horizontal-scrollbar", _default$5);
-application.register("preview", _default$4);
-application.register("read-more", _default$3);
-application.register("grid-row-auto-span", _default$2);
-application.register("table_column_hover", _default$1);
-application.register("navbar", _default);
+var $$1 = window.$;
+var _default$1 = /*#__PURE__*/function (_Controller) {
+  _inherits$1(_default, _Controller);
+  var _super = _createSuper$1(_default);
+  function _default() {
+    _classCallCheck$1(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass$1(_default, [{
+    key: "connect",
+    value: function connect() {
+      $$1(".sub-nav:not('.no-js-selection') dd").each(function () {
+        var href = $$1(this).find("a").attr('href');
+        if (href === window.location.pathname) {
+          $$1(this).addClass('active');
+        }
+      });
+    }
+  }]);
+  return _default;
+}(Controller);
+
+var _default = /*#__PURE__*/function (_Controller) {
+  _inherits$1(_default, _Controller);
+  var _super = _createSuper$1(_default);
+  function _default() {
+    _classCallCheck$1(this, _default);
+    return _super.apply(this, arguments);
+  }
+  _createClass$1(_default, [{
+    key: "submitEnd",
+    value:
+    // Example usage:
+    //  div(data-controller="turbo-modal" data-action="turbo:submit-end->turbo-modal#submitEnd")
+    //
+    // Note that the current Turbo support for breaking out of say a modal form after a successful
+    // create, where we want to redirect somewhere else, is not very good. Until it is baked into to
+    // Turbo, or there is a good recommended approach, we are currently using a "turbo:frame-missing"
+    // handler in application.js
+    // However the below approach also works but we are not currently using it:
+    // When the Create button is hit in the modal and the rails controller successfully creates
+    // the modal, it should return eg
+    //   head :no_content, location: hd_slot_requests_path
+    // and as long as the markup looks like the above, we will come into submitEnd and
+    // detect the 204 and redirect to the specific url. This avoids a double render (a problem with
+    // the "turbo:frame-missing" redirect solution)
+    function submitEnd(event) {
+      var _event$detail, _response$headers$get, _response$headers;
+      var response = (_event$detail = event.detail) === null || _event$detail === void 0 || (_event$detail = _event$detail.fetchResponse) === null || _event$detail === void 0 ? void 0 : _event$detail.response;
+      var status = response === null || response === void 0 ? void 0 : response.status;
+      var url = (_response$headers$get = response === null || response === void 0 || (_response$headers = response.headers) === null || _response$headers === void 0 ? void 0 : _response$headers.get('location')) !== null && _response$headers$get !== void 0 ? _response$headers$get : null;
+      if (status === 204 && url) {
+        event.preventDefault();
+        window.location = url;
+        return false;
+      }
+    }
+  }, {
+    key: "close",
+    value: function close(e) {
+      e.preventDefault();
+      this.element.remove();
+    }
+  }]);
+  return _default;
+}(Controller);
+
+application.register("toggle", _default$E);
+application.register("hd-prescription-administration", _default$A);
+application.register("home-delivery-modal", _default$z);
+application.register("snippets", _default$y);
+application.register("letters-form", _default$x);
+application.register("prescriptions", _default$w);
+application.register("charts", _default$v);
+application.register("session", _default$u);
+application.register("simple-toggle", _default$t);
+application.register("show-on-selected", _default$s);
+application.register("tabs", _default$r);
+application.register("pd-pet-chart", _default$q);
+application.register("pathology-sparklines", _default$p);
+application.register("collapsible", _default$o);
+application.register("dependent-select", _default$n);
+application.register("patient-attachments", _default$m);
+application.register("patient-search", _default$l);
+application.register("sortable", _default$k);
+application.register("select", _default$j);
+application.register("radio-reset", _default$i);
+application.register("conditional-display", _default$h);
+application.register("slimselect", _default$g);
+application.register("modal", _default$f);
+application.register("form", _default$e);
+application.register("alternative-form-submitter", _default$d);
+application.register("flash", _default$c);
+application.register("flatpickr", _default$a);
+application.register("input-value-alerter", _default$9);
+application.register("select-update-frame", _default$8);
+application.register("clinics--bmi-calculator", _default$D);
+application.register("clinics--weight-change-calculator", _default$C);
+application.register("clinics--dietary-protein-calculator", _default$B);
+application.register("add-top-horizontal-scrollbar", _default$7);
+application.register("preview", _default$6);
+application.register("read-more", _default$5);
+application.register("grid-row-auto-span", _default$4);
+application.register("table_column_hover", _default$3);
+application.register("navbar", _default$2);
+application.register("dropdown", i); // https://www.stimulus-components.com/docs/stimulus-dropdown/
+application.register("tabbed-navigation", _default$1);
+application.register("turbo-modal", _default);
 
 /*
 Turbo 7.3.0
@@ -41162,6 +42020,22 @@ addEventListener("turbo:before-fetch-request", encodeMethodIntoRequestBody);
 
 //
 session.drive = false; // By default disable Turbo on all pages
+
+// Handle the situation where a modal has created an object and the controller wants to
+// redirect to another page but not render it inside the frame. In this case we will get a
+// turbo:frame-missing event so handle this and redirect to the relevant page.
+// This does involve a double render though -
+// - create button in modal inside turbo_frame "modal" is clicked
+// - controller creates model successfully and returns 301 redirect
+// - browser redirects (first render)
+// - Turbo cannot find the "modal" turbo-frame tag in the page, so (below) we redirect again
+//   this time at the window level so there is a full navigation (second render)
+// Various discussion here
+// https://github.com/hotwired/turbo/issues/257#issuecomment-1591737862
+document.addEventListener("turbo:frame-missing", function (event) {
+  event.preventDefault();
+  event.detail.visit(event.detail.response);
+});
 
 var adapters = {
   logger: self.console,

@@ -22,6 +22,7 @@ en:
         live_donors: Live Donors
         menu_title: Renal
         ongoing_hd_sessions: Ongoing HD Sessions
+        hd_slot_requests: HD Slot requests
         renal_registry_checks: Renal Registry Checks
         studies: Clinical Studies
         tx_wait_list: Tx Wait List

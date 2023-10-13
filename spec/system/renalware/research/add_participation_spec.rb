@@ -32,7 +32,7 @@ describe "Add a patient to a study (creating a participation)" do
     end
   end
 
-  context "when the user is not investigator in the study" do
+  context "when the user is not an investigator in the study" do
     it "they cannot see the Add option" do
       user = login_as_clinical
       study = create_study(by: user)
