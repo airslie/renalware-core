@@ -31,15 +31,26 @@ module Renalware
           form = MessageForm.new(message_params)
 
           if form.valid?
-            message = SendMessage.call(author: author, patient: patient, form: form)
+            new_message = SendMessage.call(author: author, patient: patient, form: form)
+            mark_receipt_as_read_if_replying_to_existing_message(form)
             flash.now[:notice] = "Message was successfully sent"
-            render_create(message)
+            render_create(new_message)
           else
             render_new(form)
           end
         end
 
         private
+
+        def mark_receipt_as_read_if_replying_to_existing_message(form)
+          return if form.replying_to_message_id.blank?
+
+          message_we_are_replying_to = Message.find(form.replying_to_message_id)
+          message_we_are_replying_to
+            .receipts
+            .where(recipient_id: current_user.id)
+            .update!(read_at: Time.zone.now)
+        end
 
         def patient
           Messaging.cast_patient(Patient.find(params[:patient_id]))

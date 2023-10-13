@@ -29,21 +29,59 @@ describe "Sending a private message" do
     expect(message.public).to be(true)
   end
 
-  # scenario "A clinician replies to a message", js: true do
-  #   user = login_as_clinical
-  #   patient = create(:messaging_patient, created_by: user, updated_by: user)
-  #   recipient = create(:messaging_recipient, family_name: "X", given_name: "Y")
-  #   receipt = build(:receipt, recipient: recipient, message: )
-  #   create(:internal_message, receipts: [receipt], author: user)
+  it "A clinician replies to a message", js: true do
+    user = login_as_clinical
+    author = user.becomes(Renalware::Messaging::Internal::Author)
+    patient = create(
+      :messaging_patient,
+      created_by: author,
+      updated_by: author
+    )
+    other_recipient = create(:user, family_name: "X", given_name: "Y")
 
-  #   visit patient_path(patient)
+    # Create a messages and send to ourselves and another user
+    form = Renalware::Messaging::Internal::MessageForm.new(
+      body: "Content",
+      subject: "Subject",
+      recipient_ids: [other_recipient.id, user.id]
+    )
 
-  #   click_on "Send message"
+    message = Renalware::Messaging::Internal::SendMessage.call(
+      author: author,
+      patient: patient,
+      form: Renalware::Messaging::Internal::MessageForm.new(
+        body: "Content",
+        subject: "Subject",
+        recipient_ids: form.recipient_ids
+      )
+    )
 
-  #   fill_in "Body", with: "Test"
-  #   select2 "X, Y", from: "#message_recipient_ids"
-  #   click_on "Send"
+    visit messaging_internal_inbox_path
 
-  #   expect(page).to have_content("Message was successfully sent")
-  # end
+    within("#message-#{message.id}") do
+      click_on("Toggle")
+    end
+
+    within("#message-preview-#{message.id}") do
+      click_on("Reply")
+    end
+
+    within("#send-message-modal") do
+      fill_in "Body", with: "My reply"
+      click_on "Send"
+    end
+
+    # Message should have disappeared from inbox
+    visit messaging_internal_inbox_path
+    expect(page).to have_selector("#unread-messages table tbody tr", count: 0)
+
+    # Check that for the message we sent, only our receipt is marked as read
+    expect(
+      message
+        .reload
+        .receipts
+        .where(read_at: nil)
+        .pluck(:recipient_id)
+    ).to eq([other_recipient.id])
+  end
 end
