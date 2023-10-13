@@ -16,13 +16,24 @@ module Renalware
       end
 
       describe "uniqueness" do
-        subject { described_class.new(patient_id: patient.id, by: user, urgency: "urgent") }
+        subject do
+          described_class.new(
+            patient_id: patient.id,
+            by: user,
+            urgency: "urgent",
+            deleted_at: nil,
+            allocated_at: Time.zone.now
+          )
+        end
 
         let(:patient) { create(:patient) }
         let(:user) { create(:user) }
 
         it "is scoped so only 1 patient_id possible where deleted_at and allocated_at are null" do
-          is_expected.to validate_uniqueness_of(:patient_id).scoped_to([:deleted_at, :allocated_at])
+          is_expected
+            .to validate_uniqueness_of(:patient_id)
+            .scoped_to([:deleted_at, :allocated_at])
+            .with_message("already has an active slot request")
         end
       end
     end

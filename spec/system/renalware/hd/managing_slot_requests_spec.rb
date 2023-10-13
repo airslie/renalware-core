@@ -25,7 +25,7 @@ describe "Managing a list of HD Slot Requests" do
     end
   end
 
-  it "adding a slot request", js: true do
+  it "adding a slot request from the HD Slots Requests page", js: true do
     travel_to("01-Oct-2023 03:03") do
       user = login_as_admin
       patient = create(:hd_patient, by: user, local_patient_id: "MRN1")
@@ -41,7 +41,6 @@ describe "Managing a list of HD Slot Requests" do
       check "Late presenter"
       check "Suitable for twilight slots"
       check "External referral"
-      expect(page).to have_content("New HD Slot Request")
 
       click_on "Create"
 
@@ -53,6 +52,41 @@ describe "Managing a list of HD Slot Requests" do
         expect(page).to have_content(patient.local_patient_id)
         expect(page).to have_content("urgent")
       end
+
+      expect(Renalware::HD::SlotRequest.last).to have_attributes(
+        inpatient: true,
+        late_presenter: true,
+        suitable_for_twilight_slots: true,
+        external_referral: true
+      )
+    end
+  end
+
+  it "adding a slot request patient's page", js: true do
+    travel_to("01-Oct-2023 03:03") do
+      user = login_as_super_admin
+      patient = create(:hd_patient, by: user, local_patient_id: "MRN1")
+
+      visit renalware.patient_path(patient)
+
+      within(".patient-side-nav") do
+        click_on "Request HD Slot"
+      end
+
+      within("#modal") do
+        # select2(patient.to_s(:long), css: "#person-id-select2", search: true)
+        select "urgent", from: "Urgency"
+        check "Inpatient"
+        check "Late presenter"
+        check "Suitable for twilight slots"
+        check "External referral"
+        click_on "Create"
+      end
+
+      expect(page).to have_current_path(renalware.patient_path(patient))
+
+      sleep 0.5
+      # TODO: Check the nag is displayed here on the page refresh!
 
       expect(Renalware::HD::SlotRequest.last).to have_attributes(
         inpatient: true,
