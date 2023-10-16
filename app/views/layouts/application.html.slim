@@ -11,13 +11,14 @@ html lang="en"
     = stylesheet_link_tag "tailwind", "data-turbo-track": "reload"
     = stylesheet_link_tag "renalware/core", media: :all
     = stylesheet_link_tag "application", media: :all
-
-    = yield :css
+    = yield(:css) if content_for?(:css)
 
     = javascript_include_tag "renalware/modernizr"
     = javascript_include_tag "renalware/core", defer: true
     = javascript_include_tag "application", defer: true
-    = yield(:javascript)
+    = yield(:javascript) if content_for?(:javascript)
+
+    = render_if_exists "head_additions"
 
     = csrf_meta_tag
     link(rel="apple-touch-icon" sizes="180x180" href="#{image_path('renalware/favicon/apple-touch-icon.png')}")
