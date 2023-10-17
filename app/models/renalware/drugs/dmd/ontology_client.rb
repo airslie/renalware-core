@@ -11,7 +11,17 @@ module Renalware
       ACCESS_TOKEN_URL = "https://ontology.nhs.uk/authorisation/auth/realms/nhs-digital-terminology/protocol/openid-connect/token"
 
       class Unauthenticated < StandardError; end
-      class RequestFailed < StandardError; end
+
+      class RequestFailed < StandardError
+        attr_reader :status, :body
+
+        def initialize(message = nil, response: nil)
+          @status = response.status if response&.respond_to?(:status)
+          @body = response.body if response&.respond_to?(:body)
+          super("#{message} status: #{@status} body: #{@body}")
+        end
+      end
+
       class NoData < StandardError; end
 
       def self.call
