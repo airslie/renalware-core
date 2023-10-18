@@ -23,7 +23,7 @@ module Renalware
         end
       end
 
-      %i(edit? update?).each do |permission|
+      %i(edit? update? destroy?).each do |permission|
         permissions permission do
           it do
             is_expected.not_to permit(clinician, modality)

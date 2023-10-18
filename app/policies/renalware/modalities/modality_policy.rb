@@ -5,6 +5,7 @@ module Renalware
     class ModalityPolicy < BasePolicy
       def edit? = user_is_any_admin?
       def update? = user_is_any_admin?
+      def destroy? = user_is_any_admin?
     end
   end
 end

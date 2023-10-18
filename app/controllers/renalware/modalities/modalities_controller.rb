@@ -46,6 +46,38 @@ module Renalware
         redirect_to patient_modalities_path(patient)
       end
 
+      def edit
+        modality = patient.modalities.find(params[:id])
+        authorize modality
+        render locals: { patient: patient, modality: modality }
+      end
+
+      # rubocop:disable Metrics/AbcSize
+      def update
+        modality = patient.modalities.find(params[:id])
+        authorize modality
+        modality.assign_attributes(modality_params)
+
+        if modality.ended_on.present?
+          modality.state = "terminated"
+        end
+
+        if modality.ended_on.blank? && # from params
+           modality.state == "terminated" && # from db
+           patient.modalities.order(started_on: :desc).first == modality
+
+          modality.state = "current"
+        end
+
+        if modality.save_by(current_user)
+          handle_valid_modality
+        else
+          flash.now[:error] = failed_msg_for("modality")
+          render :edit, locals: { patient: patient, modality: modality }
+        end
+      end
+      # rubocop:enable Metrics/AbcSize
+
       private
 
       # We allow 0 or 1 days difference between the end and start dates of successive
@@ -103,7 +135,7 @@ module Renalware
       def modality_params
         params
           .require(:modality)
-          .permit(:description_id, :modal_change_type, :reason_id, :notes, :started_on)
+          .permit(:description_id, :modal_change_type, :reason_id, :notes, :started_on, :ended_on)
       end
 
       # TODO: refactor

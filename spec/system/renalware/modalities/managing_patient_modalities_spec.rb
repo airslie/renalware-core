@@ -18,7 +18,150 @@ describe "Managing a patient's modalities", js: false do
   end
 
   pending "adding a modality"
-  pending "editing a modality"
+
+  describe "editing a modality" do
+    context "when the patient has only one modality and we edit it" do
+      it "we can edit the start date end dates to both be in the past, "\
+          "and the modality will be terminated" do
+        travel_to Time.zone.parse("2023-10-01 00:00:00") do
+          pd_mod_desc # Make PD modality option available
+          user = login_as_admin
+          modality = change_patient_modality(patient, hd_mod_desc, user)
+          visit patient_modalities_path(patient)
+
+          within("#modalities_modality_#{modality.id}") do
+            click_on "Edit"
+          end
+
+          select "PD", from: "Description"
+          fill_in "Started on", with: "2023-09-01"
+          fill_in "Ended on", with: "2023-09-02"
+          click_on "Save"
+
+          expect(page).to have_current_path(patient_modalities_path(patient))
+
+          within "##{dom_id(modality)}" do
+            expect(page).to have_content("PD")
+          end
+
+          expect(modality.reload).to have_attributes(
+            started_on: Date.parse("2023-09-01"),
+            ended_on: Date.parse("2023-09-02"),
+            description_id: pd_mod_desc.id,
+            state: "terminated"
+          )
+        end
+      end
+    end
+
+    context "when patient has two modalities" do
+      it "we can change the date boundary between them" do
+        travel_to Time.zone.parse("2023-10-01 00:00:00") do
+          user = login_as_admin
+          pd_modality = change_patient_modality(
+            patient, pd_mod_desc, user, started_on: "2022-01-01"
+          )
+          hd_modality = change_patient_modality(
+            patient, hd_mod_desc, user, started_on: "2023-01-01"
+          )
+
+          # At this point the patient has two modalities
+          #    started     ended       state
+          # PD 2022-01-01  2023-01-01  terminated
+          # HD 2023-01-01              current
+
+          # We want to simulate changing the border between the two to this
+          #    started     ended       state
+          # PD 2022-01-01  2022-12-01  terminated
+          # HD 2022-12-01              current
+          visit patient_modalities_path(patient)
+
+          # Change PD
+          within("##{dom_id(pd_modality)}") do
+            click_on "Edit"
+          end
+          fill_in "Ended on", with: "2022-12-01"
+          click_on "Save"
+          expect(page).to have_current_path(patient_modalities_path(patient))
+
+          # Change HD
+          within("##{dom_id(hd_modality)}") do
+            click_on "Edit"
+          end
+          fill_in "Started on", with: "2022-12-01"
+          click_on "Save"
+          expect(page).to have_current_path(patient_modalities_path(patient))
+
+          expect(pd_modality.reload).to have_attributes(
+            ended_on: Date.parse("2022-12-01"),
+            state: "terminated"
+          )
+
+          expect(hd_modality.reload).to have_attributes(
+            started_on: Date.parse("2022-12-01"),
+            state: "current"
+          )
+        end
+      end
+
+      it "sets state to current when the most recent modality's termination date is removed" do
+        travel_to Time.zone.parse("2023-10-01 00:00:00") do
+          user = login_as_admin
+          change_patient_modality(
+            patient, pd_mod_desc, user, started_on: "2022-01-01"
+          )
+          hd_modality = change_patient_modality(
+            patient, hd_mod_desc, user, started_on: "2023-01-01"
+          )
+
+          # At this point the patient has two modalities
+          #    started     ended       state
+          # PD 2022-01-01  2023-01-01  terminated
+          # HD 2023-01-01              current
+
+          visit patient_modalities_path(patient)
+
+          # Terminate the current modality manually
+          within("##{dom_id(hd_modality)}") do
+            click_on "Edit"
+          end
+          fill_in "Ended on", with: "2023-01-01"
+          click_on "Save"
+          expect(page).to have_current_path(patient_modalities_path(patient))
+
+          expect(hd_modality.reload.state).to eq("terminated")
+
+          # Now edit it again to remove the terminated date so it becomes current again
+          within("##{dom_id(hd_modality)}") do
+            click_on "Edit"
+          end
+          fill_in "Ended on", with: ""
+          click_on "Save"
+          expect(page).to have_current_path(patient_modalities_path(patient))
+
+          expect(hd_modality.reload.state).to eq("current")
+
+          # # Change HD
+          # within("##{dom_id(hd_modality)}") do
+          #   click_on "Edit"
+          # end
+          # fill_in "Started on", with: "2022-12-01"
+          # click_on "Save"
+          # expect(page).to have_current_path(patient_modalities_path(patient))
+
+          # expect(pd_modality.reload).to have_attributes(
+          #   ended_on: Date.parse("2022-12-01"),
+          #   state: "terminated"
+          # )
+
+          # expect(hd_modality.reload).to have_attributes(
+          #   started_on: Date.parse("2022-12-01"),
+          #   state: "current"
+          # )
+        end
+      end
+    end
+  end
 
   describe "deleting a modality" do
     context "when there is only one modality" do
@@ -62,13 +205,5 @@ describe "Managing a patient's modalities", js: false do
         )
       end
     end
-    # expect(page).not_to have_css(".medication-review", wait: 0)
-
-    # accept_alert do
-    #   click_on "Medication Review"
-    # end
-
-    # expect(page).to have_css(".medication-review")
-    # NB: content tests handed in LatestReviewComponent specs
   end
 end
