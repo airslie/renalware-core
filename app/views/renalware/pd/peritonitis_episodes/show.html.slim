@@ -21,11 +21,10 @@
              infectable: peritonitis_episode,
              infection_organisms: peritonitis_episode.infection_organisms
 
-  = article_tag "Antibiotics/Routes" do
-
-    = render "renalware/medications/prescriptions/index",
-             patient: patient,
-             treatable: treatable,
-             current_search: nil,
-             current_prescriptions: prescriptions,
-             display_termination_date: true
+  = render "renalware/medications/prescriptions/index",
+           patient: patient,
+           treatable: treatable,
+           current_search: nil,
+           current_prescriptions: prescriptions,
+           display_termination_date: true,
+           title_current: "Antibiotics/Routes"

@@ -54,10 +54,10 @@ describe "Prescriptions - from a peritonitis episode - matches exit site infecti
     click_button "Create"
 
     #
-    # Bcak on Exit Site Infection page
+    # Back on Exit Site Infection page
     expect(page).to have_content "Exit Site Infection"
 
-    within "article", text: "Current", match: :prefer_exact do
+    within "article", text: "Antibiotics/Routes", match: :prefer_exact do
       expect(page).to have_content("Blue Pill")
       expect(page).to have_content("1 Ampoule")
       expect(page).to have_content("abc")
