@@ -4,10 +4,13 @@
             class: "button"
 
 = within_patient_layout(title: "Modality History") do
+  - user_can_edit_or_delete_modalities = policy(Renalware::Modalities::Modality).edit? || policy(Renalware::Modalities::Modality).destroy?
   article
     table
       thead
         tr
+          - if user_can_edit_or_delete_modalities
+            th.col-width-small
           th Modality
           th Notes
           th.col-width-date Start Date
@@ -16,12 +19,25 @@
 
       tbody
         - modalities.each do |modality|
-          tr
-            - if modality.respond_to?(:description)
+          - if modality.respond_to?(:description)
+            tr(id=dom_id(modality))
+              - if user_can_edit_or_delete_modalities
+                td.actions
+                  - if policy(modality).edit?
+                    = link_to t("btn.edit"),
+                              renalware.edit_patient_modality_path(patient, modality)
+                  - if policy(modality).destroy?
+                    = link_to t("btn.delete"),
+                              renalware.patient_modality_path(patient, modality),
+                              method: :delete,
+                              data: { confirm: "Are you sure?" }
               td= modality.description.name
               td= modality.notes
               td= l modality.started_on
               td= l modality.ended_on
               td= modality.created_by.full_name
-            - else
-              td.bg-red-50.text-gray-400.italic(colspan=5)= modality
+          - else
+            tr
+              td.bg-red-50.text-gray-400.italic(colspan=(user_can_edit_or_delete_modalities ? 6 : 5))
+                = modality
+

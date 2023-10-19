@@ -1,0 +1,52 @@
+= render "renalware/shared/errors", model: modality
+
+.modality-form.row
+  = simple_form_for modality,
+                    as: :modality,
+                    url: url,
+                    html: { autocomplete: "off" },
+                    wrapper: "horizontal_form" do |m|
+
+      .large-9.columns
+        = field_set_tag "", class: "borderless" do
+
+            = m.input :description_id,
+                      collection: Renalware::Modalities::Description.where(hidden: false),
+                      input_html: { id: "modality-description-select" },
+                      label_method: :name, value_method: :id,
+                      wrapper: :horizontal_medium,
+                      autofocus: true
+
+            .hide-death
+              = m.input :modal_change_type,
+                  label: "Type of Change",
+                  input_html: { class: "modal-change-type" },
+                  collection: Renalware::Modalities::ChangeType.to_a,
+                  wrapper: :horizontal_medium
+
+            .hide-death
+              = m.input :reason_id,
+                  label: "Reason for Change",
+                  input_html: { class: "modality-reason-select" },
+                  collection: Renalware::Modalities::Reason.where(type: m.object.modal_change_type),
+                  label_method: :description, value_method: :id,
+                  wrapper: :horizontal_medium
+
+            .hide-death.reference.columns.small-12.medium-8.medium-offset-4.large-9.large-offset-3
+              = link_to "Renal Registry Reason for Change Codes", "#", id: "modal-reason-code"
+
+            = m.input :started_on,
+                      as: :flatpickr,
+                      wrapper: :horizontal_datepicker
+
+            - if policy(modality).edit?
+              = m.input :ended_on,
+                        as: :flatpickr,
+                        wrapper: :horizontal_datepicker
+            .hide-death
+              = m.input :notes,
+                        as: :text,
+                        input_html: { rows: 5 },
+                        wrapper: :horizontal_large
+
+            = save_or_cancel(form: m, back_path: patient_modalities_path(patient))

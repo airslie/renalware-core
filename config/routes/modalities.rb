@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 resources :patients, only: [] do
-  resources :modalities, only: [:new, :create, :index], controller: "modalities/modalities"
+  resources :modalities, controller: "modalities/modalities"
 end
 
 namespace :modalities do
