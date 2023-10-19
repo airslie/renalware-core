@@ -33,6 +33,10 @@ Rails.application.configure do
                    "the frequency of this job so it will find and schedule those refreshes. " \
                    "Hope to replace this with pg_cron soon."
     }
+  ).except(
+    :ods_sync,
+    :ukrdc_export,
+    :reporting_send_daily_summary_email
   )
   config.good_job.smaller_number_is_higher_priority = true # refers to queue priority
 end
