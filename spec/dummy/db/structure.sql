@@ -4437,7 +4437,7 @@ CREATE TABLE renalware.drug_types (
     updated_at timestamp without time zone NOT NULL,
     "position" integer DEFAULT 0 NOT NULL,
     weighting integer DEFAULT 0 NOT NULL,
-    colour character varying,
+    colour renalware.enum_colour_name,
     atc_codes character varying[]
 );
 
@@ -28140,6 +28140,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230915220000'),
 ('20230918172419'),
 ('20231004172532'),
+('20231006132259'),
 ('20231019083713');
 
 

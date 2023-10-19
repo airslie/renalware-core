@@ -9,7 +9,7 @@ module Renalware::Drugs
         :drug_type,
         name: "Test",
         position: -1,
-        colour: "C",
+        colour: "green",
         code: "controlled"
       )
     }
@@ -32,7 +32,7 @@ module Renalware::Drugs
       expect(drug_type).to have_attributes \
         name: "Test",
         position: -1,
-        colour: "C",
+        colour: "green",
         atc_codes: ["N02A"] # this is new
     end
   end

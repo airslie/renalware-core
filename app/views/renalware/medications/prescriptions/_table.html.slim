@@ -1,6 +1,5 @@
 / locals: (prescriptions:, search:, treatable:, current_scope:)
 / Rails 7.1 strict locals:
-
 - if prescriptions.any?
   - display_termination_date = !current_scope || local_assigns.fetch(:display_termination_date, false)
   .row
@@ -32,7 +31,7 @@
 
         - prescriptions.each do |prescription|
           tbody
-            tr style=Renalware::Drugs::DrugTypeColourPresenter.new.style(prescription.drug_types)
+            tr class=Renalware::Drugs::DrugColourPresenter.new.css_class(prescription.drug)
               td= row_toggler
               - if current_scope
                 td.pr-2

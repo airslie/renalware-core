@@ -1,6 +1,9 @@
 .medications-filter
   .search-form.filters.filters--flex.max-w-screen-md
-    = simple_form_for presenter.current_search, as: :q, url: patient_prescriptions_path(presenter.patient), method: :get do |f|
+    = simple_form_for presenter.current_search,
+                      as: :q,
+                      url: patient_prescriptions_path(presenter.patient),
+                      method: :get do |f|
       = hidden_field_tag :treatable_id, presenter.treatable.id
       = hidden_field_tag :treatable_type, presenter.treatable.class.to_s
       = hidden_field_tag :filter, 1

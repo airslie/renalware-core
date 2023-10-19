@@ -360,12 +360,15 @@
     "RABBITHOLE",
     "Wunderdrug",
     "colgroups",
+    "haml",
     "noncontiguous",
     "puser",
+    "tailwindcss",
     "unfort",
     "unhighlight",
     "xtitle",
-    "ytitle"
+    "ytitle",
+    "zindex"
   ],
   "import": []
 }

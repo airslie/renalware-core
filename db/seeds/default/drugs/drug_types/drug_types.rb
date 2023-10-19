@@ -46,14 +46,14 @@ module Renalware
       {
         name: "ESA",
         code: "esa",
-        colour: "#ff9",
+        colour: "yellow",
         atc_codes: ["B03XA"]
       },
       {
         name: "Immunosuppressant",
         code: "immunosuppressant",
         atc_codes: ["L04A"],
-        colour: "#ccfeff"
+        colour: "sky"
       },
       {
         name: "Vaccine",
