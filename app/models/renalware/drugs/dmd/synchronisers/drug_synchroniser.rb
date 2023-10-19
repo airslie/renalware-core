@@ -24,7 +24,7 @@ module Renalware
             {
               name: moiety.name,
               code: moiety.code,
-              inactive: moiety.inactive,
+              inactive: moiety.inactive || false, # disallow nulls
               updated_at: now
             }
           end
