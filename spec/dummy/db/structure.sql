@@ -4105,7 +4105,7 @@ CREATE TABLE renalware.drug_dmd_virtual_medical_products (
     strength_numerator_value character varying,
     basis_of_strength character varying,
     virtual_therapeutic_moiety_code character varying,
-    inactive boolean DEFAULT false,
+    inactive boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
@@ -4596,7 +4596,7 @@ CREATE TABLE renalware.drug_vmp_classifications (
     trade_family_ids integer[] DEFAULT '{}'::integer[],
     created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    inactive boolean DEFAULT false
+    inactive boolean DEFAULT false NOT NULL
 );
 
 
@@ -4632,7 +4632,7 @@ CREATE TABLE renalware.drugs (
     description character varying,
     read_code character varying,
     code character varying,
-    inactive boolean DEFAULT false
+    inactive boolean DEFAULT false NOT NULL
 );
 
 
@@ -28139,6 +28139,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230915144448'),
 ('20230915220000'),
 ('20230918172419'),
-('20231004172532');
+('20231004172532'),
+('20231019083713');
 
 
