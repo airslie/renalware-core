@@ -57,7 +57,7 @@ module Renalware
             }.to_json
           )
 
-          raise OntologyClient::RequestFailed unless response.success?
+          raise(OntologyClient::RequestFailed.new(response: response)) unless response.success?
 
           return [] if response.body["expansion"]["total"] == 0
 

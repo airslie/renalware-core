@@ -20,7 +20,7 @@ module Renalware
             }
           )
 
-          raise OntologyClient::RequestFailed unless response.success?
+          raise(OntologyClient::RequestFailed.new(response: response)) unless response.success?
 
           response.body["expansion"]["contains"].map do |row|
             Entry.new(
