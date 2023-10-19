@@ -3,7 +3,7 @@ table.pathology-observation-diff {
 }
 
 /*
-Note thhat to get position sticky to work in the embedded scroll div we need to
+Note that to get position sticky to work in the embedded scroll div we need to
 add a height if using overflow: auto. We also need the top lh th to be both
 left: 0 and top: 0 and have a zindex of 2
 */
@@ -36,7 +36,7 @@ table#observations {
       height: 2rem;
       overflow: hidden;
       padding: 0 0.2rem;
-      position: relative;
+      // position: relative;
       text-align: center;
       text-overflow: ellipsis;
       max-width: 4rem;
