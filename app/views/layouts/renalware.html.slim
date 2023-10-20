@@ -39,6 +39,7 @@ html lang="en"
         = render "renalware/system/user_feedback/banner"
       - if Renalware.config.ie_deprecation_warning
         = render "renalware/shared/ie_warning"
+
       - if content_for?(:top_navigation)
         = yield :top_navigation
       - else
