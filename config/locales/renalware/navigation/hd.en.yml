@@ -1,0 +1,8 @@
+---
+en:
+  renalware:
+    navigation:
+      hd:
+        hd_patients_with_unmet_preferences: HD Patients with un-met preferences
+        ongoing_hd_sessions: Ongoing HD Sessions
+        hd_slot_requests: HD Slot requests

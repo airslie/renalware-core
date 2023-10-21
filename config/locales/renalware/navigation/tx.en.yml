@@ -1,0 +1,7 @@
+---
+en:
+  renalware:
+    navigation:
+      tx:
+        tx_wait_list: Tx Wait List
+        live_donors: Live Donors
