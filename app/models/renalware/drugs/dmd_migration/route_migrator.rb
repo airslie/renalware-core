@@ -29,6 +29,7 @@ module Renalware
         }.freeze
 
         def call
+          # TODO: where inactive??
           dmd_only_routes_by_name = Medications::MedicationRoute.where(rr_code: nil)
             .index_by(&:name)
 

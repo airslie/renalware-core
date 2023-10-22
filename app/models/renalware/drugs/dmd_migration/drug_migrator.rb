@@ -5,7 +5,10 @@ module Renalware
     module DMDMigration
       class DrugMigrator
         def call
-          drug_ids_by_name = Drugs::Drug.pluck(:name, :id).to_h
+          drug_ids_by_name = Drugs::Drug
+            .where(inactive: false)
+            .where.not(code: nil)
+            .pluck(:name, :id).to_h
           dmd_matches = DMDMatch.where(approved_vtm_match: true).where.not(vtm_name: nil)
 
           dmd_matches.each do |dmd_match|
