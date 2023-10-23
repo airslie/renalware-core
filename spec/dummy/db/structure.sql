@@ -19458,6 +19458,13 @@ CREATE INDEX index_feed_messages_on_local_patient_id_5 ON renalware.feed_message
 
 
 --
+-- Name: index_feed_messages_on_message_type_event_type; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_on_message_type_event_type ON renalware.feed_messages USING btree (message_type, event_type);
+
+
+--
 -- Name: index_feed_messages_on_nhs_number; Type: INDEX; Schema: renalware; Owner: -
 --
 
