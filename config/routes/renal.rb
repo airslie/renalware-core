@@ -4,9 +4,6 @@ resources :patients, only: [] do
   namespace :renal do
     resource :profile, only: [:show, :edit, :update]
   end
-
-  # Convenience redirect
-  get "renal", to: redirect("/patients/%{patient_id}/renal/profile")
 end
 
 namespace :renal do

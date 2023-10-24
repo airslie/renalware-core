@@ -19,9 +19,6 @@ resources :patients, only: [] do
     resources :prescription_administrations, only: :index
     resources :vnd_risk_assessments
   end
-
-  # Convenience redirect
-  get "hd", to: redirect("/patients/%{patient_id}/hd/dashboard")
 end
 
 namespace :hd do

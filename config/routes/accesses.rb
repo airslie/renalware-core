@@ -9,8 +9,4 @@ resources :patients, only: [] do
     resources :plans, except: [:index, :destroy]
     resources :needling_assessments, except: [:index, :update, :show]
   end
-
-  # Convenience redirects reporting
-  get "accesses", to: redirect("/patients/%{patient_id}/accesses/dashboard")
-  get "access", to: redirect("/patients/%{patient_id}/accesses/dashboard")
 end
