@@ -19,7 +19,6 @@ resources :patients, only: [] do
       end
     end
   end
-  get "letters", to: redirect("/patients/%{patient_id}/letters/letters") # convenience
 end
 
 namespace :letters do

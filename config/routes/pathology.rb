@@ -30,8 +30,6 @@ resources :patients, only: [] do
         as: "observations"
     resources :required_observations, only: :index
   end
-  # Convenience redirects for e.g. reporting
-  get "pathology", to: redirect("/patients/%{patient_id}/pathology/observations/historical")
 end
 
 namespace :pathology do

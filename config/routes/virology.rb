@@ -9,9 +9,6 @@ resources :patients, only: [] do
               only: [:new, :create, :edit, :update],
               defaults: { slug: :vaccinations }
   end
-
-  # Convenience redirect
-  get "virology", to: redirect("/patients/%{patient_id}/virology/dashboard")
 end
 
 namespace :virology do
