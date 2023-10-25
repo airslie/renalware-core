@@ -8,6 +8,7 @@ module Renalware
         versions: { class_name: "Renalware::System::Version" },
         on: [:create, :update, :destroy]
       )
+      has_many :calls, class_name: "ViewCall", dependent: :destroy
 
       attribute :columns, ColumnDefinition.to_array_type
       validates :columns, store_model: true

@@ -12859,6 +12859,37 @@ ALTER SEQUENCE renalware.system_versions_id_seq OWNED BY renalware.system_versio
 
 
 --
+-- Name: system_view_calls; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.system_view_calls (
+    id bigint NOT NULL,
+    view_metadata_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    called_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: system_view_calls_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.system_view_calls_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: system_view_calls_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.system_view_calls_id_seq OWNED BY renalware.system_view_calls.id;
+
+
+--
 -- Name: system_view_metadata; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -12884,7 +12915,9 @@ CREATE TABLE renalware.system_view_metadata (
     materialized_view_refreshed_at timestamp without time zone,
     refresh_schedule text,
     refresh_concurrently boolean DEFAULT false NOT NULL,
-    patient_landing_page renalware.enum_patient_landing_page
+    patient_landing_page renalware.enum_patient_landing_page,
+    calls_count integer DEFAULT 0,
+    last_called_at timestamp(6) without time zone
 );
 
 
@@ -15702,6 +15735,13 @@ ALTER TABLE ONLY renalware.system_versions ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: system_view_calls id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_view_calls ALTER COLUMN id SET DEFAULT nextval('renalware.system_view_calls_id_seq'::regclass);
+
+
+--
 -- Name: system_view_metadata id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -17774,6 +17814,14 @@ ALTER TABLE ONLY renalware.system_versions
 
 
 --
+-- Name: system_view_calls system_view_calls_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_view_calls
+    ADD CONSTRAINT system_view_calls_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: system_view_metadata system_view_metadata_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -18174,6 +18222,13 @@ CREATE INDEX idx_patients_on_lower_family_name ON renalware.patients USING btree
 --
 
 CREATE UNIQUE INDEX idx_practice_membership ON renalware.patient_practice_memberships USING btree (practice_id, primary_care_physician_id);
+
+
+--
+-- Name: idx_system_view_calls_all; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_system_view_calls_all ON renalware.system_view_calls USING btree (view_metadata_id, user_id, called_at);
 
 
 --
@@ -23105,6 +23160,20 @@ CREATE INDEX index_system_versions_on_item_type_and_item_id ON renalware.system_
 
 
 --
+-- Name: index_system_view_calls_on_user_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_view_calls_on_user_id ON renalware.system_view_calls USING btree (user_id);
+
+
+--
+-- Name: index_system_view_calls_on_view_metadata_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_system_view_calls_on_view_metadata_id ON renalware.system_view_calls USING btree (view_metadata_id);
+
+
+--
 -- Name: index_system_view_metadata_on_parent_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -25936,6 +26005,14 @@ ALTER TABLE ONLY renalware.feed_outgoing_documents
 
 
 --
+-- Name: system_view_calls fk_rails_a19fbf279e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_view_calls
+    ADD CONSTRAINT fk_rails_a19fbf279e FOREIGN KEY (user_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: hd_diaries fk_rails_a30d12c65b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -26765,6 +26842,14 @@ ALTER TABLE ONLY renalware.medication_delivery_event_prescriptions
 
 ALTER TABLE ONLY renalware.pathology_observation_descriptions
     ADD CONSTRAINT fk_rails_e3a215e8ee FOREIGN KEY (created_by_sender_id) REFERENCES renalware.pathology_senders(id);
+
+
+--
+-- Name: system_view_calls fk_rails_e3b785de75; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.system_view_calls
+    ADD CONSTRAINT fk_rails_e3b785de75 FOREIGN KEY (view_metadata_id) REFERENCES renalware.system_view_metadata(id);
 
 
 --
@@ -28141,6 +28226,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230918172419'),
 ('20231004172532'),
 ('20231006132259'),
-('20231019083713');
+('20231019083713'),
+('20231025115724');
 
 

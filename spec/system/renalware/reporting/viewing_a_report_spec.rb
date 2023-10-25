@@ -14,7 +14,9 @@ describe "Viewing a report", js: true do
 
     login_as_clinical
 
-    visit reporting_report_path(report)
+    expect {
+      visit reporting_report_path(report)
+    }.to change(report.calls, :count).by(1)
 
     expect(page).to have_content(report.title)
     expect(page).to have_content(report.description)

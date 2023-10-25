@@ -38,6 +38,7 @@ module Renalware
         sql_view_klass = build_sql_view_klass
         search = sql_view_klass.ransack(params[:q])
         pagy, rows = pagy(search.result)
+        current_view.calls.create!(user: current_user, called_at: Time.zone.now)
 
         options = ReportOptions.new(
           search: search,
