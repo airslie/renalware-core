@@ -22,7 +22,7 @@ en:
         rpv_decision_on: PKB decision date
         rpv_recorded_by: PKB decision recorded by
         send_to_renalreg: Send data to Renal Registry
-        send_to_rpv: Send data to Patient Knows Best (PKB)
+        send_to_rpv: Send data to Patients Know Best (PKB)
         sex: Sex
   enumerize:
     renalware/patient:
