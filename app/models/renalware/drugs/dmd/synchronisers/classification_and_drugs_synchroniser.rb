@@ -15,9 +15,6 @@ module Renalware
 
           TradeFamilyClassificationSynchroniser.new.call
           DrugTypesClassificationSynchroniser.new.call
-
-          # can be taken out after first synchronisation
-          Drugs::Drug.where(code: nil).update_all(inactive: true)
         end
       end
     end
