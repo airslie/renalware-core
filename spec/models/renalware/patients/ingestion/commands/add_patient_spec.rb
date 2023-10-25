@@ -26,6 +26,48 @@ module Renalware::Patients::Ingestion
     end
 
     describe "#call" do
+      context "when we there is a race condition and another msg has created the patient" \
+              "in between us trying to find it (unsuccessfully) and trying to create it" do
+        context "when we get a RecordNotUnique error and try again to find the patient but can't" do
+          it "raises PossibleRaceConditionCreatingPatientError" do
+            hl7_message = Renalware::Feeds::HL7Message.new(HL7::Message.new)
+            patient = instance_double(
+              Renalware::Patient,
+              :by= => nil,
+              :new_record? => nil
+            )
+            allow(patient).to receive(:save!).and_raise(ActiveRecord::RecordNotUnique)
+            factory = instance_double(MessageMappers::Patient, fetch: patient)
+            mapper_factory = class_double(MessageMappers::Patient, new: factory)
+            cmd = described_class.new(hl7_message, mapper_factory: mapper_factory)
+            allow(cmd).to receive(:find_patient).and_return(nil)
+
+            expect {
+              cmd.call
+            }.to raise_error(Commands::AddPatient::PossibleRaceConditionCreatingPatientError)
+          end
+        end
+
+        context "when after a RecordNotUniqueError it tries again to find the patient and does" do
+          it "continues as normal" do
+            hl7_message = Renalware::Feeds::HL7Message.new(HL7::Message.new)
+            allow(Renalware::Patients::Ingestion::UpdateMasterPatientIndex).to receive(:call)
+            patient = instance_double(
+              Renalware::Patient,
+              :by= => nil,
+              :new_record? => false,
+              :save! => nil
+            )
+            factory = instance_double(MessageMappers::Patient, fetch: patient)
+            mapper_factory = class_double(MessageMappers::Patient, new: factory)
+            cmd = described_class.new(hl7_message, mapper_factory: mapper_factory)
+            allow(cmd).to receive(:find_patient).and_return(nil)
+
+            expect(cmd.call).to eq(patient)
+          end
+        end
+      end
+
       context "when the patient does not exist in Renalware" do
         it "creates them" do
           pattrs = OpenStruct.new(
