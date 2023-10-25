@@ -89,7 +89,7 @@ module Renalware
       end
 
       def prepare_drugs_search
-        search_params = params.fetch(:q, {})
+        search_params = params.fetch(:q, { inactive_eq: false })
         @drugs_search = Drug.ransack(search_params)
         @drugs_search.sorts = "name"
       end

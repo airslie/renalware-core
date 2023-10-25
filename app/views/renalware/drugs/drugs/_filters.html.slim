@@ -9,24 +9,30 @@
                               controller: "form",
                               action: "input->form#submit" } do |f|
       .row
-        .small-9.large-4.columns
+        .small-8.large-3.columns
           = f.label "Name or type"
           = f.search_field :name_or_drug_types_name_cont, autofocus: true
-        .small-9.large-4.columns
+        .small-8.large-3.columns
           = f.label "Drug type"
           = f.select(:drug_types_id_eq,
                      options_from_collection_for_select(\
                      Renalware::Drugs::Type.all, "id", "name", drugs_search.drug_types_name_eq),
                      { include_blank: "Any" },
                      data: { controller: "slimselect", action: "change->form#submit" })
-        .small-9.large-2.columns
+        .small-8.large-2.columns
           = f.label "dm+d drug"
           = f.select(:code_present,
                      options_from_collection_for_select(\
                      [%w(Yes true), %w(No false)], :last, :first, drugs_search.code_present),
                      { include_blank: "Any" },
                      data: { controller: "slimselect", action: "change->form#submit" })
-        .small-9.large-2.columns.actions.end
+        .small-8.large-2.columns
+          = f.label "Inactive"
+          = f.select(:inactive_eq,
+                     options_from_collection_for_select(\
+                     [%w(No false),%w(Yes true)], :last, :first, drugs_search.inactive_eq),
+                     data: { action: "change->form#submit" })
+        .small-8.large-2.columns.actions.end
           .pt-px= link_to("Reset", renalware.drugs_drugs_path, class: "btn btn-secondary")
           noscript
             .mt-px= filter_or_reset(form: f, reset_path: renalware.drugs_drugs_path)
