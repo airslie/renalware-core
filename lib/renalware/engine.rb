@@ -238,5 +238,12 @@ module Renalware
       app.config.action_mailer.preview_path = Engine.root.join("app", "mailers", "renalware")
       app.config.action_mailer.deliver_later_queue_name = "mailers"
     end
+
+    config.to_prepare do
+      Rails
+        .application
+        .config
+        .active_job.custom_serializers << Renalware::UKRDC::ExportSummary::Serializer
+    end
   end
 end
