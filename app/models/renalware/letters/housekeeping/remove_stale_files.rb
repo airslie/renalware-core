@@ -26,7 +26,7 @@ module Renalware
 
         def remove_stale_batched_letter_pdf_files
           stale_batches.select(:id, :filepath).each do |batch|
-            FileUtils.rm_f(filepath)
+            FileUtils.rm_f(batch.filepath)
             batch.update!(filepath: nil)
           end
         end
