@@ -156,7 +156,9 @@ module Renalware
     config_accessor(:generate_pathology_request_forms_from_hd_mdm_listing) { true }
     config_accessor(:disable_inputs_controlled_by_tissue_typing_feed) { false }
     config_accessor(:disable_inputs_controlled_by_demographics_feed) { false }
-    config_accessor(:enforce_user_prescriber_flag) { false }
+    config_accessor(:enforce_user_prescriber_flag) {
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("ENFORCE_USER_PRESCRIBER_FLAG", "false"))
+    }
     config_accessor(:medication_delivery_purchase_order_prefix) { "R" }
     config_accessor(:medication_homecare_pdf_forms) do
       # esa: { provider: :generic, version: 1 },
