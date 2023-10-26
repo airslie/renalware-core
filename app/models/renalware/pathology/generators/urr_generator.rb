@@ -116,10 +116,9 @@ module Renalware
         end
 
         def ktv_description
-          @ktv_description ||= ObservationDescription.find_or_create_by(
-            code: "Kt/V",
-            name: "Simple non-dialysis Kt/V"
-          )
+          @ktv_description ||= ObservationDescription.find_or_create_by(code: "Kt/V") do |record|
+            record.name = "Simple non-dialysis Kt/V"
+          end
         end
       end
     end
