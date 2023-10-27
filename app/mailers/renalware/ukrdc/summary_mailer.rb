@@ -8,7 +8,6 @@ module Renalware
           to: Array(to),
           subject: "UKRDC export summary #{I18n.l(Time.zone.today)}"
         ) do |format|
-          format.text { render(locals: args) }
           format.html { render(locals: args) }
         end
       end
