@@ -63,13 +63,13 @@ module Renalware
       end
 
       # Use DISTINCT ON (performed_on) and an order(performed_on: :desc) to make sure we only
-      # get one hd session per day - the last of the day. This is becuase currrently RW allows
+      # get one hd session per day - the last of the day. This is because currently RW allows
       # a duplicate session to be added, and this occasionally happens.
       def finished_hd_sessions
         hd_patient
           .finished_hd_sessions
+          .select("distinct on (hd_sessions.started_at::date) hd_sessions.*")
           .includes(:patient, :dialysate, :updated_by)
-          .select("distinct on (hd_sessions.started_at::date) *")
           .where("hd_sessions.updated_at > ?", changes_since)
           .order("hd_sessions.started_at::date desc")
       end

@@ -41,9 +41,6 @@ describe "API request for a single UKRDC patient XML document" do
 
   describe "GET #show" do
     it "renders the correct UKRDC XML" do
-      pending "Somehow in session.document json has besome patient document (containing 'history')"
-      patient.document.history.smoking = :ex
-      patient.update!(by: user)
       create(:clinic_visit, patient: clinic_patient(patient), by: user)
       create(:allergy, patient: clinical_patient(patient), by: user)
       hd_patient = Renalware::HD.cast_patient(patient)
