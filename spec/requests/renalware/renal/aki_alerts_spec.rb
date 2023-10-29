@@ -53,26 +53,29 @@ describe "AKI alert management" do
 
     describe "filtering by created_at_within_configured_today_period" do
       it "renders a list of AKI Alerts created in the 24 hours preceding 09:45 today" do
-        today = Time.zone.today
-        # too early yesterday
-        a1 = aki_alert(
-          at: today - 1.day + Time.zone.parse("09:43").seconds_since_midnight.seconds
-        )
-        # just in time to make it in today
-        a2 = aki_alert(at: today + Time.zone.parse("09:44").seconds_since_midnight.seconds)
-        # too late today
-        a3 = aki_alert(at: today + Time.zone.parse("09:46").seconds_since_midnight.seconds)
+        # Using travel_to here as this test failed n the first day after clocks fell back!
+        travel_to(Date.parse("2023-10-01 05:00:01")) do
+          today = Time.zone.today
+          # too early yesterday
+          a1 = aki_alert(
+            at: today - 1.day + Time.zone.parse("09:43").seconds_since_midnight.seconds
+          )
+          # just in time to make it in today
+          a2 = aki_alert(at: today + Time.zone.parse("09:44").seconds_since_midnight.seconds)
+          # too late today
+          a3 = aki_alert(at: today + Time.zone.parse("09:46").seconds_since_midnight.seconds)
 
-        get renal_aki_alerts_path(
-          q: {
-            date_range: Renalware::Renal::AKIAlertSearchForm::DATE_RANGE_TODAY
-          }
-        )
+          get renal_aki_alerts_path(
+            q: {
+              date_range: Renalware::Renal::AKIAlertSearchForm::DATE_RANGE_TODAY
+            }
+          )
 
-        expect(response).to be_successful
-        expect(response.body).not_to match(a1.notes)
-        expect(response.body).to match(a2.notes)
-        expect(response.body).not_to match(a3.notes)
+          expect(response).to be_successful
+          expect(response.body).not_to match(a1.notes)
+          expect(response.body).to match(a2.notes)
+          expect(response.body).not_to match(a3.notes)
+        end
       end
     end
 

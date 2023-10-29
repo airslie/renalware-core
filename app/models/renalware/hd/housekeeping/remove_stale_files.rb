@@ -18,8 +18,8 @@ module Renalware
 
         def remove_stale_batched_hd_session_form_pdf_files
           stale_batches.select(:id, :filepath).each do |batch|
-            FileUtils.rm_f(filepath)
-            batch.update!(filepath: nil)
+            FileUtils.rm_f(batch.filepath)
+            batch.update_by(Renalware::SystemUser.find, filepath: nil)
           end
         end
 
