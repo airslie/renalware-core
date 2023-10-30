@@ -186,5 +186,5 @@ docker-compose up -d
 #### Browser testing
 
 <a href="https://www.browserstack.com">
-  <img alt="Browserstack logo" src="doc/Browserstack-logo.svg" width="188" height="43" >
+  <img alt="Browserstack logo" src="doc/images/Browserstack-logo.svg" width="188" height="43" >
 </a>

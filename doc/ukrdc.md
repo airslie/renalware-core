@@ -23,5 +23,3 @@ periodically cleared.
 
 The output from the import process is logged to the ukrdc_transmission_logs table. Rows have a
 direction of 1 (in).
-
-![Alt text](./ukrdc.drawio.svg)

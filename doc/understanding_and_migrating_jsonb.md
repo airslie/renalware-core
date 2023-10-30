@@ -37,7 +37,7 @@ to hand craft the json strings.
 
 Some options are
 
-### Concatention an interpolation
+### Concatenation an interpolation
 
 ```ruby
 name = "x"
