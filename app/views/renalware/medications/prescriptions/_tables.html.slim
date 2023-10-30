@@ -1,9 +1,9 @@
 / locals: (patient:, current_prescriptions:, current_search:, treatable:, historical_prescriptions:, historical_prescriptions_search:)
 / Rails 7.1 strict locals:
+- title_current = local_assigns.fetch(:title_current, "Current")
 article
   header
-    h2 Current
-    .ml-2.float-left= render Renalware::Drugs::DrugTypeColoursKeyComponent.new
+    h2 = title_current
     #medication-review
       = render Renalware::Medications::LatestReviewComponent.new(patient: patient, compact: true)
     ul

@@ -15,9 +15,9 @@
         infectable: exit_site_infection,
         infection_organisms: exit_site_infection.infection_organisms
 
-  = article_tag "Antibiotics/Routes" do
-    = render "renalware/medications/prescriptions/index",
-        patient: patient,
-        treatable: treatable,
-        current_search: nil,
-        current_prescriptions: prescriptions
+  = render "renalware/medications/prescriptions/index",
+      patient: patient,
+      treatable: treatable,
+      current_search: nil,
+      current_prescriptions: prescriptions,
+      title_current: "Antibiotics/Routes"

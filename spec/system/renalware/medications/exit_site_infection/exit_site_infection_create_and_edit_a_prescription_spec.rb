@@ -53,10 +53,10 @@ describe "Prescriptions - from an exit site infection", js: true do
     click_button "Create"
 
     #
-    # Bcak on Exit Site Infection page
+    # Back on Exit Site Infection page
     expect(page).to have_content "Exit Site Infection"
 
-    within "article", text: "Current", match: :prefer_exact do
+    within "article", text: "Antibiotics/Routes", match: :prefer_exact do
       expect(page).to have_content("Blue Pill")
       expect(page).to have_content("1 Ampoule")
       expect(page).to have_content("abc")
@@ -82,7 +82,7 @@ describe "Prescriptions - from an exit site infection", js: true do
     expect(page).to have_content "Exit Site Infection"
 
     # Now make a real edit
-    within "article", text: "Current", match: :prefer_exact do
+    within "article", text: "Antibiotics/Routes", match: :prefer_exact do
       click_link "Edit"
     end
 
