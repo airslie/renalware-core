@@ -23,6 +23,8 @@
         - if current_user_is_super_admin?
           th= sort_link(search, :view_name)
           th= sort_link(search, :display_type, "Type")
+          th.col-width-tiny= sort_link(search, :calls_count, "Views")
+          th.col-width-date-time= sort_link(search, :last_called_at, "Last viewed")
         th.col-width-date-time= sort_link(search, :updated_at, "Updated")
         th.col-width-date-time= sort_link(search, :materialized_view_refreshed_at, " Last refreshed")
         th
@@ -35,6 +37,8 @@
           - if current_user_is_super_admin?
             td.code= [report.schema_name, report.view_name].compact.join(".")
             td= report.display_type&.humanize
+            td= report.calls_count
+            td= l(report.last_called_at)
           td= l(report.updated_at)
           td = l(report.materialized_view_refreshed_at)
           td.text-right

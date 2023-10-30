@@ -4,6 +4,8 @@ require "rails_helper"
 
 module Renalware::System
   describe ViewMetadata do
+    it { is_expected.to have_many :calls }
+
     describe "#fully_qualified_view_name" do
       it "joins schema_name and view_name" do
         [
