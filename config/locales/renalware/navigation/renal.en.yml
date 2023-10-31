@@ -11,19 +11,13 @@ en:
       renal:
         aki_alerts: AKI Alerts
         appointments: Appointments
-        audits: Audits
         clinic_visits: Clinic Visits
         esa_prescriptions: ESA Patients
         events: Events
-        hd_patients_with_unmet_preferences: HD Patients with un-met preferences
         home_delivery_prescriptions: Home Delivery Prescriptions
         hospital_units: Dialysis Units
         letters: Letters
-        live_donors: Live Donors
         menu_title: Renal
-        ongoing_hd_sessions: Ongoing HD Sessions
-        hd_slot_requests: HD Slot requests
         renal_registry_checks: Renal Registry Checks
         studies: Clinical Studies
-        tx_wait_list: Tx Wait List
         users: Users
