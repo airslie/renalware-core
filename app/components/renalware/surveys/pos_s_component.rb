@@ -2,7 +2,7 @@
 
 module Renalware
   module Surveys
-    class POSSComponent < ApplicationComponent
+    class PosSComponent < ApplicationComponent
       include ToggleHelper
 
       rattr_initialize [:patient!]
@@ -15,7 +15,7 @@ module Renalware
 
       # Backed by a SQL view
       def rows
-        @rows ||= POSSPivotedResponse.where(patient_id: patient.id)
+        @rows ||= PosSPivotedResponse.where(patient_id: patient.id)
       end
 
       def question_labels

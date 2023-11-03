@@ -64,7 +64,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "XHR"
   inflect.acronym "EQ5D"
   inflect.acronym "EQ5D5L"
-  inflect.acronym "POS"
+  # inflect.acronym "POS" # DO NOT USE: breaks Devise/Responders which will translate POST to POS_T!
   inflect.acronym "YAML"
   inflect.acronym "KFRE"
   inflect.irregular "feedback", "feedback"
