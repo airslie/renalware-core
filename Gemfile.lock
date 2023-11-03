@@ -835,11 +835,6 @@ GEM
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    spring (4.1.1)
-    spring-commands-cucumber (1.0.1)
-      spring (>= 0.9.1)
-    spring-commands-rspec (1.0.4)
-      spring (>= 0.9.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -986,9 +981,6 @@ DEPENDENCIES
   shoulda-matchers (~> 5.1)
   simplecov (~> 0.17)
   solargraph
-  spring
-  spring-commands-cucumber
-  spring-commands-rspec
   strong_migrations
   terser
   test-prof
