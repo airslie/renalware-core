@@ -46,12 +46,18 @@ AllCops:
     - "config/initializers/devise.rb"
     - "features/support/env.xaction_view.rb"
 
+RSpec/MultipleMemoizedHelpers:
+  Max: 30
+
 Rails/UnknownEnv:
   Environments:
     - production
     - development
     - test
     - uat
+
+Rails/ActionOrder:
+  Enabled: false
 
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: true
