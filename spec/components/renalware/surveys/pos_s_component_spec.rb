@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Renalware::Surveys::POSSComponent, type: :component do
+describe Renalware::Surveys::PosSComponent, type: :component do
   let(:patient) { build_stubbed(:patient) }
 
   describe "#render?" do

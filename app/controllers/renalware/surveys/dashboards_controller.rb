@@ -8,7 +8,7 @@ module Renalware
         render locals: {
           patient: patient,
           eq5d_responses: EQ5DPivotedResponse.where(patient: patient).ordered,
-          pos_s_responses: POSSPivotedResponse.where(patient: patient).ordered
+          pos_s_responses: PosSPivotedResponse.where(patient: patient).ordered
         }
       end
 
