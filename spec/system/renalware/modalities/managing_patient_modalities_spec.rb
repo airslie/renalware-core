@@ -21,8 +21,8 @@ describe "Managing a patient's modalities", js: false do
 
   describe "editing a modality" do
     context "when the patient has only one modality and we edit it" do
-      it "we can edit the start date end dates to both be in the past, "\
-          "and the modality will be terminated" do
+      it "we can edit the start date end dates to both be in the past, " \
+         "and the modality will be terminated" do
         travel_to Time.zone.parse("2023-10-01 00:00:00") do
           pd_mod_desc # Make PD modality option available
           user = login_as_admin

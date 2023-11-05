@@ -73,7 +73,7 @@ describe "Sending a private message" do
 
     # Message should have disappeared from inbox
     visit messaging_internal_inbox_path
-    expect(page).to have_selector("#unread-messages table tbody tr", count: 0)
+    expect(page).to have_css("#unread-messages table tbody tr", count: 0)
 
     # Check that for the message we sent, only our receipt is marked as read
     expect(
