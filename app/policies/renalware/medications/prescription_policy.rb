@@ -4,31 +4,41 @@ module Renalware
   module Medications
     class PrescriptionPolicy < BasePolicy
       def new?
-        super && user_is_a_prescriber?
+        super && prescriber?
       end
 
       def create?
-        super && user_is_a_prescriber?
+        super && prescriber?
       end
 
       def edit?
-        super && user_is_a_prescriber?
+        super && (administer_on_hd? ? hd_prescriber? : prescriber?)
       end
 
       def update?
-        super && user_is_a_prescriber?
+        super && (administer_on_hd? ? hd_prescriber? : prescriber?)
       end
 
       def destroy?
-        super && user_is_a_prescriber?
+        super && (administer_on_hd? ? hd_prescriber? : prescriber?)
       end
 
       private
 
-      def user_is_a_prescriber?
+      def hd_prescriber?
         return true unless Renalware.config.enforce_user_prescriber_flag
 
-        user.has_role?(:prescriber)
+        user_is_hd_prescriber? || user_is_super_admin?
+      end
+
+      def prescriber?
+        return true unless Renalware.config.enforce_user_prescriber_flag
+
+        user_is_prescriber? || user_is_hd_prescriber? || user_is_super_admin?
+      end
+
+      def administer_on_hd?
+        record&.administer_on_hd
       end
     end
   end

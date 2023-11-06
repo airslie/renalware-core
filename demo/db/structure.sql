@@ -7661,7 +7661,8 @@ CREATE TABLE renalware.medication_prescriptions (
     form_id bigint,
     legacy_drug_id integer,
     legacy_medication_route_id integer,
-    frequency_comment character varying
+    frequency_comment character varying,
+    stat boolean
 );
 
 
@@ -7677,6 +7678,13 @@ COMMENT ON COLUMN renalware.medication_prescriptions.legacy_drug_id IS 'Keep the
 --
 
 COMMENT ON COLUMN renalware.medication_prescriptions.legacy_medication_route_id IS 'Keep the previous route id as a reference in case of issues with DMD migration';
+
+
+--
+-- Name: COLUMN medication_prescriptions.stat; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.medication_prescriptions.stat IS 'Can be chosen when administer_on_hd is true. Prescriptions marked as ''stat'' will be marked as terminated automatically once given.';
 
 
 --
@@ -28252,6 +28260,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231019083713'),
 ('20231025115724'),
 ('20231101152934'),
+('20231106173109'),
 ('20231112080224'),
 ('20231113124516');
 

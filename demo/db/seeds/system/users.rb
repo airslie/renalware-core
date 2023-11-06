@@ -33,7 +33,10 @@ module Renalware
         u.email = "#{username}@#{site_code}.trust.uk"
         u.password = Renalware.config.demo_password
         u.approved = true
-        u.roles = [Renalware::Role.find_by!(name: :admin)]
+        u.roles = [
+          Renalware::Role.find_by!(name: :admin),
+          Renalware::Role.find_by!(name: :hd_prescriber)
+        ]
         u.signature = "Dr #{site} Admin, MRCP"
         u.professional_position = Faker::Job.position
         u.hospital_centre_id = host_hospital_centre_id
@@ -49,7 +52,10 @@ module Renalware
         u.email = "#{username}@#{site_code}.trust.uk"
         u.password = Renalware.config.demo_password
         u.approved = true
-        u.roles = [Renalware::Role.find_by!(name: :clinical)]
+        u.roles = [
+          Renalware::Role.find_by!(name: :clinical),
+          Renalware::Role.find_by!(name: :prescriber)
+        ]
         u.signature = "Dr #{site}"
         u.telephone = Faker::PhoneNumber.phone_number
         u.professional_position = Faker::Job.position

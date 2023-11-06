@@ -28,6 +28,8 @@ module Renalware
       validate :check_witnessed_by_password, if: :validate_witness?
       validate :witness_cannot_be_administrator
 
+      before_save :terminate_prescription_if_stat
+
       scope :ordered, -> { order(recorded_on: :desc, created_at: :desc) }
 
       def authorised?
@@ -38,6 +40,16 @@ module Renalware
 
       def witnessed?
         administered? && witness_authorised?
+      end
+
+      def terminate_prescription_if_stat
+        if valid? && witnessed? && prescription.administer_on_hd? && prescription.stat?
+          prescription.build_termination(
+            terminated_on: Time.zone.now,
+            notes: "Stat prescription automatically terminated once given",
+            by: SystemUser.find
+          ).save!
+        end
       end
 
       private
