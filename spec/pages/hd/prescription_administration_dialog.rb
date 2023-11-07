@@ -20,7 +20,7 @@ module Pages
         visit patient_hd_dashboard_path(prescription.patient)
         within(".page-heading") do
           click_on "Record HD Drugs" # will dropdown the menu so we can select...
-          click_on prescription.drug.name
+          click_on prescription.drug_name
         end
       end
 
@@ -30,7 +30,7 @@ module Pages
 
       def displaying_prescription?
         within(MODAL_CONTAINER_ID) do
-          page.has_content?(prescription.drug.name)
+          page.has_content?(prescription.drug_name)
         end
       end
 

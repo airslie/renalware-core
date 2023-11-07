@@ -16,7 +16,7 @@ table.mdm.prescriptions
   tbody
     - prescriptions.each do |prescription|
       tr class=Renalware::Drugs::DrugColourPresenter.new.css_class(prescription.drug)
-        td= prescription.drug.name
+        td= prescription.drug_name
         - if local_assigns[:show_drug_types]
           td= prescription.drug_type_names
         td= prescription.dose

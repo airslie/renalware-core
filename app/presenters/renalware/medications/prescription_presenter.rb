@@ -10,14 +10,6 @@ module Renalware
         patient.to_s
       end
 
-      def drug_name
-        if trade_family.present?
-          drug.name + " (#{trade_family.name})"
-        else
-          drug.name
-        end
-      end
-
       def form_name
         form&.name
       end
@@ -47,7 +39,10 @@ module Renalware
       end
 
       def frequency
-        Drugs::Frequency.title_for_name(__getobj__.frequency)
+        [
+          Drugs::Frequency.title_for_name(__getobj__.frequency),
+          frequency_comment
+        ].compact.join(" ")
       end
 
       def administer_on_hd?
@@ -56,7 +51,7 @@ module Renalware
 
       def to_s
         [
-          drug,
+          drug_name,
           "DOSE #{dose}",
           route_code,
           frequency

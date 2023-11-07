@@ -58,9 +58,11 @@ module Renalware
         joins(:drug).order("drugs.name asc, prescribed_on desc, created_at desc")
       }
       scope :with_medication_route, -> { includes(:medication_route) }
-      scope :with_drugs, -> { includes(drug: :drug_types) }
+      scope :with_forms, -> { includes(:form) }
+      scope :with_drugs, -> { includes(drug: :drug_types).includes(:trade_family) }
       scope :with_classifications, -> { includes(drug: :drug_type_classifications) }
       scope :with_termination, -> { includes(termination: [:created_by]) }
+      scope :with_units_of_measure, -> { includes(:unit_of_measure) }
       scope :current, lambda { |date = Date.current|
         left_outer_joins(:termination)
           .where("terminated_on IS NULL OR terminated_on > ?", date)
@@ -117,6 +119,10 @@ module Renalware
 
       def terminate(by:, terminated_on: Date.current)
         build_termination(by: by, terminated_on: terminated_on)
+      end
+
+      def drug_name
+        trade_family.present? ? "#{drug.name} (#{trade_family.name})" : drug.name
       end
     end
   end

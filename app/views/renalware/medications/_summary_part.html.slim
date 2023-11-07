@@ -13,7 +13,7 @@
       ul.no-bullet
         - summary_part.current_prescriptions.each do |prescription|
           li style=Renalware::Drugs::DrugColourPresenter.new.css_class(prescription.drug)
-            = "#{prescription.drug.name}, "
+            = "#{prescription.drug_name}, "
             = "#{prescription.dose}, "
-            = "#{prescription.medication_route.name} #{prescription.frequency} - "
+            = "#{prescription.medication_route.name} #{prescription.frequency} #{prescription.frequency_comment} - "
             = l(prescription.prescribed_on)

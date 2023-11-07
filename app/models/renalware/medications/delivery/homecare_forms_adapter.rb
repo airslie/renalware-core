@@ -58,7 +58,7 @@ module Renalware
           prescriptions.each do |prescription|
             args.medications << Forms::Homecare::Args::Medication.new(
               date: prescription.prescribed_on,
-              drug: prescription.drug.name,
+              drug: prescription.drug_name,
               dose: "#{prescription.dose_amount} #{prescription.dose_unit}",
               route: prescription.medication_route&.name,
               frequency: prescription.frequency

@@ -15,11 +15,13 @@ module Renalware
             dose_amount: "10",
             unit_of_measure: unit_of_measure,
             medication_route: instance_double(MedicationRoute, name: "PO", other?: false),
-            frequency: "nocte"
+            frequency: "nocte",
+            frequency_comment: "abc",
+            drug_name: "Drug X"
           )
           presenter = described_class.new(prescription)
 
-          expect(presenter.to_s).to eq("Drug X - DOSE 10 mg - PO - nocte")
+          expect(presenter.to_s).to eq("Drug X - DOSE 10 mg - PO - nocte abc")
         end
       end
 

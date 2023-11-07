@@ -3,7 +3,7 @@
 
 - recently_changed = defined?(recently_changed) && recently_changed
 li.prescription class=("recently_changed" if recently_changed)
-  = prescription.drug.name
+  = prescription.drug_name
   = blank_separator
   = prescription.dose
   = blank_separator

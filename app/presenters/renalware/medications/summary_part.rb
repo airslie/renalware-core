@@ -11,7 +11,7 @@ module Renalware
         @current_prescriptions ||= begin
           prescripts = prescriptions
             .includes(drug: [:drug_types, :drug_type_classifications])
-            .includes(:medication_route)
+            .includes(:medication_route, :trade_family, :unit_of_measure)
             .current
             .ordered
           CollectionPresenter.new(prescripts, Medications::PrescriptionPresenter)

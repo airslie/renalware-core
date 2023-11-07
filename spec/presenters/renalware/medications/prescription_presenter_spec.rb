@@ -8,7 +8,7 @@ module Renalware
       let(:instance) {      described_class.new(prescription) }
 
       describe "#frequency" do
-        let(:prescription) { Prescription.new(frequency: "test") }
+        let(:prescription) { Prescription.new(frequency: "test", frequency_comment: "abc") }
 
         subject { instance.frequency }
 
@@ -16,7 +16,7 @@ module Renalware
           allow(Drugs::Frequency).to receive(:title_for_name).with("test").and_return("TEST")
         end
 
-        it { is_expected.to eq "TEST" }
+        it { is_expected.to eq "TEST abc" }
       end
     end
   end

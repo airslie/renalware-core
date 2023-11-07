@@ -6,7 +6,7 @@ module Renalware
   describe "renalware/letters/formatted_letters/_enclosures" do
     let(:partial) { "renalware/letters/formatted_letters/enclosures" }
 
-    context "when the letter has enclsoures" do
+    context "when the letter has enclosures" do
       it "outputs them" do
         letter = instance_double(Renalware::Letters::Letter, enclosures: "ABC, 123")
 
@@ -16,8 +16,8 @@ module Renalware
       end
     end
 
-    context "when the letter does not have enclsoures" do
-      it "no ennclures are output" do
+    context "when the letter does not have enclosures" do
+      it "no enclosures are output" do
         letter = instance_double(Renalware::Letters::Letter, enclosures: "")
 
         render partial: partial, locals: { letter: letter }

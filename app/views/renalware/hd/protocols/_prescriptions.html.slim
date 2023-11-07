@@ -9,7 +9,7 @@ table.prescriptions
     - prescriptions.each do |prescription|
       - last_administration = Renalware::HD::PrescriptionAdministrationsQuery.new(prescription: prescription).call.first
       tr
-        td= prescription.drug.name
+        td= prescription.drug_name
         td= prescription.dose
         td= prescription.frequency
         td= l(last_administration&.recorded_on)
