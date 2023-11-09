@@ -42,8 +42,14 @@ module Renalware
         administered? && witness_authorised?
       end
 
+      # stat means give one time only
       def terminate_prescription_if_stat
-        if valid? && witnessed? && prescription.administer_on_hd? && prescription.stat?
+        if valid? &&
+           witnessed? &&
+           prescription.administer_on_hd? &&
+           prescription.stat? &&
+           prescription.termination.nil?
+
           prescription.build_termination(
             terminated_on: Time.zone.now,
             notes: "Stat prescription automatically terminated once given",

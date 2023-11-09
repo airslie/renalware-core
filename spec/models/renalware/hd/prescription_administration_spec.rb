@@ -100,7 +100,7 @@ module Renalware
         end
 
         context "when administrator and witness is are the same" do
-          it "does not allo this" do
+          it "does not allow this" do
             pwd = "password"
             user = create(:user, password: "password")
             errors = described_class.new(
@@ -113,6 +113,53 @@ module Renalware
 
             expect(errors[:witnessed_by_id]).to eq(["Must be a different user"])
           end
+        end
+      end
+
+      context "when the HD prescription is stat (give once)" do
+        let(:pwd) { "password" }
+        let(:user1) { create(:user, password: pwd) }
+        let(:user2) { create(:user, password: pwd) }
+        let(:prescription) { create(:prescription, administer_on_hd: true, stat: true) }
+
+        before { create(:user, :system) }
+
+        it "terminates if not already terminated" do
+          expect {
+            described_class.create!(
+              prescription: prescription,
+              administered: true,
+              administered_by: user1,
+              witnessed_by: user2,
+              administered_by_password: pwd,
+              witnessed_by_password: pwd,
+              recorded_on: Time.zone.now,
+              by: user1
+            )
+          }.to change(Medications::PrescriptionTermination, :count).by(1)
+            .and change(prescription, :updated_at)
+
+          expect(prescription.reload.termination).to have_attributes(
+            terminated_on: Time.zone.today,
+            notes: "Stat prescription automatically terminated once given"
+          )
+        end
+
+        it "does not try to terminate if already terminated" do
+          prescription.build_termination(terminated_on: Time.zone.now, by: user1).save!
+
+          expect {
+            described_class.create!(
+              prescription: prescription,
+              administered: true,
+              administered_by: user1,
+              witnessed_by: user2,
+              administered_by_password: pwd,
+              witnessed_by_password: pwd,
+              recorded_on: Time.zone.now,
+              by: user1
+            )
+          }.to change(Medications::PrescriptionTermination, :count).by(0)
         end
       end
     end
