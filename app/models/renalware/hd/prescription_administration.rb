@@ -31,6 +31,18 @@ module Renalware
       before_save :terminate_prescription_if_stat
 
       scope :ordered, -> { order(recorded_on: :desc, created_at: :desc) }
+      scope :having_given_but_unwitnessed_prescriptions, lambda {
+        # As the act of witnessing terminates the prescription, here, for safety, we are selecting
+        # based on the prescription being unterminated, rather than witnessed = false.
+        # This is a paranoid approach in case witnessing fails to terminate for any reason...
+        where(administered: true)
+          .joins(:prescription)
+          .merge(
+            Medications::Prescription
+              .where(stat: true, administer_on_hd: true)
+              .where.missing(:termination)
+          )
+      }
 
       def authorised?
         return true unless administered?

@@ -129,6 +129,12 @@ module Renalware
             class: "Renalware::Drugs::DMD::SynchroniserJob",
             description: "Use the NHS Digital Terminology Service APIs to fetch DM+D updates to " \
                          "Drugs"
+          },
+
+          terminate_given_but_unwitnessed_hd_stat_prescriptions: {
+            cron: "every day at 2am",
+            class: "Renalware::HD::TerminateAdministeredUnwitnessedStatPrescriptionsJob",
+            description: "Does what it says on the tin :)"
           }
         }.merge(good_job_config_to_enable_feed_import_via_raw_hl7_messages_table)
       end
