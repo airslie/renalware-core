@@ -23,16 +23,20 @@ module Renalware
         super && (administer_on_hd? ? hd_prescriber? : prescriber?)
       end
 
+      def new_hd_prescription?
+        hd_prescriber?
+      end
+
       private
 
       def hd_prescriber?
-        return true unless Renalware.config.enforce_user_prescriber_flag
+        return true unless Role.enforce?(:hd_prescriber)
 
         user_is_hd_prescriber? || user_is_super_admin?
       end
 
       def prescriber?
-        return true unless Renalware.config.enforce_user_prescriber_flag
+        return true unless Role.enforce?(:prescriber)
 
         user_is_prescriber? || user_is_hd_prescriber? || user_is_super_admin?
       end

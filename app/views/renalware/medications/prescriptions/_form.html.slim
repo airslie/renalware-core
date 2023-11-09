@@ -103,10 +103,10 @@ ruby:
 
       = f.input :frequency_comment, wrapper: :horizontal_medium
 
-      div(data-controller="simple-toggle")
+      div(data-controller="simple-toggle" class="#{'disabled-input' unless policy(f.object).new_hd_prescription?}")
         = f.input :administer_on_hd,
                   wrapper: :horizontal_small,
-                  input_html: { data: { action: "click->simple-toggle#toggle" }}
+                  input_html: { disabled: !policy(f.object).new_hd_prescription?, data: { action: "click->simple-toggle#toggle"}}
 
         div(data-simple-toggle-target="toggleable" class="#{'hidden' unless f.object.administer_on_hd?}")
           = f.input :stat,

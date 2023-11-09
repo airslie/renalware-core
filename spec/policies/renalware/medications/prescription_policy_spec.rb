@@ -7,10 +7,12 @@ module Renalware
     describe PrescriptionPolicy, type: :policy do
       include PolicySpecHelper
 
-      def enforce_user_prescriber_flag(enforce: true)
-        allow(Renalware.config)
-          .to receive(:enforce_user_prescriber_flag)
-          .and_return(enforce)
+      def enforce_prescriber_flag(enforce: true)
+        create(:role, :prescriber, enforce: enforce)
+      end
+
+      def enforce_hd_prescriber_flag(enforce: true)
+        create(:role, :hd_prescriber, enforce: enforce)
       end
 
       subject { described_class }
@@ -43,13 +45,13 @@ module Renalware
             let(:user) { user_double_with_role(%i(clinical)) }
 
             context "when Renalware.config is set to enforce the prescriber flag" do
-              before { enforce_user_prescriber_flag }
+              before { enforce_prescriber_flag }
 
               it { is_expected.not_to permit(user, prescription) }
             end
 
             context "when Renalware.config is not enforcing the prescriber flag" do
-              before { enforce_user_prescriber_flag(enforce: false) }
+              before { enforce_prescriber_flag(enforce: false) }
 
               it { is_expected.to permit(user, prescription) }
             end
@@ -58,7 +60,7 @@ module Renalware
       end
 
       describe "changing an HD prescription when prescriber flag is enforced" do
-        before { enforce_user_prescriber_flag }
+        before { enforce_hd_prescriber_flag }
 
         context "when a clinician does not have hd_prescriber role" do
           let(:prescription) { Prescription.new(administer_on_hd: true) }
@@ -86,7 +88,7 @@ module Renalware
       end
 
       describe "changing an HD prescription when prescriber flag not enforced" do
-        before { enforce_user_prescriber_flag(enforce: false) }
+        before { enforce_prescriber_flag(enforce: false) }
 
         describe "a clinician with just the prescriber role can amend the prescription" do
           let(:prescription) { Prescription.new(administer_on_hd: true) }

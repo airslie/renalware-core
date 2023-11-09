@@ -22,6 +22,22 @@ module Renalware
           end
         end
       end
+
+      describe "::enforce?" do
+        it "returns true or false according to the role#enforce column" do
+          r1 = Role.create!(name: "r1", enforce: true)
+          _r2 = Role.create!(name: "r2", enforce: false)
+
+          expect(Role.role_enforcement_hash).to eq({ "r1" => true, "r2" => false })
+          expect(Role.enforce?(:r1)).to eq(true)
+          expect(Role.enforce?(:r2)).to eq(false)
+
+          # Changing the enforce boolean will be reflected without a restart as we memoise at
+          # class level on first access.
+          r1.update!(enforce: false)
+          expect(Role.enforce?(:r1)).to eq(true)
+        end
+      end
     end
   end
 end
