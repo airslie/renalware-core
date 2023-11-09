@@ -39,7 +39,7 @@ Then("Donna should see these current prescriptions in the clinical summary") do 
   expect(actual_prescriptions.size).to eq(expected_prescriptions.size)
   actual_prescriptions.zip(expected_prescriptions).each do |actual, expected|
     prescription = Renalware::Medications::PrescriptionPresenter.new(actual)
-    expect(actual.drug.name).to eq(expected["drug_name"])
+    expect(actual.drug_name).to eq(expected["drug_name"])
     expect(prescription.dose).to eq(expected["dose"])
     expect(actual.frequency).to eq(expected["frequency"])
     expect(actual.medication_route.name).to eq(expected["route_name"])

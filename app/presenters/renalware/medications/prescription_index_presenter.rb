@@ -78,10 +78,10 @@ module Renalware
         query
           .call
           .with_created_by
-          .with_medication_route
           .with_drugs
           .with_termination
-          .includes(:patient)
+          .with_medication_route
+          .with_forms
       end
 
       def historical_prescriptions

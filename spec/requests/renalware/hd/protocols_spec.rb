@@ -126,7 +126,7 @@ describe "Patient's Protocol PDF" do
         get patient_hd_protocol_path(patient_id: patient, disposition: :attachment, debug: 1)
 
         expect(response).to be_successful
-        expect(response.body).to include(given_prescription.drug.name)
+        expect(response.body).to include(given_prescription.drug_name)
         expect(response.body).to include("20-Feb-2020")
       end
     end

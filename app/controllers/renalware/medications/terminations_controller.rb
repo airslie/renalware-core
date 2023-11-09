@@ -3,7 +3,6 @@
 module Renalware
   module Medications
     class TerminationsController < BaseController
-      include PrescriptionsHelper
       include PresenterHelper
       include Concerns::ReturnTo
 

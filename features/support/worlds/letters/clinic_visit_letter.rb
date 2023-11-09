@@ -171,7 +171,7 @@ module World
         visit_iframe_content
 
         patient.prescriptions.each do |prescription|
-          expect(page.body).to include(prescription.drug.name)
+          expect(page.body).to include(prescription.drug_name)
         end
       end
 

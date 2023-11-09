@@ -65,6 +65,7 @@ module Renalware
             .prescriptions
             .with_created_by
             .with_medication_route
+            .with_units_of_measure
             .with_drugs
             .with_termination
             .ordered

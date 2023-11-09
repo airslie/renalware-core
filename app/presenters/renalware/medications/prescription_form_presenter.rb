@@ -64,8 +64,7 @@ module Renalware
 
       def drugs_collection
         if prescription.drug&.inactive?
-          [[prescription.drug.name,
-            prescription.drug.id]]
+          [[prescription.drug.name, prescription.drug.id]]
         elsif esi_or_peritonitis_episode?
           antibiotics_drug_list
         else

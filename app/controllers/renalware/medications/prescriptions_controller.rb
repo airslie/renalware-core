@@ -3,7 +3,6 @@
 module Renalware
   module Medications
     class PrescriptionsController < BaseController
-      include PrescriptionsHelper
       include PresenterHelper
       include Concerns::ReturnTo
       include Renalware::Concerns::PdfRenderable

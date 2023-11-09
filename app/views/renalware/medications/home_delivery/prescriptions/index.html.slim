@@ -41,7 +41,7 @@
           td= default_patient_link(prescription.patient)
           td= prescription.patient.nhs_number
           td= prescription.drug.drug_types.first&.name
-          td= prescription.drug.name
+          td= prescription.drug_name
           td= l(prescription.prescribed_on)
           td= l(prescription.last_delivery_date)
           td= l(prescription.next_delivery_date)
