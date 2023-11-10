@@ -98,7 +98,7 @@ module Renalware
               end
             end
 
-            # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
+            # rubocop:disable RSpec/ExampleLength
             context "when the patient has an egfr" do
               it "creates 5 and 2 yr KFREs" do
                 # Creating an EGFR here will cause the results to be inserted into
@@ -181,7 +181,7 @@ module Renalware
                 end
               end
             end
-            # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
+            # rubocop:enable RSpec/ExampleLength
           end
         end
       end

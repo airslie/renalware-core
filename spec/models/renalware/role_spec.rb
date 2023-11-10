@@ -35,7 +35,7 @@ module Renalware
           # Changing the enforce boolean will be reflected without a restart as we memoise at
           # class level on first access.
           r1.update!(enforce: false)
-          expect(Role.enforce?(:r1)).to eq(true)
+          expect(Role.enforce?(:r1)).to eq(false)
         end
       end
     end

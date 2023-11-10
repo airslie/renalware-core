@@ -82,7 +82,6 @@ module Renalware
 
       context "when the patient has a current modality" do
         context "when the modality is valid" do
-          # rubocop:disable RSpec/MultipleExpectations
           it "returns a Success result object" do
             modality = build_modality(death)
             old_modality = build_stubbed_modality(pd_modality_description)
@@ -101,7 +100,6 @@ module Renalware
             expect(old_modality).to have_received(:save!)
             expect(modality).to have_received(:save!)
           end
-          # rubocop:enable RSpec/MultipleExpectations
 
           it "broadcasts a patient_modality_changed event with the new modality as an argument" do
             modality = build_modality(death)
