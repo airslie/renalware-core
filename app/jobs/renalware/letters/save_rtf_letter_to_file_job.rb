@@ -7,6 +7,7 @@ module Renalware
     # Used for example in a host app like renalware-blt to generate an RTF letter for saving to
     # the electronic public register, aka EPR/CRS.
     class SaveRTFLetterToFileJob < ApplicationJob
+      self.log_arguments = false
       queue_as :rtf_generation
       queue_with_priority 1
 
