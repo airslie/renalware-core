@@ -12,9 +12,6 @@
       }
     },
     {
-      "plan": "mailgun:starter"
-    },
-    {
       "plan": "heroku-redis:mini"
     }
   ],
