@@ -7283,16 +7283,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7671,8 +7661,7 @@ CREATE TABLE renalware.medication_prescriptions (
     form_id bigint,
     legacy_drug_id integer,
     legacy_medication_route_id integer,
-    frequency_comment character varying,
-    stat boolean
+    frequency_comment character varying
 );
 
 
@@ -7688,13 +7677,6 @@ COMMENT ON COLUMN renalware.medication_prescriptions.legacy_drug_id IS 'Keep the
 --
 
 COMMENT ON COLUMN renalware.medication_prescriptions.legacy_medication_route_id IS 'Keep the previous route id as a reference in case of issues with DMD migration';
-
-
---
--- Name: COLUMN medication_prescriptions.stat; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.medication_prescriptions.stat IS 'Can be chosen when administer_on_hd is true. Prescriptions marked as ''stat'' will be marked as terminated automatically once given.';
 
 
 --
@@ -11832,8 +11814,7 @@ CREATE TABLE renalware.roles (
     name character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    hidden boolean DEFAULT false NOT NULL,
-    enforce boolean DEFAULT false NOT NULL
+    hidden boolean DEFAULT false NOT NULL
 );
 
 
@@ -19134,6 +19115,13 @@ CREATE UNIQUE INDEX index_drug_forms_on_code ON renalware.drug_forms USING btree
 
 
 --
+-- Name: index_drug_frequencies_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_drug_frequencies_on_name ON renalware.drug_frequencies USING btree (name);
+
+
+--
 -- Name: index_drug_frequencies_on_position; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -22847,7 +22835,7 @@ CREATE INDEX index_research_versions_on_whodunnit ON renalware.research_versions
 -- Name: index_roles_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_roles_on_name ON renalware.roles USING btree (name);
+CREATE INDEX index_roles_on_name ON renalware.roles USING btree (name);
 
 
 --
@@ -28260,12 +28248,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230918172419'),
 ('20231004172532'),
 ('20231006132259'),
-('20231009170341'),
-('20231009170342'),
 ('20231019083713'),
 ('20231025115724'),
 ('20231101152934'),
-('20231106173109'),
-('20231112080224');
+('20231112080224'),
+('20231113124516');
 
 

@@ -6,7 +6,7 @@ module Renalware
       OTHER_NAME = "other"
       OTHER_TITLE = "Other"
 
-      validates :name, presence: true
+      validates :name, presence: true, uniqueness: true
       validates :title, presence: true
 
       scope :ordered, -> { order(position: :asc, name: :asc) }
