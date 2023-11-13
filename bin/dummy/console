@@ -1,4 +1,4 @@
 #!/bin/sh
-pushd spec/dummy
+pushd demo
 bundle exec rails c
 popd

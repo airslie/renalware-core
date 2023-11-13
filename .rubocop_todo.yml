@@ -552,7 +552,7 @@ Rails/HelperInstanceVariable:
 # Include: spec/**/*.rb, test/**/*.rb
 Rails/I18nLocaleAssignment:
   Exclude:
-    - 'spec/dummy/app/controllers/application_controller.rb'
+    - 'demo/app/controllers/application_controller.rb'
 
 # Offense count: 21
 Rails/I18nLocaleTexts:
@@ -682,7 +682,7 @@ Style/AsciiComments:
   Exclude:
     - 'app/models/renalware/feeds/hl7_message.rb'
     - 'app/models/renalware/reporting/fetch_audit_json.rb'
-    - 'spec/dummy/config/initializers/silence_action_view_select_log.rb'
+    - 'demo/config/initializers/silence_action_view_select_log.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
@@ -735,7 +735,7 @@ Style/MissingRespondToMissing:
     - 'app/documents/document/embedded.rb'
     - 'app/models/renalware/pathology/observations_jsonb_serializer.rb'
     - 'lib/smart_delegator.rb'
-    - 'spec/dummy/app/helpers/application_helper.rb'
+    - 'demo/app/helpers/application_helper.rb'
 
 # Offense count: 1
 Style/MixinUsage:
@@ -749,7 +749,7 @@ Style/OptionalBooleanParameter:
   Exclude:
     - 'app/components/renalware/system/admin_menu_component.rb'
     - 'lib/smart_delegator.rb'
-    - 'spec/dummy/app/helpers/application_helper.rb'
+    - 'demo/app/helpers/application_helper.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).

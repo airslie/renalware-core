@@ -5,7 +5,7 @@ require "rails_helper"
 describe "HTTP Caching" do
   let(:patient) { create(:patient) }
 
-  # Note spec/dummy/app/controllers/applciation_controller
+  # Note demo/app/controllers/applciation_controller
   # must include the cache busting concern for this test to pass
   context "when hitting a page inside the engine" do
     describe "Cache-Control HTTP Header" do

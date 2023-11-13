@@ -55,7 +55,7 @@ sendMail using https://graph.microsoft.com/v1.0/users/app.renalware@t8pz5.onmicr
 }
 = Accepted - 202 - 173ms
 ``
-Note that emails will not actuallyu send =- you will have to login to Office365 as the dummy sending
+Note that emails will not actuallyu send =- you will have to login to Office365 as the demo sending
 user eg renalware@t8pz5.onmicrosoft.com and look at Sent Items.
 
 Once it works in the graph explorer you can copy the esettings to .env and try in Renalware.

@@ -56,8 +56,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            spec/dummy/public/assets
-            spec/dummy/tmp/cache/assets/sprockets
+            demo/public/assets
+            demo/tmp/cache/assets/sprockets
           key: asset-cache-${{ runner.os }}-${{ github.ref }}-${{ github.sha }}
           restore-keys: |
             asset-cache-${{ runner.os }}-${{ github.ref }}-${{ github.sha }}
@@ -123,8 +123,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            spec/dummy/public/assets
-            spec/dummy/tmp/cache/assets/sprockets
+            demo/public/assets
+            demo/tmp/cache/assets/sprockets
           key: asset-cache-${{ runner.os }}-${{ github.ref }}-${{ github.sha }}
 
       - name: Setup test database
@@ -156,5 +156,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-failure-screenshots
-          path: spec/dummy/tmp/capybara
+          path: demo/tmp/capybara
           if-no-files-found: ignore

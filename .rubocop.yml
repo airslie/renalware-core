@@ -37,11 +37,11 @@ AllCops:
     - "bin/**/*"
     - "lib/tasks/**/*"
     - "db/**/*"
-    - "spec/dummy/bin/**/*"
-    - "spec/dummy/lib/tasks/**/*"
-    - "spec/dummy/db/**/*"
+    - "demo/bin/**/*"
+    - "demo/lib/tasks/**/*"
+    - "demo/db/**/*"
     - "tmp/**/*"
-    - "spec/dummy/tmp/**/*"
+    - "demo/tmp/**/*"
     - "vendor/bundle/**/*"
     - "config/initializers/devise.rb"
     - "features/support/env.xaction_view.rb"
@@ -83,7 +83,7 @@ Layout/LineLength:
     - "app/inputs/**.*"
 Style/FrozenStringLiteralComment:
   Exclude:
-    - "spec/dummy/db/migrate/**/*"
+    - "demo/db/migrate/**/*"
     - "db/migrate/**/*"
 Metrics/AbcSize:
   Exclude:

@@ -51,7 +51,7 @@ module Renalware
       # E.g.
       #   arguments": [
       #    {
-      #      "_aj_globalid": "gid://dummy/Renalware::System::ViewMetadata/13"
+      #      "_aj_globalid": "gid://demo/Renalware::System::ViewMetadata/13"
       #    },
       #    {
       #      "view_name": "renalware.xxx",

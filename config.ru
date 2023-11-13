@@ -2,5 +2,5 @@
 
 # This file is used by Rack-based servers to start the application.
 
-require_relative "spec/dummy/config/environment"
+require_relative "demo/config/environment"
 run Rails.application

@@ -10,7 +10,7 @@ gemspec
 gem "activesupport_cache_database", github: "airslie/activesupport-cache-database"
 
 # https://opentelemetry.io/docs/instrumentation/ruby/getting-started/
-# See spec/dummy/config/initializers/opentelemetry.rb where we load this group if
+# See demo/config/initializers/opentelemetry.rb where we load this group if
 # opentelemetry is enabled with an ENV var.
 group :opentelemetry do
   gem "opentelemetry-exporter-otlp"
@@ -24,7 +24,7 @@ group :opentelemetry do
   gem "opentelemetry-sdk"
 end
 
-# These are visible to dummy app only
+# These are visible to demo app only
 gem "autoprefixer-rails"
 gem "aws-sdk-s3", require: false # for active storage when using Heroku for test environments
 # gem "babel-transpiler" # not sure this is need now that we user rollupjs + babel npmm packages?

@@ -1,5 +1,5 @@
 #!/bin/sh
 
-pushd spec/dummy
+pushd demo
 bundle exec rake jobs:work
 popd

@@ -1,4 +1,4 @@
-# Ignore all folders in /spec except for /spec/dummy which is the root of our
+# Ignore all folders in /spec except for /demo which is the root of our
 # the on heroku
 /spec/acceptance
 /spec/components

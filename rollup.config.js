@@ -9,7 +9,7 @@ const watchDirectories = [
   pkg.main,
   "app/views",
   "app/components",
-  "spec/dummy/app/assets/builds", // Output from Tailwindcss and JS
+  "demo/app/assets/builds", // Output from Tailwindcss and JS
 ]
 
 // Had to add context window to avoid rollup converting self to undefined in stimulus
