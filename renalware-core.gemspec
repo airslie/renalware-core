@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
                   "data with external systems."
   s.license     = "MIT"
 
-  # Note that no spec or feature files are included, so no dummy data is shipped with the gem
+  # Note that no spec or feature files are included, so no demo data is shipped with the gem
   s.files = Dir[
     "{app,config,db,lib}/**/*",
     "vendor/assets/**/*",

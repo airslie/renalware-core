@@ -1,4 +1,4 @@
 #!/bin/sh
-cd spec/dummy
+cd demo
 bundle exec rails s
 cd ..

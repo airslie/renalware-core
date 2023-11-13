@@ -17,7 +17,7 @@ Ruby, HTML and JavaScript to override or augment renalware-core's features.
 
 While the engine is intended to be deployed inside a host application in production, it can be run
 stand-alone in a local development environment (or indeed deployed in a limited way to somewhere like Heroku) by employing
-the _dummy_ host application that ships inside the engine. This dummy app (in `./spec/dummy`)
+the _demo_ host application that ships inside the engine. This demo app (in `./demo`)
 allows a developer to quickly mount the engine, and is used also used by Rails integration tests (which is why
 it is in the `./spec` folder)
 
@@ -74,7 +74,7 @@ bundle exec rake db:setup
 $ bin/dev
 ```
 
-> Note `bin/dev` starts a sever in the spec/dummy directory. Just executing `rails server` will not work.
+> Note `bin/dev` starts a sever in the demo directory. Just executing `rails server` will not work.
 
 Visit [http://localhost:3000](http://localhost:3000)
 
@@ -161,9 +161,9 @@ uses Postgres views and functions which are not properly supported in a `schema.
 
 As we are an engine this is the workaround for now.
 ```sh
-  bundle exec spec/dummy/bin/rails generate scenic:view my_view_name
+  bundle exec demo/bin/rails generate scenic:view my_view_name
 ```
-Then copy the new files from spec/dummy/db/views and spec/dummy/db/migrations
+Then copy the new files from demo/db/views and demo/db/migrations
 to ./db/views and ./db/migrations
 
 #### Throttling login attempts

@@ -13,7 +13,7 @@ end
 
 # We can use rake tasks like app:db:reset when APP_RAKEFILE set
 unless defined?(APP_RAKEFILE)
-  APP_RAKEFILE = File.expand_path("spec/dummy/Rakefile", __dir__)
+  APP_RAKEFILE = File.expand_path("demo/Rakefile", __dir__)
 end
 
 load "rails/tasks/engine.rake"
@@ -24,21 +24,21 @@ require "bundler/gem_tasks"
 # Bundler::GemHelper.install_tasks
 
 # assets:* tasks for For Heroku only
-# When deploying the engine to Heroku, we are actually deployment the spec/dummy app.
+# When deploying the engine to Heroku, we are actually deployment the demo app.
 # Heroku however loads this Rakefile first hunting for an assets:precompile task to indicate
 # it should compile the assets. If not found it won't compile assets and we won't have any styling.
 namespace :assets do
-  desc "Clean any assets within dummy app"
+  desc "Clean any assets within demo app"
   task :clean do
     Rake::Task["app:assets:clean"].invoke
   end
 
-  desc "Precompile assets within dummy app"
+  desc "Precompile assets within demo app"
   task :precompile do
     Rake::Task["app:assets:precompile"].invoke
   end
 
-  desc "Clobbers assets within dummy app"
+  desc "Clobbers assets within demo app"
   task :clobber do
     Rake::Task["app:assets:clobber"].invoke
   end

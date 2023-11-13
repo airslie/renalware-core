@@ -4,8 +4,8 @@
 
 
 = definition_list_for(clinic_visit.document.smoking, size: :large) do |list|
-  dt 
-    b Smoking 
+  dt
+    b Smoking
   dd
   = list.definition(:history){ |value| value&.text }
   = list.definition(:number)

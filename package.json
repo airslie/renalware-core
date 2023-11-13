@@ -54,7 +54,7 @@
   },
   "scripts": {
     "build": "rollup --config rollup.config.js",
-    "build:css": "./spec/dummy/bin/yarn build:css"
+    "build:css": "./demo/bin/yarn build:css"
   },
   "devDependencies": {
     "prettier": "2.8.7"

@@ -3,7 +3,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # For the dummy app, eg on Heroku demo, we use async mode
+  # For the demo app, eg on Heroku demo, we use async mode
   # so we can avoid running another dyno (mode external)
   config.good_job.execution_mode = :async
 

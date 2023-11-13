@@ -4,6 +4,6 @@
 # defined in the Procfile
 
 environ = ENV.fetch("RAILS_ENV", "development")
-procfile = (environ == "development") ? "spec/dummy/Procfile.dev" : "spec/dummy/Procfile"
+procfile = (environ == "development") ? "demo/Procfile.dev" : "demo/Procfile"
 puts "Starting foreman with #{procfile}"
 exec("foreman start -f #{procfile}")
