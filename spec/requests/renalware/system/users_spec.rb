@@ -36,8 +36,7 @@ describe "Managing Users" do
           approved: true,
           role_ids: user.role_ids,
           consultant: "true",
-          hidden: true,
-          prescriber: true
+          hidden: true
         }
 
         patch admin_user_path(user), params: { user: attributes }
@@ -47,7 +46,6 @@ describe "Managing Users" do
           id: user.id,
           approved: true,
           consultant: true,
-          prescriber: true,
           hidden: true
         )
 

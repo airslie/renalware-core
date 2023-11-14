@@ -29,7 +29,7 @@ module Renalware::Drugs::DMD::APISynchronisers
         allow(AmpTradeFamilySynchroniser).to receive(:new) { amp_trade_family_synchroniser }
       end
 
-      it "synchronises all DM+D data from an API" do # rubocop:disable RSpec/MultipleExpectations
+      it "synchronises all DM+D data from an API" do
         described_class.new.call
 
         expect(form_synchroniser).to have_received(:call)

@@ -28,11 +28,14 @@ module World
           email: "#{email_name}@renalware.com",
           password: "supersecret",
           approved: true,
-          prescriber: true,
           hospital_centre: FactoryBot.create(:hospital_centre)
         )
       end
       user.roles << Renalware::Role.find_or_create_by(name: role) unless user.roles.any?
+      prescriber_role = Renalware::Role.find_or_create_by(name: :prescriber)
+      unless user.roles.map(&:id).include?(prescriber_role.id)
+        user.roles << prescriber_role
+      end
       user
     end
 

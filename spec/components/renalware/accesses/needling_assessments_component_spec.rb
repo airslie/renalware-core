@@ -2,7 +2,6 @@
 
 require "rails_helper"
 
-# rubocop:disable RSpec/MultipleExpectations
 describe Renalware::Accesses::NeedlingAssessmentsComponent, type: :component do
   let(:user) { create(:user) }
   let(:patient) { create(:accesses_patient, by: user) }
@@ -35,4 +34,3 @@ describe Renalware::Accesses::NeedlingAssessmentsComponent, type: :component do
     expect(page).not_to have_content("Hard")
   end
 end
-# rubocop:enable RSpec/MultipleExpectations

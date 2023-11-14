@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Prescriptions - create / edit / terminate", js: true do
-  let(:user) { create(:user, :clinical) }
+  let(:user) { create(:user, :clinical, additional_roles: :hd_prescriber) }
   let(:patient) { create(:patient, by: user) }
   let(:drug) { create(:drug, name: "Blue Pill") }
   let(:route) { create(:medication_route, name: "Oral") }
@@ -51,6 +51,11 @@ describe "Prescriptions - create / edit / terminate", js: true do
     expect(page).to have_select "Form", selected: "Capsule", visible: :hidden
     expect(page).to have_field "Terminated on"
     expect(page).to have_select "Frequency", selected: "Often"
+
+    expect(page).not_to have_field("Stat")
+    check("Give on HD")
+    expect(page).to have_field("Stat")
+    check("Stat")
 
     #
     # Test validation
@@ -133,7 +138,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
 
     # Change terminate date to tomorrow
     fill_in "Terminated on", with: l(Date.tomorrow)
-    fill_in "Notes", with: "Termination Notes"
+    fill_in "Termination notes", with: "Termination Notes"
 
     click_button "Save"
 

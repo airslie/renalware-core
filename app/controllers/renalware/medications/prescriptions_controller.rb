@@ -153,7 +153,7 @@ module Renalware
         [
           :drug_id, :dose_amount, :dose_unit, :unit_of_measure_id, :medication_route_id,
           :frequency, :frequency_comment,
-          :administer_on_hd, :notes, :prescribed_on, :provider, :form_id,
+          :administer_on_hd, :stat, :notes, :prescribed_on, :provider, :form_id,
           :drug_id_and_trade_family_id, :treatable_type, :treatable_id,
           :last_delivery_date, :next_delivery_date, { termination_attributes: :terminated_on }
         ]

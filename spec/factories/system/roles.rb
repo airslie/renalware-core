@@ -23,5 +23,13 @@ FactoryBot.define do
     trait :read_only do
       name { :read_only }
     end
+
+    trait :prescriber do
+      name { :prescriber }
+    end
+
+    trait :hd_prescriber do
+      name { :hd_prescriber }
+    end
   end
 end

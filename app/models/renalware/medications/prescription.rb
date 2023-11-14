@@ -75,6 +75,10 @@ module Renalware
       scope :having_drug_of_type, lambda { |drug_type_name|
         where("lower(drug_types.code) = lower(?)", drug_type_name)
       }
+      # Prescriptions created or changed since 14 days ago (and potentially into
+      # the future). Because editing a prescription terminates it and creates a new one,
+      # we are essentially searching on prescribed_on date here.
+      scope :recently_changed, -> { where("prescribed_on >= ?", 14.days.ago) }
 
       # This is a Ransack-compatible search predicate
       def self.default_search_order
@@ -84,11 +88,6 @@ module Renalware
       def self.created_between(from:, to:)
         where("medication_prescriptions.created_at >= ? and " \
               "medication_prescriptions.created_at <= ?", from, to)
-      end
-
-      def self.prescribed_between(from:, to:)
-        where("medication_prescriptions.prescribed_on >= ? and " \
-              "medication_prescriptions.prescribed_on <= ?", from, to)
       end
 
       def self.terminated_between(from:, to:)

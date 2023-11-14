@@ -42,14 +42,11 @@ module Renalware
           )
       end
 
-      # Prescriptions created or with dosage changed in the last 14 days.
-      # Because we terminated a prescription if the dosage changes, and create a new one,
-      # we just need to search for prescriptions created in the last 14 days.
       def recently_changed_current_prescriptions
         @recently_changed_current_prescriptions ||= begin
           current_prescriptions_query
             .call
-            .prescribed_between(from: 14.days.ago, to: ::Time.zone.now)
+            .recently_changed
         end
       end
 

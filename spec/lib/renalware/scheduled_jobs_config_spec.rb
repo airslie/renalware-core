@@ -14,6 +14,7 @@ module Renalware
         :audit_patient_hd_statistics,
         :hd_scheduling_diary_housekeeping,
         :reporting_send_daily_summary_email,
+        :terminate_given_but_unwitnessed_hd_stat_prescriptions,
         :ukrdc_export,
         :dmd_sync,
         :mirth_raw_message_processor

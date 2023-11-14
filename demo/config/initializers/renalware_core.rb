@@ -21,6 +21,7 @@ Renalware.configure do |config|
   config.batch_printing_enabled = true
   config.disable_inputs_controlled_by_tissue_typing_feed = false
   config.disable_inputs_controlled_by_demographics_feed = false
+  config.enforce_user_prescriber_flag = true
   config.allow_uploading_patient_attachments = true
   config.hl7_patient_locator_strategy = :dob_and_any_nhs_or_assigning_auth_number
   config.max_batch_print_size = 50

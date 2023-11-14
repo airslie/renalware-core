@@ -23,7 +23,6 @@ describe "AKI alert management" do
   end
 
   describe "GET index" do
-    # rubocop:disable RSpec/MultipleExpectations
     describe "with no filters and date_range 'all'" do
       it "renders a list of AKI Alerts" do
         a1 = aki_alert(at: Time.zone.now)
@@ -48,7 +47,6 @@ describe "AKI alert management" do
 
         expect(response.body).to match(hospital_ward.name)
       end
-      # rubocop:enable RSpec/MultipleExpectations
     end
 
     describe "filtering by created_at_within_configured_today_period" do

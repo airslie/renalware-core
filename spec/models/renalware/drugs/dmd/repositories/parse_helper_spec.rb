@@ -53,7 +53,7 @@ module Renalware
                                                       "code" => "258684004" } }] }] }]
         end
 
-        it "takes data out of properties" do # rubocop:disable RSpec/MultipleExpectations
+        it "takes data out of properties" do
           expect(dig(extension_contains, "FORMCD")).to eq "385194003"
           expect(dig(extension_contains, "ROUTECD")).to eq "37161004"
           expect(dig(extension_contains, "UNIT_DOSE_UOMCD")).to eq "430293001"

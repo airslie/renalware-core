@@ -19,7 +19,8 @@
             th.col-width-small Frequency
             th.col-width-tiny Route
             - if current_scope
-              th.col-width-small Give on HD
+              th.col-width-tinyish Give on HD
+              th.col-width-tiny Stat
             th.col-width-tiny Provider
             th.col-width-small Notes
             th.col-width-date.wide
@@ -48,7 +49,8 @@
                   .mt-1.text-xs = prescription.frequency_comment
               td= prescription.route_code
               - if current_scope
-                td= prescription.administer_on_hd?
+                td= inline_check_icon(prescription.administer_on_hd)
+                td= inline_check_icon(prescription.stat)
               td= prescription.provider
               td.text-center
                 - if prescription.notes.present?
@@ -64,5 +66,9 @@
                   = definition_list_for(prescription, size: :large) do |list|
                     = list.definition(:notes){ |value| simple_format(value) }
                     = list.definition(:code)
+                  - if prescription.termination.present?
+                    = definition_list_for(prescription.termination, size: :large) do |list|
+                      = list.definition(:notes){ |value| simple_format(value) }
+
 - else
   p There are no prescriptions in this list.

@@ -33,5 +33,13 @@
     &.super_admin {
       background-color: $nhs-red;
     }
+
+    &.prescriber {
+      background-color: $nhs-warm-yellow;
+    }
+
+    &.hd_prescriber {
+      background-color: $nhs-orange;
+    }
   }
 }

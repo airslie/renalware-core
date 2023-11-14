@@ -49,6 +49,10 @@ module Renalware
         administer_on_hd ? "Yes" : "No"
       end
 
+      def stat?
+        stat ? "Yes" : "No"
+      end
+
       def to_s
         [
           drug_name,

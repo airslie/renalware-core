@@ -6,7 +6,7 @@ describe Renalware::HD::VNDRiskAssessmentsComponent, type: :component do
   let(:user) { create(:user) }
   let(:patient) { create(:hd_patient, by: user) }
 
-  it "displays the last 3 needling assessments" do # rubocop:disable RSpec/MultipleExpectations
+  it "displays the last 3 needling assessments" do
     component = described_class.new(current_user: user, patient: patient)
 
     assessment = create(

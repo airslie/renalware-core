@@ -34,7 +34,6 @@ module Renalware
           create_letter(state: :pending_review, to: :primary_care_physician, patient: patient)
         end
 
-        # rubocop:disable RSpec/MultipleExpectations
         it "sanity checks" do
           expect(letter).to be_present
           expect(letter.patient).to be_present
@@ -45,7 +44,6 @@ module Renalware
           expect(letter.state).to eq("pending_review")
           expect(letter).to be_persisted
         end
-        # rubocop:enable RSpec/MultipleExpectations
 
         it "PracticeEmail.address returns the practice email" do
           practice_email_address = Delivery::PracticeEmail.new(letter).address

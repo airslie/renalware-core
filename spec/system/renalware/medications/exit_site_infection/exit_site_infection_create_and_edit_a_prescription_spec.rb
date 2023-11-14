@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Prescriptions - from an exit site infection", js: true do
-  let(:user) { create(:user, :clinical) }
+  let(:user) { create(:user, :clinical, additional_roles: :prescriber) }
   let(:patient) { create(:pd_patient, by: user) }
   let(:drug) { create(:drug, name: "Blue Pill") }
   let(:antibiotic_drug_type) { create(:drug_type, :antibiotic) }

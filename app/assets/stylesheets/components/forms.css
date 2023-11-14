@@ -9,6 +9,13 @@
   @apply px-5 py-2 rounded-md;
 }
 
+.disabled-input input[type=checkbox]:disabled {
+  @apply border-gray-400;
+}
+.disabled-input label {
+  @apply text-gray-400;
+}
+
 @layer components {
   [type="text"],
   [type="email"],

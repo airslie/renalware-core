@@ -13,6 +13,8 @@ en:
         prescribed_on: Prescribed on
         terminated_on: Terminated on
         code: "dm+d code"
+      renalware/medications/prescription_termination:
+        notes: Termination notes
   enumerize:
     renalware:
       medications:

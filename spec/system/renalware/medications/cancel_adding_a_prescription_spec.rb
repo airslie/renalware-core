@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "Cancel out of the new prescription form" do
   it "returns the original location" do
-    user = login_as_clinical
+    user = login_as_clinical(:prescriber)
     patient = create(:patient, by: user)
 
     visit patient_prescriptions_path(patient,
