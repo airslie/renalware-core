@@ -15,7 +15,8 @@ module Renalware
           hospital.is_transplant_site = (row["is_transplant_site"] == "1")
           hospital.trust_name = row["trust_name"]
           hospital.trust_caption = row["trust_caption"]
-          hospital.info = row["info"]
+          hospital.info = row["info"],
+          hospital.position = row["position"] || 99
         end
       end
     end

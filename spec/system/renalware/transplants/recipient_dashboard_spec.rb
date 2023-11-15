@@ -14,6 +14,7 @@ describe "Viewing the Recipient Summary (Dashboard)" do
       default_cg = create(:pathology_code_group, :default)
       default_cg.memberships.create!(observation_description: hgb)
       default_cg.memberships.create!(observation_description: cmvd)
+      create(:modality_change_type, :default)
       Renalware::Modalities::ChangePatientModality
         .new(patient: patient, user: user)
         .call(description: modality_description, started_on: Time.zone.now)

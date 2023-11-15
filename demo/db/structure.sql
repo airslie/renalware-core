@@ -2964,7 +2964,8 @@ CREATE TABLE renalware.hospital_centres (
     abbrev character varying,
     default_site boolean DEFAULT false,
     departments_count integer DEFAULT 0 NOT NULL,
-    units_count integer DEFAULT 0 NOT NULL
+    units_count integer DEFAULT 0 NOT NULL,
+    "position" integer DEFAULT 10 NOT NULL
 );
 
 
@@ -2980,6 +2981,13 @@ COMMENT ON COLUMN renalware.hospital_centres.departments_count IS 'Counter cache
 --
 
 COMMENT ON COLUMN renalware.hospital_centres.units_count IS 'Counter cache for the number of units at this centre';
+
+
+--
+-- Name: COLUMN hospital_centres."position"; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hospital_centres."position" IS 'Allows us to float hard-to-find options like ''Other'' and ''Non-UK'' the top of of dropdown lists';
 
 
 --
@@ -3024,7 +3032,7 @@ CREATE TABLE renalware.modality_modalities (
     patient_id integer NOT NULL,
     description_id integer NOT NULL,
     reason_id integer,
-    modal_change_type character varying,
+    modal_change_type_deprecated character varying,
     notes text,
     started_on date NOT NULL,
     ended_on date,
@@ -3032,8 +3040,25 @@ CREATE TABLE renalware.modality_modalities (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL
+    updated_by_id integer NOT NULL,
+    change_type_id bigint,
+    source_hospital_centre_id bigint,
+    destination_hospital_centre_id bigint
 );
+
+
+--
+-- Name: COLUMN modality_modalities.source_hospital_centre_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_modalities.source_hospital_centre_id IS 'Source hospital when modality is transferred in.';
+
+
+--
+-- Name: COLUMN modality_modalities.destination_hospital_centre_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_modalities.destination_hospital_centre_id IS 'Destination hospital when modality is transferred out.';
 
 
 --
@@ -3132,7 +3157,7 @@ CREATE VIEW renalware.patient_current_modalities AS
             modality_modalities.patient_id,
             modality_modalities.description_id,
             modality_modalities.reason_id,
-            modality_modalities.modal_change_type,
+            modality_modalities.modal_change_type_deprecated AS modal_change_type,
             modality_modalities.notes,
             modality_modalities.started_on,
             modality_modalities.ended_on,
@@ -7999,6 +8024,58 @@ CREATE SEQUENCE renalware.messaging_receipts_id_seq
 --
 
 ALTER SEQUENCE renalware.messaging_receipts_id_seq OWNED BY renalware.messaging_receipts.id;
+
+
+--
+-- Name: modality_change_types; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.modality_change_types (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    "default" boolean DEFAULT false NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone,
+    updated_at timestamp(6) without time zone,
+    require_source_hospital_centre boolean DEFAULT false NOT NULL,
+    require_destination_hospital_centre boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: COLUMN modality_change_types.require_source_hospital_centre; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_change_types.require_source_hospital_centre IS 'When true, a source hospital must be chosen when adding the modality';
+
+
+--
+-- Name: COLUMN modality_change_types.require_destination_hospital_centre; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_change_types.require_destination_hospital_centre IS 'When true, a destination hospital must be chosen when adding the modality';
+
+
+--
+-- Name: modality_change_types_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.modality_change_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: modality_change_types_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.modality_change_types_id_seq OWNED BY renalware.modality_change_types.id;
 
 
 --
@@ -15052,6 +15129,13 @@ ALTER TABLE ONLY renalware.messaging_receipts ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: modality_change_types id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.modality_change_types ALTER COLUMN id SET DEFAULT nextval('renalware.modality_change_types_id_seq'::regclass);
+
+
+--
 -- Name: modality_descriptions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -17027,6 +17111,14 @@ ALTER TABLE ONLY renalware.messaging_messages
 
 ALTER TABLE ONLY renalware.messaging_receipts
     ADD CONSTRAINT messaging_receipts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: modality_change_types modality_change_types_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.modality_change_types
+    ADD CONSTRAINT modality_change_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -21133,6 +21225,34 @@ CREATE INDEX index_messaging_receipts_on_recipient_id ON renalware.messaging_rec
 
 
 --
+-- Name: index_modality_change_types_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_modality_change_types_on_created_by_id ON renalware.modality_change_types USING btree (created_by_id);
+
+
+--
+-- Name: index_modality_change_types_on_default; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_modality_change_types_on_default ON renalware.modality_change_types USING btree ("default") WHERE ("default" = true);
+
+
+--
+-- Name: index_modality_change_types_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_modality_change_types_on_deleted_at ON renalware.modality_change_types USING btree (deleted_at);
+
+
+--
+-- Name: index_modality_change_types_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_modality_change_types_on_updated_by_id ON renalware.modality_change_types USING btree (updated_by_id);
+
+
+--
 -- Name: index_modality_descriptions_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -21182,6 +21302,13 @@ CREATE INDEX index_modality_descriptions_on_ukrdc_modality_code_id ON renalware.
 
 
 --
+-- Name: index_modality_modalities_on_change_type_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_modality_modalities_on_change_type_id ON renalware.modality_modalities USING btree (change_type_id);
+
+
+--
 -- Name: index_modality_modalities_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -21193,6 +21320,13 @@ CREATE INDEX index_modality_modalities_on_created_by_id ON renalware.modality_mo
 --
 
 CREATE INDEX index_modality_modalities_on_description_id ON renalware.modality_modalities USING btree (description_id);
+
+
+--
+-- Name: index_modality_modalities_on_destination_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_modality_modalities_on_destination_hospital_centre_id ON renalware.modality_modalities USING btree (destination_hospital_centre_id);
 
 
 --
@@ -21221,6 +21355,13 @@ CREATE INDEX index_modality_modalities_on_patient_id_and_description_id ON renal
 --
 
 CREATE INDEX index_modality_modalities_on_reason_id ON renalware.modality_modalities USING btree (reason_id);
+
+
+--
+-- Name: index_modality_modalities_on_source_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_modality_modalities_on_source_hospital_centre_id ON renalware.modality_modalities USING btree (source_hospital_centre_id);
 
 
 --
@@ -24332,6 +24473,14 @@ ALTER TABLE ONLY renalware.letter_electronic_receipts
 
 
 --
+-- Name: modality_modalities fk_rails_0c63f0044a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.modality_modalities
+    ADD CONSTRAINT fk_rails_0c63f0044a FOREIGN KEY (destination_hospital_centre_id) REFERENCES renalware.hospital_centres(id);
+
+
+--
 -- Name: problem_comorbidities fk_rails_0cf23c6bfe; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -24713,6 +24862,14 @@ ALTER TABLE ONLY renalware.transplant_registrations
 
 ALTER TABLE ONLY renalware.letter_contacts
     ADD CONSTRAINT fk_rails_33f61c70e6 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
+-- Name: modality_modalities fk_rails_345aeedf24; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.modality_modalities
+    ADD CONSTRAINT fk_rails_345aeedf24 FOREIGN KEY (change_type_id) REFERENCES renalware.modality_change_types(id);
 
 
 --
@@ -25417,6 +25574,14 @@ ALTER TABLE ONLY renalware.problem_notes
 
 ALTER TABLE ONLY renalware.medication_delivery_events
     ADD CONSTRAINT fk_rails_6b50df295a FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: modality_change_types fk_rails_6b99818772; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.modality_change_types
+    ADD CONSTRAINT fk_rails_6b99818772 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -27076,6 +27241,14 @@ ALTER TABLE ONLY renalware.clinic_appointments
 
 
 --
+-- Name: modality_modalities fk_rails_f3af37ca67; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.modality_modalities
+    ADD CONSTRAINT fk_rails_f3af37ca67 FOREIGN KEY (source_hospital_centre_id) REFERENCES renalware.hospital_centres(id);
+
+
+--
 -- Name: hd_stations fk_rails_f4cc4cd5c4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -27225,6 +27398,14 @@ ALTER TABLE ONLY renalware.pathology_requests_patient_rules_requests
 
 ALTER TABLE ONLY renalware.system_dashboard_components
     ADD CONSTRAINT fk_rails_fc4e7f516a FOREIGN KEY (dashboard_id) REFERENCES renalware.system_dashboards(id);
+
+
+--
+-- Name: modality_change_types fk_rails_fcb9925881; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.modality_change_types
+    ADD CONSTRAINT fk_rails_fcb9925881 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -28252,6 +28433,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230825104746'),
 ('20230825141714'),
 ('20230825143006'),
+('20230913132527'),
+('20230913133958'),
 ('20230915144448'),
 ('20230915220000'),
 ('20230918172419'),

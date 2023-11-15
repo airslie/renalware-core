@@ -15,6 +15,7 @@ When("I select death modality") do
     end
 
     fill_in "Started on", with: l(Time.zone.today)
+    select "Change in modality", from: "Type of Change"
     click_on t("btn.create")
   end
 end

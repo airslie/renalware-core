@@ -33,7 +33,10 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
     practice
   end
 
-  before { system_user }
+  before do
+    system_user
+    create(:modality_change_type, :default)
+  end
 
   context "when the patient exists in Renalware" do
     it "updates their information" do

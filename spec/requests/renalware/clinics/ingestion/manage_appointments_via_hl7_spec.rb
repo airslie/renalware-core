@@ -46,7 +46,10 @@ describe "manage appointments via HL7 ADT messages" do
     )
   end
 
-  before { create(:user, :system) }
+  before do
+    create(:user, :system)
+    create(:modality_change_type, :default)
+  end
 
   describe "ADT^A05 create or update appointment" do
     it "sanity check the fixture builds using our arguments" do

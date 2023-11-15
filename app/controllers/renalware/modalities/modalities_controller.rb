@@ -17,6 +17,16 @@ module Renalware
 
       def new
         modality = Modality.new(patient: patient)
+
+        # If the change_type dropdown on this page changes, we refresh the turboframe
+        # and this causes us to re-enter here with eg ..?change_type_id=3 on the url - in which case
+        # assign the specified ChangeType so when we render the turboframe fields
+        # (which depend on change_type) they can hide/show themselves appropriately.
+        # See also modalities/new and select_controller.js
+        if params[:change_type_id].present?
+          modality.change_type = ChangeType.find(params[:change_type_id])
+        end
+
         authorize modality
         render locals: { patient: patient, modality: modality }
       end
@@ -105,7 +115,7 @@ module Renalware
       def patient_modalities
         patient
           .modalities
-          .includes([:description, :created_by])
+          .includes([:description, :created_by, :change_type, :source_hospital_centre])
           .ordered
       end
 
@@ -135,7 +145,8 @@ module Renalware
       def modality_params
         params
           .require(:modality)
-          .permit(:description_id, :modal_change_type, :reason_id, :notes, :started_on, :ended_on)
+          .permit(:description_id, :change_type_id, :notes, :started_on, :ended_on,
+                  :destination_hospital_centre_id, :source_hospital_centre_id)
       end
 
       # TODO: refactor

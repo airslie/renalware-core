@@ -14,6 +14,7 @@ module Renalware
                dependent: :restrict_with_exception
 
       scope :ordered, -> { order(:name) }
+      scope :ordered_for_dropdowns, -> { order(position: :asc, name: :asc) }
       scope :active, -> { where(active: true) }
       scope :host_site, -> { where(host_site: true) }
       scope :default, -> { where(default_site: true) }

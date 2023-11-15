@@ -17,6 +17,7 @@ module Renalware
       ) do |modality|
         modality.started_on = row["started_on"]
         modality.ended_on = row["ended_on"]
+        modality.change_type = Modalities::ChangeType.find_by(code: "other")
         modality.by = user
       end
     end

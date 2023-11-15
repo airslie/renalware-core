@@ -38,7 +38,8 @@ module Renalware
       end
 
       before do
-        create(:pathology_lab, :uknown)
+        create(:modality_change_type, :default)
+        create(:pathology_lab, :unknown)
         create(:user, username: Renalware::SystemUser.username)
         create(:modality_description, :aki)
         allow(Renalware.config)
@@ -89,9 +90,9 @@ module Renalware
               expect(patient.current_modality.description.code).to eq("aki")
 
               # This is a bit messy as we are also testing the Pathology::Listener here,
-              # but we want to make sure the order of listeners is correct, so we are checking thath
+              # but we want to make sure the order of listeners is correct, so we are checking that
               # the Pathology::Listener fired after the AKIListener and it found the patient the
-              # AKIListener created, and saved the AKI result agains them.
+              # AKIListener created, and saved the AKI result against them.
               pathology_patient = Renalware::Pathology.cast_patient(patient)
               obrs = pathology_patient.observation_requests
               expect(obrs.count).to eq(2)

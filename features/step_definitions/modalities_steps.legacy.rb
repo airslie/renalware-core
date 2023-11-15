@@ -9,8 +9,7 @@ When(/^I complete the modality form$/) do
     select "Other"
   end
 
-  select "PD To Haemodialysis", from: "Type of Change"
-  select "Other reasons", from: "Reason for Change"
+  select "Change in modality", from: "Type of Change"
   fill_in "Started on", with: "01-12-2014"
 
   fill_in "Notes", with: "Needs wheel chair access"

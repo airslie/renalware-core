@@ -10,6 +10,7 @@ module Renalware
     let(:user)                    { build_stubbed(:user) }
     let(:death)                   { build_stubbed(:death_modality_description) }
     let(:pd_modality_description) { build_stubbed(:pd_modality_description) }
+    let(:change_type)             { create(:modality_change_type, default: true) }
 
     it { is_expected.to respond_to(:call) }
 
@@ -17,7 +18,8 @@ module Renalware
       Modalities::Modality.new(
         patient: patient,
         description: description,
-        started_on: Time.zone.now
+        started_on: Time.zone.now,
+        change_type: change_type
       )
     end
 
@@ -26,13 +28,14 @@ module Renalware
         :modality,
         patient: patient,
         description: description,
-        started_on: Time.zone.now
+        started_on: Time.zone.now,
+        change_type: change_type
       )
     end
 
     describe "#call" do
       context "when passing modality attributes rather than a modality object" do
-        it "creates a new modality and makes it the patient;s current modality" do
+        it "creates a new modality and makes it the patient's current modality" do
           # No stubbed models here - want to test straight through
           patient = create(:patient)
           user = create(:user)
@@ -43,7 +46,8 @@ module Renalware
 
           result = svc_obj.call(
             description: create(:death_modality_description),
-            started_on: Time.zone.today
+            started_on: Time.zone.today,
+            change_type: change_type
           )
 
           expect(result).to be_a(Success)

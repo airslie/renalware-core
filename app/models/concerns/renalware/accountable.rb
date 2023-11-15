@@ -27,14 +27,14 @@ module Renalware
       scope :with_updated_by, -> { includes(:updated_by) }
     end
 
-    def save_by!(user)
+    def save_by!(user, validate: true)
       self.by = user
-      save!
+      save!(validate: validate)
     end
 
-    def save_by(user)
+    def save_by(user, validate: true)
       self.by = user
-      save
+      save(validate: validate)
     end
 
     def update_by(user, attrs)

@@ -1,6 +1,7 @@
 = render "renalware/shared/errors", model: modality
 
-.modality-form.row
+.modality-form.row(data-controller="select")
+
   = simple_form_for modality,
                     as: :modality,
                     url: url,
@@ -8,45 +9,57 @@
                     wrapper: "horizontal_form" do |m|
 
       .large-9.columns
-        = field_set_tag "", class: "borderless" do
 
-            = m.input :description_id,
-                      collection: Renalware::Modalities::Description.where(hidden: false),
-                      input_html: { id: "modality-description-select" },
-                      label_method: :name, value_method: :id,
+          = m.input :description_id,
+                    collection: Renalware::Modalities::Description.where(hidden: false),
+                    input_html: { id: "modality-description-select" },
+                    label_method: :name, value_method: :id,
+                    wrapper: :horizontal_medium,
+                    autofocus: true
+
+          - frame_url = renalware.new_patient_modality_path(change_type_id: "REPLACE_ID")
+          = m.input :change_type_id,
+              label: "Type of Change",
+              collection: Renalware::Modalities::ChangeTypePresenter.list_for_dropdown(frame_url),
+              wrapper: :horizontal_medium,
+              include_blank: false,
+              input_html: { \
+                data: { \
+                  controller: " select-update-frame",
+                  "select-update-frame-frame-id-value": "modality-change-type-dependents",
+                  "action": "change->select-update-frame#change" \
+                } \
+              }
+
+          = turbo_frame_tag("modality-change-type-dependents") do
+            - if modality.change_type&.require_source_hospital_centre?
+              .pb-4
+                = m.input :source_hospital_centre_id,
+                    collection: Renalware::Hospitals::Centre.ordered_for_dropdowns,
+                    wrapper: :horizontal_medium,
+                    required: true,
+                    input_html: { data: { controller: "slimselect" } }
+
+            - if modality.change_type&.require_destination_hospital_centre?
+              .pb-4
+                  = m.input :destination_hospital_centre_id,
+                      collection: Renalware::Hospitals::Centre.ordered_for_dropdowns,
                       wrapper: :horizontal_medium,
-                      autofocus: true
+                      required: true,
+                      input_html: { data: { controller: "slimselect" } }
 
-            .hide-death
-              = m.input :modal_change_type,
-                  label: "Type of Change",
-                  input_html: { class: "modal-change-type" },
-                  collection: Renalware::Modalities::ChangeType.to_a,
-                  wrapper: :horizontal_medium
+          = m.input :started_on,
+                    as: :flatpickr,
+                    wrapper: :horizontal_datepicker
 
-            .hide-death
-              = m.input :reason_id,
-                  label: "Reason for Change",
-                  input_html: { class: "modality-reason-select" },
-                  collection: Renalware::Modalities::Reason.where(type: m.object.modal_change_type),
-                  label_method: :description, value_method: :id,
-                  wrapper: :horizontal_medium
-
-            .hide-death.reference.columns.small-12.medium-8.medium-offset-4.large-9.large-offset-3
-              = link_to "Renal Registry Reason for Change Codes", "#", id: "modal-reason-code"
-
-            = m.input :started_on,
+          - if policy(modality).edit?
+            = m.input :ended_on,
                       as: :flatpickr,
                       wrapper: :horizontal_datepicker
+          .hide-death
+            = m.input :notes,
+                      as: :text,
+                      input_html: { rows: 5 },
+                      wrapper: :horizontal_large
 
-            - if policy(modality).edit?
-              = m.input :ended_on,
-                        as: :flatpickr,
-                        wrapper: :horizontal_datepicker
-            .hide-death
-              = m.input :notes,
-                        as: :text,
-                        input_html: { rows: 5 },
-                        wrapper: :horizontal_large
-
-            = save_or_cancel(form: m, back_path: patient_modalities_path(patient))
+          = save_or_cancel(form: m, back_path: patient_modalities_path(patient))

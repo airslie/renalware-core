@@ -54,34 +54,41 @@ module Renalware
         hd_modality_description = create(:modality_description, :hd)
         pd_modality_description = create(:modality_description, :pd)
         tx_modality_description = create(:modality_description, :transplant)
+        create(:modality_change_type, :default)
 
         # Create 3 modalities in this chronological order: PD, HD, Transplant
         # but insert them non-chronologically
         svc = Modalities::ChangePatientModality.new(patient: patient, user: user)
 
         # 1 Create an HD modality starting 2 weeks ago, ending 1 week ago
-        svc.call(
-          description: pd_modality_description,
-          started_on: 2.weeks.ago,
-          ended_on: 1.week.ago,
-          updated_at: 2.weeks.ago
-        )
+        expect(
+          svc.call(
+            description: pd_modality_description,
+            started_on: 2.weeks.ago,
+            ended_on: 1.week.ago,
+            updated_at: 2.weeks.ago
+          ).success?
+        ).to eq(true)
 
         # 2 Create an HD modality
-        svc.call(
-          description: hd_modality_description,
-          started_on: 2.days.ago,
-          ended_on: 1.day.ago,
-          updated_at: 25.hours.ago
-        )
+        expect(
+          svc.call(
+            description: hd_modality_description,
+            started_on: 2.days.ago,
+            ended_on: 1.day.ago,
+            updated_at: 25.hours.ago
+          ).success?
+        ).to eq(true)
 
         # 3 Create a Tx modality which is the current one
-        svc.call(
-          description: tx_modality_description,
-          started_on: 1.day.ago,
-          ended_on: nil,
-          updated_at: 1.day.ago
-        )
+        expect(
+          svc.call(
+            description: tx_modality_description,
+            started_on: 1.day.ago,
+            ended_on: nil,
+            updated_at: 1.day.ago
+          ).success?
+        ).to eq(true)
 
         patient.reload
 
