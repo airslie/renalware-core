@@ -7,7 +7,7 @@ module Renalware
     describe APISynchronisers::VirtualMedicalProductSynchroniser do
       describe "#call" do
         let(:instance) {
-          described_class.new(virtual_medical_product_repository: vmp_repository)
+          described_class.new(repository: vmp_repository)
         }
 
         let(:vmp_repository) {
@@ -24,16 +24,16 @@ module Renalware
 
         context "with an entry" do
           let(:entry) do
-            instance_double(
-              Repositories::VirtualMedicalProductRepository::Entry,
+            Repositories::VirtualMedicalProductRepository::Entry.new(
               code: "code",
               name: "name",
               form_code: "form_code",
               route_code: "route_code",
-              unit_of_measure_code: "unit_of_measure_code",
+              active_ingredient_strength_numerator_uom_code: "unit_of_measure_code",
               basis_of_strength: "basis_of_strength",
               strength_numerator_value: "strength_numerator_value",
-              virtual_therapeutic_moiety_code: "1234"
+              virtual_therapeutic_moiety_code: "1234",
+              inactive: false
             )
           end
 
@@ -54,7 +54,7 @@ module Renalware
                 name: "name",
                 form_code: "form_code",
                 route_code: "route_code",
-                unit_of_measure_code: "unit_of_measure_code",
+                active_ingredient_strength_numerator_uom_code: "unit_of_measure_code",
                 basis_of_strength: "basis_of_strength",
                 strength_numerator_value: "strength_numerator_value",
                 virtual_therapeutic_moiety_code: "1234"
@@ -79,7 +79,7 @@ module Renalware
                 name: "name",
                 form_code: "form_code",
                 route_code: "route_code",
-                unit_of_measure_code: "unit_of_measure_code",
+                active_ingredient_strength_numerator_uom_code: "unit_of_measure_code",
                 basis_of_strength: "basis_of_strength",
                 strength_numerator_value: "strength_numerator_value",
                 virtual_therapeutic_moiety_code: "1234"

@@ -81,9 +81,13 @@ module Renalware
                       else
                         vmps
                       end
-
-          Drugs::UnitOfMeasure.where(id: selection.map(&:unit_of_measure_id)).presence ||
-            Drugs::UnitOfMeasure.all
+          uom_ids = selection.map do |vmp|
+            [
+              vmp[:unit_dose_form_size_uom_id],
+              vmp[:active_ingredient_strength_numerator_uom_id]
+            ]
+          end.flatten.uniq.compact
+          Drugs::UnitOfMeasure.where(id: uom_ids).presence || Drugs::UnitOfMeasure.all
         end
       end
 

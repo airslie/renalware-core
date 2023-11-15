@@ -51,6 +51,7 @@ gem "wkhtmltopdf-binary", "0.12.3.1"
 # For sentry error reporting and metrics
 # gem "sentry-rails"
 # gem "sentry-ruby"
+gem "rake"
 gem "strong_migrations"
 
 gem "good_job"

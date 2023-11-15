@@ -4139,14 +4139,38 @@ CREATE TABLE renalware.drug_dmd_virtual_medical_products (
     form_code character varying,
     route_code character varying,
     atc_code character varying,
-    unit_of_measure_code character varying,
+    unit_of_measure_code_deprecated character varying,
     strength_numerator_value character varying,
     basis_of_strength character varying,
     virtual_therapeutic_moiety_code character varying,
     inactive boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    unit_dose_uom_code character varying,
+    unit_dose_form_size_uom_code character varying,
+    active_ingredient_strength_numerator_uom_code character varying
 );
+
+
+--
+-- Name: COLUMN drug_dmd_virtual_medical_products.unit_dose_uom_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_dmd_virtual_medical_products.unit_dose_uom_code IS 'dm+d name VMP.UNIT_DOSE_UOMCD';
+
+
+--
+-- Name: COLUMN drug_dmd_virtual_medical_products.unit_dose_form_size_uom_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_dmd_virtual_medical_products.unit_dose_form_size_uom_code IS 'dm+d name VMP.UDFS_UOMCD';
+
+
+--
+-- Name: COLUMN drug_dmd_virtual_medical_products.active_ingredient_strength_numerator_uom_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_dmd_virtual_medical_products.active_ingredient_strength_numerator_uom_code IS 'dm+d name VMP.STRNT_NMRTR_UOMCD';
 
 
 --
@@ -4634,7 +4658,10 @@ CREATE TABLE renalware.drug_vmp_classifications (
     trade_family_ids integer[] DEFAULT '{}'::integer[],
     created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    inactive boolean DEFAULT false NOT NULL
+    inactive boolean DEFAULT false NOT NULL,
+    unit_dose_uom_id bigint,
+    unit_dose_form_size_uom_id bigint,
+    active_ingredient_strength_numerator_uom_id bigint
 );
 
 
@@ -19321,6 +19348,13 @@ CREATE INDEX index_drug_versions_on_item_type_and_item_id ON renalware.drug_vers
 
 
 --
+-- Name: index_drug_vmp_classifications_on_active_ing_st_num_uom_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_drug_vmp_classifications_on_active_ing_st_num_uom_id ON renalware.drug_vmp_classifications USING btree (active_ingredient_strength_numerator_uom_id);
+
+
+--
 -- Name: index_drug_vmp_classifications_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -19346,6 +19380,20 @@ CREATE INDEX index_drug_vmp_classifications_on_form_id ON renalware.drug_vmp_cla
 --
 
 CREATE INDEX index_drug_vmp_classifications_on_route_id ON renalware.drug_vmp_classifications USING btree (route_id);
+
+
+--
+-- Name: index_drug_vmp_classifications_on_unit_dose_form_size_uom_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_drug_vmp_classifications_on_unit_dose_form_size_uom_id ON renalware.drug_vmp_classifications USING btree (unit_dose_form_size_uom_id);
+
+
+--
+-- Name: index_drug_vmp_classifications_on_unit_dose_uom_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_drug_vmp_classifications_on_unit_dose_uom_id ON renalware.drug_vmp_classifications USING btree (unit_dose_uom_id);
 
 
 --
@@ -28447,6 +28495,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231101152934'),
 ('20231106173109'),
 ('20231112080224'),
-('20231113124516');
+('20231113124516'),
+('20231115125057'),
+('20231115135028'),
+('20231115160013');
 
 

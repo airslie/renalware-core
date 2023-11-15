@@ -7,7 +7,7 @@ module Renalware
     describe Repositories::FormRepository do
       describe "#call" do
         let(:instance) {
-          described_class.new(client: onthology_client)
+          described_class.new(client: ontology_client)
         }
 
         let(:response_body) do
@@ -22,7 +22,7 @@ module Renalware
         end
 
         let(:stubs) { Faraday::Adapter::Test::Stubs.new }
-        let(:onthology_client) {
+        let(:ontology_client) {
           class_double \
             OntologyClient,
             call: Faraday.new { |b| b.adapter(:test, stubs) }
