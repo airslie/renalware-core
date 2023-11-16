@@ -11,15 +11,15 @@
   ],
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.8.4",
+    "@babel/core": "^7.23.3",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-optional-chaining": "^7.17.12",
     "@babel/preset-env": "^7.8.4",
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/turbo-rails": "7.3.0",
-    "@rollup/plugin-commonjs": "^22.0",
-    "@rollup/plugin-inject": "^4.0.2",
-    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@rollup/plugin-commonjs": "^25.0",
+    "@rollup/plugin-inject": "^5.0",
+    "@rollup/plugin-node-resolve": "^15.2",
     "@stimulus/polyfills": "^2.0",
     "@ungap/url-search-params": "^0.2.2",
     "babel-eslint": "^10.1.0",
@@ -33,30 +33,30 @@
     "eslint-plugin-import": "^2.7.0",
     "flatpickr": "^4.6.13",
     "foundation-datepicker": "1.5.0",
-    "highcharts": "10.1.0",
+    "highcharts": "11.2.0",
     "masonry-layout": "^4.2.2",
     "moment": "2.29",
     "mousetrap": "^1.6.3",
-    "print-js": "^1.0.61",
+    "print-js": "^1.6.0",
     "promise-polyfill": "^8.2.0",
-    "rollup": "^2.58.0",
+    "rollup": "^4.4.0",
     "rollup-plugin-babel": "^4.3.3",
     "select2": "^4.0.5",
     "semver": ">7.5.2",
-    "serialize-javascript": "^3.0.0",
+    "serialize-javascript": "^6.0",
     "slim-select": "^2.4.2",
     "sortablejs": "^1.13.0",
     "stimulus-dropdown": "^2.1.0",
     "trix": "^1.2.2",
     "underscore": "1.13.6",
     "url-polyfill": "^1.1.8",
-    "whatwg-fetch": "^3.6.2"
+    "whatwg-fetch": "^3.6.19"
   },
   "scripts": {
-    "build": "rollup --config rollup.config.js",
+    "build": "rollup --config rollup.config.js --bundleConfigAsCjs",
     "build:css": "./demo/bin/yarn build:css"
   },
   "devDependencies": {
-    "prettier": "2.8.7"
+    "prettier": "3.1.0"
   }
 }
