@@ -66,6 +66,8 @@ module Renalware
         prescription = patient.prescriptions.new(prescription_params)
         authorize prescription
 
+        assign_future_termination(prescription) if prescription.administer_on_hd?
+
         if prescription.save
           redirect_to return_to_param || patient_prescriptions_path(patient)
         else
@@ -85,6 +87,24 @@ module Renalware
       end
 
       private
+
+      # Prescriptions which are administer_on_hd = true should automatically have a future
+      # termination according to config.auto_terminate_hd_prescriptions_after_period.
+      # If this behaviour is not required, return nil in the
+      # auto_terminate_hd_prescriptions_after_period setting.
+      def assign_future_termination(prescription)
+        return if prescription.termination.present? || prescription.prescribed_on.blank?
+
+        termination_period = Renalware.config.auto_terminate_hd_prescriptions_after_period
+        return if termination_period.nil?
+
+        prescription.build_termination(
+          terminated_on: prescription.prescribed_on + termination_period,
+          by: current_user,
+          notes: "HD prescription scheduled to be terminated #{termination_period.in_months} " \
+                 "months from start"
+        )
+      end
 
       def pdf_title
         title = "Medication List"
