@@ -19,7 +19,7 @@ module Renalware
 
     belongs_to :unit_of_measure,
                class_name: "Renalware::Drugs::UnitOfMeasure",
-               foreign_key: :unit_of_measure_code,
+               foreign_key: :active_ingredient_strength_numerator_uom_code,
                primary_key: :code
   end
 end

@@ -76,7 +76,7 @@ module Renalware
           code: row["code"],
           form_code: row["form_code"],
           route_code: row["route_code"],
-          unit_of_measure_code: row["unit_of_measure_code"],
+          active_ingredient_strength_numerator_uom_code: row["unit_of_measure_code"],
           basis_of_strength: row["basis_of_strength"],
           strength_numerator_value: row["strength_numerator_value"],
           virtual_therapeutic_moiety_code: row["virtual_therapeutic_moiety_code"],

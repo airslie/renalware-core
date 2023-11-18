@@ -19,13 +19,17 @@ module Renalware
         context "with data" do
           let(:drug) { create(:drug, code: "DRUG_CODE") }
           let(:form) { create(:drug_form, code: "FORM") }
-          let(:unit_of_measure) { create(:drug_unit_of_measure, code: "MEASURE") }
+          let(:unit_of_measure1) { create(:drug_unit_of_measure, code: "STRNT_NMRTR_UOMCD") }
+          let(:unit_of_measure2) { create(:drug_unit_of_measure, code: "UDFS_UOMCD") }
+          let(:unit_of_measure3) { create(:drug_unit_of_measure, code: "UNIT_DOSE_UOMCD") }
           let(:route) { create(:medication_route, code: "MED_ROUTE") }
           let(:vmp) {
             create(:dmd_virtual_medical_product,
                    code: "VMP_CODE",
                    form_code: "FORM",
-                   unit_of_measure_code: "MEASURE",
+                   active_ingredient_strength_numerator_uom_code: "STRNT_NMRTR_UOMCD",
+                   unit_dose_form_size_uom_code: "UDFS_UOMCD",
+                   unit_dose_uom_code: "UNIT_DOSE_UOMCD",
                    route_code: "MED_ROUTE",
                    virtual_therapeutic_moiety_code: "DRUG_CODE",
                    inactive: true)
@@ -33,7 +37,8 @@ module Renalware
 
           context "with full data available" do
             before do
-              form && drug && vmp && unit_of_measure && route
+              form && drug && vmp && unit_of_measure1 &&
+                unit_of_measure2 && unit_of_measure3 && route
             end
 
             context "when classification row doesn't exist" do
@@ -46,17 +51,20 @@ module Renalware
                 expect(row.drug_id).to eq drug.id
                 expect(row.form_id).to eq form.id
                 expect(row.route_id).to eq route.id
-                expect(row.unit_of_measure_id).to eq unit_of_measure.id
+                expect(row.active_ingredient_strength_numerator_uom_id).to eq unit_of_measure1.id
+                expect(row.unit_dose_form_size_uom_id).to eq unit_of_measure2.id
+                expect(row.unit_dose_uom_id).to eq unit_of_measure3.id
                 expect(row.inactive).to be true
               end
             end
 
             context "when classification row exists" do
               it "updates it" do
-                Drugs::VMPClassification.create! \
+                Drugs::VMPClassification.create!(
                   code: "VMP_CODE",
                   drug: drug,
                   inactive: false
+                )
 
                 instance.call
 
@@ -66,7 +74,10 @@ module Renalware
                 expect(row.drug_id).to eq drug.id
                 expect(row.form_id).to eq form.id
                 expect(row.route_id).to eq route.id
-                expect(row.unit_of_measure_id).to eq unit_of_measure.id
+                expect(row.active_ingredient_strength_numerator_uom_id).to eq unit_of_measure1.id
+                expect(row.unit_dose_form_size_uom_id).to eq unit_of_measure2.id
+                expect(row.unit_dose_uom_id).to eq unit_of_measure3.id
+
                 expect(row.inactive).to be true
               end
             end

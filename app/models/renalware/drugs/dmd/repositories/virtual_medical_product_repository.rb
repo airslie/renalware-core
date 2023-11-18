@@ -6,16 +6,32 @@ module Renalware
       class VirtualMedicalProductRepository
         attr_reader :client
 
-        VMP = "VMP"
+        VALUES = %w(
+          ROUTECD
+          FORMCD
+          UNIT_DOSE_UOMCD
+          BASIS_STRNTCD
+          UDFS_UOMCD
+          STRNT_NMRTR_UOMCD
+          STRNT_NMRTR_VAL
+          parent
+          inactive
+        ).freeze
 
-        Entry = Struct.new(:name, :code, :form_code, :route_code,
-                           :basis_of_strength,
-                           :unit_of_measure_with_dose_code,
-                           :strength_numerator_value,
-                           :virtual_therapeutic_moiety_code,
-                           :unit_of_measure_code,
-                           :inactive,
-                           keyword_init: true)
+        Entry = Struct.new(
+          :name,
+          :code,
+          :virtual_therapeutic_moiety_code,
+          :form_code,
+          :route_code,
+          :basis_of_strength,
+          :strength_numerator_value,
+          :active_ingredient_strength_numerator_uom_code,
+          :unit_dose_uom_code,
+          :unit_dose_form_size_uom_code,
+          :inactive,
+          keyword_init: true
+        )
 
         def initialize(client: OntologyClient)
           @client = client.call
@@ -25,8 +41,7 @@ module Renalware
           response = client.get(
             "production1/fhir/ValueSet/$expand", {
               url: "https://dmd.nhs.uk/ValueSet/VMP",
-              property: %w(ROUTECD FORMCD UNIT_DOSE_UOMCD BASIS_STRNTCD
-                           STRNT_NMRTR_UOMCD STRNT_NMRTR_VAL parent inactive),
+              property: VALUES,
               count:,
               offset:
             }
@@ -42,15 +57,16 @@ module Renalware
             Entry.new(
               name: row["display"],
               code: row["code"],
+              virtual_therapeutic_moiety_code:
+                dig(row["extension"], "parent", excluded_values: ["VMP"]),
               form_code: dig(row["extension"], "FORMCD"),
               route_code: dig(row["extension"], "ROUTECD"),
-              unit_of_measure_with_dose_code: dig(row["extension"],
-                                                  "UNIT_DOSE_UOMCD"),
               basis_of_strength: dig(row["extension"], "BASIS_STRNTCD"),
               strength_numerator_value: dig(row["extension"], "STRNT_NMRTR_VAL"),
-              unit_of_measure_code: dig(row["extension"], "STRNT_NMRTR_UOMCD"),
-              virtual_therapeutic_moiety_code: dig(row["extension"], "parent",
-                                                   excluded_values: ["VMP"]),
+              active_ingredient_strength_numerator_uom_code:
+                dig(row["extension"], "STRNT_NMRTR_UOMCD"),
+              unit_dose_uom_code: dig(row["extension"], "UNIT_DOSE_UOMCD"),
+              unit_dose_form_size_uom_code: dig(row["extension"], "UDFS_UOMCD"),
               inactive: dig(row["extension"], "inactive")
             )
           end
