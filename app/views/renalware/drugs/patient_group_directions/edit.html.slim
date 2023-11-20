@@ -1,0 +1,5 @@
+= within_new_admin_layout(title: "New Patient Group Direction") do
+  = simple_form_for pgd, as: :pgd, html: { autocomplete: "off" } do |f|
+    = f.input :name
+    = f.input :code
+    = save_or_cancel(form: f, back_path: drugs_drugs_path)

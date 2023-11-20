@@ -4378,6 +4378,76 @@ ALTER SEQUENCE renalware.drug_homecare_forms_id_seq OWNED BY renalware.drug_home
 
 
 --
+-- Name: drug_patient_group_directions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.drug_patient_group_directions (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    code character varying,
+    starts_on date,
+    ends_on date,
+    "position" integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: TABLE drug_patient_group_directions; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.drug_patient_group_directions IS 'Patient group directions (PGDs) are written instructions to help you supply or administer medicines to patients, usually in planned circumstances https://www.gov.uk/government/publications/patient-group-directions-pgds/ patient-group-directions-who-can-use-them';
+
+
+--
+-- Name: COLUMN drug_patient_group_directions.name; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_patient_group_directions.name IS 'E.g. Ceftriaxone INJECTION';
+
+
+--
+-- Name: COLUMN drug_patient_group_directions.code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_patient_group_directions.code IS 'E.g. DA/57';
+
+
+--
+-- Name: COLUMN drug_patient_group_directions.starts_on; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_patient_group_directions.starts_on IS 'The date the PGD is effective from e.g. Apr-24-2021';
+
+
+--
+-- Name: COLUMN drug_patient_group_directions.ends_on; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_patient_group_directions.ends_on IS 'The date the PGD is expires e.g. Apr-24-2024';
+
+
+--
+-- Name: drug_patient_group_directions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.drug_patient_group_directions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: drug_patient_group_directions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.drug_patient_group_directions_id_seq OWNED BY renalware.drug_patient_group_directions.id;
+
+
+--
 -- Name: drug_suppliers; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -14603,6 +14673,13 @@ ALTER TABLE ONLY renalware.drug_homecare_forms ALTER COLUMN id SET DEFAULT nextv
 
 
 --
+-- Name: drug_patient_group_directions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_patient_group_directions ALTER COLUMN id SET DEFAULT nextval('renalware.drug_patient_group_directions_id_seq'::regclass);
+
+
+--
 -- Name: drug_suppliers id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -16466,6 +16543,14 @@ ALTER TABLE ONLY renalware.drug_frequencies
 
 ALTER TABLE ONLY renalware.drug_homecare_forms
     ADD CONSTRAINT drug_homecare_forms_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: drug_patient_group_directions drug_patient_group_directions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_patient_group_directions
+    ADD CONSTRAINT drug_patient_group_directions_pkey PRIMARY KEY (id);
 
 
 --
@@ -28498,6 +28583,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231113124516'),
 ('20231115125057'),
 ('20231115135028'),
-('20231115160013');
+('20231115160013'),
+('20231120165114');
 
 

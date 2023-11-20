@@ -11,6 +11,7 @@ super_admin:
   - Renalware::Virology::VaccinationType
   - Renalware::Feeds::OutgoingDocument
   - Renalware::Deaths::Location
+  - Renalware::Drugs::PatientGroupDirection
 admin:
   - Renalware::User
   - Renalware::BagType
