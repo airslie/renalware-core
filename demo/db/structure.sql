@@ -4389,7 +4389,9 @@ CREATE TABLE renalware.drug_patient_group_directions (
     ends_on date,
     "position" integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    deleted_at timestamp(6) without time zone,
+    usage_count integer DEFAULT 0 NOT NULL
 );
 
 
@@ -19437,7 +19439,7 @@ CREATE INDEX index_drug_homecare_forms_on_supplier_id ON renalware.drug_homecare
 -- Name: index_drug_patient_group_directions_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_drug_patient_group_directions_on_code ON renalware.drug_patient_group_directions USING btree (code) WHERE (ends_on IS NULL);
+CREATE UNIQUE INDEX index_drug_patient_group_directions_on_code ON renalware.drug_patient_group_directions USING btree (code) WHERE ((ends_on IS NULL) AND (deleted_at IS NULL));
 
 
 --
@@ -28686,6 +28688,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231115135028'),
 ('20231115160013'),
 ('20231120165114'),
-('20231120203514');
+('20231120203514'),
+('20231121094056');
 
 
