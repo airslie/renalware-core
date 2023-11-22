@@ -57,7 +57,7 @@ module Renalware
         end
 
         describe ".to_be_administered_on_hd" do
-          it "returns only current prescriptions flagged as administer_on_hd" do
+          it "returns only current but non-future prescriptions flagged as administer_on_hd" do
             freeze_time do
               tomorrow = Date.current + 1.day
               yesterday = Date.current - 1.day
@@ -70,6 +70,10 @@ module Renalware
               create_prescription(administer_on_hd: true,
                                   terminated_on: yesterday,
                                   notes: ":expired_yesterday:")
+              _future = create_prescription(administer_on_hd: true,
+                                            prescribed_on: tomorrow,
+                                            terminated_on: 2.weeks.since,
+                                            notes: ":starts_tomorrow:")
 
               prescriptions = described_class.to_be_administered_on_hd
               expect(prescriptions.length).to eq(1)
@@ -153,10 +157,15 @@ module Renalware
         )
       end
 
-      def create_prescription(terminated_on:, notes: nil, administer_on_hd: false)
+      def create_prescription(
+        terminated_on:,
+        notes: nil,
+        administer_on_hd: false,
+        prescribed_on: "2009-01-01"
+      )
         create(
           :prescription,
-          prescribed_on: "2009-01-01",
+          prescribed_on: prescribed_on,
           notes: notes,
           administer_on_hd: administer_on_hd,
           termination: build(:prescription_termination, terminated_on: terminated_on)
