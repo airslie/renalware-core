@@ -13,6 +13,8 @@ module Renalware
         is_expected.to belong_to(:patient).touch(true)
         is_expected.to belong_to(:dialysate)
         is_expected.to belong_to(:station)
+        is_expected.to have_many(:patient_group_directions)
+        is_expected.to have_many(:session_patient_group_directions)
       end
     end
   end

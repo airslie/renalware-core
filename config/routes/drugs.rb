@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 namespace :drugs do
+  resources :patient_group_directions
   resources :dmd_matches, only: [:index, :new, :create]
 
   resources :drugs, except: :show do

@@ -4378,6 +4378,78 @@ ALTER SEQUENCE renalware.drug_homecare_forms_id_seq OWNED BY renalware.drug_home
 
 
 --
+-- Name: drug_patient_group_directions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.drug_patient_group_directions (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    code character varying,
+    starts_on date,
+    ends_on date,
+    "position" integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    deleted_at timestamp(6) without time zone,
+    usage_count integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: TABLE drug_patient_group_directions; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.drug_patient_group_directions IS 'Patient group directions (PGDs) are written instructions to help you supply or administer medicines to patients, usually in planned circumstances https://www.gov.uk/government/publications/patient-group-directions-pgds/ patient-group-directions-who-can-use-them';
+
+
+--
+-- Name: COLUMN drug_patient_group_directions.name; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_patient_group_directions.name IS 'E.g. Ceftriaxone INJECTION';
+
+
+--
+-- Name: COLUMN drug_patient_group_directions.code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_patient_group_directions.code IS 'E.g. DA/57';
+
+
+--
+-- Name: COLUMN drug_patient_group_directions.starts_on; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_patient_group_directions.starts_on IS 'The date the PGD is effective from e.g. Apr-24-2021';
+
+
+--
+-- Name: COLUMN drug_patient_group_directions.ends_on; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_patient_group_directions.ends_on IS 'The date the PGD is expires e.g. Apr-24-2024';
+
+
+--
+-- Name: drug_patient_group_directions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.drug_patient_group_directions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: drug_patient_group_directions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.drug_patient_group_directions_id_seq OWNED BY renalware.drug_patient_group_directions.id;
+
+
+--
 -- Name: drug_suppliers; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -6479,6 +6551,38 @@ ALTER SEQUENCE renalware.hd_session_form_batches_id_seq OWNED BY renalware.hd_se
 
 
 --
+-- Name: hd_session_patient_group_directions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.hd_session_patient_group_directions (
+    id bigint NOT NULL,
+    session_id bigint NOT NULL,
+    patient_group_direction_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_session_patient_group_directions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.hd_session_patient_group_directions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_session_patient_group_directions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.hd_session_patient_group_directions_id_seq OWNED BY renalware.hd_session_patient_group_directions.id;
+
+
+--
 -- Name: hd_sessions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7332,6 +7436,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -14603,6 +14717,13 @@ ALTER TABLE ONLY renalware.drug_homecare_forms ALTER COLUMN id SET DEFAULT nextv
 
 
 --
+-- Name: drug_patient_group_directions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_patient_group_directions ALTER COLUMN id SET DEFAULT nextval('renalware.drug_patient_group_directions_id_seq'::regclass);
+
+
+--
 -- Name: drug_suppliers id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -14880,6 +15001,13 @@ ALTER TABLE ONLY renalware.hd_session_form_batch_items ALTER COLUMN id SET DEFAU
 --
 
 ALTER TABLE ONLY renalware.hd_session_form_batches ALTER COLUMN id SET DEFAULT nextval('renalware.hd_session_form_batches_id_seq'::regclass);
+
+
+--
+-- Name: hd_session_patient_group_directions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_session_patient_group_directions ALTER COLUMN id SET DEFAULT nextval('renalware.hd_session_patient_group_directions_id_seq'::regclass);
 
 
 --
@@ -16469,6 +16597,14 @@ ALTER TABLE ONLY renalware.drug_homecare_forms
 
 
 --
+-- Name: drug_patient_group_directions drug_patient_group_directions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.drug_patient_group_directions
+    ADD CONSTRAINT drug_patient_group_directions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: drug_suppliers drug_suppliers_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -16826,6 +16962,14 @@ ALTER TABLE ONLY renalware.hd_session_form_batch_items
 
 ALTER TABLE ONLY renalware.hd_session_form_batches
     ADD CONSTRAINT hd_session_form_batches_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_session_patient_group_directions hd_session_patient_group_directions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_session_patient_group_directions
+    ADD CONSTRAINT hd_session_patient_group_directions_pkey PRIMARY KEY (id);
 
 
 --
@@ -18312,6 +18456,20 @@ CREATE UNIQUE INDEX idx_death_locations_name ON renalware.death_locations USING 
 
 
 --
+-- Name: idx_hd_session_pgds_pgd_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_hd_session_pgds_pgd_id ON renalware.hd_session_patient_group_directions USING btree (patient_group_direction_id);
+
+
+--
+-- Name: idx_hd_session_pgds_session_pgd; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_hd_session_pgds_session_pgd ON renalware.hd_session_patient_group_directions USING btree (session_id, patient_group_direction_id);
+
+
+--
 -- Name: idx_infection_organisms; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -19275,6 +19433,13 @@ COMMENT ON INDEX renalware.index_drug_homecare_forms_on_drug_type_id_and_supplie
 --
 
 CREATE INDEX index_drug_homecare_forms_on_supplier_id ON renalware.drug_homecare_forms USING btree (supplier_id);
+
+
+--
+-- Name: index_drug_patient_group_directions_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_drug_patient_group_directions_on_code ON renalware.drug_patient_group_directions USING btree (code) WHERE ((ends_on IS NULL) AND (deleted_at IS NULL));
 
 
 --
@@ -20297,6 +20462,13 @@ CREATE INDEX index_hd_session_form_batches_on_status ON renalware.hd_session_for
 --
 
 CREATE INDEX index_hd_session_form_batches_on_updated_by_id ON renalware.hd_session_form_batches USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_session_patient_group_directions_on_session_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_session_patient_group_directions_on_session_id ON renalware.hd_session_patient_group_directions USING btree (session_id);
 
 
 --
@@ -25105,6 +25277,14 @@ ALTER TABLE ONLY renalware.hd_sessions
 
 
 --
+-- Name: hd_session_patient_group_directions fk_rails_3e4958da13; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_session_patient_group_directions
+    ADD CONSTRAINT fk_rails_3e4958da13 FOREIGN KEY (patient_group_direction_id) REFERENCES renalware.drug_patient_group_directions(id);
+
+
+--
 -- Name: pathology_requests_requests fk_rails_3e725c96fc; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -25814,6 +25994,14 @@ ALTER TABLE ONLY renalware.snippets_snippets
 
 ALTER TABLE ONLY renalware.letter_archives
     ADD CONSTRAINT fk_rails_7dc4363735 FOREIGN KEY (letter_id) REFERENCES renalware.letter_letters(id);
+
+
+--
+-- Name: hd_session_patient_group_directions fk_rails_7f245d8477; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_session_patient_group_directions
+    ADD CONSTRAINT fk_rails_7f245d8477 FOREIGN KEY (session_id) REFERENCES renalware.hd_sessions(id);
 
 
 --
@@ -28498,6 +28686,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231113124516'),
 ('20231115125057'),
 ('20231115135028'),
-('20231115160013');
+('20231115160013'),
+('20231120165114'),
+('20231120203514'),
+('20231121094056');
 
 
