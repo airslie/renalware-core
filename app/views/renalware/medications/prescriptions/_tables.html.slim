@@ -4,6 +4,7 @@
 article
   header
     h2 = title_current
+    .ml-2.float-left= render Renalware::Drugs::DrugTypeColoursKeyComponent.new
     #medication-review
       = render Renalware::Medications::LatestReviewComponent.new(patient: patient, compact: true)
     ul
