@@ -71,7 +71,11 @@ module Renalware
         joins(:termination)
           .where("terminated_on <= ?", date)
       }
-      scope :to_be_administered_on_hd, -> { current.where(administer_on_hd: true) }
+      scope :to_be_administered_on_hd, lambda {
+        current
+          .where(administer_on_hd: true)
+          .where("prescribed_on <= ?", Time.zone.today)
+      }
       scope :having_drug_of_type, lambda { |drug_type_name|
         where("lower(drug_types.code) = lower(?)", drug_type_name)
       }
