@@ -160,6 +160,7 @@ module Renalware
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("ENFORCE_USER_PRESCRIBER_FLAG", "false"))
     }
     config_accessor(:auto_terminate_hd_prescriptions_after_period) { 6.months }
+    config_accessor(:auto_terminate_hd_stat_prescriptions_after_period) { 14.days }
     config_accessor(:medication_delivery_purchase_order_prefix) { "R" }
     config_accessor(:medication_homecare_pdf_forms) do
       # esa: { provider: :generic, version: 1 },

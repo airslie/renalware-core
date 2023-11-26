@@ -2,40 +2,47 @@
 
 module Renalware
   module Medications
+    # - If one of the attributes in NEW_PRESCRIPTION_ATTRS has changed then we terminate the old
+    #   prescription and create a new one.
+    # - If the dose has changed we attempt to re-assign a future termination date
     class RevisePrescription
       attr_reader :prescription, :params
 
+      pattr_initialize :prescription, :current_user
+
       NEW_PRESCRIPTION_ATTRS = %w(dose_amount dose_unit frequency administer_on_hd stat).freeze
 
-      def initialize(prescription)
-        @prescription = prescription
-      end
-
       def call(params)
-        @prescription.assign_attributes(params)
-        return false unless @prescription.valid?
+        prescription.assign_attributes(params)
+        return false unless prescription.valid?
 
         if new_prescription_required?
-          @prescription.reload
-          TerminateExistingAndCreateNewPrescription.new(@prescription, params).call
+          TerminateExistingAndCreateNewPrescription.new(
+            prescription.reload,
+            current_user,
+            params
+          ).call
         else
-          @prescription.save
+          if prescription.prescribed_on_changed?
+            HD::AssignFuturePrescriptionTermination.call(
+              prescription: prescription,
+              by: current_user
+            )
+          end
+          prescription.save
         end
       end
 
       private
 
       def new_prescription_required?
-        attr_intersection = @prescription.changed_attributes.keys & NEW_PRESCRIPTION_ATTRS
+        attr_intersection = prescription.changed_attributes.keys & NEW_PRESCRIPTION_ATTRS
         attr_intersection.count > 0
       end
     end
 
     class TerminateExistingAndCreateNewPrescription
-      def initialize(prescription, params)
-        @prescription = prescription
-        @params = params
-      end
+      pattr_initialize :prescription, :current_user, :params
 
       def call
         Prescription.transaction do
@@ -48,21 +55,24 @@ module Renalware
 
       # If we are terminating a give_on_hd prescription then always force terminate it
       def terminate_existing_prescription
-        return if @prescription.termination.present? && !new_prescription_is_administer_on_hd?
+        return if prescription.termination.present? && !new_prescription_is_administer_on_hd?
 
-        @prescription.terminate(by: @params[:by]).save!
+        prescription.terminate(by: params[:by]).save!
       end
 
       def create_new_prescription
         new_prescription = Prescription.new(terminated_prescription_attributes)
-        new_prescription.assign_attributes(@params)
+        new_prescription.assign_attributes(params)
         new_prescription.prescribed_on = Date.current
-        assign_future_termination(new_prescription) if new_prescription.administer_on_hd?
+        HD::AssignFuturePrescriptionTermination.call(
+          prescription: new_prescription,
+          by: current_user
+        )
         new_prescription.save!
       end
 
       def terminated_prescription_attributes
-        @prescription.attributes.slice(*included_attributes)
+        prescription.attributes.slice(*included_attributes)
       end
 
       # These are the attributes we copy across from old prescription to the new one before
@@ -84,30 +94,16 @@ module Renalware
         )
       end
 
-      # Prescriptions which are administer_on_hd = true should automatically have a future
-      # termination according to config.auto_terminate_hd_prescriptions_after_period.
-      # If this behaviour is not required, return nil in the
-      # auto_terminate_hd_prescriptions_after_period setting.
-      # Note we could move this to a listener in the HD namespace and broadcast a message from
-      # RevisePrescription#call to let listeners modify the prescription. Its border line though
-      # - although we make decisions here based on new_prescription_is_administer_on_hd?
-      # and Renalware.config.auto_terminate_hd_prescriptions_after_period etc, we do not reference
-      # the HD namespace at all.
-      def assign_future_termination(prescription)
-        return if prescription.prescribed_on.blank?
-
-        termination_period = Renalware.config.auto_terminate_hd_prescriptions_after_period
-        return if termination_period.nil?
-
-        termination = prescription.build_termination
-        termination.terminated_on = prescription.prescribed_on + termination_period
-        termination.by = @params[:by]
-        termination.notes = "HD prescription scheduled to be terminated " \
-                            "#{termination_period.in_months} months from start"
+      def new_prescription_is_administer_on_hd?
+        ActiveModel::Type::Boolean.new.cast(params[:administer_on_hd])
       end
 
-      def new_prescription_is_administer_on_hd?
-        ActiveModel::Type::Boolean.new.cast(@params[:administer_on_hd])
+      # For now we have a hard-coded ref to HD which we could remove using eg Wisper.
+      def allow_other_domains_to_alter_prescription
+        HD::AssignFuturePrescriptionTermination.call(
+          prescription: new_prescription,
+          by: current_user
+        )
       end
     end
   end

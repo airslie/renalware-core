@@ -66,7 +66,7 @@ module Renalware
         prescription = patient.prescriptions.new(prescription_params)
         authorize prescription
 
-        assign_future_termination(prescription) if prescription.administer_on_hd?
+        allow_other_domains_to_alter_prescription_before_save(prescription)
 
         if prescription.save
           redirect_to return_to_param || patient_prescriptions_path(patient)
@@ -79,7 +79,7 @@ module Renalware
         prescription = patient.prescriptions.find(params[:id])
         authorize prescription
 
-        if RevisePrescription.new(prescription).call(prescription_params)
+        if RevisePrescription.new(prescription, current_user).call(prescription_params)
           redirect_to return_to_param || patient_prescriptions_path(patient)
         else
           render_edit(prescription)
@@ -87,24 +87,6 @@ module Renalware
       end
 
       private
-
-      # Prescriptions which are administer_on_hd = true should automatically have a future
-      # termination according to config.auto_terminate_hd_prescriptions_after_period.
-      # If this behaviour is not required, return nil in the
-      # auto_terminate_hd_prescriptions_after_period setting.
-      def assign_future_termination(prescription)
-        return if prescription.termination.present? || prescription.prescribed_on.blank?
-
-        termination_period = Renalware.config.auto_terminate_hd_prescriptions_after_period
-        return if termination_period.nil?
-
-        prescription.build_termination(
-          terminated_on: prescription.prescribed_on + termination_period,
-          by: current_user,
-          notes: "HD prescription scheduled to be terminated #{termination_period.in_months} " \
-                 "months from start"
-        )
-      end
 
       def pdf_title
         title = "Medication List"
@@ -177,6 +159,14 @@ module Renalware
           :drug_id_and_trade_family_id, :treatable_type, :treatable_id,
           :last_delivery_date, :next_delivery_date, { termination_attributes: :terminated_on }
         ]
+      end
+
+      # TODO: HD reference here not great. Broadcast to listeners via Wisper?
+      def allow_other_domains_to_alter_prescription_before_save(prescription)
+        HD::AssignFuturePrescriptionTermination.call(
+          prescription: prescription,
+          by: current_user
+        )
       end
     end
   end
