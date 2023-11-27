@@ -49,7 +49,10 @@ module Renalware
       end
 
       def prescriptions
-        prescriptions = patient.prescriptions.includes(:drug).to_be_administered_on_hd
+        prescriptions = patient
+          .prescriptions
+          .includes(:drug)
+          .to_be_administered_on_hd_and_starting_before(10.days.since.end_of_day)
         ::CollectionPresenter.new(prescriptions, ::Renalware::Medications::PrescriptionPresenter)
       end
 
