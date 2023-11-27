@@ -19,7 +19,7 @@ This project adheres to Semantic Versioning.
 - Highlight non-contiguous entries in the modality listing #4437
 - Add drop-down urine glucose to clinic visits and then include in the letters #4386
 - Add clinic visit location in order to support virtual clinics #4391
-- Add drug type and dmd+d filters to drugs list #4409
+- Add drug type and dm+d filters to drugs list #4409
 - Add home_machine_identifier to HD Profile for Baxter HDCloud support #4405
 - Add 'Relaxation of restrictions' option to dietetic CV interventions #4382
 - Add hospital centre filter to the live donor list #4342
@@ -78,7 +78,7 @@ This project adheres to Semantic Versioning.
 - Fix column highlighting in pathology tables #4428 A bug had emerged where, if the 'view' onto the pathology changed, eg from 'default' to 'HD', the column would not highlight when hovered-over (a feature to help the user identify the relevant column header in the table). Also fix missing popup on blue triangle comments in the recent pathology view.
 - Fix error adding PD bag type if glucose-strength omitted #4432
 - Correct the default date in the filter in Appointments list #4390
-- Address dmd+d mapping issues #4408
+- Address dm+d mapping issues #4408
 - Fix default_patient_link usage in dynamic reports #4350
 - Ensure termination date is editable when editing a prescription #4276
 - Fixed bug creating an event when changing dropdown from eg Clinical Frailty Score to Medication Review (missing partial) #4303

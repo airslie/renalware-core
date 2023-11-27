@@ -23,8 +23,8 @@ module Renalware
     end
 
     # Feeds::FileType.find_or_create_by!(name: "drugs") do |type|
-    #   type.description = "Refresh NHS dmd+d drugs"
-    #   type.prompt = "Upload the the dmd+d zip file downloaded from the NHS TRUD site"
+    #   type.description = "Refresh NHS dm+d drugs"
+    #   type.prompt = "Upload the the dm+d zip file downloaded from the NHS TRUD site"
     #   type.download_url_title = "NHSBSA dm+d on NHS TRUD",
     #   type.download_url = "https://isd.digital.nhs.uk/trud3/user/authenticated/group/0/pack/1/subpack/24/releases"
     #   type.filename_validation_pattern = "/nhsbsa.*\.zip/i"
