@@ -5,6 +5,7 @@ require "rails_helper"
 module Renalware::Medications
   describe RevisePrescription do
     let(:patient) { create(:patient) }
+    let(:user) { create(:user) }
     let(:original_dose_amount) { "100" }
     let(:original_prescription) do
       create(:prescription, patient: patient, dose_amount: original_dose_amount)
@@ -16,7 +17,7 @@ module Renalware::Medications
       context "when updating the prescription's dose_amount with a valid value" do
         subject!(:prescription_revision) do
           described_class
-            .new(original_prescription)
+            .new(original_prescription, user)
             .call(dose_amount: revised_dose_amount, by: user)
         end
 
@@ -42,7 +43,7 @@ module Renalware::Medications
       context "when updating the prescription's dose_amount with an invalid value" do
         subject!(:prescription_revision) do
           described_class
-            .new(original_prescription)
+            .new(original_prescription, user)
             .call(dose_amount: revised_dose_amount, by: user)
         end
 

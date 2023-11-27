@@ -66,6 +66,8 @@ module Renalware
         prescription = patient.prescriptions.new(prescription_params)
         authorize prescription
 
+        allow_other_domains_to_alter_prescription_before_save(prescription)
+
         if prescription.save
           redirect_to return_to_param || patient_prescriptions_path(patient)
         else
@@ -77,7 +79,7 @@ module Renalware
         prescription = patient.prescriptions.find(params[:id])
         authorize prescription
 
-        if RevisePrescription.new(prescription).call(prescription_params)
+        if RevisePrescription.new(prescription, current_user).call(prescription_params)
           redirect_to return_to_param || patient_prescriptions_path(patient)
         else
           render_edit(prescription)
@@ -157,6 +159,14 @@ module Renalware
           :drug_id_and_trade_family_id, :treatable_type, :treatable_id,
           :last_delivery_date, :next_delivery_date, { termination_attributes: :terminated_on }
         ]
+      end
+
+      # TODO: HD reference here not great. Broadcast to listeners via Wisper?
+      def allow_other_domains_to_alter_prescription_before_save(prescription)
+        HD::AssignFuturePrescriptionTermination.call(
+          prescription: prescription,
+          by: current_user
+        )
       end
     end
   end
