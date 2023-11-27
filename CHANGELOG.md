@@ -9,6 +9,34 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.4.1
+
+### Added
+- Add Patient Group Direction options to HD Session #4478
+- Support HD Prescriber and stat prescriptions #4464
+- Allow customising the landing page for patient links in reports #4453
+- Add 'hospital ward' option to hospital unit types #4452
+- Highlight non-contiguous entries in the modality listing #4437
+- Allow editing and deleting modalities #4436
+- Set a future termination for HD prescriptions #4559 - 6 months for HD, 2 weeks for HD + Stat
+
+### Changed
+- Don't allow administration of future HD prescriptions #4562
+- Include unit_dose_form_size_uom_code dm+d UOM #4556
+- Only search the last 1m rows when calculating urrs #4527 to speed the query up.
+- Store and display how many times a report is viewed #4499
+- Identify dmd drugs in prescriptions view #4476 using a key
+- ESI/PE prescription display changes #4472 - Now that only there is only one list of meds on this page (combining current and historical), change the title 'Current' to 'Antibiotics/Routes'
+- Break out HD and Tx opt-level menus #4483
+- Mark a message as read after replying #4467
+- Changes to the way modalities are added #4438 - Stop capturing modality change reasons, enforce change type, capture source and dest hospitals if change type require them
+
+### Fixed
+- Use prescription.drug_name when displaying #4539 to ensure trade family name is included
+- Fix PKB typo #4498
+- Omit inactive drugs from admin drugs page #4491
+- Fix error adding PD bag type if glucose-strength omitted #4432
+
 ## 2.4.0
 
 ### Added
@@ -1254,6 +1282,7 @@ This project adheres to Semantic Versioning.
 - Introduce ActionView::Component using the LH patient nav as an example #2975
 - Pathololgy investigations: add searchable dropdown of OBRs #2918
 - Add a colour banner to identify the staging/test env #2819
+- Introduce HD Slot Requests #4440
 
 ### Changed
 
@@ -1266,6 +1295,7 @@ This project adheres to Semantic Versioning.
 ### Fixed
 
 - HD Diary - editing future slot replaces previous ones #2881
+- Error filtering letters list by clinic visit clinic id #4444
 
 ## 2.0.114
 
