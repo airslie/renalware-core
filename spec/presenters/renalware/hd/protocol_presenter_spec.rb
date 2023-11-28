@@ -4,6 +4,9 @@ require "rails_helper"
 
 describe Renalware::HD::ProtocolPresenter do
   include PathologySpecHelper
+
+  let(:user) { create(:user) }
+
   describe "methods" do
     subject(:presenter) { described_class.new(nil, nil) }
 
@@ -22,15 +25,49 @@ describe Renalware::HD::ProtocolPresenter do
   end
 
   describe "#prescriptions" do
-    it "returns only the patient's prescriptions that should be administered on HD" do
+    it "returns prescriptions to be administered on HD that are " \
+       "current or have a future start date within the next 10 days" do
       patient = create(:hd_patient)
-      create(:prescription, patient: patient, administer_on_hd: true)
-      create(:prescription, patient: patient, administer_on_hd: false)
+      prescriptions = {
+        hd_current: create(
+          :prescription,
+          patient: patient,
+          administer_on_hd: true,
+          prescribed_on: 1.day.ago
+        ),
+        non_hd_current: create(
+          :prescription,
+          patient: patient,
+          administer_on_hd: false
+        ),
+        hd_starting_9d_hence: create(
+          :prescription,
+          patient: patient,
+          administer_on_hd: true,
+          prescribed_on: 9.days.since
+        ),
+        hd_starting_11d_hence: create(
+          :prescription,
+          patient: patient,
+          administer_on_hd: true,
+          prescribed_on: 11.days.since
+        ),
+        hd_terminated: create(
+          :prescription,
+          patient: patient,
+          administer_on_hd: true,
+          prescribed_on: 2.days.ago
+        ).tap { |ps| ps.build_termination(terminated_on: 1.day.ago, by: user).save! }
+      }
+
       presenter = described_class.new(patient, nil)
 
-      presenter.prescriptions
-      expect(presenter.prescriptions.length).to eq(1)
-      expect(presenter.prescriptions.first.administer_on_hd).to be(true)
+      expect(presenter.prescriptions.to_a).to eq(
+        [
+          prescriptions[:hd_current],
+          prescriptions[:hd_starting_9d_hence]
+        ]
+      )
     end
   end
 

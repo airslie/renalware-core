@@ -79,6 +79,11 @@ module Renalware
       scope :having_drug_of_type, lambda { |drug_type_name|
         where("lower(drug_types.code) = lower(?)", drug_type_name)
       }
+      scope :to_be_administered_on_hd_and_starting_before, lambda { |date|
+        current
+          .where(administer_on_hd: true)
+          .where("prescribed_on <= ?", date)
+      }
       # Prescriptions created or changed since 14 days ago (and potentially into
       # the future). Because editing a prescription terminates it and creates a new one,
       # we are essentially searching on prescribed_on date here.
