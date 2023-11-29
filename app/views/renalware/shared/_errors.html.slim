@@ -1,7 +1,7 @@
 - if model.errors.any?
   .row
     .large-12.columns
-      ul.error-messages
+      ul.error-messages.rounded
         - model.errors.full_messages.each do |msg|
           li
             = msg

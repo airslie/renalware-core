@@ -43,11 +43,13 @@ module Renalware
         end
       end
 
+      # If for any reason the patient is invalid (perhaps they have an NHS Number that is
+      # already in use so we get an NHS already taken error) we would not be able to save
+      # the named nurse to the patient here, so we skip validation.
       def update_named_nurse_on_patient
-        hd_patient.update!(
-          named_nurse_id: profile_params[:named_nurse_id],
-          by: current_user
-        )
+        hd_patient.named_nurse_id = profile_params[:named_nurse_id]
+        hd_patient.by = current_user
+        hd_patient.save(validate: false)
       end
 
       def preference_set
