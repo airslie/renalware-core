@@ -2,6 +2,7 @@
                         breadcrumbs: [hd_summary_breadcrumb(patient),
                                       hd_profile_breadcrumb(patient)]) do
   .document
+    = render "renalware/shared/errors", model: profile
     = simple_form_for profile,
         url: patient_hd_current_profile_path(patient),
         html: { autocomplete: "off" },
