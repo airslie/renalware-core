@@ -1,6 +1,7 @@
 - requests.each do |request_form|
   - if request_form.has_tests_required?
     .alwaysbreak
-      = render partial: "renalware/pathology/requests/requests/request_form/crs_form",
-        locals: { request_form: request_form }
+      - with_format(:html)
+        = render partial: "renalware/pathology/requests/requests/request_form/crs_form",
+          locals: { request_form: request_form }
     /.page-break
