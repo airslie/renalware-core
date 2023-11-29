@@ -25,7 +25,9 @@ module Renalware
       class SessionDocument < ::Renalware::HD::SessionDocument
         class Info < Renalware::HD::SessionDocument::Info
           # rubocop:disable Rails/Validation
-          validates_presence_of attribute_set.map(&:name)
+          validates_presence_of(
+            attribute_set.map(&:name).reject { |att| att.name == "needle_size" }
+          )
           # rubocop:enable Rails/Validation
         end
         attribute :info, Info
