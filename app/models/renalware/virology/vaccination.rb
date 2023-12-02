@@ -28,7 +28,7 @@ module Renalware
         # The Type might have been deleted (has a deleted_at date) but we still want to display the
         # actual name despite this, we include deleted rows when searching.
         def type_name
-          @type_name ||= (VaccinationType.with_deleted.find_by(code: type)&.name || type)
+          @type_name ||= VaccinationType.with_deleted.find_by(code: type)&.name || type
         end
       end
       has_document

@@ -48,7 +48,7 @@ module World
       end
 
       def get_patient(patient_name)
-        instance_variable_get("@#{patient_name.downcase}".to_sym)
+        instance_variable_get(:"@#{patient_name.downcase}")
       end
 
       def seed_modality_for(patient:, modality_description:, user:)

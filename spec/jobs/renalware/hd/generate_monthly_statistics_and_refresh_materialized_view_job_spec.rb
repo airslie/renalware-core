@@ -9,7 +9,7 @@ module Renalware
 
       before do
         allow(GenerateMonthlyStatistics)
-          .to receive(:new).with(month: nil,year: nil)
+          .to receive(:new).with(month: nil, year: nil)
           .and_return monthly_statistics
         allow(RefreshMaterializedViewJob)
           .to receive(:perform_later)

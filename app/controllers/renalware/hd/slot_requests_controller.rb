@@ -102,7 +102,10 @@ module Renalware
 
       def make_deleted(update_params)
         update_params[:deleted_at] = Time.zone.now
+        # rubocop:disable Lint/SelfAssignment
+        # TODO: check why we are doing this?
         update_params[:deletion_reason_id] = update_params[:deletion_reason_id]
+        # rubocop:enable Lint/SelfAssignment
       end
 
       def render_edit(slot_request)

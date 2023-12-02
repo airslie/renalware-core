@@ -10,7 +10,7 @@ module Renalware
           filter_form: filter_form,
           query: query,
           page_title: t(".page_title"),
-         view_proc: ->(patient) { patient_low_clearance_mdm_path(patient) }
+          view_proc: ->(patient) { patient_low_clearance_mdm_path(patient) }
         )
       end
 

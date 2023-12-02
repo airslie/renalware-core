@@ -42,7 +42,7 @@ module World
       def set_selected_days_to_true_for_bag(bag:, comma_delimited_days_string:)
         days = comma_delimited_days_string.split(",")
         days.each do |day|
-          bag.public_send("#{day}=".to_sym, true)
+          bag.public_send(:"#{day}=", true)
         end
         expect(bag.days_per_week).to eq(days.length)
       end

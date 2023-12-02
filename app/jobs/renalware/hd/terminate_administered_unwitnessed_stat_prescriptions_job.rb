@@ -24,7 +24,7 @@ module Renalware
               terminated_on: Time.zone.now,
               by: SystemUser.find,
               notes: "Stat prescription terminated automatically by background job: " \
-                    "administered #{administration.recorded_on} but not witnessed."
+                     "administered #{administration.recorded_on} but not witnessed."
             ).save!
           end
         end

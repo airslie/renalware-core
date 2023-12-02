@@ -57,7 +57,7 @@ module Renalware
         end
 
         def trade_family_ids_for(vmp)
-          trade_family_codes = (vmp_code_to_trade_family_codes[vmp.code] || [])
+          trade_family_codes = vmp_code_to_trade_family_codes[vmp.code] || []
           trade_family_codes.map { |code| trade_family_code_to_id_map[code] }
         end
 

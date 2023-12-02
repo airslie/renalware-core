@@ -4,7 +4,7 @@
 module LettersSpecHelper
   def build_letter(to:, patient:, state: :draft, **args)
     args = args.compact # remove nil values eg if author is nil
-    trait = "#{state}_letter".to_sym
+    trait = :"#{state}_letter"
     letter = build(trait, **args)
     letter.patient = patient
 

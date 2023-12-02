@@ -68,7 +68,7 @@ module Renalware
             ended_on: 1.week.ago,
             updated_at: 2.weeks.ago
           ).success?
-        ).to eq(true)
+        ).to be(true)
 
         # 2 Create an HD modality
         expect(
@@ -78,7 +78,7 @@ module Renalware
             ended_on: 1.day.ago,
             updated_at: 25.hours.ago
           ).success?
-        ).to eq(true)
+        ).to be(true)
 
         # 3 Create a Tx modality which is the current one
         expect(
@@ -88,7 +88,7 @@ module Renalware
             ended_on: nil,
             updated_at: 1.day.ago
           ).success?
-        ).to eq(true)
+        ).to be(true)
 
         patient.reload
 
