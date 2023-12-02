@@ -4806,6 +4806,7 @@ CREATE VIEW renalware.duplicate_nhs_numbers AS
      JOIN ( SELECT patients.nhs_number,
             count(*) AS count
            FROM renalware.patients
+          WHERE ((patients.nhs_number)::text <> ''::text)
           GROUP BY patients.nhs_number
          HAVING (count(*) > 1)) t USING (nhs_number));
 
@@ -28707,6 +28708,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231120165114'),
 ('20231120203514'),
 ('20231121094056'),
-('20231130102622');
+('20231130102622'),
+('20231130114143');
 
 
