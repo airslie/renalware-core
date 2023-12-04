@@ -9,7 +9,7 @@ module Renalware
       def show
         render locals: {
           patient: transplants_patient,
-          recipient_operation: operation
+          recipient_operation: find_and_authorize_operation
         }
       end
 
