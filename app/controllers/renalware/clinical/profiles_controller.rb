@@ -42,7 +42,8 @@ module Renalware
             profile_params[:document][document_attribute].symbolize_keys
           )
         end
-        clinical_patient.save_by! current_user
+        clinical_patient.by = current_user
+        clinical_patient.save!(validate: false)
       end
 
       def profile_params
