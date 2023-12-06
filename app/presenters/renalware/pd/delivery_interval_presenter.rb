@@ -24,7 +24,7 @@ module Renalware
       end
 
       def to_s
-        interval.to_fs
+        interval.to_formatted_s
       end
 
       private
