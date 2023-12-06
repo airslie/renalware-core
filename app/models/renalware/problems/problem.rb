@@ -17,7 +17,7 @@ module Renalware
       belongs_to :patient, touch: true
       has_many :notes, -> { ordered }, dependent: :destroy
 
-      scope :ordered, -> { order(position: :asc) }
+      scope :ordered, -> { order(position: :asc, created_at: :asc) }
       scope :with_notes, -> { eager_load(:notes).merge(Renalware::Problems::Note.ordered) }
       scope :with_patient, -> { includes(:patient) }
       scope :with_versions, -> { includes(versions: :item) }
