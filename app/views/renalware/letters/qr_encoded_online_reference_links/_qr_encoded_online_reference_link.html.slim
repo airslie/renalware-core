@@ -5,7 +5,7 @@ ruby:
   url = online_reference_link.url
   png = Renalware::Letters::GenerateQRCodeFromUrl.call(url, format: :png)
 
-tr.qr-code
+tr.qr-code(style="page-break-inside: avoid !important;")
   td.qr-code_image
     img(src="data:image/png;base64,#{Base64.encode64(png.to_s)}")
   td.qr-code_text
