@@ -29,7 +29,7 @@ module Renalware
             live_related_sibling: 21,
             live_related_father: 74,
             live_related_mother: 75,
-            live_related_child: 76,
+            live_related_child: 77,
             non_heart_beating: 28,
             live_unrelated: 24
           }.freeze
