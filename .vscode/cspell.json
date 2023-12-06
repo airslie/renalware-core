@@ -197,6 +197,7 @@
     "NOPAUSE",
     "noprint",
     "NOTKNOWN",
+    "nresult",
     "ntuples",
     "obstr",
     "Offense",
