@@ -1522,13 +1522,19 @@ $_$;
 CREATE FUNCTION renalware.pathology_chart_series(patient_id integer, observation_description_id integer, start_date date) RETURNS TABLE(observed_on bigint, result double precision)
     LANGUAGE sql
     AS $_$
-   select
+  select
     extract(epoch from observed_at)::bigint * 1000,
     convert_to_float(result) from pathology_observations po
-   inner join pathology_observation_requests por on por.id = po.request_id
-   inner join pathology_observation_descriptions pod on pod.id = po.description_id
-   where pod.id = observation_description_id and observed_at >= start_date and por.patient_id = $1
-   order by po.observed_at asc, po.created_at desc
+  inner join pathology_observation_requests por on por.id = po.request_id
+  inner join pathology_observation_descriptions pod on pod.id = po.description_id
+  where
+    pod.id = observation_description_id
+    and observed_at >= start_date
+    and por.patient_id = $1
+    and nresult is not null
+  order by
+    po.observed_at asc,
+    po.created_at desc
 $_$;
 
 
@@ -28709,6 +28715,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231120203514'),
 ('20231121094056'),
 ('20231130102622'),
-('20231130114143');
+('20231130114143'),
+('20231206115315');
 
 
