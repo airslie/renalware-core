@@ -1522,16 +1522,22 @@ $_$;
 CREATE FUNCTION renalware.pathology_chart_series(patient_id integer, observation_description_id integer, start_date date) RETURNS TABLE(observed_on bigint, result double precision)
     LANGUAGE sql
     AS $_$
+  /*
+  Note that we use convert_to_float(result, NULL) here rather than nresult
+  (same value, populated by a trigger). Explain-analysing the query shows that using nresult in the
+  where clause is much slower (x10 times). This might be because pg has not optimised around
+  for the use of nresult yet, but its safer for now to use convert_to_float in both places.
+  */
   select
     extract(epoch from observed_at)::bigint * 1000,
-    convert_to_float(result) from pathology_observations po
+    convert_to_float(result, NULL) from pathology_observations po
   inner join pathology_observation_requests por on por.id = po.request_id
   inner join pathology_observation_descriptions pod on pod.id = po.description_id
   where
     pod.id = observation_description_id
     and observed_at >= start_date
     and por.patient_id = $1
-    and nresult is not null
+    and convert_to_float(result, NULL) is not null
   order by
     po.observed_at asc,
     po.created_at desc
@@ -10313,7 +10319,9 @@ CREATE TABLE renalware.pd_regimes (
     dwell_time integer,
     exchanges_done_by character varying,
     exchanges_done_by_if_other character varying,
-    exchanges_done_by_notes text
+    exchanges_done_by_notes text,
+    created_by_id bigint,
+    updated_by_id bigint
 );
 
 
@@ -22652,6 +22660,13 @@ CREATE INDEX index_pd_regime_terminations_on_updated_by_id ON renalware.pd_regim
 
 
 --
+-- Name: index_pd_regimes_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_regimes_on_created_by_id ON renalware.pd_regimes USING btree (created_by_id);
+
+
+--
 -- Name: index_pd_regimes_on_id_and_type; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -22670,6 +22685,13 @@ CREATE INDEX index_pd_regimes_on_patient_id ON renalware.pd_regimes USING btree 
 --
 
 CREATE INDEX index_pd_regimes_on_system_id ON renalware.pd_regimes USING btree (system_id);
+
+
+--
+-- Name: index_pd_regimes_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_pd_regimes_on_updated_by_id ON renalware.pd_regimes USING btree (updated_by_id);
 
 
 --
@@ -25077,6 +25099,14 @@ ALTER TABLE ONLY renalware.feed_files
 
 
 --
+-- Name: pd_regimes fk_rails_32abe9ee95; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_regimes
+    ADD CONSTRAINT fk_rails_32abe9ee95 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: access_plans fk_rails_32c8b62063; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -26917,6 +26947,14 @@ ALTER TABLE ONLY renalware.hd_prescription_administrations
 
 
 --
+-- Name: pd_regimes fk_rails_c7333be3d4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.pd_regimes
+    ADD CONSTRAINT fk_rails_c7333be3d4 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: transplant_donor_followups fk_rails_c75064199c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -28716,6 +28754,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231121094056'),
 ('20231130102622'),
 ('20231130114143'),
-('20231206115315');
+('20231206115315'),
+('20231211172855');
 
 

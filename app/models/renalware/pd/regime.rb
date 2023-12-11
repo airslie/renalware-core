@@ -3,6 +3,7 @@
 module Renalware
   module PD
     class Regime < ApplicationRecord
+      include Accountable
       extend Enumerize
 
       enumerize(

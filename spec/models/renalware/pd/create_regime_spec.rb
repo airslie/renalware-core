@@ -42,6 +42,11 @@ module Renalware
             expect(service.object).to be_current
           end
 
+          it "stores the creating user" do
+            expect(service.object.created_by).to eq(user)
+            expect(service.object.updated_by).to eq(user)
+          end
+
           it "terminates the previous regime" do
             expect(pre_existing_regime).to be_current
 

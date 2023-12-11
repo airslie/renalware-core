@@ -6,6 +6,7 @@ module Renalware
   module PD
     describe ReviseRegime do
       let(:user) { create(:user) }
+      let(:other_user) { create(:user) }
       let(:patient) { create(:patient, by: user) }
       let!(:regime) do
         regime = build(:apd_regime,
@@ -14,7 +15,7 @@ module Renalware
                        end_date: nil,
                        start_date: "01-01-2012")
         regime.bags << build(:pd_regime_bag, :everyday)
-        regime.save!
+        regime.save_by!(other_user)
         regime
       end
 
@@ -80,6 +81,16 @@ module Renalware
 
             expect(result).to be_success
             expect(result.object).to be_current
+          end
+
+          it "stores the current user in new and old regimes" do
+            result = described_class.new(regime).call(by: user, params: params)
+
+            expect(regime.reload.updated_by).to eq(user)
+            expect(regime.reload.created_by).to eq(other_user) # remains unchanged
+            new_regime = result.object
+            expect(result.object.updated_by).to eq(user)
+            expect(new_regime.created_by).to eq(user)
           end
 
           it "sets the end on the replaced regime to be the start date of new one" do
