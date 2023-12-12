@@ -7,10 +7,9 @@ module Renalware
 
       validates :name, presence: true
 
-      scope :ordered, -> { order(:name) }
+      scope :ordered, -> { order(:position, :name) }
 
       def self.policy_class = BasePolicy
-
       def to_s = name
     end
   end
