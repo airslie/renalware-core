@@ -5,13 +5,16 @@
                     html: { autocomplete: "off" },
                     wrapper: "horizontal_form" do |f|
 
-      = f.association :plan_type,
-                      collection: Renalware::Accesses::PlanType.ordered,
-                      wrapper: :horizontal_medium,
-                      autofocus: true
+      .mb-3
+        = f.association :plan_type,
+                        collection: Renalware::Accesses::PlanType.ordered,
+                        wrapper: :horizontal_medium,
+                        autofocus: true,
+                        input_html: { data: { controller: "slimselect" } }
       = f.input :notes,
                 as: :text,
                 wrapper: :horizontal_large
+
       = f.association :decided_by,
                       as: :user_picker,
                       collection: Renalware::User.ordered,

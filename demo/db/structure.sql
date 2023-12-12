@@ -2268,7 +2268,8 @@ CREATE TABLE renalware.access_plan_types (
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL
 );
 
 
@@ -7470,16 +7471,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -11486,7 +11477,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -11566,7 +11557,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -18647,6 +18638,13 @@ CREATE INDEX index_access_needling_assessments_on_updated_by_id ON renalware.acc
 --
 
 CREATE INDEX index_access_plan_types_on_deleted_at ON renalware.access_plan_types USING btree (deleted_at);
+
+
+--
+-- Name: index_access_plan_types_on_position; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_access_plan_types_on_position ON renalware.access_plan_types USING btree ("position");
 
 
 --
@@ -28764,6 +28762,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231130114143'),
 ('20231206115315'),
 ('20231211172855'),
-('20231212065241');
+('20231212065241'),
+('20231212112543');
 
 
