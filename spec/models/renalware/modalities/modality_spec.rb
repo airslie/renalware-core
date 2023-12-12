@@ -24,7 +24,7 @@ module Renalware
 
           modality = build(:modality, change_type: change_type, by: user)
 
-          expect(modality.save).to eq(false)
+          expect(modality.save).to be(false)
           expect(modality.errors[:source_hospital_centre_id]).to be_present
         end
 
@@ -38,7 +38,7 @@ module Renalware
             by: user
           )
 
-          expect(modality.save).to eq(true)
+          expect(modality.save).to be(true)
         end
       end
 
@@ -48,7 +48,7 @@ module Renalware
 
           modality = build(:modality, change_type: change_type, by: user)
 
-          expect(modality.save).to eq(false)
+          expect(modality.save).to be(false)
           expect(modality.errors[:destination_hospital_centre_id]).to be_present
         end
 
@@ -62,7 +62,7 @@ module Renalware
             by: user
           )
 
-          expect(modality.save).to eq(true)
+          expect(modality.save).to be(true)
         end
       end
     end
@@ -81,7 +81,7 @@ module Renalware
       end
 
       context "when the modality has a change_type that requires a source hospital centre" do
-        context "when a  source hospital centre is present" do
+        context "when a source hospital centre is present" do
           it "includes the source hospital _s if it has been set" do
             change_type = create(
               :modality_change_type,

@@ -185,7 +185,7 @@ module World
           hash = {
             patient: session.patient.to_s,
             signed_on_by: session.signed_on_by.given_name,
-            signed_off_by: (session.signed_off_by.try(:given_name) || "")
+            signed_off_by: session.signed_off_by.try(:given_name) || ""
           }
           hash.with_indifferent_access
         end

@@ -85,7 +85,7 @@ describe "API request for a single UKRDC patient XML document" do
 
         expect(response).to be_successful
 
-        matches = response.body.scan(/<CauseOfDeath>/)
+        matches = response.body.scan("<CauseOfDeath>")
         expect(matches.length).to eq(1)
 
         validate(response.body) do |error|

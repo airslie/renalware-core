@@ -29,13 +29,13 @@ module Renalware
           _r2 = Role.create!(name: "r2", enforce: false)
 
           expect(Role.role_enforcement_hash).to eq({ "r1" => true, "r2" => false })
-          expect(Role.enforce?(:r1)).to eq(true)
-          expect(Role.enforce?(:r2)).to eq(false)
+          expect(Role.enforce?(:r1)).to be(true)
+          expect(Role.enforce?(:r2)).to be(false)
 
           # Changing the enforce boolean will be reflected without a restart as we memoise at
           # class level on first access.
           r1.update!(enforce: false)
-          expect(Role.enforce?(:r1)).to eq(false)
+          expect(Role.enforce?(:r1)).to be(false)
         end
       end
     end

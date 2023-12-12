@@ -159,7 +159,7 @@ module Renalware
               recorded_on: Time.zone.now,
               by: user1
             )
-          }.to change(Medications::PrescriptionTermination, :count).by(0)
+          }.not_to change(Medications::PrescriptionTermination, :count)
         end
       end
     end
