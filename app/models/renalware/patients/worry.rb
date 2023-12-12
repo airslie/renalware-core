@@ -4,6 +4,7 @@ module Renalware
   module Patients
     class Worry < ApplicationRecord
       include Accountable
+      acts_as_paranoid
 
       has_paper_trail(
         versions: { class_name: "Renalware::Patients::Version" },
@@ -20,7 +21,9 @@ module Renalware
                  touch: true,
                  counter_cache: true
 
-      validates :patient, presence: true, uniqueness: true
+      validates :patient,
+                presence: true,
+                uniqueness: { conditions: -> { where(deleted_at: nil) } }
     end
   end
 end
