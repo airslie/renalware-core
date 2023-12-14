@@ -32,6 +32,13 @@ module Renalware
         end
       end
 
+      def chart
+        respond_to do |format|
+          format.html { show_html }
+          format.json { report_json }
+        end
+      end
+
       private
 
       def show_html
@@ -60,6 +67,16 @@ module Renalware
           sql_view_klass.to_csv(search.result.load),
           filename: csv_filename_for(current_view)
         )
+      end
+
+      def report_json
+        chart = current_view.chart
+        return if chart.x_axis_column.blank?
+
+        sql_view_klass = build_sql_view_klass
+        search = sql_view_klass.ransack(params[:q])
+        relation = search.result.load
+        render json: chart.generate_json(relation)
       end
 
       def report_csv_download_path_with_params

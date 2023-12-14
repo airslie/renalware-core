@@ -1,0 +1,6 @@
+- if report.chart&.x_axis_column.present?
+  dl.sub-nav(data-controller="tabbed-navigation")
+    dd= link_to "Tabular", renalware.reporting_report_path(report)
+    dd= link_to "Graphical", renalware.chart_reporting_report_path(report)
+- else
+  .mb-2

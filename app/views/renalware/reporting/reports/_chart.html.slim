@@ -1,0 +1,22 @@
+ruby:
+  view = options.current_view
+
+div
+  div(data-controller="charts"
+    data-charts-url-value= renalware.chart_reporting_report_path(options.current_view, format: :json)
+    data-charts-y-axis-label-value= "axis_label"
+    data-charts-y-axis-type-value= "axis_type"
+    data-charts-period-value= "3y"
+    data-charts-current-period-class="current-period")
+
+    .block.chart-periods
+      nav.flex.space-x-2
+        - default = "1y"
+        - Renalware::Pathology::Charts::PeriodMap.periods.each do |period_abbrev|
+          a(href="#"
+            data-charts-target="period"
+            data-action="click->charts#periodChanged",
+            data-period=period_abbrev)= period_abbrev
+
+    div(id="chart_id" data-charts-target="chart")
+      p No data

@@ -16,6 +16,12 @@ module Renalware
       attribute :filters, FilterDefinition.to_array_type
       validates :filters, store_model: true
 
+      attribute :filters, FilterDefinition.to_array_type
+      validates :filters, store_model: true
+
+      attribute :chart, ChartDefinition.to_type
+      validates :chart, store_model: true
+
       # This maps to a PG enum
       enum display_type: { tabular: "tabular" }
       enum category: { mdm: "mdm", report: "report" }

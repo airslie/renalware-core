@@ -13183,7 +13183,8 @@ CREATE TABLE renalware.system_view_metadata (
     refresh_concurrently boolean DEFAULT false NOT NULL,
     patient_landing_page renalware.enum_patient_landing_page,
     calls_count integer DEFAULT 0,
-    last_called_at timestamp(6) without time zone
+    last_called_at timestamp(6) without time zone,
+    chart jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -28763,6 +28764,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231206115315'),
 ('20231211172855'),
 ('20231212065241'),
-('20231212112543');
+('20231212112543'),
+('20231213170649');
 
 

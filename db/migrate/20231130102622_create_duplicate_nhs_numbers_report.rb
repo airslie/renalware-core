@@ -10,6 +10,7 @@ class CreateDuplicateNHSNumbersReport < ActiveRecord::Migration[7.0]
           slug: "all",
           scope: :patients,
           category: "report",
+          chart: Renalware::System::ChartDefinition.new,
           title: "Duplicate NHS numbers",
           sub_category: "Housekeeping",
           description: "Patients sharing an NHS number",
