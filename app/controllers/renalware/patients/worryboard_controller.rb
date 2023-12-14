@@ -5,6 +5,7 @@ module Renalware
     class WorryboardController < BaseController
       include Renalware::Concerns::PatientVisibility
       include Renalware::Concerns::Pageable
+      include Pagy::Backend
 
       def show
         authorize Worry, :index?
@@ -12,9 +13,10 @@ module Renalware
           query_params: query_params,
           patient_scope: patient_scope
         )
-        worries = query.call.page(page).per(per_page)
+        pagy, worries = pagy(query.call)
         render locals: {
           query: query.search,
+          pagy: pagy,
           worries: worries,
           modalities: Modalities::Description.order(:name),
           categories: WorryCategory.order(:name)

@@ -1,9 +1,12 @@
 - patient = Renalware::PatientPresenter.new(worry.patient)
 - toggle = worry.notes.present?
-tbody
+
+tbody(id=dom_id(worry))
   tr
     td
       = row_toggler if toggle
+    td.actions
+      = link_to "Edit", renalware.edit_patient_worry_path(worry.patient)
     td.full-name= default_patient_link(patient)
     td= patient.nhs_number
     td= patient.hospital_identifier

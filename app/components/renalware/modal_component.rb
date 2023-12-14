@@ -1,6 +1,23 @@
 # frozen_string_literal: true
 
 module Renalware
+  # Usage
+  #
+  # = render Renalware::ModalComponent.new(remote: true) do |modal|
+  #   = modal.trigger do
+  #     = link_to t("btn.add"),
+  #               new_resource_path(patient),
+  #               class: "button",
+  #               data: modal.trigger_attributes
+  #
+  #   = modal.body do
+
+  #
+  # in /my_resources/new.html.slim wrap the section that you'd like
+  # to go in the modal in {Renalware::ModalBodyComponent} like so:
+  # = render Renalware::ModalBodyComponent.new do
+  #   / modal content
+  #
   class ModalComponent < ApplicationComponent
     include Turbo::FramesHelper
     attr_reader :remote, :title

@@ -2,4 +2,6 @@
   = render "filters", query: query, modalities: modalities, categories: categories
 
 = within_admin_layout(title: "Worryboard") do
-  = render "table", query: query, worries: worries
+  = turbo_frame_tag "worryboard" do
+    = render Renalware::SpinnerComponent.new do |spinner|
+    = render "table", query: query, worries: worries, pagy: pagy

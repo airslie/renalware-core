@@ -1,12 +1,13 @@
 / Link to launch the modal dialog
 = link_to("#",
           data: { "reveal-id" => "add-patient-worry-modal" }) do
-  i.far.fa-link-annotation.fa-flag
+  i.fas.fa-link-annotation.fa-flag
   = t(".title")
 
 / The modal dialog
 #add-patient-worry-modal.reveal-modal.medium(data-reveal data-options="close_on_background_click:false")
   = render "renalware/patients/worries/form",
             patient: patient,
-            worry: Renalware::Patients::Worry.new,
+            worry: patient.worry,
+            worry_source: patient_path(patient),
             title: t(".title")

@@ -9,7 +9,8 @@ en:
         new:
           confirm: Add this patient to the worryboard?
           title: Add to Worryboard
-      worry:
+        edit:
+          title: Edit worry
         create:
           success: "%{patient} added to worryboard"
         destroy:

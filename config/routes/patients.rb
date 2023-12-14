@@ -42,7 +42,7 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
 
   resources :bookmarks, only: :create, controller: "patients/bookmarks"
   resources :alerts, only: [:new, :create, :destroy], controller: "patients/alerts"
-  resource :worry, only: [:create, :destroy], controller: "patients/worry"
+  resource :worry, only: [:edit, :update, :create, :destroy], controller: "patients/worries"
   resources :attachments, controller: "patients/attachments"
 
   namespace :surveys do

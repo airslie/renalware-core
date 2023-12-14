@@ -2,9 +2,17 @@
 .clear-both
 
 .search-form.filters.filters--flex.max-w-screen-md
-  = simple_form_for query, as: :q, url: worryboard_path, method: :get do |f|
+  = simple_form_for query,
+                    as: :q,
+                    url: worryboard_path,
+                    method: :get,
+                    data: { turbo_frame: "worryboard",
+                            turbo: true,
+                            turbo_advance: true,
+                            controller: "form",
+                            action: "input->form#submit" } do |f|
 
-    .flex.flex-col.sm:flex-row.items-end.pb-4
+    .flex.flex-col.sm:flex-row.items-end.pb-4.content-center
       .w-full.sm:max-w-xs.pr-2
         = f.input :patient_hospital_centre_id_eq,
                   collection: Renalware::Hospitals::Centre.order(:name),
@@ -21,6 +29,11 @@
         = f.input :created_by_id_eq,
                   collection: Renalware::User.where("id in (select distinct created_by_id from patient_worries)"),
                   label: "Added by"
-      .flex-shrink-0.pt-4
-        .mb-px= filter_or_reset(form: f, reset_path: renalware.worryboard_path)
-    
+      .flex
+        .mb-px
+          = filter_or_reset(form: f,
+                            reset_path: renalware.worryboard_path,
+                            show_filter_button: false)
+          noscript
+            = filter_or_reset(form: f, reset_path: renalware.worryboard_path)
+
