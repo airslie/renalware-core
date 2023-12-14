@@ -10,6 +10,8 @@ module Renalware
       def restore?
         edit?
       end
+
+      alias :chart? :show?
     end
   end
 end

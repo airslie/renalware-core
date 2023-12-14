@@ -63,7 +63,7 @@ RSpec.configure do |config|
     options.add_preference(:download, prompt_for_download: false)
     options.add_preference(:download, default_directory: Rails.root.join("tmp"))
     options.add_argument("window-size=1366,1768")
-    options.add_argument("headless") unless ENV["HEADFULL"]
+    options.add_argument("headless=new") unless ENV["HEADFULL"]
     options.add_argument("disable-gpu")
     options.add_argument("disable-extensions")
     options.add_argument("no-sandbox")
@@ -166,17 +166,19 @@ RSpec.configure do |config|
   # See https://github.com/airblade/paper_trail#7b-rspec for more information.
 
   config.after(:each, js: true, type: :system) do
-    errors = page.driver.browser.logs.get(:browser)
-    if errors.present?
-      aggregate_failures "javascript errrors" do
-        errors.each do |error|
-          # expect(error.level).not_to eq('SEVERE'), error.message
-          next unless error.level == "WARNING"
+    # TODO: reinstate once we work out why Selenium on GH actions gives
 
-          warn "WARN: javascript warning"
-          warn error.message
-        end
-      end
-    end
+    # errors = page.driver.browser.logs.get(:browser)
+    # if errors.present?
+    #   aggregate_failures "javascript errors" do
+    #     errors.each do |error|
+    #       # expect(error.level).not_to eq('SEVERE'), error.message
+    #       next unless error.level == "WARNING"
+
+    #       warn "WARN: javascript warning"
+    #       warn error.message
+    #     end
+    #   end
+    # end
   end
 end
