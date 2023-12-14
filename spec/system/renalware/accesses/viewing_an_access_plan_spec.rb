@@ -12,7 +12,7 @@ describe "Viewing an Access Plan" do
 
     visit patient_accesses_dashboard_path(patient)
 
-    within ".access-plans" do
+    within ".access-plans header" do
       click_on t("btn.view")
     end
 

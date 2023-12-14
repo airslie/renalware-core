@@ -8,7 +8,7 @@ describe "Editing an Access Plan" do
   # Note editing is actually a create using the current plan as a template.
   # There is no update action
   it "A clinician edits an existing Access Plan causing a new current plan to be created " \
-     "and the previous one tp be terminated so that it appears in the historical list" do
+     "and the previous one to be terminated" do
     user = login_as_clinical
     patient = create(:accesses_patient, by: user)
     create(:access_plan,
@@ -19,7 +19,7 @@ describe "Editing an Access Plan" do
     visit patient_accesses_dashboard_path(patient)
 
     expect(page).to have_css(".access-plans .current-access-plan")
-    expect(page).not_to have_css(".historical-access-plans")
+    expect(page).to have_css(".historical-access-plans table tbody tr", count: 1)
 
     within ".access-plans header" do
       click_on t("btn.edit")
@@ -55,7 +55,7 @@ describe "Editing an Access Plan" do
 
     visit patient_accesses_dashboard_path(patient)
 
-    expect(page).not_to have_css(".historical-access-plans")
+    expect(page).to have_css(".historical-access-plans table tbody tr", count: 1)
 
     within ".access-plans header" do
       click_on t("btn.edit")
@@ -66,6 +66,6 @@ describe "Editing an Access Plan" do
     end
 
     expect(page).to have_current_path(patient_accesses_dashboard_path(patient))
-    expect(page).not_to have_css(".historical-access-plans")
+    expect(page).to have_css(".historical-access-plans table tbody tr", count: 1)
   end
 end

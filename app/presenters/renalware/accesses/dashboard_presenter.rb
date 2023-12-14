@@ -7,14 +7,14 @@ module Renalware
 
       def profiles
         @profiles ||= CollectionPresenter.new(
-          patient.profiles.past_and_future.ordered.includes(:type),
+          patient.profiles.ordered.includes(:type),
           ProfilePresenter
         )
       end
 
       def plans
         @plans ||= CollectionPresenter.new(
-          patient.plans.historical.ordered,
+          patient.plans.ordered,
           PlanPresenter
         )
       end
