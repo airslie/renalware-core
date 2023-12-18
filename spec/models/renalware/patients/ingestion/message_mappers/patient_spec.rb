@@ -17,9 +17,12 @@ module Renalware
               DVH: :local_patient_id_3,
               PRUH: :local_patient_id_4,
               GUYS: :local_patient_id_5
-            },
-            hl7_patient_locator_strategy: :simple
+            }
           )
+          allow(Renalware.config.hl7_patient_locator_strategy)
+            .to receive(:fetch)
+            .with(:adt)
+            .and_return(:simple)
         end
 
         def hl7_data

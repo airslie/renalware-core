@@ -23,7 +23,8 @@ Renalware.configure do |config|
   config.disable_inputs_controlled_by_demographics_feed = false
   config.enforce_user_prescriber_flag = true
   config.allow_uploading_patient_attachments = true
-  config.hl7_patient_locator_strategy = :dob_and_any_nhs_or_assigning_auth_number
+  config.hl7_patient_locator_strategy[:oru] = :dob_and_any_nhs_or_assigning_auth_number
+  config.hl7_patient_locator_strategy[:adt] = :dob_and_any_nhs_or_assigning_auth_number
   config.max_batch_print_size = 50
   config.patient_visibility_restrictions = :by_site # or :by_site_and_research_study or :none
   config.allow_qr_codes_in_letters = true

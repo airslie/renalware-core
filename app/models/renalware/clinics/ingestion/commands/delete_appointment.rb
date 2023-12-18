@@ -18,7 +18,10 @@ module Renalware
           end
 
           def patient
-            @patient ||= Feeds::PatientLocator.call(patient_identification)
+            @patient ||= Feeds::PatientLocator.call(
+              :adt,
+              patient_identification: patient_identification
+            )
           end
 
           def appointment

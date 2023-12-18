@@ -63,8 +63,9 @@ module Renalware::Patients::Ingestion
                   "and the patient's current ethnicity is #{opts[:current]} " \
                   "and incoming ethnicity is #{opts[:incoming]}" do
             before do
-              allow(Renalware.config)
-                .to receive(:hl7_patient_locator_strategy)
+              allow(Renalware.config.hl7_patient_locator_strategy)
+                .to receive(:fetch)
+                .with(:adt)
                 .and_return(:simple)
               opts[:possibles].each { |code| create(:ethnicity, name: code, rr18_code: code) }
             end
@@ -97,7 +98,7 @@ module Renalware::Patients::Ingestion
       end
 
       context "when updating a patient and the strategy=nhs_or_any_assigning_auth_number" do
-        it "updates the correct patient number columns" do
+        it "updates the correct patient number columns" do # rubocop:disable RSpec/ExampleLength
           allow(Renalware.config).to receive_messages(
             patient_hospital_identifiers: {
               HOSP_A: :local_patient_id,
@@ -105,9 +106,12 @@ module Renalware::Patients::Ingestion
               HOSP_E: :local_patient_id_5,
               HOSP_C: :local_patient_id_3,
               HOSP_D: :local_patient_id_4
-            },
-            hl7_patient_locator_strategy: :nhs_or_any_assigning_auth_number
+            }
           )
+          allow(Renalware.config.hl7_patient_locator_strategy)
+            .to receive(:fetch)
+            .with(:adt)
+            .and_return(:nhs_or_any_assigning_auth_number)
 
           # The patient is known on the system only as local_patient_id_2 (HOSP_B) => "HB123"
           # so after the update any other numbers passed in the HL7 should be populated.
@@ -153,12 +157,13 @@ module Renalware::Patients::Ingestion
 
       context "when updating a patient found by nhs_number with the 'simple' strategy" do
         it "does not change the local_patient_id" do
-          allow(Renalware.config).to receive_messages(
-            patient_hospital_identifiers: {
-              HOSP_A: :local_patient_id
-            },
-            hl7_patient_locator_strategy: :simple
-          )
+          allow(Renalware.config)
+            .to receive(:patient_hospital_identifiers)
+            .and_return({ HOSP_A: :local_patient_id })
+          allow(Renalware.config.hl7_patient_locator_strategy)
+            .to receive(:fetch)
+            .with(:adt)
+            .and_return(:simple)
 
           # The patient is known on the system only as NHS number "1791963196"
           # so after the update the local_patient_id using the number in the HL7 message
@@ -172,7 +177,7 @@ module Renalware::Patients::Ingestion
 
           msh = "MSH|^~\&|ADT||||20150122154918||ADT^A31|897847653|P|2.3"
           pid = "PID||" \
-                "1791963196^^^NHS|PAS123^^^PAS NUMBER~" \
+                "1791963196^^^NHS|PAS123^^^HOSP_A~" \
                 "||Jones^John^^^MS||20000101|M|||" \
                 "address1^address2^address3^address4^postcode^other^HOME|||||||||||||||||||"
 

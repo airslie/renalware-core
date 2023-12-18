@@ -157,7 +157,10 @@ module Renalware
       end
 
       def patient
-        @patient ||= Feeds::PatientLocator.call(hl7_message.patient_identification)
+        @patient ||= Feeds::PatientLocator.call(
+          :oru,
+          patient_identification: hl7_message.patient_identification
+        )
       end
 
       def parse_time(string)

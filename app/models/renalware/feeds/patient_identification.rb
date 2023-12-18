@@ -76,7 +76,7 @@ module Renalware
           # If the hospital uses the simple strategy like KCH, and there is just one
           # hospital number in the PID patient id list (eg with an assigning authority of
           # 'PAS Number') then make sure that value is copied into local_patient_id
-          if Renalware.config.hl7_patient_locator_strategy == :simple
+          if Renalware.config.hl7_patient_locator_strategy[:oru] == :simple
             hash[:local_patient_id] ||= internal_id
           end
           hash
