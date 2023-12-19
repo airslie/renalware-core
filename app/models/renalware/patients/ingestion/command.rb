@@ -21,7 +21,10 @@ module Renalware
         end
 
         def find_patient
-          Feeds::PatientLocator.call(message.patient_identification)
+          Feeds::PatientLocator.call(
+            :adt,
+            patient_identification: message.patient_identification
+          )
         end
       end
     end

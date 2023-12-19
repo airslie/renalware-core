@@ -4,7 +4,10 @@ require "rails_helper"
 
 describe "Importing an ADT A31 'Update patient information' HL7 message" do
   before do
-    Renalware.config.hl7_patient_locator_strategy = :simple
+    allow(Renalware.config.hl7_patient_locator_strategy)
+      .to receive(:fetch)
+      .with(:adt)
+      .and_return(:simple)
     create(:user, :system)
   end
 

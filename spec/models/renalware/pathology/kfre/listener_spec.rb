@@ -24,7 +24,7 @@ module Renalware
       end
 
       before do
-        Renalware.config.hl7_patient_locator_strategy = :simple
+        Renalware.config.hl7_patient_locator_strategy[:oru] = :simple
         create(:pathology_lab, :unknown)
         create(:user, username: Renalware::SystemUser.username)
       end

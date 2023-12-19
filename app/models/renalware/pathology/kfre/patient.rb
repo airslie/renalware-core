@@ -9,7 +9,10 @@ module Renalware
         delegate_missing_to :patient
 
         def initialize(msg)
-          @patient = Feeds::PatientLocator.call(msg.patient_identification)
+          @patient = Feeds::PatientLocator.call(
+            :oru,
+            patient_identification: msg.patient_identification
+          )
           @patient = Pathology.cast_patient(@patient) if @patient
         end
 

@@ -4,7 +4,10 @@ require "rails_helper"
 
 describe "HL7 message handling end to end" do
   before do
-    Renalware.config.hl7_patient_locator_strategy = :simple # as used at KCH
+    allow(Renalware.config.hl7_patient_locator_strategy)
+      .to receive(:fetch)
+      .with(:oru)
+      .and_return(:simple) # as used at KCH
   end
 
   context "when we have an incoming HL7 msg wth > 1 OBR segment" do

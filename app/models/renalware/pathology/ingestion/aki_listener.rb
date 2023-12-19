@@ -75,7 +75,10 @@ module Renalware
         private
 
         def find_or_create_patient(hl7_message)
-          patient = Feeds::PatientLocator.call(hl7_message.patient_identification)
+          patient = Feeds::PatientLocator.call(
+            :oru,
+            patient_identification: hl7_message.patient_identification
+          )
           patient ||= add_patient_if_not_exists(hl7_message)
           assign_aki_modality_to(patient) if patient.current_modality.blank?
           patient
