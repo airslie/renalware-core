@@ -9,7 +9,7 @@ module Renalware::Feeds
     describe "patient numbers" do
       let(:raw_message) do
         <<~RAW
-          PID||123456789^^^NHS^ignoreme|D7006359^^^PAS1~X1234^^^PAS2|
+          PID||123456789^^^NHS^ignoreme|D7006359^^^PAS1~X1234^^^PAS2~^^^EMPTY|
         RAW
       end
 
