@@ -17,13 +17,14 @@ This project adheres to Semantic Versioning.
 ## 2.4.1
 
 ### Added
-- Add Patient Group Direction options to HD Session #4478
-- Support HD Prescriber and stat prescriptions #4464
+- Add Patient Group Direction options to HD Session, with admin UI to configure #4478
+- Add a new 'HD Prescriber' role and stat prescriptions #4464
 - Allow customising the landing page for patient links in reports #4453
-- Add 'hospital ward' option to hospital unit types #4452
-- Highlight non-contiguous entries in the modality listing #4437
 - Allow editing and deleting modalities #4436
-- Set a future termination for HD prescriptions #4559 - 6 months for HD, 2 weeks for HD + Stat
+- Set a future termination for HD prescriptions #4559: When creating a prescription where administer_on_hd=true then assign a prescription_termination with a date 6.months in the future. This value is configurable via Renalware.config.auto_terminate_hd_prescriptions_after_period and to disable the new behaviour set this to nil. When creating a prescription where administer_on_hd=true and stat=true then set a future termination date of 14 days
+- Add DSA 'Donor-specific antibody' to Tx Investigation dropdown #4566
+- Add a report to identify patients sharing the same NHS number #4579
+- Support simple line graphs in reports #4605
 
 ### Changed
 - Don't allow administration of future HD prescriptions #4562
@@ -35,16 +36,40 @@ This project adheres to Semantic Versioning.
 - Break out HD and Tx opt-level menus #4483
 - Mark a message as read after replying #4467
 - Changes to the way modalities are added #4438 - Stop capturing modality change reasons, enforce change type, capture source and dest hospitals if change type require them
+- Disable inactivation of non-dmd drugs during nightly dm+d syncing #4501
+- Include the current access profile/plan as first row in respective history tables #4541
+- Add unique index to drug frequencies #4548
+- Allow Access Plan type dropdown to be searchable #4552
+- Display future HD prescriptions up to 10 days ahead on HD protocol #4567
+- Don't validate needle_size when signing off HD Session #4577
+- Omit null vales when charting pathology #4588
+- Soft delete patient worries #4594
+- Support per-message type (ADT, ORU etc) patient location strategies #4612
+- Add 'dynamic' patient locator strategy for MSE ADT HL7 messages #4614
 
 ### Fixed
 - Use prescription.drug_name when displaying #4539 to ensure trade family name is included
 - Fix PKB typo #4498
 - Omit inactive drugs from admin drugs page #4491
 - Fix error adding PD bag type if glucose-strength omitted #4432
+- Fix occasional race condition creating patient from eg AKI HL7 msg #4502
+- Reinstate drug colour-code key on prescriptions page #4558
+- Remove blank NHS numbers from duplicate_nhs_numbers view #4580
+- Fix 'undefined local variable or method operation' in RecipientOperationsController#show #4582
+- Fix display of PD regime delivery frequency #4585
+- Fix problem sorting (was sorting by problem notes date not problem date) #4589
+- Fix prescription colour highlighting on clinical summary #4590
+- Prevent QR code table rows from spanning page breaks #4591
+- Allow prescriptions with future termination dates to be 'terminated' #4592
+- HD Slot request fixes - validate present of notes - any user can see the historical tab - use a modal for the edit form - remove references to specific_requirements column  #4598
+- Use correct (dm+d) dose unit on homecare delivery forms #4609
+- Fix problem/prescriptions overlay on clinic visits form, preventing clicking 'Create' when patient has a long list of problems #4613
 
 ## 2.4.0
 
 ### Added
+- Highlight non-contiguous entries in the modality listing #4437
+- Add 'hospital ward' option to hospital unit types #4452
 - Log near-match occurrences in HL7 ingestion #4413 Where we match on number but not DOB, log to a table and include the patient id and feed message id. Display these log entries in the backend so an admin can view and resolve manually if necessary.
 - Identify home HD Sessions in HD Sessions table with a home icon #4423
 - Extract ORC filler_order_number from HL7 when persisting to feed_messages (ready for historical pathology replay) #4427
