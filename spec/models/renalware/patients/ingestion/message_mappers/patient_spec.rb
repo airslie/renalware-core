@@ -12,11 +12,7 @@ module Renalware
         before do
           allow(Renalware.config).to receive_messages(
             patient_hospital_identifiers: {
-              KCH: :local_patient_id,
-              QEH: :local_patient_id_2,
-              DVH: :local_patient_id_3,
-              PRUH: :local_patient_id_4,
-              GUYS: :local_patient_id_5
+              HOSP1: :local_patient_id
             }
           )
           allow(Renalware.config.hl7_patient_locator_strategy)
