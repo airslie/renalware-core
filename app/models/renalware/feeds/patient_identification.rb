@@ -16,12 +16,13 @@ module Renalware
       end
 
       # Given the following PID segment
-      #   PID||123456789^^^NHS^ignoreme|D7006359^^^hosp1~X1234^^^hosp2|
+      #   PID||123456789^^^NHS^ignore-me|D7006359^^^hosp1~X1234^^^hosp2~^^^hosp3|
       # this will return a hash of assigning_authority => hospital number
       # useful in the situation where we receive HL7 messages from > 1 PAS; elsewhere
-      # we will map the assigning authotity to the correct patient_identitifer
+      # we will map the assigning authority to the correct patient_identifier
       # e.g. lookup assigning_auth eg "RAJ01" in a map to discover whether we should copy this
       # patient number into local_patient_id, local_patient_2 etc
+      # Note we remove blank entries eg hosp3 in this example
       # {
       #   "hosp1" => "D7006359",
       #   "hosp2" => "X1234"
@@ -39,6 +40,7 @@ module Renalware
               assigning_authority = parts[3]&.to_sym
               hash[assigning_authority] = hospno
             end
+            .compact_blank
         end
       end
 
@@ -54,7 +56,7 @@ module Renalware
       #     HOSP3: :local_patient_id_3
       # }
       # it returns an array of patient numbers found in the HL7 PID segment, pointing
-      # for identification, in order of precendence (ie nhs_number has the highest precedence)
+      # for identification, in order of precedence (ie nhs_number has the highest precedence)
       # for use when finding a patient
       # e.g.
       # {
@@ -72,14 +74,7 @@ module Renalware
             hosp_no = hospital_identifiers[assigning_auth]
             hash[column] = hosp_no if hosp_no.present?
           end
-
-          # If the hospital uses the simple strategy like KCH, and there is just one
-          # hospital number in the PID patient id list (eg with an assigning authority of
-          # 'PAS Number') then make sure that value is copied into local_patient_id
-          if Renalware.config.hl7_patient_locator_strategy[:oru] == :simple
-            hash[:local_patient_id] ||= internal_id
-          end
-          hash
+          hash.compact_blank
         end
       end
 
