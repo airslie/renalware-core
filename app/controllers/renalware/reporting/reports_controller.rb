@@ -35,7 +35,14 @@ module Renalware
       def chart
         respond_to do |format|
           format.html { show_html }
-          format.json { report_json }
+          format.json { chart_json }
+        end
+      end
+
+      def chart_raw
+        respond_to do |format|
+          format.html { show_html }
+          format.json { chart_raw_json }
         end
       end
 
@@ -69,7 +76,7 @@ module Renalware
         )
       end
 
-      def report_json
+      def chart_json
         chart = current_view.chart
         return if chart.x_axis_column.blank?
 
@@ -77,6 +84,47 @@ module Renalware
         search = sql_view_klass.ransack(params[:q])
         relation = search.result.load
         render json: chart.generate_json(relation)
+      end
+
+      def chart_raw_json # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        chart = current_view.chart_raw
+
+        sql_view_klass = build_sql_view_klass
+        search = sql_view_klass.ransack(params[:q])
+        relation = search.result.load
+        all_series = chart["series"]
+        unless all_series
+          render json: "No series element found in json"
+          return
+        end
+
+        x_axis_column = chart["xAxis"]["column"]
+        unless x_axis_column
+          render json: "no 'column' key found under 'xAxis' in json"
+          return
+        end
+        series_count = 0
+        relation.column_names.each do |column_name|
+          series = all_series.find { |s| s["column"] == column_name }
+          next unless series
+
+          series_count += 1
+          # rubocop:disable Style/RescueModifier
+          series["data"] = relation.map do |x|
+            [
+              x.send(x_axis_column.to_sym).to_datetime.utc.to_i * 1000,
+              (x.send(column_name.to_sym) rescue nil)
+            ]
+          end
+          # rubocop:enable Style/RescueModifier
+        end
+
+        if series_count.zero?
+          render json: "No 'column' key found under any 'series' entry in the json"
+          return
+        end
+
+        render json: current_view.chart_raw
       end
 
       def report_csv_download_path_with_params

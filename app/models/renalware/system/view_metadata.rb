@@ -19,6 +19,9 @@ module Renalware
       attribute :filters, FilterDefinition.to_array_type
       validates :filters, store_model: true
 
+      # There are two chart columns
+      # - chart: for structured chart configuration
+      # - chart_raw: to allow any chart json config to be added for greater control
       attribute :chart, ChartDefinition.to_type
       validates :chart, store_model: true
 
