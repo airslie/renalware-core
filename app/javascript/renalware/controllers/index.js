@@ -39,9 +39,9 @@ import ReadMoreController from "./read_more_controller"
 import GridRowAutoSpanController from "./grid_row_auto_span_controller"
 import TableColumnHoverController from "./table_column_hover_controller"
 import NavbarController from "./navbar_controller"
-
 import TabbedNavigationController from "./tabbed_navigation_controller"
 import TurboModalController from "./turbo_modal_controller"
+import ChartsRawController from "./charts_raw_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -99,3 +99,4 @@ application.register("navbar", NavbarController)
 application.register("dropdown", Dropdown) // https://www.stimulus-components.com/docs/stimulus-dropdown/
 application.register("tabbed-navigation", TabbedNavigationController)
 application.register("turbo-modal", TurboModalController)
+application.register("charts-raw", ChartsRawController)

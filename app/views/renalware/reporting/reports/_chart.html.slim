@@ -9,14 +9,5 @@ div
     data-charts-period-value= "3y"
     data-charts-current-period-class="current-period")
 
-    .block.chart-periods
-      nav.flex.space-x-2
-        - default = "1y"
-        - Renalware::Pathology::Charts::PeriodMap.periods.each do |period_abbrev|
-          a(href="#"
-            data-charts-target="period"
-            data-action="click->charts#periodChanged",
-            data-period=period_abbrev)= period_abbrev
-
     div(id="chart_id" data-charts-target="chart")
       p No data

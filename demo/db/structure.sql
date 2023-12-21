@@ -7471,6 +7471,16 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
+
+
+--
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -13184,7 +13194,8 @@ CREATE TABLE renalware.system_view_metadata (
     patient_landing_page renalware.enum_patient_landing_page,
     calls_count integer DEFAULT 0,
     last_called_at timestamp(6) without time zone,
-    chart jsonb DEFAULT '{}'::jsonb NOT NULL
+    chart jsonb DEFAULT '{}'::jsonb NOT NULL,
+    chart_raw jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -13323,6 +13334,18 @@ CREATE SEQUENCE renalware.system_visits_id_seq
 --
 
 ALTER SEQUENCE renalware.system_visits_id_seq OWNED BY renalware.system_visits.id;
+
+
+--
+-- Name: test_view; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.test_view AS
+ SELECT hs.performed_on,
+    count(*) AS patient_name
+   FROM renalware.hd_sessions hs
+  GROUP BY hs.performed_on
+  ORDER BY hs.performed_on;
 
 
 --
@@ -28765,6 +28788,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231211172855'),
 ('20231212065241'),
 ('20231212112543'),
-('20231213170649');
+('20231213170649'),
+('20231221094630');
 
 

@@ -18,7 +18,7 @@ module Renalware
             name: series_column.to_s.humanize,
             data: relation.map { |x|
               [
-                x.send(x_axis_column.to_sym).to_datetime.to_i,
+                x.send(x_axis_column.to_sym).to_datetime.to_i + 1000,
                 (x.send(series_column.to_sym) rescue nil)
               ]
             }

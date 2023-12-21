@@ -12,6 +12,7 @@ module Renalware
       end
 
       alias :chart? :show?
+      alias :chart_raw? :show?
     end
   end
 end
