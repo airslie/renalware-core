@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+--
 -- Name: renalware; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -7464,16 +7471,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8327,6 +8324,10 @@ CREATE TABLE renalware.modality_versions (
     id bigint NOT NULL,
     item_type character varying NOT NULL,
     item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
     created_at timestamp(6) without time zone
 );
 
@@ -11083,39 +11084,6 @@ ALTER SEQUENCE renalware.problem_comorbidity_descriptions_id_seq OWNED BY renalw
 
 
 --
--- Name: problem_definitions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.problem_definitions (
-    id bigint NOT NULL,
-    description character varying NOT NULL,
-    code character varying NOT NULL,
-    active boolean DEFAULT true NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: problem_definitions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE renalware.problem_definitions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: problem_definitions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE renalware.problem_definitions_id_seq OWNED BY renalware.problem_definitions.id;
-
-
---
 -- Name: problem_malignancy_sites; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -11544,7 +11512,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -11624,7 +11592,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -15846,13 +15814,6 @@ ALTER TABLE ONLY renalware.problem_comorbidity_descriptions ALTER COLUMN id SET 
 
 
 --
--- Name: problem_definitions id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.problem_definitions ALTER COLUMN id SET DEFAULT nextval('renalware.problem_definitions_id_seq'::regclass);
-
-
---
 -- Name: problem_malignancy_sites id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -17925,14 +17886,6 @@ ALTER TABLE ONLY renalware.problem_comorbidities
 
 ALTER TABLE ONLY renalware.problem_comorbidity_descriptions
     ADD CONSTRAINT problem_comorbidity_descriptions_pkey PRIMARY KEY (id);
-
-
---
--- Name: problem_definitions problem_definitions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.problem_definitions
-    ADD CONSTRAINT problem_definitions_pkey PRIMARY KEY (id);
 
 
 --
@@ -22916,13 +22869,6 @@ CREATE UNIQUE INDEX index_problem_comorbidity_descriptions_on_name ON renalware.
 --
 
 CREATE INDEX index_problem_comorbidity_descriptions_on_position ON renalware.problem_comorbidity_descriptions USING btree ("position");
-
-
---
--- Name: index_problem_definitions_on_code; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_problem_definitions_on_code ON renalware.problem_definitions USING btree (code);
 
 
 --
@@ -28879,7 +28825,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231212112543'),
 ('20231213170649'),
 ('20231221094630'),
-('20240109102318'),
 ('20240111043244');
 
 
