@@ -33,7 +33,10 @@ module Renalware
         presence: { if: ->(x) { x.change_type&.require_destination_hospital_centre? } }
       )
 
-      def self.policy_class = BasePolicy
+      has_paper_trail(
+        versions: { class_name: "Renalware::Modalities::Version" },
+        on: [:create, :update, :destroy]
+      )
 
       def terminate_by(user, on:)
         self.ended_on = on

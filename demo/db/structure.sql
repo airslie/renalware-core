@@ -7471,16 +7471,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8324,6 +8314,41 @@ CREATE SEQUENCE renalware.modality_reasons_id_seq
 --
 
 ALTER SEQUENCE renalware.modality_reasons_id_seq OWNED BY renalware.modality_reasons.id;
+
+
+--
+-- Name: modality_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.modality_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp(6) without time zone
+);
+
+
+--
+-- Name: modality_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.modality_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: modality_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.modality_versions_id_seq OWNED BY renalware.modality_versions.id;
 
 
 --
@@ -13337,18 +13362,6 @@ ALTER SEQUENCE renalware.system_visits_id_seq OWNED BY renalware.system_visits.i
 
 
 --
--- Name: test_view; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.test_view AS
- SELECT hs.performed_on,
-    count(*) AS patient_name
-   FROM renalware.hd_sessions hs
-  GROUP BY hs.performed_on
-  ORDER BY hs.performed_on;
-
-
---
 -- Name: transplant_donations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -15360,6 +15373,13 @@ ALTER TABLE ONLY renalware.modality_reasons ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: modality_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.modality_versions ALTER COLUMN id SET DEFAULT nextval('renalware.modality_versions_id_seq'::regclass);
+
+
+--
 -- Name: old_passwords id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -17362,6 +17382,14 @@ ALTER TABLE ONLY renalware.modality_modalities
 
 ALTER TABLE ONLY renalware.modality_reasons
     ADD CONSTRAINT modality_reasons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: modality_versions modality_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.modality_versions
+    ADD CONSTRAINT modality_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -21658,6 +21686,13 @@ CREATE INDEX index_modality_modalities_on_updated_by_id ON renalware.modality_mo
 --
 
 CREATE INDEX index_modality_reasons_on_id_and_type ON renalware.modality_reasons USING btree (id, type);
+
+
+--
+-- Name: index_modality_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_modality_versions_on_item_type_and_item_id ON renalware.modality_versions USING btree (item_type, item_id);
 
 
 --
@@ -28789,6 +28824,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231212065241'),
 ('20231212112543'),
 ('20231213170649'),
-('20231221094630');
+('20231221094630'),
+('20240111043244');
 
 
