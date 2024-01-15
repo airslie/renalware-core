@@ -5,7 +5,7 @@ require "rails_helper"
 describe "Editing the virology profile" do
   let(:patient) { create(:virology_patient) }
 
-  it "will build a new profile for the form if the patient had none" do
+  it "builds a new profile for the form if the patient had none" do
     login_as_clinical
     visit patient_virology_dashboard_path(patient)
 

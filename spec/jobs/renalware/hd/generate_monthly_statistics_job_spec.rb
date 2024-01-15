@@ -39,7 +39,7 @@ module Renalware
         context "when month and year supplied as named arguments" do
           subject(:period) { described_class.new(month: 5, year: 2016).period }
 
-          it "will use the correct month and year" do
+          it "uses the correct month and year" do
             expect(period).to have_attributes(month: 5, year: 2016)
           end
         end
