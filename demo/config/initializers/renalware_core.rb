@@ -26,7 +26,8 @@ Renalware.configure do |config|
   config.hl7_patient_locator_strategy[:oru] = :dob_and_any_nhs_or_assigning_auth_number
   config.hl7_patient_locator_strategy[:adt] = :dob_and_any_nhs_or_assigning_auth_number
   config.max_batch_print_size = 50
-  config.patient_visibility_restrictions = :by_site # or :by_site_and_research_study or :none
+  # leave patient_visibility_restrictions as :none as demo setting is used on the demo site.
+  config.patient_visibility_restrictions = :none # or :by_site_and_research_study or :by_site
   config.allow_qr_codes_in_letters = true
   config.process_hl7_via_raw_messages_table = true
   config.allow_modality_history_amendments = true
