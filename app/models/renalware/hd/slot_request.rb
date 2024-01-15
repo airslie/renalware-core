@@ -5,6 +5,8 @@ module Renalware
     class SlotRequest < ApplicationRecord
       include Accountable
       include PatientsRansackHelper
+      include RansackAll
+
       acts_as_paranoid
       belongs_to :patient
       belongs_to :deletion_reason, class_name: "SlotRequestDeletionReason"

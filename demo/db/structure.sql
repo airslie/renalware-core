@@ -20085,7 +20085,7 @@ CREATE INDEX index_feed_raw_hl7_messages_on_created_at ON renalware.feed_raw_hl7
 -- Name: INDEX index_feed_raw_hl7_messages_on_created_at; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON INDEX renalware.index_feed_raw_hl7_messages_on_created_at IS 'We query for rows ordering by created_at asc to give us a chance to procsess in FIFO order, so having an ordered index means when we use a LIMIT (batching) in the query, rows will be determined by index scan without having to look to the end of the table - or something like that! In fact the index is implcitly ordered already but having created_at: :asc here makes our intention more explicit.';
+COMMENT ON INDEX renalware.index_feed_raw_hl7_messages_on_created_at IS 'We query for rows ordering by created_at asc to give us a chance to process in FIFO order, so having an ordered index means when we use a LIMIT (batching) in the query, rows will be determined by index scan without having to look to the end of the table - or something like that! In fact the index is implicitly ordered already but having created_at: :asc here makes our intention more explicit.';
 
 
 --

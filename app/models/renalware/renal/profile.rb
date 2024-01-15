@@ -6,6 +6,7 @@ module Renalware
   module Renal
     class Profile < ApplicationRecord
       include Document::Base
+      include RansackAll
       extend Enumerize
 
       has_paper_trail(

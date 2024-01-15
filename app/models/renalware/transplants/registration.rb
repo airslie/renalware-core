@@ -7,6 +7,7 @@ module Renalware
     class Registration < ApplicationRecord
       include Document::Base
       include PatientScope
+      include RansackAll
 
       belongs_to :patient, touch: true
       has_many :statuses,

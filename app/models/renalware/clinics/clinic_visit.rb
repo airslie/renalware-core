@@ -5,6 +5,7 @@ module Renalware
     class ClinicVisit < ApplicationRecord
       include Accountable
       include PatientScope
+      include RansackAll
       extend Enumerize
       include Document::Base
 

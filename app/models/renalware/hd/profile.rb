@@ -9,6 +9,7 @@ module Renalware
       include PatientScope
       include Accountable
       include Supersedeable
+      include RansackAll
 
       belongs_to :patient, touch: true
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"

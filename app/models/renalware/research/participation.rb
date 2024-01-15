@@ -8,6 +8,8 @@ module Renalware
       include Accountable
       include PatientsRansackHelper
       include Document::Base
+      include RansackAll
+
       acts_as_paranoid
       has_paper_trail(
         versions: { class_name: "Renalware::Research::Version" },

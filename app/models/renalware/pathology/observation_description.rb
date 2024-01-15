@@ -3,6 +3,7 @@
 module Renalware
   module Pathology
     class ObservationDescription < ApplicationRecord
+      include RansackAll
       include Charts::Chartable
 
       belongs_to :measurement_unit

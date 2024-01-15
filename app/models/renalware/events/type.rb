@@ -3,6 +3,8 @@
 module Renalware
   module Events
     class Type < ApplicationRecord
+      include RansackAll
+
       self.table_name = "event_types"
       has_many(
         :alert_triggers,

@@ -6,6 +6,7 @@ module Renalware
   class User < ApplicationRecord
     include Deviseable
     include Personable
+    include RansackAll
 
     has_many :roles_users, dependent: :destroy
     has_many :roles, through: :roles_users
