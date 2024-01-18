@@ -20,8 +20,8 @@ module Renalware
 
         within ".letter-form-problems-and-prescriptions" do
           expect(page).to have_content("Problems and Prescriptions")
-          expect(page).not_to have_content(problem.description)
-          expect(page).not_to have_content(prescription.drug_name)
+          expect(page).to have_no_content(problem.description)
+          expect(page).to have_no_content(prescription.drug_name)
 
           click_on t("btn.toggle")
 

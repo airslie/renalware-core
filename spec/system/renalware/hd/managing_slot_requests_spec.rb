@@ -123,7 +123,7 @@ describe "Managing a list of HD Slot Requests" do
 
       # Check the patient has been removed
       within("table#slot-requests") do
-        expect(page).not_to have_content(patient.to_s)
+        expect(page).to have_no_content(patient.to_s)
       end
 
       # Find and inspect the slot_request to check the allocated_at
@@ -159,7 +159,7 @@ describe "Managing a list of HD Slot Requests" do
 
       # Check the patient has been removed
       within("table#slot-requests") do
-        expect(page).not_to have_content(patient.to_s)
+        expect(page).to have_no_content(patient.to_s)
       end
 
       # Find and inspect the slot_request to check the allocated_at

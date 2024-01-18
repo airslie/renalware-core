@@ -89,7 +89,7 @@ module Renalware
 
       click_link "Inactive"
 
-      expect(page).not_to have_content(@expired.username)
+      expect(page).to have_no_content(@expired.username)
     end
 
     it "An admin cannot assign super_admin role to anyone" do

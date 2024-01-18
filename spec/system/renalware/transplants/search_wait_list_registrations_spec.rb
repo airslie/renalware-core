@@ -47,7 +47,7 @@ describe "Search wait list registrations by UKT number" do
         within ".main-content" do
           fill_in "UKT recipient number", with: "X12"
           page.find(".search-registrations").click
-          expect(page).not_to have_content(patient.to_s)
+          expect(page).to have_no_content(patient.to_s)
         end
       end
     end

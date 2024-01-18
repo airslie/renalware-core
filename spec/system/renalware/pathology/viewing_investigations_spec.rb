@@ -80,7 +80,7 @@ module Renalware::Pathology
           within("#observation-requests") do
             # It only displays the filtered OBRs
             expect(page).to have_content(obr_desc2.name)
-            expect(page).not_to have_content(obr_desc1.name)
+            expect(page).to have_no_content(obr_desc1.name)
           end
         end
       end

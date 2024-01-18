@@ -40,8 +40,7 @@ module Renalware
         expect(results).to eq [updated_request]
         expect(
           results.first.observations
-            .map(&:description)
-            .map(&:code)
+            .map { |x| x.description.code }
             .sort
         ).to eq %w(OBX1 OBX2)
       end

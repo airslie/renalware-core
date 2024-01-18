@@ -19,10 +19,10 @@ module Document
         attribute_name = name
 
         # Add validation callback
-        klass.validate("#{name}_valid".to_sym)
+        klass.validate(:"#{name}_valid")
 
         # Validation method
-        klass.send(:define_method, "#{name}_valid".to_sym) do
+        klass.send(:define_method, :"#{name}_valid") do
           errors.add(attribute_name.to_sym, :invalid) if public_send(attribute_name).invalid?
         end
       end

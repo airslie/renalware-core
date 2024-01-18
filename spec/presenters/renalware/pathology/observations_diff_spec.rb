@@ -8,7 +8,7 @@ module Renalware
       let(:patient) { build_stubbed(:patient) }
 
       describe "ctor" do
-        it "works" do
+        it "accepts all args" do
           described_class.new(
             patient: patient,
             observation_set_a: {},

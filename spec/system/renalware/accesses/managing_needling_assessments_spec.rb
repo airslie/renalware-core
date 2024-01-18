@@ -39,6 +39,6 @@ describe "Managing needling assessments" do
     click_on t("btn.delete", context: "##{dom_id(assessment)}")
 
     expect(page).to have_current_path patient_accesses_dashboard_path(patient)
-    expect(page).not_to have_css("##{dom_id(assessment)}")
+    expect(page).to have_no_css("##{dom_id(assessment)}")
   end
 end

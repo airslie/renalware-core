@@ -25,7 +25,7 @@ inherit_from:
   - .rubocop_strict.yml
 
 AllCops:
-  NewCops: disable
+  NewCops: enable
   UseCache: true
   SuggestExtensions: false
   TargetRubyVersion: 3.2
@@ -46,8 +46,16 @@ AllCops:
     - "config/initializers/devise.rb"
     - "features/support/env.xaction_view.rb"
 
+RSpec/VerifiedDoubleReference:
+  Enabled: true
+  Exclude:
+    - "spec/models/renalware/pathology/observation_requests_attributes_builder_spec.rb"
+
 RSpec/MultipleMemoizedHelpers:
   Max: 30
+
+Rails/ToSWithArgument:
+  Enabled: false
 
 Rails/UnknownEnv:
   Environments:
@@ -55,6 +63,12 @@ Rails/UnknownEnv:
     - development
     - test
     - uat
+
+Style/AsciiComments:
+  Enabled: true
+  Exclude:
+    - "app/models/renalware/feeds/hl7_message.rb"
+    - "app/models/renalware/reporting/fetch_audit_json.rb"
 
 Rails/ActionOrder:
   Enabled: false

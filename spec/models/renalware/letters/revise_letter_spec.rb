@@ -66,12 +66,14 @@ module Renalware
             end
 
             context "when an existing snapshot was already there for this section" do
-              let!(:section_snapshot) {
-                create(:section_snapshot, letter: letter, content: "test",
-                                          section_identifier: "hd_section")
-              }
-
               it "keeps it as it is" do
+                create(
+                  :section_snapshot,
+                  letter: letter,
+                  content: "test",
+                  section_identifier: "hd_section"
+                )
+
                 expect(letter.section_snapshots.first.content).to eq "test"
 
                 service.call(patient, letter.id, by: user, topic_id: new_topic.id)
@@ -137,9 +139,12 @@ module Renalware
         end
       end
 
+      # We use a double rather than a spy here as we want to the double to send the original msg.
+      # rubocop:disable RSpec/MessageSpies
       def expect_subject_to_broadcast(*)
         expect(subject).to receive(:broadcast).with(*).and_call_original
       end
+      # rubocop:enable RSpec/MessageSpies
     end
   end
 end

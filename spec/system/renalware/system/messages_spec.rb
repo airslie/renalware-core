@@ -87,7 +87,7 @@ describe "Managing system messages that are displayed on the login page" do
     end
 
     within ".system-messages" do
-      expect(page).not_to have_content("Test title")
+      expect(page).to have_no_content("Test title")
     end
   end
 

@@ -82,7 +82,7 @@ describe "View a user's read/unread electronic ccs" do
         if expected_visible_receipts.include?(receipt)
           expect(page).to have_css(selector)
         else
-          expect(page).not_to have_css(selector)
+          expect(page).to have_no_css(selector)
         end
       end
     end
@@ -111,7 +111,7 @@ describe "View a user's read/unread electronic ccs" do
         if expected_visible_receipts.include?(receipt)
           expect(page).to have_css(selector)
         else
-          expect(page).not_to have_css(selector)
+          expect(page).to have_no_css(selector)
         end
       end
     end

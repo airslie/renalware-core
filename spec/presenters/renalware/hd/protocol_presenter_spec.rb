@@ -7,6 +7,10 @@ describe Renalware::HD::ProtocolPresenter do
 
   let(:user) { create(:user) }
 
+  before do
+    allow(Renalware.config).to receive(:hd_session_form_prescription_days_lookahead).and_return(8)
+  end
+
   describe "methods" do
     subject(:presenter) { described_class.new(nil, nil) }
 
@@ -25,10 +29,6 @@ describe Renalware::HD::ProtocolPresenter do
   end
 
   describe "#prescriptions" do
-    before do
-      allow(Renalware.config).to receive(:hd_session_form_prescription_days_lookahead).and_return(8)
-    end
-
     it "returns prescriptions to be administered on HD that are " \
        "current or have a future start date within the next configured x days eg 8" do
       patient = create(:hd_patient)

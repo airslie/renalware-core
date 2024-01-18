@@ -29,7 +29,7 @@ describe "Batch printing letters", js: true do
 
       within ".letters-table" do
         expect(page).to have_content(letter1.author.to_s)
-        expect(page).not_to have_content(letter2.author.to_s)
+        expect(page).to have_no_content(letter2.author.to_s)
       end
     end
   end

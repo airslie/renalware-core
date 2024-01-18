@@ -10,7 +10,7 @@ module Renalware
         login_as_clinical
         visit patient_clinical_profile_path(clinical_patient)
 
-        expect(page).not_to have_css("#igan_risk")
+        expect(page).to have_no_css("#igan_risk")
 
         within ".page-actions" do
           click_on "Add"

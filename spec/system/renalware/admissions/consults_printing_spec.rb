@@ -50,8 +50,8 @@ module Renalware
         expect(page).to have_content(active_consult.hospital_ward)
         expect(page).to have_content(active_consult.patient.hospital_identifiers)
 
-        expect(page).not_to have_content(inactive_consult.patient.hospital_identifiers)
-        expect(page).not_to have_content(inactive_consult.patient.to_s)
+        expect(page).to have_no_content(inactive_consult.patient.hospital_identifiers)
+        expect(page).to have_no_content(inactive_consult.patient.to_s)
       end
     end
   end
