@@ -105,6 +105,9 @@ module Renalware
             if days_missing > 0
               rows << "Missing modality data between #{I18n.l(modality.ended_on)} and " \
                       "#{I18n.l(next_modality.started_on)} (#{pluralize(days_missing, 'day')})"
+            elsif days_missing < 0
+              rows << "Overlapping modality dates #{I18n.l(modality.ended_on)} and " \
+                      "#{I18n.l(next_modality.started_on)} (#{pluralize(days_missing + 1, 'day')})"
             end
           end
           rows << modality
