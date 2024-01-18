@@ -15,7 +15,7 @@
 #   Renalware.config.x
 #
 module Renalware
-  class Configuration
+  class Configuration # rubocop:disable Metrics/ClassLength
     include ActiveSupport::Configurable
 
     # Force dotenv to load the .env file at this stage so we can read in the config defaults
@@ -151,6 +151,17 @@ module Renalware
     }
 
     config_accessor(:hd_session_prescriptions_require_signoff) { true }
+
+    # How many days ahead to look for prescriptions having a future prescribed_on date when
+    # determining which 'give on hd' prescriptions to show on the HD session form. Could be eg 10
+    # if session forms are printed on a Friday for the following week, in which case 10 days
+    # would find future HD prescriptions due to be given and time until a week Sunday.
+    # However if printing HD session forms each day, then a value of eg 3 would be better.
+    config_accessor(:hd_session_form_prescription_days_lookahead) {
+      ActiveModel::Type::Integer.new.cast(
+        ENV.fetch("HD_SESSION_FORM_PRESCRIPTION_DAYS_LOOKAHEAD", 10)
+      ) || 10
+    }
     config_accessor(:batch_printing_enabled) { true }
     config_accessor(:allow_uploading_patient_attachments) { true }
     config_accessor(:generate_pathology_request_forms_from_hd_mdm_listing) { true }
