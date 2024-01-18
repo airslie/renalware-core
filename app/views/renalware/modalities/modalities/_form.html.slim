@@ -51,7 +51,8 @@
                     as: :flatpickr,
                     wrapper: :horizontal_datepicker
 
-          - if policy(modality).edit?
+          / We only want to display the ended_on input if the user is creating a new modality
+          - if action_name == "edit" && policy(modality).edit?
             = m.input :ended_on,
                       as: :flatpickr,
                       wrapper: :horizontal_datepicker
