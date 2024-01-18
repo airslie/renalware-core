@@ -43,16 +43,18 @@ module Renalware
         @sessions ||= begin
           hd_sessions =
             Sessions::ProtocolSessionsQuery.new(patient: patient)
-              .call.includes(:patient, :signed_on_by, :signed_off_by)
+              .call.includes(:patient, :signed_on_by, :signed_off_by, :station)
           ::CollectionPresenter.new(hd_sessions, Protocol::SessionPresenter, view_context)
         end
       end
 
       def prescriptions
+        days_to_lookahead = ::Renalware.config.hd_session_form_prescription_days_lookahead
+        lookahead_datetime = days_to_lookahead.days.since.end_of_day
         prescriptions = patient
           .prescriptions
-          .includes(:drug)
-          .to_be_administered_on_hd_and_starting_before(10.days.since.end_of_day)
+          .includes([:drug, :unit_of_measure, :trade_family])
+          .to_be_administered_on_hd_and_starting_before(lookahead_datetime)
         ::CollectionPresenter.new(prescriptions, ::Renalware::Medications::PrescriptionPresenter)
       end
 

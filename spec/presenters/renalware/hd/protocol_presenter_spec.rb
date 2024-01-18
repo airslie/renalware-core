@@ -25,8 +25,12 @@ describe Renalware::HD::ProtocolPresenter do
   end
 
   describe "#prescriptions" do
+    before do
+      allow(Renalware.config).to receive(:hd_session_form_prescription_days_lookahead).and_return(8)
+    end
+
     it "returns prescriptions to be administered on HD that are " \
-       "current or have a future start date within the next 10 days" do
+       "current or have a future start date within the next configured x days eg 8" do
       patient = create(:hd_patient)
       prescriptions = {
         hd_current: create(
@@ -40,17 +44,17 @@ describe Renalware::HD::ProtocolPresenter do
           patient: patient,
           administer_on_hd: false
         ),
+        hd_starting_7d_hence: create(
+          :prescription,
+          patient: patient,
+          administer_on_hd: true,
+          prescribed_on: 7.days.since
+        ),
         hd_starting_9d_hence: create(
           :prescription,
           patient: patient,
           administer_on_hd: true,
           prescribed_on: 9.days.since
-        ),
-        hd_starting_11d_hence: create(
-          :prescription,
-          patient: patient,
-          administer_on_hd: true,
-          prescribed_on: 11.days.since
         ),
         hd_terminated: create(
           :prescription,
@@ -65,7 +69,7 @@ describe Renalware::HD::ProtocolPresenter do
       expect(presenter.prescriptions.to_a).to eq(
         [
           prescriptions[:hd_current],
-          prescriptions[:hd_starting_9d_hence]
+          prescriptions[:hd_starting_7d_hence]
         ]
       )
     end
