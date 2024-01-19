@@ -17,6 +17,8 @@ capybara-*.html
 /spec/tmp
 **.orig
 .env
+documentation/node_modules/**/*
+documentation/.docusaurus
 
 ## Environment normalisation:
 /.bundle
