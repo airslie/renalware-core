@@ -169,7 +169,7 @@ module Document
     #   end
     def self.old_attribute(attribute)
       @@methods_to_ignore << attribute
-      @@methods_to_ignore << "#{attribute}=".to_sym
+      @@methods_to_ignore << :"#{attribute}="
     end
 
     # Flag a list of old attributes to be ignored

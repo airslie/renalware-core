@@ -32,7 +32,7 @@ module Renalware
       }.to raise_error(Renalware::Feeds::PatientLocator::StrategyClassFactory::InvalidStrategyError)
     end
 
-    it "raises an error if the configured strategy does " do
+    it "raises an error if the configured strategy does" do
       allow(Renalware.config.hl7_patient_locator_strategy)
         .to receive(:fetch)
         .with(:oru)

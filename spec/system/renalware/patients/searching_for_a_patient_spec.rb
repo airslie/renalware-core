@@ -19,7 +19,7 @@ describe "Searching for a patient from the menu bar search area" do
     end
 
     expect(page).to have_content("RABBIT, Roger")
-    expect(page).not_to have_content("MOUSE, Minnie")
+    expect(page).to have_no_content("MOUSE, Minnie")
 
     within(".patient-search-form") do
       fill_in "patient_search_identity_match", with: "mous m"
@@ -27,6 +27,6 @@ describe "Searching for a patient from the menu bar search area" do
     end
 
     expect(page).to have_content("MOUSE, Minnie")
-    expect(page).not_to have_content("RABBIT, Roger")
+    expect(page).to have_no_content("RABBIT, Roger")
   end
 end

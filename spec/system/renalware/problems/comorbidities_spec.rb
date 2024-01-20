@@ -30,9 +30,9 @@ describe "Managing a patient's comorbidities", js: true do
 
       within("table.comorbidities ##{dom_id(desc2)}") do
         expect(page).to have_content desc2.name
-        expect(page).not_to have_content "Unknown"
-        expect(page).not_to have_content "Yes"
-        expect(page).not_to have_content "No"
+        expect(page).to have_no_content "Unknown"
+        expect(page).to have_no_content "Yes"
+        expect(page).to have_no_content "No"
       end
     end
   end

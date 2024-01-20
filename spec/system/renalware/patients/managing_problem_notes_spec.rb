@@ -55,7 +55,7 @@ describe "Problem notes management", js: true do
       accept_alert do
         click_on t("btn.delete")
       end
-      expect(page).not_to have_content(note.description)
+      expect(page).to have_no_content(note.description)
     end
   end
 end

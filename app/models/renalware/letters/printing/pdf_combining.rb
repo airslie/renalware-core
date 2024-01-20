@@ -25,7 +25,10 @@ module Renalware
 
         def shell_to_ghostscript_to_combine_files(filenames, dir, outputfile)
           outputfile = Pathname(outputfile)
-          cmd = "gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=#{outputfile} -dBATCH #{filenames.join(' ')}"
+          cmd = "gs -dNOPAUSE " \
+                "-sDEVICE=pdfwrite " \
+                "-sOUTPUTFILE=#{outputfile} " \
+                "-dBATCH #{filenames.join(' ')}"
           err = msg = nil
           Open3.popen3(cmd, chdir: dir.to_s) do |_stdin, stdout, stderr|
             err = stderr.read

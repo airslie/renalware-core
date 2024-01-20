@@ -37,7 +37,7 @@ describe "Managing vaccination types" do
       fill_in "Name", with: "Xxx" # will already exist
       click_on "Save"
 
-      expect(page).not_to have_current_path(virology_vaccination_types_path)
+      expect(page).to have_no_current_path(virology_vaccination_types_path)
       expect(page).to have_content("already used")
     end
 
@@ -50,7 +50,7 @@ describe "Managing vaccination types" do
       fill_in "Name", with: "Xxx" # will already exist
       click_on "Save"
 
-      expect(page).not_to have_current_path(virology_vaccination_types_path)
+      expect(page).to have_no_current_path(virology_vaccination_types_path)
       expect(page).to have_content("already used")
     end
   end

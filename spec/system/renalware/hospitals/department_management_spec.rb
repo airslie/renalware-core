@@ -23,7 +23,7 @@ describe "Department Management" do
     visit hospitals_centre_departments_path(centre, department)
 
     expect(page).to have_http_status(:success)
-    expect(page).not_to have_content(other_department.name)
+    expect(page).to have_no_content(other_department.name)
     expect(page).to have_content("DeptA")
     expect(page).to have_content("123")
     expect(page).to have_content("depta@hospa.com")

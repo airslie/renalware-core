@@ -40,7 +40,7 @@ describe "Managing downloads - files uploaded by super admins which can be acces
     visit system_downloads_path
     within(".download") { click_on t("btn.delete") }
 
-    expect(page).not_to have_css(".download")
+    expect(page).to have_no_css(".download")
   end
 
   it "listing items" do

@@ -69,7 +69,7 @@ describe "HD MDM Patients" do
       click_on t("btn.filter")
 
       expect(page).to have_content(patient1.family_name)
-      expect(page).not_to have_content(patient2.family_name)
+      expect(page).to have_no_content(patient2.family_name)
 
       # Reset filters to see all
       click_on t("btn.reset").downcase
@@ -81,7 +81,7 @@ describe "HD MDM Patients" do
       click_on t("btn.filter")
 
       expect(page).to have_content(patient2.family_name)
-      expect(page).not_to have_content(patient1.family_name)
+      expect(page).to have_no_content(patient1.family_name)
     end
 
     describe "Named filters" do
@@ -110,7 +110,7 @@ describe "HD MDM Patients" do
         click_on t("renalware.hd.mdm_patients.tabs.tab.on_worryboard")
 
         expect(page).to have_content(patient2.family_name)
-        expect(page).not_to have_content(patient1.family_name)
+        expect(page).to have_no_content(patient1.family_name)
       end
 
       it "'on worryboard' tab remains active if the user filters by hospital unit" do
@@ -142,8 +142,8 @@ describe "HD MDM Patients" do
         )
         # We should only see patients on the worryboard dialysing at unit1
         expect(page).to have_content(wb_patient_at_unit1.family_name)
-        expect(page).not_to have_content(wb_patient_at_unit2.family_name)
-        expect(page).not_to have_content(nonwb_patient_at_unit1.family_name) # not on wb
+        expect(page).to have_no_content(wb_patient_at_unit2.family_name)
+        expect(page).to have_no_content(nonwb_patient_at_unit1.family_name) # not on wb
       end
     end
   end

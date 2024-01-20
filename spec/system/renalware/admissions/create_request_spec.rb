@@ -34,7 +34,7 @@ describe "Create an Admission Request", js: true do
     fill_in "Notes", with: "Some notes"
     click_on("Create")
 
-    expect(page).not_to have_content(dialog_title)
+    expect(page).to have_no_content(dialog_title)
     requests = Renalware::Admissions::Request.all
     expect(requests.length).to eq(1)
     request = requests.first

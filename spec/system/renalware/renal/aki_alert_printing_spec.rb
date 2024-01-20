@@ -57,7 +57,7 @@ module Renalware
       # by default the '24 hours before 0945 today' date range filter is selected, so only
       # aki_akert_at_ward1 will be selected as aki_akert_at_ward2 is pas 0945 today
       expect(page).to have_content("AT WARD1, Peter")
-      expect(page).not_to have_content("AT WARD2, Ben")
+      expect(page).to have_no_content("AT WARD2, Ben")
 
       select "All", from: "Date range"
       click_button "Filter"
@@ -119,7 +119,7 @@ module Renalware
         expect(page).to have_content(l(aki_akert_at_ward1.patient.born_on))
         expect(page).to have_content(aki_akert_at_ward1.max_cre)
         expect(page).to have_content(l(aki_akert_at_ward1.cre_date))
-        expect(page).not_to have_content(aki_akert_at_ward2.patient.to_s)
+        expect(page).to have_no_content(aki_akert_at_ward2.patient.to_s)
       end
     end
   end

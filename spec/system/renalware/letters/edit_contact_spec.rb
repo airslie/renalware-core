@@ -47,7 +47,7 @@ describe "Managing an existing letter contact", js: true do
       click_on t("btn.save")
 
       # Wait for modal to close
-      expect(page).not_to have_css("#edit-patient-contact-modal")
+      expect(page).to have_no_css("#edit-patient-contact-modal")
 
       contact.reload
 

@@ -31,13 +31,13 @@ describe "Manage electronic CCs" do
 
     within ".electronic-ccs" do
       expect(page).to have_content(approved_letter.description)
-      expect(page).not_to have_content(draft_letter.description)
+      expect(page).to have_no_content(draft_letter.description)
       expect(page).to have_css("tbody tr", count: 1)
 
       click_on t("btn.toggle")
       click_on "Mark as read"
 
-      expect(page).not_to have_content(approved_letter.description)
+      expect(page).to have_no_content(approved_letter.description)
     end
   end
 end

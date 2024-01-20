@@ -30,7 +30,7 @@ describe "Remembering last used letter choices in the user's session", js: true 
     expect(page.find("#letter_author_id option[selected='selected']").value)
       .to eq(users[0].id.to_s)
     expect(page.find_by_id("letter_letterhead_id").value).to eq("")
-    expect(page).not_to have_css "#letter_topic option[selected='selected']"
+    expect(page).to have_no_css "#letter_topic option[selected='selected']"
 
     # Now fill in some fields. These fields are in RememberedPreferences (saved to a cookie) so
     # should be remembered the next time we create a letter

@@ -115,7 +115,9 @@ module Renalware::Pathology
               ]
             )
           )
+          # rubocop:disable RSpec/VerifiedDoubleReference
           logger = instance_double("Rails.logger").as_null_object
+          # rubocop:enable RSpec/VerifiedDoubleReference
           allow(logger).to receive(:debug)
 
           parser = described_class.new(hl7_message, logger)
@@ -177,12 +179,12 @@ module Renalware::Pathology
         end
 
         # TODO: Needs cleaning and tightening up!
-        it "creates the OBX using the OBR obserrved_at date" do
+        it "creates the OBX using the OBR observed_at date" do
           create(:pathology_request_description, code: "GS")
           create(:pathology_observation_description, code: "GRP")
           create(:pathology_observation_description, code: "WSUM")
           create(:patient, local_patient_id: "V1111111", born_on: "2001-01-01")
-          logger = instance_spy("Rails.logger")
+          logger = instance_spy("Rails.logger") # rubocop:disable RSpec/VerifiedDoubleReference
 
           message = Renalware::Feeds::MessageParser.parse(raw_message)
           parser = described_class.new(message, logger)

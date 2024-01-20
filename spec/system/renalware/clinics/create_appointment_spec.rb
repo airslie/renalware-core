@@ -38,7 +38,7 @@ describe "Create new appointment manually (not via HL7 message)", js: true do
         click_on t("btn.create")
       end
 
-      expect(page).not_to have_content("Clinic Appointments / New")
+      expect(page).to have_no_content("Clinic Appointments / New")
 
       within("#appointments") do
         expect(page).to have_content(patient.to_s)

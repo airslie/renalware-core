@@ -6,7 +6,9 @@ module Renalware
       class AmpTradeFamilySynchroniser
         COUNT = 100
 
-        def initialize(snomed_amps_repository: Repositories::SnomedAmpsWithTradeFamilyRepository.new)
+        def initialize(
+          snomed_amps_repository: Repositories::SnomedAmpsWithTradeFamilyRepository.new
+        )
           @snomed_amps_repository = snomed_amps_repository
         end
         attr_reader :snomed_amps_repository
@@ -19,7 +21,9 @@ module Renalware
           loop do
             entries = snomed_amps_repository.call(offset: offset, count: COUNT)
 
-            Rails.logger.info "[AmpTradeFamilySynchroniser] offset: #{offset}; records: #{entries.size}"
+            Rails.logger.info(
+              "[AmpTradeFamilySynchroniser] offset: #{offset}; records: #{entries.size}"
+            )
 
             break if entries.empty?
 

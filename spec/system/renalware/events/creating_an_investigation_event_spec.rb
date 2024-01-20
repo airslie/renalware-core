@@ -36,28 +36,26 @@ describe "Creating a investigation event", js: true do
     end
   end
 
-  context "when adding a investigation event through the Investigations screen" do
-    it "works" do
-      user = login_as_clinical
-      patient = create(:patient, by: user)
-      event_type = create(:investigation_event_type)
+  it "adds a investigation event through the Investigations screen" do
+    user = login_as_clinical
+    patient = create(:patient, by: user)
+    event_type = create(:investigation_event_type)
 
-      visit new_patient_investigation_path(patient)
+    visit new_patient_investigation_path(patient)
 
-      choose "Transplant recipient"
-      select "Dental Check", from: "Type"
-      fill_in "Result", with: "result"
-      fill_trix_editor with: "some notes"
-      click_on t("btn.create")
+    choose "Transplant recipient"
+    select "Dental Check", from: "Type"
+    fill_in "Result", with: "result"
+    fill_trix_editor with: "some notes"
+    click_on t("btn.create")
 
-      events = Renalware::Events::Event.for_patient(patient)
-      expect(events.length).to eq(1)
-      event = events.first
-      expect(event.event_type_id).to eq(event_type.id)
-      expect(event.notes).to match("some notes")
-      expect(event.document.type).to eq("dental_check")
-      expect(event.document.result).to eq("result")
-      expect(event.document.modality).to eq("transplant_recipient")
-    end
+    events = Renalware::Events::Event.for_patient(patient)
+    expect(events.length).to eq(1)
+    event = events.first
+    expect(event.event_type_id).to eq(event_type.id)
+    expect(event.notes).to match("some notes")
+    expect(event.document.type).to eq("dental_check")
+    expect(event.document.result).to eq("result")
+    expect(event.document.modality).to eq("transplant_recipient")
   end
 end

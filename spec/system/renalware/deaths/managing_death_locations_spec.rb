@@ -80,7 +80,7 @@ describe "Death location management" do
     visit deaths_locations_path
 
     within("#death-locations tbody") do
-      expect(page).not_to have_content("Delete")
+      expect(page).to have_no_content("Delete")
     end
   end
 end

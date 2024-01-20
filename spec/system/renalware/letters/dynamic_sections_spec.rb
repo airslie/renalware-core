@@ -88,13 +88,13 @@ module Renalware
         click_link "Edit"
 
         within "article", text: "HD" do
-          expect(page).not_to have_content "HD Unit\nU_CODE\nTime\n5:00"
+          expect(page).to have_no_content "HD Unit\nU_CODE\nTime\n5:00"
           expect(page).to have_content "HD Unit\nAnother Code\nTime\n1:39"
         end
 
         # Change to a topic which doesn't have a section
         slim_select "Topic without section", from: "Topic"
-        expect(page).not_to have_content "HD Unit\nU_CODE\nTime\n1:39"
+        expect(page).to have_no_content "HD Unit\nU_CODE\nTime\n1:39"
       end
     end
   end

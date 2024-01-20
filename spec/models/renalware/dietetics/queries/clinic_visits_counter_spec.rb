@@ -9,11 +9,9 @@ module Renalware
       let(:instance) { described_class.new }
 
       context "with dietetic clinic visits for patient" do
-        let!(:clinic_visit) {
-          create(:clinic_visit, type: "Renalware::Dietetics::ClinicVisit", patient: patient)
-        }
-
         it "returns the count" do
+          create(:clinic_visit, type: "Renalware::Dietetics::ClinicVisit", patient: patient)
+
           expect(instance.call(patient: patient)).to eq 1
         end
       end

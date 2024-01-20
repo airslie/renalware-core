@@ -35,20 +35,20 @@ describe Renalware::HD::AdministerPrescriptionDropdownComponent, type: :componen
 
       render_inline(described_class.new(patient: patient))
 
-      expect(page).not_to have_content("Patient has no drugs to be given on HD")
+      expect(page).to have_no_content("Patient has no drugs to be given on HD")
 
       expect(page).to have_content("Drug1")
       expect(page).to have_content("Drug2")
-      expect(page).not_to have_content("Drug3")
+      expect(page).to have_no_content("Drug3")
 
-      # Note that the links in the html seem to have an .html extension. Not atempting to
-      # fix that yet, so specifiying an html format here for now
+      # Note that the links in the html seem to have an .html extension. Not attempting to
+      # fix that yet, so specifying an html format here for now
       expect(page).to have_link(href: new_hd_prescription_administration_path(prescriptions[0],
                                                                               format: :html))
       expect(page).to have_link(href: new_hd_prescription_administration_path(prescriptions[1],
                                                                               format: :html))
-      expect(page).not_to have_link(href: new_hd_prescription_administration_path(prescriptions[2],
-                                                                                  format: :html))
+      expect(page).to have_no_link(href: new_hd_prescription_administration_path(prescriptions[2],
+                                                                                 format: :html))
     end
   end
 end

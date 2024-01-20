@@ -134,7 +134,7 @@ describe "Printing a letter",
         click_on "No - leave in the Print Queue"
       end
 
-      expect(page).not_to have_content("Was printing successful?")
+      expect(page).to have_no_content("Was printing successful?")
       within("table.letters") do
         expect(page).to have_css("tbody tr", count: 1)
       end

@@ -39,7 +39,7 @@ describe "Add a patient to a study (creating a participation)" do
 
       visit research_study_participations_path(study)
 
-      expect(page).not_to have_css "a.add-participation"
+      expect(page).to have_no_css "a.add-participation"
     end
   end
 

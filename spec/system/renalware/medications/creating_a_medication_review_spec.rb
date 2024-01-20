@@ -14,7 +14,7 @@ describe "Creating a medication review on the prescriptions page", js: true do
       treatable_id: patient
     )
 
-    expect(page).not_to have_css(".medication-review", wait: 0)
+    expect(page).to have_no_css(".medication-review", wait: 0)
 
     accept_alert do
       click_on "Medication Review"

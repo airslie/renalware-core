@@ -29,12 +29,9 @@ module Renalware
       end
 
       context "when a snapshot already exists" do
-        let!(:section_snapshot) {
-          create(:section_snapshot, letter: letter, content: "test",
-                                    section_identifier: "hd_section")
-        }
-
         it "skips over it" do
+          create(:section_snapshot, letter: letter, content: "xy", section_identifier: "hd_section")
+
           expect(letter.section_snapshots.count).to eq 1
 
           described_class.create_all(letter)
@@ -43,7 +40,7 @@ module Renalware
 
           snapshot = letter.section_snapshots.first
           expect(snapshot.section_identifier).to eq "hd_section"
-          expect(snapshot.content).to eq "test"
+          expect(snapshot.content).to eq "xy"
         end
       end
     end
@@ -62,12 +59,9 @@ module Renalware
       end
 
       context "when a snapshot already exists" do
-        let!(:section_snapshot) {
-          create(:section_snapshot, letter: letter, content: "test",
-                                    section_identifier: "hd_section")
-        }
-
         it "updates it" do
+          create(:section_snapshot, letter: letter, content: "xy", section_identifier: "hd_section")
+
           expect(letter.section_snapshots.count).to eq 1
 
           described_class.update_or_create_one(letter, "hd_section")
@@ -76,7 +70,7 @@ module Renalware
 
           snapshot = letter.section_snapshots.first
           expect(snapshot.section_identifier).to eq "hd_section"
-          expect(snapshot.content).to include "<dl></dl>"
+          expect(snapshot.content).to include("<dl></dl>")
         end
       end
     end

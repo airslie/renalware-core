@@ -59,7 +59,7 @@ describe "Assign a person as a main recipient" do
 
       wait_for_ajax
 
-      expect(page).not_to have_text("is already a contact for the patient")
+      expect(page).to have_no_text("is already a contact for the patient")
     end
 
     def fill_out_letter

@@ -52,7 +52,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
     expect(page).to have_field "Terminated on"
     expect(page).to have_select "Frequency", selected: "Often"
 
-    expect(page).not_to have_field("Stat")
+    expect(page).to have_no_field("Stat")
     check("Give on HD")
     expect(page).to have_field("Stat")
     check("Stat")
@@ -120,7 +120,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
       expect(page).to have_link "Edit"
       # # There will be no Terminate button as it is a stat drug that already has a termination date
       # expect(page).not_to have_link "Terminate"
-      expect(page).not_to have_content("Blue Pill Capsule 1 Ampoule")
+      expect(page).to have_no_content("Blue Pill Capsule 1 Ampoule")
       expect(page).to have_content("Blue Pill Capsule larger dose Ampoule")
     end
 
@@ -152,7 +152,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
     end
 
     expect(page).to have_field "Terminated on", with: l(Date.tomorrow)
-    fill_in "Terminated on", with: l(Date.today)
+    fill_in "Terminated on", with: l(Time.zone.today)
     click_button "Save"
 
     # Now the drug is only in the historial ones
@@ -163,7 +163,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
 
     within "article", text: "Historical" do
       expect(page).to have_content "Blue Pill"
-      expect(page).not_to have_link "Edit"
+      expect(page).to have_no_link "Edit"
     end
   end
 
@@ -262,7 +262,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
       within "article", text: "Current" do
         expect(page).to have_link "Edit"
         expect(page).to have_link "Terminate"
-        expect(page).not_to have_content("20 Ampoule")
+        expect(page).to have_no_content("20 Ampoule")
         expect(page).to have_content("Blue PillCapsulelarger dose Ampoule")
       end
 
@@ -306,7 +306,7 @@ describe "Prescriptions - create / edit / terminate", js: true do
       expect(page).to have_select "Frequency", selected: "Other"
 
       select "Often", from: "Frequency"
-      expect(page).not_to have_field "Other frequency", with: "More Often"
+      expect(page).to have_no_field "Other frequency", with: "More Often"
     end
   end
 end

@@ -54,7 +54,7 @@ module Renalware
           # Example response
           # [
           #   { "system" => "https://dmd.nhs.uk", "code" => "10547007", "display" => "Auricular" },
-          #   { "system" => "https://dmd.nhs.uk", "code" => "420254004", "display" => "Body cavity" },
+          #   { "system" => "https://dmd.nhs.uk", "code" => "420254004", "display" => "Body cavity"}
           # ]
         end
       end

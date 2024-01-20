@@ -111,10 +111,10 @@ describe "A user adds a patient" do
 
           within(".search-results--by-dob") do
             expect(page).to have_content("OTHER, Jake")
-            expect(page).not_to have_content("SMITH, John")
+            expect(page).to have_no_content("SMITH, John")
           end
 
-          expect(page).not_to have_content("NOMATCH")
+          expect(page).to have_no_content("NOMATCH")
         end
       end
     end

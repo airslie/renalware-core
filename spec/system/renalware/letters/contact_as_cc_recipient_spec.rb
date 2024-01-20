@@ -73,7 +73,7 @@ describe "Assign a person as a CC recipient", js: true do
 
       expect(page).to have_text(person.family_name)
 
-      expect(page).not_to have_text("is already a contact for the patient")
+      expect(page).to have_no_text("is already a contact for the patient")
     end
 
     def fill_out_letter

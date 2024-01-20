@@ -6,7 +6,7 @@ module World
       def build_apd_regime_for(patient:, user:, data:)
         regime = Renalware::PD::APDRegime.new(patient: patient)
         data.each do |key, value|
-          regime.public_send("#{key.to_sym}=", value)
+          regime.public_send(:"#{key.to_sym}=", value)
         end
         regime.treatment ||= "A treatment"
         regime
@@ -35,7 +35,7 @@ module World
 
       def reset_all_days_to_false_for(bag:)
         Date::DAYNAME_SYMBOLS.map do |day|
-          bag.public_send("#{day}=", false)
+          bag.public_send(:"#{day}=", false)
         end
       end
 

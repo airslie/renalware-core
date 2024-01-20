@@ -6,7 +6,9 @@ module Renalware
       class ActualMedicalProductSynchroniser
         COUNT = 100
 
-        def initialize(actual_medical_product_repository: Repositories::ActualMedicalProductRepository.new)
+        def initialize(
+          actual_medical_product_repository: Repositories::ActualMedicalProductRepository.new
+        )
           @actual_medical_product_repository = actual_medical_product_repository
         end
         attr_reader :actual_medical_product_repository
@@ -17,7 +19,9 @@ module Renalware
           loop do
             entries = actual_medical_product_repository.call(offset: offset, count: COUNT)
 
-            Rails.logger.info "[ActualMedicalProductSynchroniser] offset: #{offset}; records: #{entries.size}"
+            Rails.logger.info(
+              "[ActualMedicalProductSynchroniser] offset: #{offset}; records: #{entries.size}"
+            )
 
             break if entries.empty?
 

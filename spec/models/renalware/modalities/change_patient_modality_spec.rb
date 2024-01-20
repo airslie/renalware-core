@@ -111,7 +111,7 @@ module Renalware
             allow(patient).to receive(:current_modality).and_return(old_modality)
             expect(patient.current_modality).to eq(old_modality)
 
-            listener = double("Listener")
+            listener = double("Listener") # rubocop:disable RSpec/VerifiedDoubles
             command.subscribe(listener)
 
             allow(old_modality).to receive(:save!).and_return(true)
@@ -143,7 +143,7 @@ module Renalware
 
           it "does not broadcast a patient_modality_changed event" do
             modality = build_modality(nil)
-            listener = double("Listener")
+            listener = double("Listener") # rubocop:disable RSpec/VerifiedDoubles
             command.subscribe(listener)
             allow(listener).to receive(:patient_modality_changed)
 

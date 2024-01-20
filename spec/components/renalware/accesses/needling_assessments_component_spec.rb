@@ -28,9 +28,9 @@ describe Renalware::Accesses::NeedlingAssessmentsComponent, type: :component do
     expect(page).to have_content("01-Jun-2022")
     expect(page).to have_content("01-May-2022")
     expect(page).to have_content("31-Mar-2022")
-    expect(page).not_to have_content("28-Feb-2022")
+    expect(page).to have_no_content("28-Feb-2022")
     expect(page).to have_content("Moderate")
     expect(page).to have_content("Easy")
-    expect(page).not_to have_content("Hard")
+    expect(page).to have_no_content("Hard")
   end
 end

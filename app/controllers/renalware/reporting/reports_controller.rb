@@ -86,7 +86,7 @@ module Renalware
         render json: chart.generate_json(relation)
       end
 
-      def chart_raw_json # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      def chart_raw_json # rubocop:disable Metrics/AbcSize
         chart = current_view.chart_raw
 
         sql_view_klass = build_sql_view_klass

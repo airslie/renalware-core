@@ -55,7 +55,7 @@ describe "Managing a list of HD Slot Requests" do
     visit renalware.historical_hd_slot_requests_path
 
     within("table#slot-requests") do
-      expect(page).not_to have_content(patient.to_s)
+      expect(page).to have_no_content(patient.to_s)
     end
   end
 end
