@@ -13690,6 +13690,39 @@ ALTER SEQUENCE renalware.transplant_failure_cause_descriptions_id_seq OWNED BY r
 
 
 --
+-- Name: transplant_investigation_types; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.transplant_investigation_types (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    description character varying NOT NULL,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: transplant_investigation_types_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.transplant_investigation_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplant_investigation_types_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.transplant_investigation_types_id_seq OWNED BY renalware.transplant_investigation_types.id;
+
+
+--
 -- Name: transplant_mdm_patients; Type: VIEW; Schema: renalware; Owner: -
 --
 
@@ -16150,6 +16183,13 @@ ALTER TABLE ONLY renalware.transplant_failure_cause_descriptions ALTER COLUMN id
 
 
 --
+-- Name: transplant_investigation_types id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_investigation_types ALTER COLUMN id SET DEFAULT nextval('renalware.transplant_investigation_types_id_seq'::regclass);
+
+
+--
 -- Name: transplant_recipient_followups id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -18270,6 +18310,14 @@ ALTER TABLE ONLY renalware.transplant_failure_cause_description_groups
 
 ALTER TABLE ONLY renalware.transplant_failure_cause_descriptions
     ADD CONSTRAINT transplant_failure_cause_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_investigation_types transplant_investigation_types_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_investigation_types
+    ADD CONSTRAINT transplant_investigation_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -23810,6 +23858,20 @@ CREATE INDEX index_transplant_failure_cause_descriptions_on_group_id ON renalwar
 
 
 --
+-- Name: index_transplant_investigation_types_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_transplant_investigation_types_on_code ON renalware.transplant_investigation_types USING btree (code) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: index_transplant_investigation_types_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_transplant_investigation_types_on_deleted_at ON renalware.transplant_investigation_types USING btree (deleted_at);
+
+
+--
 -- Name: index_transplant_recipient_followups_on_document; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -28825,6 +28887,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231212112543'),
 ('20231213170649'),
 ('20231221094630'),
-('20240111043244');
+('20240111043244'),
+('20240118203934');
 
 
