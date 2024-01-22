@@ -29,8 +29,8 @@ jobs:
       - name: Build website
         working-directory: ./documentation
         run: |
-          echo 'docs.renalware.com' > ./build/CNAME
           yarn build
+          echo 'docs.renalware.com' > ./build/CNAME
 
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
