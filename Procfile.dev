@@ -27,3 +27,6 @@ js: yarn build --watch
 # build:css script in demo/package.json to mimic behaviour in site rails apps.
 #
 css: yarn build:css --watch
+
+# Docusaurus
+docs: cd documentation && yarn run start -p 3001

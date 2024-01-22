@@ -1,3 +1,7 @@
+---
+title: Accessibility
+---
+
 # Accessibility statement for Renalware
 
 This accessibility statement applies to the Renalware web application when used within NHS Trusts.
