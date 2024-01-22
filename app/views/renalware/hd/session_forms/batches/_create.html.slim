@@ -11,7 +11,7 @@
         .generated-batch-print-pdf-container(style="display:none")
           = link_to hd_session_forms_batch_path(batch, format: :pdf),
                     target: "_blank",
-                    class: "print-batch-letter" do
+                    class: "print-batch-letter flex items-center" do
             = inline_checked_icon(class: "fill-green-500 w-8 w-8 mb-2")
             | Open PDF in a new tab
 

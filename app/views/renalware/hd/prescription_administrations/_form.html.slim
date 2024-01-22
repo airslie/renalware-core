@@ -45,7 +45,7 @@
                         } \
                       }
 
-        .recorded-on
+        .recorded-on.mt-2
           - not_recommended_values = Renalware::HD::PrescriptionAdministrationsQuery.new(prescription: prescription).call(limit: 10) \
             .map {|prescription| l(prescription.recorded_on.to_date) }
 

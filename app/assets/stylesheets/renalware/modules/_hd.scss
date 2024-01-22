@@ -446,14 +446,6 @@ use flexbox to layout items inside each prescription.
       display: flex;
       flex: 0 1 9rem;
     }
-
-    .radio {
-      display: inline-block !important;
-
-      label {
-        width: 5rem;
-      }
-    }
   }
 
   .recorded-on {
