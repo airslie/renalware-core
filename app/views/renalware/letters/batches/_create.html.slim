@@ -12,9 +12,9 @@
           = link_to letters_batch_path(batch, format: :pdf),
                     target: "_blank",
                     rel: "noopener",
-                    class: "print-batch-letter",
+                    class: "print-batch-letter flex items-center",
                     data: { "modal-url" => new_letters_batch_completion_path(batch) } do
-            = inline_checked_icon(class: "fill-green-500 h-8 w-8 mb-2")
+            = inline_checked_icon(class: "fill-green-500 h-8 w-8 mb-2 mr-2")
             | Open PDF in a new tab
 
   .modal__footer
