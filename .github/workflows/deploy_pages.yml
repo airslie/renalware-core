@@ -28,7 +28,9 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build website
         working-directory: ./documentation
-        run: yarn build
+        run: |
+          echo 'docs.renalware.com' > ./build/CNAME
+          yarn build
 
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
