@@ -5,31 +5,75 @@ require "rails_helper"
 module Renalware::Feeds
   describe PatientLocatorStrategies::Dynamic do
     let(:someday) { "2000-01-01" }
-    let(:nhs_number_a) { "0909718644" }
-    let(:nhs_number_b) { "8844503506" }
-    let(:local_patient_id_a) { "123" }
-    let(:local_patient_id_b) { "456" }
+    let(:other_day) { "2000-02-02" }
+    let(:nhs_a) { "0909718644" }
+    let(:nhs_b) { "8844503506" }
+    let(:mrn_a) { "123" }
+    let(:mrn_b) { "456" }
 
     describe "#call" do
       subject { described_class.call(patient_identification: pi) }
 
       context "when patient has an NHS number" do
         context "when patient has a hospital number" do
+          context "when the hospital number is not in RW yet, perhaps because the msg is the " \
+                  "first received about this patient another hospital where they are known under " \
+                  "a different number" do
+            # 1
+            it "reverts to matching by nhs number + DOB and updates the patient with the " \
+               "new, missing hosp num" do
+              target_patient = create_patient(nhs: nhs_a, local_patient_id_2: "123", dob: someday)
+
+              pi = create_pi(
+                nhs: nhs_a,
+                local_patient_id: mrn_a,
+                dob: someday
+              )
+
+              expect(
+                described_class.call(patient_identification: pi)
+              ).to eq(target_patient)
+            end
+          end
+
+          # 2
           it "matches on NHS number and 1 or more hospital number" do
             target_patient = create_patient(
-              nhs_number: nhs_number_a,
-              local_patient_id: local_patient_id_a,
-              born_on: someday
+              nhs: nhs_a,
+              local_patient_id: mrn_a,
+              dob: other_day
             )
             _other_patient = create_patient(
-              nhs_number: nhs_number_b,
-              local_patient_id: local_patient_id_b
+              nhs: nhs_b,
+              local_patient_id: mrn_b
             )
             pi = create_pi(
-              nhs_number: nhs_number_a,
-              local_patient_id: local_patient_id_a,
-              born_on: someday
+              nhs: nhs_a,
+              local_patient_id: mrn_a,
+              dob: someday
             )
+
+            expect(
+              described_class.call(patient_identification: pi)
+            ).to eq(target_patient)
+          end
+        end
+
+        context "when nhs number not found" do
+          it "matches on local pat id and dob" do
+            target_patient = create_patient(nhs: nhs_b, local_patient_id: mrn_a, dob: someday)
+            pi = create_pi(nhs: nhs_a, local_patient_id: mrn_a, dob: someday)
+
+            pending "awaiting decision on this one"
+
+            expect(
+              described_class.call(patient_identification: pi)
+            ).to eq(target_patient)
+          end
+
+          it "matches on NHS number and dob" do
+            target_patient = create_patient(nhs: nhs_a, dob: someday)
+            pi = create_pi(nhs: nhs_a, dob: someday)
 
             expect(
               described_class.call(patient_identification: pi)
@@ -39,11 +83,7 @@ module Renalware::Feeds
 
         context "when patient has no hospital number" do
           it "raises an error if dob missing" do
-            pi = create_pi(
-              nhs_number: nhs_number_a,
-              local_patient_id: nil,
-              born_on: nil
-            )
+            pi = create_pi(nhs: nhs_a, local_patient_id: nil, dob: nil)
 
             expect {
               described_class.call(patient_identification: pi)
@@ -51,8 +91,8 @@ module Renalware::Feeds
           end
 
           it "matches on NHS number and dob" do
-            target_patient = create_patient(nhs_number: nhs_number_a, born_on: someday)
-            pi = create_pi(nhs_number: nhs_number_a, born_on: someday)
+            target_patient = create_patient(nhs: nhs_a, dob: someday)
+            pi = create_pi(nhs: nhs_a, dob: someday)
 
             expect(
               described_class.call(patient_identification: pi)
@@ -63,7 +103,7 @@ module Renalware::Feeds
 
       context "when patient has no NHS number" do
         it "raises an error if dob missing" do
-          pi = create_pi(local_patient_id: "ABC", born_on: nil)
+          pi = create_pi(local_patient_id: "ABC", dob: nil)
 
           expect {
             described_class.call(patient_identification: pi)
@@ -71,7 +111,7 @@ module Renalware::Feeds
         end
 
         it "raises an error if no hospital numbers" do
-          pi = create_pi(local_patient_id: nil, born_on: someday)
+          pi = create_pi(local_patient_id: nil, dob: someday)
 
           expect {
             described_class.call(patient_identification: pi)
@@ -79,9 +119,9 @@ module Renalware::Feeds
         end
 
         it "matches on hospital number and dob" do
-          target_patient = create_patient(local_patient_id: "123", born_on: someday)
-          _other_patient = create_patient(local_patient_id: "456", born_on: someday)
-          pi = create_pi(local_patient_id: "123", born_on: someday)
+          target_patient = create_patient(local_patient_id: "123", dob: someday)
+          _other_patient = create_patient(local_patient_id: "456", dob: someday)
+          pi = create_pi(local_patient_id: "123", dob: someday)
 
           expect(
             described_class.call(patient_identification: pi)
@@ -89,24 +129,19 @@ module Renalware::Feeds
         end
       end
 
-      def create_pi(born_on: nil, nhs_number: nil, **identifiers)
+      def create_pi(dob: nil, nhs: nil, **identifiers)
         identifiers = identifiers.compact_blank
-        identifiers[:nhs_number] ||= nhs_number
+        identifiers[:nhs_number] ||= nhs
         instance_double(
           Renalware::Feeds::PatientIdentification,
-          born_on: born_on,
+          born_on: dob,
           identifiers: identifiers.to_h,
-          nhs_number: nhs_number
+          nhs_number: nhs
         )
       end
 
-      def create_patient(born_on: someday, nhs_number: nil, **)
-        create(
-          :patient,
-          nhs_number: nhs_number,
-          born_on: born_on,
-          **
-        )
+      def create_patient(dob: someday, nhs: nil, **)
+        create(:patient, nhs_number: nhs, born_on: dob, **)
       end
     end
   end
