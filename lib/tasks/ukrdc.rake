@@ -29,7 +29,7 @@ namespace :ukrdc do
          bundle exec rake ukrdc:export changed_since=2018-02-23 patient_ids=1,2
   DESC
   task export: :environment do |_task, _args|
-    logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    logger           = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
     logger.level     = Logger::INFO
     Rails.logger     = logger
 
@@ -48,7 +48,7 @@ namespace :ukrdc do
     if PROFILE
       result = RubyProf.stop
       pretty = RubyProf::FlatPrinter.new(result)
-      pretty.print(STDOUT)
+      pretty.print($stdout)
       # printer.print(STDOUT, {})
       # printer = RubyProf::GraphPrinter.new(result)
       # printer = RubyProf::GraphHtmlPrinter.new(result)
@@ -58,14 +58,14 @@ namespace :ukrdc do
 
   desc "Regenerates the ukrdc_treatments table ready for exporting to UKRDC in another task"
   task generate_treatments: :environment do
-    logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    logger           = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
     logger.level     = Logger::INFO
     Rails.logger     = logger
     Renalware::UKRDC::TreatmentTimeline::GenerateTreatments.call
   end
 
   task housekeeping: :environment do
-    logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    logger           = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
     logger.level     = Logger::INFO
     Rails.logger     = logger
     logger.info "UKRDC housekeeping"
@@ -75,7 +75,7 @@ namespace :ukrdc do
 
   task import: :environment do
     # Import patient questionnaire data from SFTP'ed UKRDC XML files
-    logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    logger           = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
     logger.level     = Logger::INFO
     Rails.logger     = logger
 
@@ -84,7 +84,7 @@ namespace :ukrdc do
 
   desc "SFTP waiting files in the outgoing folder to the UKRDC SFTP server"
   task transfer_outgoing_files: :environment do
-    logger           = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    logger           = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
     logger.level     = Logger::INFO
     Rails.logger     = logger
 

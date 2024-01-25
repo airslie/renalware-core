@@ -70,7 +70,7 @@ group :test do
   gem "rspec_junit_formatter", "~> 0.4"
   gem "rspec-retry"
   gem "selenium-webdriver", "~> 4.11"
-  gem "shoulda-matchers", "~> 5.1"
+  gem "shoulda-matchers", "~> 6.1"
   gem "simplecov", "~> 0.17", require: false # only loaded if required
   gem "test-prof"
   gem "webmock", "~> 3.7", require: false
@@ -92,6 +92,7 @@ group :development do
   gem "foreman", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
+  gem "rubocop-rake", require: false
   gem "rubocop-rspec", require: false
   gem "turnip", "~> 4.0", github: "airslie/turnip", require: false
   # gem 'sql_tracker'
