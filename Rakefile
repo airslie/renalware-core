@@ -45,6 +45,7 @@ namespace :assets do
 end
 
 namespace :yarn do
+  desc "Install yarn dependencies into ./node_modules"
   task :install do
     Rake::Task["app:yarn:install"].invoke
   end
@@ -52,6 +53,7 @@ end
 
 # Default rake task to run all tests:
 #   bundle exec rake
+desc "Default"
 task :engine_default_task do
   sh "bin/rspec"
   sh "bin/cucumber"
