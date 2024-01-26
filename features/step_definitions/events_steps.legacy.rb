@@ -12,9 +12,9 @@ When("records Patty's event") do
   within "#new_events_event" do
     slim_select "Email", from: "Event type"
     fill_in_date_time "Date time", with: fake_date_time
-    find("#events_event_date_time").send_keys(:escape) # dismiss the datepicker which has popped up
+    find_by_id("events_event_date_time").send_keys(:escape) # dismiss datepicker which has popped up
     wait_for_ajax
-    # This is bound to fail sporadicly, as the select fetches an update
+    # This is bound to fail sporadically, as the select fetches an update
     # of the page, which updates the inputs, but nothing really visible
     # changes. Only way to sort of prevent it is by adding a small sleep
     sleep 0.1

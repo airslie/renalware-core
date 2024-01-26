@@ -14,6 +14,9 @@ require:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-performance
+  - rubocop-factory_bot
+  - rubocop-capybara
+  - rubocop-rake
 
 # Skip standard for now.
 # inherit_gem:
@@ -21,13 +24,13 @@ require:
 
 inherit_from:
   - https://raw.githubusercontent.com/airslie/styleguide/main/rubocop.yml
-  - .rubocop_todo.yml
   - .rubocop_strict.yml
+  - .rubocop_todo.yml
 
 AllCops:
   NewCops: enable
   UseCache: true
-  SuggestExtensions: false
+  SuggestExtensions: true
   TargetRubyVersion: 3.2
   # Defining the Exclude or Include keys here overwrites the settings in styleguide/rubocop.yml
   # so we have to redefine the entire set.

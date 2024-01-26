@@ -17,12 +17,13 @@ begin
 
     DESC
     task patient_hd_statistics: :environment do
-      logger           = Logger.new(STDOUT)
+      logger           = Logger.new($stdout)
       logger.level     = Logger::INFO
       Rails.logger     = logger
       Renalware::HD::GenerateMonthlyStatisticsAndRefreshMaterializedViewJob.perform_now(
         month: ENV.fetch("month", nil),
-        year: ENV.fetch("year", nil))
+        year: ENV.fetch("year", nil)
+      )
     end
   end
 end

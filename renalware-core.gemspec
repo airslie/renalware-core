@@ -96,7 +96,7 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form", "~> 5.1"
   s.add_dependency "sinatra", ">= 2", "< 4"
   s.add_dependency "slim-rails"
-  s.add_dependency "sprockets-rails"#, ">= 3.2.2"
+  s.add_dependency "sprockets-rails"
   s.add_dependency "store_model", "< 3"
   s.add_dependency "tailwindcss-rails", "~> 2.0.25"
   s.add_dependency "turbo-rails", "1.5.0" # matches "@hotwired/turbo-rails" => "7.3.0"

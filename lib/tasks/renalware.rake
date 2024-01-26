@@ -23,8 +23,8 @@ else
 end
 # rubocop:enable Rails/RakeEnvironment
 
-# Run Yarn prior to Sprockets assets precompilation, so dependencies are available for use.
-if Rake::Task.task_defined?("assets:precompile") && File.exist?(Rails.root.join("bin", "yarn"))
+# Run Yarn prior to Sprockets assets pre-compilation, so dependencies are available for use.
+if Rake::Task.task_defined?("assets:precompile") && Rails.root.join("bin/yarn").exist?
   Rake::Task["assets:precompile"].enhance ["yarn:install"]
 end
 

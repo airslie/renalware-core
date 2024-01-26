@@ -346,6 +346,7 @@
     "utis",
     "validatable",
     "vars",
+    "vendored_cucumber_bin",
     "viewbox",
     "viewname",
     "Virtus",
