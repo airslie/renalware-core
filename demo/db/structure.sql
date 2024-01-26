@@ -3149,7 +3149,10 @@ CREATE TABLE renalware.patients (
     named_nurse_id bigint,
     preferred_death_location_id bigint,
     preferred_death_location_notes text,
-    actual_death_location_id bigint
+    actual_death_location_id bigint,
+    ukrdc_anonymise boolean DEFAULT false NOT NULL,
+    ukrdc_anonymise_decision_on date,
+    ukrdc_anonymise_recorded_by character varying
 );
 
 
@@ -20085,7 +20088,7 @@ CREATE INDEX index_feed_raw_hl7_messages_on_created_at ON renalware.feed_raw_hl7
 -- Name: INDEX index_feed_raw_hl7_messages_on_created_at; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON INDEX renalware.index_feed_raw_hl7_messages_on_created_at IS 'We query for rows ordering by created_at asc to give us a chance to procsess in FIFO order, so having an ordered index means when we use a LIMIT (batching) in the query, rows will be determined by index scan without having to look to the end of the table - or something like that! In fact the index is implcitly ordered already but having created_at: :asc here makes our intention more explicit.';
+COMMENT ON INDEX renalware.index_feed_raw_hl7_messages_on_created_at IS 'We query for rows ordering by created_at asc to give us a chance to process in FIFO order, so having an ordered index means when we use a LIMIT (batching) in the query, rows will be determined by index scan without having to look to the end of the table - or something like that! In fact the index is implicitly ordered already but having created_at: :asc here makes our intention more explicit.';
 
 
 --
@@ -22592,6 +22595,13 @@ CREATE INDEX index_patients_on_send_to_rpv ON renalware.patients USING btree (se
 --
 
 CREATE INDEX index_patients_on_sent_to_ukrdc_at ON renalware.patients USING btree (sent_to_ukrdc_at);
+
+
+--
+-- Name: index_patients_on_ukrdc_anonymise; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_ukrdc_anonymise ON renalware.patients USING btree (ukrdc_anonymise);
 
 
 --
@@ -28935,6 +28945,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231221094630'),
 ('20240111043244'),
 ('20240118203934'),
+('20240126163515'),
 ('20240206085751'),
 ('20240220091704'),
 ('20240227120942');
