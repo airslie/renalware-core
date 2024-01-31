@@ -24,7 +24,7 @@ Renalware.configure do |config|
   config.enforce_user_prescriber_flag = true
   config.allow_uploading_patient_attachments = true
   config.hl7_patient_locator_strategy[:oru] = :dob_and_any_nhs_or_assigning_auth_number
-  config.hl7_patient_locator_strategy[:adt] = :dob_and_any_nhs_or_assigning_auth_number
+  config.hl7_patient_locator_strategy[:adt] = :dynamic
   config.max_batch_print_size = 50
   # leave patient_visibility_restrictions as :none as demo setting is used on the demo site.
   config.patient_visibility_restrictions = :none # or :by_site_and_research_study or :by_site

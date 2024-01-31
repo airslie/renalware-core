@@ -4,67 +4,127 @@ module Renalware
   module Feeds
     module PatientLocatorStrategies
       # As used at MSE for ADT HL7 messages.
-      #
-      # Logic:
-      #
-      #   if NHS number is in message
-      #     find patient by nhs_number and any on local patient id
-      #     if no local_patient_id match then use NHS number and DOB
-      #   else
-      #     find patient where dob and local_patient_id(x)
-      #
       class Dynamic
         include Callable
 
-        pattr_initialize [:patient_identification!, relation: Renalware::Patient.where("1 =? ", 1)]
+        class Error < StandardError; end
+
+        pattr_initialize [:patient_identification!, relation: Renalware::Patient.where("1=1")]
         delegate :identifiers, to: :patient_identification
         delegate :nhs_number, to: :patient_identification
 
-        # Build an AR query to try and find the target patient
         def call
-          if nhs_number?
-            match_on_nhs_number
-            if local_patient_id_identifiers?
-              match_on_any_local_patient_id
-              # Note that if a hosp number is in the PID, it does not automatically follow that
-              # we can match using it. For example if a patient exists in Rw with only an NHS number
-              # and then we subsequently get a message with an NHS number and a hosp num, tring to
-              # match using 'where nhs_number = '123' and (local_patient_id = 'new number') will not
-              # find them, so in this instance we fallback to matching by NHS + DOB instead.
-              # Not that if the message wants to change the DOB in Rw, ie it contains a corrected
-              # DOB different to that stored in Rw, then there will be no match. We don't have a
-              # clever solution to this yet other than to inform an admin of a close match.
-              if relation.empty?
-                reset_relation
-                match_on_nhs_number
-                match_on_dob
-              end
-            else
-              match_on_dob
+          patient = nil
+
+          if msg_contains_nhs_number?
+            patient = if nhs_number_exists_in_rw?
+                        find_patient_by_nhs_and_mrn || find_patient_by_nhs_and_dob
+                      else
+                        find_patient_by_dob_and_mrn
+                      end
+          elsif msg_contains_dob?
+            patient = find_patient_by_dob_and_mrn
+            if patient.nil? && find_by_mrn.any?
+              raise(
+                Error,
+                "Possible duplicate - not found using DOB + MRN, but found using just the MRN"
+              )
             end
-          else
-            match_on_dob
-            match_on_any_local_patient_id
           end
 
-          if relation.length > 1 # avoid a count query
-            # Will go back in the queue
-            raise ArgumentError, "More than one patient matches! #{relation.to_sql}"
-          else
-            relation.first # may be null if no match
+          patient
+        end
+
+        def find_patient_by_nhs_and_mrn
+          return unless local_patient_id_identifiers?
+          return unless msg_contains_nhs_number?
+
+          patients = find_by_nhs_and_mrn
+          raise(Error, "Possible duplicate matching NHS + MRN") if patients.length > 1
+
+          patients.first
+        end
+
+        def find_patient_by_nhs_and_dob
+          return unless msg_contains_dob?
+          return unless msg_contains_nhs_number?
+
+          patients = find_by_nhs_and_dob
+          patient = patients.first
+          raise(Error, "Possible duplicate matching NHS + DOB") if patients.length > 1
+          if relevant_identifiers_differ_for?(patient)
+            raise(Error, "Possible duplicate - matching NHS + DOB but MRN in RW differs ")
           end
+
+          patient
+        end
+
+        def find_patient_by_dob_and_mrn
+          return unless msg_contains_dob?
+          return unless local_patient_id_identifiers?
+
+          patients = find_by_dob_and_mrn
+          raise(Error, "Possible duplicate matching DOB + MRN") if patients.length > 1
+
+          patients.first
+        end
+
+        # Omit where the patient has a blank identifier eg local_patient_id = nil or ""
+        def relevant_identifiers_differ_for?(patient)
+          local_patient_id_identifiers
+            .any? do |key, val|
+              patient.send(key).present? && patient.send(key) != val
+            end
+        end
+
+        def find_by_nhs_and_mrn
+          Renalware::Patient
+            .where(nhs_number: nhs_number)
+            .merge(match_on_any_mrn)
+        end
+
+        def find_by_nhs_and_dob
+          Renalware::Patient
+            .where(nhs_number: nhs_number)
+            .where(born_on: born_on)
+        end
+
+        def find_by_mrn
+          Renalware::Patient.merge(match_on_any_mrn)
+        end
+
+        def find_by_dob_and_mrn
+          Renalware::Patient
+            .where(born_on: born_on)
+            .merge(match_on_any_mrn)
+        end
+
+        def match_on_any_mrn(rel = Patient.where("1=1"))
+          local_patient_id_identifiers.each.with_index do |identifier, idx|
+            column, hosp_no = identifier
+            rel = if idx.zero?
+                    Patient.where(column => hosp_no)
+                  else
+                    rel.or(Patient.where(column => hosp_no))
+                  end
+          end
+          rel
         end
 
         def nhs_number? = nhs_number.present?
-        def local_patient_id_identifiers = identifiers.except(:nhs_number)
+        def msg_contains_nhs_number? = nhs_number.present?
+        def born_on? = born_on.present?
+        def msg_contains_dob? = born_on.present?
+        def nhs_number_exists_in_rw? = Renalware::Patient.exists?(nhs_number: nhs_number)
+        def local_patient_id_identifiers = identifiers.except(:nhs_number).compact_blank
         def local_patient_id_identifiers? = local_patient_id_identifiers.any?
 
         def reset_relation
-          self.relation = Renalware::Patient.where("1 =? ", 1)
+          self.relation = Renalware::Patient.all
         end
 
         def match_on_dob
-          raise(ArgumentError, "cannot match on DOB is there is none") if born_on.blank?
+          raise(Error, "cannot match on DOB is there is none") if born_on.blank?
 
           self.relation = relation.where(born_on: born_on)
         end
@@ -75,7 +135,7 @@ module Renalware
 
         def match_on_any_local_patient_id
           unless local_patient_id_identifiers?
-            raise(ArgumentError, "cannot match on hosp numbers as there are none")
+            raise(Error, "cannot match on hosp numbers as there are none")
           end
 
           local_patient_id_identifiers.each do |column, hosp_no|
