@@ -9,14 +9,20 @@ module Renalware
         render locals: { form: HL7TestForm.new, test_messages: test_messages }
       end
 
-      def create
+      def create # rubocop:disable Metrics/MethodLength
         authorize [:renalware, :admin, :devops], :create?
         body = replace_placeholders_in_hl7_message(form_params[:body])
-        Renalware::Feeds.message_processor.call(body)
+        error = nil
+
+        begin
+          Renalware::Feeds.message_processor.call(body)
+        rescue StandardError => e
+          error = e.detailed_message
+        end
 
         respond_to do |format|
           format.js do
-            render locals: { result: "Processed #{Time.zone.now}" }
+            render locals: { result: "Processed #{Time.zone.now}", error: error }
           end
         end
       end

@@ -1,148 +1,155 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require "ap"
 
 module Renalware::Feeds
   describe PatientLocatorStrategies::Dynamic do
-    let(:someday) { "2000-01-01" }
-    let(:other_day) { "2000-02-02" }
-    let(:nhs_a) { "0909718644" }
-    let(:nhs_b) { "8844503506" }
-    let(:mrn_a) { "123" }
-    let(:mrn_b) { "456" }
+    defaults = {
+      nhs_number: { hl7: "0909718644", rw: "0909718644" },
+      local_patient_id: { hl7: "A1", rw: "A1" },
+      dob: { hl7: "01-01-1980", rw: "01-01-1980" }
+    }
 
-    describe "#call" do
-      subject { described_class.call(patient_identification: pi) }
-
-      context "when patient has an NHS number" do
-        context "when patient has a hospital number" do
-          context "when the hospital number is not in RW yet, perhaps because the msg is the " \
-                  "first received about this patient another hospital where they are known under " \
-                  "a different number" do
-            # 1
-            it "reverts to matching by nhs number + DOB and updates the patient with the " \
-               "new, missing hosp num" do
-              target_patient = create_patient(nhs: nhs_a, local_patient_id_2: "123", dob: someday)
-
-              pi = create_pi(
-                nhs: nhs_a,
-                local_patient_id: mrn_a,
-                dob: someday
-              )
-
-              expect(
-                described_class.call(patient_identification: pi)
-              ).to eq(target_patient)
-            end
-          end
-
-          # 2
-          it "matches on NHS number and 1 or more hospital number" do
-            target_patient = create_patient(
-              nhs: nhs_a,
-              local_patient_id: mrn_a,
-              dob: other_day
-            )
-            _other_patient = create_patient(
-              nhs: nhs_b,
-              local_patient_id: mrn_b
-            )
-            pi = create_pi(
-              nhs: nhs_a,
-              local_patient_id: mrn_a,
-              dob: someday
-            )
-
-            expect(
-              described_class.call(patient_identification: pi)
-            ).to eq(target_patient)
-          end
-        end
-
-        context "when nhs number not found" do
-          it "matches on local pat id and dob" do
-            target_patient = create_patient(nhs: nhs_b, local_patient_id: mrn_a, dob: someday)
-            pi = create_pi(nhs: nhs_a, local_patient_id: mrn_a, dob: someday)
-
-            pending "awaiting decision on this one"
-
-            expect(
-              described_class.call(patient_identification: pi)
-            ).to eq(target_patient)
-          end
-
-          it "matches on NHS number and dob" do
-            target_patient = create_patient(nhs: nhs_a, dob: someday)
-            pi = create_pi(nhs: nhs_a, dob: someday)
-
-            expect(
-              described_class.call(patient_identification: pi)
-            ).to eq(target_patient)
-          end
-        end
-
-        context "when patient has no hospital number" do
-          it "raises an error if dob missing" do
-            pi = create_pi(nhs: nhs_a, local_patient_id: nil, dob: nil)
-
-            expect {
-              described_class.call(patient_identification: pi)
-            }.to raise_error(ArgumentError)
-          end
-
-          it "matches on NHS number and dob" do
-            target_patient = create_patient(nhs: nhs_a, dob: someday)
-            pi = create_pi(nhs: nhs_a, dob: someday)
-
-            expect(
-              described_class.call(patient_identification: pi)
-            ).to eq(target_patient)
-          end
-        end
-      end
-
-      context "when patient has no NHS number" do
-        it "raises an error if dob missing" do
-          pi = create_pi(local_patient_id: "ABC", dob: nil)
-
+    [
+      {
+        comment: "1. Matches on NHS and MRN, DOB different, will update DOB in RW",
+        dob: { rw: "02-01-1980" },
+        local_patient_id_2: { rw: "C123" },
+        found: true
+      },
+      {
+        comment: "2. Match on NHS+MRN (DOB would too but not needed in this instance)",
+        local_patient_id_2: { hl7: "ABC" },
+        found: true
+      },
+      {
+        comment: "3. Matches on NHS and DOB but MRN mismatch suggesting duplicate patient",
+        local_patient_id: { rw: "B1" },
+        error: "Possible duplicate"
+      },
+      {
+        comment: "4. Match on MRN and DOB when no NHS in HL7",
+        nhs_number: { hl7: "" },
+        found: true
+      },
+      {
+        comment: "5. Match on MRN and DOB when NHS in HL7 num not found in RW; updates NHS",
+        nhs_number: { rw: "" },
+        found: true
+      },
+      {
+        comment: "6. No match - No DOB or NHS in HL7, MRN matches though but its not enough",
+        nhs_number: { hl7: "" },
+        dob: { hl7: "" },
+        found: false
+      },
+      {
+        comment: "7. Poss dupe: No NHS in HL7, MRN matches but DOB does not",
+        nhs_number: { hl7: "" },
+        dob: { hl7: "01/01/1980", rw: "02/02/1980" },
+        error: "Possible duplicate"
+      },
+      {
+        comment: "8. Only DOB matches",
+        nhs_number: { hl7: "" },
+        dob: { hl7: "" },
+        found: false
+      },
+      {
+        comment: "9. Matches on NHS and DOB but not MRN as it is missing in RW; updates MRN",
+        local_patient_id: { hl7: "123", rw: "" },
+        found: true
+      },
+      {
+        comment: "10. No NHS in HL& and RW bur MRN and DOB match",
+        nhs_number: { hl7: "", rw: "" },
+        found: true
+      },
+      {
+        comment: "11. NHS and MRN differ, DOB same;",
+        nhs_number: { hl7: "0909718644", rw: "8555176921" },
+        local_patient_id: { hl7: "A1", rw: "B1" },
+        found: false
+      },
+      {
+        comment: "13. NHS and DOB same, no MRNs either side;",
+        local_patient_id: { hl7: "", rw: "" },
+        found: true
+      }
+    ].each do |scenarios_overrides|
+      hash = defaults.deep_merge(scenarios_overrides)
+      p hash[:comment]
+      it hash[:comment] do
+        patient = create_patient(hash)
+        _other_patient = create_other_patient
+        pi = create_pi(hash)
+        result = nil
+        if hash[:error].present?
           expect {
-            described_class.call(patient_identification: pi)
-          }.to raise_error(ArgumentError)
-        end
-
-        it "raises an error if no hospital numbers" do
-          pi = create_pi(local_patient_id: nil, dob: someday)
-
-          expect {
-            described_class.call(patient_identification: pi)
-          }.to raise_error(ArgumentError)
-        end
-
-        it "matches on hospital number and dob" do
-          target_patient = create_patient(local_patient_id: "123", dob: someday)
-          _other_patient = create_patient(local_patient_id: "456", dob: someday)
-          pi = create_pi(local_patient_id: "123", dob: someday)
-
-          expect(
-            described_class.call(patient_identification: pi)
-          ).to eq(target_patient)
+            result = described_class.call(patient_identification: pi)
+          }.to raise_error(
+            PatientLocatorStrategies::Dynamic::Error,
+            /duplicate/
+          )
+        else
+          result = described_class.call(patient_identification: pi)
+          p scenarios_overrides
+          if scenarios_overrides[:found] == true
+            expect(result).to eq(patient)
+          else
+            expect(result).to be_nil
+          end
         end
       end
+    end
 
-      def create_pi(dob: nil, nhs: nil, **identifiers)
-        identifiers = identifiers.compact_blank
-        identifiers[:nhs_number] ||= nhs
-        instance_double(
-          Renalware::Feeds::PatientIdentification,
-          born_on: dob,
-          identifiers: identifiers.to_h,
-          nhs_number: nhs
-        )
-      end
+    def create_pi(hash, **identifiers)
+      identifiers = identifiers.compact_blank
+      identifiers[:nhs_number] ||= hash.dig(:nhs_number, :hl7)
+      identifiers[:local_patient_id] ||= hash.dig(:local_patient_id, :hl7)
+      identifiers[:local_patient_id_2] ||= hash.dig(:local_patient_id_2, :hl7)
+      instance_double(
+        Renalware::Feeds::PatientIdentification,
+        born_on: hash.dig(:dob, :hl7),
+        identifiers: identifiers.to_h,
+        nhs_number: identifiers[:nhs_number]
+      )
+    end
 
-      def create_patient(dob: someday, nhs: nil, **)
-        create(:patient, nhs_number: nhs, born_on: dob, **)
-      end
+    def create_patient(hash, **)
+      build(
+        :patient,
+        nhs_number: hash.dig(:nhs_number, :rw),
+        local_patient_id: hash.dig(:local_patient_id, :rw),
+        born_on: hash.dig(:dob, :rw),
+        **
+      ).tap { |u| u.save(validate: false) }
+    end
+
+    def create_other_patient(**) = create(:patient, **)
+
+    def hash_diff(ha, hb)
+      ha
+        .reject { |k, v| hb[k] == v }
+        .merge!(hb.reject { |k, _v| ha.key?(k) })
+    end
+
+    it "2 patients with same nhs number and dob and no local_patient_id" do
+      build(:patient, nhs_number: "0909718644", local_patient_id: nil, born_on: "2000-01-01")
+        .tap { |u| u.save(validate: false) }
+      build(:patient, nhs_number: "0909718644", local_patient_id: nil, born_on: "2000-01-01")
+        .tap { |u| u.save(validate: false) }
+
+      pi = instance_double(
+        Renalware::Feeds::PatientIdentification,
+        born_on: "2000-01-01",
+        identifiers: {},
+        nhs_number: "0909718644"
+      )
+      expect {
+        described_class.call(patient_identification: pi)
+      }.to raise_error(PatientLocatorStrategies::Dynamic::Error, /Possible duplicate/)
     end
   end
 end

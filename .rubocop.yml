@@ -57,6 +57,10 @@ RSpec/VerifiedDoubleReference:
 RSpec/MultipleMemoizedHelpers:
   Max: 30
 
+Metrics/BlockNesting:
+  Enabled: false
+  CountBlocks: false
+
 Rails/ToSWithArgument:
   Enabled: false
 

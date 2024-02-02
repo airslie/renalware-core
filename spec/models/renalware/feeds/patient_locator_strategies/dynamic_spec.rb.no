@@ -1,0 +1,153 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+module Renalware::Feeds
+  describe PatientLocatorStrategies::Dynamic do
+    let(:someday) { "2000-01-01" }
+    let(:other_day) { "2000-02-02" }
+    let(:nhs_a) { "0909718644" }
+    let(:nhs_b) { "8844503506" }
+
+    let(:mrn_a) { "123" }
+    let(:mrn_b) { "456" }
+
+    describe "#call" do
+      subject { described_class.call(patient_identification: pi) }
+
+      context "when msg has an NHS number that exists in RW" do
+        let(:msg_nhs) { "0909718644" }
+        let(:rw_nhs) { "0909718644" }
+
+        context "when patient has a hospital number" do
+          context "when the hospital number is not in RW yet, perhaps because the msg is the " \
+                  "first received about this patient from another hospital where they are known " \
+                  "under a different number" do
+            it "reverts to matching by nhs number + DOB and updates the patient with the " \
+               "new, missing hosp num" do
+              target_patient = create_patient(nhs: rw_nhs, local_patient_id_2: "123", dob: someday)
+
+              pi = create_pi(
+                nhs: msg_nhs,
+                local_patient_id: mrn_a,
+                dob: someday
+              )
+
+              expect(
+                described_class.call(patient_identification: pi)
+              ).to eq(target_patient)
+            end
+          end
+
+          context "when the patient has a hospital number" do
+            it "matches on NHS number and 1 or more hospital number" do
+              target_patient = create_patient(
+                nhs: rw_nhs,
+                local_patient_id: mrn_a,
+                dob: other_day
+              )
+              _other_patient = create_patient(
+                nhs: nhs_b,
+                local_patient_id: mrn_b
+              )
+              pi = create_pi(
+                nhs: msg_nhs,
+                local_patient_id: mrn_a,
+                dob: someday
+              )
+
+              expect(
+                described_class.call(patient_identification: pi)
+              ).to eq(target_patient)
+            end
+          end
+        end
+
+        context "when nhs number not found" do
+          let(:msg_nhs) { "8844503506" }
+          let(:rw_nhs) { "0909718644" }
+
+          it "matches on local pat id and dob" do
+            target_patient = create_patient(nhs: rw_nhs, local_patient_id: mrn_a, dob: someday)
+            pi = create_pi(nhs: msg_nhs, local_patient_id: mrn_a, dob: someday)
+
+            expect(
+              described_class.call(patient_identification: pi)
+            ).to eq(target_patient)
+          end
+
+          # it "matches on NHS number and dob" do
+          #   target_patient = create_patient(nhs: nhs_a, dob: someday)
+          #   pi = create_pi(nhs: nhs_a, dob: someday)
+
+          #   expect(
+          #     described_class.call(patient_identification: pi)
+          #   ).to eq(target_patient)
+          # end
+        end
+
+        context "when patient has no hospital number" do
+          it "raises an error if dob missing" do
+            pi = create_pi(nhs: nhs_a, local_patient_id: nil, dob: nil)
+
+            expect {
+              described_class.call(patient_identification: pi)
+            }.to raise_error(ArgumentError)
+          end
+
+          it "matches on NHS number and dob" do
+            target_patient = create_patient(nhs: nhs_a, dob: someday)
+            pi = create_pi(nhs: nhs_a, dob: someday)
+
+            expect(
+              described_class.call(patient_identification: pi)
+            ).to eq(target_patient)
+          end
+        end
+      end
+
+      context "when patient has no NHS number" do
+        it "raises an error if dob missing" do
+          pi = create_pi(local_patient_id: "ABC", dob: nil)
+
+          expect {
+            described_class.call(patient_identification: pi)
+          }.to raise_error(ArgumentError)
+        end
+
+        it "raises an error if no hospital numbers" do
+          pi = create_pi(local_patient_id: nil, dob: someday)
+
+          expect {
+            described_class.call(patient_identification: pi)
+          }.to raise_error(ArgumentError)
+        end
+
+        it "matches on hospital number and dob" do
+          target_patient = create_patient(local_patient_id: "123", dob: someday)
+          _other_patient = create_patient(local_patient_id: "456", dob: someday)
+          pi = create_pi(local_patient_id: "123", dob: someday)
+
+          expect(
+            described_class.call(patient_identification: pi)
+          ).to eq(target_patient)
+        end
+      end
+
+      def create_pi(dob: nil, nhs: nil, **identifiers)
+        identifiers = identifiers.compact_blank
+        identifiers[:nhs_number] ||= nhs
+        instance_double(
+          Renalware::Feeds::PatientIdentification,
+          born_on: dob,
+          identifiers: identifiers.to_h,
+          nhs_number: nhs
+        )
+      end
+
+      def create_patient(dob: someday, nhs: nil, **)
+        create(:patient, nhs_number: nhs, born_on: dob, **)
+      end
+    end
+  end
+end
