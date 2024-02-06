@@ -3149,7 +3149,10 @@ CREATE TABLE renalware.patients (
     named_nurse_id bigint,
     preferred_death_location_id bigint,
     preferred_death_location_notes text,
-    actual_death_location_id bigint
+    actual_death_location_id bigint,
+    ukrdc_anonymise boolean DEFAULT false NOT NULL,
+    ukrdc_anonymise_decision_on date,
+    ukrdc_anonymise_recorded_by character varying
 );
 
 
@@ -6729,7 +6732,10 @@ CREATE TABLE renalware.hd_slot_requests (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     deletion_reason_id bigint,
-    external_referral boolean DEFAULT false NOT NULL
+    external_referral boolean DEFAULT false NOT NULL,
+    medically_fit_for_discharge boolean DEFAULT false NOT NULL,
+    medically_fit_for_discharge_at timestamp(6) without time zone,
+    medically_fit_for_discharge_by_id bigint
 );
 
 
@@ -6752,6 +6758,27 @@ COMMENT ON COLUMN renalware.hd_slot_requests."boolean" IS 'known to service <90 
 --
 
 COMMENT ON COLUMN renalware.hd_slot_requests.specific_requirements IS 'transport requirements, blood borne viruses etc';
+
+
+--
+-- Name: COLUMN hd_slot_requests.medically_fit_for_discharge; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_slot_requests.medically_fit_for_discharge IS 'The datetime the MFFD checkbox was checked';
+
+
+--
+-- Name: COLUMN hd_slot_requests.medically_fit_for_discharge_at; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_slot_requests.medically_fit_for_discharge_at IS 'The datetime the MFFD checkbox was checked';
+
+
+--
+-- Name: COLUMN hd_slot_requests.medically_fit_for_discharge_by_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.hd_slot_requests.medically_fit_for_discharge_by_id IS 'The id of the user show checked the MFFD checkbox on the HD Slot Request form';
 
 
 --
@@ -7468,6 +7495,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -11743,6 +11780,19 @@ CREATE MATERIALIZED VIEW renalware.reporting_main_authors_audit AS
      JOIN renalware.users ON ((stats.author_id = users.id)))
   ORDER BY stats.total_letters DESC
   WITH NO DATA;
+
+
+--
+-- Name: reporting_patients_under_60; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.reporting_patients_under_60 AS
+ SELECT p.secure_id,
+    ((upper((p.family_name)::text) || ', '::text) || (p.given_name)::text) AS patient_name,
+    p.born_on,
+    (EXTRACT(years FROM age((p.born_on)::timestamp with time zone)))::integer AS age
+   FROM renalware.patients p
+  WHERE (age((p.born_on)::timestamp with time zone) <= '40 years'::interval);
 
 
 --
@@ -20771,6 +20821,13 @@ CREATE INDEX index_hd_slot_requests_on_deletion_reason_id ON renalware.hd_slot_r
 
 
 --
+-- Name: index_hd_slot_requests_on_medically_fit_for_discharge_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_slot_requests_on_medically_fit_for_discharge_by_id ON renalware.hd_slot_requests USING btree (medically_fit_for_discharge_by_id);
+
+
+--
 -- Name: index_hd_slot_requests_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -22546,6 +22603,13 @@ CREATE INDEX index_patients_on_send_to_rpv ON renalware.patients USING btree (se
 --
 
 CREATE INDEX index_patients_on_sent_to_ukrdc_at ON renalware.patients USING btree (sent_to_ukrdc_at);
+
+
+--
+-- Name: index_patients_on_ukrdc_anonymise; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_ukrdc_anonymise ON renalware.patients USING btree (ukrdc_anonymise);
 
 
 --
@@ -28888,6 +28952,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231213170649'),
 ('20231221094630'),
 ('20240111043244'),
-('20240118203934');
+('20240118203934'),
+('20240126163515'),
+('20240206085751');
 
 

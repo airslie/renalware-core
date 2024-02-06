@@ -6,3 +6,28 @@
 @import "components/text.css";
 
 @import "tailwindcss/utilities";
+
+[type='text'],
+[type='email'],
+[type='url'],
+[type='password'],
+[type='number'],
+[type='date'],
+[type='datetime-local'],
+[type='month'],
+[type='search'],
+[type='tel'],
+[type='time'],
+[type='week'],
+[multiple],
+textarea,
+select {
+  line-height: 1.4rem ;
+}
+
+
+[type="search"],
+[type="input"] {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
