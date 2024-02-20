@@ -3149,10 +3149,7 @@ CREATE TABLE renalware.patients (
     named_nurse_id bigint,
     preferred_death_location_id bigint,
     preferred_death_location_notes text,
-    actual_death_location_id bigint,
-    ukrdc_anonymise boolean DEFAULT false NOT NULL,
-    ukrdc_anonymise_decision_on date,
-    ukrdc_anonymise_recorded_by character varying
+    actual_death_location_id bigint
 );
 
 
@@ -5320,7 +5317,8 @@ CREATE TABLE renalware.feed_messages (
     local_patient_id_5 character varying,
     orc_order_status renalware.enum_hl7_orc_order_status,
     dob date,
-    orc_filler_order_number character varying
+    orc_filler_order_number character varying,
+    sent_at timestamp(6) without time zone
 );
 
 
@@ -11780,19 +11778,6 @@ CREATE MATERIALIZED VIEW renalware.reporting_main_authors_audit AS
      JOIN renalware.users ON ((stats.author_id = users.id)))
   ORDER BY stats.total_letters DESC
   WITH NO DATA;
-
-
---
--- Name: reporting_patients_under_60; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.reporting_patients_under_60 AS
- SELECT p.secure_id,
-    ((upper((p.family_name)::text) || ', '::text) || (p.given_name)::text) AS patient_name,
-    p.born_on,
-    (EXTRACT(years FROM age((p.born_on)::timestamp with time zone)))::integer AS age
-   FROM renalware.patients p
-  WHERE (age((p.born_on)::timestamp with time zone) <= '40 years'::interval);
 
 
 --
@@ -22606,13 +22591,6 @@ CREATE INDEX index_patients_on_sent_to_ukrdc_at ON renalware.patients USING btre
 
 
 --
--- Name: index_patients_on_ukrdc_anonymise; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_patients_on_ukrdc_anonymise ON renalware.patients USING btree (ukrdc_anonymise);
-
-
---
 -- Name: index_patients_on_ukrdc_external_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -28953,7 +28931,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231221094630'),
 ('20240111043244'),
 ('20240118203934'),
-('20240126163515'),
-('20240206085751');
+('20240206085751'),
+('20240220091704');
 
 
