@@ -43,6 +43,7 @@ import TabbedNavigationController from "./tabbed_navigation_controller"
 import TurboModalController from "./turbo_modal_controller"
 import ChartsRawController from "./charts_raw_controller"
 import PopoverController from "./popover_controller"
+import LettersBatchCompileController from "./letters/batch_compile_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -102,4 +103,4 @@ application.register("tabbed-navigation", TabbedNavigationController)
 application.register("turbo-modal", TurboModalController)
 application.register("charts-raw", ChartsRawController)
 application.register("popover", PopoverController)
-
+application.register("letters-batch-compile", LettersBatchCompileController)

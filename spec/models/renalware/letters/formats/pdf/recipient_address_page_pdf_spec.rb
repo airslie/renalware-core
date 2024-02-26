@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-module Renalware::Letters::Printing
+module Renalware::Letters::Formats::Pdf
   describe RecipientAddressPagePdf do
     include LettersSpecHelper
 
