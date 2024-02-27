@@ -3,6 +3,7 @@
 require "document/base"
 
 module Renalware
+  # rubocop:disable Metrics/ClassLength
   class Patient < ApplicationRecord
     include PatientsRansackHelper
     include Personable
@@ -10,6 +11,7 @@ module Renalware
     include Document::Base
     extend Enumerize
     extend FriendlyId
+    include RansackAll
 
     # Before creation generate a UUID to use in urls with friendly_id (i.e. in #to_param)
     # Note if inserting directly into the database (bypassing Rails) this will still work as there
@@ -256,4 +258,5 @@ module Renalware
       end
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

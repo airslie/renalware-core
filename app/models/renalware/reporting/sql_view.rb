@@ -7,11 +7,13 @@ module Renalware
 
       # Create a class under Renalware:: for this SQL name
       # Note that Ransack search_form_for requires our otherwise anonymous class to have a name.
+      # rubocop:disable Metrics/AbcSize
       def klass
         return Renalware.const_get(class_name) if class_exists?
 
         underlying_view_name = view_name
         Class.new(ApplicationRecord) do
+          include RansackAll
           self.table_name = underlying_view_name
           define_method(:to_s, ->(_x) { patient_name })
           define_method(:to_param, -> { secure_id })
@@ -27,6 +29,7 @@ module Renalware
           Renalware.const_set(class_name, klass)
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       private
 

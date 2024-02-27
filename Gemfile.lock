@@ -111,7 +111,7 @@ PATH
       rack
       rack-attack
       rails
-      ransack (~> 3.1.0)
+      ransack (~> 4.1.1)
       rqrcode (~> 2.0)
       ruby-hl7 (~> 1.3.3)
       sassc-rails (~> 2.1.0)
@@ -694,9 +694,9 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.1.0)
-    ransack (3.1.0)
-      activerecord (>= 6.0.4)
-      activesupport (>= 6.0.4)
+    ransack (4.1.1)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
       i18n
     rbs (2.8.4)
     rdoc (6.3.3)
