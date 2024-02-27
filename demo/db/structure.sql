@@ -7496,16 +7496,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -19980,6 +19970,13 @@ CREATE UNIQUE INDEX index_feed_messages_on_body_hash ON renalware.feed_messages 
 
 
 --
+-- Name: index_feed_messages_on_dob; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_on_dob ON renalware.feed_messages USING btree (dob);
+
+
+--
 -- Name: index_feed_messages_on_local_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20040,6 +20037,13 @@ CREATE INDEX index_feed_messages_on_orc_filler_order_number ON renalware.feed_me
 --
 
 CREATE INDEX index_feed_messages_on_patient_identifiers ON renalware.feed_messages USING gin (patient_identifiers);
+
+
+--
+-- Name: index_feed_messages_on_sent_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_messages_on_sent_at ON renalware.feed_messages USING btree (sent_at);
 
 
 --
@@ -28932,6 +28936,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240111043244'),
 ('20240118203934'),
 ('20240206085751'),
-('20240220091704');
+('20240220091704'),
+('20240227120942');
 
 
