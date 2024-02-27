@@ -94,7 +94,7 @@ module Renalware
         params.require(:patient).permit(patient_attributes)
       end
 
-      def patient_attributes
+      def patient_attributes # rubocop:disable Metrics/MethodLength
         [
           :nhs_number, :family_name, :given_name, :sex, :country_of_birth_id,
           :ethnicity_id, :born_on, :paediatric_patient_indicator, :cc_on_all_letters,
@@ -104,6 +104,7 @@ module Renalware
           :local_patient_id_4, :local_patient_id_5, :external_patient_id,
           :send_to_renalreg, :send_to_rpv, :renalreg_decision_on, :rpv_decision_on,
           :renalreg_recorded_by, :rpv_recorded_by, :hospital_centre_id,
+          :ukrdc_anonymise, :ukrdc_anonymise_decision_on, :ukrdc_anonymise_recorded_by,
           current_address_attributes: address_params,
           document: {}
         ]

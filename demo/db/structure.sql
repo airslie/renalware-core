@@ -3149,7 +3149,10 @@ CREATE TABLE renalware.patients (
     named_nurse_id bigint,
     preferred_death_location_id bigint,
     preferred_death_location_notes text,
-    actual_death_location_id bigint
+    actual_death_location_id bigint,
+    ukrdc_anonymise boolean DEFAULT false NOT NULL,
+    ukrdc_anonymise_decision_on date,
+    ukrdc_anonymise_recorded_by character varying
 );
 
 
@@ -22595,6 +22598,13 @@ CREATE INDEX index_patients_on_sent_to_ukrdc_at ON renalware.patients USING btre
 
 
 --
+-- Name: index_patients_on_ukrdc_anonymise; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_ukrdc_anonymise ON renalware.patients USING btree (ukrdc_anonymise);
+
+
+--
 -- Name: index_patients_on_ukrdc_external_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -28935,6 +28945,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231221094630'),
 ('20240111043244'),
 ('20240118203934'),
+('20240126163515'),
 ('20240206085751'),
 ('20240220091704'),
 ('20240227120942');
