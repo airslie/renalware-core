@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "document/base"
-
 module Renalware
   module Research
     # Represents a clinical study, e.g. HEROIC.

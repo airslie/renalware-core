@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  module Dietetics
+  module Clinics
     class WeightValuePresenter
       def initialize(value)
         @value = value

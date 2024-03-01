@@ -46,12 +46,6 @@ module Renalware
 
       scope :visible, -> { where(hidden: false) }
 
-      enum editable_by_actor: {
-        superadmins: "superadmins",
-        all_admins: "all_admins",
-        author_and_all_admins: "author_and_all_admins"
-      }
-
       # For use in migrations to reset the events_count counter cache column
       def self.reset_counters!
         find_each(&:reset_counters!)

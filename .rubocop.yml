@@ -54,6 +54,9 @@ RSpec/VerifiedDoubleReference:
   Exclude:
     - "spec/models/renalware/pathology/observation_requests_attributes_builder_spec.rb"
 
+Naming/PredicateName:
+  Enabled: false
+
 RSpec/MultipleMemoizedHelpers:
   Max: 30
 

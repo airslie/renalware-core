@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require "document/base"
-require "renalware/automatic_age_calculator"
+# require "renalware/automatic_age_calculator"
 
 module Renalware
   module Transplants

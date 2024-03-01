@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Don't rely on auto-loading in an initializer
-require "renalware/broadcasting"
+require_relative "../../app/models/concerns/renalware/broadcasting"
 
 # New subscription registry - previous implementation does not work across threads.
 # Each key in the map (hash) is the name of a class that broadcasts/publishes messages.
