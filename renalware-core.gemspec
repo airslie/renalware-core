@@ -106,6 +106,6 @@ Gem::Specification.new do |s|
   s.add_dependency "wicked_pdf", "~> 2.7.0"
   s.add_dependency "wisper", "~> 2.0.0"
   s.add_dependency "wisper-activejob", "~> 1.0.0"
-  s.add_dependency "yard", ">= 0.9.20"
+  s.add_dependency "yard", ">= 0.9.35"
 end
 # rubocop:enable Style/ExpandPathArguments,Style/SpecialGlobalVars
