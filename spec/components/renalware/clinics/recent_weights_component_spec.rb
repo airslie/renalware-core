@@ -3,30 +3,8 @@
 require "rails_helper"
 
 module Renalware
-  require "renalware/dietetics/recent_weights_component"
-
-  describe Dietetics::Queries::RecentWeightsQuery, type: :component do
-    describe "#call" do
-      let(:patient) { create(:clinics_patient) }
-
-      context "with clinic visits for patient" do
-        let!(:clinic_visit_second) {
-          create(:clinic_visit, patient: patient, date: Date.parse("2022-10-12"))
-        }
-        let!(:clinic_visit_first) {
-          create(:clinic_visit, patient: patient, date: Date.parse("2022-10-15"))
-        }
-
-        it "returns them" do
-          expect(described_class.new.call(patient: patient)).to eq([clinic_visit_first,
-                                                                    clinic_visit_second])
-        end
-      end
-    end
-  end
-
-  describe Dietetics::RecentWeightsComponent, type: :component do
-    let(:patient) { Patient.new }
+  describe Clinics::RecentWeightsComponent, type: :component do
+    let(:patient) { Clinics::Patient.new }
     let(:instance) { described_class.new(patient: patient) }
 
     context "with no clinic visits" do
@@ -40,11 +18,7 @@ module Renalware
     end
 
     context "with a last dietetic clinic visit" do
-      let(:instance) {
-        described_class.new(patient: patient, clinic_visits_loader: proc {
-                                                                      [dietetic_clinic]
-                                                                    })
-      }
+      let(:instance) { described_class.new(patient: patient) }
 
       context "with full data" do
         let(:dietetic_clinic) {
@@ -53,6 +27,10 @@ module Renalware
             weight: 72
           )
         }
+
+        before do
+          allow(patient.clinic_visits).to receive(:recent).and_return([dietetic_clinic])
+        end
 
         it "renders a table" do
           render_inline(instance)

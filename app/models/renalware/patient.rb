@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "document/base"
-
 module Renalware
   # rubocop:disable Metrics/ClassLength
   class Patient < ApplicationRecord

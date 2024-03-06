@@ -58,7 +58,7 @@ Rails.application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :log
-  ActiveSupport::Deprecation.disallowed_warnings = :all
+  # Rails.application.deprecators.disallowed_warnings = :all
 
   # Raises error for missing translations
   config.i18n.raise_on_missing_translations = true

@@ -9,7 +9,7 @@ require "renalware"
 
 module Dummy
   class Application < Rails::Application
-    config.load_defaults 7.0
+    config.load_defaults 7.1
 
     config.cache_store = :file_store, Rails.root.join("tmp/cache")
     config.active_record.time_zone_aware_types = [:datetime]

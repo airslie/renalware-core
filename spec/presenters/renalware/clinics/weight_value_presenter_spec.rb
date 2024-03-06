@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-module Renalware::Dietetics
+module Renalware::Clinics
   describe WeightValuePresenter do
     describe "#to_s" do
       let(:instance) { described_class.new(value) }

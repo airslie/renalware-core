@@ -23,7 +23,7 @@ describe Renalware::Medications::LatestReviewComponent, type: :component do
               title: Text1 by %{user} on %{date}
               compact_title: Text2 %{date} by %{user}
       YAML
-      I18n.t("renalware.medications/latest_review_component") # load first
+      I18n.t("renalware/medications/latest_review_component") # load first
       I18n.backend.store_translations(:en, YAML.safe_load(yaml)) # then replace
     end
 

@@ -19,7 +19,7 @@ module Renalware
     include ActiveSupport::Configurable
 
     # Force dotenv to load the .env file at this stage so we can read in the config defaults
-    Dotenv::Railtie.load
+    Dotenv::Rails.load
 
     config_accessor(:disable_dmd_synchroniser_job) { ENV["DISABLE_DMD_SYNCHRONISER_JOB"].to_i > 0 }
 

@@ -69,11 +69,9 @@ module Renalware
       devise_mailer.send(notification, self, *).deliver_later
     end
 
-    # rubocop:disable Naming/PredicateName
     def has_role?(name)
       role_names.include?(name.to_s)
     end
-    # rubocop:enable Naming/PredicateName
 
     def role_names
       @role_names ||= roles.pluck(:name)
