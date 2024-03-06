@@ -46,7 +46,7 @@ module Renalware
 
       def chart_raw
         respond_to do |format|
-          format.html { show_html }
+          format.html { show_html(content_only: true) }
           format.json { chart_raw_json }
         end
       end

@@ -24,6 +24,13 @@ CREATE SCHEMA renalware;
 
 
 --
+-- Name: renalware_demo; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA renalware_demo;
+
+
+--
 -- Name: btree_gist; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -14545,6 +14552,21 @@ ALTER SEQUENCE renalware.virology_versions_id_seq OWNED BY renalware.virology_ve
 
 
 --
+-- Name: reporting_example_data; Type: VIEW; Schema: renalware_demo; Owner: -
+--
+
+CREATE VIEW renalware_demo.reporting_example_data AS
+ WITH dates AS (
+         SELECT (date_trunc('day'::text, dd.dd))::date AS dt
+           FROM generate_series('2023-01-01 00:00:00'::timestamp without time zone, '2023-12-31 00:00:00'::timestamp without time zone, '7 days'::interval) dd(dd)
+        )
+ SELECT dates.dt AS date,
+    (((10)::double precision + ((9)::double precision * random())) * (row_number() OVER ())::double precision) AS series1,
+    (((2)::double precision + ((7)::double precision * random())) * (row_number() OVER ())::double precision) AS series2
+   FROM dates;
+
+
+--
 -- Name: access_assessments id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -28807,6 +28829,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211209123828'),
 ('20211215111646'),
 ('20211216145755'),
+('20220105160514'),
 ('20220107182152'),
 ('20220110135105'),
 ('20220113132731'),
@@ -28948,6 +28971,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240126163515'),
 ('20240206085751'),
 ('20240220091704'),
-('20240227120942');
+('20240227120942'),
+('20240305160414');
 
 
