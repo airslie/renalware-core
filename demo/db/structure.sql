@@ -291,6 +291,18 @@ CREATE TYPE renalware.feed_outgoing_document_state AS ENUM (
 
 
 --
+-- Name: foo; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.foo AS (
+  inserted_count integer,
+  updated_count integer,
+  deleted_count integer,
+  other text
+);
+
+
+--
 -- Name: hd_vnd_risk_level_itemised; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -1752,7 +1764,7 @@ begin
         ,document ->> 'score'
     from events e
     inner join event_types et on et.id = e.event_type_id
-    where e.patient_id = p_id 
+    where e.patient_id = p_id
       and e.deleted_at is null
       and et.slug = 'clinical_frailty_score'
     order by e.date_time desc
@@ -2125,6 +2137,51 @@ BEGIN
   END IF;
   RETURN NULL;
 END $$;
+
+
+--
+-- Name: ukrdc_update_send_to_renalreg(); Type: FUNCTION; Schema: renalware_demo; Owner: -
+--
+
+CREATE FUNCTION renalware_demo.ukrdc_update_send_to_renalreg(OUT records_added integer, OUT records_updated integer) RETURNS record
+    LANGUAGE plpgsql
+    AS $$
+declare countOfUpdatedRows int = 0;
+BEGIN
+  with candidates as(
+    select
+        p.id as patient_id,
+        convert_to_float(pcos.values -> 'EGFR' ->> 'result') as egfr,
+        md.code as modality_code
+    from
+        renalware.patients p
+        inner join renalware.patient_current_modalities pcm on pcm.patient_id = p.id
+        left join renalware.pathology_current_observation_sets pcos on pcos.patient_id = p.id
+        inner join modality_descriptions md on md.id = pcm.modality_description_id
+    where
+        p.send_to_renalreg = false
+        and p.renalreg_decision_on is null
+        and md.code in ('transplant', 'pd', 'hd', 'low_clearance', 'nephrology')
+  ),
+  updateables as (
+    select patient_id, egfr, modality_code from candidates
+    where
+      modality_code in ('transplant', 'pd', 'hd')
+      or (modality_code in ('low_clearance', 'nephrology') and egfr < 30.0)
+  )
+  update renalware.patients p
+    set
+        send_to_renalreg = true,
+        renalreg_decision_on = now(),
+        renalreg_recorded_by = 'Renalware System'
+    from updateables
+    where updateables.patient_id = p.id;
+
+  -- Return the number of updated rows in records_updated
+  GET DIAGNOSTICS countOfUpdatedRows = ROW_COUNT;
+  select into records_added, records_updated 0, countOfUpdatedRows;
+END
+$$;
 
 
 SET default_tablespace = '';
@@ -6658,7 +6715,8 @@ CREATE TABLE renalware.hd_sessions (
     stopped_at timestamp without time zone,
     provider_id bigint,
     machine_ip_address character varying,
-    hd_station_id bigint
+    hd_station_id bigint,
+    provider_unique_identifier text
 );
 
 
@@ -7503,6 +7561,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -20758,6 +20826,13 @@ CREATE INDEX index_hd_sessions_on_provider_id ON renalware.hd_sessions USING btr
 
 
 --
+-- Name: index_hd_sessions_on_provider_unique_identifier; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_sessions_on_provider_unique_identifier ON renalware.hd_sessions USING btree (provider_unique_identifier);
+
+
+--
 -- Name: index_hd_sessions_on_signed_off_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -28182,6 +28257,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240307171400'),
 ('20240305160414'),
 ('20240227120942'),
 ('20240220091704'),
@@ -28218,6 +28294,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230915144448'),
 ('20230913133958'),
 ('20230913132527'),
+('20230908111847'),
+('20230908111741'),
 ('20230825143006'),
 ('20230825141714'),
 ('20230825104746'),
