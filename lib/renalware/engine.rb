@@ -62,6 +62,9 @@ require "wisper"
 require "wisper/activejob"
 require "byebug" if ENV.fetch("RAILS_ENV", nil) == "development"
 
+# include packages
+require_relative "../../packages/reporting/lib/engine"
+
 module Renalware
   # Don't have prefix method return anything.
   # This will keep Rails Engine from generating all table prefixes with the engines name
