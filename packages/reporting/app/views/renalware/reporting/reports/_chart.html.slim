@@ -3,7 +3,7 @@ ruby:
 
 div
   div(data-controller="charts"
-    data-charts-url-value= renalware.chart_reporting.report_path(options.current_view, format: :json)
+    data-charts-url-value= reporting.chart_report_path(options.current_view, format: :json)
     data-charts-y-axis-label-value= "axis_label"
     data-charts-y-axis-type-value= "axis_type"
     data-charts-period-value= "3y"

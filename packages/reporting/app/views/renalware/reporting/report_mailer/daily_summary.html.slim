@@ -10,6 +10,6 @@ h4= l(Time.zone.now)
       - value = row[1]
       tr
         td= t(description,
-              scope: "renalware.reporting.#{view_name}",
+              scope: "renalware.reporting_#{view_name}",
               default: description.humanize)
         td= value
