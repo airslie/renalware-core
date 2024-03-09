@@ -39,6 +39,10 @@ module Dummy
       ARGV.push "-r", Renalware::Engine.root.join("config/initializers/console_prompt.rb")
     end
 
+    InlineSvg.configure do |config|
+      config.raise_on_file_not_found = true
+    end
+
     # We want to start being agnostic about ActiveJob backend rather than being attached to
     # DelayedJob so am using good_job in the demo.
     # At the time of writing there are still a couple DelayedJob references in core eg using a
