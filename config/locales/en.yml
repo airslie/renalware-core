@@ -38,7 +38,7 @@ en:
         start_date: Medication's prescribed date
   btn:
     add: Add
-    add_: Add...
+    add_: Add…
     all: All
     archive: Archive
     cancel: Cancel
