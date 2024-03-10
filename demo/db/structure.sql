@@ -291,18 +291,6 @@ CREATE TYPE renalware.feed_outgoing_document_state AS ENUM (
 
 
 --
--- Name: foo; Type: TYPE; Schema: renalware; Owner: -
---
-
-CREATE TYPE renalware.foo AS (
-  inserted_count integer,
-  updated_count integer,
-  deleted_count integer,
-  other text
-);
-
-
---
 -- Name: hd_vnd_risk_level_itemised; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -1764,7 +1752,7 @@ begin
         ,document ->> 'score'
     from events e
     inner join event_types et on et.id = e.event_type_id
-    where e.patient_id = p_id
+    where e.patient_id = p_id 
       and e.deleted_at is null
       and et.slug = 'clinical_frailty_score'
     order by e.date_time desc
@@ -6715,8 +6703,7 @@ CREATE TABLE renalware.hd_sessions (
     stopped_at timestamp without time zone,
     provider_id bigint,
     machine_ip_address character varying,
-    hd_station_id bigint,
-    provider_unique_identifier text
+    hd_station_id bigint
 );
 
 
@@ -20826,13 +20813,6 @@ CREATE INDEX index_hd_sessions_on_provider_id ON renalware.hd_sessions USING btr
 
 
 --
--- Name: index_hd_sessions_on_provider_unique_identifier; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_hd_sessions_on_provider_unique_identifier ON renalware.hd_sessions USING btree (provider_unique_identifier);
-
-
---
 -- Name: index_hd_sessions_on_signed_off_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -28254,7 +28234,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware,public,heroku_ext;
+SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20240307171400'),
@@ -28294,8 +28274,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230915144448'),
 ('20230913133958'),
 ('20230913132527'),
-('20230908111847'),
-('20230908111741'),
 ('20230825143006'),
 ('20230825141714'),
 ('20230825104746'),

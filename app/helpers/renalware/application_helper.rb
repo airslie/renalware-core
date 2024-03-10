@@ -27,7 +27,7 @@ module Renalware
     def default_patient_link(patient)
       link_to(
         patient.to_s(:default),
-        patient_clinical_summary_path(patient),
+        renalware.patient_clinical_summary_path(patient),
         data: { turbo_frame: "_top" }
       )
     end
@@ -35,7 +35,7 @@ module Renalware
     def default_patient_link_with_nhs_number(patient)
       link_to(
         patient&.to_s(:long),
-        patient_clinical_summary_path(patient),
+        renalware.patient_clinical_summary_path(patient),
         "data-turbo-frame": "_top"
       )
     end
