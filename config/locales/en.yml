@@ -186,3 +186,4 @@ en:
     letters: Letters
     problems: Problems
   'true': 'Yes'
+  missing_modality_warning: "Some actions require the %{modality_name} modality"
