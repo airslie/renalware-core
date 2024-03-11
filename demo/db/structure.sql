@@ -5349,6 +5349,40 @@ ALTER SEQUENCE renalware.feed_logs_id_seq OWNED BY renalware.feed_logs.id;
 
 
 --
+-- Name: feed_message_replays; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.feed_message_replays (
+    id bigint NOT NULL,
+    replay_request_id bigint NOT NULL,
+    message_id bigint NOT NULL,
+    success boolean DEFAULT false NOT NULL,
+    error_message text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: feed_message_replays_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.feed_message_replays_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_message_replays_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.feed_message_replays_id_seq OWNED BY renalware.feed_message_replays.id;
+
+
+--
 -- Name: feed_messages; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -5522,6 +5556,44 @@ CREATE SEQUENCE renalware.feed_raw_hl7_messages_id_seq
 --
 
 ALTER SEQUENCE renalware.feed_raw_hl7_messages_id_seq OWNED BY renalware.feed_raw_hl7_messages.id;
+
+
+--
+-- Name: feed_replay_requests; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.feed_replay_requests (
+    id bigint NOT NULL,
+    criteria jsonb DEFAULT '{}'::jsonb,
+    started_at timestamp(6) without time zone NOT NULL,
+    finished_at timestamp(6) without time zone,
+    total_messages integer DEFAULT 0 NOT NULL,
+    failed_messages integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    patient_id bigint NOT NULL,
+    error_message text,
+    reason text
+);
+
+
+--
+-- Name: feed_replay_requests_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.feed_replay_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_replay_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.feed_replay_requests_id_seq OWNED BY renalware.feed_replay_requests.id;
 
 
 --
@@ -7548,16 +7620,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -15063,6 +15125,13 @@ ALTER TABLE ONLY renalware.feed_logs ALTER COLUMN id SET DEFAULT nextval('renalw
 
 
 --
+-- Name: feed_message_replays id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_message_replays ALTER COLUMN id SET DEFAULT nextval('renalware.feed_message_replays_id_seq'::regclass);
+
+
+--
 -- Name: feed_messages id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -15088,6 +15157,13 @@ ALTER TABLE ONLY renalware.feed_practice_gps ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY renalware.feed_raw_hl7_messages ALTER COLUMN id SET DEFAULT nextval('renalware.feed_raw_hl7_messages_id_seq'::regclass);
+
+
+--
+-- Name: feed_replay_requests id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_replay_requests ALTER COLUMN id SET DEFAULT nextval('renalware.feed_replay_requests_id_seq'::regclass);
 
 
 --
@@ -16978,6 +17054,14 @@ ALTER TABLE ONLY renalware.feed_logs
 
 
 --
+-- Name: feed_message_replays feed_message_replays_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_message_replays
+    ADD CONSTRAINT feed_message_replays_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: feed_messages feed_messages_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -17007,6 +17091,14 @@ ALTER TABLE ONLY renalware.feed_practice_gps
 
 ALTER TABLE ONLY renalware.feed_raw_hl7_messages
     ADD CONSTRAINT feed_raw_hl7_messages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_replay_requests feed_replay_requests_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_replay_requests
+    ADD CONSTRAINT feed_replay_requests_pkey PRIMARY KEY (id);
 
 
 --
@@ -20036,6 +20128,20 @@ CREATE INDEX index_feed_logs_on_patient_id ON renalware.feed_logs USING btree (p
 
 
 --
+-- Name: index_feed_message_replays_on_message_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_message_replays_on_message_id ON renalware.feed_message_replays USING btree (message_id);
+
+
+--
+-- Name: index_feed_message_replays_on_replay_request_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_message_replays_on_replay_request_id ON renalware.feed_message_replays USING btree (replay_request_id);
+
+
+--
 -- Name: index_feed_messages_created_at_nonauto; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20166,6 +20272,20 @@ CREATE INDEX index_feed_raw_hl7_messages_on_created_at ON renalware.feed_raw_hl7
 --
 
 COMMENT ON INDEX renalware.index_feed_raw_hl7_messages_on_created_at IS 'We query for rows ordering by created_at asc to give us a chance to process in FIFO order, so having an ordered index means when we use a LIMIT (batching) in the query, rows will be determined by index scan without having to look to the end of the table - or something like that! In fact the index is implicitly ordered already but having created_at: :asc here makes our intention more explicit.';
+
+
+--
+-- Name: index_feed_replay_requests_on_criteria; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_replay_requests_on_criteria ON renalware.feed_replay_requests USING gin (criteria);
+
+
+--
+-- Name: index_feed_replay_requests_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_replay_requests_on_patient_id ON renalware.feed_replay_requests USING btree (patient_id);
 
 
 --
@@ -25735,6 +25855,14 @@ ALTER TABLE ONLY renalware.renal_aki_alerts
 
 
 --
+-- Name: feed_message_replays fk_rails_4ec42d8046; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_message_replays
+    ADD CONSTRAINT fk_rails_4ec42d8046 FOREIGN KEY (replay_request_id) REFERENCES renalware.feed_replay_requests(id);
+
+
+--
 -- Name: patient_attachments fk_rails_4fe08d5c90; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -27367,6 +27495,14 @@ ALTER TABLE ONLY renalware.ukrdc_treatments
 
 
 --
+-- Name: feed_replay_requests fk_rails_d5fd4c152e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_replay_requests
+    ADD CONSTRAINT fk_rails_d5fd4c152e FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: access_plans fk_rails_d61e7c4674; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -27796,6 +27932,14 @@ ALTER TABLE ONLY renalware.pd_peritonitis_episodes
 
 ALTER TABLE ONLY renalware.clinic_appointments
     ADD CONSTRAINT fk_rails_f37cb95f48 FOREIGN KEY (consultant_id) REFERENCES renalware.clinic_consultants(id);
+
+
+--
+-- Name: feed_message_replays fk_rails_f392a7199e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_message_replays
+    ADD CONSTRAINT fk_rails_f392a7199e FOREIGN KEY (message_id) REFERENCES renalware.feed_messages(id);
 
 
 --
@@ -28274,6 +28418,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230915144448'),
 ('20230913133958'),
 ('20230913132527'),
+('20230912091352'),
+('20230911114828'),
+('20230831162729'),
 ('20230825143006'),
 ('20230825141714'),
 ('20230825104746'),

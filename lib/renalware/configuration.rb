@@ -150,6 +150,12 @@ module Renalware
       ENV.fetch("PROCESS_HL7_VIA_RAW_MESSAGES_TABLE", "false") == "true"
     }
 
+    config_accessor(:replay_historical_pathology_when_new_patient_added) {
+      ActiveModel::Type::Boolean.new.cast(
+        ENV.fetch("REPLAY_HISTORICAL_PATHOLOGY_WHEN_NEW_PATIENT_ADDED", "true")
+      )
+    }
+
     config_accessor(:hd_session_prescriptions_require_signoff) { true }
 
     # How many days ahead to look for prescriptions having a future prescribed_on date when

@@ -25,6 +25,9 @@ require_relative "../../app/models/concerns/renalware/broadcasting"
 # application with confusing outcomes.
 Renalware.configure do |config|
   config.broadcast_subscription_map = {
+    "Renalware::Patients::BroadcastPatientAddedEvent" => [
+      "Renalware::Feeds::PatientListener"
+    ],
     "Renalware::Modalities::ChangePatientModality" => [
       "Renalware::Medications::PatientListener",
       "Renalware::Letters::PatientListener",
@@ -43,6 +46,9 @@ Renalware.configure do |config|
     "Renalware::Pathology::CreateObservationRequests" => [],
     "Renalware::Events::CreateEvent" => [],
     "Renalware::Events::UpdateEvent" => [],
+    "Renalware::Feeds::ReplayHistoricalHL7PathologyMessages" => [
+      "Renalware::Pathology::Ingestion::MessageListener"
+    ],
     "Renalware::Feeds::MessageProcessor" => [
       "Renalware::Patients::Ingestion::MessageListener",
       "Renalware::Pathology::Ingestion::AKIListener",
