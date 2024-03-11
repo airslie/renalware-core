@@ -11,7 +11,10 @@ module Renalware
 
       belongs_to :patient, touch: true
       belongs_to :hospital_centre, class_name: "Hospitals::Centre"
-      has_one :followup, class_name: "RecipientFollowup", foreign_key: "operation_id"
+      has_one :followup,
+              class_name: "RecipientFollowup",
+              foreign_key: "operation_id",
+              dependent: :restrict_with_exception
 
       scope :ordered, -> { order(performed_on: :asc) }
       scope :reversed, -> { order(performed_on: :desc) }
