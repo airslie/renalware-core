@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "Viewing Feed Replay Requests" do
   it do
-    user = login_as_super_admin
+    login_as_super_admin
 
     visit feeds_replay_requests_path
 

@@ -2,6 +2,7 @@
 
 module Renalware
   module Feeds
+    # Captures when a feed message has been replayed. See ReplayRequest.
     class MessageReplay < ApplicationRecord
       validates :replay_request_id, presence: true
       validates :message_id, presence: true

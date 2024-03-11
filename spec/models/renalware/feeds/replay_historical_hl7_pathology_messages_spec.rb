@@ -26,7 +26,8 @@ module Renalware
             message_type: :ORU,
             event_type: :R01,
             processed: nil,
-            orc_order_status: "CM",
+            orc_filler_order_number: "123",
+            sent_at: 1.day.ago,
             header_id: "123"
           )
 
@@ -67,7 +68,9 @@ module Renalware
               event_type: :R01,
               processed: nil,
               orc_order_status: "CM",
-              header_id: "123"
+              header_id: "123",
+              orc_filler_order_number: "123",
+              sent_at: 1.day.ago
             )
             feed_message_ok = Message.create!(
               nhs_number: "0123456789",
@@ -77,7 +80,9 @@ module Renalware
               event_type: :R01,
               processed: nil,
               orc_order_status: "CM",
-              header_id: "123"
+              header_id: "123",
+              orc_filler_order_number: "456",
+              sent_at: 1.day.ago
             )
             # allow(MessageParser).to receive(:parse).and_return(NullObject.instance)
 
@@ -100,7 +105,7 @@ module Renalware
               expect(MessageReplay.first).to have_attributes(
                 success: false,
                 message: feed_message_fail,
-                error_message: "undefined method `message_type' for nil:NilClass"
+                error_message: "undefined method `message_type' for nil"
               )
 
               expect(MessageReplay.last).to have_attributes(

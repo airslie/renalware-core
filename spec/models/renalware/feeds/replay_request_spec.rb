@@ -25,7 +25,7 @@ module Renalware::Feeds
           )
 
           expect do |block|
-            described_class.start_logging(patient, &block)
+            described_class.start_logging(patient, "bla", &block)
           end.not_to yield_control
         end
 
@@ -37,7 +37,7 @@ module Renalware::Feeds
           )
 
           freeze_time do
-            described_class.start_logging(patient)
+            described_class.start_logging(patient, "reason")
 
             replay_request = described_class.last
             expect(replay_request).to have_attributes(

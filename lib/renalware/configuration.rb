@@ -151,7 +151,9 @@ module Renalware
     }
 
     config_accessor(:replay_historical_pathology_when_new_patient_added) {
-      ENV.fetch("REPLAY_HISTORICAL_PATHOLOGY_WHEN_NEW_PATIENT_ADDED", "true") == "true"
+      ActiveModel::Type::Boolean.new.cast(
+        ENV.fetch("REPLAY_HISTORICAL_PATHOLOGY_WHEN_NEW_PATIENT_ADDED", "true")
+      )
     }
 
     config_accessor(:hd_session_prescriptions_require_signoff) { true }

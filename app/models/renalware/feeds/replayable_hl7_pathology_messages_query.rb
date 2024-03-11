@@ -16,7 +16,8 @@ module Renalware
     # We can in theory replay ADT or ORU messages but currently do only ORU (pathology) because it
     # it is deemed that once the patient is added to Renalware, subsequent ADT HL7 messages which
     # will soon arrive will being the demographic data up to date - so no point replaying ADT
-    # messages really, and might in fact lead to confusion.
+    # messages really (although appointment info could be useful?), and might in fact lead to
+    # confusion.
     #
     # We also take into account previous replays and and do not import a messages if has a row in a
     # 'replayed messages' table where success was indicated.
@@ -24,115 +25,79 @@ module Renalware
       include Callable
       pattr_initialize [:patient!]
 
-      PATIENT_IDENTIFICATION_COLUMNS = %i(
-        local_patient_id
-        local_patient_id_2
-        local_patient_id_3
-        local_patient_id_4
-        local_patient_id_5
-      ).freeze
+      class MissingNHSNumberError < StandardError; end
+      class MissingDOBNumberError < StandardError; end
+
+      # PATIENT_IDENTIFICATION_COLUMNS = %i(
+      #   local_patient_id
+      #   local_patient_id_2
+      #   local_patient_id_3
+      #   local_patient_id_4
+      #   local_patient_id_5
+      # ).freeze
 
       def call
-        # .merge(never_successfully_replayed)
-        complete_pathology_feed_messages
-          .merge(scoped_by_patient)
-          .order(created_at: :asc)
+        raise MissingNHSNumberError if patient.nhs_number.blank?
+        raise MissingDOBNumberError if patient.born_on.blank?
+
+        ids = feed_message_ids(nhs_number: patient.nhs_number, dob: patient.born_on.to_s)
+        Renalware::Feeds::Message.where(id: ids).order(sent_at: :asc)
       end
 
       private
 
-      # We want to find results hitting at least 2-out-of-3 search terms
-      # - nhs_number and any hosp number
-      # - nhs_number and dob
-      # - hosp number and dob
-      #
-      # e.g.
-      #   where
-      #   (
-      #     fm.nhs_number = p.nhs_number
-      #     and (
-      #       fm.local_patient_id = p.local_patient_id or
-      #       fm.local_patient_id_2 = p.local_patient_id_2 or etc...
-      #     )
-      #   )
-      #   or (
-      #     fm.nhs_number = p.nhs_number
-      #     and fm.dob = p.born_on
-      #   )
-      #   or
-      #   (
-      #     (
-      #       fm.local_patient_id = p.local_patient_id or
-      #       fm.local_patient_id_2 = p.local_patient_id_2 or etc..
-      #     )
-      #     and fm.dob = p.born_on
-      #  )
-      # In fact what AR comes uo with using our logic below is e.g.:
-      #
-      # select
-      #   "feed_messages" .*
-      # from
-      #   "feed_messages"
-      # where
-      #   "feed_messages"."message_type" = 'ORU'
-      #   and "feed_messages"."event_type" = 'R01'
-      #   and "feed_messages"."orc_order_status" = 'CM'
-      #   and "feed_messages"."processed" != true
-      #   and ("feed_messages"."nhs_number" = '4001540037'
-      #     and ("feed_messages"."local_patient_id" = 'Z99994'
-      #       or "feed_messages"."local_patient_id_5" = 'LOCAL_PATIENT_ID_5'
-      #       or "feed_messages"."dob" = '1988-01-01')
-      #     or "feed_messages"."dob" = '1988-01-01'
-      #     and ("feed_messages"."local_patient_id" = 'Z99994'
-      #       or "feed_messages"."local_patient_id_5" = 'LOCAL_PATIENT_ID_5'))
-      # order by
-      #   "feed_messages"."created_at" asc
-      def scoped_by_patient
-        scope = Message.none
-        scope = scope.or(
-          Message.where(nhs_number: patient.nhs_number).merge(or_where_hospital_numbers)
+      # Get a distinct feed message for each orc_filler_order_number, talking the most recently
+      # sent one. Return an array of matching ids.
+      # rubocop:disable Metrics/MethodLength
+      def feed_message_ids(nhs_number:, dob:)
+        sql = <<-SQL.squish
+          SELECT distinct on (orc_filler_order_number) fm.id
+            FROM renalware.feed_messages fm
+            LEFT OUTER JOIN renalware.feed_message_replays fmr
+              ON fmr.message_id = fm.id
+              AND fmr.success = true
+            WHERE
+              message_type = 'ORU'
+              AND event_type = 'R01'
+              AND nhs_number = ?
+              AND dob = ?
+              AND sent_at IS NOT NULL
+              AND fmr.id IS NULL
+            ORDER BY
+              orc_filler_order_number, sent_at desc
+        SQL
+        sql = ActiveRecord::Base.sanitize_sql_array(
+          [
+            sql,
+            nhs_number,
+            dob
+          ]
         )
-        if patient.born_on.present?
-          scope = scope.or(Message.where(dob: patient.born_on, nhs_number: patient.nhs_number))
-          scope = scope.or(Message.where(dob: patient.born_on).merge(or_where_hospital_numbers))
-        end
-        scope
+        ActiveRecord::Base.connection.execute(sql)&.values&.flatten
       end
-
-      def or_where_hospital_numbers
-        scope = Message.none
-        PATIENT_IDENTIFICATION_COLUMNS.each do |col|
-          if patient.public_send(col).present?
-            scope = scope.or(Message.where(col => patient.public_send(col)))
-          end
-        end
-        scope
-      end
-
-      # Select only complete (not partial) ORU messages that have not already been imported.
-      # left join onto any previous message. We want to filter out feed messages where we
-      # successfully ran a replay on this message in the past.
-      def complete_pathology_feed_messages
-        Renalware::Feeds::Message
-          .where(
-            message_type: "ORU",
-            event_type: "R01",
-            orc_order_status: "CM", # ie completed
-            processed: [nil, false],
-            feed_message_replays: { id: nil }
-          )
-          .joins(<<-SQL.squish)
-            LEFT OUTER JOIN
-              feed_message_replays
-              ON feed_message_replays.message_id = feed_messages.id
-              AND feed_message_replays.success = true
-          SQL
-      end
-
-      # def never_successfully_replayed
-      #   Renalware::Feeds::Message
-      #     .joins()
-      # end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end
+
+# sql = <<-SQL.squish
+#           with final_oru_messages as (
+#             SELECT distinct on (orc_filler_order_number) fm.id
+#               FROM renalware.feed_messages fm
+#               LEFT OUTER JOIN renalware.feed_message_replays fmr
+#                 ON fmr.message_id = fm.id
+#                 AND fmr.success = true
+#               WHERE
+#                 message_type = 'ORU'
+#                 AND event_type = 'R01'
+#                 AND nhs_number = ?
+#                 AND dob = ?
+#                 AND sent_at IS NOT NULL
+#               ORDER BY
+#                 orc_filler_order_number, sent_at desc
+#           )
+#           select fm1.*
+#             from feed_messages fm1
+#             inner join final_oru_messages using(id)
+#             order by fm1.sent_at asc
+#         SQL

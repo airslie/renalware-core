@@ -10,10 +10,10 @@ module Renalware
           patient = nil
           allow(ReplayHistoricalHL7PathologyMessagesJob).to receive(:perform_later)
 
-          described_class.new.patient_added(patient)
+          described_class.new.patient_added(patient, "bla")
 
           expect(ReplayHistoricalHL7PathologyMessagesJob)
-            .to have_received(:perform_later).with(patient)
+            .to have_received(:perform_later).with(patient, "bla")
         end
 
         context "when replaying pathology messages is disabled via config/ENV var" do
@@ -25,7 +25,7 @@ module Renalware
             patient = nil
             allow(ReplayHistoricalHL7PathologyMessagesJob).to receive(:perform_later)
 
-            described_class.new.patient_added(patient)
+            described_class.new.patient_added(patient, "bla")
 
             expect(ReplayHistoricalHL7PathologyMessagesJob).not_to have_received(:perform_later)
           end
