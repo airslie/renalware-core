@@ -7,7 +7,7 @@
   | Download CSV
 
 - if current_user_is_super_admin?
-  = link_to edit_system_view_metadatum_path(options.current_view, format: :html),
+  = link_to renalware.edit_system_view_metadatum_path(options.current_view, format: :html),
             data: { "reveal-id" => "system-view-metadata-modal", "reveal-ajax" => "true" },
             class: "button secondary" do
       i.fas.fa-cogs.pr-2
