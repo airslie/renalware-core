@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rubygems"
+require "packs-rails"
 require "view_component"
 require "activerecord-import"
 require "ahoy"
@@ -62,8 +63,8 @@ require "wisper"
 require "wisper/activejob"
 require "byebug" if ENV.fetch("RAILS_ENV", nil) == "development"
 
-# include packages
-require_relative "../../packages/reporting/lib/engine"
+# include packs
+require_relative "../../packs/reporting/lib/engine"
 
 module Renalware
   # Don't have prefix method return anything.
