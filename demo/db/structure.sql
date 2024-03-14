@@ -1045,6 +1045,100 @@ $$;
 
 
 --
+-- Name: feed_sausages_upsert_from_mirth(timestamp without time zone, renalware.hl7_message_type, renalware.hl7_event_type, character varying, renalware.enum_hl7_orc_order_status, character varying, text, character varying, date, character varying, character varying, character varying, character varying, character varying); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp without time zone, _message_type renalware.hl7_message_type, _event_type renalware.hl7_event_type, _orc_filler_order_number character varying, _orc_order_status renalware.enum_hl7_orc_order_status, _header_id character varying, _body text, _nhs_number character varying, _dob date, _local_patient_id character varying, _local_patient_id_2 character varying, _local_patient_id_3 character varying, _local_patient_id_4 character varying, _local_patient_id_5 character varying) RETURNS TABLE(sausage_id bigint, sausage_queue_id bigint)
+    LANGUAGE plpgsql
+    AS $$
+  declare id_of_upserted_feed_sausage bigint;
+  declare id_of_inserted_feed_sausage_queue bigint;
+  BEGIN
+
+    if _message_type = 'ORU' and (_orc_filler_order_number = '' or _orc_filler_order_number is null) then
+      RAISE EXCEPTION 'orc_filler_order_number cannot be blank';
+    end if;
+
+    -- The ON CONFLICT after this insert means that where orc_filler_order_number is not null or ''
+    -- (ie its an ORU path message, since ADTs do not have an orc_filler_order_number)
+    -- then only one unique value is allowed in the table (see index in a migration),
+    -- and if you try to insert a row with an
+    -- orc_filler_order_number that already exist, the DO UPDATE will execute to replace the
+    -- the row's content with the new content (body, nhs_number etc) but only if the messages was
+    -- sent from the lab _more recently_ than the stored one.
+    -- TODO: what happens if > 1 lab send the same value? Not a problem at MSE say where
+    -- a SHO- prefix is used on the orc_filler_order_number
+    insert into renalware.feed_sausages (
+      sent_at,
+      message_type,
+      event_type,
+      orc_filler_order_number,
+      orc_order_status,
+      header_id,
+      body,
+      nhs_number,
+      local_patient_id,
+      local_patient_id_2,
+      local_patient_id_3,
+      local_patient_id_4,
+      local_patient_id_5,
+      dob,
+      created_at,
+      updated_at
+    ) values (
+      _sent_at,
+      _message_type,
+      _event_type,
+      _orc_filler_order_number,
+      _orc_order_status,
+      _header_id,
+      _body,
+      _nhs_number,
+      _local_patient_id,
+      _local_patient_id_2,
+      _local_patient_id_3,
+      _local_patient_id_4,
+      _local_patient_id_5,
+      _dob,
+      current_timestamp,
+      current_timestamp
+    )
+    on conflict (orc_filler_order_number) where (orc_filler_order_number is not null and orc_filler_order_number != '')
+    do update
+    set
+      sent_at             = EXCLUDED.sent_at,
+      version             = feed_sausages.version + 1,
+      message_type        = EXCLUDED.message_type,
+      event_type          = EXCLUDED.event_type,
+      orc_order_status    = EXCLUDED.orc_order_status,
+      header_id           = EXCLUDED.header_id,
+      body                = EXCLUDED.body,
+      nhs_number          = EXCLUDED.nhs_number,
+      local_patient_id    = EXCLUDED.local_patient_id,
+      local_patient_id_2  = EXCLUDED.local_patient_id_2,
+      local_patient_id_3  = EXCLUDED.local_patient_id_3,
+      local_patient_id_4  = EXCLUDED.local_patient_id_4,
+      local_patient_id_5  = EXCLUDED.local_patient_id_5,
+      dob                 = EXCLUDED.dob,
+      updated_at          = current_timestamp
+      where EXCLUDED.sent_at > feed_sausages.sent_at
+      RETURNING feed_sausages.id into id_of_upserted_feed_sausage;
+    --
+    if id_of_upserted_feed_sausage > 0 then
+      -- might be interesting here to know if its an insert or an update? ir as an extra col?
+      -- there is also some scope somewhere for storing the count of messages received or one
+      -- one orc_filler_order_number, but probably not that useful
+      insert into renalware.feed_sausage_queue (feed_sausage_id, created_at, updated_at)
+      values (id_of_upserted_feed_sausage, current_timestamp, current_timestamp)
+      returning feed_sausage_queue.id into id_of_inserted_feed_sausage_queue;
+    end if;
+
+    return query(select id_of_upserted_feed_sausage, id_of_inserted_feed_sausage_queue);
+  END;
+$$;
+
+
+--
 -- Name: hd_diary_archive_elapsed_master_slots(); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -5597,6 +5691,83 @@ ALTER SEQUENCE renalware.feed_replay_requests_id_seq OWNED BY renalware.feed_rep
 
 
 --
+-- Name: feed_sausage_queue; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.feed_sausage_queue (
+    id bigint NOT NULL,
+    feed_sausage_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: feed_sausage_queue_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.feed_sausage_queue_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_sausage_queue_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.feed_sausage_queue_id_seq OWNED BY renalware.feed_sausage_queue.id;
+
+
+--
+-- Name: feed_sausages; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.feed_sausages (
+    id bigint NOT NULL,
+    sent_at timestamp without time zone NOT NULL,
+    version integer DEFAULT 1 NOT NULL,
+    processed_at timestamp without time zone,
+    message_type renalware.hl7_message_type NOT NULL,
+    event_type renalware.hl7_event_type NOT NULL,
+    orc_filler_order_number character varying,
+    orc_order_status renalware.enum_hl7_orc_order_status,
+    header_id character varying,
+    body text NOT NULL,
+    nhs_number character varying,
+    local_patient_id character varying,
+    local_patient_id_2 character varying,
+    local_patient_id_3 character varying,
+    local_patient_id_4 character varying,
+    local_patient_id_5 character varying,
+    dob date,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: feed_sausages_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.feed_sausages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_sausages_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.feed_sausages_id_seq OWNED BY renalware.feed_sausages.id;
+
+
+--
 -- Name: good_job_batches; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7620,6 +7791,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -15167,6 +15348,20 @@ ALTER TABLE ONLY renalware.feed_replay_requests ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: feed_sausage_queue id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_sausage_queue ALTER COLUMN id SET DEFAULT nextval('renalware.feed_sausage_queue_id_seq'::regclass);
+
+
+--
+-- Name: feed_sausages id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_sausages ALTER COLUMN id SET DEFAULT nextval('renalware.feed_sausages_id_seq'::regclass);
+
+
+--
 -- Name: hd_cannulation_types id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -17099,6 +17294,22 @@ ALTER TABLE ONLY renalware.feed_raw_hl7_messages
 
 ALTER TABLE ONLY renalware.feed_replay_requests
     ADD CONSTRAINT feed_replay_requests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_sausage_queue feed_sausage_queue_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_sausage_queue
+    ADD CONSTRAINT feed_sausage_queue_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_sausages feed_sausages_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_sausages
+    ADD CONSTRAINT feed_sausages_pkey PRIMARY KEY (id);
 
 
 --
@@ -20286,6 +20497,27 @@ CREATE INDEX index_feed_replay_requests_on_criteria ON renalware.feed_replay_req
 --
 
 CREATE INDEX index_feed_replay_requests_on_patient_id ON renalware.feed_replay_requests USING btree (patient_id);
+
+
+--
+-- Name: index_feed_sausage_queue_on_feed_sausage_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_sausage_queue_on_feed_sausage_id ON renalware.feed_sausage_queue USING btree (feed_sausage_id);
+
+
+--
+-- Name: index_feed_sausages_on_orc_filler_order_number; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feed_sausages_on_orc_filler_order_number ON renalware.feed_sausages USING btree (orc_filler_order_number) WHERE ((orc_filler_order_number IS NOT NULL) AND ((orc_filler_order_number)::text <> ''::text));
+
+
+--
+-- Name: index_feed_sausages_on_sent_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_sausages_on_sent_at ON renalware.feed_sausages USING btree (sent_at);
 
 
 --
@@ -28381,6 +28613,8 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240314134618'),
+('20240314132659'),
 ('20240307171400'),
 ('20240305160414'),
 ('20240227120942'),
