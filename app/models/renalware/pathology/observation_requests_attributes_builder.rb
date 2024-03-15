@@ -118,7 +118,7 @@ module Renalware
           )
             {
               description_id: observation_description.id,
-              observed_at: parse_time(observed_at),
+              observed_at: parse_time(request.date_time), # parse_time(observed_at),
               result: observation.value,
               comment: observation.comment,
               cancelled: observation.cancelled
