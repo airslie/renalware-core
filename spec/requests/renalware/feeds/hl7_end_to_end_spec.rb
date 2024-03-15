@@ -70,13 +70,14 @@ describe "HL7 message handling end to end" do
       expect(request_fbc.description.code).to eq("FBC")
       expect(request_fbc.requestor_order_number).to eq("PLACER_ORDER_NO_1")
       expect(request_fbc.filler_order_number).to eq("FILLER_ORDER_NO_1")
+      expect(request_fbc.requested_at).to eq("200911111841")
       expect(request_fbc.observations.count).to eq(2)
 
       expect(request_fbc.observations.map { |obx| obx.description.code }).to eq(%w(WBC RBC))
 
       units = request_fbc.observations.map { |obx| obx.description.measurement_unit }
 
-      # Assert that any units that do not exist have been created and the unit assed to the
+      # Assert that any units that do not exist have been created and the unit added to the
       # description
       expect(units.compact.length).to eq(2)
       obx_descriptions = request_fbc.observations.map(&:description)
@@ -87,7 +88,7 @@ describe "HL7 message handling end to end" do
 
       expect(request_fbc.observations.first).to have_attributes(
         result: "6.09",
-        observed_at: Time.zone.parse("200911112026"),
+        observed_at: Time.zone.parse("200911111841"), # Copied from FBC OBR requested at!
         description: Renalware::Pathology::ObservationDescription.find_by(code: "WBC")
       )
 
@@ -99,7 +100,7 @@ describe "HL7 message handling end to end" do
 
       expect(request_rlu.observations[3]).to have_attributes(
         result: "102",
-        observed_at: Time.zone.parse("201801251249"),
+        observed_at: Time.zone.parse("201801251204"), # from OBR
         description: Renalware::Pathology::ObservationDescription.find_by(code: "CRE")
       )
 
@@ -108,7 +109,7 @@ describe "HL7 message handling end to end" do
         .to eq(%w(NA POT URE CRE EGFR))
       expect(request_rlu.observations[4]).to have_attributes(
         result: "10",
-        observed_at: Time.zone.parse("201801251249"),
+        observed_at: Time.zone.parse("201801251204"), # from OBR
         description: Renalware::Pathology::ObservationDescription.find_by(code: "EGFR")
       )
     end
