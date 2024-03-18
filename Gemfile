@@ -48,10 +48,12 @@ gem "terser"
 # so in a docker image the apt package is a better choice
 gem "httparty", require: false
 gem "wkhtmltopdf-binary", "0.12.3.1"
-# For sentry error reporting and metrics
-# gem "sentry-rails"
-# gem "sentry-ruby"
+
 gem "rake"
+
+# For sentry error reporting and metrics
+gem "sentry-rails"
+gem "sentry-ruby"
 gem "strong_migrations"
 
 gem "good_job"
