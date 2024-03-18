@@ -20206,10 +20206,31 @@ CREATE INDEX index_event_versions_on_item_type_and_item_id ON renalware.event_ve
 
 
 --
+-- Name: index_events_on_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_events_on_created_at ON renalware.events USING btree (created_at DESC);
+
+
+--
+-- Name: index_events_on_created_at_as_date; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_events_on_created_at_as_date ON renalware.events USING btree (date(created_at) DESC NULLS LAST);
+
+
+--
 -- Name: index_events_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE INDEX index_events_on_created_by_id ON renalware.events USING btree (created_by_id);
+
+
+--
+-- Name: index_events_on_date_time; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_events_on_date_time ON renalware.events USING btree (date_time DESC);
 
 
 --
@@ -20259,6 +20280,13 @@ CREATE INDEX index_events_on_subtype_id ON renalware.events USING btree (subtype
 --
 
 CREATE INDEX index_events_on_type ON renalware.events USING btree (type);
+
+
+--
+-- Name: index_events_on_updated_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_events_on_updated_at ON renalware.events USING btree (updated_at DESC);
 
 
 --
@@ -28613,6 +28641,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240318182553'),
 ('20240314134618'),
 ('20240314132659'),
 ('20240307171400'),
