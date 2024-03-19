@@ -42,7 +42,7 @@ module Renalware
                 allow_blank: true
 
       enumerize :operation_type,
-                in: %i(kidney kidney_dual kidney_pancreas pancreas kidney_liver liver)
+                in: %i(kidney kidney_dual kidney_pancreas kidney_other pancreas kidney_liver liver)
 
       def theatre_case_start_time
         TimeOfDay.new(self[:theatre_case_start_time])
