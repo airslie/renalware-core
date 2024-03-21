@@ -14855,6 +14855,39 @@ CREATE VIEW renalware_demo.reporting_example_data AS
 
 
 --
+-- Name: solid_cache_entries; Type: TABLE; Schema: renalware_demo; Owner: -
+--
+
+CREATE TABLE renalware_demo.solid_cache_entries (
+    id bigint NOT NULL,
+    key bytea NOT NULL,
+    value bytea NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    key_hash bigint NOT NULL,
+    byte_size integer NOT NULL
+);
+
+
+--
+-- Name: solid_cache_entries_id_seq; Type: SEQUENCE; Schema: renalware_demo; Owner: -
+--
+
+CREATE SEQUENCE renalware_demo.solid_cache_entries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: solid_cache_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware_demo; Owner: -
+--
+
+ALTER SEQUENCE renalware_demo.solid_cache_entries_id_seq OWNED BY renalware_demo.solid_cache_entries.id;
+
+
+--
 -- Name: access_assessments id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -16700,6 +16733,13 @@ ALTER TABLE ONLY renalware.virology_vaccination_types ALTER COLUMN id SET DEFAUL
 --
 
 ALTER TABLE ONLY renalware.virology_versions ALTER COLUMN id SET DEFAULT nextval('renalware.virology_versions_id_seq'::regclass);
+
+
+--
+-- Name: solid_cache_entries id; Type: DEFAULT; Schema: renalware_demo; Owner: -
+--
+
+ALTER TABLE ONLY renalware_demo.solid_cache_entries ALTER COLUMN id SET DEFAULT nextval('renalware_demo.solid_cache_entries_id_seq'::regclass);
 
 
 --
@@ -18884,6 +18924,14 @@ ALTER TABLE ONLY renalware.virology_vaccination_types
 
 ALTER TABLE ONLY renalware.virology_versions
     ADD CONSTRAINT virology_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: solid_cache_entries solid_cache_entries_pkey; Type: CONSTRAINT; Schema: renalware_demo; Owner: -
+--
+
+ALTER TABLE ONLY renalware_demo.solid_cache_entries
+    ADD CONSTRAINT solid_cache_entries_pkey PRIMARY KEY (id);
 
 
 --
@@ -25054,6 +25102,27 @@ CREATE UNIQUE INDEX unique_study_participants ON renalware.research_participatio
 
 
 --
+-- Name: index_solid_cache_entries_on_byte_size; Type: INDEX; Schema: renalware_demo; Owner: -
+--
+
+CREATE INDEX index_solid_cache_entries_on_byte_size ON renalware_demo.solid_cache_entries USING btree (byte_size);
+
+
+--
+-- Name: index_solid_cache_entries_on_key_hash; Type: INDEX; Schema: renalware_demo; Owner: -
+--
+
+CREATE UNIQUE INDEX index_solid_cache_entries_on_key_hash ON renalware_demo.solid_cache_entries USING btree (key_hash);
+
+
+--
+-- Name: index_solid_cache_entries_on_key_hash_and_byte_size; Type: INDEX; Schema: renalware_demo; Owner: -
+--
+
+CREATE INDEX index_solid_cache_entries_on_key_hash_and_byte_size ON renalware_demo.solid_cache_entries USING btree (key_hash, byte_size);
+
+
+--
 -- Name: delayed_jobs feed_messages_preprocessing_trigger; Type: TRIGGER; Schema: renalware; Owner: -
 --
 
@@ -28631,6 +28700,10 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240321174505'),
+('20240321174504'),
+('20240321174503'),
+('20240321174502'),
 ('20240318191505'),
 ('20240318182553'),
 ('20240314134618'),

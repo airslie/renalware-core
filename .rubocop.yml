@@ -108,6 +108,7 @@ Layout/LineLength:
     - "features/step_definitions/**/*"
     - "config/initializers/**/*"
     - "app/inputs/**.*"
+    - "demo/db/**/*"
 Style/FrozenStringLiteralComment:
   Exclude:
     - "demo/db/migrate/**/*"
