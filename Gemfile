@@ -14,13 +14,11 @@ gem "activesupport_cache_database", github: "airslie/activesupport-cache-databas
 # opentelemetry is enabled with an ENV var.
 group :opentelemetry do
   gem "opentelemetry-exporter-otlp"
-  gem "opentelemetry-instrumentation-delayed_job"
   gem "opentelemetry-instrumentation-faraday"
   gem "opentelemetry-instrumentation-net_http"
   gem "opentelemetry-instrumentation-pg"
   gem "opentelemetry-instrumentation-rack"
   gem "opentelemetry-instrumentation-rails"
-  gem "opentelemetry-instrumentation-redis"
   gem "opentelemetry-sdk"
 end
 
@@ -38,9 +36,9 @@ gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "rails", "~> 7.1.0"
-gem "redis", "~> 4.8"
 gem "renalware-forms", ">=0.1", github: "airslie/renalware-forms", branch: "main"
 gem "ruby-prof", require: false
+gem "solid_cache"
 gem "terser"
 # Re wkhtmltopdf binary for letter generation
 # a host app could include the wkhtmltopdf-binary gem, or use the apt package.
