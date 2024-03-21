@@ -66,7 +66,7 @@ Gem::Specification.new do |s|
   s.add_dependency "inline_svg", "~> 1.8"
   s.add_dependency "jbuilder", "~> 2.8"
   s.add_dependency "jquery-rails", "~> 4.4.0"
-  s.add_dependency "jquery-ui-rails", "~> 6.0.1"
+  s.add_dependency "jquery-ui-rails", ">= 6.0.1", "< 7.1.0"
   s.add_dependency "kaminari", "~> 1.1"
   s.add_dependency "liquid", "~> 4.0.0"
   s.add_dependency "lograge", "~> 0.11"
