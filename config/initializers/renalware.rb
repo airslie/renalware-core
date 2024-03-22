@@ -9,7 +9,7 @@ require_relative "../../app/models/concerns/renalware/broadcasting"
 # publishing class. If you want a subscriber to listen asynchronously for events via ActiveJob,
 # use an Subscriber instance like so
 # "Renalware::Modalities::ChangePatientModality" => [
-#   Renalware::Broadcasting::Subscriber.new("Renalware::Patients::DummyListener", async: true),
+#   Renalware::Broadcasting::Subscriber.new("Renalware::Patients::DemoListener", async: true),
 #   ...
 # ]
 # TODO: Ideally we would like an API something like this:
