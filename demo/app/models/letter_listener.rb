@@ -9,19 +9,18 @@ class LetterListener
     # At KCH, we email the letter to the practice on approval, provided the practice
     # has an email address.
     # EmailLetterToPractice uses deliver_later so email delivery effectively asynchronous
-    Renalware::Letters::Delivery::EmailLetterToPractice.call(letter)
+    Renalware::Letters::Delivery::Email::EmailLetterToPractice.call(letter)
 
     # MSE (pre-ToC) use HL7 transmission of letters via outgoing_documents table and Mirth
     Renalware::Feeds::OutgoingDocument.create!(renderable: letter, by: letter.approved_by)
 
-    queue_a_transfer_of_care_transmission_for_async_delivery_to_gp_over_mesh(letter)
+    queue_a_mesh_transmission_for_async_delivery_to_gp_over_mesh(letter)
   end
 
   private
 
-  def queue_a_transfer_of_care_transmission_for_async_delivery_to_gp_over_mesh(letter)
-    transmission =
-      Renalware::Letters::Delivery::TransferOfCare::Transmission.create!(letter: letter)
-    Renalware::Letters::Delivery::TransferOfCare::Jobs::SendMessageJob.perform_later(transmission)
+  def queue_a_mesh_transmission_for_async_delivery_to_gp_over_mesh(letter)
+    transmission = Renalware::Letters::Transports::Mesh::Transmission.create!(letter: letter)
+    Renalware::Letters::Transports::Mesh::SendMessageJob.perform_later(transmission)
   end
 end

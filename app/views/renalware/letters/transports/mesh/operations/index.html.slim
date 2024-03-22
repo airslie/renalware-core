@@ -1,0 +1,15 @@
+= content_for(:tabs) do
+  = render "renalware/letters/transports/mesh/tabs"
+
+= content_for(:actions) do
+  = render "renalware/letters/transports/mesh/actions"
+
+= content_for(:filters) do
+  = render "filters", search: search
+
+= within_new_admin_layout(title: "Transfer Of Care / All Operations") do
+  table.text-sm.stripeless.mt-4
+    thead.text-sm= render "renalware/letters/transports/mesh/thead"
+    tbody= render operations
+
+  == pagy_nav pagy

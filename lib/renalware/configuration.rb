@@ -29,6 +29,7 @@ module Renalware
     config_accessor(:letters_render_pdfs_with_prawn) {
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("LETTERS_RENDER_PDFS_WITH_PRAWN", "false"))
     }
+    config_accessor(:letters_mesh_workflow) { :gp_connect } # or :transfer_of_care
     config_accessor(:allow_qr_codes_in_letters) do
       ENV.fetch("ALLOW_QR_CODES_IN_LETTERS", "false") == "true"
     end

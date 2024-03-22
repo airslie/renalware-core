@@ -38,6 +38,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "DNA"
   inflect.acronym "EDTA"
   inflect.acronym "ESRF"
+  inflect.acronym "FHIR"
   inflect.acronym "GMC"
   inflect.acronym "GP"
   inflect.acronym "HD"

@@ -118,8 +118,8 @@ RSpec/SpecFilePathFormat:
 
 Metrics/MethodLength:
   Exclude:
-    - app/models/renalware/letters/delivery/transfer_of_care/resources/*.rb
-    - app/models/renalware/letters/delivery/transfer_of_care/lists/*.rb
+    - app/models/renalware/letters/formats/fhir/resources/*
+    - app/models/renalware/letters/formats/fhir/lists/*
 
 Layout/MultilineMethodCallIndentation:
   Enabled: false

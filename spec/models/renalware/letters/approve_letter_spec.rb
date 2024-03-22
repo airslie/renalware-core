@@ -3,6 +3,7 @@
 module Renalware
   describe Letters::ApproveLetter do
     include LettersSpecHelper
+
     subject(:service) do
       described_class
         .build(letter)

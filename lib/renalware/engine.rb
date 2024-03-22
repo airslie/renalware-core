@@ -64,6 +64,11 @@ require "debug" if ENV.fetch("RAILS_ENV", nil) == "development"
 
 # Require engines inside /packs
 Dir["#{File.dirname(__FILE__)}/../../packs/*/lib/**/engine.rb"].each { |f| require f }
+# # include packs
+# require_relative "../../packs/reporting/lib/engine"
+# require_relative "../../packs/nhs_letter_messaging/lib/engine"
+# include packs
+# require_relative "../../packs/reporting/lib/engine"
 
 module Renalware
   # Don't have prefix method return anything.
@@ -143,13 +148,13 @@ module Renalware
 
           transfer_of_care_handshake: {
             cron: "every day at 2am",
-            class: "Renalware::Letters::Delivery::TransferOfCare::Jobs::HandshakeJob",
+            class: "Renalware::Letters::Transports::TransferOfCare::Jobs::HandshakeJob",
             description: "Lets ToC know to keep the inbox connection alive"
           },
 
           transfer_of_care_check_inbox_for_outstanding_responses: {
             cron: "*/15 * * * *",
-            class: "Renalware::Letters::Delivery::TransferOfCare::Jobs::CheckInboxJob",
+            class: "Renalware::Letters::Transports::TransferOfCare::Jobs::CheckInboxJob",
             description: "Check our MESH inbox for incoming ToC messages"
           }
         }.merge(good_job_config_to_enable_feed_import_via_raw_hl7_messages_table)

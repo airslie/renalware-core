@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  module Letters::Delivery::TransferOfCare::Sections
+  module Letters::Formats::FHIR::Resources::TransferOfCare::Sections
     class SectionPreviewComponent < ViewComponent::Preview
       def with_letter_id(letter_id: nil)
         letter = if letter_id.present?
