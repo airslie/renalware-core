@@ -7,7 +7,7 @@ Bundler.require(*Rails.groups)
 
 require "renalware"
 
-module Dummy
+module Demo
   class Application < Rails::Application
     config.load_defaults 7.1
 
