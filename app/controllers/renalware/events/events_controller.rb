@@ -4,18 +4,19 @@ module Renalware
   module Events
     class EventsController < BaseController
       include Renalware::Concerns::PatientVisibility
-      include Renalware::Concerns::Pageable
+      include Pagy::Backend
       include Renalware::Concerns::PdfRenderable
 
       def index
         events_query = EventQuery.new(patient: patient, query: query_params)
-        events = events_query.call.page(page).per(per_page)
+        pagy, events = pagy(events_query.call)
         authorize events
         events = EventsPresenter.new(patient, events)
 
         render locals: {
           events: events,
-          query: events_query.search
+          query: events_query.search,
+          pagy: pagy
         }
       end
 
