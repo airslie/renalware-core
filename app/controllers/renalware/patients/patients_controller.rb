@@ -4,24 +4,25 @@ module Renalware
   module Patients
     class PatientsController < Renalware::BaseController
       include PresenterHelper
-      include Renalware::Concerns::Pageable
+      include Pagy::Backend
       include Renalware::Concerns::PatientVisibility
 
       def index
         sort = params.dig(:q, :s)
         patient_search.sorts = sort if sort
-        patients = patient_search.result.page(page).per(per_page)
+        pagy, patients = pagy(patient_search.result)
         authorize patients
         render locals: {
           search: patient_search,
-          patients: present(patients, PatientPresenter)
+          patients: present(patients, PatientPresenter),
+          pagy: pagy
         }
       end
 
       def search
         skip_authorization
         query = Patients::SearchQuery.new(term: params[:term], scope: patient_scope)
-        patients = query.call.page(page).per(per_page)
+        _pagy, patients = pagy(query.call)
         render json: simplify(patients).to_json
       end
 
