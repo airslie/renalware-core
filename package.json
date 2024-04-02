@@ -16,7 +16,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.17.12",
     "@babel/preset-env": "^7.8.4",
     "@hotwired/stimulus": "^3.0.1",
-    "@hotwired/turbo-rails": "7.3.0",
+    "@hotwired/turbo-rails": "8.0.4",
     "@rollup/plugin-commonjs": "^25.0",
     "@rollup/plugin-inject": "^5.0",
     "@rollup/plugin-node-resolve": "^15.2",
