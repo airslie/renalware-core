@@ -123,7 +123,7 @@ PATH
       sprockets-rails
       store_model (< 3)
       tailwindcss-rails (~> 2.3)
-      turbo-rails (= 1.5.0)
+      turbo-rails (= 2.0.5)
       validates_timeliness (~> 7.0.0.beta1)
       view_component (< 4.0)
       virtus (~> 1.0.5)
@@ -948,7 +948,7 @@ GEM
       tty-screen (~> 0.8)
       wisper (~> 2.0)
     tty-screen (0.8.2)
-    turbo-rails (1.5.0)
+    turbo-rails (2.0.5)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
