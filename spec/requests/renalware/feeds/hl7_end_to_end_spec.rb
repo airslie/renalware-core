@@ -166,12 +166,12 @@ describe "HL7 message handling end to end" do
     end
   end
 
-  context "when OBX.14 and OBR.7 dates is missing" do
+  context "when OBR.7 and OBR.14 dates are missing" do
     let(:raw_message) do
       <<~RAW
         MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
         PID|||Z999990^^^HOSP1||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
-        OBR|1|PLACER_ORDER_NO_1^PCS|FILLER_ORDER_NO_1^LA|FBC^FULL BLOOD COUNT^MB||200911111841||||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||||HM|F||||||||||||||||||
+        OBR|1|PLACER_ORDER_NO_1^PCS|FILLER_ORDER_NO_1^LA|FBC^FULL BLOOD COUNT^MB||||||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||||HM|F||||||||||||||||||
         OBX|1|TX|WBC^WBC^MB||6.09|10\\S\\12/L|||||F|||||BBKA^Donald DUCK|
       RAW
     end
