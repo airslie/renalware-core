@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "./db/seeds/seeds_helper"
-
 module Renalware
   module Patients
     extend SeedsHelper
@@ -33,7 +31,7 @@ module Renalware
           pat.born_on = "1970-01-01"
           pat.local_patient_id = "ITK_#{idx}"
         end
-        p row["PRIMARY_CARE_CODE"]
+
         patient.practice = Practice.find_by!(code: row["PRIMARY_CARE_CODE"])
         address = patient.current_address || patient.build_current_address
         address.street_1 = row["ADDR1"]
