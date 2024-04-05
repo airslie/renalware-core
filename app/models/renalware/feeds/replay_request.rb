@@ -62,7 +62,7 @@ module Renalware
         msg_replay.success = true
       rescue StandardError => e
         self.failed_messages += 1
-        msg_replay.error_message = e.message
+        msg_replay.error_message = e.full_message
         msg_replay.success = false
       ensure
         save!
