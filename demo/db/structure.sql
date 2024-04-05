@@ -1122,6 +1122,7 @@ CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp wit
       dob                 = EXCLUDED.dob,
       updated_at          = current_timestamp
       where EXCLUDED.sent_at > feed_sausages.sent_at
+      and EXCLUDED.header_id::integer > feed_sausages.header_id::integer
       RETURNING feed_sausages.id into id_of_upserted_feed_sausage;
     --
     if id_of_upserted_feed_sausage > 0 then
@@ -28700,6 +28701,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240405083738'),
 ('20240321174505'),
 ('20240321174504'),
 ('20240321174503'),

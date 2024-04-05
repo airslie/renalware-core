@@ -5,10 +5,12 @@ require "rails_helper"
 describe "Mirth HL7 feed processing simulation" do
   def oru_message(
     sent_at: "20240316235859",
-    orc_filler_order_number: "12345"
+    orc_filler_order_number: "12345",
+    header_id: 1
   )
     Renalware::Feeds::Sausage.create!(
       sent_at: Time.zone.parse(sent_at),
+      header_id: header_id,
       orc_filler_order_number: orc_filler_order_number,
       message_type: "ORU",
       event_type: "R01",
@@ -57,7 +59,7 @@ describe "Mirth HL7 feed processing simulation" do
     local_patient_id: "local1",
     local_patient_id_2: "local2",
     local_patient_id_3: "local3",
-    header_id: "xxx"
+    header_id: 1
   )
     fmt_sent_at = if sent_at.present?
                     "TO_TIMESTAMP('#{sent_at}', 'YYYYMMDDHH24MISS')::timestamp without time zone"
@@ -142,17 +144,24 @@ describe "Mirth HL7 feed processing simulation" do
     end
 
     context "when a msg with a ORC Filler Order Number already exists" do
-      it "updates the existing row and adds the msg to the queue" do
-        sausage = oru_message(orc_filler_order_number: "12335", sent_at: "20010101111111")
+      it "updates the existing row and adds the msg to the queue if sent_at and header id are " \
+         "greater" do
+        sausage = oru_message(
+          orc_filler_order_number: "12335",
+          sent_at: "20010101111111",
+          header_id: 10
+        )
 
         expect(Renalware::Feeds::Sausage.count).to eq(1)
         expect(Renalware::Feeds::SausageQueue.count).to eq(0)
         expect(sausage.created_at - sausage.updated_at).to eq(0.0) # ie not changes yet
         expect(sausage.version).to eq(1)
+        expect(sausage.header_id).to eq("10")
 
         result = simulate_mirth_creating_oru_message(
           orc_filler_order_number: "12335",
-          sent_at: "20010101222222"
+          sent_at: "20010101222222",
+          header_id: "11"
         )
 
         sausage_id, sausage_queue_id = result.values[0]
@@ -170,12 +179,14 @@ describe "Mirth HL7 feed processing simulation" do
     end
 
     context "when a msg with ORC Filler Order Number exists and is already in the queue" do
-      context "when the sent_at in the new msg is newer than the one stored" do
+      context "when the sent_at in the new msg is newer than the one stored" \
+              "and the header_id integer is a higher number" do
         it "updates the existing row and adds a new entry in the queue" do
           # First create the message and the queue entry ie the indication to 'please pick me up'
           simulate_mirth_creating_oru_message(
             orc_filler_order_number: "12335",
-            sent_at: "20010101111111"
+            sent_at: "20010101111111",
+            header_id: 10
           )
 
           # Sanity check
@@ -202,7 +213,7 @@ describe "Mirth HL7 feed processing simulation" do
             local_patient_id: "new local 1",
             local_patient_id_2: "new local 2",
             local_patient_id_3: "new local 3",
-            header_id: "aaa"
+            header_id: "11"
           )
 
           sausage.reload
@@ -223,7 +234,7 @@ describe "Mirth HL7 feed processing simulation" do
             nhs_number: "1111111111",
             local_patient_id: "new local 1",
             local_patient_id_2: "new local 2",
-            header_id: "aaa",
+            header_id: "11",
             local_patient_id_3: "new local 3"
           )
         end
