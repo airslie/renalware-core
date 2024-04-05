@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "./db/seeds/seeds_helper"
-
 module Renalware
   module Patients
     extend SeedsHelper
