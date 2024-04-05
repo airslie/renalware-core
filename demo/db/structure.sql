@@ -1121,7 +1121,7 @@ CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp wit
       local_patient_id_5  = EXCLUDED.local_patient_id_5,
       dob                 = EXCLUDED.dob,
       updated_at          = current_timestamp
-      where EXCLUDED.sent_at > feed_sausages.sent_at
+      where EXCLUDED.sent_at >= feed_sausages.sent_at
       and EXCLUDED.header_id::integer > feed_sausages.header_id::integer
       RETURNING feed_sausages.id into id_of_upserted_feed_sausage;
     --
@@ -7792,6 +7792,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -28701,6 +28711,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240405092805'),
 ('20240405083738'),
 ('20240321174505'),
 ('20240321174504'),
