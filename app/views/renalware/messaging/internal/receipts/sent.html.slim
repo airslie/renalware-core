@@ -6,5 +6,5 @@
 
 = within_admin_layout(title: "Messages") do
   = render "sent_table", receipts: receipts
-  = paginate receipts
+  == pagy_nav(pagy)
   = render "renalware/messaging/internal/messages/modal_dialog_placeholder"
