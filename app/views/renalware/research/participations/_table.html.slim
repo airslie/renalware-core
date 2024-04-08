@@ -15,4 +15,4 @@
     tbody
       = render participations, study: study
 
-  == pagy_nav(pagy)
+  == pagy_nav(pagy) if pagy.pages > 1
