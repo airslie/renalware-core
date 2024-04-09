@@ -20062,8 +20062,6 @@ var _default$v = /*#__PURE__*/function (_Controller) {
     key: "toggle",
     value: function toggle(event) {
       var _this = this;
-      // event.preventDefault()
-
       this.toggleableTargets.forEach(function (target) {
         target.classList.toggle(_this.toggleClass);
       });

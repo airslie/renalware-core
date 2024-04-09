@@ -76,7 +76,7 @@ Gem::Specification.new do |s|
   s.add_dependency "nokogiri", "~> 1.9"
   s.add_dependency "ox", "~> 2.13"
   s.add_dependency "packs-rails"
-  s.add_dependency "pagy", "~> 7.0"
+  s.add_dependency "pagy", "~> 8.0"
   s.add_dependency "pandoc-ruby", "~> 2.1.4"
   s.add_dependency "paper_trail"
   s.add_dependency "paranoia", "~> 2.6.0"
