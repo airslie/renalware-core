@@ -49,9 +49,14 @@ gem "wkhtmltopdf-binary", "0.12.3.1"
 
 gem "rake"
 
-# For sentry error reporting and metrics
-gem "sentry-rails"
+# For sentry error reporting and metrics - load stackprof first
+# rubocop:disable Bundler/OrderedGems
+gem "stackprof"
+gem "sentry-opentelemetry"
 gem "sentry-ruby"
+gem "sentry-rails"
+# rubocop:enable Bundler/OrderedGems
+
 gem "strong_migrations"
 
 gem "good_job"
@@ -110,5 +115,5 @@ group :development, :test do
   gem "pry-byebug"
   gem "pry-rails"
   gem "rspec-rails"
-  gem "rubocop", require: false
+  gem "rubocop", "1.62.1", require: false
 end
