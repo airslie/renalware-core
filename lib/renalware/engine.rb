@@ -118,7 +118,7 @@ module Renalware
             class: "Renalware::InvokeCommandJob",
             args: ["bundle exec rake reporting:send_daily_summary_email"],
             description: "Send an email report on the day's
-                          activity (exluding sensitive data) to configured recipients".squish
+                          activity (excluding sensitive data) to configured recipients".squish
           },
 
           ukrdc_export: {

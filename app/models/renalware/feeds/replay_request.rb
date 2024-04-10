@@ -33,6 +33,7 @@ module Renalware
           reason: reason
         )
         yield replay_request
+        replay_request
       ensure
         replay_request&.update!(finished_at: Time.zone.now)
       end

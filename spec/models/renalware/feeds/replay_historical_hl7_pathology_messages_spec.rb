@@ -18,7 +18,6 @@ module Renalware
       context "when feed_messages are replayed successfully" do
         it do
           allow(MessageParser).to receive(:parse).and_return(NullObject.instance)
-          patient = create(:patient, nhs_number: "0123456789", born_on: "2001-01-01")
           feed_message = Message.create!(
             nhs_number: "0123456789",
             dob: "2001-01-01",
@@ -30,6 +29,7 @@ module Renalware
             sent_at: 1.day.ago,
             header_id: "123"
           )
+          patient = create(:patient, nhs_number: "0123456789", born_on: "2001-01-01")
 
           freeze_time do
             now = Time.zone.now
@@ -59,7 +59,6 @@ module Renalware
         context "when one feed_message signals an error during replay" do
           # rubocop:disable RSpec/ExampleLength
           it "flags that one as failed" do
-            patient = create(:patient, nhs_number: "0123456789", born_on: "2001-01-01")
             feed_message_fail = Message.create!(
               nhs_number: "0123456789",
               dob: "2001-01-01",
@@ -84,17 +83,20 @@ module Renalware
               orc_filler_order_number: "456",
               sent_at: 1.day.ago
             )
+            patient = create(:patient, nhs_number: "0123456789", born_on: "2001-01-01")
             # allow(MessageParser).to receive(:parse).and_return(NullObject.instance)
 
             freeze_time do
               now = Time.zone.now
+              replay_request = nil
               # skip broadcasting_to_configured_subscribers which happens in class.call
               expect {
-                described_class.new(patient: patient).call
+                replay_request = described_class.new(patient: patient).call
               }
                 .to change(ReplayRequest, :count).by(1)
                 .and change(MessageReplay, :count).by(2)
 
+              expect(replay_request).to eq(ReplayRequest.last)
               expect(ReplayRequest.last).to have_attributes(
                 started_at: now,
                 finished_at: now,
