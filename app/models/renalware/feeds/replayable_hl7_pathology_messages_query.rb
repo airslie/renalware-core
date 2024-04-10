@@ -23,33 +23,37 @@ module Renalware
     # 'replayed messages' table where success was indicated.
     class ReplayableHL7PathologyMessagesQuery
       include Callable
-      pattr_initialize [:patient!]
+      pattr_initialize [:patient!, search_before_patient_creation_only: true]
 
       class MissingNHSNumberError < StandardError; end
       class MissingDOBNumberError < StandardError; end
-
-      # PATIENT_IDENTIFICATION_COLUMNS = %i(
-      #   local_patient_id
-      #   local_patient_id_2
-      #   local_patient_id_3
-      #   local_patient_id_4
-      #   local_patient_id_5
-      # ).freeze
 
       def call
         raise MissingNHSNumberError if patient.nhs_number.blank?
         raise MissingDOBNumberError if patient.born_on.blank?
 
-        ids = feed_message_ids(nhs_number: patient.nhs_number, dob: patient.born_on.to_s)
+        ids = feed_message_ids(
+          nhs_number: patient.nhs_number,
+          dob: patient.born_on.to_s,
+          before: datetime_to_search_back_from
+        )
         Renalware::Feeds::Message.where(id: ids).order(sent_at: :asc)
       end
 
       private
 
+      def datetime_to_search_back_from
+        if search_before_patient_creation_only && patient.created_at
+          patient.created_at
+        else
+          100.years.from_now
+        end
+      end
+
       # Get a distinct feed message for each orc_filler_order_number, talking the most recently
       # sent one. Return an array of matching ids.
       # rubocop:disable Metrics/MethodLength
-      def feed_message_ids(nhs_number:, dob:)
+      def feed_message_ids(nhs_number:, dob:, before:)
         sql = <<-SQL.squish
           SELECT distinct on (orc_filler_order_number) fm.id
             FROM renalware.feed_messages fm
@@ -57,20 +61,22 @@ module Renalware
               ON fmr.message_id = fm.id
               AND fmr.success = true
             WHERE
-              message_type = 'ORU'
-              AND event_type = 'R01'
-              AND nhs_number = ?
-              AND dob = ?
-              AND sent_at IS NOT NULL
+              fm.message_type = 'ORU'
+              AND fm.event_type = 'R01'
+              AND fm.nhs_number = ?
+              AND fm.dob = ?
+              AND fm.sent_at IS NOT NULL
+              AND fm.created_at <= ?
               AND fmr.id IS NULL
             ORDER BY
-              orc_filler_order_number, sent_at desc
+              orc_filler_order_number, sent_at desc, id desc
         SQL
         sql = ActiveRecord::Base.sanitize_sql_array(
           [
             sql,
             nhs_number,
-            dob
+            dob,
+            before
           ]
         )
         ActiveRecord::Base.connection.execute(sql)&.values&.flatten
@@ -79,25 +85,3 @@ module Renalware
     end
   end
 end
-
-# sql = <<-SQL.squish
-#           with final_oru_messages as (
-#             SELECT distinct on (orc_filler_order_number) fm.id
-#               FROM renalware.feed_messages fm
-#               LEFT OUTER JOIN renalware.feed_message_replays fmr
-#                 ON fmr.message_id = fm.id
-#                 AND fmr.success = true
-#               WHERE
-#                 message_type = 'ORU'
-#                 AND event_type = 'R01'
-#                 AND nhs_number = ?
-#                 AND dob = ?
-#                 AND sent_at IS NOT NULL
-#               ORDER BY
-#                 orc_filler_order_number, sent_at desc
-#           )
-#           select fm1.*
-#             from feed_messages fm1
-#             inner join final_oru_messages using(id)
-#             order by fm1.sent_at asc
-#         SQL

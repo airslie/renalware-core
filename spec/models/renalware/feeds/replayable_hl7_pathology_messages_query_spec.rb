@@ -14,6 +14,7 @@ module Renalware
         body: "some-hl7#{Time.zone.now.to_i}",
         created_at: Time.zone.now,
         processed: false,
+        orc_filler_order_number: SecureRandom.uuid,
         **
       )
         Message.create!(
@@ -23,7 +24,7 @@ module Renalware
           orc_order_status: "CM",
           header_id: 1,
           body: body,
-          orc_filler_order_number: Time.zone.now.to_i,
+          orc_filler_order_number: orc_filler_order_number,
           sent_at: Time.zone.now,
           created_at: created_at,
           updated_at: created_at,
@@ -32,6 +33,23 @@ module Renalware
         )
       end
       # rubocop:enable Metrics/MethodLength
+
+      it "finds the most recently sent messages distinct on orc_filler_order_number" do
+        patient = build(:patient, nhs_number: nhs_num, born_on: dob)
+        common_args = {
+          nhs_number: patient.nhs_number,
+          dob: patient.born_on,
+          orc_filler_order_number: "123"
+        }
+        _msg_mo_match = create_message(nhs_number: "abc")
+        _msg_123_superseded = create_message(sent_at: 2.days.ago, **common_args)
+        msg_123_match = create_message(sent_at: 1.day.ago, **common_args)
+
+        results = described_class.new(patient: patient).call
+
+        expect(results.to_a.size).to eq(1)
+        expect(results.to_a).to eq([msg_123_match])
+      end
 
       it "finds messages by nhs_number + DOB (oldest first) if local_patient_ids don't match" do
         patient = build(:patient, nhs_number: nhs_num, born_on: dob)
@@ -47,9 +65,8 @@ module Renalware
 
         results = described_class.new(patient: patient).call
 
-        pending "fixme"
-
-        expect(results).to eq([msg_matched2, msg_matched1])
+        expect(results.to_a.size).to eq(2)
+        expect(results.to_a).to eq([msg_matched1, msg_matched2])
       end
 
       # describe "matrix of patient <=> feed_message match conditions" do
@@ -154,20 +171,6 @@ module Renalware
       #   end
       # end
 
-      it "does not find messages that are already processed" do
-        patient = build(:patient, nhs_number: nhs_num, born_on: dob)
-        create_message(nhs_number: "nomatch", dob: dob) # no hit
-        create_message(nhs_number: nhs_num, dob: dob, processed: true) # a miss as processed is true
-        unprocessed_msg1 = create_message(nhs_number: nhs_num, dob: dob, processed: nil)
-        unprocessed_msg2 = create_message(nhs_number: nhs_num, dob: dob, processed: false)
-
-        results = described_class.new(patient: patient).call
-
-        pending "fixme"
-
-        expect(results).to contain_exactly(unprocessed_msg1, unprocessed_msg2)
-      end
-
       %i(
         local_patient_id
         local_patient_id_2
@@ -194,7 +197,7 @@ module Renalware
 
           results = described_class.call(patient: patient)
 
-          pending "fixme"
+          pending "Not yet implemented"
 
           expect(results.to_a).to eq([msg_matched2, msg_matched1])
         end
@@ -223,6 +226,92 @@ module Renalware
           results = described_class.new(patient: patient).call
 
           expect(results).to be_empty
+        end
+      end
+
+      context "when finding feed message received before the patient was created in RW" do
+        context "when no search_before_patient_creation_only argument supplied (default=true)" do
+          it "excludes msgs received after pnt creation (these will have already been ingested)" do
+            freeze_time do
+              patient_created_at = Time.zone.now
+              patient = create(
+                :patient,
+                nhs_number: nhs_num,
+                born_on: dob,
+                created_at: patient_created_at
+              )
+              msg_args = { nhs_number: nhs_num, dob: dob, processed: false }
+              _msg_recv_after_patient_creation = create_message(
+                created_at: patient_created_at + 1.day, **msg_args
+              )
+              msg_recv_before_patient_creation = create_message(
+                created_at: patient_created_at - 1.day, **msg_args
+              )
+
+              # search_before_patient_creation_only: true is default
+              results = described_class.new(patient: patient).call
+
+              expect(results.to_a).to eq([msg_recv_before_patient_creation])
+            end
+          end
+        end
+
+        context "when search_before_patient_creation_only: true" do
+          it "excludes msgs received after pnt creation (these will have already been ingested)" do
+            freeze_time do
+              patient_created_at = Time.zone.now
+              patient = create(
+                :patient,
+                nhs_number: nhs_num,
+                born_on: dob,
+                created_at: patient_created_at
+              )
+              msg_args = { nhs_number: nhs_num, dob: dob, processed: false }
+              _msg_recv_after_patient_creation = create_message(
+                created_at: patient_created_at + 1.day, **msg_args
+              )
+              msg_recv_before_patient_creation = create_message(
+                created_at: patient_created_at - 1.day, **msg_args
+              )
+
+              results = described_class.new(
+                patient: patient,
+                search_before_patient_creation_only: true
+              ).call
+
+              expect(results.to_a).to eq([msg_recv_before_patient_creation])
+            end
+          end
+        end
+
+        context "when search_before_patient_creation_only: false" do
+          it "includes msgs received after pnt creation" do
+            freeze_time do
+              patient_created_at = Time.zone.now
+              patient = create(
+                :patient,
+                nhs_number: nhs_num,
+                born_on: dob,
+                created_at: patient_created_at
+              )
+              msg_args = { nhs_number: nhs_num, dob: dob, processed: false }
+              msg_recv_after_patient_creation = create_message(
+                created_at: patient_created_at + 1.week, **msg_args
+              )
+              msg_recv_before_patient_creation = create_message(
+                created_at: patient_created_at - 1.week, **msg_args
+              )
+
+              results = described_class.new(
+                patient: patient,
+                search_before_patient_creation_only: false
+              ).call
+
+              expect(results.to_a).to eq(
+                [msg_recv_after_patient_creation, msg_recv_before_patient_creation]
+              )
+            end
+          end
         end
       end
     end
