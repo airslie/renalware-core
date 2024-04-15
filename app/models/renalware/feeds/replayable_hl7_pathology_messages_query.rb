@@ -27,14 +27,15 @@ module Renalware
 
       class MissingNHSNumberError < StandardError; end
       class MissingDOBNumberError < StandardError; end
+      class PatientNotPersistedError < StandardError; end
 
       def call
+        raise PatientNotPersistedError unless patient.persisted?
         raise MissingNHSNumberError if patient.nhs_number.blank?
         raise MissingDOBNumberError if patient.born_on.blank?
 
         ids = feed_message_ids(
-          nhs_number: patient.nhs_number,
-          dob: patient.born_on.to_s,
+          patient: patient,
           before: datetime_to_search_back_from
         )
         Renalware::Feeds::Message.where(id: ids).order(sent_at: :asc)
@@ -53,29 +54,35 @@ module Renalware
       # Get a distinct feed message for each orc_filler_order_number, talking the most recently
       # sent one. Return an array of matching ids.
       # rubocop:disable Metrics/MethodLength
-      def feed_message_ids(nhs_number:, dob:, before:)
+      def feed_message_ids(patient:, before:)
         sql = <<-SQL.squish
+          WITH history as (
+            select distinct fmr.urn
+            from renalware.feed_message_replays fmr
+            inner join renalware.feed_replay_requests rr on rr.id = fmr.replay_request_id
+            where rr.patient_id = ? and fmr.success = true
+          )
           SELECT distinct on (orc_filler_order_number) fm.id
             FROM renalware.feed_messages fm
-            LEFT OUTER JOIN renalware.feed_message_replays fmr
-              ON fmr.message_id = fm.id
-              AND fmr.success = true
             WHERE
               fm.message_type = 'ORU'
               AND fm.event_type = 'R01'
+              AND fm.orc_order_status = 'CM'
               AND fm.nhs_number = ?
               AND fm.dob = ?
               AND fm.sent_at IS NOT NULL
               AND fm.created_at <= ?
-              AND fmr.id IS NULL
+              AND fm.orc_filler_order_number not in (select h.urn from history h where fm.orc_filler_order_number = h.urn)
             ORDER BY
               orc_filler_order_number, sent_at desc, id desc
         SQL
+
         sql = ActiveRecord::Base.sanitize_sql_array(
           [
             sql,
-            nhs_number,
-            dob,
+            patient.id,
+            patient.nhs_number,
+            patient.born_on,
             before
           ]
         )
