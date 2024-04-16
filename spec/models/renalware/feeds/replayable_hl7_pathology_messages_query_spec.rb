@@ -35,7 +35,7 @@ module Renalware
       # rubocop:enable Metrics/MethodLength
 
       it "finds the most recently sent messages distinct on orc_filler_order_number" do
-        patient = build(:patient, nhs_number: nhs_num, born_on: dob)
+        patient = create(:patient, nhs_number: nhs_num, born_on: dob, created_at: 1.hour.from_now)
         common_args = {
           nhs_number: patient.nhs_number,
           dob: patient.born_on,
@@ -52,7 +52,7 @@ module Renalware
       end
 
       it "finds messages by nhs_number + DOB (oldest first) if local_patient_ids don't match" do
-        patient = build(:patient, nhs_number: nhs_num, born_on: dob)
+        patient = create(:patient, nhs_number: nhs_num, born_on: dob, created_at: 1.hour.from_now)
         create_message(nhs_number: "nomatch")
         msg_matched1 = create_message(nhs_number: nhs_num, created_at: 1.day.ago, dob: dob)
         msg_matched2 = create_message(
@@ -180,7 +180,12 @@ module Renalware
       ).each do |local_id_attribute|
         it "finds messages by a patient's #{local_id_attribute} if an nhs_number also matches" do
           hospno = local_id_attribute.to_s.upcase
-          patient = build(:patient, nhs_number: nhs_num, local_id_attribute => hospno)
+          patient = create(
+            :patient,
+            nhs_number: nhs_num,
+            local_id_attribute => hospno,
+            created_at: 1.hour.from_now
+          )
           # This message is for another patient and will never be found
           create_message(local_id_attribute => "nomatch")
           # These 2 messages will be returned, oldest first
@@ -205,10 +210,10 @@ module Renalware
 
       context "when there was a previous successful replay for a message" do
         it "excludes that message" do
-          patient = build(:patient, nhs_number: nhs_num, born_on: dob)
+          patient = create(:patient, nhs_number: nhs_num, born_on: dob, created_at: 1.hour.from_now)
           msg = create_message(nhs_number: nhs_num, dob: dob, processed: false)
           replay_request = ReplayRequest.create!(started_at: Time.zone.now, patient: patient)
-          replay_request.message_replays.create!(message: msg, success: false)
+          replay_request.message_replays.create!(message: msg, success: false, urn: "as")
 
           results = described_class.new(patient: patient).call
 
@@ -218,10 +223,15 @@ module Renalware
 
       context "when there was a previous unsuccessful replay for a message" do
         it "includes that message" do
-          patient = build(:patient, nhs_number: nhs_num, born_on: dob)
-          msg = create_message(nhs_number: nhs_num, dob: dob, processed: false)
+          patient = create(:patient, nhs_number: nhs_num, born_on: dob, created_at: 1.hour.from_now)
+          msg = create_message(
+            nhs_number: nhs_num,
+            dob: dob,
+            processed: false,
+            orc_filler_order_number: "123"
+          )
           replay_request = ReplayRequest.create!(started_at: Time.zone.now, patient: patient)
-          replay_request.message_replays.create!(message: msg, success: true)
+          replay_request.message_replays.create!(message: msg, success: true, urn: "123")
 
           results = described_class.new(patient: patient).call
 
@@ -231,7 +241,7 @@ module Renalware
 
       context "when finding feed message received before the patient was created in RW" do
         context "when no search_before_patient_creation_only argument supplied (default=true)" do
-          it "excludes msgs received after pnt creation (these will have already been ingested)" do
+          it "excludes msgs received after pt creation (these will have already been ingested)" do
             freeze_time do
               patient_created_at = Time.zone.now
               patient = create(
@@ -257,7 +267,7 @@ module Renalware
         end
 
         context "when search_before_patient_creation_only: true" do
-          it "excludes msgs received after pnt creation (these will have already been ingested)" do
+          it "excludes msgs received after pt creation (these will have already been ingested)" do
             freeze_time do
               patient_created_at = Time.zone.now
               patient = create(
@@ -285,7 +295,7 @@ module Renalware
         end
 
         context "when search_before_patient_creation_only: false" do
-          it "includes msgs received after pnt creation" do
+          it "includes msgs received after pt creation" do
             freeze_time do
               patient_created_at = Time.zone.now
               patient = create(

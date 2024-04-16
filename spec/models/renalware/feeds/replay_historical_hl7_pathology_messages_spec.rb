@@ -25,9 +25,10 @@ module Renalware
             message_type: :ORU,
             event_type: :R01,
             processed: nil,
-            orc_filler_order_number: "123",
+            orc_order_status: "CM",
+            orc_filler_order_number: "ORC123",
             sent_at: 1.day.ago,
-            header_id: "123"
+            header_id: "ABC"
           )
           patient = create(:patient, nhs_number: "0123456789", born_on: "2001-01-01")
 
@@ -50,6 +51,7 @@ module Renalware
 
             expect(replay_request.message_replays.last).to have_attributes(
               message: feed_message,
+              urn: "ORC123",
               success: true,
               error_message: nil
             )
@@ -120,6 +122,127 @@ module Renalware
           end
         end
       end
+
+      # rubocop:disable RSpec/ExampleLength
+      context "when a replay is run twice for the same patient" do
+        it "retries any failed message_replays from a previous attempt" do
+          shared_attrs = {
+            nhs_number: "0123456789",
+            dob: "2001-01-01",
+            body: hl7,
+            message_type: :ORU,
+            event_type: :R01,
+            processed: nil,
+            orc_order_status: "CM",
+            header_id: "123"
+          }
+          patient = create(
+            :patient,
+            nhs_number: "0123456789",
+            born_on: "2001-01-01",
+            created_at: 1.hour.from_now
+          )
+          feed_message_succ = Message.create!(
+            sent_at: 2.days.ago,
+            orc_filler_order_number: "succ",
+            **shared_attrs
+          )
+          feed_message_fail = Message.create!(
+            sent_at: 2.days.ago,
+            orc_filler_order_number: "fail",
+            **shared_attrs
+          )
+          rr = ReplayRequest.create!(
+            patient: patient,
+            started_at: Time.zone.now,
+            finished_at: Time.zone.now
+          )
+          _mr_success = MessageReplay.create!(
+            message: feed_message_succ,
+            urn: feed_message_succ.orc_filler_order_number,
+            replay_request: rr,
+            success: true
+          )
+          _mr_failure = MessageReplay.create!(
+            message: feed_message_fail,
+            urn: feed_message_fail.orc_filler_order_number,
+            replay_request: rr,
+            success: false
+          )
+          expect {
+            described_class.new(patient: patient).call
+          }.to change(ReplayRequest, :count).by(1)
+            .and change(MessageReplay, :count).by(1)
+
+          expect(MessageReplay.last.message_id).to eq(feed_message_fail.id)
+        end
+
+        it "behaves idempotently and does not find more messages the second time" do
+          shared_attrs = {
+            nhs_number: "0123456789",
+            dob: "2001-01-01",
+            body: hl7,
+            message_type: :ORU,
+            event_type: :R01,
+            processed: nil,
+            orc_order_status: "CM",
+            header_id: "123",
+            orc_filler_order_number: "123"
+          }
+          feed_message_latest = Message.create!(sent_at: 2.days.ago, **shared_attrs)
+          _feed_message_ignore_me = Message.create!(sent_at: 3.days.ago, **shared_attrs)
+          patient = create(
+            :patient,
+            nhs_number: "0123456789",
+            born_on: "2001-01-01",
+            created_at: 1.day.from_now
+          )
+
+          # The first time we run it it should find the single de-duplicated (distinct on
+          # orc_filler_order_number) most recent (order by sent_at desc)
+          # feed message and create
+          # a) 1 ReplayRequest for the whole operation
+          # b) 1 MessageReplay for that single found message
+          expect {
+            described_class.new(patient: patient).call
+          }.to change(ReplayRequest, :count).by(1)
+            .and change(MessageReplay, :count).by(1)
+
+          expect(MessageReplay.last.message_id).to eq(feed_message_latest.id)
+
+          # If we run it again, it should behave idempotently and not try and import any other #
+          # messages. We should see
+          # a) 1 ReplayRequest for the whole operation
+          # b) 0 MessageReplays
+          expect {
+            described_class.new(patient: patient).call
+          }.to change(ReplayRequest, :count).by(1)
+            .and not_change(MessageReplay, :count)
+
+          # Now add another message with the same orc_filler_order_number. Even though
+          # this is a newer one, as we have already imported an orc_order_status=CM one with this
+          # orc_filler_order_number, we will ignore it. I don't think this is an issue.
+          _newer_feed_message = Message.create!(sent_at: 1.day.ago, **shared_attrs)
+
+          expect {
+            described_class.new(patient: patient).call
+          }.to change(ReplayRequest, :count).by(1)
+            .and not_change(MessageReplay, :count)
+
+          # However if we add another message with a different orc_filler_order_number, it should
+          # be found if we run it again
+          _feed_message = Message.create!(
+            sent_at: 1.day.ago,
+            **shared_attrs,
+            orc_filler_order_number: "456"
+          )
+          expect {
+            described_class.new(patient: patient).call
+          }.to change(ReplayRequest, :count).by(1)
+            .and change(MessageReplay, :count).by(1)
+        end
+      end
+      # rubocop:enable RSpec/ExampleLength
     end
   end
 end

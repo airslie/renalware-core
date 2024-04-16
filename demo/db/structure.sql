@@ -5454,7 +5454,8 @@ CREATE TABLE renalware.feed_message_replays (
     success boolean DEFAULT false NOT NULL,
     error_message text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    urn character varying
 );
 
 
@@ -5668,7 +5669,8 @@ CREATE TABLE renalware.feed_replay_requests (
     updated_at timestamp(6) without time zone NOT NULL,
     patient_id bigint NOT NULL,
     error_message text,
-    reason text
+    reason text,
+    debug character varying[] DEFAULT '{}'::character varying[]
 );
 
 
@@ -12887,8 +12889,16 @@ CREATE TABLE renalware.system_api_logs (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     pages integer DEFAULT 0 NOT NULL,
-    "values" text[] DEFAULT '{}'::text[]
+    "values" text[] DEFAULT '{}'::text[],
+    elapsed_ms numeric
 );
+
+
+--
+-- Name: COLUMN system_api_logs.elapsed_ms; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_api_logs.elapsed_ms IS 'Used for benchmarking';
 
 
 --
@@ -20427,6 +20437,13 @@ CREATE INDEX index_feed_message_replays_on_message_id ON renalware.feed_message_
 --
 
 CREATE INDEX index_feed_message_replays_on_replay_request_id ON renalware.feed_message_replays USING btree (replay_request_id);
+
+
+--
+-- Name: index_feed_message_replays_on_urn; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_message_replays_on_urn ON renalware.feed_message_replays USING btree (urn);
 
 
 --
@@ -28711,6 +28728,9 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240411164343'),
+('20240409133628'),
+('20240409114257'),
 ('20240405092805'),
 ('20240405083738'),
 ('20240321174505'),

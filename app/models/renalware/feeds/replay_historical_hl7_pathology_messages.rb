@@ -27,7 +27,7 @@ module Renalware
         ReplayRequest.start_logging(patient, reason) do |replay_request|
           query.find_in_batches(batch_size: BATCH_SIZE) do |batch|
             batch.each do |feed_message|
-              replay_request.log(feed_message) do
+              replay_request.log(feed_message, feed_message.orc_filler_order_number) do
                 allow_listeners_to_process_the_message(feed_message)
               end
             end

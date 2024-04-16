@@ -55,9 +55,9 @@ module Renalware
       end
 
       # Instance method logs the results of an individual replay of a feed_message
-      def log(feed_message)
+      def log(feed_message, urn)
         self.total_messages += 1
-        msg_replay = message_replays.create!(message: feed_message)
+        msg_replay = message_replays.create!(message: feed_message, urn: urn)
         yield
         feed_message.update!(processed: true)
         msg_replay.success = true
