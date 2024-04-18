@@ -5,7 +5,9 @@ require "rails_helper"
 describe "Create an HD prescription" do
   let(:patient) { create(:hd_patient, family_name: "Rabbit", local_patient_id: "KCH12345") }
   let(:prescribed_on) { "2024-11-01" }
+  let(:prescribed_on_next) { "2024-11-02" }
   let(:prescribed_on_date) { Date.parse(prescribed_on) }
+  let(:prescribed_on_next_date) { Date.parse(prescribed_on_next) }
 
   def prescription_params(administer_on_hd:, stat: false)
     {
@@ -116,66 +118,91 @@ describe "Create an HD prescription" do
 
   describe "POST create" do
     context "when prescription is administer_on_hd and not stat" do
-      it "additionally saves a termination with a future date of start_date + configured period" do
-        period = 3.months
-        allow(Renalware.config)
-          .to receive(:auto_terminate_hd_prescriptions_after_period)
-          .and_return(period)
+      context "when no termination date supplied" do
+        it "adds a termination with a future date of start_date + configured period" do
+          period = 3.months
+          allow(Renalware.config)
+            .to receive(:auto_terminate_hd_prescriptions_after_period)
+            .and_return(period)
 
-        params = prescription_params(administer_on_hd: true)
-        post(
-          patient_prescriptions_path(patient),
-          params: { medications_prescription: params }
-        )
-        follow_redirect!
-
-        expect(response).to be_successful
-
-        prescription = Renalware::Medications::Prescription.last
-        expect(prescription).to have_attributes(
-          prescribed_on: prescribed_on_date,
-          administer_on_hd: true
-        )
-        expect(prescription.termination).to have_attributes(
-          terminated_on: prescribed_on_date + period,
-          notes: "HD prescription scheduled to terminate #{period.in_days.to_i} days from start"
-        )
-      end
-
-      it "does not error when data is missing" do
-        period = 3.months
-        allow(Renalware.config)
-          .to receive(:auto_terminate_hd_prescriptions_after_period)
-          .and_return(period)
-
-        # Pass an invalid prescribed_on
-        params = prescription_params(administer_on_hd: true).update(prescribed_on: "")
-
-        expect {
+          params = prescription_params(administer_on_hd: true)
           post(
             patient_prescriptions_path(patient),
             params: { medications_prescription: params }
           )
-        }.not_to change(Renalware::Medications::Prescription, :count)
+          follow_redirect!
 
-        expect(response).to be_successful # validation error, mno redirect
+          expect(response).to be_successful
+
+          prescription = Renalware::Medications::Prescription.last
+          expect(prescription).to have_attributes(
+            prescribed_on: prescribed_on_date,
+            administer_on_hd: true
+          )
+          expect(prescription.termination).to have_attributes(
+            terminated_on: prescribed_on_date + period,
+            notes: "HD prescription scheduled to terminate #{period.in_days.to_i} days from start"
+          )
+        end
+
+        it "does not create a termination if the configured period is nil" do
+          allow(Renalware.config)
+            .to receive(:auto_terminate_hd_prescriptions_after_period)
+            .and_return(nil)
+
+          params = prescription_params(administer_on_hd: true)
+
+          post(
+            patient_prescriptions_path(patient),
+            params: { medications_prescription: params }
+          )
+          follow_redirect!
+          expect(response).to be_successful
+
+          expect(Renalware::Medications::Prescription.last.termination).to be_nil
+        end
+
+        it "does not error when data is missing" do
+          period = 3.months
+          allow(Renalware.config)
+            .to receive(:auto_terminate_hd_prescriptions_after_period)
+            .and_return(period)
+
+          # Pass an invalid prescribed_on
+          params = prescription_params(administer_on_hd: true).update(prescribed_on: "")
+
+          expect {
+            post(
+              patient_prescriptions_path(patient),
+              params: { medications_prescription: params }
+            )
+          }.not_to change(Renalware::Medications::Prescription, :count)
+
+          expect(response).to be_successful # validation error, mno redirect
+        end
       end
 
-      it "does not create a termination if the configured period is nil" do
-        allow(Renalware.config)
-          .to receive(:auto_terminate_hd_prescriptions_after_period)
-          .and_return(nil)
+      context "when a termination date is supplied" do
+        it "does not override it" do
+          period = 3.months
+          allow(Renalware.config)
+            .to receive(:auto_terminate_hd_prescriptions_after_period)
+            .and_return(period)
 
-        params = prescription_params(administer_on_hd: true)
+          params = prescription_params(administer_on_hd: true)
+          params[:termination_attributes] = { terminated_on: prescribed_on_next }
+          post(
+            patient_prescriptions_path(patient),
+            params: { medications_prescription: params }
+          )
+          follow_redirect!
 
-        post(
-          patient_prescriptions_path(patient),
-          params: { medications_prescription: params }
-        )
-        follow_redirect!
-        expect(response).to be_successful
+          expect(response).to be_successful
 
-        expect(Renalware::Medications::Prescription.last.termination).to be_nil
+          prescription = Renalware::Medications::Prescription.last
+          # unchanged terminated_on
+          expect(prescription.termination.terminated_on).to eq(prescribed_on_next_date)
+        end
       end
     end
 

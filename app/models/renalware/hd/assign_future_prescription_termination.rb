@@ -19,8 +19,12 @@ module Renalware
         return if prescription.prescribed_on.blank?
         return if termination_period.nil?
 
-        if prescription.termination.present?
-          prescription.termination.assign_attributes(termination_attributes)
+        termination = prescription.termination
+
+        if termination.present?
+          if termination.terminated_on.blank?
+            termination.assign_attributes(termination_attributes)
+          end
         else
           prescription.build_termination(termination_attributes)
         end
