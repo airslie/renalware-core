@@ -15,16 +15,14 @@ module Renalware
       pattr_initialize [:prescription!, :by!]
 
       def call
+        termination = prescription.termination
         return unless prescription.administer_on_hd?
         return if prescription.prescribed_on.blank?
         return if termination_period.nil?
-
-        termination = prescription.termination
+        return if termination&.terminated_on_set_by_user?
 
         if termination.present?
-          if termination.terminated_on.blank?
-            termination.assign_attributes(termination_attributes)
-          end
+          termination.assign_attributes(termination_attributes)
         else
           prescription.build_termination(termination_attributes)
         end

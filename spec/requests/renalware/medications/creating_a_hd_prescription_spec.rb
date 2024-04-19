@@ -27,46 +27,89 @@ describe "Create an HD prescription" do
 
   describe "PUT update" do
     context "when prescription is administer_on_hd and not stat" do
-      it "updates the termination date to be the future date of start_date + configured period" do
-        period = 3.months
-        initial_prescribed_on = Date.parse(prescribed_on)
-        initial_terminated_on = initial_prescribed_on + 3.months
+      context "when termination date has never been amended manually by the user" do
+        it "updates the termination date to be the future date of start_date + configured period" do
+          period = 3.months
+          initial_prescribed_on = Date.parse(prescribed_on)
+          initial_terminated_on = initial_prescribed_on + 3.months
 
-        allow(Renalware.config)
-          .to receive(:auto_terminate_hd_prescriptions_after_period)
-          .and_return(period)
+          allow(Renalware.config)
+            .to receive(:auto_terminate_hd_prescriptions_after_period)
+            .and_return(period)
 
-        # Build initial prescription to update
-        params = prescription_params(administer_on_hd: true)
-        prescription = build(:prescription, params.merge(patient_id: patient.id))
-        prescription.termination = build(
-          :prescription_termination,
-          terminated_on: initial_terminated_on
-        )
-        prescription.save!
+          # Build initial prescription to update. Attach a termination and make sure
+          # terminated_on_set_by_user is false, simulating a user creating the prescrip but not
+          # specifying a termination date. If they had, terminated_on_set_by_user would be true.
+          params = prescription_params(administer_on_hd: true)
+          prescription = build(:prescription, params.merge(patient_id: patient.id))
+          prescription.termination = build(
+            :prescription_termination,
+            terminated_on: initial_terminated_on,
+            terminated_on_set_by_user: false
+          )
+          prescription.save!
 
-        # Simulate editing the prescription and bumping the prescribed_on date on a bit
-        new_prescribed_on = initial_prescribed_on + 1.month
-        params.update(prescribed_on: new_prescribed_on)
+          # Simulate editing the prescription and bumping the prescribed_on date on a bit
+          new_prescribed_on = initial_prescribed_on + 1.month
+          params.update(prescribed_on: new_prescribed_on)
 
-        # Do the update
-        put(
-          patient_prescription_path(patient, prescription),
-          params: { medications_prescription: params }
-        )
-        follow_redirect!
+          # Do the update
+          put(
+            patient_prescription_path(patient, prescription),
+            params: { medications_prescription: params }
+          )
+          follow_redirect!
 
-        expect(response).to be_successful
+          expect(response).to be_successful
 
-        prescription = Renalware::Medications::Prescription.last
-        expect(prescription).to have_attributes(
-          prescribed_on: new_prescribed_on,
-          administer_on_hd: true
-        )
-        expect(prescription.termination).to have_attributes(
-          terminated_on: new_prescribed_on + period,
-          notes: "HD prescription scheduled to terminate #{period.in_days.to_i} days from start"
-        )
+          prescription = Renalware::Medications::Prescription.last
+          expect(prescription).to have_attributes(
+            prescribed_on: new_prescribed_on,
+            administer_on_hd: true
+          )
+          expect(prescription.termination).to have_attributes(
+            terminated_on: new_prescribed_on + period,
+            notes: "HD prescription scheduled to terminate #{period.in_days.to_i} days from start"
+          )
+        end
+      end
+
+      context "when termination date was changed at some point by the user" do
+        it "does not change termination date when updated" do
+          initial_prescribed_on = Date.parse(prescribed_on)
+          initial_terminated_on = initial_prescribed_on + 3.months
+
+          # Build initial prescription to update. Attach a termination and make sure
+          # terminated_on_set_by_user is true, simulating a user creating the prescrip and
+          # specifying a termination date.
+          params = prescription_params(administer_on_hd: true)
+          prescription = build(:prescription, params.merge(patient_id: patient.id))
+          prescription.termination = build(
+            :prescription_termination,
+            terminated_on: initial_terminated_on,
+            terminated_on_set_by_user: true
+          )
+          prescription.save!
+
+          # Simulate editing the prescription and bumping the prescribed_on date on a bit
+          new_prescribed_on = initial_prescribed_on + 1.month
+          params.update(prescribed_on: new_prescribed_on)
+
+          # Do the update
+          put(
+            patient_prescription_path(patient, prescription),
+            params: { medications_prescription: params }
+          )
+          follow_redirect!
+
+          expect(response).to be_successful
+
+          prescription = Renalware::Medications::Prescription.last
+          # terminated_on should not have changed
+          expect(prescription.termination).to have_attributes(
+            terminated_on: initial_terminated_on
+          )
+        end
       end
     end
 
@@ -183,7 +226,7 @@ describe "Create an HD prescription" do
       end
 
       context "when a termination date is supplied" do
-        it "does not override it" do
+        it "does not override it, and sets terminated_on_edited=true" do
           period = 3.months
           allow(Renalware.config)
             .to receive(:auto_terminate_hd_prescriptions_after_period)
@@ -201,7 +244,10 @@ describe "Create an HD prescription" do
 
           prescription = Renalware::Medications::Prescription.last
           # unchanged terminated_on
-          expect(prescription.termination.terminated_on).to eq(prescribed_on_next_date)
+          expect(prescription.termination).to have_attributes(
+            terminated_on: prescribed_on_next_date,
+            terminated_on_set_by_user: true
+          )
         end
       end
     end
