@@ -3,12 +3,12 @@
 module Renalware
   module Letters
     class BatchesController < BaseController
-      include Renalware::Concerns::Pageable
+      include Pagy::Backend
 
       def index
-        batches = Batch.order(created_at: :desc)
+        pagy, batches = pagy(Batch.order(created_at: :desc))
         authorize batches
-        render locals: { batches: batches.page(page).per(per_page) }
+        render locals: { batches: batches, pagy: pagy }
       end
 
       def show
