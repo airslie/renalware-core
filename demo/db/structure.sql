@@ -1122,7 +1122,7 @@ CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp wit
       dob                 = EXCLUDED.dob,
       updated_at          = current_timestamp
       where EXCLUDED.sent_at >= feed_sausages.sent_at
-      and EXCLUDED.header_id::integer > feed_sausages.header_id::integer
+      and EXCLUDED.header_id::bigint > feed_sausages.header_id::bigint
       RETURNING feed_sausages.id into id_of_upserted_feed_sausage;
     --
     if id_of_upserted_feed_sausage > 0 then
@@ -5669,8 +5669,7 @@ CREATE TABLE renalware.feed_replay_requests (
     updated_at timestamp(6) without time zone NOT NULL,
     patient_id bigint NOT NULL,
     error_message text,
-    reason text,
-    debug character varying[] DEFAULT '{}'::character varying[]
+    reason text
 );
 
 
@@ -7794,16 +7793,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -12889,16 +12878,8 @@ CREATE TABLE renalware.system_api_logs (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     pages integer DEFAULT 0 NOT NULL,
-    "values" text[] DEFAULT '{}'::text[],
-    elapsed_ms numeric
+    "values" text[] DEFAULT '{}'::text[]
 );
-
-
---
--- Name: COLUMN system_api_logs.elapsed_ms; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.system_api_logs.elapsed_ms IS 'Used for benchmarking';
 
 
 --
@@ -28728,9 +28709,8 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240424134926'),
 ('20240411164343'),
-('20240409133628'),
-('20240409114257'),
 ('20240405092805'),
 ('20240405083738'),
 ('20240321174505'),
