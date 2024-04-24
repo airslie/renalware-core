@@ -33,10 +33,6 @@ describe "Create an HD prescription" do
           initial_prescribed_on = Date.parse(prescribed_on)
           initial_terminated_on = initial_prescribed_on + 3.months
 
-          allow(Renalware.config)
-            .to receive(:auto_terminate_hd_prescriptions_after_period)
-            .and_return(period)
-
           # Build initial prescription to update. Attach a termination and make sure
           # terminated_on_set_by_user is false, simulating a user creating the prescrip but not
           # specifying a termination date. If they had, terminated_on_set_by_user would be true.
@@ -48,6 +44,10 @@ describe "Create an HD prescription" do
             terminated_on_set_by_user: false
           )
           prescription.save!
+
+          allow(Renalware.config)
+            .to receive(:auto_terminate_hd_prescriptions_after_period)
+            .and_return(period)
 
           # Simulate editing the prescription and bumping the prescribed_on date on a bit
           new_prescribed_on = initial_prescribed_on + 1.month
