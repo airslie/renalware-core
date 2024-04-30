@@ -7796,6 +7796,16 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
+
+
+--
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8140,8 +8150,16 @@ CREATE TABLE renalware.medication_prescription_terminations (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    terminated_on_set_by_user boolean DEFAULT false NOT NULL
 );
+
+
+--
+-- Name: COLUMN medication_prescription_terminations.terminated_on_set_by_user; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.medication_prescription_terminations.terminated_on_set_by_user IS 'If true, the system will not attempt to set to prescribed_on + 6 months if prescriptions administer_on_hd=true';
 
 
 --
@@ -28710,6 +28728,7 @@ SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20240424134926'),
+('20240418190439'),
 ('20240411164343'),
 ('20240405092805'),
 ('20240405083738'),
