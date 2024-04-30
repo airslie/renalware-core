@@ -12,9 +12,13 @@ This project adheres to Semantic Versioning.
 ## 2.4.2
 ### Added
 - Add Medically fit for discharge checkbox on HD slot requests #4670
-- Allow a superadmin to soft-delete an HD prescription administration #4668
+- Allow a admin to soft-delete an HD prescription administration #4668, #4738
 - Capture when a patients requests their UKRDC data be anonymised #4662
-- Alternative experimental 'open' chart support for reports #4618
+- Alternative experimental chart support for reports using the chart_raw column on view_metadata #4618
+- Add a demo scheduled function to illustrate updating patient.send_to_renal_reg #4705
+- Display patient group directions on read-only HD Session view #4742
+- Add Tx 'Kidney and other' option to recipient operation and wait list registration #4739
+- Replay historical pathology messages when new patient added #4411
 ### Changed
 - Add titles eg '2. Well' to Clinical Frailty Scores events #4697
 - Display runtime errors to superadmins #4687
@@ -22,8 +26,25 @@ This project adheres to Semantic Versioning.
 - Load report data asynchronously after the page has loaded #4671
 - Ensure modality history is editable by Admins and Superadmins #4635
 - Update Rails to 7.1 #4695
+- Upgrade to Ruby 3.3.0 #4708
+- Icon housekeeping #4709
+- Use OBR.7, falling back to OBR.6 if missing, instead of OBX.14 when storing pathology_observation.obseved_at #4752
+- Performance and usability improvements to the Renal->Events and Patient->Events pages #4758
+- Switch from kaminari to pagy pagination library (already used in many places) in the following locations
+  - admin/users
+  - clinical/dry_weights
+  - admin/drugs
+  - hd/unmet preferences
+  - Patient -> letters
+  - admin/drug_types
+  - Patients -> Patients list
+  - Renal -> RR Preflight checks
+- Reporting module refactor - please test
 ### Fixed
 - Allow sign in page to scroll correctly #4698
+- Fix bug displaying unnecessary Overlapping Modality message #4704
+- Prevent bots crawling documentation #4710
+- Fix bug loading reports 'Configure columns' modal on MDMs/reports #4716
 
 ## 2.4.1
 
