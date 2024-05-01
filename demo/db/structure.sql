@@ -6384,7 +6384,9 @@ CREATE TABLE renalware.transplant_recipient_operations (
     notes text,
     document jsonb,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    induction_agent_id bigint,
+    immunological_risk character varying
 );
 
 
@@ -14097,6 +14099,41 @@ ALTER SEQUENCE renalware.transplant_failure_cause_descriptions_id_seq OWNED BY r
 
 
 --
+-- Name: transplant_induction_agents; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.transplant_induction_agents (
+    id bigint NOT NULL,
+    name text NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    drug_name text,
+    snomed_code text,
+    atc_code text,
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: transplant_induction_agents_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.transplant_induction_agents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplant_induction_agents_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.transplant_induction_agents_id_seq OWNED BY renalware.transplant_induction_agents.id;
+
+
+--
 -- Name: transplant_investigation_types; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -16680,6 +16717,13 @@ ALTER TABLE ONLY renalware.transplant_failure_cause_descriptions ALTER COLUMN id
 
 
 --
+-- Name: transplant_induction_agents id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_induction_agents ALTER COLUMN id SET DEFAULT nextval('renalware.transplant_induction_agents_id_seq'::regclass);
+
+
+--
 -- Name: transplant_investigation_types id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -18862,6 +18906,14 @@ ALTER TABLE ONLY renalware.transplant_failure_cause_description_groups
 
 ALTER TABLE ONLY renalware.transplant_failure_cause_descriptions
     ADD CONSTRAINT transplant_failure_cause_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_induction_agents transplant_induction_agents_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_induction_agents
+    ADD CONSTRAINT transplant_induction_agents_pkey PRIMARY KEY (id);
 
 
 --
@@ -24558,6 +24610,13 @@ CREATE INDEX index_transplant_failure_cause_descriptions_on_group_id ON renalwar
 
 
 --
+-- Name: index_transplant_induction_agents_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_transplant_induction_agents_on_name ON renalware.transplant_induction_agents USING btree (lower(name));
+
+
+--
 -- Name: index_transplant_investigation_types_on_code; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -24597,6 +24656,13 @@ CREATE INDEX index_transplant_recipient_operations_on_document ON renalware.tran
 --
 
 CREATE INDEX index_transplant_recipient_operations_on_hospital_centre_id ON renalware.transplant_recipient_operations USING btree (hospital_centre_id);
+
+
+--
+-- Name: index_transplant_recipient_operations_on_induction_agent_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_transplant_recipient_operations_on_induction_agent_id ON renalware.transplant_recipient_operations USING btree (induction_agent_id);
 
 
 --
@@ -25784,6 +25850,14 @@ ALTER TABLE ONLY renalware.pathology_requests_drugs_drug_categories
 
 ALTER TABLE ONLY renalware.medication_prescriptions
     ADD CONSTRAINT fk_rails_25e627b557 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
+-- Name: transplant_recipient_operations fk_rails_261be64bf6; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_recipient_operations
+    ADD CONSTRAINT fk_rails_261be64bf6 FOREIGN KEY (induction_agent_id) REFERENCES renalware.transplant_induction_agents(id);
 
 
 --
@@ -28865,6 +28939,8 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240501155334'),
+('20240501151609'),
 ('20240430130439'),
 ('20240430094851'),
 ('20240424134926'),
