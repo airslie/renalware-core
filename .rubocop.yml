@@ -18,6 +18,7 @@ require:
   - rubocop-factory_bot
   - rubocop-capybara
   - rubocop-rake
+  - rubocop-rspec_rails
 
 # Skip standard for now.
 # inherit_gem:

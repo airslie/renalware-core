@@ -7796,16 +7796,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -12896,8 +12886,16 @@ CREATE TABLE renalware.system_api_logs (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     pages integer DEFAULT 0 NOT NULL,
-    "values" text[] DEFAULT '{}'::text[]
+    "values" text[] DEFAULT '{}'::text[],
+    elapsed_ms numeric
 );
+
+
+--
+-- Name: COLUMN system_api_logs.elapsed_ms; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_api_logs.elapsed_ms IS 'Used for benchmarking';
 
 
 --
@@ -28730,6 +28728,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240424134926'),
 ('20240418190439'),
 ('20240411164343'),
+('20240409114257'),
 ('20240405092805'),
 ('20240405083738'),
 ('20240321174505'),
