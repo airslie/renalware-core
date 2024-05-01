@@ -9,6 +9,11 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.4.3
+### Added
+### Changed
+### Fixed
+
 ## 2.4.2
 ### Added
 - Add Medically fit for discharge checkbox on HD slot requests #4670
