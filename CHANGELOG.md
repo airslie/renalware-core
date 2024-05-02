@@ -11,8 +11,14 @@ This project adheres to Semantic Versioning.
 
 ## 2.4.3
 ### Added
+- Add immunology risk and induction agent to Tx Recipient operation #4802
+- Add location, access state to HD Slot Requests, and in table view add location filter, display location, access state and creating user #4791
+- Allow a permitted user to renew selected HD Prescriptions for eg 6 months #4787
 ### Changed
+- Include a reason when creating a patient via AKI #4793
+- Do not overwrite HD prescription termination date (if entered) on creation #4780
 ### Fixed
+- Omit country code from UKRDC addresses if no country specified #4789
 
 ## 2.4.2
 ### Added
