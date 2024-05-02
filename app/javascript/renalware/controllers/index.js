@@ -26,6 +26,7 @@ import SelectController from "./select_controller"
 import RadioResetController from "./radio_reset_controller"
 import ConditionalDisplayController from "./conditional_display_controller"
 import SlimselectController from "./slimselect_controller"
+import SlimselectAjaxController from "./slimselect_ajax_controller"
 import ModalController from "./modal_controller"
 import FormController from "./form_controller"
 import AlternativeFormSubmitterController from "./alternative_form_submitter_controller"
@@ -70,6 +71,7 @@ application.register("select", SelectController)
 application.register("radio-reset", RadioResetController)
 application.register("conditional-display", ConditionalDisplayController)
 application.register("slimselect", SlimselectController)
+application.register("slimselect-ajax", SlimselectAjaxController)
 application.register("modal", ModalController)
 application.register("form", FormController)
 application.register(

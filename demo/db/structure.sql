@@ -87,6 +87,20 @@ COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statist
 
 
 --
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA renalware;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
+--
 -- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -1848,7 +1862,7 @@ begin
         ,document ->> 'score'
     from events e
     inner join event_types et on et.id = e.event_type_id
-    where e.patient_id = p_id 
+    where e.patient_id = p_id
       and e.deleted_at is null
       and et.slug = 'clinical_frailty_score'
     order by e.date_time desc
@@ -5106,6 +5120,67 @@ ALTER SEQUENCE renalware.drug_patient_group_directions_id_seq OWNED BY renalware
 
 
 --
+-- Name: drug_trade_families; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.drug_trade_families (
+    id bigint NOT NULL,
+    name character varying,
+    code character varying NOT NULL,
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: drug_trade_family_classifications; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.drug_trade_family_classifications (
+    id bigint NOT NULL,
+    drug_id bigint NOT NULL,
+    trade_family_id bigint NOT NULL,
+    enabled boolean DEFAULT false,
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: drug_prescribable_drugs; Type: MATERIALIZED VIEW; Schema: renalware; Owner: -
+--
+
+CREATE MATERIALIZED VIEW renalware.drug_prescribable_drugs AS
+ SELECT t.drug_id,
+    t.trade_family_id,
+    t.compound_id,
+    t.drug_name,
+    t.trade_family_name,
+    t.compound_name
+   FROM ( SELECT drugs.id AS drug_id,
+            NULL::bigint AS trade_family_id,
+            (drugs.id)::text AS compound_id,
+            drugs.name AS drug_name,
+            NULL::character varying AS trade_family_name,
+            drugs.name AS compound_name
+           FROM renalware.drugs
+          WHERE ((drugs.deleted_at IS NULL) AND (drugs.inactive = false))
+        UNION
+         SELECT drugs.id,
+            drug_trade_families.id,
+            ((((drugs.id)::character varying)::text || ':'::text) || ((drug_trade_families.id)::character varying)::text),
+            drugs.name,
+            drug_trade_families.name,
+            ((((drugs.name)::text || ' ('::text) || (drug_trade_families.name)::text) || ')'::text)
+           FROM ((renalware.drugs
+             JOIN renalware.drug_trade_family_classifications ON ((drug_trade_family_classifications.drug_id = drugs.id)))
+             JOIN renalware.drug_trade_families ON (((drug_trade_families.id = drug_trade_family_classifications.trade_family_id) AND (drug_trade_family_classifications.enabled = true))))
+          WHERE ((drugs.deleted_at IS NULL) AND (drugs.inactive = false))) t
+  ORDER BY t.compound_name
+  WITH NO DATA;
+
+
+--
 -- Name: drug_suppliers; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -5151,19 +5226,6 @@ ALTER SEQUENCE renalware.drug_suppliers_id_seq OWNED BY renalware.drug_suppliers
 
 
 --
--- Name: drug_trade_families; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.drug_trade_families (
-    id bigint NOT NULL,
-    name character varying,
-    code character varying NOT NULL,
-    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-);
-
-
---
 -- Name: drug_trade_families_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -5180,20 +5242,6 @@ CREATE SEQUENCE renalware.drug_trade_families_id_seq
 --
 
 ALTER SEQUENCE renalware.drug_trade_families_id_seq OWNED BY renalware.drug_trade_families.id;
-
-
---
--- Name: drug_trade_family_classifications; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.drug_trade_family_classifications (
-    id bigint NOT NULL,
-    drug_id bigint NOT NULL,
-    trade_family_id bigint NOT NULL,
-    enabled boolean DEFAULT false,
-    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-);
 
 
 --
@@ -12445,7 +12493,7 @@ CREATE TABLE renalware.research_participations (
 -- Name: COLUMN research_participations.external_id_deprecated; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-06-19 16:31:17 +0100 before changing its type from int to text';
+COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-06-07 22:47:56 +0100 before changing its type from int to text';
 
 
 --
@@ -20238,6 +20286,20 @@ CREATE INDEX index_drug_homecare_forms_on_supplier_id ON renalware.drug_homecare
 --
 
 CREATE UNIQUE INDEX index_drug_patient_group_directions_on_code ON renalware.drug_patient_group_directions USING btree (code) WHERE ((ends_on IS NULL) AND (deleted_at IS NULL));
+
+
+--
+-- Name: index_drug_prescribable_drugs_on_compound_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_drug_prescribable_drugs_on_compound_name ON renalware.drug_prescribable_drugs USING gist (compound_name renalware.gist_trgm_ops);
+
+
+--
+-- Name: index_drug_prescribable_drugs_on_drug_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_drug_prescribable_drugs_on_drug_id ON renalware.drug_prescribable_drugs USING btree (drug_id);
 
 
 --
@@ -29025,8 +29087,11 @@ SET search_path TO renalware,renalware_demo,public,heroku_ext;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20240523145856'),
 ('20240515125333'),
+('20240520100213'),
+('20240519153121'),
 ('20240515081225'),
 ('20240505190155'),
+('20240502111740'),
 ('20240501155334'),
 ('20240501151609'),
 ('20240430130439'),

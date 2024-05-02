@@ -17,7 +17,8 @@ export default class extends Controller {
     this.slimselect = new SlimSelect({
       select: this.element,
       settings: {
-        searchHighlight: true
+        searchHighlight: true,
+        allowDeselect: false
       },
       ...this.optionsValue,
     })
