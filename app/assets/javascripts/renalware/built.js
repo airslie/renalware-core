@@ -28879,9 +28879,17 @@ var _default$h = /*#__PURE__*/function (_Controller) {
   }
   _createClass$1(_default, [{
     key: "connect",
-    value: function connect() {
+    value:
+    // See also e.g. https://slimselectjs.com/settings
+    // maxValuesShown: 100
+    // placeholderText: this.placeholder
+    function connect() {
       this.slimselect = new SlimSelect(_objectSpread2$1({
-        select: this.element
+        select: this.element,
+        settings: {
+          searchHighlight: true,
+          allowDeselect: true
+        }
       }, this.optionsValue));
     }
   }, {
