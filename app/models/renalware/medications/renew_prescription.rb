@@ -25,12 +25,10 @@ module Renalware
         end
       end
 
+      # Always skip validation as there is nowhere in the UI to show this error and
+      # it leads to a 500 error. We need to be be careful with dates.
       def terminate_existing_prescription
-        if prescription.termination.present?
-          prescription.termination.update!(terminated_on: Time.zone.today, by: by)
-        else
-          prescription.terminate(by: by).save!
-        end
+        prescription.terminate(by: by).save!(validate: false)
       end
 
       def create_new_prescription
