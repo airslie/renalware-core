@@ -63,7 +63,7 @@ module Renalware
       def terminate_existing_prescription
         return if prescription.termination.present? && !new_prescription_is_administer_on_hd?
 
-        prescription.terminate(by: params[:by]).save!
+        prescription.terminate(by: params[:by]).save!(validate: false)
       end
 
       def create_new_prescription

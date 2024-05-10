@@ -113,7 +113,57 @@ module Renalware::Medications
           updated_by_id: user.id
         )
       end
+
+      it "does not error if the old prescription was prescribed > [max renew period] ago" do
+        # If the prescribed_on is 6 months and period is 3m, setting the termination date to
+        # today would cause a validation error
+        # (see validates :terminated_on PrescriptionTermination)
+        # so here we are testing that that condition does ot stop an HD prescription from being
+        # terminated.
+        period = 3.months
+
+        allow(Renalware.config)
+          .to receive(:auto_terminate_hd_prescriptions_after_period)
+          .and_return(period)
+
+        # Create an unterminated HD prescription way back
+        prescription = create(
+          :prescription,
+          patient: patient,
+          drug: drug,
+          administer_on_hd: true,
+          prescribed_on: 6.months.ago
+        )
+
+        # Now attempt to renew it which will terminate it (ignoring the validation)
+        expect {
+          described_class.call(
+            prescription: prescription,
+            auto_terminate_after: period,
+            by: user
+          )
+        }.to change(PrescriptionTermination, :count).by(2)
+          .and change(Prescription, :count).by(1)
+      end
     end
+
+    # context "when the prescription has a future start and stop dates" do
+    #   it do
+    #     period = 3.months
+
+    #     allow(Renalware.config)
+    #       .to receive(:auto_terminate_hd_prescriptions_after_period)
+    #       .and_return(period)
+
+    #     create(
+    #       :prescription,
+    #       patient: patient,
+    #       drug: drug,
+    #       administer_on_hd: true,
+    #       prescribed_on: 10.days.from_now
+    #     )
+    #   end
+    # end
 
     context "when the prescription already has a (future) termination" do
       it "updates the termination with today's date and creates a new one with a termination " \
