@@ -8489,7 +8489,8 @@ CREATE TABLE renalware.medication_routes (
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rr_code character varying,
-    code character varying
+    code character varying,
+    weighting integer DEFAULT 0 NOT NULL
 );
 
 
@@ -22265,6 +22266,13 @@ CREATE UNIQUE INDEX index_medication_routes_on_code ON renalware.medication_rout
 
 
 --
+-- Name: index_medication_routes_on_weighting; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_medication_routes_on_weighting ON renalware.medication_routes USING btree (weighting);
+
+
+--
 -- Name: index_messaging_messages_on_author_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -28939,6 +28947,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240505190155'),
 ('20240501155334'),
 ('20240501151609'),
 ('20240430130439'),

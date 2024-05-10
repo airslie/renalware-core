@@ -50,8 +50,10 @@ module Renalware
                         vmps
                       end
 
-          MedicationRoute.where(id: selection.map(&:route_id))
-            .presence || MedicationRoute.all
+          MedicationRoute
+            .ordered
+            .where(id: selection.map(&:route_id))
+            .presence || MedicationRoute.ordered
         end
       end
 
