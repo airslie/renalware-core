@@ -14,6 +14,7 @@ ruby:
 
   = simple_form_for prescription,
                     url: update_url,
+                    input_html: { autocomplete: "off" },
                     html: { class: "fn-form prescription-form" },
                     wrapper: :horizontal_form do |f|
 
@@ -57,7 +58,9 @@ ruby:
                             prompt: (presenter.forms.size == 1 ? false : :translate),
                             wrapper: :horizontal_medium
 
-          = f.input :dose_amount, wrapper: :horizontal_small
+          = f.input :dose_amount,
+                    wrapper: :horizontal_small,
+                    input_html: { autocomplete: "off", spellcheck: "false" }
 
           .mb-4
             = f.association :unit_of_measure,
@@ -102,7 +105,9 @@ ruby:
             input_html: { value: (f.object.frequency if !frequency_is_predefined), autofocus: true },
             label: t("activerecord.attributes.renalware/medications/prescription.frequency_freeform")
 
-      = f.input :frequency_comment, wrapper: :horizontal_medium
+      = f.input :frequency_comment,
+                wrapper: :horizontal_medium,
+                input_html: { autocomplete: "off" }
 
       div(data-controller="simple-toggle" class="#{'disabled-input' unless policy(f.object).new_hd_prescription?}")
         = f.input :administer_on_hd,
@@ -114,7 +119,9 @@ ruby:
                     wrapper: :horizontal_small,
                     hint: "if checked, the prescription will be automatically terminated once given"
 
-      = f.input :notes, wrapper: :horizontal_medium
+      = f.input :notes,
+                wrapper: :horizontal_medium,
+                input_html: { autocomplete: "off" }
       = f.input :prescribed_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
       = f.simple_fields_for(:termination) do |tf|
