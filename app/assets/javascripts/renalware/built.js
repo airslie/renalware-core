@@ -167,21 +167,21 @@ var process$3 = global$F.process;
 var Deno$1 = global$F.Deno;
 var versions = process$3 && process$3.versions || Deno$1 && Deno$1.version;
 var v8 = versions && versions.v8;
-var match$2, version$1;
+var match$1, version$1;
 if (v8) {
-  match$2 = v8.split('.');
+  match$1 = v8.split('.');
   // in old Chrome, versions of V8 isn't V8 = Chrome / 10
   // but their correct versions are not interesting for us
-  version$1 = match$2[0] > 0 && match$2[0] < 4 ? 1 : +(match$2[0] + match$2[1]);
+  version$1 = match$1[0] > 0 && match$1[0] < 4 ? 1 : +(match$1[0] + match$1[1]);
 }
 
 // BrowserFS NodeJS `process` polyfill incorrectly set `.v8` to `0.0`
 // so check `userAgent` even if `.v8` exists, but 0
 if (!version$1 && userAgent$4) {
-  match$2 = userAgent$4.match(/Edge\/(\d+)/);
-  if (!match$2 || match$2[1] >= 74) {
-    match$2 = userAgent$4.match(/Chrome\/(\d+)/);
-    if (match$2) version$1 = +match$2[1];
+  match$1 = userAgent$4.match(/Edge\/(\d+)/);
+  if (!match$1 || match$1[1] >= 74) {
+    match$1 = userAgent$4.match(/Chrome\/(\d+)/);
+    if (match$1) version$1 = +match$1[1];
   }
 }
 var engineV8Version = version$1;
@@ -8237,7 +8237,7 @@ function _toPrimitive$1(t, r) {
 }
 function _toPropertyKey$1(t) {
   var i = _toPrimitive$1(t, "string");
-  return "symbol" == typeof i ? i : String(i);
+  return "symbol" == typeof i ? i : i + "";
 }
 function _classCallCheck$1(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -8255,7 +8255,6 @@ function _defineProperties$1(target, props) {
 }
 function _createClass$1(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties$1(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$1(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", {
     writable: false
   });
@@ -8352,12 +8351,12 @@ var $$7 = window.$;
 // one is toggleable. If you need anything more complex you'll need to clone or adapt this
 // controller
 var _default$F = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "row",
     value:
     // This handler toggles the last tr in the current tbody. We use multiple tbodys in each table
@@ -8391,17 +8390,16 @@ var _default$F = /*#__PURE__*/function (_Controller) {
       $$7(".mgrid > .row").masonry("layout");
     }
   }]);
-  return _default;
 }(Controller);
 
 /*  Single use controller only for the Dietetic Clinic Visit */
 var _default$E = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "initialize",
     value: function initialize() {
       this.calculate = this.calculate.bind(this);
@@ -8432,7 +8430,6 @@ var _default$E = /*#__PURE__*/function (_Controller) {
       this.outputTarget.innerText = value;
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$E, "targets", ["output"]);
 _defineProperty$2(_default$E, "values", {
@@ -8442,12 +8439,12 @@ _defineProperty$2(_default$E, "values", {
 
 /*  Single use controller only for the Dietetic Clinic Visit */
 var _default$D = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "initialize",
     value: function initialize() {
       this.calculate = this.calculate.bind(this);
@@ -8475,7 +8472,6 @@ var _default$D = /*#__PURE__*/function (_Controller) {
       this.outputTarget.innerText = value;
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$D, "targets", ["previousWeight", "output"]);
 _defineProperty$2(_default$D, "values", {
@@ -8484,12 +8480,12 @@ _defineProperty$2(_default$D, "values", {
 
 /*  Single use controller only for the Dietetic Clinic Visit */
 var _default$C = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "initialize",
     value: function initialize() {
       this.calculate = this.calculate.bind(this);
@@ -8517,18 +8513,17 @@ var _default$C = /*#__PURE__*/function (_Controller) {
       this.outputTarget.innerText = value;
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$C, "targets", ["proteinIntake", "output"]);
 
 var $$6 = window.$;
 var _default$B = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "toggleAdministered",
     value: function toggleAdministered() {
       var checked = event.target.value == "true";
@@ -8542,7 +8537,6 @@ var _default$B = /*#__PURE__*/function (_Controller) {
       $$6("#btn_save_and_witness_later").toggle(checked);
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$B, "targets", ["container", "radio"]);
 
@@ -8551,12 +8545,12 @@ var Rails$3 = window.Rails;
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescriptions page.
 var _default$A = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "refreshForm",
     value:
     // Submit and re-display the form when 'drug type' or 'prescription duration'
@@ -8577,18 +8571,17 @@ var _default$A = /*#__PURE__*/function (_Controller) {
       this.printFeedbackTarget.classList.toggle("visuallyhidden");
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$A, "targets", ["form", "printOptions", "printFeedback"]);
 
 var $$5 = window.$;
 var _default$z = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "insert",
     value: function insert(event) {
       // TODO: set up the trix editor in each page as data-target="snippets.trix"
@@ -8599,17 +8592,16 @@ var _default$z = /*#__PURE__*/function (_Controller) {
       $$5(modal).foundation("reveal", "close");
     }
   }]);
-  return _default;
 }(Controller);
 
 var $$4 = window.$;
 var _default$y = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "initInsertEventNotesIntoTrixEditor",
     value: function initInsertEventNotesIntoTrixEditor(event) {
       event.preventDefault();
@@ -8626,19 +8618,18 @@ var _default$y = /*#__PURE__*/function (_Controller) {
       return this.trixTarget.editor;
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$y, "targets", ["trix"]);
 
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescriptions page.
 var _default$x = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       var radio_value = this.providersTarget.querySelector("input:checked").value;
@@ -8659,7 +8650,6 @@ var _default$x = /*#__PURE__*/function (_Controller) {
       }
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$x, "targets", ["homeDeliveryDates", "providers"]);
 
@@ -19653,12 +19643,12 @@ var highchartsExports = highcharts.exports;
 var Highcharts$1 = /*@__PURE__*/getDefaultExportFromCjs(highchartsExports);
 
 var _default$w = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "initialize",
     value: function initialize() {
       this.getJson();
@@ -19773,7 +19763,6 @@ var _default$w = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$w, "targets", ["chart",
 // chart container
@@ -19849,7 +19838,6 @@ var _ = window._;
 // - Not quite sure if putting the data attribute config settings in the body
 //   tag is the right thing to do - perhaps should be in a config .js.erb
 var _default$v = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     var _this;
     _classCallCheck$1(this, _default);
@@ -19857,20 +19845,21 @@ var _default$v = /*#__PURE__*/function (_Controller) {
       args[_key] = arguments[_key];
     }
     _this = _callSuper(this, _default, [].concat(args));
-    _defineProperty$2(_assertThisInitialized$1(_this), "checkForSessionExpiryTimeout", null);
-    _defineProperty$2(_assertThisInitialized$1(_this), "userActivityDetected", false);
-    _defineProperty$2(_assertThisInitialized$1(_this), "checkAlivePath", null);
-    _defineProperty$2(_assertThisInitialized$1(_this), "keepAlivePath", null);
-    _defineProperty$2(_assertThisInitialized$1(_this), "loginPath", null);
-    _defineProperty$2(_assertThisInitialized$1(_this), "throttledRegisterUserActivity", null);
-    _defineProperty$2(_assertThisInitialized$1(_this), "sessionTimeoutSeconds", 0);
-    _defineProperty$2(_assertThisInitialized$1(_this), "defaultSessionTimeoutSeconds", 20 * 60);
+    _defineProperty$2(_this, "checkForSessionExpiryTimeout", null);
+    _defineProperty$2(_this, "userActivityDetected", false);
+    _defineProperty$2(_this, "checkAlivePath", null);
+    _defineProperty$2(_this, "keepAlivePath", null);
+    _defineProperty$2(_this, "loginPath", null);
+    _defineProperty$2(_this, "throttledRegisterUserActivity", null);
+    _defineProperty$2(_this, "sessionTimeoutSeconds", 0);
+    _defineProperty$2(_this, "defaultSessionTimeoutSeconds", 20 * 60);
     // 20 mins
-    _defineProperty$2(_assertThisInitialized$1(_this), "throttlePeriodSeconds", 0);
-    _defineProperty$2(_assertThisInitialized$1(_this), "defaultThrottlePeriodSeconds", 20);
+    _defineProperty$2(_this, "throttlePeriodSeconds", 0);
+    _defineProperty$2(_this, "defaultThrottlePeriodSeconds", 20);
     return _this;
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "initialize",
     value: function initialize() {
       this.throttlePeriodSeconds = parseInt(this.data.get("register-user-activity-after") || this.defaultThrottlePeriodSeconds);
@@ -20044,16 +20033,15 @@ var _default$v = /*#__PURE__*/function (_Controller) {
       return this.data.get("debug") === "true";
     }
   }]);
-  return _default;
 }(Controller);
 
 var _default$u = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       this.toggleClass = this.data.get("class") || "hidden";
@@ -20067,17 +20055,16 @@ var _default$u = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$u, "targets", ["toggleable"]);
 
 var _default$t = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       this.toggleClass = this.data.get("class") || "hidden";
@@ -20124,17 +20111,16 @@ var _default$t = /*#__PURE__*/function (_Controller) {
       }
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$t, "targets", ["item"]);
 
 var _default$s = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {}
   }, {
@@ -20176,7 +20162,6 @@ var _default$s = /*#__PURE__*/function (_Controller) {
       this.showTab();
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$s, "targets", ["tab", "panel"]);
 
@@ -23778,12 +23763,12 @@ var More = /*@__PURE__*/getDefaultExportFromCjs(highchartsMoreExports);
 var $$3 = window.$;
 More(Highcharts$1);
 var _default$r = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       var _this = this;
@@ -23925,16 +23910,15 @@ var _default$r = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 
 var _default$q = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       // let data = this.data.get("chartData")
@@ -24036,7 +24020,6 @@ var _default$q = /*#__PURE__*/function (_Controller) {
     //   }
     // }
   }]);
-  return _default;
 }(Controller);
 /**
 * Create a constructor for sparklines that takes some sensible defaults and merges in the individual
@@ -24145,12 +24128,12 @@ _defineProperty$2(_default$q, "targets", ["chart"]);
 //   div.collapsible(data-collapsible-target="section")
 //     p YYY
 var _default$p = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       // TODO: We could support an initial open section here for example.
@@ -24172,18 +24155,17 @@ var _default$p = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$p, "targets", ["section", "link"]);
 _defineProperty$2(_default$p, "classes", ["open"]);
 
 var _default$o = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "handleSelectChange",
     value: function handleSelectChange() {
       this.populateSelect(this.sourceTarget.value);
@@ -24211,18 +24193,17 @@ var _default$o = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$o, "targets", ["source", "target"]);
 
 // Used with patient attachments aka linked files.
 var _default$n = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "toggleFileInputs",
     value:
     // When the attachment type changes we examine a data attribute on the selected option
@@ -24235,23 +24216,21 @@ var _default$n = /*#__PURE__*/function (_Controller) {
       this.externalLocationTarget.style.display = storeFileExternally ? "block" : "none";
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$n, "targets", ["fileBrowser", "externalLocation"]);
 
 var _default$m = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       Renalware.PatientSearch.init();
     }
   }]);
-  return _default;
 }(Controller);
 
 /**!
@@ -24572,10 +24551,8 @@ function isScrolledPast(el, elSide, parentSide) {
   while (parent) {
     var parentSideVal = getRect(parent)[parentSide],
       visible = void 0;
-    if (parentSide === 'top' || parentSide === 'left') {
+    {
       visible = elSideVal >= parentSideVal;
-    } else {
-      visible = elSideVal <= parentSideVal;
     }
     if (!visible) return parent;
     if (parent === getWindowScrollingElement()) break;
@@ -26904,12 +26881,12 @@ Sortable.mount(Remove, Revert);
 //   <% end %>
 // </div>
 var _default$l = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       this.sortable = Sortable.create(this.element, {
@@ -26935,17 +26912,16 @@ var _default$l = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 
 var Rails$1 = window.Rails;
 var _default$k = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "refresh",
     value: function refresh(event) {
       event.preventDefault();
@@ -26976,7 +26952,6 @@ var _default$k = /*#__PURE__*/function (_Controller) {
       (_document$querySelect2 = document.querySelector("#" + idsToHide)) === null || _document$querySelect2 === void 0 || _document$querySelect2.classList.add("hidden");
     }
   }]);
-  return _default;
 }(Controller);
 
 // Set all radio inputs within the controller's element to checked if their
@@ -26988,12 +26963,12 @@ var _default$k = /*#__PURE__*/function (_Controller) {
 //   input(type="radio" value="no" ..)
 //   ...
 var _default$j = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "reset_all",
     value: function reset_all(event) {
       var that = this;
@@ -27005,19 +26980,18 @@ var _default$j = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$j, "values", {
   match: String
 });
 
 var _default$i = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "showhide",
     value:
     /*
@@ -27035,7 +27009,6 @@ var _default$i = /*#__PURE__*/function (_Controller) {
       }
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$i, "targets", ["displayable"]);
 // element we are going to show/hide
@@ -28872,12 +28845,12 @@ var slimselectExports = slimselect.exports;
 var SlimSelect = /*@__PURE__*/getDefaultExportFromCjs(slimselectExports);
 
 var _default$h = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value:
     // See also e.g. https://slimselectjs.com/settings
@@ -28898,19 +28871,18 @@ var _default$h = /*#__PURE__*/function (_Controller) {
       this.slimselect.destroy();
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$h, "values", {
   options: Object
 });
 
 var _default$g = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       // The class we should toggle on the container
@@ -29045,7 +29017,6 @@ var _default$g = /*#__PURE__*/function (_Controller) {
       document.documentElement.scrollTop = this.scrollPosition;
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$g, "targets", ["container", "turboFrame"]);
 _defineProperty$2(_default$g, "values", {
@@ -29144,12 +29115,12 @@ var debounce$3 = /*@__PURE__*/getDefaultExportFromCjs(debounce_1);
       select, radio, but will cause the form to submit
 */
 var _default$f = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "initialize",
     value: function initialize() {
       this.submit = debounce$3(this.submit.bind(this), 300);
@@ -29160,7 +29131,6 @@ var _default$f = /*#__PURE__*/function (_Controller) {
       event.target.form.requestSubmit();
     }
   }]);
-  return _default;
 }(Controller);
 
 /*  Allows to submit an form that's different to the
@@ -29182,12 +29152,12 @@ var _default$f = /*#__PURE__*/function (_Controller) {
       data: { "action": "change->alternative-form-submitter#submit" }
 */
 var _default$e = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "submit",
     value: function submit(event) {
       var targetForm = document.getElementById(event.target.dataset.alternativeForm) || this.formTarget;
@@ -29200,18 +29170,17 @@ var _default$e = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$e, "targets", ["form"]);
 
 // Inspired by https://www.youtube.com/watch?v=gk_qDsKMIrM&t=528s
 var _default$d = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       var _this = this;
@@ -29225,7 +29194,6 @@ var _default$d = /*#__PURE__*/function (_Controller) {
       this.element.remove();
     }
   }]);
-  return _default;
 }(Controller);
 
 var HOOKS = ["onChange", "onClose", "onDayCreate", "onDestroy", "onKeyDown", "onMonthChange", "onOpen", "onParseConfig", "onReady", "onValueUpdate", "onYearChange", "onPreCalendarPosition"];
@@ -31985,7 +31953,6 @@ var formatDistance = function formatDistance(token, count, options) {
   }
   return result;
 };
-var formatDistance$1 = formatDistance;
 
 function buildFormatLongFn(args) {
   return function () {
@@ -32029,7 +31996,6 @@ var formatLong = {
     defaultWidth: 'full'
   })
 };
-var formatLong$1 = formatLong;
 
 var formatRelativeLocale = {
   lastWeek: "'last' eeee 'at' p",
@@ -32042,7 +32008,6 @@ var formatRelativeLocale = {
 var formatRelative = function formatRelative(token, _date, _baseDate, _options) {
   return formatRelativeLocale[token];
 };
-var formatRelative$1 = formatRelative;
 
 function buildLocalizeFn(args) {
   return function (dirtyIndex, options) {
@@ -32204,7 +32169,6 @@ var localize = {
     defaultFormattingWidth: 'wide'
   })
 };
-var localize$1 = localize;
 
 function buildMatchFn(args) {
   return function (string) {
@@ -32362,7 +32326,6 @@ var match = {
     defaultParseWidth: 'any'
   })
 };
-var match$1 = match;
 
 /**
  * @type {Locale}
@@ -32375,17 +32338,16 @@ var match$1 = match;
  */
 var locale = {
   code: 'en-US',
-  formatDistance: formatDistance$1,
-  formatLong: formatLong$1,
-  formatRelative: formatRelative$1,
-  localize: localize$1,
-  match: match$1,
+  formatDistance: formatDistance,
+  formatLong: formatLong,
+  formatRelative: formatRelative,
+  localize: localize,
+  match: match,
   options: {
     weekStartsOn: 0 /* Sunday */,
     firstWeekContainsDate: 1
   }
 };
-var defaultLocale = locale;
 
 function assign(target, object) {
   if (target == null) {
@@ -32417,7 +32379,7 @@ function _unsupportedIterableToArray(o, minLen) {
 function _createForOfIteratorHelper(o, allowArrayLike) {
   var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
   if (!it) {
-    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike  ) {
       if (it) o = it;
       var i = 0;
       var F = function F() {};
@@ -32574,7 +32536,6 @@ function _defineProperties(target, props) {
 }
 function _createClass(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", {
     writable: false
   });
@@ -35035,22 +34996,22 @@ var unescapedLatinCharacterRegExp = /[a-zA-Z]/;
  * //=> Sun Feb 28 2010 00:00:00
  */
 function parse(dirtyDateString, dirtyFormatString, dirtyReferenceDate, options) {
-  var _ref, _options$locale, _ref2, _ref3, _ref4, _options$firstWeekCon, _options$locale2, _options$locale2$opti, _defaultOptions$local, _defaultOptions$local2, _ref5, _ref6, _ref7, _options$weekStartsOn, _options$locale3, _options$locale3$opti, _defaultOptions$local3, _defaultOptions$local4;
+  var _ref, _options$locale, _ref2, _ref3, _ref4, _options$firstWeekCon, _defaultOptions$local, _defaultOptions$local2, _ref5, _ref6, _ref7, _options$weekStartsOn, _defaultOptions$local3, _defaultOptions$local4;
   requiredArgs(3, arguments);
   var dateString = String(dirtyDateString);
   var formatString = String(dirtyFormatString);
   var defaultOptions = getDefaultOptions();
-  var locale = (_ref = (_options$locale = options === null || options === void 0 ? void 0 : options.locale) !== null && _options$locale !== void 0 ? _options$locale : defaultOptions.locale) !== null && _ref !== void 0 ? _ref : defaultLocale;
-  if (!locale.match) {
+  var locale$1 = (_ref = (_options$locale = void 0 ) !== null && _options$locale !== void 0 ? _options$locale : defaultOptions.locale) !== null && _ref !== void 0 ? _ref : locale;
+  if (!locale$1.match) {
     throw new RangeError('locale must contain match property');
   }
-  var firstWeekContainsDate = toInteger((_ref2 = (_ref3 = (_ref4 = (_options$firstWeekCon = options === null || options === void 0 ? void 0 : options.firstWeekContainsDate) !== null && _options$firstWeekCon !== void 0 ? _options$firstWeekCon : options === null || options === void 0 ? void 0 : (_options$locale2 = options.locale) === null || _options$locale2 === void 0 ? void 0 : (_options$locale2$opti = _options$locale2.options) === null || _options$locale2$opti === void 0 ? void 0 : _options$locale2$opti.firstWeekContainsDate) !== null && _ref4 !== void 0 ? _ref4 : defaultOptions.firstWeekContainsDate) !== null && _ref3 !== void 0 ? _ref3 : (_defaultOptions$local = defaultOptions.locale) === null || _defaultOptions$local === void 0 ? void 0 : (_defaultOptions$local2 = _defaultOptions$local.options) === null || _defaultOptions$local2 === void 0 ? void 0 : _defaultOptions$local2.firstWeekContainsDate) !== null && _ref2 !== void 0 ? _ref2 : 1);
+  var firstWeekContainsDate = toInteger((_ref2 = (_ref3 = (_ref4 = (_options$firstWeekCon = void 0 ) !== null && _options$firstWeekCon !== void 0 ? _options$firstWeekCon : void 0 ) !== null && _ref4 !== void 0 ? _ref4 : defaultOptions.firstWeekContainsDate) !== null && _ref3 !== void 0 ? _ref3 : (_defaultOptions$local = defaultOptions.locale) === null || _defaultOptions$local === void 0 ? void 0 : (_defaultOptions$local2 = _defaultOptions$local.options) === null || _defaultOptions$local2 === void 0 ? void 0 : _defaultOptions$local2.firstWeekContainsDate) !== null && _ref2 !== void 0 ? _ref2 : 1);
 
   // Test if weekStartsOn is between 1 and 7 _and_ is not NaN
   if (!(firstWeekContainsDate >= 1 && firstWeekContainsDate <= 7)) {
     throw new RangeError('firstWeekContainsDate must be between 1 and 7 inclusively');
   }
-  var weekStartsOn = toInteger((_ref5 = (_ref6 = (_ref7 = (_options$weekStartsOn = options === null || options === void 0 ? void 0 : options.weekStartsOn) !== null && _options$weekStartsOn !== void 0 ? _options$weekStartsOn : options === null || options === void 0 ? void 0 : (_options$locale3 = options.locale) === null || _options$locale3 === void 0 ? void 0 : (_options$locale3$opti = _options$locale3.options) === null || _options$locale3$opti === void 0 ? void 0 : _options$locale3$opti.weekStartsOn) !== null && _ref7 !== void 0 ? _ref7 : defaultOptions.weekStartsOn) !== null && _ref6 !== void 0 ? _ref6 : (_defaultOptions$local3 = defaultOptions.locale) === null || _defaultOptions$local3 === void 0 ? void 0 : (_defaultOptions$local4 = _defaultOptions$local3.options) === null || _defaultOptions$local4 === void 0 ? void 0 : _defaultOptions$local4.weekStartsOn) !== null && _ref5 !== void 0 ? _ref5 : 0);
+  var weekStartsOn = toInteger((_ref5 = (_ref6 = (_ref7 = (_options$weekStartsOn = void 0 ) !== null && _options$weekStartsOn !== void 0 ? _options$weekStartsOn : void 0 ) !== null && _ref7 !== void 0 ? _ref7 : defaultOptions.weekStartsOn) !== null && _ref6 !== void 0 ? _ref6 : (_defaultOptions$local3 = defaultOptions.locale) === null || _defaultOptions$local3 === void 0 ? void 0 : (_defaultOptions$local4 = _defaultOptions$local3.options) === null || _defaultOptions$local4 === void 0 ? void 0 : _defaultOptions$local4.weekStartsOn) !== null && _ref5 !== void 0 ? _ref5 : 0);
 
   // Test if weekStartsOn is between 0 and 6 _and_ is not NaN
   if (!(weekStartsOn >= 0 && weekStartsOn <= 6)) {
@@ -35066,7 +35027,7 @@ function parse(dirtyDateString, dirtyFormatString, dirtyReferenceDate, options) 
   var subFnOptions = {
     firstWeekContainsDate: firstWeekContainsDate,
     weekStartsOn: weekStartsOn,
-    locale: locale
+    locale: locale$1
   };
 
   // If timezone isn't specified, it will be set to the system timezone
@@ -35075,7 +35036,7 @@ function parse(dirtyDateString, dirtyFormatString, dirtyReferenceDate, options) 
     var firstCharacter = substring[0];
     if (firstCharacter in longFormatters) {
       var longFormatter = longFormatters[firstCharacter];
-      return longFormatter(substring, locale.formatLong);
+      return longFormatter(substring, locale$1.formatLong);
     }
     return substring;
   }).join('').match(formattingTokensRegExp);
@@ -35109,7 +35070,7 @@ function parse(dirtyDateString, dirtyFormatString, dirtyReferenceDate, options) 
           token: firstCharacter,
           fullToken: token
         });
-        var parseResult = parser.run(dateString, token, locale.match, subFnOptions);
+        var parseResult = parser.run(dateString, token, locale$1.match, subFnOptions);
         if (!parseResult) {
           return {
             v: new Date(NaN)
@@ -35559,12 +35520,12 @@ var dateWithTimeConfig = {
   dateFormat: "d-M-Y H:i"
 };
 var _default$b = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       var config;
@@ -35586,7 +35547,6 @@ var _default$b = /*#__PURE__*/function (_Controller) {
       this.fp.destroy();
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$b, "values", {
   timeOnly: Boolean,
@@ -35597,12 +35557,12 @@ _defineProperty$2(_default$b, "values", {
   Adds a warning if selected value is not allowed
 */
 var _default$a = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       this.toggleMessage();
@@ -35622,7 +35582,6 @@ var _default$a = /*#__PURE__*/function (_Controller) {
       }
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$a, "values", {
   notRecommended: Array
@@ -35630,12 +35589,12 @@ _defineProperty$2(_default$a, "values", {
 _defineProperty$2(_default$a, "targets", ["input", "message"]);
 
 var _default$9 = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "change",
     value: function change() {
       var url = this.element.selectedOptions[0].dataset.frameUrl;
@@ -35643,7 +35602,6 @@ var _default$9 = /*#__PURE__*/function (_Controller) {
       frame.src = url;
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$9, "values", {
   frameId: String
@@ -35651,12 +35609,12 @@ _defineProperty$2(_default$9, "values", {
 
 // Inspired by https://stackoverflow.com/a/56952952/4405214
 var _default$8 = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       this.doubleScroll(this.element);
@@ -35694,16 +35652,15 @@ var _default$8 = /*#__PURE__*/function (_Controller) {
       element.parentNode.insertBefore(scrollbar, element);
     }
   }]);
-  return _default;
 }(Controller);
 
 var _default$7 = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "initialize",
     value: function initialize() {
       this.change = debounce$3(this.change.bind(this), 1000);
@@ -35716,7 +35673,6 @@ var _default$7 = /*#__PURE__*/function (_Controller) {
       this.turboframeTarget.src = url.toString();
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$7, "targets", ["turboframe"]);
 _defineProperty$2(_default$7, "values", {
@@ -35725,12 +35681,12 @@ _defineProperty$2(_default$7, "values", {
 });
 
 var _default$6 = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       this.open = false;
@@ -35759,7 +35715,6 @@ var _default$6 = /*#__PURE__*/function (_Controller) {
       $('.mgrid > .row').masonry('layout');
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$6, "targets", ["content"]);
 _defineProperty$2(_default$6, "values", {
@@ -35768,12 +35723,12 @@ _defineProperty$2(_default$6, "values", {
 });
 
 var _default$5 = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       grid = this.element;
@@ -35786,7 +35741,6 @@ var _default$5 = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$5, "targets", ["content"]);
 
@@ -35797,12 +35751,12 @@ When this is controller is added to a table, if the table uses colgroups (eg his
 then as the mouse enters and leaves
 */
 var _default$4 = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       var _this = this;
@@ -35828,7 +35782,6 @@ var _default$4 = /*#__PURE__*/function (_Controller) {
       }
     }
   }]);
-  return _default;
 }(Controller);
 
 // Given the markup eg
@@ -35843,12 +35796,12 @@ var _default$4 = /*#__PURE__*/function (_Controller) {
 // will get the active class.
 // Using js to highlight the menu on this context means we can cache it's partial.
 var _default$3 = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       var _this = this;
@@ -35859,7 +35812,6 @@ var _default$3 = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default$3, "targets", ["nav"]);
 _defineProperty$2(_default$3, "values", {
@@ -35869,12 +35821,12 @@ _defineProperty$2(_default$3, "classes", ["active"]);
 
 var $$1 = window.$;
 var _default$2 = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "connect",
     value: function connect() {
       $$1(".sub-nav:not('.no-js-selection') dd").each(function () {
@@ -35885,16 +35837,15 @@ var _default$2 = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 
 var _default$1 = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "submitEnd",
     value:
     // Example usage:
@@ -35929,16 +35880,15 @@ var _default$1 = /*#__PURE__*/function (_Controller) {
       this.element.remove();
     }
   }]);
-  return _default;
 }(Controller);
 
 var _default = /*#__PURE__*/function (_Controller) {
-  _inherits$1(_default, _Controller);
   function _default() {
     _classCallCheck$1(this, _default);
     return _callSuper(this, _default, arguments);
   }
-  _createClass$1(_default, [{
+  _inherits$1(_default, _Controller);
+  return _createClass$1(_default, [{
     key: "initialize",
     value: function initialize() {
       this.getJson();
@@ -35964,7 +35914,6 @@ var _default = /*#__PURE__*/function (_Controller) {
       });
     }
   }]);
-  return _default;
 }(Controller);
 _defineProperty$2(_default, "targets", ["chart" // chart container
 ]);
