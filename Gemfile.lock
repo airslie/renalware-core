@@ -57,6 +57,7 @@ PATH
       activerecord-import (~> 1.0)
       activerecord-postgres_enum (~> 2.0)
       acts_as_list (~> 1.1)
+      after_commit_everywhere
       ahoy_matey
       attr_extras
       bcrypt_pbkdf
@@ -222,6 +223,9 @@ GEM
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     afm (0.2.2)
+    after_commit_everywhere (1.4.0)
+      activerecord (>= 4.2)
+      activesupport
     ahoy_matey (5.1.0)
       activesupport (>= 6.1)
       device_detector (>= 1)
