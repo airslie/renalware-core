@@ -78,7 +78,7 @@
               td= default_patient_link(slot_request.patient)
               td= slot_request.patient.hospital_identifier
               td
-                .rounded.inline.py-1.px-2.nowrap(class="#{urgency_colors.fetch(slot_request.urgency, '')}")
+                .rounded.inline.py-px.px-2.nowrap(class="#{urgency_colors.fetch(slot_request.urgency, '')}")
                   = slot_request.urgency.to_s.humanize
               td.nowrap= slot_request.patient.current_modality
               td= slot_request.location&.name
