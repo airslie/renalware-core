@@ -230,7 +230,8 @@ CREATE TYPE renalware.enum_feed_log_type AS ENUM (
 CREATE TYPE renalware.enum_hd_slot_request_urgency AS ENUM (
     'routine',
     'urgent',
-    'highly_urgent'
+    'highly_urgent',
+    'allocated'
 );
 
 
@@ -28947,6 +28948,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240515081225'),
 ('20240505190155'),
 ('20240501155334'),
 ('20240501151609'),

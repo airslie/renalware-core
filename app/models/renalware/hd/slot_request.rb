@@ -24,7 +24,8 @@ module Renalware
       enum urgency: {
         routine: "routine",
         urgent: "urgent",
-        highly_urgent: "highly_urgent"
+        highly_urgent: "highly_urgent",
+        allocated: "allocated"
       }
 
       has_paper_trail(
