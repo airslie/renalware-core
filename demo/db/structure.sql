@@ -2285,6 +2285,638 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: drug_types; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.drug_types (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    code character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    weighting integer DEFAULT 0 NOT NULL,
+    colour renalware.enum_colour_name,
+    atc_codes character varying[]
+);
+
+
+--
+-- Name: COLUMN drug_types."position"; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_types."position" IS 'Controls display order';
+
+
+--
+-- Name: COLUMN drug_types.weighting; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_types.weighting IS 'More important drug types have a higher value so their colour trumps other types a drug might have.';
+
+
+--
+-- Name: COLUMN drug_types.colour; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.drug_types.colour IS 'A CSS colour e.f. ''#A12A12''';
+
+
+--
+-- Name: drug_types_drugs; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.drug_types_drugs (
+    drug_id integer NOT NULL,
+    drug_type_id integer NOT NULL,
+    id bigint NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: drugs; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.drugs (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    description character varying,
+    read_code character varying,
+    code character varying,
+    inactive boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: medication_prescription_terminations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.medication_prescription_terminations (
+    id integer NOT NULL,
+    terminated_on date NOT NULL,
+    notes text,
+    prescription_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    terminated_on_set_by_user boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: COLUMN medication_prescription_terminations.terminated_on_set_by_user; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.medication_prescription_terminations.terminated_on_set_by_user IS 'If true, the system will not attempt to set to prescribed_on + 6 months if prescriptions administer_on_hd=true';
+
+
+--
+-- Name: medication_prescriptions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.medication_prescriptions (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    drug_id integer NOT NULL,
+    treatable_type character varying NOT NULL,
+    treatable_id integer NOT NULL,
+    dose_amount character varying NOT NULL,
+    dose_unit character varying,
+    medication_route_id integer NOT NULL,
+    route_description character varying,
+    frequency character varying NOT NULL,
+    notes text,
+    prescribed_on date NOT NULL,
+    provider integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    administer_on_hd boolean DEFAULT false NOT NULL,
+    last_delivery_date date,
+    next_delivery_date date,
+    unit_of_measure_id bigint,
+    trade_family_id bigint,
+    form_id bigint,
+    legacy_drug_id integer,
+    legacy_medication_route_id integer,
+    frequency_comment character varying,
+    stat boolean
+);
+
+
+--
+-- Name: COLUMN medication_prescriptions.legacy_drug_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.medication_prescriptions.legacy_drug_id IS 'Keep the previous drug id as a reference in case of issues with DMD migration';
+
+
+--
+-- Name: COLUMN medication_prescriptions.legacy_medication_route_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.medication_prescriptions.legacy_medication_route_id IS 'Keep the previous route id as a reference in case of issues with DMD migration';
+
+
+--
+-- Name: COLUMN medication_prescriptions.stat; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.medication_prescriptions.stat IS 'Can be chosen when administer_on_hd is true. Prescriptions marked as ''stat'' will be marked as terminated automatically once given.';
+
+
+--
+-- Name: medication_current_prescriptions; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.medication_current_prescriptions AS
+ SELECT mp.id,
+    mp.patient_id,
+    mp.drug_id,
+    mp.treatable_type,
+    mp.treatable_id,
+    mp.dose_amount,
+    mp.dose_unit,
+    mp.medication_route_id,
+    mp.route_description,
+    mp.frequency,
+    mp.notes,
+    mp.prescribed_on,
+    mp.provider,
+    mp.created_at,
+    mp.updated_at,
+    mp.created_by_id,
+    mp.updated_by_id,
+    mp.administer_on_hd,
+    mp.last_delivery_date,
+    drugs.name AS drug_name,
+    drug_types.code AS drug_type_code,
+    drug_types.name AS drug_type_name
+   FROM ((((renalware.medication_prescriptions mp
+     FULL JOIN renalware.medication_prescription_terminations mpt ON ((mpt.prescription_id = mp.id)))
+     JOIN renalware.drugs ON ((drugs.id = mp.drug_id)))
+     FULL JOIN renalware.drug_types_drugs ON ((drug_types_drugs.drug_id = drugs.id)))
+     FULL JOIN renalware.drug_types ON (((drug_types_drugs.drug_type_id = drug_types.id) AND ((mpt.terminated_on IS NULL) OR (mpt.terminated_on > now())))));
+
+
+--
+-- Name: pathology_observation_descriptions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pathology_observation_descriptions (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    name character varying,
+    measurement_unit_id integer,
+    loinc_code character varying,
+    display_group integer,
+    display_order integer,
+    letter_group integer,
+    letter_order integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    rr_type integer DEFAULT 0 NOT NULL,
+    rr_coding_standard integer DEFAULT 0 NOT NULL,
+    legacy_code character varying,
+    lower_threshold double precision,
+    upper_threshold double precision,
+    suggested_measurement_unit_id integer,
+    virtual boolean DEFAULT false NOT NULL,
+    chart_colour character varying,
+    chart_logarithmic boolean DEFAULT false NOT NULL,
+    chart_sql_function_name character varying,
+    created_by_sender_id bigint,
+    observations_count integer DEFAULT 0,
+    last_observed_at timestamp without time zone,
+    colour renalware.enum_colour_name
+);
+
+
+--
+-- Name: COLUMN pathology_observation_descriptions.lower_threshold; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_observation_descriptions.lower_threshold IS 'Value below which a result can be seen as abnormal';
+
+
+--
+-- Name: COLUMN pathology_observation_descriptions.upper_threshold; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_observation_descriptions.upper_threshold IS 'Value above which a result can be seen as abnormal';
+
+
+--
+-- Name: COLUMN pathology_observation_descriptions.chart_sql_function_name; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_observation_descriptions.chart_sql_function_name IS 'A custom json-returning SQL function returning a calculated/derived series. Must accept an integer (patient id) and date (start date to search from)';
+
+
+--
+-- Name: COLUMN pathology_observation_descriptions.created_by_sender_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_observation_descriptions.created_by_sender_id IS 'The feed source that dynmically created this OBX';
+
+
+--
+-- Name: pathology_observation_requests; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pathology_observation_requests (
+    id integer NOT NULL,
+    requestor_order_number character varying,
+    requestor_name character varying NOT NULL,
+    requested_at timestamp without time zone NOT NULL,
+    patient_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    description_id integer NOT NULL,
+    filler_order_number character varying,
+    feed_message_id integer
+);
+
+
+--
+-- Name: COLUMN pathology_observation_requests.feed_message_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_observation_requests.feed_message_id IS 'Reference to the feed_message from which this observation_request was created. There is no constraint on this relationship as feed_messages can be housekept.';
+
+
+--
+-- Name: pathology_observations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pathology_observations (
+    id integer NOT NULL,
+    result character varying NOT NULL,
+    comment text,
+    observed_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    description_id integer NOT NULL,
+    request_id integer NOT NULL,
+    cancelled boolean,
+    nresult double precision,
+    legacy_comment text
+);
+
+
+--
+-- Name: COLUMN pathology_observations.nresult; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_observations.nresult IS 'The result column cast to a float, for ease of using graphing and claculations.Will be null if the result has a text value that cannot be coreced into a number';
+
+
+--
+-- Name: pathology_current_observations; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.pathology_current_observations AS
+ SELECT DISTINCT ON (pathology_observation_requests.patient_id, pathology_observation_descriptions.id) pathology_observations.id,
+    pathology_observations.result,
+    pathology_observations.comment,
+    pathology_observations.observed_at,
+    pathology_observations.description_id,
+    pathology_observations.request_id,
+    pathology_observation_descriptions.code AS description_code,
+    pathology_observation_descriptions.name AS description_name,
+    pathology_observation_requests.patient_id
+   FROM ((renalware.pathology_observations
+     LEFT JOIN renalware.pathology_observation_requests ON ((pathology_observations.request_id = pathology_observation_requests.id)))
+     LEFT JOIN renalware.pathology_observation_descriptions ON ((pathology_observations.description_id = pathology_observation_descriptions.id)))
+  ORDER BY pathology_observation_requests.patient_id, pathology_observation_descriptions.id, pathology_observations.observed_at DESC;
+
+
+--
+-- Name: modality_descriptions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.modality_descriptions (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    type character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    hidden boolean DEFAULT false NOT NULL,
+    ukrdc_modality_code_id bigint,
+    code character varying,
+    ignore_for_aki_alerts boolean DEFAULT false NOT NULL,
+    ignore_for_kfre boolean DEFAULT false NOT NULL
+);
+
+
+--
+-- Name: COLUMN modality_descriptions.ignore_for_aki_alerts; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_aki_alerts IS 'If true, HL7 AKI scores are ignored when the patient has this current modality';
+
+
+--
+-- Name: COLUMN modality_descriptions.ignore_for_kfre; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_kfre IS 'If true, we will attempt to generate a KFRE on receipt of ACR/PCR result when the patient has this current modality';
+
+
+--
+-- Name: modality_modalities; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.modality_modalities (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    description_id integer NOT NULL,
+    reason_id integer,
+    modal_change_type_deprecated character varying,
+    notes text,
+    started_on date NOT NULL,
+    ended_on date,
+    state character varying DEFAULT 'current'::character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    change_type_id bigint,
+    source_hospital_centre_id bigint,
+    destination_hospital_centre_id bigint
+);
+
+
+--
+-- Name: COLUMN modality_modalities.source_hospital_centre_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_modalities.source_hospital_centre_id IS 'Source hospital when modality is transferred in.';
+
+
+--
+-- Name: COLUMN modality_modalities.destination_hospital_centre_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.modality_modalities.destination_hospital_centre_id IS 'Destination hospital when modality is transferred out.';
+
+
+--
+-- Name: patients; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.patients (
+    id integer NOT NULL,
+    nhs_number character varying,
+    local_patient_id character varying,
+    family_name character varying NOT NULL,
+    given_name character varying NOT NULL,
+    born_on date NOT NULL,
+    paediatric_patient_indicator boolean,
+    sex character varying,
+    ethnicity_id integer,
+    hospital_centre_code character varying,
+    primary_esrf_centre character varying,
+    died_on date,
+    first_cause_id integer,
+    second_cause_id integer,
+    death_notes text,
+    cc_on_all_letters boolean DEFAULT true,
+    cc_decision_on date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    practice_id integer,
+    primary_care_physician_id integer,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    title character varying,
+    suffix character varying,
+    marital_status character varying,
+    telephone1 character varying,
+    telephone2 character varying,
+    email character varying,
+    document jsonb,
+    religion_id integer,
+    language_id integer,
+    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
+    allergy_status_updated_at timestamp without time zone,
+    local_patient_id_2 character varying,
+    local_patient_id_3 character varying,
+    local_patient_id_4 character varying,
+    local_patient_id_5 character varying,
+    external_patient_id character varying,
+    send_to_renalreg boolean DEFAULT false NOT NULL,
+    send_to_rpv boolean DEFAULT false NOT NULL,
+    renalreg_decision_on date,
+    rpv_decision_on date,
+    renalreg_recorded_by character varying,
+    rpv_recorded_by character varying,
+    ukrdc_external_id text DEFAULT public.uuid_generate_v4(),
+    country_of_birth_id integer,
+    legacy_patient_id integer,
+    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    sent_to_ukrdc_at timestamp without time zone,
+    checked_for_ukrdc_changes_at timestamp without time zone,
+    hospital_centre_id bigint,
+    named_consultant_id bigint,
+    next_of_kin text,
+    named_nurse_id bigint,
+    preferred_death_location_id bigint,
+    preferred_death_location_notes text,
+    actual_death_location_id bigint,
+    ukrdc_anonymise boolean DEFAULT false NOT NULL,
+    ukrdc_anonymise_decision_on date,
+    ukrdc_anonymise_recorded_by character varying
+);
+
+
+--
+-- Name: pd_regimes; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.pd_regimes (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    start_date date NOT NULL,
+    end_date date,
+    treatment character varying NOT NULL,
+    type character varying,
+    glucose_volume_low_strength integer,
+    glucose_volume_medium_strength integer,
+    glucose_volume_high_strength integer,
+    amino_acid_volume integer,
+    icodextrin_volume integer,
+    add_hd boolean,
+    last_fill_volume integer,
+    tidal_indicator boolean,
+    tidal_percentage integer,
+    no_cycles_per_apd integer,
+    overnight_volume integer,
+    apd_machine_pac character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    therapy_time integer,
+    fill_volume integer,
+    delivery_interval character varying,
+    system_id integer,
+    additional_manual_exchange_volume integer,
+    tidal_full_drain_every_three_cycles boolean DEFAULT true,
+    daily_volume integer,
+    assistance_type character varying,
+    dwell_time integer,
+    exchanges_done_by character varying,
+    exchanges_done_by_if_other character varying,
+    exchanges_done_by_notes text,
+    created_by_id bigint,
+    updated_by_id bigint
+);
+
+
+--
+-- Name: reporting_pd_audit; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.reporting_pd_audit AS
+ WITH pd_patients AS (
+         SELECT patients.id
+           FROM ((renalware.patients
+             JOIN renalware.modality_modalities current_modality ON ((current_modality.patient_id = patients.id)))
+             JOIN renalware.modality_descriptions current_modality_description ON ((current_modality_description.id = current_modality.description_id)))
+          WHERE ((current_modality.ended_on IS NULL) AND (current_modality.started_on <= CURRENT_DATE) AND ((current_modality_description.name)::text = 'PD'::text))
+        ), current_regimes AS (
+         SELECT pd_regimes.id,
+            pd_regimes.patient_id,
+            pd_regimes.start_date,
+            pd_regimes.end_date,
+            pd_regimes.treatment,
+            pd_regimes.type,
+            pd_regimes.glucose_volume_low_strength,
+            pd_regimes.glucose_volume_medium_strength,
+            pd_regimes.glucose_volume_high_strength,
+            pd_regimes.amino_acid_volume,
+            pd_regimes.icodextrin_volume,
+            pd_regimes.add_hd,
+            pd_regimes.last_fill_volume,
+            pd_regimes.tidal_indicator,
+            pd_regimes.tidal_percentage,
+            pd_regimes.no_cycles_per_apd,
+            pd_regimes.overnight_volume,
+            pd_regimes.apd_machine_pac,
+            pd_regimes.created_at,
+            pd_regimes.updated_at,
+            pd_regimes.therapy_time,
+            pd_regimes.fill_volume,
+            pd_regimes.delivery_interval,
+            pd_regimes.system_id,
+            pd_regimes.additional_manual_exchange_volume,
+            pd_regimes.tidal_full_drain_every_three_cycles,
+            pd_regimes.daily_volume,
+            pd_regimes.assistance_type
+           FROM renalware.pd_regimes
+          WHERE ((pd_regimes.start_date >= CURRENT_DATE) AND (pd_regimes.end_date IS NULL))
+        ), current_apd_regimes AS (
+         SELECT current_regimes.id,
+            current_regimes.patient_id,
+            current_regimes.start_date,
+            current_regimes.end_date,
+            current_regimes.treatment,
+            current_regimes.type,
+            current_regimes.glucose_volume_low_strength,
+            current_regimes.glucose_volume_medium_strength,
+            current_regimes.glucose_volume_high_strength,
+            current_regimes.amino_acid_volume,
+            current_regimes.icodextrin_volume,
+            current_regimes.add_hd,
+            current_regimes.last_fill_volume,
+            current_regimes.tidal_indicator,
+            current_regimes.tidal_percentage,
+            current_regimes.no_cycles_per_apd,
+            current_regimes.overnight_volume,
+            current_regimes.apd_machine_pac,
+            current_regimes.created_at,
+            current_regimes.updated_at,
+            current_regimes.therapy_time,
+            current_regimes.fill_volume,
+            current_regimes.delivery_interval,
+            current_regimes.system_id,
+            current_regimes.additional_manual_exchange_volume,
+            current_regimes.tidal_full_drain_every_three_cycles,
+            current_regimes.daily_volume,
+            current_regimes.assistance_type
+           FROM current_regimes
+          WHERE ((current_regimes.type)::text ~~ '%::APD%'::text)
+        ), current_capd_regimes AS (
+         SELECT current_regimes.id,
+            current_regimes.patient_id,
+            current_regimes.start_date,
+            current_regimes.end_date,
+            current_regimes.treatment,
+            current_regimes.type,
+            current_regimes.glucose_volume_low_strength,
+            current_regimes.glucose_volume_medium_strength,
+            current_regimes.glucose_volume_high_strength,
+            current_regimes.amino_acid_volume,
+            current_regimes.icodextrin_volume,
+            current_regimes.add_hd,
+            current_regimes.last_fill_volume,
+            current_regimes.tidal_indicator,
+            current_regimes.tidal_percentage,
+            current_regimes.no_cycles_per_apd,
+            current_regimes.overnight_volume,
+            current_regimes.apd_machine_pac,
+            current_regimes.created_at,
+            current_regimes.updated_at,
+            current_regimes.therapy_time,
+            current_regimes.fill_volume,
+            current_regimes.delivery_interval,
+            current_regimes.system_id,
+            current_regimes.additional_manual_exchange_volume,
+            current_regimes.tidal_full_drain_every_three_cycles,
+            current_regimes.daily_volume,
+            current_regimes.assistance_type
+           FROM current_regimes
+          WHERE ((current_regimes.type)::text ~~ '%::CAPD%'::text)
+        )
+ SELECT 'APD'::text AS pd_type,
+    count(current_apd_regimes.patient_id) AS patient_count,
+    0 AS avg_hgb,
+    0 AS pct_hgb_gt_100,
+    0 AS pct_on_epo,
+    0 AS pct_pth_gt_500,
+    0 AS pct_phosphate_gt_1_8,
+    0 AS pct_strong_medium_bag_gt_1l
+   FROM current_apd_regimes
+UNION ALL
+ SELECT 'CAPD'::text AS pd_type,
+    count(current_capd_regimes.patient_id) AS patient_count,
+    0 AS avg_hgb,
+    0 AS pct_hgb_gt_100,
+    0 AS pct_on_epo,
+    0 AS pct_pth_gt_500,
+    0 AS pct_phosphate_gt_1_8,
+    0 AS pct_strong_medium_bag_gt_1l
+   FROM current_capd_regimes
+UNION ALL
+ SELECT 'PD'::text AS pd_type,
+    count(pd_patients.id) AS patient_count,
+    0 AS avg_hgb,
+    0 AS pct_hgb_gt_100,
+    0 AS pct_on_epo,
+    0 AS pct_pth_gt_500,
+    0 AS pct_phosphate_gt_1_8,
+    0 AS pct_strong_medium_bag_gt_1l
+   FROM pd_patients;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3152,77 +3784,6 @@ COMMENT ON COLUMN renalware.hospital_centres."position" IS 'Allows us to float h
 
 
 --
--- Name: modality_descriptions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.modality_descriptions (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    type character varying,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    hidden boolean DEFAULT false NOT NULL,
-    ukrdc_modality_code_id bigint,
-    code character varying,
-    ignore_for_aki_alerts boolean DEFAULT false NOT NULL,
-    ignore_for_kfre boolean DEFAULT false NOT NULL
-);
-
-
---
--- Name: COLUMN modality_descriptions.ignore_for_aki_alerts; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_aki_alerts IS 'If true, HL7 AKI scores are ignored when the patient has this current modality';
-
-
---
--- Name: COLUMN modality_descriptions.ignore_for_kfre; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.modality_descriptions.ignore_for_kfre IS 'If true, we will attempt to generate a KFRE on receipt of ACR/PCR result when the patient has this current modality';
-
-
---
--- Name: modality_modalities; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.modality_modalities (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    description_id integer NOT NULL,
-    reason_id integer,
-    modal_change_type_deprecated character varying,
-    notes text,
-    started_on date NOT NULL,
-    ended_on date,
-    state character varying DEFAULT 'current'::character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    change_type_id bigint,
-    source_hospital_centre_id bigint,
-    destination_hospital_centre_id bigint
-);
-
-
---
--- Name: COLUMN modality_modalities.source_hospital_centre_id; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.modality_modalities.source_hospital_centre_id IS 'Source hospital when modality is transferred in.';
-
-
---
--- Name: COLUMN modality_modalities.destination_hospital_centre_id; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.modality_modalities.destination_hospital_centre_id IS 'Destination hospital when modality is transferred out.';
-
-
---
 -- Name: pathology_current_observation_sets; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -3232,75 +3793,6 @@ CREATE TABLE renalware.pathology_current_observation_sets (
     "values" jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-);
-
-
---
--- Name: patients; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.patients (
-    id integer NOT NULL,
-    nhs_number character varying,
-    local_patient_id character varying,
-    family_name character varying NOT NULL,
-    given_name character varying NOT NULL,
-    born_on date NOT NULL,
-    paediatric_patient_indicator boolean,
-    sex character varying,
-    ethnicity_id integer,
-    hospital_centre_code character varying,
-    primary_esrf_centre character varying,
-    died_on date,
-    first_cause_id integer,
-    second_cause_id integer,
-    death_notes text,
-    cc_on_all_letters boolean DEFAULT true,
-    cc_decision_on date,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    practice_id integer,
-    primary_care_physician_id integer,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    title character varying,
-    suffix character varying,
-    marital_status character varying,
-    telephone1 character varying,
-    telephone2 character varying,
-    email character varying,
-    document jsonb,
-    religion_id integer,
-    language_id integer,
-    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
-    allergy_status_updated_at timestamp without time zone,
-    local_patient_id_2 character varying,
-    local_patient_id_3 character varying,
-    local_patient_id_4 character varying,
-    local_patient_id_5 character varying,
-    external_patient_id character varying,
-    send_to_renalreg boolean DEFAULT false NOT NULL,
-    send_to_rpv boolean DEFAULT false NOT NULL,
-    renalreg_decision_on date,
-    rpv_decision_on date,
-    renalreg_recorded_by character varying,
-    rpv_recorded_by character varying,
-    ukrdc_external_id text DEFAULT public.uuid_generate_v4(),
-    country_of_birth_id integer,
-    legacy_patient_id integer,
-    secure_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    sent_to_ukrdc_at timestamp without time zone,
-    checked_for_ukrdc_changes_at timestamp without time zone,
-    hospital_centre_id bigint,
-    named_consultant_id bigint,
-    next_of_kin text,
-    named_nurse_id bigint,
-    preferred_death_location_id bigint,
-    preferred_death_location_notes text,
-    actual_death_location_id bigint,
-    ukrdc_anonymise boolean DEFAULT false NOT NULL,
-    ukrdc_anonymise_decision_on date,
-    ukrdc_anonymise_recorded_by character varying
 );
 
 
@@ -4724,57 +5216,6 @@ ALTER SEQUENCE renalware.drug_trade_family_classifications_id_seq OWNED BY renal
 
 
 --
--- Name: drug_types; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.drug_types (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    code character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    "position" integer DEFAULT 0 NOT NULL,
-    weighting integer DEFAULT 0 NOT NULL,
-    colour renalware.enum_colour_name,
-    atc_codes character varying[]
-);
-
-
---
--- Name: COLUMN drug_types."position"; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.drug_types."position" IS 'Controls display order';
-
-
---
--- Name: COLUMN drug_types.weighting; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.drug_types.weighting IS 'More important drug types have a higher value so their colour trumps other types a drug might have.';
-
-
---
--- Name: COLUMN drug_types.colour; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.drug_types.colour IS 'A CSS colour e.f. ''#A12A12''';
-
-
---
--- Name: drug_types_drugs; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.drug_types_drugs (
-    drug_id integer NOT NULL,
-    drug_type_id integer NOT NULL,
-    id bigint NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
 -- Name: drug_types_drugs_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -4918,23 +5359,6 @@ CREATE SEQUENCE renalware.drug_vmp_classifications_id_seq
 --
 
 ALTER SEQUENCE renalware.drug_vmp_classifications_id_seq OWNED BY renalware.drug_vmp_classifications.id;
-
-
---
--- Name: drugs; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.drugs (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    description character varying,
-    read_code character varying,
-    code character varying,
-    inactive boolean DEFAULT false NOT NULL
-);
 
 
 --
@@ -8198,86 +8622,6 @@ ALTER SEQUENCE renalware.low_clearance_versions_id_seq OWNED BY renalware.low_cl
 
 
 --
--- Name: medication_prescription_terminations; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.medication_prescription_terminations (
-    id integer NOT NULL,
-    terminated_on date NOT NULL,
-    notes text,
-    prescription_id integer NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    terminated_on_set_by_user boolean DEFAULT false NOT NULL
-);
-
-
---
--- Name: COLUMN medication_prescription_terminations.terminated_on_set_by_user; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.medication_prescription_terminations.terminated_on_set_by_user IS 'If true, the system will not attempt to set to prescribed_on + 6 months if prescriptions administer_on_hd=true';
-
-
---
--- Name: medication_prescriptions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.medication_prescriptions (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    drug_id integer NOT NULL,
-    treatable_type character varying NOT NULL,
-    treatable_id integer NOT NULL,
-    dose_amount character varying NOT NULL,
-    dose_unit character varying,
-    medication_route_id integer NOT NULL,
-    route_description character varying,
-    frequency character varying NOT NULL,
-    notes text,
-    prescribed_on date NOT NULL,
-    provider integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    administer_on_hd boolean DEFAULT false NOT NULL,
-    last_delivery_date date,
-    next_delivery_date date,
-    unit_of_measure_id bigint,
-    trade_family_id bigint,
-    form_id bigint,
-    legacy_drug_id integer,
-    legacy_medication_route_id integer,
-    frequency_comment character varying,
-    stat boolean
-);
-
-
---
--- Name: COLUMN medication_prescriptions.legacy_drug_id; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.medication_prescriptions.legacy_drug_id IS 'Keep the previous drug id as a reference in case of issues with DMD migration';
-
-
---
--- Name: COLUMN medication_prescriptions.legacy_medication_route_id; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.medication_prescriptions.legacy_medication_route_id IS 'Keep the previous route id as a reference in case of issues with DMD migration';
-
-
---
--- Name: COLUMN medication_prescriptions.stat; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.medication_prescriptions.stat IS 'Can be chosen when administer_on_hd is true. Prescriptions marked as ''stat'' will be marked as terminated automatically once given.';
-
-
---
 -- Name: medication_current_prescriptions; Type: VIEW; Schema: renalware; Owner: -
 --
 
@@ -9071,138 +9415,6 @@ CREATE SEQUENCE renalware.pathology_current_observation_sets_id_seq
 --
 
 ALTER SEQUENCE renalware.pathology_current_observation_sets_id_seq OWNED BY renalware.pathology_current_observation_sets.id;
-
-
---
--- Name: pathology_observation_descriptions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.pathology_observation_descriptions (
-    id integer NOT NULL,
-    code character varying NOT NULL,
-    name character varying,
-    measurement_unit_id integer,
-    loinc_code character varying,
-    display_group integer,
-    display_order integer,
-    letter_group integer,
-    letter_order integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    rr_type integer DEFAULT 0 NOT NULL,
-    rr_coding_standard integer DEFAULT 0 NOT NULL,
-    legacy_code character varying,
-    lower_threshold double precision,
-    upper_threshold double precision,
-    suggested_measurement_unit_id integer,
-    virtual boolean DEFAULT false NOT NULL,
-    chart_colour character varying,
-    chart_logarithmic boolean DEFAULT false NOT NULL,
-    chart_sql_function_name character varying,
-    created_by_sender_id bigint,
-    observations_count integer DEFAULT 0,
-    last_observed_at timestamp without time zone,
-    colour renalware.enum_colour_name
-);
-
-
---
--- Name: COLUMN pathology_observation_descriptions.lower_threshold; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.pathology_observation_descriptions.lower_threshold IS 'Value below which a result can be seen as abnormal';
-
-
---
--- Name: COLUMN pathology_observation_descriptions.upper_threshold; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.pathology_observation_descriptions.upper_threshold IS 'Value above which a result can be seen as abnormal';
-
-
---
--- Name: COLUMN pathology_observation_descriptions.chart_sql_function_name; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.pathology_observation_descriptions.chart_sql_function_name IS 'A custom json-returning SQL function returning a calculated/derived series. Must accept an integer (patient id) and date (start date to search from)';
-
-
---
--- Name: COLUMN pathology_observation_descriptions.created_by_sender_id; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.pathology_observation_descriptions.created_by_sender_id IS 'The feed source that dynmically created this OBX';
-
-
---
--- Name: pathology_observation_requests; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.pathology_observation_requests (
-    id integer NOT NULL,
-    requestor_order_number character varying,
-    requestor_name character varying NOT NULL,
-    requested_at timestamp without time zone NOT NULL,
-    patient_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    description_id integer NOT NULL,
-    filler_order_number character varying,
-    feed_message_id integer
-);
-
-
---
--- Name: COLUMN pathology_observation_requests.feed_message_id; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.pathology_observation_requests.feed_message_id IS 'Reference to the feed_message from which this observation_request was created. There is no constraint on this relationship as feed_messages can be housekept.';
-
-
---
--- Name: pathology_observations; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.pathology_observations (
-    id integer NOT NULL,
-    result character varying NOT NULL,
-    comment text,
-    observed_at timestamp without time zone NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    description_id integer NOT NULL,
-    request_id integer NOT NULL,
-    cancelled boolean,
-    nresult double precision,
-    legacy_comment text
-);
-
-
---
--- Name: COLUMN pathology_observations.nresult; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.pathology_observations.nresult IS 'The result column cast to a float, for ease of using graphing and claculations.Will be null if the result has a text value that cannot be coreced into a number';
-
-
---
--- Name: pathology_current_observations; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.pathology_current_observations AS
- SELECT DISTINCT ON (pathology_observation_requests.patient_id, pathology_observation_descriptions.id) pathology_observations.id,
-    pathology_observations.result,
-    pathology_observations.comment,
-    pathology_observations.observed_at,
-    pathology_observations.description_id,
-    pathology_observations.request_id,
-    pathology_observation_descriptions.code AS description_code,
-    pathology_observation_descriptions.name AS description_name,
-    pathology_observation_requests.patient_id
-   FROM ((renalware.pathology_observations
-     LEFT JOIN renalware.pathology_observation_requests ON ((pathology_observations.request_id = pathology_observation_requests.id)))
-     LEFT JOIN renalware.pathology_observation_descriptions ON ((pathology_observations.description_id = pathology_observation_descriptions.id)))
-  ORDER BY pathology_observation_requests.patient_id, pathology_observation_descriptions.id, pathology_observations.observed_at DESC;
 
 
 --
@@ -10714,48 +10926,6 @@ CREATE TABLE renalware.pd_peritonitis_episodes (
 
 
 --
--- Name: pd_regimes; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.pd_regimes (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    start_date date NOT NULL,
-    end_date date,
-    treatment character varying NOT NULL,
-    type character varying,
-    glucose_volume_low_strength integer,
-    glucose_volume_medium_strength integer,
-    glucose_volume_high_strength integer,
-    amino_acid_volume integer,
-    icodextrin_volume integer,
-    add_hd boolean,
-    last_fill_volume integer,
-    tidal_indicator boolean,
-    tidal_percentage integer,
-    no_cycles_per_apd integer,
-    overnight_volume integer,
-    apd_machine_pac character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    therapy_time integer,
-    fill_volume integer,
-    delivery_interval character varying,
-    system_id integer,
-    additional_manual_exchange_volume integer,
-    tidal_full_drain_every_three_cycles boolean DEFAULT true,
-    daily_volume integer,
-    assistance_type character varying,
-    dwell_time integer,
-    exchanges_done_by character varying,
-    exchanges_done_by_if_other character varying,
-    exchanges_done_by_notes text,
-    created_by_id bigint,
-    updated_by_id bigint
-);
-
-
---
 -- Name: pd_mdm_patients; Type: VIEW; Schema: renalware; Owner: -
 --
 
@@ -11902,10 +12072,10 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE ((mcp.drug_name)::text ~~ 'Ara%'::text)
           GROUP BY mcp.patient_id) ara ON ((e1.patient_id = ara.patient_id)))
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS hgb
-           FROM renalware.pathology_current_observations
+           FROM public.pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'HGB'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS fer
-           FROM renalware.pathology_current_observations
+           FROM public.pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'FER'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e3 ON (true))
      LEFT JOIN LATERAL ( SELECT e2.hgb AS hgb_gt_eq_10
           WHERE (e2.hgb >= (10)::numeric)) e4 ON (true))
@@ -11979,13 +12149,13 @@ CREATE VIEW renalware.reporting_bone_audit AS
              JOIN renalware.modality_modalities m ON ((m.patient_id = p.id)))
              JOIN renalware.modality_descriptions md ON ((m.description_id = md.id)))) e1
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS pth
-           FROM renalware.pathology_current_observations
+           FROM public.pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'PTHI'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e2 ON (true))
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS phos
-           FROM renalware.pathology_current_observations
+           FROM public.pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'PHOS'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e3 ON (true))
      LEFT JOIN LATERAL ( SELECT (pathology_current_observations.result)::numeric AS cca
-           FROM renalware.pathology_current_observations
+           FROM public.pathology_current_observations
           WHERE (((pathology_current_observations.description_code)::text = 'CCA'::text) AND (pathology_current_observations.patient_id = e1.patient_id))) e4 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.phos AS phos_lt_1_8
           WHERE (e3.phos < 1.8)) e5 ON (true))
@@ -12146,142 +12316,6 @@ CREATE MATERIALIZED VIEW renalware.reporting_main_authors_audit AS
      JOIN renalware.users ON ((stats.author_id = users.id)))
   ORDER BY stats.total_letters DESC
   WITH NO DATA;
-
-
---
--- Name: reporting_pd_audit; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.reporting_pd_audit AS
- WITH pd_patients AS (
-         SELECT patients.id
-           FROM ((renalware.patients
-             JOIN renalware.modality_modalities current_modality ON ((current_modality.patient_id = patients.id)))
-             JOIN renalware.modality_descriptions current_modality_description ON ((current_modality_description.id = current_modality.description_id)))
-          WHERE ((current_modality.ended_on IS NULL) AND (current_modality.started_on <= CURRENT_DATE) AND ((current_modality_description.name)::text = 'PD'::text))
-        ), current_regimes AS (
-         SELECT pd_regimes.id,
-            pd_regimes.patient_id,
-            pd_regimes.start_date,
-            pd_regimes.end_date,
-            pd_regimes.treatment,
-            pd_regimes.type,
-            pd_regimes.glucose_volume_low_strength,
-            pd_regimes.glucose_volume_medium_strength,
-            pd_regimes.glucose_volume_high_strength,
-            pd_regimes.amino_acid_volume,
-            pd_regimes.icodextrin_volume,
-            pd_regimes.add_hd,
-            pd_regimes.last_fill_volume,
-            pd_regimes.tidal_indicator,
-            pd_regimes.tidal_percentage,
-            pd_regimes.no_cycles_per_apd,
-            pd_regimes.overnight_volume,
-            pd_regimes.apd_machine_pac,
-            pd_regimes.created_at,
-            pd_regimes.updated_at,
-            pd_regimes.therapy_time,
-            pd_regimes.fill_volume,
-            pd_regimes.delivery_interval,
-            pd_regimes.system_id,
-            pd_regimes.additional_manual_exchange_volume,
-            pd_regimes.tidal_full_drain_every_three_cycles,
-            pd_regimes.daily_volume,
-            pd_regimes.assistance_type
-           FROM renalware.pd_regimes
-          WHERE ((pd_regimes.start_date >= CURRENT_DATE) AND (pd_regimes.end_date IS NULL))
-        ), current_apd_regimes AS (
-         SELECT current_regimes.id,
-            current_regimes.patient_id,
-            current_regimes.start_date,
-            current_regimes.end_date,
-            current_regimes.treatment,
-            current_regimes.type,
-            current_regimes.glucose_volume_low_strength,
-            current_regimes.glucose_volume_medium_strength,
-            current_regimes.glucose_volume_high_strength,
-            current_regimes.amino_acid_volume,
-            current_regimes.icodextrin_volume,
-            current_regimes.add_hd,
-            current_regimes.last_fill_volume,
-            current_regimes.tidal_indicator,
-            current_regimes.tidal_percentage,
-            current_regimes.no_cycles_per_apd,
-            current_regimes.overnight_volume,
-            current_regimes.apd_machine_pac,
-            current_regimes.created_at,
-            current_regimes.updated_at,
-            current_regimes.therapy_time,
-            current_regimes.fill_volume,
-            current_regimes.delivery_interval,
-            current_regimes.system_id,
-            current_regimes.additional_manual_exchange_volume,
-            current_regimes.tidal_full_drain_every_three_cycles,
-            current_regimes.daily_volume,
-            current_regimes.assistance_type
-           FROM current_regimes
-          WHERE ((current_regimes.type)::text ~~ '%::APD%'::text)
-        ), current_capd_regimes AS (
-         SELECT current_regimes.id,
-            current_regimes.patient_id,
-            current_regimes.start_date,
-            current_regimes.end_date,
-            current_regimes.treatment,
-            current_regimes.type,
-            current_regimes.glucose_volume_low_strength,
-            current_regimes.glucose_volume_medium_strength,
-            current_regimes.glucose_volume_high_strength,
-            current_regimes.amino_acid_volume,
-            current_regimes.icodextrin_volume,
-            current_regimes.add_hd,
-            current_regimes.last_fill_volume,
-            current_regimes.tidal_indicator,
-            current_regimes.tidal_percentage,
-            current_regimes.no_cycles_per_apd,
-            current_regimes.overnight_volume,
-            current_regimes.apd_machine_pac,
-            current_regimes.created_at,
-            current_regimes.updated_at,
-            current_regimes.therapy_time,
-            current_regimes.fill_volume,
-            current_regimes.delivery_interval,
-            current_regimes.system_id,
-            current_regimes.additional_manual_exchange_volume,
-            current_regimes.tidal_full_drain_every_three_cycles,
-            current_regimes.daily_volume,
-            current_regimes.assistance_type
-           FROM current_regimes
-          WHERE ((current_regimes.type)::text ~~ '%::CAPD%'::text)
-        )
- SELECT 'APD'::text AS pd_type,
-    count(current_apd_regimes.patient_id) AS patient_count,
-    0 AS avg_hgb,
-    0 AS pct_hgb_gt_100,
-    0 AS pct_on_epo,
-    0 AS pct_pth_gt_500,
-    0 AS pct_phosphate_gt_1_8,
-    0 AS pct_strong_medium_bag_gt_1l
-   FROM current_apd_regimes
-UNION ALL
- SELECT 'CAPD'::text AS pd_type,
-    count(current_capd_regimes.patient_id) AS patient_count,
-    0 AS avg_hgb,
-    0 AS pct_hgb_gt_100,
-    0 AS pct_on_epo,
-    0 AS pct_pth_gt_500,
-    0 AS pct_phosphate_gt_1_8,
-    0 AS pct_strong_medium_bag_gt_1l
-   FROM current_capd_regimes
-UNION ALL
- SELECT 'PD'::text AS pd_type,
-    count(pd_patients.id) AS patient_count,
-    0 AS avg_hgb,
-    0 AS pct_hgb_gt_100,
-    0 AS pct_on_epo,
-    0 AS pct_pth_gt_500,
-    0 AS pct_phosphate_gt_1_8,
-    0 AS pct_strong_medium_bag_gt_1l
-   FROM pd_patients;
 
 
 --
