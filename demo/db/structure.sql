@@ -7989,7 +7989,8 @@ CREATE TABLE renalware.letter_archives (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     letter_id integer NOT NULL,
-    pdf_content bytea
+    pdf_content bytea,
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL
 );
 
 
@@ -22300,6 +22301,13 @@ CREATE INDEX index_letter_archives_on_updated_by_id ON renalware.letter_archives
 
 
 --
+-- Name: index_letter_archives_on_uuid; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_letter_archives_on_uuid ON renalware.letter_archives USING btree (uuid);
+
+
+--
 -- Name: index_letter_batch_items_on_batch_id_and_status; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -29692,6 +29700,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240627145638'),
 ('20240625085012'),
 ('20240523145856'),
+('20240521123515'),
 ('20240520100213'),
 ('20240519153121'),
 ('20240515125333'),

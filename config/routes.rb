@@ -7,7 +7,7 @@ Renalware::Engine.routes.draw do
   mount Renalware::Research::Engine => "research", as: :research
   mount Renalware::Hospitals::Engine => "hospitals", as: :hospitals
   mount Renalware::Directory::Engine => "directory", as: :directory
-  mount Renalware::NHSLetterMessaging::Engine => "nhs_letter_messaging", as: :nhs_letter_messaging
+  # mount Renalware::NHSLetterMessaging::Engine => "nhs_letter_messaging", as: :nhs_letter_messaging
 
   draw :accesses
   draw :admin
