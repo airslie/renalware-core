@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :letter_archive, class: "Renalware::Letters::Archive" do
     uuid { SecureRandom.uuid }
+    pdf_content { "%PDF-1.3" }
     content {
       <<-HTML
         <div id="main">

@@ -11,7 +11,9 @@ module Renalware
         let(:transmission) do
           instance_double(Transports::Mesh::Transmission, letter: letter, uuid: "TRANS1")
         end
-        let(:arguments) { Arguments.new(transmission: transmission, transaction_uuid: "123") }
+        let(:arguments) {
+          Arguments.new(transmission: transmission, transaction_uuid: "123")
+        }
         let(:patient) { build_stubbed(:patient) }
         let(:letters_patient) { patient.becomes(Letters::Patient) }
         let(:clinics_patient) { patient.becomes(Clinics::Patient) }
@@ -29,6 +31,7 @@ module Renalware
               time: "11:01:01",
               patient: clinics_patient
             ),
+            archive: build_stubbed(:letter_archive),
             event_id: 99,
             author: author
           ).tap do |let|

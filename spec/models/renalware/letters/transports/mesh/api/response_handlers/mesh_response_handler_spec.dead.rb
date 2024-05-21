@@ -43,7 +43,7 @@ module Renalware::Letters::Transports::Mesh
       context "when there is a message object because its a send_message etc" do
         let(:message) do
           Message.create!(
-            letter: create_toc_letter(
+            letter: create_mesh_letter(
               patient: create_toc_patient(user: user),
               user: user
             )

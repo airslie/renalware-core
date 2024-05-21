@@ -52,7 +52,7 @@ module Renalware::Letters::Transports::Mesh
     context "when a message is supplied eg its a send_message or download_message api call" do
       let(:message) do
         Message.create!(
-          letter: create_toc_letter(
+          letter: create_mesh_letter(
             patient: create_toc_patient(user: user),
             user: user
           )

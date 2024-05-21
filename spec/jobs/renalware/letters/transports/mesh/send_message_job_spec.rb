@@ -12,13 +12,13 @@ module Renalware::Letters
       let(:transmission) { Transmission.create!(letter: letter) }
       let(:user) { create(:user) }
       let(:letter) do
-        create_toc_letter_to_gp(
+        create_mesh_letter_to_gp(
           create_toc_patient(user: user),
           user
         )
       end
 
-      def create_toc_letter_to_gp(patient, user, to: :primary_care_physician)
+      def create_mesh_letter_to_gp(patient, user, to: :primary_care_physician)
         create_letter(
           state: :approved,
           to: to,
@@ -58,7 +58,7 @@ module Renalware::Letters
 
       context "when the gp is not a recipient" do
         it "does not send anything" do
-          letter = create_toc_letter(
+          letter = create_mesh_letter(
             patient: create_toc_patient(user: user),
             user: user,
             to: :patient

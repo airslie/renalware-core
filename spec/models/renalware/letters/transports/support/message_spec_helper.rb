@@ -2,7 +2,7 @@
 
 module MessageSpecHelper
   # rubocop:disable Metrics/MethodLength
-  def create_toc_letter(patient:, user:, to: :primary_care_physician)
+  def create_mesh_letter(patient:, user:, to: :primary_care_physician)
     create_letter(
       state: :approved,
       to: to,

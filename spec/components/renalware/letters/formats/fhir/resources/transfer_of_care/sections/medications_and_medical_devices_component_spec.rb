@@ -44,7 +44,7 @@ module Renalware::Letters::Formats::FHIR
 
         expect(page).to have_content("Current Medications")
         expect(page).to have_content("::drug name::")
-        expect(page).to have_content("20 mg Per Oral daily GP")
+        expect(page).to have_content("20 mg Oral daily GP")
         expect(page).to have_no_content("Drugs to give on Haemodialysis")
         expect(page).to have_content("Recently Stopped Medications")
         expect(page).to have_content("None")
@@ -59,7 +59,7 @@ module Renalware::Letters::Formats::FHIR
         expect(page).to have_content("None")
         expect(page).to have_content("Drugs to give on Haemodialysis")
         expect(page).to have_content("::hd drug name::")
-        expect(page).to have_content("20 mg Per Oral daily GP")
+        expect(page).to have_content("20 mg Oral daily GP")
         expect(page).to have_content("Recently Stopped Medications")
         expect(page).to have_content("None")
       end

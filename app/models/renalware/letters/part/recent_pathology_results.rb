@@ -14,7 +14,7 @@ module Renalware
       def results
         return if raw_results.blank?
 
-        @results ||= format_groups_into_string(raw_results)
+        @results ||= raw_results
       end
 
       def raw_results

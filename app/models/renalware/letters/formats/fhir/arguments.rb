@@ -2,7 +2,7 @@
 
 module Renalware
   module Letters::Formats::FHIR
-    # 'Parameter Object' Passed to any class rendering part of a ToC document
+    # 'Parameter Object' Passed to any class rendering part of a FHIR document message.
     # Provides access to a variety of data but without having any business logic.
     class Arguments
       include Renalware::UniformResourceNaming

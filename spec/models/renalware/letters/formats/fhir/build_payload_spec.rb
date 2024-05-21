@@ -19,7 +19,7 @@ module Renalware::Letters
         )
       end
 
-      def create_toc_letter(patient, user, to: :primary_care_physician)
+      def create_mesh_letter(patient, user, to: :primary_care_physician)
         create_letter(
           state: :approved,
           to: to,
@@ -33,7 +33,7 @@ module Renalware::Letters
 
       it "#call" do
         patient = create_patient
-        letter = create_toc_letter(patient, user)
+        letter = create_mesh_letter(patient, user)
         transmission = Transports::Mesh::Transmission.create!(letter: letter)
         Arguments.new(transmission: transmission, transaction_uuid: "123")
 

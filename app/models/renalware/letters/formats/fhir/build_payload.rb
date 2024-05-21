@@ -3,16 +3,12 @@
 module Renalware
   module Letters
     module Formats::FHIR
-      # The ToC send_message operation needs an xml payload and building this xml is the
+      # The send_message operation needs an xml payload and building this xml is the
       # function of this class.
       #
-      # We build and validate a Transfer Of Care (v2.9.0) FHIR STU3 XML document return it.
+      # We build and validate a FHIR STU3 XML document return it.
       # This XML is a representation of the letter, and will be sent over MESHAPI
-      # to the patient's GP. It contains the letter HTML (split into the required 'sections')
-      # plus various structured data about medications etc.
-      # See https://digital.nhs.uk/services/interoperability-toolkit/developer-resources/
-      # transfer-of-care-specification-versions
-      #
+      # to the patient's GP.
       class BuildPayload
         include Callable
         include Support::Helpers
