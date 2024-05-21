@@ -22,6 +22,7 @@ module Renalware::Letters
       let(:patient_uuid) { "aaaabe8f-8694-47e3-8740-ccf306f6cf02" }
       let(:letter_uuid) { "aaaa54bb-adfb-452e-a829-c50a42709080" }
       let(:author_uuid) { "aaaa4316-1daa-4c41-91c9-a8d0ea6ceb5e" }
+      let(:letter_archive_uuid) { "aaaa0000-1111-2222-2222-333333333333" }
       let(:clinic_visit_uuid) { "aaaaf1a9-0c1c-4151-b947-7d9e7fce0a75" }
       let(:patient) { build_stubbed(:letter_patient, secure_id: patient_uuid) }
       let(:clinics_patient) { Renalware::Clinics.cast_patient(patient) }
@@ -31,6 +32,7 @@ module Renalware::Letters
           uuid: letter_uuid,
           patient: patient,
           author: build_stubbed(:user, uuid: author_uuid),
+          archive: build_stubbed(:letter_archive, uuid: letter_archive_uuid),
           event: build_stubbed(
             :clinic_visit,
             uuid: clinic_visit_uuid,
@@ -54,6 +56,12 @@ module Renalware::Letters
       describe "author_urn" do
         it do
           expect(arguments.author_urn).to eq("urn:uuid:#{author_uuid}")
+        end
+      end
+
+      describe "binary_uuid" do
+        it do
+          expect(arguments.binary_urn).to eq("urn:uuid:#{letter_archive_uuid}")
         end
       end
 

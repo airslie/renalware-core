@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Renalware
-  module Letters::Formats::FHIR
+module Renalware::Letters
+  module Formats::FHIR::Resources::TransferOfCare
     class Lists::AllergiesAndAdverseReactions
       include Support::Construction
       include Support::Helpers

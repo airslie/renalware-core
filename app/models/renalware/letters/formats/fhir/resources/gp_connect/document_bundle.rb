@@ -7,11 +7,11 @@ module Renalware
         class DocumentBundle < Resources::DocumentBundle
           def entries
             [
-              Resources::GPConnect::Composition.call(arguments),
-              Resources::Patient.call(arguments),
-              Resources::Author.call(arguments),
-              Resources::Organisation.call(arguments)
-              # GPConnect::Binary  todo
+              GPConnect::Composition.call(arguments),
+              Patient.call(arguments),
+              Author.call(arguments),
+              Organisation.call(arguments),
+              Binary.call(arguments)
             ]
           end
         end

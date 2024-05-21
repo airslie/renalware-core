@@ -118,8 +118,7 @@ RSpec/SpecFilePathFormat:
 
 Metrics/MethodLength:
   Exclude:
-    - app/models/renalware/letters/formats/fhir/resources/*
-    - app/models/renalware/letters/formats/fhir/lists/*
+    - app/models/renalware/letters/formats/fhir/**/resources/**/*
 
 Layout/MultilineMethodCallIndentation:
   Enabled: false
@@ -143,6 +142,7 @@ Metrics/AbcSize:
     - "spec/acceptance/renalware/steps/**/*"
     - "features/**/*"
     - "db/**/*"
+    - app/models/renalware/letters/formats/fhir/**/resources/**/*
   Max: 25
 RSpec/ExampleLength:
   Max: 40

@@ -11,7 +11,8 @@ module Renalware
 
       delegate :letter, to: :transmission
       delegate :uuid, to: :transmission, prefix: true
-      delegate :patient, :event, to: :letter
+      delegate :patient, :event, :archive, to: :letter
+      delegate :pdf_content, to: :archive
       delegate :uuid, to: :letter, prefix: true
       alias :clinic_visit :event
 
@@ -28,6 +29,8 @@ module Renalware
       def organisation_ods_code = Renalware.config.toc_organisation_ods_code
       def patient_uuid = patient.secure_id_dashed
       def author_uuid = letter.author.uuid
+      def binary_uuid = archive.uuid
+      def binary_urn = uuid_urn(binary_uuid)
 
       def encounter_uuid
         @encounter_uuid ||= clinic_visit&.uuid || SecureRandom.uuid
