@@ -9,16 +9,34 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.4.4
+### Added
+### Changed
+- Disable Edge autocomplete on prescription inputs #4821
+- Add optional weighting to medication_routes #4811
+  Change via database to make routes with a larger value float to the top of the list.
+- Highlight search hits in slim-select searchable dropdowns eg for drugs search on prescriptions form #4810
+### Fixed
+- Fix modality filter and modality sorting on RR Preflight Checks page #4833
+- Fix 'access token expired' error syncing dmd with ontology #4813
+
 ## 2.4.3
 ### Added
 - Add immunology risk and induction agent to Tx Recipient operation #4802
 - Add location, access state to HD Slot Requests, and in table view add location filter, display location, access state and creating user #4791
 - Allow a permitted user to renew selected HD Prescriptions for eg 6 months #4787
+- Add an 'allocated' urgency option to HD Slot Requests #4829
 ### Changed
-- Include a reason when creating a patient via AKI #4793
+- Include a reason in Historical Path ReplayRequest log when patient was created via AKI #4793
 - Do not overwrite HD prescription termination date (if entered) on creation #4780
+- Set future prescription termination date to be today when force terminating eg when renewing or clicking Terminate #4825
+- Do not validate prescription termination dates when renewing/revising a prescription #4818
+  this allows prescription_termination.terminated_on to be < prescriptions.prescribed_on,
+  when terminating future prescriptions by setting termination_on = today
+- Paginate patient clinic visits #4801
 ### Fixed
 - Omit country code from UKRDC addresses if no country specified #4789
+- Do not validate prescriptions when terminating on death modality #4828
 
 ## 2.4.2
 ### Added
