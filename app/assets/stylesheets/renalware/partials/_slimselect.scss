@@ -1,3 +1,13 @@
+.ss-main.ss-open-above,
+.ss-main.ss-open-below {
+  border-color: #bbb;
+}
+
+.ss-content {
+  border-top: none;
+  border-color: #bbb;
+}
+
 .ss-content .ss-list .ss-optgroup {
   .ss-option,
   .ss-optgroup-label {
@@ -7,8 +17,8 @@
 }
 
 .ss-content .ss-list .ss-option {
-  padding-top: 2px;
   padding-bottom: 2px;
+  padding-left: 10px;
 }
 
 .ss-content .ss-list .ss-optgroup .ss-option,
