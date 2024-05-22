@@ -31,7 +31,6 @@ module Renalware
           end
 
           def search
-            # byebug
             relation
               .include(ModalityScopes)
               .include(QueryablePatient)
