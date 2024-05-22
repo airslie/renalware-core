@@ -28860,8 +28860,7 @@ var _default$h = /*#__PURE__*/function (_Controller) {
       this.slimselect = new SlimSelect(_objectSpread2$1({
         select: this.element,
         settings: {
-          searchHighlight: true,
-          allowDeselect: true
+          searchHighlight: true
         }
       }, this.optionsValue));
     }
