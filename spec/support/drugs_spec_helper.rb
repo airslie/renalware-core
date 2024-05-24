@@ -18,7 +18,7 @@ module DrugsSpecHelper
 
   def load_med_routes
     medication_routes = {
-      "PO" => "Per Oral",
+      "PO" => "Oral",
       "IV" => "Intravenous",
       "SC" => "Subcutaneous",
       "IM" => "Intramuscular",

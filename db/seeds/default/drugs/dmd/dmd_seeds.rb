@@ -34,6 +34,9 @@ module Renalware
       }
 
       APISynchronisers::RouteSynchroniser.new(route_repository: repository).call
+
+      Medications::MedicationRoute.where(name: "Oral").update!(weighting: 10)
+      Medications::MedicationRoute.where(name: "Subcutaneous").update!(weighting: 9)
     end
 
     log "DM+D -> UnitOfMeasures" do
