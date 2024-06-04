@@ -68,6 +68,9 @@ module Renalware
     config_accessor(:fallback_email_address_for_test_messages) do
       ENV.fetch("FALLBACK_EMAIL_ADDRESS_FOR_TEST_MESSAGES", nil)
     end
+    config_accessor(:ukrdc_include_letters) do
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("UKRDC_INCLUDE_LETTERS", "true"))
+    end
     config_accessor(:ukrdc_sending_facility_name) { ENV.fetch("UKRDC_SENDING_FACILITY_NAME", nil) }
     config_accessor(:ukrdc_schema_version) { ENV.fetch("UKRDC_SCHEMA_VERSION", "3.3.1") }
     config_accessor(:ukrdc_default_changes_since_date) {
