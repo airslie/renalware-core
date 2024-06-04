@@ -66,6 +66,7 @@ group :test do
   gem "capybara" # , "~> 3.32"
   gem "capybara-screenshot" # , "~> 1.0"
   gem "capybara-select-2"
+  gem "cucumber", "~> 9.2"
   gem "cucumber-rails", require: false # , "~> 2.6.1", require: false # must be loaded in env.rb
   gem "database_cleaner", require: false # for cucumber (now not needed for rspec)
   gem "execjs" # , "2.7.0" # 2.8.1 raises an error
@@ -99,7 +100,7 @@ group :development do
   gem "rubocop-rails", require: false
   gem "rubocop-rake", require: false
   gem "rubocop-rspec", require: false
-  gem "turnip", "~> 4.0", github: "airslie/turnip", require: false
+  gem "turnip", github: "airslie/turnip", require: false
   # gem 'sql_tracker'
   gem "solargraph"
   gem "web-console"
