@@ -45,7 +45,7 @@ gem "terser"
 # Bear in mind the gem contains several platform-specific binaries so is pretty large,
 # so in a docker image the apt package is a better choice
 gem "httparty", require: false
-gem "wkhtmltopdf-binary", "0.12.3.1"
+gem "wkhtmltopdf-binary", "0.12.6.7"
 
 gem "rake"
 
