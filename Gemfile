@@ -45,7 +45,6 @@ gem "terser"
 # Bear in mind the gem contains several platform-specific binaries so is pretty large,
 # so in a docker image the apt package is a better choice
 gem "httparty", require: false
-gem "wkhtmltopdf-binary", "0.12.6.7"
 
 gem "rake"
 
@@ -86,7 +85,7 @@ end
 group :uat, :pr do
   # For redirecting renalware-demo.herokuapp.com => demo.renalware.app
   gem "rack-host-redirect", github: "airslie/rack-host-redirect"
-  gem "wkhtmltopdf-heroku", "~> 2.12.3"
+  gem "wkhtmltopdf-heroku", "3.0.0.pre.rc0"
 end
 
 group :development do
@@ -117,4 +116,5 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails"
   gem "rubocop", require: false
+  gem "wkhtmltopdf-binary", "0.12.6.7"
 end
