@@ -88,6 +88,16 @@ module Renalware
       # the future). Because editing a prescription terminates it and creates a new one,
       # we are essentially searching on prescribed_on date here.
       scope :recently_changed, -> { where(prescribed_on: 14.days.ago..) }
+      scope :current_non_hd, -> { current.where.not(administer_on_hd: true) }
+      scope :current_hd, -> { current.where(administer_on_hd: true) }
+      scope :recently_changed_current, -> { current.recently_changed }
+
+      # Find non-current prescriptions terminated within 14 days
+      scope :recently_stopped, lambda {
+        terminated
+          .terminated_between(from: 14.days.ago, to: ::Time.zone.now)
+          .where.not(drug_id: current.map(&:drug_id))
+      }
 
       # This is a Ransack-compatible search predicate
       def self.default_search_order

@@ -7841,8 +7841,16 @@ CREATE TABLE renalware.letter_archives (
     updated_by_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    letter_id integer NOT NULL
+    letter_id integer NOT NULL,
+    pdf_content bytea
 );
+
+
+--
+-- Name: COLUMN letter_archives.pdf_content; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_archives.pdf_content IS 'Binary PDF letter data created by e.g. prawn. Definitive record of what was sent';
 
 
 --
@@ -12434,7 +12442,7 @@ CREATE TABLE renalware.research_participations (
 -- Name: COLUMN research_participations.external_id_deprecated; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-05-24 09:51:00 +0100 before changing its type from int to text';
+COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-06-04 11:14:13 +0100 before changing its type from int to text';
 
 
 --
@@ -29013,6 +29021,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240314132659'),
 ('20240307171400'),
 ('20240305160414'),
+('20240229210002'),
 ('20240227120942'),
 ('20240220091704'),
 ('20240206085751'),

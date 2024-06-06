@@ -26,6 +26,9 @@ module Renalware
     config_accessor(:report_filter_cache_expiry_seconds) {
       ENV.fetch("REPORT_FILTER_CACHE_EXPIRY_SECONDS", "60").to_i
     }
+    config_accessor(:letters_render_pdfs_with_prawn) {
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("LETTERS_RENDER_PDFS_WITH_PRAWN", "false"))
+    }
     config_accessor(:allow_qr_codes_in_letters) do
       ENV.fetch("ALLOW_QR_CODES_IN_LETTERS", "false") == "true"
     end
