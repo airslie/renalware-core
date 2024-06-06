@@ -1003,7 +1003,7 @@ GEM
       wisper
     wisper-rspec (1.1.0)
     wkhtmltopdf-binary (0.12.6.7)
-    wkhtmltopdf-heroku (2.12.6.0)
+    wkhtmltopdf-heroku (3.0.0.pre.rc0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.36)
@@ -1089,7 +1089,7 @@ DEPENDENCIES
   webmock (~> 3.7)
   wisper-rspec (~> 1.1.0)
   wkhtmltopdf-binary (= 0.12.6.7)
-  wkhtmltopdf-heroku (~> 2.12.3)
+  wkhtmltopdf-heroku (= 3.0.0.pre.rc0)
 
 RUBY VERSION
    ruby 3.3.2p78
