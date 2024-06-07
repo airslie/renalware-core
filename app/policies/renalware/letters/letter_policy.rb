@@ -5,29 +5,12 @@ module Renalware
     class LetterPolicy < BasePolicy
       alias_attribute :letter, :record
 
-      def author?
-        write_privileges?
-      end
-
-      def update?
-        false
-      end
-
-      def submit_for_review?
-        false
-      end
-
-      def reject?
-        false
-      end
-
-      def approve?
-        false
-      end
-
-      def complete?
-        false
-      end
+      def author?             = write_privileges?
+      def update?             = false
+      def submit_for_review?  = false
+      def reject?             = false
+      def approve?            = false
+      def complete?           = false
 
       def destroy?
         return false if user_is_read_only?
