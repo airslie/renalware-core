@@ -14,7 +14,7 @@ module Renalware
       def results
         return if raw_results.blank?
 
-        @results ||= raw_results
+        @results ||= format_groups_into_string(raw_results)
       end
 
       def raw_results
@@ -22,8 +22,7 @@ module Renalware
           snapshot = letter.pathology_snapshot.dup
           return if snapshot.blank?
 
-          groups = PathologyLayout.snapshot_results_keyed_by_date(snapshot)
-          format_groups_into_string(groups)
+          PathologyLayout.snapshot_results_keyed_by_date(snapshot)
         end
       end
 

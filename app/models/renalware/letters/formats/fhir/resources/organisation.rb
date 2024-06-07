@@ -3,11 +3,12 @@
 module Renalware
   module Letters
     module Formats::FHIR
-      # FHIR resource representing a Renalware site/hospital
+      # FHIR resource representing a Renalware site/hospital, profiled to CareConnect-Organization-1
       class Resources::Organisation
         include Support::Construction
         include Support::Helpers
 
+        # https://fhir.nhs.uk/STU3/StructureDefinition/CareConnect-ITK-Header-Organization-1
         def call
           {
             fullUrl: arguments.organisation_urn,
@@ -19,31 +20,28 @@ module Renalware
               identifier: {
                 system: "https://fhir.nhs.uk/Id/ods-organization-code",
                 value: arguments.organisation_ods_code
-              },
-              telecom: [
-                {
-                  system: "phone",
-                  value: "01234 567890", # TODO: ?
-                  use: "work"
-                },
-                {
-                  system: "email",
-                  value: "cndd@adobehc.nhs.uk"
-                },
-                {
-                  address: {
-                    line: "TODO",
-                    city: "TODO",
-                    postalCode: "TODO"
-                  }
-                }
-              ]
+              }
+              # CareConnect-ITK-Header-Organization-1 profile does not allow telecom etc??
+              # ,telecom: [
+              #   {
+              #     system: "phone",
+              #     value: "01234 567890", # TODO: ?
+              #     use: "work"
+              #   },
+              #   {
+              #     system: "email",
+              #     value: "cndd@adobehc.nhs.uk"
+              #   },
+              #   {
+              #     address: {
+              #       line: "TODO",
+              #       city: "TODO",
+              #       postalCode: "TODO"
+              #     }
+              #   }
+              # ]
             )
           }
-        end
-
-        def prescription
-          @prescription = options.delete(:prescription)
         end
       end
     end
