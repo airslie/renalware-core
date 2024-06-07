@@ -113,7 +113,7 @@ end
 group :development, :test do
   gem "bundler-audit", require: false
   # Start debugger with binding.b [https://github.com/ruby/debug]
-  gem "debug", ">= 1.0.0", platforms: %i(mri mingw x64_mingw)
+  # gem "debug", ">= 1.0.0", platforms: %i(mri mingw x64_mingw)
   gem "factory_bot_rails", "~> 6.2"
   gem "launchy", require: false
   gem "pry-rails"
