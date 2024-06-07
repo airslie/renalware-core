@@ -4,7 +4,7 @@ module Renalware
   module Letters::Transports
     module Mesh
       class DownloadMessageJob < ApplicationJob
-        queue_as :transfer_of_care
+        queue_as :mesh
         queue_with_priority 10
 
         # An example MESH message id is 20230315095843558004_7C0785

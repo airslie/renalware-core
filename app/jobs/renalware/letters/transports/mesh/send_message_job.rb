@@ -4,7 +4,7 @@ module Renalware
   module Letters
     module Transports::Mesh
       class SendMessageJob < ApplicationJob
-        queue_as :transfer_of_care
+        queue_as :mesh
         queue_with_priority 10
 
         class PatientHasNoPracticeError < StandardError; end
@@ -39,7 +39,7 @@ module Renalware
 
           # EndpointlookupJob will save the mailbox id to the practice if one found.
           def lookup_mesh_mailbox_for_practice_if_missing
-            if practice.toc_mesh_mailbox_id.blank?
+            if practice.mesh_mailbox_id.blank?
               EndpointlookupJob.perform_now(practice, transmission_id: transmission.id)
             end
           end

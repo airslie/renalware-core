@@ -3,7 +3,7 @@
 module Renalware
   module Letters::Transports::Mesh
     class HandshakeJob < ApplicationJob
-      queue_as :transfer_of_care
+      queue_as :mesh
       queue_with_priority 10
 
       def perform

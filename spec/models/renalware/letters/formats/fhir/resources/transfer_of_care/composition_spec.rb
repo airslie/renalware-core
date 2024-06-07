@@ -75,7 +75,7 @@ module Renalware
           end
 
           it "references MSE as the custodian" do
-            allow(Renalware.config).to receive(:toc_organisation_uuid).and_return("123")
+            allow(Renalware.config).to receive(:mesh_organisation_uuid).and_return("123")
 
             expect(resource.custodian.reference).to eq("urn:uuid:123")
           end

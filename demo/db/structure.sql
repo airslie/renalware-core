@@ -10796,25 +10796,25 @@ CREATE TABLE renalware.patient_practices (
     telephone character varying,
     last_change_date date,
     active boolean DEFAULT true,
-    toc_mesh_mailbox_id character varying,
-    toc_mesh_mailbox_description character varying
+    mesh_mailbox_id character varying,
+    mesh_mailbox_description character varying
 );
 
 
 --
--- Name: COLUMN patient_practices.toc_mesh_mailbox_id; Type: COMMENT; Schema: renalware; Owner: -
+-- Name: COLUMN patient_practices.mesh_mailbox_id; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.patient_practices.toc_mesh_mailbox_id IS 'e.g. YGM24GPXXX. Populated by a call to MESHAPI endpointlookup.
+COMMENT ON COLUMN renalware.patient_practices.mesh_mailbox_id IS 'e.g. YGM24GPXXX. Populated by a call to MESHAPI endpointlookup.
 Used when sending letters using TransferOfCare via MESH.
 ';
 
 
 --
--- Name: COLUMN patient_practices.toc_mesh_mailbox_description; Type: COMMENT; Schema: renalware; Owner: -
+-- Name: COLUMN patient_practices.mesh_mailbox_description; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.patient_practices.toc_mesh_mailbox_description IS 'Mailbox description eg Transfer of Care TPP Mailbox One.
+COMMENT ON COLUMN renalware.patient_practices.mesh_mailbox_description IS 'Mailbox description eg Transfer of Care TPP Mailbox One.
 Populated by a call to MESHAPI endpointlookup.
 ';
 
@@ -29699,6 +29699,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240627162732'),
 ('20240627145638'),
 ('20240625085012'),
+('20240607103238'),
 ('20240523145856'),
 ('20240521123515'),
 ('20240520100213'),

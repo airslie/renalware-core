@@ -22,7 +22,7 @@ http_interactions:
       Mex-Osversion:
       - ''
       Mex-Workflowid:
-      - TOC_FHIR_OP_ATTEN
+      - GPCONNECT_SEND_DOCUMENT
       User-Agent:
       - Faraday v1.10.2
       Accept-Encoding:

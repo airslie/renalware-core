@@ -3,7 +3,7 @@
 module Renalware
   module Letters::Transports::Mesh
     class EndpointlookupJob < ApplicationJob
-      queue_as :transfer_of_care
+      queue_as :mesh
       queue_with_priority 10
 
       # When a Patients::Practice has an ods_code but no MESH mailboxid (endpoint) to send to,
@@ -34,14 +34,14 @@ module Renalware
           result = response.body["results"].first
 
           practice.update!(
-            toc_mesh_mailbox_id: result["address"],
-            toc_mesh_mailbox_description: result["description"]
+            mesh_mailbox_id: result["address"],
+            mesh_mailbox_description: result["description"]
           )
 
           response
         end
 
-        practice.toc_mesh_mailbox_id
+        practice.mesh_mailbox_id
       end
       # rubocop:enable Metrics/MethodLength
 

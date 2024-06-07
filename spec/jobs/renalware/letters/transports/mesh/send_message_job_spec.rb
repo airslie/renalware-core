@@ -13,7 +13,7 @@ module Renalware::Letters
       let(:user) { create(:user) }
       let(:letter) do
         create_mesh_letter_to_gp(
-          create_toc_patient(user: user),
+          create_mesh_patient(user: user),
           user
         )
       end
@@ -32,7 +32,7 @@ module Renalware::Letters
 
       describe "the happy path" do
         it "creates FHIR XML payload, and sends to the API client, stores the returned msg id" do
-          letter.patient.practice.update!(toc_mesh_mailbox_id: "test_mailbox_id")
+          letter.patient.practice.update!(mesh_mailbox_id: "test_mailbox_id")
 
           allow(Formats::FHIR::BuildPayload).to receive(:call).and_return("PAYLOAD")
           response = mock_faraday_response(
@@ -59,7 +59,7 @@ module Renalware::Letters
       context "when the gp is not a recipient" do
         it "does not send anything" do
           letter = create_mesh_letter(
-            patient: create_toc_patient(user: user),
+            patient: create_mesh_patient(user: user),
             user: user,
             to: :patient
           )
@@ -88,7 +88,7 @@ module Renalware::Letters
 
       context "when the gp is a recipient but practice mesh mailbox is missing" do
         it "does not send anything" do
-          letter.patient.practice.update!(toc_mesh_mailbox_id: "")
+          letter.patient.practice.update!(mesh_mailbox_id: "")
           transmission = Transmission.create!(letter: letter)
 
           pending "FIXME"

@@ -130,17 +130,17 @@ module Renalware
       ENV.fetch("MESH_API_BASE_URL", "https://msg.intspineservices.nhs.uk/messageexchange")
     }
     config_accessor(:mesh_api_secret) { ENV.fetch("MESH_API_SECRET", "?") }
-    config_accessor(:mesh_transfer_of_care_mailbox_id) {
-      ENV.fetch("MESH_TOC_RECIPIENT_MAILBOX", "X26OT112") # X26OT112 is in the NHS INT env
+    config_accessor(:mesh_recipient_mailbox_id) {
+      ENV.fetch("MESH_RECIPIENT_MAILBOX", "X26OT112") # X26OT112 is in the NHS INT env
     }
-    config_accessor(:mesh_transfer_of_care_workflow_id) {
-      ENV.fetch("MESH_TOC_WORKFLOW_ID", "TOC_FHIR_OP_ATTEN")
+    config_accessor(:mesh_workflow_id) {
+      ENV.fetch("MESH_WORKFLOW_ID", "GPCONNECT_SEND_DOCUMENT") # ToC version is TOC_FHIR_OP_ATTEN
     }
     config_accessor(:mesh_path_to_nhs_ca_file) { ENV.fetch("MESH_PATH_TO_NHS_CA_FILE", "??") }
     config_accessor(:mesh_path_to_client_cert) { ENV.fetch("MESH_PATH_TO_CLIENT_CERT", "??") }
     config_accessor(:mesh_path_to_client_key) { ENV.fetch("MESH_PATH_TO_CLIENT_KEY", "??") }
-    config_accessor(:toc_organisation_uuid) { ENV.fetch("TOC_ORGANISATION_UUID", "??") }
-    config_accessor(:toc_organisation_ods_code) { ENV.fetch("TOC_ORGANISATION_ODS_CODE", "??") }
+    config_accessor(:mesh_organisation_uuid) { ENV.fetch("MESH_ORGANISATION_UUID", "??") }
+    config_accessor(:mesh_organisation_ods_code) { ENV.fetch("MESH_ORGANISATION_ODS_CODE", "??") }
 
     # On Azure we use a mapped path otherwise we will use Rails.root.join("tmp")
     # However Rails.root is not yet defined so we need we use a proc to load the config

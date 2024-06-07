@@ -7,7 +7,7 @@ module Renalware
 
       def index
         authorize Transmission, :index?
-        query = GoodJob::Job.where(queue_name: "transfer_of_care").order(updated_at: :desc)
+        query = GoodJob::Job.where(queue_name: "mesh").order(updated_at: :desc)
         pagy, jobs = pagy(query, items: 30)
         render locals: { pagy: pagy, jobs: jobs, stats: stats_hash }
       end
@@ -15,7 +15,7 @@ module Renalware
       private
 
       def stats_hash
-        jobs = GoodJob::Job.where(queue_name: "transfer_of_care")
+        jobs = GoodJob::Job.where(queue_name: "mesh")
         {
           queued: ["", jobs.where(performed_at: nil).count],
           succeeded: ["bg-green-100", jobs.where.not(finished_at: nil).where(error: nil).count],

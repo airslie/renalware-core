@@ -22,7 +22,7 @@ module Renalware
 
       # E.g. messageexchange/endpointlookup/A81013/TOC_FHIR_OP_ATTEN
       def endpointlookup_path(ods_code)
-        workflow_id = Renalware.config.mesh_transfer_of_care_workflow_id
+        workflow_id = Renalware.config.mesh_workflow_id
         File.join(Renalware.config.mesh_api_base_url, "endpointlookup", ods_code, workflow_id)
       end
     end

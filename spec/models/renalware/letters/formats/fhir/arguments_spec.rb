@@ -85,7 +85,7 @@ module Renalware::Letters
 
       describe "organisation_uuid" do
         it "is read from config" do
-          allow(Renalware.config).to receive(:toc_organisation_uuid).and_return("123")
+          allow(Renalware.config).to receive(:mesh_organisation_uuid).and_return("123")
 
           expect(arguments.organisation_uuid).to eq("123")
         end
@@ -93,7 +93,7 @@ module Renalware::Letters
 
       describe "organisation_urn" do
         it "is derived from config" do
-          allow(Renalware.config).to receive(:toc_organisation_uuid).and_return("123")
+          allow(Renalware.config).to receive(:mesh_organisation_uuid).and_return("123")
 
           expect(arguments.organisation_urn).to eq("urn:uuid:123")
         end
@@ -101,7 +101,7 @@ module Renalware::Letters
 
       describe "organisation_ods_code" do
         it "is read from config" do
-          allow(Renalware.config).to receive(:toc_organisation_ods_code).and_return("ABC")
+          allow(Renalware.config).to receive(:mesh_organisation_ods_code).and_return("ABC")
 
           expect(arguments.organisation_ods_code).to eq("ABC")
         end

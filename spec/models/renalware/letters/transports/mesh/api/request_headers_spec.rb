@@ -5,10 +5,21 @@ require "rails_helper"
 module Renalware::Letters::Transports::Mesh
   describe API::RequestHeaders do
     describe "#to_h" do
-      subject { described_class.new(auth_header: "my-auth-header").to_h }
+      subject do
+        described_class.new(
+          auth_header: "my-auth-header",
+          to: "target",
+          subject: "SUBJECT",
+          operation_uuid: "operation_uuid"
+        ).to_h
+      end
 
       before do
-        allow(Renalware.config).to receive(:mesh_transfer_of_care_workflow_id).and_return("ABC")
+        allow(Renalware.config).to receive_messages(
+          mesh_organisation_ods_code: "123",
+          mesh_workflow_id: "ABC",
+          mesh_mailbox_id: "MB1"
+        )
       end
 
       it "returns a hash of headers" do
@@ -20,32 +31,14 @@ module Renalware::Letters::Transports::Mesh
           "Mex-OSVersion" => "",
           "Mex-FileName" => "None",
           "Mex-MessageType" => "DATA",
-          "Mex-WorkflowID" => "ABC"
+          "Mex-WorkflowID" => "ABC",
+          "Mex-From" => "MB1",
+          "Mex-To" => "target",
+          "Mex-LocalID" => "123",
+          "X-OperationID" => "operation_uuid",
+          "Mex-Subject" => "SUBJECT",
+          "Content-Type" => "application/xml"
         )
-      end
-
-      context "when from_mailbox is supplied" do
-        subject { described_class.new(auth_header: "my-auth-header", from_mailbox: "FROM").to_h }
-
-        it { is_expected.to include("Mex-From" => "FROM") }
-      end
-
-      context "when to_mailbox is supplied" do
-        subject { described_class.new(auth_header: "my-auth-header", to_mailbox: "TO").to_h }
-
-        it { is_expected.to include("Mex-To" => "TO") }
-      end
-
-      context "when subject is supplied" do
-        subject { described_class.new(auth_header: "my-auth-header", subject: "SUBJECT").to_h }
-
-        it { is_expected.to include("Mex-Subject" => "SUBJECT") }
-      end
-
-      context "when local_id is supplied" do
-        subject { described_class.new(local_id: "xyz").to_h }
-
-        it { is_expected.to include("Mex-LocalID" => "xyz") }
       end
     end
   end

@@ -3,7 +3,7 @@
 module Renalware
   module Letters::Transports::Mesh
     class CheckInboxJob < ApplicationJob
-      queue_as :transfer_of_care
+      queue_as :mesh
       queue_with_priority 10
 
       MAX_MESSAGE_TRANCH_SIZE = 500

@@ -24,7 +24,7 @@ module MessageSpecHelper
   end
   # rubocop:enable Metrics/MethodLength
 
-  def create_toc_patient(given_name: "John", practice: nil, user: nil)
+  def create_mesh_patient(given_name: "John", practice: nil, user: nil)
     practice ||= create(:practice)
     user || create(:user)
     create(

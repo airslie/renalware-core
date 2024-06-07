@@ -13,7 +13,7 @@ module Renalware::Letters::Transports
       let(:user) { create(:user) }
       let(:letter) do
         create_mesh_letter(
-          patient: create_toc_patient(user: user),
+          patient: create_mesh_patient(user: user),
           user: user
         )
       end

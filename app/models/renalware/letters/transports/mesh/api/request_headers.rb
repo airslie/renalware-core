@@ -2,29 +2,30 @@
 
 require "httparty"
 
-# rubocop:disable Metrics/AbcSize
 module Renalware
   module Letters::Transports::Mesh
     # Builds a hash of HTTP headers for MESHAPI requests.
     #
-    #  from_mailbox: a string identifying the sending MESH mailbox
-    #  to_mailbox:   a string identifying the recipient MESH mailbox
     #  auth_header:  a string, usually omitted so it falls back to AuthHeader.new.call
     #                but useful in tests.
+    #  subject:      text in the following format:
+    #                  [payload-title] for [patient-name], NHS Number: [nhs-number], seen at
+    #                  [practice-name], ODS code: [ods-code], version [version]
+    #  to:           MUST contain the NHS Number, DOB and Surname of the patient delimited by the
+    #                underscore character _. This enables automatic routing of the message to the
+    #                registered GP MESH mailbox
     #
     class API::RequestHeaders
       pattr_initialize [
-        :from_mailbox,
-        :to_mailbox,
-        :subject,
+        :to!, # patient details (for auto-routing, see above) or target mailbox?
+        :subject!,
         :auth_header,
-        :content_type,
-        :local_id
+        operation_uuid: ""
       ]
 
       # rubocop:disable Metrics/MethodLength
       def to_h
-        hash = {
+        {
           "Authorization" => auth_header || API::AuthHeader.new.call,
           "Mex-ClientVersion" => "ApiDocs==0.0.1",
           "Mex-FileName" => "None",
@@ -32,17 +33,16 @@ module Renalware
           "Mex-OSArchitecture" => "x86_64",
           "Mex-OSName" => "Linux",
           "Mex-OSVersion" => "",
-          "Mex-WorkflowID" => Renalware.config.mesh_transfer_of_care_workflow_id
+          "Mex-WorkflowID" => Renalware.config.mesh_workflow_id,
+          "X-OperationID" => operation_uuid,
+          "Mex-From" => Renalware.config.mesh_mailbox_id,
+          "Mex-To" => to,
+          "Mex-Subject" => subject.to_s,
+          "Content-Type" => "application/xml",
+          "Mex-LocalID" => Renalware.config.mesh_organisation_ods_code
         }
-        hash["Mex-From"] = from_mailbox if from_mailbox.present?
-        hash["Mex-To"] = to_mailbox.to_s if to_mailbox.present?
-        hash["Mex-Subject"] = subject.to_s if subject.present?
-        hash["Content-Type"] = content_type.to_s if content_type.present?
-        hash["Mex-LocalID"] = local_id.to_s if local_id.present?
-        hash
       end
       # rubocop:enable Metrics/MethodLength
     end
   end
 end
-# rubocop:enable Metrics/AbcSize

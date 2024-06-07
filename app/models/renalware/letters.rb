@@ -20,10 +20,10 @@ module Renalware::Letters
   module Mailshots
     def self.table_name_prefix = "letter_mailshot_"
 
-    module Delivery
-      module TransferOfCare
-        def self.table_name_prefix = "letter_delivery_toc_"
-      end
-    end
+    # module Delivery
+    #   module TransferOfCare
+    #     def self.table_name_prefix = "letter_delivery_toc_"
+    #   end
+    # end
   end
 end

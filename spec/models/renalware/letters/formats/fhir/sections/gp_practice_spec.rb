@@ -22,7 +22,7 @@ module Renalware::Letters
         end
 
         before do
-          allow(Renalware.config).to receive(:toc_organisation_uuid).and_return("xyz")
+          allow(Renalware.config).to receive(:mesh_organisation_uuid).and_return("xyz")
         end
 
         it { expect(section.snomed_code).to eq("886711000000101") }

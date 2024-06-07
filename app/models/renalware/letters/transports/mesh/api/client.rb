@@ -86,18 +86,15 @@ module Renalware
       # Example response:
       #  { "messageID": "20200529155357895317_3573F8" }
       def send_message(payload, operation_uuid:)
-        connection(
-          to_mailbox: Renalware.config.mesh_transfer_of_care_mailbox_id,
-          from_mailbox: Renalware.config.mesh_mailbox_id,
-          content_type: "application/xml",
-          local_id: operation_uuid
-        ).post(outbox_path, payload)
+        connection(operation_uuid: operation_uuid).post(outbox_path, payload)
       end
 
       private
 
       # always parse body into json, store raw in response.env[:raw_body]
       def connection(**request_header_options)
+        request_header_options[:to] ||= Renalware.config.mesh_recipient_mailbox_id
+        request_header_options[:subject] ||= "TODO"
         Faraday.new(
           url: base_url,
           headers: API::RequestHeaders.new(**request_header_options).to_h,

@@ -146,13 +146,13 @@ module Renalware
             description: "Does what it says on the tin :)"
           },
 
-          transfer_of_care_handshake: {
+          mesh_handshake: {
             cron: "every day at 2am",
             class: "Renalware::Letters::Transports::TransferOfCare::Jobs::HandshakeJob",
             description: "Lets ToC know to keep the inbox connection alive"
           },
 
-          transfer_of_care_check_inbox_for_outstanding_responses: {
+          mesh_check_inbox_for_outstanding_responses: {
             cron: "*/15 * * * *",
             class: "Renalware::Letters::Transports::TransferOfCare::Jobs::CheckInboxJob",
             description: "Check our MESH inbox for incoming ToC messages"

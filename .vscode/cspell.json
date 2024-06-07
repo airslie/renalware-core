@@ -141,6 +141,7 @@
     "getobj",
     "getvalue",
     "globalid",
+    "GPCONNECT",
     "Gravitationalist",
     "gteq",
     "habtm",

@@ -44,7 +44,7 @@ module Renalware::Letters::Transports::Mesh
         let(:message) do
           Message.create!(
             letter: create_mesh_letter(
-              patient: create_toc_patient(user: user),
+              patient: create_mesh_patient(user: user),
               user: user
             )
           )

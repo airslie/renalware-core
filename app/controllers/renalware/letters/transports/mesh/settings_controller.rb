@@ -14,8 +14,8 @@ module Renalware
         {
           mesh_mailbox_id: Renalware.config.mesh_mailbox_id,
           mesh_api_base_url: Renalware.config.mesh_api_base_url,
-          mesh_transfer_of_care_mailbox_id: Renalware.config.mesh_transfer_of_care_mailbox_id,
-          mesh_transfer_of_care_workflow_id: Renalware.config.mesh_transfer_of_care_workflow_id,
+          mesh_recipient_mailbox_id: Renalware.config.mesh_recipient_mailbox_id,
+          mesh_workflow_id: Renalware.config.mesh_workflow_id,
           mesh_path_to_nhs_ca_file: Renalware.config.mesh_path_to_nhs_ca_file,
           mesh_path_to_client_cert: Renalware.config.mesh_path_to_client_cert,
           mesh_path_to_client_key: Renalware.config.mesh_path_to_client_key,

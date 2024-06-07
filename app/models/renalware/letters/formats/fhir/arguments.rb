@@ -25,8 +25,8 @@ module Renalware
       def encounter_urn = uuid_urn(encounter_uuid)
       def author_urn = uuid_urn(author_uuid)
       def organisation_urn = uuid_urn(organisation_uuid)
-      def organisation_uuid = Renalware.config.toc_organisation_uuid
-      def organisation_ods_code = Renalware.config.toc_organisation_ods_code
+      def organisation_uuid = Renalware.config.mesh_organisation_uuid
+      def organisation_ods_code = Renalware.config.mesh_organisation_ods_code
       def patient_uuid = patient.secure_id_dashed
       def author_uuid = letter.author.uuid
       def binary_uuid = archive.uuid
