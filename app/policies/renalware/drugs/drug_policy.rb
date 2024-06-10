@@ -3,9 +3,7 @@
 module Renalware
   module Drugs
     class DrugPolicy < BasePolicy
-      def selected_drugs?
-        write_privileges?
-      end
+      def selected_drugs? = write_privileges?
     end
   end
 end
