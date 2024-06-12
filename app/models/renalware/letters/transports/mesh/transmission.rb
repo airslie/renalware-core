@@ -8,8 +8,19 @@ module Renalware
       has_many :operations, -> { order(created_at: :asc) }, dependent: :destroy
       validates :letter, presence: true
 
+      # You can cancel an operation if its status is pending and it has no operations
+      scope :cancellable, -> { where(status: :pending).where.missing(:operations) }
+
       def self.policy_class
         BasePolicy
+      end
+
+      def self.cancel_pending(letter:)
+        return if letter.blank?
+
+        cancellable
+          .where(letter_id: letter.id)
+          .update_all(status: :cancelled, cancelled_at: Time.zone.now)
       end
 
       def successful_inf_and_bus_responses?

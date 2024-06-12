@@ -328,7 +328,8 @@ CREATE TYPE renalware.enum_mesh_message_direction AS ENUM (
 CREATE TYPE renalware.enum_mesh_transmission_status AS ENUM (
     'pending',
     'success',
-    'failure'
+    'failure',
+    'cancelled'
 );
 
 
@@ -8681,7 +8682,9 @@ CREATE TABLE renalware.letter_mesh_transmissions (
     status renalware.enum_mesh_transmission_status DEFAULT 'pending'::renalware.enum_mesh_transmission_status NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    comment text
+    comment text,
+    active_job_id uuid,
+    cancelled_at timestamp(6) without time zone
 );
 
 
@@ -29699,6 +29702,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240627162732'),
 ('20240627145638'),
 ('20240625085012'),
+('20240612105341'),
 ('20240607103238'),
 ('20240523145856'),
 ('20240521123515'),

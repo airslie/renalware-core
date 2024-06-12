@@ -122,7 +122,15 @@ module Renalware
     config_accessor(:nhs_client_id) { ENV.fetch("NHS_CLIENT_ID", nil) }
     config_accessor(:nhs_client_secret) { ENV.fetch("NHS_CLIENT_SECRET", nil) }
     config_accessor(:nhs_trud_api_key) { ENV.fetch("NHS_TRUD_API_KEY", nil) }
-    # MESHAPI / Transfer Of Care
+
+    # MESHAPI
+    # Introduce an optional delay between letter approval and letter send, in order to allow
+    # any human errors to be resolved (letter rescinded etc)
+    config_accessor(:mesh_delay_minutes_between_letter_approval_and_mesh_send) do
+      ActiveModel::Type::Integer.new.cast(
+        ENV.fetch("MESH_DELAY_MINUTES_BETWEEN_LETTER_APPROVAL_AND_MESH_SEND", "0")
+      ).minutes
+    end
     config_accessor(:mesh_mailbox_id) { ENV.fetch("MESH_MAILBOX_ID", "?") }
     config_accessor(:mesh_mailbox_password) { ENV.fetch("MESH_MAILBOX_PASSWORD", "?") }
     config_accessor(:mesh_api_base_url) {
