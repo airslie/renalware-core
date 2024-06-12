@@ -22612,6 +22612,13 @@ CREATE INDEX index_letter_mailshot_mailshots_on_updated_by_id ON renalware.lette
 
 
 --
+-- Name: index_letter_mesh_operations_on_action; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_mesh_operations_on_action ON renalware.letter_mesh_operations USING btree (action);
+
+
+--
 -- Name: index_letter_mesh_operations_on_created_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -22654,6 +22661,13 @@ CREATE INDEX index_letter_mesh_operations_on_updated_at ON renalware.letter_mesh
 
 
 --
+-- Name: index_letter_mesh_transmissions_on_active_job_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_mesh_transmissions_on_active_job_id ON renalware.letter_mesh_transmissions USING btree (active_job_id);
+
+
+--
 -- Name: index_letter_mesh_transmissions_on_created_at; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -22665,6 +22679,13 @@ CREATE INDEX index_letter_mesh_transmissions_on_created_at ON renalware.letter_m
 --
 
 CREATE INDEX index_letter_mesh_transmissions_on_letter_id ON renalware.letter_mesh_transmissions USING btree (letter_id);
+
+
+--
+-- Name: index_letter_mesh_transmissions_on_status; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_mesh_transmissions_on_status ON renalware.letter_mesh_transmissions USING btree (status);
 
 
 --
@@ -29702,6 +29723,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240627162732'),
 ('20240627145638'),
 ('20240625085012'),
+('20240612132844'),
 ('20240612105341'),
 ('20240607103238'),
 ('20240523145856'),

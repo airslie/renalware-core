@@ -25,7 +25,10 @@ module Renalware::Letters::Transports::Mesh
 
     it { is_expected.to validate_presence_of(:letter) }
     it { is_expected.to belong_to(:letter) }
+    it { is_expected.to have_many(:operations) }
     it { is_expected.to have_db_index(:letter_id) }
+    it { is_expected.to have_db_index(:status) }
+    it { is_expected.to have_db_index(:active_job_id) }
 
     it "sanity check object creation" do
       transmission = create(:letter_mesh_transmission, letter: letter)
