@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+require "after_commit_everywhere"
+
 module Renalware
   module Letters
     class ApproveLetter
       include Broadcasting
+      include AfterCommitEverywhere
       pattr_initialize :letter
 
       class << self
@@ -17,13 +20,22 @@ module Renalware
           sign(by: by)
           store_page_count
           archive_content(by: by)
-          # Cast the letter to the base Letter class in case it becomes a Letters::Completed
-          # before any async listeners have time to process it.
-          broadcast(:letter_approved, letter.becomes(Letters::Letter))
+          # before_letter_approved event
+          # - lets listeners clobber the txn by raising an error
+          # - lets listeners make other db changes inside the txn eg create a active job
+          # letter_approved event
+          # - allows post-approval non-transactional processing eg copying a file
+          # rollback_letter_approved event
+          # - allows listener to undo any non-transactional actions it has taken eg remove a file
+          broadcast(:before_letter_approved, base_letter)
+          after_commit { broadcast(:letter_approved, base_letter) }
+          after_rollback { broadcast(:rollback_letter_approved, base_letter) }
         end
       end
 
       private
+
+      def base_letter = letter.becomes(Letters::Letter)
 
       def sign(by:)
         # Needs to be saved before changing the STI type (signature would be lost otherwise)

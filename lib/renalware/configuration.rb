@@ -129,7 +129,7 @@ module Renalware
     config_accessor(:mesh_delay_minutes_between_letter_approval_and_mesh_send) do
       ActiveModel::Type::Integer.new.cast(
         ENV.fetch("MESH_DELAY_MINUTES_BETWEEN_LETTER_APPROVAL_AND_MESH_SEND", "0")
-      ).minutes
+      )
     end
     config_accessor(:mesh_mailbox_id) { ENV.fetch("MESH_MAILBOX_ID", "?") }
     config_accessor(:mesh_mailbox_password) { ENV.fetch("MESH_MAILBOX_PASSWORD", "?") }
