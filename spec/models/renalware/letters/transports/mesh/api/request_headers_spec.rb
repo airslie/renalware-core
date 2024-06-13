@@ -8,7 +8,7 @@ module Renalware::Letters::Transports::Mesh
       subject do
         described_class.new(
           auth_header: "my-auth-header",
-          to: "target",
+          to: "TO",
           subject: "SUBJECT",
           operation_uuid: "operation_uuid"
         ).to_h
@@ -17,7 +17,7 @@ module Renalware::Letters::Transports::Mesh
       before do
         allow(Renalware.config).to receive_messages(
           mesh_organisation_ods_code: "123",
-          mesh_workflow_id: "ABC",
+          letters_mesh_workflow: :gp_connect,
           mesh_mailbox_id: "MB1"
         )
       end
@@ -31,10 +31,10 @@ module Renalware::Letters::Transports::Mesh
           "Mex-OSVersion" => "",
           "Mex-FileName" => "None",
           "Mex-MessageType" => "DATA",
-          "Mex-WorkflowID" => "ABC",
-          "Mex-From" => "MB1",
-          "Mex-To" => "target",
-          "Mex-LocalID" => "123",
+          "Mex-WorkflowID" => "GPCONNECT_SEND_DOCUMENT",
+          "Mex-From" => "MB1", # GPCM-SD-062
+          "Mex-To" => "TO",
+          "Mex-LocalID" => "123", # GPCM-SD-146
           "X-OperationID" => "operation_uuid",
           "Mex-Subject" => "SUBJECT",
           "Content-Type" => "application/xml"

@@ -7,7 +7,16 @@ module Renalware::Letters
     describe Resources::Practitioner do
       subject(:practitioner_resource) { described_class.call(arguments) }
 
-      let(:author) { instance_double(Renalware::User, uuid: "999") }
+      let(:author) do
+        instance_double(
+          Renalware::User,
+          uuid: "999",
+          family_name: "Smith",
+          given_name: "John",
+          professional_position: "Consultant"
+        )
+      end
+
       let(:patient) {
         instance_double(
           Renalware::Patient,

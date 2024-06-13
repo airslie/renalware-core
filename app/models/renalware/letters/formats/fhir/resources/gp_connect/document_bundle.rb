@@ -8,9 +8,9 @@ module Renalware
           def entries
             [
               GPConnect::Composition.call(arguments),
+              Practitioner.call(arguments),
+              CareConnect::Organisation.call(arguments),
               Patient.call(arguments),
-              Author.call(arguments),
-              Organisation.call(arguments),
               Binary.call(arguments)
             ]
           end

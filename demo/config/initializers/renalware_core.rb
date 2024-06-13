@@ -33,4 +33,5 @@ Renalware.configure do |config|
   config.allow_modality_history_amendments = true
   config.mesh_organisation_ods_code = "RAJ01"
   config.mesh_organisation_uuid = "36944886-8c9b-4ada-b15d-500bff58e018"
+  config.mesh_itk_organisation_uuid = "b2eb51ba-87d2-4d03-8a2e-f3d0c9de3b6b"
 end

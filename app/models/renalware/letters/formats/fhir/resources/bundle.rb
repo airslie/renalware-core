@@ -24,7 +24,7 @@ module Renalware
             identifier: system_identifier(arguments.transmission_uuid),
             entry: [
               MessageHeader.call(arguments),
-              Organisation.call(arguments),
+              ITK::Organisation.call(arguments),
               document_bundle_class.call(arguments)
             ]
           )

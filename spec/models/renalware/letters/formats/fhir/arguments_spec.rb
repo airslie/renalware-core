@@ -8,7 +8,8 @@ module Renalware::Letters
       subject(:arguments) do
         described_class.new(
           transmission: transmission,
-          transaction_uuid: transaction_uuid
+          transaction_uuid: transaction_uuid,
+          organisation_uuid: "ORG1"
         )
       end
 
@@ -24,7 +25,15 @@ module Renalware::Letters
       let(:author_uuid) { "aaaa4316-1daa-4c41-91c9-a8d0ea6ceb5e" }
       let(:letter_archive_uuid) { "aaaa0000-1111-2222-2222-333333333333" }
       let(:clinic_visit_uuid) { "aaaaf1a9-0c1c-4151-b947-7d9e7fce0a75" }
-      let(:patient) { build_stubbed(:letter_patient, secure_id: patient_uuid) }
+      let(:patient) {
+        build_stubbed(
+          :letter_patient,
+          secure_id: patient_uuid,
+          family_name: "Jones",
+          born_on: "1970-01-31",
+          nhs_number: "0123456789"
+        )
+      }
       let(:clinics_patient) { Renalware::Clinics.cast_patient(patient) }
       let(:letter) {
         build_stubbed(
@@ -85,17 +94,13 @@ module Renalware::Letters
 
       describe "organisation_uuid" do
         it "is read from config" do
-          allow(Renalware.config).to receive(:mesh_organisation_uuid).and_return("123")
-
-          expect(arguments.organisation_uuid).to eq("123")
+          expect(arguments.organisation_uuid).to eq("ORG1")
         end
       end
 
       describe "organisation_urn" do
         it "is derived from config" do
-          allow(Renalware.config).to receive(:mesh_organisation_uuid).and_return("123")
-
-          expect(arguments.organisation_urn).to eq("urn:uuid:123")
+          expect(arguments.organisation_urn).to eq("urn:uuid:ORG1")
         end
       end
 
@@ -104,6 +109,12 @@ module Renalware::Letters
           allow(Renalware.config).to receive(:mesh_organisation_ods_code).and_return("ABC")
 
           expect(arguments.organisation_ods_code).to eq("ABC")
+        end
+      end
+
+      describe "to" do
+        it "concatenates nhs dob surname join with _" do
+          expect(arguments.to).to eq("0123456789_31011970_Jones")
         end
       end
     end

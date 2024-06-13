@@ -34,10 +34,12 @@ module Renalware
         }
 
         before do
-          allow(author).to receive(:uuid).and_return("abc")
+          # allow(author).to receive(:uuid).and_return("abc")
           allow(letter).to receive_messages(uuid: "LET1", event: clinic_visit)
           allow(letter_patient).to receive(:secure_id_dashed).and_return("PAT1")
           allow(clinic_visit).to receive(:uuid).and_return("CV_ENCOUNTER_1")
+          # allow(Renalware.config).to receive(:mesh_organisation_uuid).and_return("ORG1")
+          allow(arguments).to receive(:organisation_uuid).and_return("ORG1")
         end
 
         describe "fullUrl" do
@@ -51,6 +53,16 @@ module Renalware
         describe "resource" do
           subject(:resource) { composition[:resource] }
 
+          # GPCM-SD-104
+          describe "meta profile" do
+            subject { resource.meta.profile.first }
+
+            it "has the correct profile" do
+              is_expected
+                .to eq("https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Composition-1")
+            end
+          end
+
           it "id is the message id (a UUID in the database)" do
             expect(resource.id).to eq(letter.uuid)
           end
@@ -63,17 +75,26 @@ module Renalware
             expect(resource.date).to eq("2022-01-01T01:01:01+00:00")
           end
 
-          it "references the letter author" do
-            expect(resource.author.first.reference).to eq("urn:uuid:abc")
+          it "author element references the sending organisation" do
+            expect(resource.author.first.reference).to eq("urn:uuid:ORG1")
+          end
+
+          it "custodian element references the sending organisation" do
+            expect(resource.custodian.reference).to eq("urn:uuid:ORG1")
           end
 
           it "has the correct snomed code" do
-            expect(resource.type.coding.first.code).to eq("823681000000100")
-            expect(resource.type.coding.first.display).to eq("Outpatient letter")
+            p resource.type
+            expect(resource.type.coding[0].code).to eq("371531000")
+            expect(resource.type.coding[0].display)
+              .to eq("Report of clinical encounter (record artifact)")
+            expect(resource.type.coding[1].code).to eq("149701000000109")
+            expect(resource.type.coding[1].display)
+              .to eq("Remote health correspondence (record artifact)")
           end
 
           it "has correct sections" do
-            puts resource.to_xml
+            # puts resource.to_xml
             section = resource.section[0]
             expect(section.entry[0].reference).to eq arguments.organisation_urn
             expect(section.entry[1].reference).to eq arguments.author_urn

@@ -96,11 +96,11 @@ module Renalware
     config_accessor(:ukrdc_remove_stale_outgoing_files) do
       ENV.fetch("UKRDC_REMOVE_STALE_OUTGOING_FILES", "true") == "true"
     end
-    config_accessor(:ukrdc_sftp_host) { ENV.fetch("UKRDC_SFTP_HOST", nil) }
-    config_accessor(:ukrdc_sftp_user) { ENV.fetch("UKRDC_SFTP_USER", nil) }
-    config_accessor(:ukrdc_sftp_password) { ENV.fetch("UKRDC_SFTP_PASSWORD", nil) }
-    config_accessor(:ukrdc_sftp_port) { ENV.fetch("UKRDC_SFTP_PORT", 22) }
-    config_accessor(:ukrdc_sftp_remote_path) { ENV.fetch("UKRDC_SFTP_REMOTE_PATH", "") }
+    config_accessor(:ukrdc_sftp_host)         { ENV.fetch("UKRDC_SFTP_HOST", nil) }
+    config_accessor(:ukrdc_sftp_user)         { ENV.fetch("UKRDC_SFTP_USER", nil) }
+    config_accessor(:ukrdc_sftp_password)     { ENV.fetch("UKRDC_SFTP_PASSWORD", nil) }
+    config_accessor(:ukrdc_sftp_port)         { ENV.fetch("UKRDC_SFTP_PORT", 22) }
+    config_accessor(:ukrdc_sftp_remote_path)  { ENV.fetch("UKRDC_SFTP_REMOTE_PATH", "") }
 
     # To use a date other that the default changes_since date when
     # compiling pathology to send to UKRDC, you can set an ENV var as follows:
@@ -119,9 +119,9 @@ module Renalware
       ENV.fetch("UKRDC_SEND_RREG_PATIENTS", "true") == "true"
     }
 
-    config_accessor(:nhs_client_id) { ENV.fetch("NHS_CLIENT_ID", nil) }
+    config_accessor(:nhs_client_id)     { ENV.fetch("NHS_CLIENT_ID", nil) }
     config_accessor(:nhs_client_secret) { ENV.fetch("NHS_CLIENT_SECRET", nil) }
-    config_accessor(:nhs_trud_api_key) { ENV.fetch("NHS_TRUD_API_KEY", nil) }
+    config_accessor(:nhs_trud_api_key)  { ENV.fetch("NHS_TRUD_API_KEY", nil) }
 
     # MESHAPI
     # Introduce an optional delay between letter approval and letter send, in order to allow
@@ -142,13 +142,17 @@ module Renalware
       ENV.fetch("MESH_RECIPIENT_MAILBOX", "X26OT112") # X26OT112 is in the NHS INT env
     }
     config_accessor(:mesh_workflow_id) {
-      ENV.fetch("MESH_WORKFLOW_ID", "GPCONNECT_SEND_DOCUMENT") # ToC version is TOC_FHIR_OP_ATTEN
+      {
+        gp_connect: "GPCONNECT_SEND_DOCUMENT",
+        transfer_of_care: "TOC_FHIR_OP_ATTEN"
+      }[letters_mesh_workflow]
     }
-    config_accessor(:mesh_path_to_nhs_ca_file) { ENV.fetch("MESH_PATH_TO_NHS_CA_FILE", "??") }
-    config_accessor(:mesh_path_to_client_cert) { ENV.fetch("MESH_PATH_TO_CLIENT_CERT", "??") }
-    config_accessor(:mesh_path_to_client_key) { ENV.fetch("MESH_PATH_TO_CLIENT_KEY", "??") }
-    config_accessor(:mesh_organisation_uuid) { ENV.fetch("MESH_ORGANISATION_UUID", "??") }
-    config_accessor(:mesh_organisation_ods_code) { ENV.fetch("MESH_ORGANISATION_ODS_CODE", "??") }
+    config_accessor(:mesh_path_to_nhs_ca_file)    { ENV.fetch("MESH_PATH_TO_NHS_CA_FILE", "??") }
+    config_accessor(:mesh_path_to_client_cert)    { ENV.fetch("MESH_PATH_TO_CLIENT_CERT", "??") }
+    config_accessor(:mesh_path_to_client_key)     { ENV.fetch("MESH_PATH_TO_CLIENT_KEY", "??") }
+    config_accessor(:mesh_organisation_uuid)      { ENV.fetch("MESH_ORGANISATION_UUID", "??") }
+    config_accessor(:mesh_itk_organisation_uuid)  { ENV.fetch("MESH_ORGANISATION_UUID", "??") }
+    config_accessor(:mesh_organisation_ods_code)  { ENV.fetch("MESH_ORGANISATION_ODS_CODE", "??") }
 
     # On Azure we use a mapped path otherwise we will use Rails.root.join("tmp")
     # However Rails.root is not yet defined so we need we use a proc to load the config

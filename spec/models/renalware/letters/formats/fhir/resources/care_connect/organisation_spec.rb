@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware::Letters
   module Formats::FHIR
-    module Resources
+    module Resources::CareConnect
       describe Organisation do
         it "renders the resource"
       end

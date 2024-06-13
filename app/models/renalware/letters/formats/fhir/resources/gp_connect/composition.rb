@@ -9,23 +9,39 @@ module Renalware::Letters
           include Support::Construction
           include Support::Helpers
 
+          PROFILE_URL = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Composition-1"
+
           def call
             {
               fullUrl: arguments.letter_urn,
               resource: FHIR::STU3::Composition.new(
                 id: arguments.letter_uuid,
                 identifier: system_identifier(SecureRandom.uuid), # TODO
+                meta: {
+                  profile: PROFILE_URL
+                },
                 status: "final",
                 type: {
-                  **snomed_coding("823681000000100", "Outpatient letter"),
-                  text: "Outpatient letter"
+                  coding: [
+                    snomed_coding_content(
+                      "371531000",
+                      "Report of clinical encounter (record artifact)"
+                    ),
+                    snomed_coding_content(
+                      "149701000000109",
+                      "Remote health correspondence (record artifact)"
+                    )
+                  ]
                 },
                 subject: {
                   reference: arguments.patient_urn
                 },
                 date: letter.updated_at.to_datetime.to_s,
                 author: {
-                  reference: arguments.author_urn
+                  reference: arguments.organisation_urn
+                },
+                custodian: {
+                  reference: arguments.organisation_urn
                 },
                 title: letter.description,
                 section: {

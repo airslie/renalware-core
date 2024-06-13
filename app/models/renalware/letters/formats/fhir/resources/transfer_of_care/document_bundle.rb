@@ -10,8 +10,8 @@ module Renalware
               Composition.call(arguments), # letter in html sections
               Patient.call(arguments),
               Encounter.call(arguments), # clinic visit details if relevant
-              Author.call(arguments),
-              Organisation.call(arguments)
+              Practitioner.call(arguments),
+              CareConnect::Organisation.call(arguments)
             ]
           end
         end

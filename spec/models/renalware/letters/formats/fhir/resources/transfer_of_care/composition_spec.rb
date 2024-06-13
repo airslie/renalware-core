@@ -11,7 +11,14 @@ module Renalware
         let(:transmission) do
           instance_double(Transports::Mesh::Transmission, letter: letter, uuid: "TRANS1")
         end
-        let(:arguments) { Arguments.new(transmission: transmission, transaction_uuid: "123") }
+        let(:arguments) do
+          Arguments.new(
+            transmission: transmission,
+            transaction_uuid: "123",
+            organisation_uuid: "ORG1",
+            itk_organisation_uuid: "ITKORG1"
+          )
+        end
         let(:resource) { composition[:resource] }
         let(:patient) { build_stubbed(:patient) }
         let(:author) { build_stubbed(:user, uuid: "abc") }
@@ -75,9 +82,7 @@ module Renalware
           end
 
           it "references MSE as the custodian" do
-            allow(Renalware.config).to receive(:mesh_organisation_uuid).and_return("123")
-
-            expect(resource.custodian.reference).to eq("urn:uuid:123")
+            expect(resource.custodian.reference).to eq("urn:uuid:ORG1")
           end
 
           it "uses the correct 'Correspondence Care Setting Type'" do

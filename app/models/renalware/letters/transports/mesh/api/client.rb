@@ -9,12 +9,12 @@ module Renalware
 
       # Create convenience class-level methods that delegate to an instance.
       # Could metaprogram but I think its clearer not to here.
-      def self.endpointlookup(...) = new.endpointlookup(...)
-      def self.handshake(...) = new.handshake(...)
-      def self.check_inbox(...) = new.check_inbox(...)
-      def self.download_message(...) = new.download_message(...)
+      def self.endpointlookup(...)      = new(headers: headers).endpointlookup(...)
+      def self.handshake(...)           = new.handshake(...)
+      def self.check_inbox(...)         = new.check_inbox(...)
+      def self.download_message(...)    = new.download_message(...)
       def self.acknowledge_message(...) = new.acknowledge_message(...)
-      def self.send_message(...) = new.send_message(...)
+      def self.send_message(...)        = new.send_message(...)
 
       # GET /messageexchange/endpointlookup/{ods_code}/{workflow_id}
       # Find the MESH mailbox is for a particular ODS code (practice code).

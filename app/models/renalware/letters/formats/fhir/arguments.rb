@@ -7,7 +7,10 @@ module Renalware
     class Arguments
       include Renalware::UniformResourceNaming
 
-      rattr_initialize [:transmission!, :transaction_uuid!]
+      attr_reader :transmission,
+                  :transaction_uuid,
+                  :organisation_uuid,
+                  :itk_organisation_uuid
 
       delegate :letter, to: :transmission
       delegate :uuid, to: :transmission, prefix: true
@@ -16,25 +19,73 @@ module Renalware
       delegate :uuid, to: :letter, prefix: true
       alias :clinic_visit :event
 
-      def workflow = Renalware.config.letters_mesh_workflow
-      def gp_connect? = workflow == :gp_connect
-      def transmission_urn = uuid_urn(transmission_uuid)
-      def transaction_urn = uuid_urn(transaction_uuid)
-      def letter_urn = uuid_urn(letter_uuid)
-      def patient_urn = uuid_urn(patient_uuid)
-      def encounter_urn = uuid_urn(encounter_uuid)
-      def author_urn = uuid_urn(author_uuid)
-      def organisation_urn = uuid_urn(organisation_uuid)
-      def organisation_uuid = Renalware.config.mesh_organisation_uuid
-      def organisation_ods_code = Renalware.config.mesh_organisation_ods_code
-      def patient_uuid = patient.secure_id_dashed
-      def author_uuid = letter.author.uuid
-      def binary_uuid = archive.uuid
-      def binary_urn = uuid_urn(binary_uuid)
+      WORKFLOWS = {
+        gp_connect: {
+          event: {
+            code: "ITK007C",
+            display: "ITK GP Connect Send Document"
+          },
+          message_definition: {
+            reference: "https://fhir.nhs.uk/STU3/MessageDefinition/ITK-GPConnectSendDocument-MessageDefinition-Instance-1"
+          }
+        },
+        transfer_of_care: {
+          event: {
+            code: "ITK006D",
+            display: "ITK Outpatient Letter"
+          },
+          message_definition: {
+            reference: "https://fhir.nhs.uk/STU3/MessageDefinition/ITK-OPL-MessageDefinition-4"
+          }
+        }
+      }.freeze
+
+      def initialize(
+        transmission:,
+        transaction_uuid:,
+        organisation_uuid: nil,
+        itk_organisation_uuid: nil
+      )
+        @transmission = transmission
+        @transaction_uuid = transaction_uuid
+        @organisation_uuid = organisation_uuid || config.mesh_organisation_uuid
+        @itk_organisation_uuid = itk_organisation_uuid || config.mesh_itk_organisation_uuid
+      end
+
+      def workflow                = Renalware.config.letters_mesh_workflow
+      def gp_connect?             = workflow == :gp_connect
+      def transmission_urn        = uuid_urn(transmission_uuid)
+      def transaction_urn         = uuid_urn(transaction_uuid)
+      def letter_urn              = uuid_urn(letter_uuid)
+      def patient_urn             = uuid_urn(patient_uuid)
+      def encounter_urn           = uuid_urn(encounter_uuid)
+      def author_urn              = uuid_urn(author_uuid)
+      def organisation_urn        = uuid_urn(organisation_uuid)
+      def itk_organisation_urn    = uuid_urn(itk_organisation_uuid)
+      def organisation_ods_code   = config.mesh_organisation_ods_code
+      def patient_uuid            = patient.secure_id_dashed
+      def author_uuid             = letter.author.uuid
+      def binary_uuid             = archive.uuid
+      def binary_urn              = uuid_urn(binary_uuid)
+      def message_definition_url  = WORKFLOWS[workflow].dig(:message_definition, :reference)
+      def event_code              = WORKFLOWS[workflow].dig(:event, :code)
+      def event_display           = WORKFLOWS[workflow].dig(:event, :display)
 
       def encounter_uuid
         @encounter_uuid ||= clinic_visit&.uuid || SecureRandom.uuid
       end
+
+      def to
+        [
+          patient.nhs_number,
+          patient.born_on.strftime("%d%m%Y"),
+          patient.family_name
+        ].join("_")
+      end
+
+      private
+
+      def config = Renalware.config
     end
   end
 end

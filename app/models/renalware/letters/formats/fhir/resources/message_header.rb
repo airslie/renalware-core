@@ -44,17 +44,16 @@ module Renalware
                   {
                     url: "MessageDefinition",
                     valueReference: {
-                      reference:
-                        "https://fhir.nhs.uk/STU3/MessageDefinition/ITK-OPL-MessageDefinition-4"
+                      reference: arguments.message_definition_url
                     }
                   },
                   {
                     url: "SenderReference",
-                    valueString: "None"
+                    valueString: arguments.letter_urn # i.e. 'our reference'
                   },
                   {
                     url: "LocalExtension",
-                    valueString: "None"
+                    valueString: "NONE"
                   }
                 ]
               },
@@ -64,8 +63,8 @@ module Renalware
               event: [
                 {
                   system: "https://fhir.nhs.uk/STU3/CodeSystem/ITK-MessageEvent-2",
-                  code: "ITK006D", # Outpatient Clinic Letter - Outpatient Attendance
-                  display: "ITK Outpatient Letter"
+                  code: arguments.event_code,
+                  display: arguments.event_display
                 }
               ],
               source: {
