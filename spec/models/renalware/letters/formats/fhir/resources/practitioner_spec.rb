@@ -5,7 +5,7 @@ require "rails_helper"
 module Renalware::Letters
   module Formats::FHIR
     describe Resources::Practitioner do
-      subject(:practitioner_resource) { described_class.call(arguments) }
+      subject(:practitioner) { described_class.call(arguments) }
 
       let(:author) do
         instance_double(
@@ -45,7 +45,34 @@ module Renalware::Letters
       end
 
       it "fullUrl" do
-        expect(practitioner_resource[:fullUrl]).to eq("urn:uuid:999")
+        expect(practitioner[:fullUrl]).to eq("urn:uuid:999")
+      end
+
+      describe "resource" do
+        subject(:resource) { practitioner[:resource] }
+
+        it { expect(resource.id).to eq("999") }
+        it { expect(resource.meta.profile).to eq(["https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Practitioner-1"]) }
+
+        describe "identifier" do
+          pending "Add once we can get DSD user id"
+        end
+
+        describe "name" do
+          subject(:name) { resource.name[0] }
+
+          it { expect(name.family).to eq("Smith") }
+          it { expect(name.given).to eq(["John"]) }
+          it { expect(name.prefix).to eq(["Consultant"]) }
+        end
+
+        describe "telecom" do
+          subject(:telecom) { resource.telecom[0] }
+
+          it { expect(telecom.system).to eq("phone") }
+          it { expect(telecom.value).to eq("???? ????????") }
+          it { expect(telecom.use).to eq("work") }
+        end
       end
     end
   end

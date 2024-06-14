@@ -18,10 +18,18 @@ module Renalware
               meta: {
                 profile: "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Practitioner-1"
               },
-              identifier: {
-                system: "https://fhir.hl7.org.uk/Id/hcpc-number",
-                value: "????" # TODO: GPC number?
-              },
+              # There a couple of options for resolving a user by identifier
+              # - GPC number
+              # - SDS (Spine Directory Service) number
+              # We currently have neither by SDS best if we can get it
+              # identifier: {
+              #   system: "https://fhir.hl7.org.uk/Id/hcpc-number",
+              #   value: "????" # TODO: GPC number
+              # },
+              # identifier: {
+              #   system: "https://fhir.nhs.uk/Id/sds-user-id",
+              #   value: "????" # TODO: SDS number
+              # },
               name: {
                 family: letter.author.family_name,
                 given: letter.author.given_name,

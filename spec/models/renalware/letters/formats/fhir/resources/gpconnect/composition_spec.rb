@@ -94,7 +94,6 @@ module Renalware
           end
 
           it "has correct sections" do
-            # puts resource.to_xml
             section = resource.section[0]
             expect(section.entry[0].reference).to eq arguments.organisation_urn
             expect(section.entry[1].reference).to eq arguments.author_urn
