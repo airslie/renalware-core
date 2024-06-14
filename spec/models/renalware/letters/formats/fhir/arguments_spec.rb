@@ -30,6 +30,7 @@ module Renalware::Letters
           :letter_patient,
           secure_id: patient_uuid,
           family_name: "Jones",
+          given_name: "Jenny",
           born_on: "1970-01-31",
           nhs_number: "0123456789"
         )
@@ -42,6 +43,7 @@ module Renalware::Letters
           patient: patient,
           author: build_stubbed(:user, uuid: author_uuid),
           archive: build_stubbed(:letter_archive, uuid: letter_archive_uuid),
+          description: "Clinic Letter",
           event: build_stubbed(
             :clinic_visit,
             uuid: clinic_visit_uuid,
@@ -112,9 +114,29 @@ module Renalware::Letters
         end
       end
 
-      describe "to" do
+      describe "mex_to" do
         it "concatenates nhs dob surname join with _" do
-          expect(arguments.to).to eq("0123456789_31011970_Jones")
+          expect(arguments.mex_to).to eq("0123456789_31011970_Jones")
+        end
+      end
+
+      describe "mex_subject" do
+        it "concatenates document title, patient and organisation etc" do
+          allow(Renalware.config).to receive_messages(
+            mesh_organisation_ods_code: "ODS1",
+            mesh_organisation_name: "Some Hospital"
+          )
+
+          expect(arguments.mex_subject).to eq(
+            "Clinic Letter for JONES, Jenny, NHS Number: 0123456789, " \
+            "seen at Some Hospital, ODS1, Version: 1"
+          )
+        end
+      end
+
+      describe "document_title" do
+        it "is an alias for letter.description" do
+          expect(arguments.document_title).to eq("Clinic Letter")
         end
       end
     end

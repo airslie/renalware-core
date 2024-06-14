@@ -138,12 +138,17 @@ module Renalware
       ENV.fetch("MESH_API_BASE_URL", "https://msg.intspineservices.nhs.uk/messageexchange")
     }
     config_accessor(:mesh_api_secret) { ENV.fetch("MESH_API_SECRET", "?") }
+    config_accessor(:mesh_use_endpoint_lookup) {
+      ActiveModel::Type::Boolean.new.cast(
+        ENV.fetch("MESH_USE_ENDPOINT_LOOKUP", "true")
+      )
+    }
     config_accessor(:mesh_recipient_mailbox_id) {
       ENV.fetch("MESH_RECIPIENT_MAILBOX", "X26OT112") # X26OT112 is in the NHS INT env
     }
     config_accessor(:mesh_workflow_id) {
       {
-        gp_connect: "GPCONNECT_SEND_DOCUMENT",
+        gp_connect: "GPFED_CONSULT_REPORT", # GPCONNECT_SEND_DOCUMENT", # GPFED_CONSULT_REPORT
         transfer_of_care: "TOC_FHIR_OP_ATTEN"
       }[letters_mesh_workflow]
     }
@@ -154,6 +159,9 @@ module Renalware
     config_accessor(:mesh_itk_organisation_uuid)  { ENV.fetch("MESH_ORGANISATION_UUID", "??") }
     config_accessor(:mesh_organisation_ods_code)  { ENV.fetch("MESH_ORGANISATION_ODS_CODE", "??") }
     config_accessor(:mesh_practitioner_phone)     { ENV.fetch("MESH_PRACTITIONER_PHONE", "??") }
+    config_accessor(:mesh_organisation_phone)     { ENV.fetch("MESH_ORGANISATION_PHONE", "??") }
+    config_accessor(:mesh_organisation_email)     { ENV.fetch("MESH_ORGANISATION_EMAIL", "??") }
+    config_accessor(:mesh_organisation_name)      { ENV.fetch("MESH_ORGANISATION_NAME", "??") }
 
     # On Azure we use a mapped path otherwise we will use Rails.root.join("tmp")
     # However Rails.root is not yet defined so we need we use a proc to load the config

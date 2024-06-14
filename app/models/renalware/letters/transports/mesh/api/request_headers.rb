@@ -17,9 +17,9 @@ module Renalware
     #
     class API::RequestHeaders
       pattr_initialize [
-        :to!, # patient details (for auto-routing, see above) or target mailbox?
-        :subject!,
         :auth_header,
+        to: "", # patient details (for auto-routing, see above) or target mailbox?
+        subject: "",
         operation_uuid: ""
       ]
 

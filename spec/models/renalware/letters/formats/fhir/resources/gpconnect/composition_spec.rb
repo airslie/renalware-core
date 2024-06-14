@@ -95,10 +95,7 @@ module Renalware
 
           it "has correct sections" do
             section = resource.section[0]
-            expect(section.entry[0].reference).to eq arguments.organisation_urn
-            expect(section.entry[1].reference).to eq arguments.author_urn
-            expect(section.entry[2].reference).to eq arguments.patient_urn
-            expect(section.entry[3].reference).to eq arguments.binary_urn
+            expect(section.entry[0].reference).to eq arguments.binary_urn
           end
         end
       end

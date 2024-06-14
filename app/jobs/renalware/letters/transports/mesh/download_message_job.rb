@@ -26,10 +26,7 @@ module Renalware
         def download_message(message_id)
           download_operation = nil
           send_message_operation = nil
-          API::LogOperation.call(
-            :download_message,
-            mesh_message_id: message_id
-          ) do |operation|
+          API::LogOperation.call(:download_message, mesh_message_id: message_id) do |operation|
             download_operation = operation
             API::Client.download_message(message_id).tap do |response|
               local_id = response.headers["mex-localid"]

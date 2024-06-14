@@ -30,10 +30,25 @@ module Renalware
           end
         }
 
-        it do
-          expect(binary[:resource].id).to eq(binary_uuid)
-          expect(binary[:resource].contentType).to eq("application/pdf")
-          expect(binary[:resource].content).to eq(Base64.encode64("123"))
+        describe "#fullUrl" do
+          subject { binary[:fullUrl] }
+
+          it { is_expected.to eq("urn:uuid:#{binary_uuid}") }
+        end
+
+        describe "resource" do
+          subject(:resource) { binary[:resource] }
+
+          it do
+            expect(resource.id).to eq(binary_uuid)
+            expect(resource.contentType).to eq("application/pdf")
+            expect(resource.content).to eq(Base64.encode64("123"))
+          end
+
+          it "profile" do
+            expect(resource.meta.profile)
+              .to eq(["https://fhir.nhs.uk/STU3/StructureDefinition/ITK-Attachment-Binary-1"])
+          end
         end
       end
     end

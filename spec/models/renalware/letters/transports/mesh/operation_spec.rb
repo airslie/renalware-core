@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware::Letters::Transports::Mesh
   describe Operation do
-    it { is_expected.to validate_presence_of(:transmission) }
+    # it { is_expected.to validate_presence_of(:transmission) }
     it { is_expected.to validate_presence_of(:direction) }
     it { is_expected.to validate_presence_of(:action) }
     it { is_expected.to belong_to(:transmission) }

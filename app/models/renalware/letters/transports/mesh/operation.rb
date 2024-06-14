@@ -11,7 +11,7 @@ module Renalware
       belongs_to :parent, class_name: "Operation"
       has_many :children, class_name: "Operation", dependent: :nullify, foreign_key: "parent_id"
       belongs_to :transmission
-      validates :transmission, presence: true
+      # validates :transmission, presence: true
 
       enum action: {
         endpointlookup: "endpointlookup",

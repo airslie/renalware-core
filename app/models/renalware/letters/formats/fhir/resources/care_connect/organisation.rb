@@ -22,26 +22,23 @@ module Renalware
                 system: "https://fhir.nhs.uk/Id/ods-organization-code",
                 value: arguments.organisation_ods_code
               },
-              telecom: [
-                {
-                  system: "phone",
-                  value: "01234 567890", # TODO: ?
-                  use: "work"
-                },
-                {
-                  system: "email",
-                  value: "cndd@adobehc.nhs.uk"
-                },
-                {
-                  address: {
-                    line: "TODO",
-                    city: "TODO",
-                    postalCode: "TODO"
-                  }
-                }
-              ]
+              name: name,
+              telecom: telecoms
             )
           }
+        end
+
+        private
+
+        def phone         = Renalware.config.mesh_organisation_phone
+        def email         = Renalware.config.mesh_organisation_email
+        def name          = Renalware.config.mesh_organisation_name
+        def telecom_phone = contact_point("phone", phone)
+        def telecom_email = email.presence && contact_point("email", email)
+        def telecoms      = [telecom_phone, telecom_email].compact
+
+        def contact_point(system, value, use = "work")
+          FHIR::STU3::ContactPoint.new(system: system, value: value, use: use)
         end
       end
     end

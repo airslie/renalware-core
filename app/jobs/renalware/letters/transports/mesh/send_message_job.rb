@@ -22,7 +22,13 @@ module Renalware
 
           def call
             validate_arguments
-            lookup_mesh_mailbox_for_practice_if_missing
+
+            # There are two ways to resolve the recipient mailbox,
+            # if Renalware.config.mesh_use_endpoint_lookup then we make a separate call to get the
+            # mailbox, otherwise we use mesh routing by including patient demographics in the #
+            # Mex-To header and the MESH API routes it appropriately.
+            lookup_mesh_mailbox_for_practice_if_missing if Renalware.config.mesh_use_endpoint_lookup
+
             build_payload_and_send_message
           end
 
@@ -44,15 +50,25 @@ module Renalware
             end
           end
 
+          # rubocop:disable Metrics/MethodLength
           def build_payload_and_send_message
             API::LogOperation.new(:send_message).call(transmission_id: transmission.id) do |op|
-              op.payload = Formats::FHIR::BuildPayload.call(
+              arguments = Formats::FHIR::Arguments.new(
                 transmission: transmission,
                 transaction_uuid: op.uuid
               )
-              API::Client.send_message(op.payload, operation_uuid: op.uuid)
+
+              op.payload = Formats::FHIR::BuildPayload.call(arguments)
+
+              API::Client.send_message(
+                op.payload,
+                operation_uuid: op.uuid,
+                to: arguments.mex_to,
+                subject: arguments.mex_subject
+              )
             end
           end
+          # rubocop:enable Metrics/MethodLength
         end
       end
     end

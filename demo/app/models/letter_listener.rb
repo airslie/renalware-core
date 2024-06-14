@@ -45,11 +45,13 @@ class LetterListener
   # Inside a txn so this callback is suitable for changing database records including ActiveJobs
   def before_letter_approved(letter)
     # e.g. send_hl7_mdm_message_to_hospital_tie_via_mirth(letter)
-    enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter)
+    # enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter)
   end
 
   # Txn has been committed here, so its suited to non-transactional tasks (not involving the db)
-  def letter_approved
+  def letter_approved(letter)
+    # TODO: might need to switch this to the pre-commit #before_letter_approved ?
+    enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter)
     # e.g. email_letter_to_practice(letter)
   end
 
@@ -73,12 +75,13 @@ class LetterListener
   def mesh = Renalware::Letters::Transports::Mesh
 
   def enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter)
-    mesh::Transmission.transaction do
-      transmission = mesh::Transmission.create!(letter: letter)
-      delay = Renalware.config.mesh_delay_minutes_between_letter_approval_and_mesh_send
-      job = mesh::SendMessageJob.set(wait: delay.minutes).perform_later(transmission)
-      transmission.active_job_id = job.job_id
-    end
+    delay = Renalware.config.mesh_delay_minutes_between_letter_approval_and_mesh_send
+    # transmission = nil
+    # mesh::Transmission.transaction do
+    transmission = mesh::Transmission.create!(letter: letter)
+    # end
+    job = mesh::SendMessageJob.set(wait: delay.minutes).perform_later(transmission)
+    transmission.update!(active_job_id: job.job_id) if job.respond_to?(:job_id)
   end
 
   def email_letter_to_practice(letter)

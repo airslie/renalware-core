@@ -31,6 +31,7 @@ module Renalware
               #   value: "????" # TODO: SDS number
               # },
               name: {
+                use: "official",
                 family: letter.author.family_name,
                 given: letter.author.given_name,
                 prefix: letter.author.professional_position

@@ -43,12 +43,10 @@ module Renalware::Letters
                 custodian: {
                   reference: arguments.organisation_urn
                 },
-                title: letter.description,
+                title: arguments.document_title,
                 section: {
+                  title: "xx", # TODO
                   entry: [
-                    { reference: arguments.organisation_urn },
-                    { reference: arguments.author_urn },
-                    { reference: arguments.patient_urn },
                     { reference: arguments.binary_urn }
                   ]
                 }

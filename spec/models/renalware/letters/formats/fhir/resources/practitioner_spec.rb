@@ -55,12 +55,13 @@ module Renalware::Letters
         it { expect(resource.meta.profile).to eq(["https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Practitioner-1"]) }
 
         describe "identifier" do
-          pending "Add once we can get DSD user id"
+          pending "Add once we can get SDS user id"
         end
 
         describe "name" do
           subject(:name) { resource.name[0] }
 
+          it { expect(name.use).to eq("official") }
           it { expect(name.family).to eq("Smith") }
           it { expect(name.given).to eq(["John"]) }
           it { expect(name.prefix).to eq(["Consultant"]) }

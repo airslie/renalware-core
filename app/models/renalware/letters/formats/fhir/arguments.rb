@@ -61,8 +61,9 @@ module Renalware
       def encounter_urn           = uuid_urn(encounter_uuid)
       def author_urn              = uuid_urn(author_uuid)
       def organisation_urn        = uuid_urn(organisation_uuid)
-      def itk_organisation_urn    = uuid_urn(itk_organisation_uuid)
+      def organisation_name       = config.mesh_organisation_name
       def organisation_ods_code   = config.mesh_organisation_ods_code
+      def itk_organisation_urn    = uuid_urn(itk_organisation_uuid)
       def patient_uuid            = patient.secure_id_dashed
       def author_uuid             = letter.author.uuid
       def binary_uuid             = archive.uuid
@@ -70,17 +71,31 @@ module Renalware
       def message_definition_url  = WORKFLOWS[workflow].dig(:message_definition, :reference)
       def event_code              = WORKFLOWS[workflow].dig(:event, :code)
       def event_display           = WORKFLOWS[workflow].dig(:event, :display)
+      def document_title          = letter.description
+      def document_version        = 1
 
       def encounter_uuid
         @encounter_uuid ||= clinic_visit&.uuid || SecureRandom.uuid
       end
 
-      def to
+      def mex_to
+        return config.mesh_recipient_mailbox_id if config.mesh_use_endpoint_lookup
+
         [
           patient.nhs_number,
           patient.born_on.strftime("%d%m%Y"),
           patient.family_name
         ].join("_")
+      end
+
+      def mex_subject
+        [
+          "#{document_title} for #{patient}",
+          "NHS Number: #{patient.nhs_number}",
+          "seen at #{organisation_name}",
+          organisation_ods_code,
+          "Version: #{document_version}"
+        ].join(", ")
       end
 
       private

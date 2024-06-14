@@ -9,7 +9,7 @@ module Renalware
 
       # Create convenience class-level methods that delegate to an instance.
       # Could metaprogram but I think its clearer not to here.
-      def self.endpointlookup(...)      = new(headers: headers).endpointlookup(...)
+      def self.endpointlookup(...)      = new.endpointlookup(...)
       def self.handshake(...)           = new.handshake(...)
       def self.check_inbox(...)         = new.check_inbox(...)
       def self.download_message(...)    = new.download_message(...)
@@ -85,16 +85,19 @@ module Renalware
       # Send an XML message over MESH.
       # Example response:
       #  { "messageID": "20200529155357895317_3573F8" }
-      def send_message(payload, operation_uuid:)
-        connection(operation_uuid: operation_uuid).post(outbox_path, payload)
+      def send_message(payload, **request_header_options)
+        raise(ArgumentError, "Missing Mex-To") if request_header_options[:to].blank?
+        raise(ArgumentError, "Missing Mex-Subject") if request_header_options[:subject].blank?
+
+        connection(**request_header_options).post(outbox_path, payload)
       end
 
       private
 
       # always parse body into json, store raw in response.env[:raw_body]
       def connection(**request_header_options)
-        request_header_options[:to] ||= Renalware.config.mesh_recipient_mailbox_id
-        request_header_options[:subject] ||= "TODO"
+        # request_header_options[:to] ||= Renalware.config.mesh_recipient_mailbox_id
+        # request_header_options[:subject] ||= ""
         Faraday.new(
           url: base_url,
           headers: API::RequestHeaders.new(**request_header_options).to_h,

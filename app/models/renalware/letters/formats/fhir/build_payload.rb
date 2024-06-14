@@ -13,7 +13,7 @@ module Renalware
         include Callable
         include Support::Helpers
 
-        pattr_initialize [:transmission!, transaction_uuid: nil]
+        pattr_initialize :arguments # [:transmission!, transaction_uuid: nil]
 
         def call
           build_fhir_bundle_xml
@@ -34,15 +34,6 @@ module Renalware
           bundle.validate.tap { |errors|
             raise errors.to_a.join(",") if errors.any?
           }
-        end
-
-        # Arguments is a visitor object passed to each node in the tree as we build out the various
-        # parts of the FHIR Bundle.
-        def arguments
-          @arguments ||= Arguments.new(
-            transmission: transmission,
-            transaction_uuid: transaction_uuid
-          )
         end
       end
     end

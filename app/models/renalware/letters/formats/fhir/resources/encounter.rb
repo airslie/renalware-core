@@ -4,7 +4,7 @@ module Renalware
   module Letters
     module Formats::FHIR
       #
-      # FHIR resource representing a Clinics::CinicVisit associated with a Letters::Letter
+      # FHIR resource representing a Clinics::ClinicVisit associated with a Letters::Letter
       #
       class Resources::Encounter
         include Support::Construction

@@ -144,6 +144,7 @@
     "globalid",
     "GPCM",
     "GPCONNECT",
+    "GPFED",
     "Gravitationalist",
     "gteq",
     "habtm",
