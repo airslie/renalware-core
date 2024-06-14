@@ -69,8 +69,10 @@ module Renalware::Letters
         describe "telecom" do
           subject(:telecom) { resource.telecom[0] }
 
+          before { allow(Renalware.config).to receive(:mesh_practitioner_phone).and_return("1234") }
+
           it { expect(telecom.system).to eq("phone") }
-          it { expect(telecom.value).to eq("???? ????????") }
+          it { expect(telecom.value).to eq("1234") }
           it { expect(telecom.use).to eq("work") }
         end
       end

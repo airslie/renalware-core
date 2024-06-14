@@ -153,6 +153,7 @@ module Renalware
     config_accessor(:mesh_organisation_uuid)      { ENV.fetch("MESH_ORGANISATION_UUID", "??") }
     config_accessor(:mesh_itk_organisation_uuid)  { ENV.fetch("MESH_ORGANISATION_UUID", "??") }
     config_accessor(:mesh_organisation_ods_code)  { ENV.fetch("MESH_ORGANISATION_ODS_CODE", "??") }
+    config_accessor(:mesh_practitioner_phone)     { ENV.fetch("MESH_PRACTITIONER_PHONE", "??") }
 
     # On Azure we use a mapped path otherwise we will use Rails.root.join("tmp")
     # However Rails.root is not yet defined so we need we use a proc to load the config

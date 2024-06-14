@@ -4,7 +4,7 @@ module Renalware
   module Letters
     module Formats::FHIR
       #
-      # FHIR resource representing the letter author
+      # FHIR Practitioner resource, profiled to CareConnect,  representing the letter author.
       #
       class Resources::Practitioner
         include Support::Construction
@@ -37,12 +37,18 @@ module Renalware
               },
               telecom: {
                 system: "phone",
-                value: "???? ????????",
+                value: telephone,
                 use: "work"
               }
             )
           }
         end
+
+        private
+
+        # Until we can resolve individual user details via Active/Spine Directory lookup,
+        # Just use a globally configured telephone number
+        def telephone = Renalware.config.mesh_practitioner_phone
       end
     end
   end
