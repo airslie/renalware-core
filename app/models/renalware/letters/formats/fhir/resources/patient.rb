@@ -9,6 +9,8 @@ module Renalware
         delegate :patient, to: :arguments
         delegate :current_address, to: :patient, allow_nil: true
 
+        SEND_HOSPITAL_NUMBER_IDENTIFIERS = false
+
         def call
           {
             fullUrl: arguments.patient_urn,
@@ -78,6 +80,10 @@ module Renalware
         end
 
         def hospital_number_identifiers
+          # Note currently there is no benefit in us sending identifiers other than the NHS number.
+          # if this changes, set SEND_HOSPITAL_NUMBER_IDENTIFIERS = true
+          return {} unless SEND_HOSPITAL_NUMBER_IDENTIFIERS
+
           [
             patient.local_patient_id,
             patient.local_patient_id_2,
@@ -97,7 +103,7 @@ module Renalware
             "M" => "male",
             "F" => "female",
             "O" => "other"
-          }.fetch(patient.sex, "unknown")
+          }.fetch(patient.sex&.code, "unknown")
         end
 
         def telecoms
@@ -128,13 +134,13 @@ module Renalware
 
           [
             {
-              line: [
-                current_address.street_1,
-                current_address.street_2,
-                current_address.street_3,
-                current_address.town,
-                current_address.county
-              ].compact_blank,
+              # line: [
+              #   current_address.street_1,
+              #   current_address.street_2,
+              #   current_address.street_3,
+              #   current_address.town,
+              #   current_address.county
+              # ].compact_blank,
               postalCode: current_address.postcode
             }
           ]
