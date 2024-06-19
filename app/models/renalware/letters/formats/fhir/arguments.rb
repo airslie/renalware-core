@@ -73,17 +73,28 @@ module Renalware
       def event_display           = WORKFLOWS[workflow].dig(:event, :display)
       def document_title          = letter.description
       def document_version        = 1
+      def confidentiality         = %w(N R).first
 
       def encounter_uuid
         @encounter_uuid ||= clinic_visit&.uuid || SecureRandom.uuid
       end
 
+      # There are two modes for the Mex-To HTTP Header:
+      # - we can use a known mesh mailbox id and send directly there (eg a mailbox id that was
+      #   looked up via the endpointlookup using the practice ODS code as we did for Transfer
+      #   Of Care)
+      # - send a demographics summary string prefixed with GPPROVIDER (to tell the mesh router
+      #   the content is not a mailbox_id), in the format: "NHSNUMBER_DOB(yyyymmdd)_surname"
+      #   and this will use MESH auto-routing to deliver the message to the correct mailbox
+      #   (or return an EPL-* message if it can't resolve the practice mailbox fot the patient)
       def mex_to
         return config.mesh_recipient_mailbox_id if config.mesh_use_endpoint_lookup
 
+        # Use MESH auto routing
         [
+          "GPPROVIDER",
           patient.nhs_number,
-          patient.born_on.strftime("%d%m%Y"),
+          patient.born_on.strftime("%Y%m%d"),
           patient.family_name
         ].join("_")
       end

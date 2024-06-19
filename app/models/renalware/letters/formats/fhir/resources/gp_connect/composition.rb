@@ -44,8 +44,9 @@ module Renalware::Letters
                   reference: arguments.organisation_urn
                 },
                 title: arguments.document_title,
+                confidentiality: arguments.confidentiality,
                 section: {
-                  title: "xx", # TODO
+                  title: arguments.document_title,
                   entry: [
                     { reference: arguments.binary_urn }
                   ]
