@@ -8,6 +8,7 @@ module Renalware
         queue_with_priority 10
 
         # An example MESH message id is 20230315095843558004_7C0785
+        # rubocop:disable Metrics/MethodLength
         def perform(message_id)
           Mesh::Operation.transaction do
             download_operation, send_message_operation = download_message(message_id)
@@ -16,11 +17,18 @@ module Renalware
             if send_message_operation
               transmission = send_message_operation.transmission
               if transmission.successful_inf_and_bus_responses?
-                transmission.update!(status: :success)
+                transmission.update!(
+                  status: :success,
+                  sent_to_practice_ods_code: sent_to_practice_ods_code(download_operation)
+                )
               end
+
+              # Update the letter to indicated which practice ODS code it was sent to
+              #
             end
           end
         end
+        # rubocop:enable Metrics/MethodLength
 
         # rubocop:disable Metrics/MethodLength
         def download_message(message_id)
@@ -74,6 +82,14 @@ module Renalware
           end
         end
         # rubocop:enable Metrics/MethodLength
+
+        private
+
+        def sent_to_practice_ods_code(operation)
+          return unless operation&.response_headers
+
+          operation.response_headers["mex-from-ods"]
+        end
       end
     end
   end

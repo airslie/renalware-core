@@ -8684,7 +8684,8 @@ CREATE TABLE renalware.letter_mesh_transmissions (
     updated_at timestamp(6) without time zone NOT NULL,
     comment text,
     active_job_id uuid,
-    cancelled_at timestamp(6) without time zone
+    cancelled_at timestamp(6) without time zone,
+    sent_to_practice_ods_code character varying
 );
 
 
@@ -22682,6 +22683,13 @@ CREATE INDEX index_letter_mesh_transmissions_on_letter_id ON renalware.letter_me
 
 
 --
+-- Name: index_letter_mesh_transmissions_on_sent_to_practice_ods_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_mesh_transmissions_on_sent_to_practice_ods_code ON renalware.letter_mesh_transmissions USING btree (sent_to_practice_ods_code);
+
+
+--
 -- Name: index_letter_mesh_transmissions_on_status; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -29723,6 +29731,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240627162732'),
 ('20240627145638'),
 ('20240625085012'),
+('20240620135421'),
 ('20240612132844'),
 ('20240612105341'),
 ('20240607103238'),
