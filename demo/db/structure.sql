@@ -8160,7 +8160,10 @@ CREATE TABLE renalware.letter_letters (
     completed_at timestamp without time zone,
     completed_by_id bigint,
     page_count integer,
-    topic_id bigint
+    topic_id bigint,
+    deleted_at timestamp(6) without time zone,
+    deletion_notes text,
+    deleted_by_id bigint
 );
 
 
@@ -12442,7 +12445,7 @@ CREATE TABLE renalware.research_participations (
 -- Name: COLUMN research_participations.external_id_deprecated; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-06-04 11:14:13 +0100 before changing its type from int to text';
+COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-06-19 16:31:17 +0100 before changing its type from int to text';
 
 
 --
@@ -21925,6 +21928,20 @@ CREATE INDEX index_letter_letters_on_created_by_id ON renalware.letter_letters U
 
 
 --
+-- Name: index_letter_letters_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_deleted_at ON renalware.letter_letters USING btree (deleted_at) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: index_letter_letters_on_deleted_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_deleted_by_id ON renalware.letter_letters USING btree (deleted_by_id);
+
+
+--
 -- Name: index_letter_letters_on_event_type_and_event_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -26864,6 +26881,14 @@ ALTER TABLE ONLY renalware.modality_change_types
 
 
 --
+-- Name: letter_letters fk_rails_6dfb08492c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_letters
+    ADD CONSTRAINT fk_rails_6dfb08492c FOREIGN KEY (deleted_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: drug_trade_family_classifications fk_rails_6e6a5dc074; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -28999,6 +29024,7 @@ SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20240523145856'),
+('20240515125333'),
 ('20240515081225'),
 ('20240505190155'),
 ('20240501155334'),

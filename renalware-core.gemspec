@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
   s.add_dependency "activerecord-import", "~> 1.0"
   s.add_dependency "activerecord-postgres_enum", "~> 2.0"
   s.add_dependency "acts_as_list", "~> 1.1"
+  s.add_dependency "after_commit_everywhere"
   s.add_dependency "ahoy_matey"
   s.add_dependency "attr_extras" # , "> 6.2.4"
   s.add_dependency "bcrypt_pbkdf"
