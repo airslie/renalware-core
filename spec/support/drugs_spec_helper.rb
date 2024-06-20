@@ -31,6 +31,14 @@ module DrugsSpecHelper
     end
   end
 
+  def refresh_prescribable_drugs_materialized_view
+    Scenic.database.refresh_materialized_view(
+      "drug_prescribable_drugs",
+      concurrently: false,
+      cascade: false
+    )
+  end
+
   private
 
   def assign_drug(name)
