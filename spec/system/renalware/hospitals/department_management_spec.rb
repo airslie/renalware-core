@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 describe "Department Management" do
   it "displays a list of hospital departments" do
     login_as_clinical

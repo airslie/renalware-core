@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 describe "Creating a mailshot", js: true do
   include ActiveJob::TestHelper
 

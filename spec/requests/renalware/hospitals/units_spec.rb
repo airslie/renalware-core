@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 describe "Managing Hospital Units" do
   let(:hospital_centre) { create(:hospital_centre) }
   let(:hospital_unit) { create(:hospital_unit) }

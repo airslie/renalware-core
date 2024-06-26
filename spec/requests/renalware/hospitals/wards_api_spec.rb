@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 describe "Hospital Wards API" do
   describe "GET index JSON" do
     it "returns wards for a hospital unit, useful for example for inserting into a wards select " \

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 describe "Ward Management" do
   it "displays a list of wards for a hospital" do
     login_as_clinical
