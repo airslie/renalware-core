@@ -128,7 +128,7 @@ RSpec/ExampleLength:
   Exclude:
     - "spec/system/**/*"
 RSpec/NestedGroups:
-  Max: 4
+  Max: 5
 RSpec/MultipleExpectations:
   Max: 10
   Exclude:
