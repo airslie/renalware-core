@@ -5,6 +5,7 @@ Renalware::Engine.routes.draw do
 
   mount Renalware::Reporting::Engine => "reporting", as: :reporting
   mount Renalware::Research::Engine => "research", as: :research
+  mount Renalware::Hospitals::Engine => "hospitals", as: :hospitals
 
   draw :accesses
   draw :admin
@@ -19,7 +20,6 @@ Renalware::Engine.routes.draw do
   draw :events
   draw :feeds
   draw :hd
-  draw :hospitals
   draw :letters
   draw :low_clearance
   draw :medications
