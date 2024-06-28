@@ -7,7 +7,7 @@ describe "Searching people" do
       create(:directory_person, given_name: "Yosemite", family_name: "Sam", by: user)
       create(:directory_person, family_name: "::another patient::", by: user)
 
-      visit directory_people_path
+      visit directory.people_path
     end
 
     context "with a name filter" do

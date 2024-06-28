@@ -1,10 +1,10 @@
 = content_for(:actions) do
   = link_to t("btn.edit"),
-            edit_directory_person_path(person),
+            directory.edit_person_path(person),
             class: "button"
 
 = within_admin_layout(title: "Person",
-                      breadcrumbs: breadcrumb_for("Directory", directory_people_path))
+                      breadcrumbs: breadcrumb_for("Directory", directory.people_path))
 
   .mgrid
     = article_tag "Person" do

@@ -17,7 +17,7 @@ describe "Managing Hospital Units" do
       it "creates a new record" do
         attributes = attributes_for(:hd_hospital_unit)
           .merge(hospital_centre_id: hospital_centre.id)
-        post hospitals.units_path, params: { hospitals_unit: attributes }
+        post hospitals.units_path, params: { unit: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Hospitals::Unit).to exist(attributes)
@@ -31,7 +31,7 @@ describe "Managing Hospital Units" do
     context "with invalid attributes" do
       it "responds with form" do
         attributes = { name: "" }
-        post hospitals.units_path, params: { hospitals_unit: attributes }
+        post hospitals.units_path, params: { unit: attributes }
 
         expect(response).to be_successful
       end
@@ -50,7 +50,7 @@ describe "Managing Hospital Units" do
     context "with valid attributes" do
       it "updates a record" do
         attributes = { name: "My Edited Event" }
-        patch hospitals.unit_path(hospital_unit), params: { hospitals_unit: attributes }
+        patch hospitals.unit_path(hospital_unit), params: { unit: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Hospitals::Unit).to exist(attributes)
@@ -64,7 +64,7 @@ describe "Managing Hospital Units" do
     context "with invalid attributes" do
       it "responds with a form" do
         attributes = { name: "" }
-        patch hospitals.unit_path(hospital_unit), params: { hospitals_unit: attributes }
+        patch hospitals.unit_path(hospital_unit), params: { unit: attributes }
 
         expect(response).to be_successful
       end

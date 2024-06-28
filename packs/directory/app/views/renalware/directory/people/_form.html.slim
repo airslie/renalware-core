@@ -1,4 +1,4 @@
-= simple_form_for person,
+= simple_form_for [directory, person],
                   html: { autocomplete: "off" },
                   wrapper: "horizontal_form" do |f|
   = field_set_tag "Person" do
@@ -9,5 +9,4 @@
   = field_set_tag "Postal Address" do
     = render "address_form", f: f
 
-  = save_or_cancel(form: f, back_path: directory_people_path)
-  
+  = save_or_cancel(form: f, back_path: directory.people_path)

@@ -44,7 +44,7 @@ module Renalware
         authorize person
 
         if person.save
-          redirect_to directory_people_path, notice: success_msg_for("Directory person")
+          redirect_to directory.people_path, notice: success_msg_for("Directory person")
         else
           flash.now[:error] = failed_msg_for("Directory person")
           render_new(person)
@@ -55,7 +55,7 @@ module Renalware
         person = Person.find(params[:id])
         authorize person
         if person.update(person_params)
-          redirect_to directory_people_path, notice: success_msg_for("Directory person")
+          redirect_to directory.people_path, notice: success_msg_for("Directory person")
         else
           flash.now[:error] = failed_msg_for("Directory person")
           render_edit(person)
@@ -80,7 +80,7 @@ module Renalware
 
       def person_params
         params
-          .require(:directory_person)
+          .require(:person)
           .permit(attributes)
           .merge(by: current_user)
       end

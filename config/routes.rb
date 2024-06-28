@@ -6,6 +6,7 @@ Renalware::Engine.routes.draw do
   mount Renalware::Reporting::Engine => "reporting", as: :reporting
   mount Renalware::Research::Engine => "research", as: :research
   mount Renalware::Hospitals::Engine => "hospitals", as: :hospitals
+  mount Renalware::Directory::Engine => "directory", as: :directory
 
   draw :accesses
   draw :admin
@@ -15,7 +16,6 @@ Renalware::Engine.routes.draw do
   draw :clinics
   draw :dietetics
   draw :deaths
-  draw :directory
   draw :drugs
   draw :events
   draw :feeds
