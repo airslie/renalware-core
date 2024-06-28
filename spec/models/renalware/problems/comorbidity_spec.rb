@@ -20,6 +20,7 @@ module Renalware::Problems
     it :aggregate_failures do
       is_expected.to be_versioned
       is_expected.to belong_to(:patient)
+      is_expected.to belong_to(:malignancy_site)
       is_expected.to validate_presence_of(:patient)
       is_expected.to validate_presence_of(:description)
       is_expected.to belong_to(:description)
