@@ -1,0 +1,4 @@
+= within_admin_layout(title: "Edit",
+                      breadcrumbs: breadcrumb_for("Snippets", snippeting.snippets_path)) do
+
+  = render "form", snippet: snippet, submit_to_url: snippeting.snippet_path(snippet)
