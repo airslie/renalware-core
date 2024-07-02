@@ -22,7 +22,8 @@ module Renalware
     include Turbo::FramesHelper
     attr_reader :remote, :title, :size_css_classes
 
-    DEFAULT_SIZE_CSS_CLASSES = "sm:w-full.sm:max-w-xl"
+    # if changing these, remember to test all instance of ModalComponent
+    DEFAULT_SIZE_CSS_CLASSES = "sm:w-full sm:max-w-xl"
 
     # renders_one :body
     # renders_one :trigger

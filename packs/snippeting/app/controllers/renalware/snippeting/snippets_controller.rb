@@ -11,7 +11,13 @@ module Renalware
         search = snippets.ransack(params[:q])
         search.sorts = ["times_used desc", "last_used_on desc"] if search.sorts.empty?
         pagy, snippets = pagy(search.result)
-        render locals: { snippets: snippets, search: search, author: author, pagy: pagy }
+        locals = { snippets: snippets, search: search, author: author, pagy: pagy }
+
+        if turbo_frame_request?
+          render "dialog", layout: false, locals: locals
+        else
+          render locals: locals
+        end
       end
 
       def new
