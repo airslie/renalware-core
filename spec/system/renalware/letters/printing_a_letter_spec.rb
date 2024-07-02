@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 describe "Printing a letter",
          js: true do
   include LettersSpecHelper

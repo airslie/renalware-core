@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 module Renalware
   module Letters
     # This is an attempt to explore the two ways we have of determining if the practice will

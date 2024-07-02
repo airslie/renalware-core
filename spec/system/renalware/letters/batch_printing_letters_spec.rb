@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 describe "Batch printing letters", js: true do
   include LettersSpecHelper
   include ActiveJob::TestHelper

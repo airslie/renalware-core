@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 module Renalware
   describe "Renalware::Engine.scheduled_jobs_config", type: :model do
     let(:jobs_config) do

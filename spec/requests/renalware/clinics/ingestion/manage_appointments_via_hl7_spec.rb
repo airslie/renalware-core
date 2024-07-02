@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 describe "manage appointments via HL7 ADT messages" do
   include HL7Helpers
   include PatientsSpecHelper

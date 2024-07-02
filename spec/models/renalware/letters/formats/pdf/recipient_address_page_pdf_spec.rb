@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 module Renalware::Letters::Formats::Pdf
   describe RecipientAddressPagePdf do
     include LettersSpecHelper
