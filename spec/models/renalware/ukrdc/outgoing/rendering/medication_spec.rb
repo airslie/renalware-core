@@ -43,7 +43,10 @@ module Renalware
                   <CodingStandard>ODS</CodingStandard>
                   <Code>RJZ</Code>
                 </EnteringOrganization>
-                <Route/>
+                <Route>
+                  <CodingStandard>RR22</CodingStandard>
+                  <Code>1</Code>
+                </Route>
                 <DrugProduct>
                   <Generic>Drug1</Generic>
                 </DrugProduct>
@@ -81,7 +84,10 @@ module Renalware
                     <CodingStandard>ODS</CodingStandard>
                     <Code>RJZ</Code>
                   </EnteringOrganization>
-                  <Route/>
+                  <Route>
+                    <CodingStandard>RR22</CodingStandard>
+                    <Code>1</Code>
+                  </Route>
                   <DrugProduct>
                     <Generic>Drug1</Generic>
                   </DrugProduct>
