@@ -12503,7 +12503,7 @@ CREATE TABLE renalware.research_participations (
 -- Name: COLUMN research_participations.external_id_deprecated; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-07-09 17:50:37 +0100 before changing its type from int to text';
+COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-07-10 12:26:18 +0100 before changing its type from int to text';
 
 
 --
