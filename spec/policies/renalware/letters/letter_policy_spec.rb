@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware::Letters
+  # rubocop:disable RSpec/RepeatedExample
   describe LetterPolicy, type: :policy do
     include PolicySpecHelper
     subject(:policy) { described_class }
@@ -14,6 +15,13 @@ module Renalware::Letters
       it { is_expected.to permit(super_admin_user) }
       it { is_expected.to permit(admin_user) }
       it { is_expected.to permit(clinical_user) }
+      it { is_expected.not_to permit(read_only_user) }
+    end
+
+    permissions :deleted? do
+      it { is_expected.to permit(super_admin_user) }
+      it { is_expected.not_to permit(admin_user) }
+      it { is_expected.not_to permit(clinical_user) }
       it { is_expected.not_to permit(read_only_user) }
     end
 
@@ -94,4 +102,5 @@ module Renalware::Letters
       end
     end
   end
+  # rubocop:enable RSpec/RepeatedExample
 end

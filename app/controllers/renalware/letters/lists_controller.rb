@@ -11,6 +11,8 @@ module Renalware
         form = form_for(named_filter)
         query = LetterQuery.new(q: form.attributes)
         letters = find_and_authorize_letters(query)
+        letters = letters.only_deleted if form.include_deleted
+        letters = present_letters(letters)
 
         q = query.search
 
@@ -38,8 +40,9 @@ module Renalware
       end
 
       def find_and_authorize_letters(query)
-        collection = call_query(query).page(page).per(per_page)
-        present_letters(collection).tap { |letters| authorize letters }
+        letters = call_query(query).page(page).per(per_page)
+        authorize letters
+        letters
       end
 
       def present_letters(letters)
