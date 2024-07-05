@@ -1,5 +1,28 @@
 = content_for(:actions) do
-  = link_to "Create new", snippeting.new_snippet_path, class: "button create-snippet right"
+  = link_to "Create new",
+            snippeting.new_snippet_path,
+            class: "button create-snippet right"
+
+= content_for(:filters) do
+  .w-1/2= render "search_form", search: search, author: author, remote: false
+
+= content_for(:tabs) do
+  dl.sub-nav.no-js-selection
+    dd(class= "#{'active' if author == :me}")
+      = link_to snippeting.snippets_path do
+          i.fas.fa-user
+          | Mine
+    dd(class= "#{'active' if author == :anyone}")
+      = link_to snippeting.snippets_path(author: :anyone) do
+        i.fas.fa-users
+        | Everyone's
 
 = within_admin_layout(title: "Snippets") do
-  = render "list", snippets: snippets, search: search, author: author, remote: false, pagy: pagy
+
+  /= render Renalware::ModalComponent.new(title: "Snippets") do
+  = render "list",
+          snippets: snippets,
+          search: search,
+          author: author,
+          remote: false,
+          pagy: pagy

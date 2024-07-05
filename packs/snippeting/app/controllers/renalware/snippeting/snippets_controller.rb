@@ -13,11 +13,7 @@ module Renalware
         pagy, snippets = pagy(search.result)
         locals = { snippets: snippets, search: search, author: author, pagy: pagy }
 
-        if turbo_frame_request?
-          render "dialog", layout: false, locals: locals
-        else
-          render locals: locals
-        end
+        render locals: locals, layout: !turbo_frame_request?
       end
 
       def new
