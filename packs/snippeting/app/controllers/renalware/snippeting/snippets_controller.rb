@@ -10,7 +10,7 @@ module Renalware
         snippets = snippets_for_author(author)
         search = snippets.ransack(params[:q])
         search.sorts = ["times_used desc", "last_used_on desc"] if search.sorts.empty?
-        pagy, snippets = pagy(search.result)
+        pagy, snippets = pagy(search.result, items: 10)
         locals = { snippets: snippets, search: search, author: author, pagy: pagy }
 
         render locals: locals, layout: !turbo_frame_request?

@@ -4,7 +4,7 @@
             class: "button create-snippet right"
 
 = content_for(:filters) do
-  .w-1/2= render "search_form", search: search, author: author, remote: false
+  .w-1/2= render "filters", search: search, author: author, remote: false
 
 = content_for(:tabs) do
   dl.sub-nav.no-js-selection

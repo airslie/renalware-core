@@ -19,13 +19,13 @@ en:
           page_title: Manage Snippets
         new:
           title: New snippet
-        row:
+        snippet:
           clone: Clone
           copy_to_clipboard: Copy
           delete: Delete
           duplicate: Duplicate
           edit: Edit
-        search_form:
+        filters:
           search_placeholder: Search by title or author's name
         table:
           author: Author

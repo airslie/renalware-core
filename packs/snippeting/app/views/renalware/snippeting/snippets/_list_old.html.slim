@@ -16,7 +16,7 @@
         i.fas.fa-users
         | Everyone's
 
-  = render "search_form", search: search, author: author, remote: remote
+  = render "filters", search: search, author: author, remote: remote
   = render "table", snippets: snippets, author: author, search: search, remote: remote
 
   == pagy_nav(pagy) if pagy.pages > 1

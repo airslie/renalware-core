@@ -23001,6 +23001,48 @@ class LettersBatchCompileController extends Controller {
   }
 }
 
+// From https://github.com/stimulus-components/stimulus-clipboard
+
+
+class Clipboard extends Controller {
+  static targets = ["button", "source"]
+  static values = {
+    successContent: String,
+    successDuration: {
+      type: Number,
+      default: 2000
+    }
+  }
+
+  connect() {
+    if (!this.hasButtonTarget) return
+
+    this.originalContent = this.buttonTarget.innerHTML;
+  }
+
+  copy(event) {
+    event.preventDefault();
+
+    const text = this.sourceTarget.innerHTML || this.sourceTarget.value;
+
+    navigator.clipboard.writeText(text).then(() => this.copied());
+  }
+
+  copied() {
+    if (!this.hasButtonTarget) return
+
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+
+    this.buttonTarget.innerHTML = this.successContentValue;
+
+    this.timeout = setTimeout(() => {
+      this.buttonTarget.innerHTML = this.originalContent;
+    }, this.successDurationValue);
+  }
+}
+
 application.register("toggle", ToggleController);
 application.register("hd-prescription-administration", HDPrescriptionController);
 application.register(
@@ -23062,6 +23104,7 @@ application.register("turbo-modal", TurboModalController);
 application.register("charts-raw", ChartsRawController);
 application.register("popover", Popover);
 application.register("letters-batch-compile", LettersBatchCompileController);
+application.register("clipboard", Clipboard);
 
 /*!
 Turbo 8.0.5
