@@ -11036,6 +11036,8 @@ CREATE VIEW renalware.pd_mdm_patients AS
     renalware.convert_to_float(((pa."values" -> 'CRE'::text) ->> 'result'::text), NULL::double precision) AS cre,
     (((pa."values" -> 'CRE'::text) ->> 'observed_at'::text))::date AS cre_date,
     renalware.convert_to_float(((pa."values" -> 'EGFR'::text) ->> 'result'::text), NULL::double precision) AS egfr,
+    (((pa."values" -> 'POT'::text) ->> 'observed_at'::text))::date AS pot_date,
+    renalware.convert_to_float(((pa."values" -> 'POT'::text) ->> 'result'::text), NULL::double precision) AS pot,
     (((named_nurses.family_name)::text || ', '::text) || (named_nurses.given_name)::text) AS named_nurse,
     (((named_consultants.family_name)::text || ', '::text) || (named_consultants.given_name)::text) AS named_consultant,
     h.name AS hospital_centre
@@ -12501,7 +12503,7 @@ CREATE TABLE renalware.research_participations (
 -- Name: COLUMN research_participations.external_id_deprecated; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-07-09 17:18:41 +0100 before changing its type from int to text';
+COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-07-09 17:50:04 +0100 before changing its type from int to text';
 
 
 --
@@ -29137,6 +29139,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240709161228'),
 ('20240709161227'),
 ('20240709161226'),
+('20240709080114'),
 ('20240625085012'),
 ('20240523145856'),
 ('20240520100213'),
