@@ -3,6 +3,9 @@ class CreatePDMDMPatientsV8 < ActiveRecord::Migration[7.0]
     within_renalware_schema do
       update_view :pd_mdm_patients, version: 8, revert_to_version: 7
 
+      # Note the filter update below is for the benefit of consuming applications.
+      # When seeding the demo app in this project, the view_metadata seeds file may overwrite
+      # whatever we do here, as it runs afterwards.
       reversible do |direction|
         direction.down do
           # noop
