@@ -6278,7 +6278,10 @@ CREATE TABLE renalware.good_job_executions (
     scheduled_at timestamp(6) without time zone,
     finished_at timestamp(6) without time zone,
     error text,
-    error_event smallint
+    error_event smallint,
+    error_backtrace text[],
+    process_id uuid,
+    duration interval
 );
 
 
@@ -6290,7 +6293,8 @@ CREATE TABLE renalware.good_job_processes (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    state jsonb
+    state jsonb,
+    lock_type smallint
 );
 
 
@@ -6332,7 +6336,10 @@ CREATE TABLE renalware.good_jobs (
     is_discrete boolean,
     executions_count integer,
     job_class text,
-    error_event smallint
+    error_event smallint,
+    labels text[],
+    locked_by_id uuid,
+    locked_at timestamp(6) without time zone
 );
 
 
@@ -8345,16 +8352,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT patients.id AS patient_id
-   FROM renalware.patients
-  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -12154,7 +12151,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -12234,7 +12231,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -12504,7 +12501,7 @@ CREATE TABLE renalware.research_participations (
 -- Name: COLUMN research_participations.external_id_deprecated; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-06-25 09:49:03 +0100 before changing its type from int to text';
+COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-07-09 17:18:41 +0100 before changing its type from int to text';
 
 
 --
@@ -20902,6 +20899,20 @@ CREATE INDEX index_good_job_executions_on_active_job_id_and_created_at ON renalw
 
 
 --
+-- Name: index_good_job_executions_on_process_id_and_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_job_executions_on_process_id_and_created_at ON renalware.good_job_executions USING btree (process_id, created_at);
+
+
+--
+-- Name: index_good_job_jobs_for_candidate_lookup; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_job_jobs_for_candidate_lookup ON renalware.good_jobs USING btree (priority, created_at) WHERE (finished_at IS NULL);
+
+
+--
 -- Name: index_good_job_settings_on_key; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -20920,13 +20931,6 @@ CREATE INDEX index_good_jobs_jobs_on_finished_at ON renalware.good_jobs USING bt
 --
 
 CREATE INDEX index_good_jobs_jobs_on_priority_created_at_when_unfinished ON renalware.good_jobs USING btree (priority DESC NULLS LAST, created_at) WHERE (finished_at IS NULL);
-
-
---
--- Name: index_good_jobs_on_active_job_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_good_jobs_on_active_job_id ON renalware.good_jobs USING btree (active_job_id);
 
 
 --
@@ -20958,17 +20962,38 @@ CREATE INDEX index_good_jobs_on_concurrency_key_when_unfinished ON renalware.goo
 
 
 --
--- Name: index_good_jobs_on_cron_key_and_created_at; Type: INDEX; Schema: renalware; Owner: -
+-- Name: index_good_jobs_on_cron_key_and_created_at_cond; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_good_jobs_on_cron_key_and_created_at ON renalware.good_jobs USING btree (cron_key, created_at);
+CREATE INDEX index_good_jobs_on_cron_key_and_created_at_cond ON renalware.good_jobs USING btree (cron_key, created_at) WHERE (cron_key IS NOT NULL);
 
 
 --
--- Name: index_good_jobs_on_cron_key_and_cron_at; Type: INDEX; Schema: renalware; Owner: -
+-- Name: index_good_jobs_on_cron_key_and_cron_at_cond; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_good_jobs_on_cron_key_and_cron_at ON renalware.good_jobs USING btree (cron_key, cron_at);
+CREATE UNIQUE INDEX index_good_jobs_on_cron_key_and_cron_at_cond ON renalware.good_jobs USING btree (cron_key, cron_at) WHERE (cron_key IS NOT NULL);
+
+
+--
+-- Name: index_good_jobs_on_labels; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_on_labels ON renalware.good_jobs USING gin (labels) WHERE (labels IS NOT NULL);
+
+
+--
+-- Name: index_good_jobs_on_locked_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_on_locked_by_id ON renalware.good_jobs USING btree (locked_by_id) WHERE (locked_by_id IS NOT NULL);
+
+
+--
+-- Name: index_good_jobs_on_priority_scheduled_at_unfinished_unlocked; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_good_jobs_on_priority_scheduled_at_unfinished_unlocked ON renalware.good_jobs USING btree (priority, scheduled_at) WHERE ((finished_at IS NULL) AND (locked_by_id IS NULL));
 
 
 --
@@ -29103,6 +29128,15 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240709161234'),
+('20240709161233'),
+('20240709161232'),
+('20240709161231'),
+('20240709161230'),
+('20240709161229'),
+('20240709161228'),
+('20240709161227'),
+('20240709161226'),
 ('20240625085012'),
 ('20240523145856'),
 ('20240520100213'),

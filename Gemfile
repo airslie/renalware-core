@@ -58,7 +58,7 @@ gem "sentry-rails"
 
 gem "strong_migrations"
 
-gem "good_job"
+gem "good_job", "~> 4.0"
 gem "matrix"
 
 group :test do

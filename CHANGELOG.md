@@ -9,6 +9,14 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.4.5
+### Added
+### Changed
+- Reorganisation of research, hospitals, and contacts (directory) folders, so these need some brief testing #4895
+### Fixed
+- Fixed but after updating an event, where the user had gone straight to the edit page rather than clicking on an 'Edit' link to get there  #4911
+- Fix pagination in the snippets dialog which was causing the Insert Snippet dialog not to load #4900
+
 ## 2.4.4
 ### Added
 - Continue building out support for rendering PDF letter using prawn (no change to current wkhtmltopdf rendering so nothing to test yet) #4682
