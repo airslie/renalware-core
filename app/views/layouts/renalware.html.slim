@@ -5,6 +5,8 @@ html lang="en"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     / Force turbo to refresh the page when it cannot find the expected frame in the response.
     meta name="turbo-visit-control" content="reload"
+    / Prevent turbo pre-fetching links on hover eg inside a turboframe
+    meta name="turbo-prefetch" content="false"
 
     - if defined?(page_title)
       title= page_title
