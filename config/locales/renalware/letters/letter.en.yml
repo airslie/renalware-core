@@ -29,6 +29,7 @@ en:
           tab:
             all: All
             batch_printable: Batch Printable
+            deleted: Deleted
       summary_part:
         btn:
           draft_letter: Draft Letter

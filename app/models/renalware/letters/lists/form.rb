@@ -66,13 +66,9 @@ module Renalware
             [["1 or 2", "[1,2]"], ["3 or 4", "[3,4]"], ["5 or 6", "[5,6]"]]
           end
 
-          def disabled_inputs
-            []
-          end
-
-          def allow_blank_inputs
-            [:state_eq, :page_count_in_array]
-          end
+          def disabled_inputs = []
+          def allow_blank_inputs = [:state_eq, :page_count_in_array]
+          def include_deleted = false
         end
 
         class BatchPrintableLetters < AllLetters
@@ -83,29 +79,16 @@ module Renalware
             self.page_count_in_array ||= "[1,2]"
           end
 
-          def letter_state_options
-            super([:approved])
-          end
+          def letter_state_options  = super([:approved])
+          def disabled_inputs       = [:enclosures_present, :notes_present, :state_eq]
+          def allow_blank_inputs    = []
+          def enclosures_present    = false
+          def notes_present         = false
+          def state_eq              = :approved
+        end
 
-          def disabled_inputs
-            [:enclosures_present, :notes_present, :state_eq]
-          end
-
-          def allow_blank_inputs
-            []
-          end
-
-          def enclosures_present
-            false
-          end
-
-          def notes_present
-            false
-          end
-
-          def state_eq
-            @state_eq || :approved
-          end
+        class DeletedLetters < AllLetters
+          def include_deleted = true
         end
       end
     end

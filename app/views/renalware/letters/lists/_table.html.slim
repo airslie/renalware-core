@@ -16,7 +16,10 @@
         th.col-width-tiny Pages
         th.col-width-small Recipient
         th= t("thead.description")
-    /tbody
-    = render partial: "letter", collection: letters
+        - if named_filter == :deleted
+          th Deleted at
+          th Deleted by
+
+    = render partial: "letter", collection: letters, locals: { named_filter: named_filter }
 
   = paginate letters

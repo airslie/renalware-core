@@ -105,7 +105,7 @@ ruby:
       data-options="close_on_background_click:false")
 
 = within_admin_layout(title: "Letters") do
-  = render "table", letters: letters, q: q
+  = render "table", letters: letters, q: q, named_filter: named_filter
 
 / The modal dialog container for the dialog which will ask the user
 / if they want to mark the letter as printed. We load this dialog via ajax.
@@ -115,7 +115,7 @@ ruby:
 / - ./show.js.erb
 / - letters.js
 / for the complete works. Using ujs for these sort of dialog -> -> post -> page refresh
-/ cycles is a bit complex and we could move to using something like stimulus
+/ cycles is a bit complex and we could move to using something like turbo
 / to keep thing a bit simpler
 #letter-print-modal.reveal-modal.medium(data-reveal
   data-refresh-url=request.original_fullpath
