@@ -7,7 +7,7 @@ module Renalware
     # rubocop:disable Metrics/ClassLength
     class LettersController < Letters::BaseController
       include Pagy::Backend
-      helper Snippeting::SnippetsHelper
+      helper Authoring::SnippetsHelper
 
       before_action :load_patient, except: [:author]
 

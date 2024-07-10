@@ -6,7 +6,7 @@ module Renalware
       include Renalware::Concerns::PatientVisibility
       include Pagy::Backend
       include Renalware::Concerns::PdfRenderable
-      helper Snippeting::SnippetsHelper
+      helper Authoring::SnippetsHelper
 
       def index
         events_query = EventQuery.new(patient: patient, query: query_params)

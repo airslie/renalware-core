@@ -7,7 +7,7 @@ Renalware::Engine.routes.draw do
   mount Renalware::Hospitals::Engine => "hospitals", as: :hospitals
   mount Renalware::Reporting::Engine => "reporting", as: :reporting
   mount Renalware::Research::Engine => "research", as: :research
-  mount Renalware::Snippeting::Engine => "snippeting", as: :snippeting
+  mount Renalware::Authoring::Engine => "authoring", as: :authoring
 
   draw :accesses
   draw :admin

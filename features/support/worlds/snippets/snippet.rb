@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module World
-  module Snippeting::Snippet
+  module Authoring::Snippet
     module Domain
       def create_snippet_for(user, title:, body:)
         seed_snippet(user: user, title: title, body: body)
@@ -9,12 +9,12 @@ module World
 
       def seed_snippet(user:, title:, body:)
         author = snippets_user(user)
-        Renalware::Snippeting::Snippet.create(author: author, title: title, body: body)
+        Renalware::Authoring::Snippet.create(author: author, title: title, body: body)
       end
 
       def expect_user_to_have_snippet(user, title:, body:)
         expect(
-          Renalware::Snippeting::Snippet.where(author: user, title: title, body: body).count
+          Renalware::Authoring::Snippet.where(author: user, title: title, body: body).count
         ).to eq(1)
       end
     end
@@ -24,14 +24,14 @@ module World
 
       def create_snippet_for(user, title:, body:)
         login_as user
-        visit snippeting.snippets_path
+        visit authoring.snippets_path
 
         click_on "Create new snippet"
         fill_in "Title", with: title
         fill_in "Body", with: body
         click_on t("btn.save")
 
-        expect(page).to have_current_path(snippeting.snippets_path)
+        expect(page).to have_current_path(authoring.snippets_path)
       end
 
       def expect_user_to_have_snippet(_user, title:, body:)

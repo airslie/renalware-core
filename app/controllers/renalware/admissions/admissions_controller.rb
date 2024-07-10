@@ -7,7 +7,7 @@ module Renalware
     class AdmissionsController < BaseController
       include Pagy::Backend
       helper Hospitals::HospitalsHelper
-      helper Snippeting::SnippetsHelper
+      helper Authoring::SnippetsHelper
 
       def index
         pagy, admissions = pagy(search_form.submit)
