@@ -7,22 +7,12 @@
   .w-1/2= render "filters", search: search, author: author, remote: false
 
 = content_for(:tabs) do
-  dl.sub-nav.no-js-selection
-    dd(class= "#{'active' if author == :me}")
-      = link_to authoring.snippets_path do
-          i.fas.fa-user
-          | Mine
-    dd(class= "#{'active' if author == :anyone}")
-      = link_to authoring.snippets_path(author: :anyone) do
-        i.fas.fa-users
-        | Everyone's
+  = render "tabs", author: author
 
 = within_admin_layout(title: "Snippets") do
-
-  /= render Renalware::ModalComponent.new(title: "Snippets") do
   = render "list",
-          snippets: snippets,
-          search: search,
-          author: author,
-          remote: false,
-          pagy: pagy
+           snippets: snippets,
+           search: search,
+           author: author,
+           remote: false,
+           pagy: pagy

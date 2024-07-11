@@ -13,7 +13,8 @@ module Renalware
         pagy, snippets = pagy(search.result, items: 10)
         locals = { snippets: snippets, search: search, author: author, pagy: pagy }
 
-        render locals: locals, layout: !turbo_frame_request?
+        template = turbo_frame_request? ? "dialog" : "index"
+        render template, locals: locals, layout: !turbo_frame_request?
       end
 
       def new
