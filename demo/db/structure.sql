@@ -11632,7 +11632,9 @@ CREATE TABLE renalware.problem_comorbidities (
     created_by_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    malignancy_site_id bigint,
+    diabetes_type character varying
 );
 
 
@@ -11680,7 +11682,9 @@ CREATE TABLE renalware.problem_comorbidity_descriptions (
     snomed_code character varying,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    has_malignancy_site boolean DEFAULT false NOT NULL,
+    has_diabetes_type boolean DEFAULT false NOT NULL
 );
 
 
@@ -12503,7 +12507,7 @@ CREATE TABLE renalware.research_participations (
 -- Name: COLUMN research_participations.external_id_deprecated; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-07-10 12:26:18 +0100 before changing its type from int to text';
+COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-07-10 14:51:29 +0100 before changing its type from int to text';
 
 
 --
@@ -23806,6 +23810,13 @@ CREATE INDEX index_problem_comorbidities_on_description_id ON renalware.problem_
 
 
 --
+-- Name: index_problem_comorbidities_on_malignancy_site_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_problem_comorbidities_on_malignancy_site_id ON renalware.problem_comorbidities USING btree (malignancy_site_id);
+
+
+--
 -- Name: index_problem_comorbidities_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -28060,6 +28071,14 @@ ALTER TABLE ONLY renalware.active_storage_attachments
 
 
 --
+-- Name: problem_comorbidities fk_rails_c3b7d7c1d2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.problem_comorbidities
+    ADD CONSTRAINT fk_rails_c3b7d7c1d2 FOREIGN KEY (malignancy_site_id) REFERENCES renalware.problem_malignancy_sites(id);
+
+
+--
 -- Name: ukrdc_transmission_logs fk_rails_c59f71164c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -29140,6 +29159,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240709161227'),
 ('20240709161226'),
 ('20240709080114'),
+('20240628112023'),
+('20240628111805'),
+('20240627162732'),
+('20240627145638'),
 ('20240625085012'),
 ('20240523145856'),
 ('20240520100213'),
