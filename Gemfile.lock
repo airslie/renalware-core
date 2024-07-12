@@ -129,7 +129,7 @@ PATH
       view_component (< 4.0)
       virtus (~> 1.0.5)
       wicked_pdf (~> 2.8.0)
-      wisper
+      wisper (~> 2.0.1)
       wisper-activejob (~> 1.0.0)
       yard (>= 0.9.35)
 
@@ -953,7 +953,7 @@ GEM
     websocket-extensions (0.1.5)
     wicked_pdf (2.8.0)
       activesupport
-    wisper (3.0.0)
+    wisper (2.0.1)
     wisper-activejob (1.0.0)
       activejob (>= 4.0.0)
       wisper

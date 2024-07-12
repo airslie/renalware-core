@@ -106,7 +106,7 @@ Gem::Specification.new do |s|
   s.add_dependency "view_component", "< 4.0"
   s.add_dependency "virtus", "~> 1.0.5"
   s.add_dependency "wicked_pdf", "~> 2.8.0"
-  s.add_dependency "wisper"
+  s.add_dependency "wisper", "~> 2.0.1"
   s.add_dependency "wisper-activejob", "~> 1.0.0"
   s.add_dependency "yard", ">= 0.9.35"
 end
