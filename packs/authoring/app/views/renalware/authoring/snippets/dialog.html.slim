@@ -1,6 +1,7 @@
 / Dialog invoked when user elects to insert a snippet somewhere eg in a letter or event
 = render Renalware::ModalComponent.new(title: "Insert snippet", size_css_classes: "sm:w-full lg:w-3/4") do
   = render "tabs", author: author
+
   = render "list",
             snippets: snippets,
             search: search,

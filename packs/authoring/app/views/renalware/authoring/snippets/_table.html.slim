@@ -4,7 +4,7 @@
   table.snippets
     thead
       tr
-        th.togglers.col-width-small = rows_toggler
+        th.togglers.col-width-medium = rows_toggler
         - unless author == :me
           th.col-width-medium.author
             = sort_link([:authoring, search], :author_family_name, t(".author"))

@@ -11,12 +11,12 @@ tr(data={ "snippet-id" => snippet.id,
       = link_to("#", data: { action: "clipboard#copy", "clipboard-target" => "button"}) do
         = inline_icon "copy", size: :lg
 
-    - if remote
-      = link_to t("btn.insert"),
-                 "#",
-                 title: "Insert this snippet into the letter",
-                 class: "insert-snippet button compact alternative",
-                 data: { action: "click->snippets#insert"}
+      - if remote
+        = link_to t("btn.insert"),
+                  "#",
+                  title: "Insert this snippet into the letter",
+                  class: "insert-snippet button compact alternative",
+                  data: { action: "click->snippets#insert"}
   - unless author == :me
     td.col-width-medium.author= snippet.author
   td.css-toggle-container.title
