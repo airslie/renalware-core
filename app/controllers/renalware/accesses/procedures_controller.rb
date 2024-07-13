@@ -5,7 +5,6 @@ module Renalware
     class ProceduresController < BaseController
       include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::PatientVisibility
-      helper Authoring::SnippetsHelper
 
       def show
         procedure = find_procedure

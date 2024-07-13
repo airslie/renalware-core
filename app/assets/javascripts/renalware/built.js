@@ -9155,14 +9155,37 @@ class MedicationsHomeDeliveryModalController extends Controller {
   }
 }
 
+// This is the Snippets (as opposed to Snippet) controller.
+// It is responsible for receiving an #insert message from a snippet_controller elsewhere in the
+// DOM - eg in a modal dialog listing a table of available snippets, where each row/tr is controlled
+// by a SnippetController. The link between the individual snippet controller and this this
+// snippets controller is via the stimulus outlets API.
+// See also snippet_controller.js
 class SnippetsController extends Controller {
+  static targets = ["destination"] // a Trix editor that supports .insertHTML()
+
+  insert(snippetText) {
+    this.destinationTarget.editor.insertHTML(snippetText);
+  }
+}
+
+// This is the Snippet (as opposed to Snippets) controller.
+// Each row (tr) in a table of snippets has a snippet controller.
+// When the Insert link in the row is clicked, the #insert() action is called.
+// This extracts the snippet text from the sourceTarget (eg a td in the tr), and then
+// delegates the the insert call to each (usually just one) snippets outlet; this outlet is a link
+// to a stimulus snippets elsewhere in the DOM, defined by CSS - see eg
+//   td(snippet-snippets-outlet="#snippets-controller")
+// The snippets controller knows about the destination for the snippet ie where it will be
+// inserted.
+class SnippetController extends Controller {
+  static targets = ["source"]
+  static outlets = ["snippets"]
+
   insert(event) {
-    // // TODO: set up the trix editor in each page as data-target="snippets.trix"
-    // let modal = $("#snippets-modal")
-    // let snippetBody = $(event.target).parent().closest("tr").find(".body").html()
-    // let trix = document.querySelector("trix-editor")
-    // trix.editor.insertHTML(snippetBody)
-    // $(modal).foundation("reveal", "close")
+    event.preventDefault();
+    const snippetText = this.sourceTarget.innerHTML;
+    this.snippetsOutlets.forEach(x => x.insert(snippetText));
   }
 }
 
@@ -23048,6 +23071,7 @@ application.register(
   MedicationsHomeDeliveryModalController
 );
 application.register("snippets", SnippetsController);
+application.register("snippet", SnippetController);
 application.register("letters-form", LettersFormController);
 application.register("prescriptions", PrescriptionsController);
 application.register("charts", ChartsController);
