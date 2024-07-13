@@ -9288,7 +9288,7 @@ var highcharts = {exports: {}};
 (function (module) {
 	!
 	/**
-	* Highcharts JS v11.4.3 (2024-05-22)
+	* Highcharts JS v11.4.6 (2024-07-08)
 	*
 	* (c) 2009-2024 Torstein Honsi
 	*
@@ -9309,7 +9309,7 @@ var highcharts = {exports: {}};
 	  }
 	  return i(e, "Core/Globals.js", [], function () {
 	    var e, i;
-	    return (i = e || (e = {})).SVG_NS = "http://www.w3.org/2000/svg", i.product = "Highcharts", i.version = "11.4.3", i.win = void 0 !== t ? t : {}, i.doc = i.win.document, i.svg = i.doc && i.doc.createElementNS && !!i.doc.createElementNS(i.SVG_NS, "svg").createSVGRect, i.userAgent = i.win.navigator && i.win.navigator.userAgent || "", i.isChrome = -1 !== i.userAgent.indexOf("Chrome"), i.isFirefox = -1 !== i.userAgent.indexOf("Firefox"), i.isMS = /(edge|msie|trident)/i.test(i.userAgent) && !i.win.opera, i.isSafari = !i.isChrome && -1 !== i.userAgent.indexOf("Safari"), i.isTouchDevice = /(Mobile|Android|Windows Phone)/.test(i.userAgent), i.isWebKit = -1 !== i.userAgent.indexOf("AppleWebKit"), i.deg2rad = 2 * Math.PI / 360, i.hasBidiBug = i.isFirefox && 4 > parseInt(i.userAgent.split("Firefox/")[1], 10), i.marginNames = ["plotTop", "marginRight", "marginBottom", "plotLeft"], i.noop = function () {}, i.supportsPassiveEvents = function () {
+	    return (i = e || (e = {})).SVG_NS = "http://www.w3.org/2000/svg", i.product = "Highcharts", i.version = "11.4.6", i.win = void 0 !== t ? t : {}, i.doc = i.win.document, i.svg = i.doc && i.doc.createElementNS && !!i.doc.createElementNS(i.SVG_NS, "svg").createSVGRect, i.userAgent = i.win.navigator && i.win.navigator.userAgent || "", i.isChrome = i.win.chrome, i.isFirefox = -1 !== i.userAgent.indexOf("Firefox"), i.isMS = /(edge|msie|trident)/i.test(i.userAgent) && !i.win.opera, i.isSafari = !i.isChrome && -1 !== i.userAgent.indexOf("Safari"), i.isTouchDevice = /(Mobile|Android|Windows Phone)/.test(i.userAgent), i.isWebKit = -1 !== i.userAgent.indexOf("AppleWebKit"), i.deg2rad = 2 * Math.PI / 360, i.hasBidiBug = i.isFirefox && 4 > parseInt(i.userAgent.split("Firefox/")[1], 10), i.marginNames = ["plotTop", "marginRight", "marginBottom", "plotLeft"], i.noop = function () {}, i.supportsPassiveEvents = function () {
 	      let t = !1;
 	      if (!i.isMS) {
 	        let e = Object.defineProperty({}, "passive", {
@@ -9328,14 +9328,14 @@ var highcharts = {exports: {}};
 	      doc: s,
 	      win: r
 	    } = t;
-	    function o(e, i, s, a) {
-	      let n = i ? "Highcharts error" : "Highcharts warning";
-	      32 === e && (e = `${n}: Deprecated member`);
+	    function o(e, i, s, n) {
+	      let a = i ? "Highcharts error" : "Highcharts warning";
+	      32 === e && (e = `${a}: Deprecated member`);
 	      let h = p(e),
-	        l = h ? `${n} #${e}: www.highcharts.com/errors/${e}/` : e.toString();
-	      if (void 0 !== a) {
+	        l = h ? `${a} #${e}: www.highcharts.com/errors/${e}/` : e.toString();
+	      if (void 0 !== n) {
 	        let t = "";
-	        h && (l += "?"), C(a, function (e, i) {
+	        h && (l += "?"), C(n, function (e, i) {
 	          t += `
  - ${i}: ${e}`, h && (l += encodeURI(i) + "=" + encodeURI(e));
 	        }), l += t;
@@ -9344,16 +9344,16 @@ var highcharts = {exports: {}};
 	        chart: s,
 	        code: e,
 	        message: l,
-	        params: a
+	        params: n
 	      }, function () {
 	        if (i) throw Error(l);
 	        r.console && -1 === o.messages.indexOf(l) && console.warn(l);
 	      }), o.messages.push(l);
 	    }
-	    function a(t, e) {
+	    function n(t, e) {
 	      return parseInt(t, e || 10);
 	    }
-	    function n(t) {
+	    function a(t) {
 	      return "string" == typeof t;
 	    }
 	    function h(t) {
@@ -9378,11 +9378,11 @@ var highcharts = {exports: {}};
 	    }
 	    function g(t, e, i) {
 	      let s;
-	      let r = n(e) && !u(i),
+	      let r = a(e) && !u(i),
 	        o = (e, i) => {
 	          u(e) ? t.setAttribute(i, e) : r ? (s = t.getAttribute(i)) || "class" !== i || (s = t.getAttribute(i + "Name")) : t.removeAttribute(i);
 	        };
-	      return n(e) ? o(i, e) : C(e, o), s;
+	      return a(e) ? o(i, e) : C(e, o), s;
 	    }
 	    function f(t) {
 	      return h(t) ? t : [t];
@@ -9488,23 +9488,23 @@ var highcharts = {exports: {}};
 	    }();
 	    return r.jQuery && (r.jQuery.fn.highcharts = function () {
 	      let e = [].slice.call(arguments);
-	      if (this[0]) return e[0] ? (new t[n(e[0]) ? e.shift() : "Chart"](this[0], e[0], e[1]), this) : i[g(this[0], "data-highcharts-chart")];
+	      if (this[0]) return e[0] ? (new t[a(e[0]) ? e.shift() : "Chart"](this[0], e[0], e[1]), this) : i[g(this[0], "data-highcharts-chart")];
 	    }), {
 	      addEvent: function (e, i, s, r = {}) {
 	        let o = "function" == typeof e && e.prototype || e;
 	        Object.hasOwnProperty.call(o, "hcEvents") || (o.hcEvents = {});
-	        let a = o.hcEvents;
+	        let n = o.hcEvents;
 	        t.Point && e instanceof t.Point && e.series && e.series.chart && (e.series.chart.runTrackerClick = !0);
-	        let n = e.addEventListener;
-	        n && n.call(e, i, s, !!t.supportsPassiveEvents && {
+	        let a = e.addEventListener;
+	        a && a.call(e, i, s, !!t.supportsPassiveEvents && {
 	          passive: void 0 === r.passive ? -1 !== i.indexOf("touch") : r.passive,
 	          capture: !1
-	        }), a[i] || (a[i] = []);
+	        }), n[i] || (n[i] = []);
 	        let h = {
 	          fn: s,
 	          order: "number" == typeof r.order ? r.order : 1 / 0
 	        };
-	        return a[i].push(h), a[i].sort((t, e) => t.order - e.order), function () {
+	        return n[i].push(h), n[i].sort((t, e) => t.order - e.order), function () {
 	          k(e, i, s);
 	        };
 	      },
@@ -9529,12 +9529,12 @@ var highcharts = {exports: {}};
 	      },
 	      correctFloat: v,
 	      createElement: function (t, e, i, r, o) {
-	        let a = s.createElement(t);
-	        return e && m(a, e), o && y(a, {
+	        let n = s.createElement(t);
+	        return e && m(n, e), o && y(n, {
 	          padding: "0",
 	          border: "none",
 	          margin: "0"
-	        }), i && y(a, i), r && r.appendChild(a), a;
+	        }), i && y(n, i), r && r.appendChild(n), n;
 	      },
 	      crisp: (t, e = 0, i) => {
 	        let s = e % 2 / 2,
@@ -9550,13 +9550,13 @@ var highcharts = {exports: {}};
 	      },
 	      diffObjects: function (t, e, i, s) {
 	        let r = {};
-	        return function t(e, r, o, a) {
-	          let n = i ? r : e;
+	        return function t(e, r, o, n) {
+	          let a = i ? r : e;
 	          C(e, function (i, d) {
-	            if (!a && s && s.indexOf(d) > -1 && r[d]) {
+	            if (!n && s && s.indexOf(d) > -1 && r[d]) {
 	              i = f(i), o[d] = [];
-	              for (let e = 0; e < Math.max(i.length, r[d].length); e++) r[d][e] && (void 0 === i[e] ? o[d][e] = r[d][e] : (o[d][e] = {}, t(i[e], r[d][e], o[d][e], a + 1)));
-	            } else l(i, !0) && !i.nodeType ? (o[d] = h(i) ? [] : {}, t(i, r[d] || {}, o[d], a + 1), 0 !== Object.keys(o[d]).length || "colorAxis" === d && 0 === a || delete o[d]) : (e[d] !== r[d] || d in e && !(d in r)) && "__proto__" !== d && "constructor" !== d && (o[d] = n[d]);
+	              for (let e = 0; e < Math.max(i.length, r[d].length); e++) r[d][e] && (void 0 === i[e] ? o[d][e] = r[d][e] : (o[d][e] = {}, t(i[e], r[d][e], o[d][e], n + 1)));
+	            } else l(i, !0) && !i.nodeType ? (o[d] = h(i) ? [] : {}, t(i, r[d] || {}, o[d], n + 1), 0 !== Object.keys(o[d]).length || "colorAxis" === d && 0 === n || delete o[d]) : (e[d] !== r[d] || d in e && !(d in r)) && "__proto__" !== d && "constructor" !== d && (o[d] = a[d]);
 	          });
 	        }(t, e, r, 0), r;
 	      },
@@ -9580,9 +9580,9 @@ var highcharts = {exports: {}};
 	      fireEvent: M,
 	      getClosestDistance: function (t, e) {
 	        let i, r, o;
-	        let a = !e;
+	        let n = !e;
 	        return t.forEach(t => {
-	          if (t.length > 1) for (o = t.length - 1; o > 0; o--) (r = t[o] - t[o - 1]) < 0 && !a ? (e?.(), e = void 0) : r && (void 0 === i || r < i) && (i = r);
+	          if (t.length > 1) for (o = t.length - 1; o > 0; o--) (r = t[o] - t[o - 1]) < 0 && !n ? (e?.(), e = void 0) : r && (void 0 === i || r < i) && (i = r);
 	        }), i;
 	      },
 	      getMagnitude: b,
@@ -9609,8 +9609,8 @@ var highcharts = {exports: {}};
 	          return s < i && s >= i - 1 && (i = Math.floor(s)), Math.max(0, i - (t(e, "padding-left", !0) || 0) - (t(e, "padding-right", !0) || 0));
 	        }
 	        if ("height" === i) return Math.max(0, Math.min(e.offsetHeight, e.scrollHeight) - (t(e, "padding-top", !0) || 0) - (t(e, "padding-bottom", !0) || 0));
-	        let n = r.getComputedStyle(e, void 0);
-	        return n && (o = n.getPropertyValue(i), x(s, "opacity" !== i) && (o = a(o))), o;
+	        let a = r.getComputedStyle(e, void 0);
+	        return a && (o = a.getPropertyValue(i), x(s, "opacity" !== i) && (o = n(o))), o;
 	      },
 	      inArray: function (t, e, i) {
 	        return o(32, !1, void 0, {
@@ -9635,7 +9635,7 @@ var highcharts = {exports: {}};
 	      },
 	      isNumber: p,
 	      isObject: l,
-	      isString: n,
+	      isString: a,
 	      keys: function (t) {
 	        return o(32, !1, void 0, {
 	          "Highcharts.keys": "use Object.keys"
@@ -9657,13 +9657,13 @@ var highcharts = {exports: {}};
 	      },
 	      normalizeTickInterval: function (t, e, i, s, r) {
 	        let o,
-	          a = t;
+	          n = t;
 	        i = x(i, b(t));
-	        let n = t / i;
+	        let a = t / i;
 	        for (!e && (e = r ? [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10] : [1, 2, 2.5, 5, 10], !1 === s && (1 === i ? e = e.filter(function (t) {
 	          return t % 1 == 0;
-	        }) : i <= .1 && (e = [1 / i]))), o = 0; o < e.length && (a = e[o], (!r || !(a * i >= t)) && (r || !(n <= (e[o] + (e[o + 1] || e[o])) / 2))); o++);
-	        return v(a * i, -Math.round(Math.log(.001) / Math.LN10));
+	        }) : i <= .1 && (e = [1 / i]))), o = 0; o < e.length && (n = e[o], (!r || !(n * i >= t)) && (r || !(a <= (e[o] + (e[o + 1] || e[o])) / 2))); o++);
+	        return v(n * i, -Math.round(Math.log(.001) / Math.LN10));
 	      },
 	      objectEach: C,
 	      offset: function (t) {
@@ -9685,7 +9685,7 @@ var highcharts = {exports: {}};
 	        return Array((e || 2) + 1 - String(t).replace("-", "").length).join(i || "0") + t;
 	      },
 	      pick: x,
-	      pInt: a,
+	      pInt: n,
 	      pushUnique: function (t, e) {
 	        return 0 > t.indexOf(e) && !!t.push(e);
 	      },
@@ -9785,8 +9785,8 @@ var highcharts = {exports: {}};
 	        defined: s,
 	        error: r,
 	        extend: o,
-	        isNumber: a,
-	        isObject: n,
+	        isNumber: n,
+	        isObject: a,
 	        merge: h,
 	        objectEach: l,
 	        pad: d,
@@ -9826,8 +9826,8 @@ var highcharts = {exports: {}};
 	        this.options = t = h(!0, this.options, t), this.Date = t.Date || i.Date || Date, this.useUTC = e, this.timezoneOffset = e && t.timezoneOffset || void 0, this.getTimezoneOffset = this.timezoneOffsetFunction(), this.variableTimezone = e && !!(t.getTimezoneOffset || t.timezone);
 	      }
 	      makeTime(t, e, i, s, r, o) {
-	        let a, n, h;
-	        return this.useUTC ? (a = this.Date.UTC.apply(0, arguments), n = this.getTimezoneOffset(a), a += n, n !== (h = this.getTimezoneOffset(a)) ? a += h - n : n - 36e5 !== this.getTimezoneOffset(a - 36e5) || f || (a -= 36e5)) : a = new this.Date(t, e, c(i, 1), c(s, 0), c(r, 0), c(o, 0)).getTime(), a;
+	        let n, a, h;
+	        return this.useUTC ? (n = this.Date.UTC.apply(0, arguments), a = this.getTimezoneOffset(n), n += a, a !== (h = this.getTimezoneOffset(n)) ? n += h - a : a - 36e5 !== this.getTimezoneOffset(n - 36e5) || f || (n -= 36e5)) : n = new this.Date(t, e, c(i, 1), c(s, 0), c(r, 0), c(o, 0)).getTime(), n;
 	      }
 	      timezoneOffsetFunction() {
 	        let t = this,
@@ -9836,12 +9836,12 @@ var highcharts = {exports: {}};
 	        return this.useUTC ? e.timezone ? t => {
 	          try {
 	            let i = `shortOffset,${e.timezone || ""}`,
-	              [s, r, o, n, h = 0] = (m.formatCache[i] = m.formatCache[i] || Intl.DateTimeFormat("en", {
+	              [s, r, o, a, h = 0] = (m.formatCache[i] = m.formatCache[i] || Intl.DateTimeFormat("en", {
 	                timeZone: e.timezone,
 	                timeZoneName: "shortOffset"
 	              })).format(t).split(/(GMT|:)/).map(Number),
 	              l = -(36e5 * (o + h / 60));
-	            if (a(l)) return l;
+	            if (n(l)) return l;
 	          } catch (t) {
 	            r(34);
 	          }
@@ -9851,13 +9851,13 @@ var highcharts = {exports: {}};
 	      dateFormat(e, i, r) {
 	        if (!s(i) || isNaN(i)) return t.defaultOptions.lang && t.defaultOptions.lang.invalidDate || "";
 	        e = c(e, "%Y-%m-%d %H:%M:%S");
-	        let a = this,
-	          n = new this.Date(i),
-	          h = this.get("Hours", n),
-	          p = this.get("Day", n),
-	          u = this.get("Date", n),
-	          g = this.get("Month", n),
-	          f = this.get("FullYear", n),
+	        let n = this,
+	          a = new this.Date(i),
+	          h = this.get("Hours", a),
+	          p = this.get("Day", a),
+	          u = this.get("Date", a),
+	          g = this.get("Month", a),
+	          f = this.get("FullYear", a),
 	          m = t.defaultOptions.lang,
 	          x = m && m.weekdays,
 	          y = m && m.shortWeekdays;
@@ -9877,24 +9877,24 @@ var highcharts = {exports: {}};
 	          k: h,
 	          I: d(h % 12 || 12),
 	          l: h % 12 || 12,
-	          M: d(this.get("Minutes", n)),
+	          M: d(this.get("Minutes", a)),
 	          p: h < 12 ? "AM" : "PM",
 	          P: h < 12 ? "am" : "pm",
-	          S: d(this.get("Seconds", n)),
+	          S: d(this.get("Seconds", a)),
 	          L: d(Math.floor(i % 1e3), 3)
 	        }, t.dateFormats), function (t, s) {
-	          for (; -1 !== e.indexOf("%" + s);) e = e.replace("%" + s, "function" == typeof t ? t.call(a, i) : t);
+	          for (; -1 !== e.indexOf("%" + s);) e = e.replace("%" + s, "function" == typeof t ? t.call(n, i) : t);
 	        }), r ? e.substr(0, 1).toUpperCase() + e.substr(1) : e;
 	      }
 	      resolveDTLFormat(t) {
-	        return n(t, !0) ? t : {
+	        return a(t, !0) ? t : {
 	          main: (t = p(t))[0],
 	          from: t[1],
 	          to: t[2]
 	        };
 	      }
 	      getTimeTicks(t, e, i, r) {
-	        let a, n, h, l;
+	        let n, a, h, l;
 	        let d = this,
 	          p = d.Date,
 	          g = [],
@@ -9903,13 +9903,13 @@ var highcharts = {exports: {}};
 	          x = t.unitRange,
 	          y = t.count || 1;
 	        if (r = c(r, 1), s(e)) {
-	          d.set("Milliseconds", m, x >= u.second ? 0 : y * Math.floor(d.get("Milliseconds", m) / y)), x >= u.second && d.set("Seconds", m, x >= u.minute ? 0 : y * Math.floor(d.get("Seconds", m) / y)), x >= u.minute && d.set("Minutes", m, x >= u.hour ? 0 : y * Math.floor(d.get("Minutes", m) / y)), x >= u.hour && d.set("Hours", m, x >= u.day ? 0 : y * Math.floor(d.get("Hours", m) / y)), x >= u.day && d.set("Date", m, x >= u.month ? 1 : Math.max(1, y * Math.floor(d.get("Date", m) / y))), x >= u.month && (d.set("Month", m, x >= u.year ? 0 : y * Math.floor(d.get("Month", m) / y)), n = d.get("FullYear", m)), x >= u.year && (n -= n % y, d.set("FullYear", m, n)), x === u.week && (l = d.get("Day", m), d.set("Date", m, d.get("Date", m) - l + r + (l < r ? -7 : 0))), n = d.get("FullYear", m);
+	          d.set("Milliseconds", m, x >= u.second ? 0 : y * Math.floor(d.get("Milliseconds", m) / y)), x >= u.second && d.set("Seconds", m, x >= u.minute ? 0 : y * Math.floor(d.get("Seconds", m) / y)), x >= u.minute && d.set("Minutes", m, x >= u.hour ? 0 : y * Math.floor(d.get("Minutes", m) / y)), x >= u.hour && d.set("Hours", m, x >= u.day ? 0 : y * Math.floor(d.get("Hours", m) / y)), x >= u.day && d.set("Date", m, x >= u.month ? 1 : Math.max(1, y * Math.floor(d.get("Date", m) / y))), x >= u.month && (d.set("Month", m, x >= u.year ? 0 : y * Math.floor(d.get("Month", m) / y)), a = d.get("FullYear", m)), x >= u.year && (a -= a % y, d.set("FullYear", m, a)), x === u.week && (l = d.get("Day", m), d.set("Date", m, d.get("Date", m) - l + r + (l < r ? -7 : 0))), a = d.get("FullYear", m);
 	          let t = d.get("Month", m),
 	            o = d.get("Date", m),
 	            c = d.get("Hours", m);
 	          e = m.getTime(), (d.variableTimezone || !d.useUTC) && s(i) && (h = i - e > 4 * u.month || d.getTimezoneOffset(e) !== d.getTimezoneOffset(i));
 	          let p = m.getTime();
-	          for (a = 1; p < i;) g.push(p), x === u.year ? p = d.makeTime(n + a * y, 0) : x === u.month ? p = d.makeTime(n, t + a * y) : h && (x === u.day || x === u.week) ? p = d.makeTime(n, t, o + a * y * (x === u.day ? 1 : 7)) : h && x === u.hour && y > 1 ? p = d.makeTime(n, t, o, c + a * y) : p += x * y, a++;
+	          for (n = 1; p < i;) g.push(p), x === u.year ? p = d.makeTime(a + n * y, 0) : x === u.month ? p = d.makeTime(a, t + n * y) : h && (x === u.day || x === u.week) ? p = d.makeTime(a, t, o + n * y * (x === u.day ? 1 : 7)) : h && x === u.hour && y > 1 ? p = d.makeTime(a, t, o, c + n * y) : p += x * y, n++;
 	          g.push(p), x <= u.hour && g.length < 1e4 && g.forEach(function (t) {
 	            t % 18e5 == 0 && "000000000" === d.dateFormat("%H%M%S%L", t) && (f[t] = "day");
 	          });
@@ -9922,28 +9922,28 @@ var highcharts = {exports: {}};
 	      getDateFormat(t, e, i, s) {
 	        let r = this.dateFormat("%m-%d %H:%M:%S.%L", e),
 	          o = "01-01 00:00:00.000",
-	          a = {
+	          n = {
 	            millisecond: 15,
 	            second: 12,
 	            minute: 9,
 	            hour: 6,
 	            day: 3
 	          },
-	          n = "millisecond",
-	          h = n;
-	        for (n in u) {
+	          a = "millisecond",
+	          h = a;
+	        for (a in u) {
 	          if (t === u.week && +this.dateFormat("%w", e) === i && r.substr(6) === o.substr(6)) {
-	            n = "week";
+	            a = "week";
 	            break;
 	          }
-	          if (u[n] > t) {
-	            n = h;
+	          if (u[a] > t) {
+	            a = h;
 	            break;
 	          }
-	          if (a[n] && r.substr(a[n]) !== o.substr(a[n])) break;
-	          "week" !== n && (h = n);
+	          if (n[a] && r.substr(n[a]) !== o.substr(n[a])) break;
+	          "week" !== a && (h = a);
 	        }
-	        return this.resolveDTLFormat(s[n]).main;
+	        return this.resolveDTLFormat(s[a]).main;
 	      }
 	    }
 	    return m.formatCache = {}, m;
@@ -9952,8 +9952,8 @@ var highcharts = {exports: {}};
 	        isTouchDevice: o
 	      } = e,
 	      {
-	        fireEvent: a,
-	        merge: n
+	        fireEvent: n,
+	        merge: a
 	      } = r,
 	      h = {
 	        colors: i.colors,
@@ -10044,6 +10044,7 @@ var highcharts = {exports: {}};
 	          align: "center",
 	          alignColumns: !0,
 	          className: "highcharts-no-tooltip",
+	          events: {},
 	          layout: "horizontal",
 	          itemMarginBottom: 2,
 	          itemMarginTop: 2,
@@ -10167,9 +10168,9 @@ var highcharts = {exports: {}};
 	        return h;
 	      },
 	      setOptions: function (t) {
-	        return a(e, "setOptions", {
+	        return n(e, "setOptions", {
 	          options: t
-	        }), n(!0, h, t), (t.time || t.global) && (e.time ? e.time.update(n(h.global, h.time, t.global, t.time)) : e.time = l), h;
+	        }), a(!0, h, t), (t.time || t.global) && (e.time ? e.time.update(a(h.global, h.time, t.global, t.time)) : e.time = l), h;
 	      }
 	    };
 	  }), i(e, "Core/Color/Color.js", [e["Core/Globals.js"], e["Core/Utilities.js"]], function (t, e) {
@@ -10183,17 +10184,17 @@ var highcharts = {exports: {}};
 	        return t ? new o(t) : o.None;
 	      }
 	      constructor(e) {
-	        let i, s, r, a;
+	        let i, s, r, n;
 	        this.rgba = [NaN, NaN, NaN, NaN], this.input = e;
-	        let n = t.Color;
-	        if (n && n !== o) return new n(e);
+	        let a = t.Color;
+	        if (a && a !== o) return new a(e);
 	        if ("object" == typeof e && void 0 !== e.stops) this.stops = e.stops.map(t => new o(t[1]));else if ("string" == typeof e) {
 	          if (this.input = e = o.names[e.toLowerCase()] || e, "#" === e.charAt(0)) {
 	            let t = e.length,
 	              i = parseInt(e.substr(1), 16);
 	            7 === t ? s = [(16711680 & i) >> 16, (65280 & i) >> 8, 255 & i, 1] : 4 === t && (s = [(3840 & i) >> 4 | (3840 & i) >> 8, (240 & i) >> 4 | 240 & i, (15 & i) << 4 | 15 & i, 1]);
 	          }
-	          if (!s) for (r = o.parsers.length; r-- && !s;) (i = (a = o.parsers[r]).regex.exec(e)) && (s = a.parse(i));
+	          if (!s) for (r = o.parsers.length; r-- && !s;) (i = (n = o.parsers[r]).regex.exec(e)) && (s = n.parse(i));
 	        }
 	        s && (this.rgba = s);
 	      }
@@ -10230,12 +10231,12 @@ var highcharts = {exports: {}};
 	      white: "#ffffff",
 	      black: "#000000"
 	    }, o.parsers = [{
-	      regex: /rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]?(?:\.[0-9]+)?)\s*\)/,
+	      regex: /rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d?(?:\.\d+)?)\s*\)/,
 	      parse: function (t) {
 	        return [r(t[1]), r(t[2]), r(t[3]), parseFloat(t[4], 10)];
 	      }
 	    }, {
-	      regex: /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/,
+	      regex: /rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)/,
 	      parse: function (t) {
 	        return [r(t[1]), r(t[2]), r(t[3]), 1];
 	      }
@@ -10249,9 +10250,9 @@ var highcharts = {exports: {}};
 	      } = e,
 	      {
 	        isNumber: o,
-	        objectEach: a
+	        objectEach: n
 	      } = i;
-	    class n {
+	    class a {
 	      constructor(t, e, i) {
 	        this.pos = NaN, this.options = e, this.elem = t, this.prop = i;
 	      }
@@ -10263,13 +10264,13 @@ var highcharts = {exports: {}};
 	          r = [];
 	        if (1 !== s && e && i) {
 	          if (e.length === i.length && s < 1) for (let t = 0; t < i.length; t++) {
-	            let a = e[t],
-	              n = i[t],
+	            let n = e[t],
+	              a = i[t],
 	              h = [];
-	            for (let t = 0; t < n.length; t++) {
-	              let e = a[t],
-	                i = n[t];
-	              o(e) && o(i) && !("A" === n[0] && (4 === t || 5 === t)) ? h[t] = e + s * (i - e) : h[t] = i;
+	            for (let t = 0; t < a.length; t++) {
+	              let e = n[t],
+	                i = a[t];
+	              o(e) && o(i) && !("A" === a[0] && (4 === t || 5 === t)) ? h[t] = e + s * (i - e) : h[t] = i;
 	            }
 	            r.push(h);
 	          } else r = i;
@@ -10286,101 +10287,102 @@ var highcharts = {exports: {}};
 	      run(t, e, i) {
 	        let s = this,
 	          o = s.options,
-	          a = function (t) {
-	            return !a.stopped && s.step(t);
+	          n = function (t) {
+	            return !n.stopped && s.step(t);
 	          },
 	          h = r.requestAnimationFrame || function (t) {
 	            setTimeout(t, 13);
 	          },
 	          l = function () {
-	            for (let t = 0; t < n.timers.length; t++) n.timers[t]() || n.timers.splice(t--, 1);
-	            n.timers.length && h(l);
+	            for (let t = 0; t < a.timers.length; t++) a.timers[t]() || a.timers.splice(t--, 1);
+	            a.timers.length && h(l);
 	          };
-	        t !== e || this.elem["forceAnimate:" + this.prop] ? (this.startTime = +new Date(), this.start = t, this.end = e, this.unit = i, this.now = this.start, this.pos = 0, a.elem = this.elem, a.prop = this.prop, a() && 1 === n.timers.push(a) && h(l)) : (delete o.curAnim[this.prop], o.complete && 0 === Object.keys(o.curAnim).length && o.complete.call(this.elem));
+	        t !== e || this.elem["forceAnimate:" + this.prop] ? (this.startTime = +new Date(), this.start = t, this.end = e, this.unit = i, this.now = this.start, this.pos = 0, n.elem = this.elem, n.prop = this.prop, n() && 1 === a.timers.push(n) && h(l)) : (delete o.curAnim[this.prop], o.complete && 0 === Object.keys(o.curAnim).length && o.complete.call(this.elem));
 	      }
 	      step(t) {
 	        let e, i;
 	        let s = +new Date(),
 	          r = this.options,
 	          o = this.elem,
-	          n = r.complete,
+	          a = r.complete,
 	          h = r.duration,
 	          l = r.curAnim;
-	        return o.attr && !o.element ? e = !1 : t || s >= h + this.startTime ? (this.now = this.end, this.pos = 1, this.update(), l[this.prop] = !0, i = !0, a(l, function (t) {
+	        return o.attr && !o.element ? e = !1 : t || s >= h + this.startTime ? (this.now = this.end, this.pos = 1, this.update(), l[this.prop] = !0, i = !0, n(l, function (t) {
 	          !0 !== t && (i = !1);
-	        }), i && n && n.call(o), e = !1) : (this.pos = r.easing((s - this.startTime) / h), this.now = this.start + (this.end - this.start) * this.pos, this.update(), e = !0), e;
+	        }), i && a && a.call(o), e = !1) : (this.pos = r.easing((s - this.startTime) / h), this.now = this.start + (this.end - this.start) * this.pos, this.update(), e = !0), e;
 	      }
 	      initPath(t, e, i) {
 	        let s = t.startX,
 	          r = t.endX,
-	          a = i.slice(),
-	          n = t.isArea,
-	          h = n ? 2 : 1,
-	          l,
+	          n = i.slice(),
+	          a = t.isArea,
+	          h = a ? 2 : 1,
+	          l = e && i.length > e.length && i.hasStackedCliffs,
 	          d,
 	          c,
 	          p,
-	          u = e && e.slice();
-	        if (!u) return [a, a];
-	        function g(t, e) {
-	          for (; t.length < d;) {
+	          u,
+	          g = e && e.slice();
+	        if (!g || l) return [n, n];
+	        function f(t, e) {
+	          for (; t.length < c;) {
 	            let i = t[0],
-	              s = e[d - t.length];
-	            if (s && "M" === i[0] && ("C" === s[0] ? t[0] = ["C", i[1], i[2], i[1], i[2], i[1], i[2]] : t[0] = ["L", i[1], i[2]]), t.unshift(i), n) {
+	              s = e[c - t.length];
+	            if (s && "M" === i[0] && ("C" === s[0] ? t[0] = ["C", i[1], i[2], i[1], i[2], i[1], i[2]] : t[0] = ["L", i[1], i[2]]), t.unshift(i), a) {
 	              let e = t.pop();
 	              t.push(t[t.length - 1], e);
 	            }
 	          }
 	        }
-	        function f(t) {
-	          for (; t.length < d;) {
+	        function m(t) {
+	          for (; t.length < c;) {
 	            let e = t[Math.floor(t.length / h) - 1].slice();
-	            if ("C" === e[0] && (e[1] = e[5], e[2] = e[6]), n) {
+	            if ("C" === e[0] && (e[1] = e[5], e[2] = e[6]), a) {
 	              let i = t[Math.floor(t.length / h)].slice();
 	              t.splice(t.length / 2, 0, e, i);
 	            } else t.push(e);
 	          }
 	        }
 	        if (s && r && r.length) {
-	          for (c = 0; c < s.length; c++) {
-	            if (s[c] === r[0]) {
-	              l = c;
+	          for (p = 0; p < s.length; p++) {
+	            if (s[p] === r[0]) {
+	              d = p;
 	              break;
 	            }
-	            if (s[0] === r[r.length - s.length + c]) {
-	              l = c, p = !0;
+	            if (s[0] === r[r.length - s.length + p]) {
+	              d = p, u = !0;
 	              break;
 	            }
-	            if (s[s.length - 1] === r[r.length - s.length + c]) {
-	              l = s.length - c;
+	            if (s[s.length - 1] === r[r.length - s.length + p]) {
+	              d = s.length - p;
 	              break;
 	            }
 	          }
-	          void 0 === l && (u = []);
+	          void 0 === d && (g = []);
 	        }
-	        return u.length && o(l) && (d = a.length + l * h, p ? (g(u, a), f(a)) : (g(a, u), f(u))), [u, a];
+	        return g.length && o(d) && (c = n.length + d * h, u ? (f(g, n), m(n)) : (f(n, g), m(g))), [g, n];
 	      }
 	      fillSetter() {
-	        n.prototype.strokeSetter.apply(this, arguments);
+	        a.prototype.strokeSetter.apply(this, arguments);
 	      }
 	      strokeSetter() {
 	        this.elem.attr(this.prop, s(this.start).tweenTo(s(this.end), this.pos), void 0, !0);
 	      }
 	    }
-	    return n.timers = [], n;
+	    return a.timers = [], a;
 	  }), i(e, "Core/Animation/AnimationUtilities.js", [e["Core/Animation/Fx.js"], e["Core/Utilities.js"]], function (t, e) {
 	    let {
 	      defined: i,
 	      getStyle: s,
 	      isArray: r,
 	      isNumber: o,
-	      isObject: a,
-	      merge: n,
+	      isObject: n,
+	      merge: a,
 	      objectEach: h,
 	      pick: l
 	    } = e;
 	    function d(t) {
-	      return a(t) ? n({
+	      return n(t) ? a({
 	        duration: 500,
 	        defer: 0
 	      }, t) : {
@@ -10399,26 +10401,26 @@ var highcharts = {exports: {}};
 	          u,
 	          g,
 	          f;
-	        a(l) || (f = arguments, l = {
+	        n(l) || (f = arguments, l = {
 	          duration: f[2],
 	          easing: f[3],
 	          complete: f[4]
-	        }), o(l.duration) || (l.duration = 400), l.easing = "function" == typeof l.easing ? l.easing : Math[l.easing] || Math.easeInOutSine, l.curAnim = n(i), h(i, function (o, a) {
-	          c(e, a), g = new t(e, l, a), u = void 0, "d" === a && r(i.d) ? (g.paths = g.initPath(e, e.pathArray, i.d), g.toD = i.d, d = 0, u = 1) : e.attr ? d = e.attr(a) : (d = parseFloat(s(e, a)) || 0, "opacity" !== a && (p = "px")), u || (u = o), "string" == typeof u && u.match("px") && (u = u.replace(/px/g, "")), g.run(d, u, p);
+	        }), o(l.duration) || (l.duration = 400), l.easing = "function" == typeof l.easing ? l.easing : Math[l.easing] || Math.easeInOutSine, l.curAnim = a(i), h(i, function (o, n) {
+	          c(e, n), g = new t(e, l, n), u = void 0, "d" === n && r(i.d) ? (g.paths = g.initPath(e, e.pathArray, i.d), g.toD = i.d, d = 0, u = 1) : e.attr ? d = e.attr(n) : (d = parseFloat(s(e, n)) || 0, "opacity" !== n && (p = "px")), u || (u = o), "string" == typeof u && u.match("px") && (u = u.replace(/px/g, "")), g.run(d, u, p);
 	        });
 	      },
 	      animObject: d,
 	      getDeferredAnimation: function (t, e, s) {
 	        let r = d(e),
 	          o = s ? [s] : t.series,
-	          n = 0,
+	          a = 0,
 	          h = 0;
 	        return o.forEach(t => {
 	          let s = d(t.options.animation);
-	          n = a(e) && i(e.defer) ? r.defer : Math.max(n, s.duration + s.defer), h = Math.min(r.duration, s.duration);
-	        }), t.renderer.forExport && (n = 0), {
-	          defer: Math.max(0, n - h),
-	          duration: Math.min(n, h)
+	          a = n(e) && i(e.defer) ? r.defer : Math.max(a, s.duration + s.defer), h = Math.min(r.duration, s.duration);
+	        }), t.renderer.forExport && (a = 0), {
+	          defer: Math.max(0, a - h),
+	          duration: Math.min(a, h)
 	        };
 	      },
 	      setAnimation: function (t, e) {
@@ -10434,8 +10436,8 @@ var highcharts = {exports: {}};
 	      {
 	        attr: r,
 	        createElement: o,
-	        css: a,
-	        error: n,
+	        css: n,
+	        error: a,
 	        isFunction: h,
 	        isString: l,
 	        objectEach: d,
@@ -10459,7 +10461,7 @@ var highcharts = {exports: {}};
 	      static filterUserAttributes(t) {
 	        return d(t, (e, i) => {
 	          let s = !0;
-	          -1 === m.allowedAttributes.indexOf(i) && (s = !1), -1 !== ["background", "dynsrc", "href", "lowsrc", "src"].indexOf(i) && (s = l(e) && m.allowedReferences.some(t => 0 === e.indexOf(t))), s || (n(33, !1, void 0, {
+	          -1 === m.allowedAttributes.indexOf(i) && (s = !1), -1 !== ["background", "dynsrc", "href", "lowsrc", "src"].indexOf(i) && (s = l(e) && m.allowedReferences.some(t => 0 === e.indexOf(t))), s || (a(33, !1, void 0, {
 	            "Invalid attribute in config": `${i}`
 	          }), delete t[i]), l(e) && t[i] && (t[i] = e.replace(/</g, "&lt;"));
 	        }), t;
@@ -10487,13 +10489,13 @@ var highcharts = {exports: {}};
 	              u = m.bypassHTMLFiltering;
 	            if (c) {
 	              if ("#text" === c) l = p;else if (-1 !== m.allowedTags.indexOf(c) || u) {
-	                let n = "svg" === c ? i : o.namespaceURI || i,
-	                  h = t.doc.createElementNS(n, c),
+	                let a = "svg" === c ? i : o.namespaceURI || i,
+	                  h = t.doc.createElementNS(a, c),
 	                  g = s.attributes || {};
 	                d(s, function (t, e) {
 	                  "tagName" !== e && "attributes" !== e && "children" !== e && "style" !== e && "textContent" !== e && (g[e] = t);
-	                }), r(h, u ? g : m.filterUserAttributes(g)), s.style && a(h, s.style), p && h.appendChild(p), e(s.children || [], h), l = h;
-	              } else n(33, !1, void 0, {
+	                }), r(h, u ? g : m.filterUserAttributes(g)), s.style && n(h, s.style), p && h.appendChild(p), e(s.children || [], h), l = h;
+	              } else a(33, !1, void 0, {
 	                "Invalid tagName in config": c
 	              });
 	            }
@@ -10534,7 +10536,7 @@ var highcharts = {exports: {}};
 	        return [].forEach.call(e.body.childNodes, t => s(t, i)), i;
 	      }
 	    }
-	    return m.allowedAttributes = ["alt", "aria-controls", "aria-describedby", "aria-expanded", "aria-haspopup", "aria-hidden", "aria-label", "aria-labelledby", "aria-live", "aria-pressed", "aria-readonly", "aria-roledescription", "aria-selected", "class", "clip-path", "color", "colspan", "cx", "cy", "d", "dx", "dy", "disabled", "fill", "filterUnits", "flood-color", "flood-opacity", "height", "href", "id", "in", "markerHeight", "markerWidth", "offset", "opacity", "orient", "padding", "paddingLeft", "paddingRight", "patternUnits", "r", "refX", "refY", "role", "scope", "slope", "src", "startOffset", "stdDeviation", "stroke", "stroke-linecap", "stroke-width", "style", "tableValues", "result", "rowspan", "summary", "target", "tabindex", "text-align", "text-anchor", "textAnchor", "textLength", "title", "type", "valign", "width", "x", "x1", "x2", "xlink:href", "y", "y1", "y2", "zIndex"], m.allowedReferences = ["https://", "http://", "mailto:", "/", "../", "./", "#"], m.allowedTags = ["a", "abbr", "b", "br", "button", "caption", "circle", "clipPath", "code", "dd", "defs", "div", "dl", "dt", "em", "feComponentTransfer", "feDropShadow", "feFuncA", "feFuncB", "feFuncG", "feFuncR", "feGaussianBlur", "feOffset", "feMerge", "feMergeNode", "filter", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "i", "img", "li", "linearGradient", "marker", "ol", "p", "path", "pattern", "pre", "rect", "small", "span", "stop", "strong", "style", "sub", "sup", "svg", "table", "text", "textPath", "thead", "title", "tbody", "tspan", "td", "th", "tr", "u", "ul", "#text"], m.emptyHTML = g, m.bypassHTMLFiltering = !1, m;
+	    return m.allowedAttributes = ["alt", "aria-controls", "aria-describedby", "aria-expanded", "aria-haspopup", "aria-hidden", "aria-label", "aria-labelledby", "aria-live", "aria-pressed", "aria-readonly", "aria-roledescription", "aria-selected", "class", "clip-path", "color", "colspan", "cx", "cy", "d", "dx", "dy", "disabled", "fill", "filterUnits", "flood-color", "flood-opacity", "height", "href", "id", "in", "in2", "markerHeight", "markerWidth", "offset", "opacity", "operator", "orient", "padding", "paddingLeft", "paddingRight", "patternUnits", "r", "radius", "refX", "refY", "role", "scope", "slope", "src", "startOffset", "stdDeviation", "stroke", "stroke-linecap", "stroke-width", "style", "tableValues", "result", "rowspan", "summary", "target", "tabindex", "text-align", "text-anchor", "textAnchor", "textLength", "title", "type", "valign", "width", "x", "x1", "x2", "xlink:href", "y", "y1", "y2", "zIndex"], m.allowedReferences = ["https://", "http://", "mailto:", "/", "../", "./", "#"], m.allowedTags = ["a", "abbr", "b", "br", "button", "caption", "circle", "clipPath", "code", "dd", "defs", "div", "dl", "dt", "em", "feComponentTransfer", "feComposite", "feDropShadow", "feFlood", "feFuncA", "feFuncB", "feFuncG", "feFuncR", "feGaussianBlur", "feMorphology", "feOffset", "feMerge", "feMergeNode", "filter", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "i", "img", "li", "linearGradient", "marker", "ol", "p", "path", "pattern", "pre", "rect", "small", "span", "stop", "strong", "style", "sub", "sup", "svg", "table", "text", "textPath", "thead", "title", "tbody", "tspan", "td", "th", "tr", "u", "ul", "#text"], m.emptyHTML = g, m.bypassHTMLFiltering = !1, m;
 	  }), i(e, "Core/Templating.js", [e["Core/Defaults.js"], e["Core/Utilities.js"]], function (t, e) {
 	    let {
 	        defaultOptions: i,
@@ -10543,8 +10545,8 @@ var highcharts = {exports: {}};
 	      {
 	        extend: r,
 	        getNestedProperty: o,
-	        isArray: a,
-	        isNumber: n,
+	        isArray: n,
+	        isNumber: a,
 	        isObject: h,
 	        pick: l,
 	        pInt: d
@@ -10555,7 +10557,7 @@ var highcharts = {exports: {}};
 	        eq: (t, e) => t == e,
 	        each: function (t) {
 	          let e = arguments[arguments.length - 1];
-	          return !!a(t) && t.map((i, s) => p(e.body, r(h(i) ? i : {
+	          return !!n(t) && t.map((i, s) => p(e.body, r(h(i) ? i : {
 	            "@this": i
 	          }, {
 	            "@index": s,
@@ -10574,11 +10576,11 @@ var highcharts = {exports: {}};
 	        unless: t => !t
 	      };
 	    function p(t = "", e, r) {
-	      let a = /\{([a-zA-Z0-9\:\.\,;\-\/<>%_@"'= #\(\)]+)\}/g,
-	        n = /\(([a-zA-Z0-9\:\.\,;\-\/<>%_@"'= ]+)\)/g,
+	      let n = /\{([\w\:\.\,;\-\/<>%@"'’= #\(\)]+)\}/g,
+	        a = /\(([\w\:\.\,;\-\/<>%@"'= ]+)\)/g,
 	        h = [],
 	        d = /f$/,
-	        g = /\.([0-9])/,
+	        g = /\.(\d)/,
 	        f = i.lang,
 	        m = r && r.time || s,
 	        x = r && r.numberFormatter || u,
@@ -10590,8 +10592,8 @@ var highcharts = {exports: {}};
 	        v,
 	        S = 0,
 	        C;
-	      for (; null !== (b = a.exec(t));) {
-	        let i = n.exec(b[1]);
+	      for (; null !== (b = n.exec(t));) {
+	        let i = a.exec(b[1]);
 	        i && (b = i, C = !0), v && v.isBlock || (v = {
 	          ctx: e,
 	          expression: b[1],
@@ -10616,8 +10618,8 @@ var highcharts = {exports: {}};
 	      return h.forEach(i => {
 	        let s, o;
 	        let {
-	          body: a,
-	          elseBody: n,
+	          body: n,
+	          elseBody: a,
 	          expression: h,
 	          fn: u
 	        } = i;
@@ -10625,7 +10627,7 @@ var highcharts = {exports: {}};
 	          let t = [i],
 	            l = h.split(" ");
 	          for (o = c[u].length; o--;) t.unshift(y(l[o + 1]));
-	          s = c[u].apply(e, t), i.isBlock && "boolean" == typeof s && (s = p(s ? a : n, e, r));
+	          s = c[u].apply(e, t), i.isBlock && "boolean" == typeof s && (s = p(s ? n : a, e, r));
 	        } else {
 	          let t = h.split(":");
 	          if (s = y(t.shift() || ""), t.length && "number" == typeof s) {
@@ -10640,13 +10642,13 @@ var highcharts = {exports: {}};
 	      }), C ? p(t, e, r) : t;
 	    }
 	    function u(t, e, s, r) {
-	      let o, a;
+	      let o, n;
 	      t = +t || 0, e = +e;
 	      let h = i.lang,
 	        c = (t.toString().split(".")[1] || "").split("e")[0].length,
 	        p = t.toString().split("e"),
 	        u = e;
-	      -1 === e ? e = Math.min(c, 20) : n(e) ? e && p[1] && p[1] < 0 && ((a = e + +p[1]) >= 0 ? (p[0] = (+p[0]).toExponential(a).split("e")[0], e = a) : (p[0] = p[0].split(".")[0] || 0, t = e < 20 ? (p[0] * Math.pow(10, p[1])).toFixed(e) : 0, p[1] = 0)) : e = 2;
+	      -1 === e ? e = Math.min(c, 20) : a(e) ? e && p[1] && p[1] < 0 && ((n = e + +p[1]) >= 0 ? (p[0] = (+p[0]).toExponential(n).split("e")[0], e = n) : (p[0] = p[0].split(".")[0] || 0, t = e < 20 ? (p[0] * Math.pow(10, p[1])).toFixed(e) : 0, p[1] = 0)) : e = 2;
 	      let g = (Math.abs(p[1] ? p[0] : t) + Math.pow(10, -Math.max(e, c) - 1)).toFixed(e),
 	        f = String(d(g)),
 	        m = f.length > 3 ? f.length % 3 : 0;
@@ -10676,9 +10678,9 @@ var highcharts = {exports: {}};
 	      pushUnique: r,
 	      stableSort: o
 	    } = t;
-	    return (e || (e = {})).distribute = function t(e, a, n) {
+	    return (e || (e = {})).distribute = function t(e, n, a) {
 	      let h = e,
-	        l = h.reducedLen || a,
+	        l = h.reducedLen || n,
 	        d = (t, e) => t.target - e.target,
 	        c = [],
 	        p = e.length,
@@ -10702,22 +10704,22 @@ var highcharts = {exports: {}};
 	        targets: [t.target],
 	        align: s(t.align, .5)
 	      })); y;) {
-	        for (f = e.length; f--;) b = e[f], v = (Math.min.apply(0, b.targets) + Math.max.apply(0, b.targets)) / 2, b.pos = i(v - b.size * b.align, 0, a - b.size);
-	        for (f = e.length, y = !1; f--;) f > 0 && e[f - 1].pos + e[f - 1].size > e[f].pos && (e[f - 1].size += e[f].size, e[f - 1].targets = e[f - 1].targets.concat(e[f].targets), e[f - 1].align = .5, e[f - 1].pos + e[f - 1].size > a && (e[f - 1].pos = a - e[f - 1].size), e.splice(f, 1), y = !0);
+	        for (f = e.length; f--;) b = e[f], v = (Math.min.apply(0, b.targets) + Math.max.apply(0, b.targets)) / 2, b.pos = i(v - b.size * b.align, 0, n - b.size);
+	        for (f = e.length, y = !1; f--;) f > 0 && e[f - 1].pos + e[f - 1].size > e[f].pos && (e[f - 1].size += e[f].size, e[f - 1].targets = e[f - 1].targets.concat(e[f].targets), e[f - 1].align = .5, e[f - 1].pos + e[f - 1].size > n && (e[f - 1].pos = n - e[f - 1].size), e.splice(f, 1), y = !0);
 	      }
 	      return g.apply(h, c), f = 0, e.some(e => {
 	        let i = 0;
-	        return (e.targets || []).some(() => (h[f].pos = e.pos + i, void 0 !== n && Math.abs(h[f].pos - h[f].target) > n) ? (h.slice(0, f + 1).forEach(t => delete t.pos), h.reducedLen = (h.reducedLen || a) - .1 * a, h.reducedLen > .1 * a && t(h, a, n), !0) : (i += h[f].size, f++, !1));
+	        return (e.targets || []).some(() => (h[f].pos = e.pos + i, void 0 !== a && Math.abs(h[f].pos - h[f].target) > a) ? (h.slice(0, f + 1).forEach(t => delete t.pos), h.reducedLen = (h.reducedLen || n) - .1 * n, h.reducedLen > .1 * n && t(h, n, a), !0) : (i += h[f].size, f++, !1));
 	      }), o(h, d), h;
 	    }, e;
 	  }), i(e, "Core/Renderer/SVG/SVGElement.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Color/Color.js"], e["Core/Globals.js"], e["Core/Utilities.js"]], function (t, e, i, s) {
 	    let {
 	        animate: r,
 	        animObject: o,
-	        stop: a
+	        stop: n
 	      } = t,
 	      {
-	        deg2rad: n,
+	        deg2rad: a,
 	        doc: h,
 	        svg: l,
 	        SVG_NS: d,
@@ -10749,7 +10751,7 @@ var highcharts = {exports: {}};
 	    class I {
 	      _defaultGetter(t) {
 	        let e = T(this[t + "Value"], this[t], this.element ? this.element.getAttribute(t) : null, 0);
-	        return /^[\-0-9\.]+$/.test(e) && (e = parseFloat(e)), e;
+	        return /^-?[\d\.]+$/.test(e) && (e = parseFloat(e)), e;
 	      }
 	      _defaultSetter(t, e, i) {
 	        i.setAttribute(e, t);
@@ -10770,7 +10772,7 @@ var highcharts = {exports: {}};
 	        this.doTransform && (this.updateTransform(), this.doTransform = !1);
 	      }
 	      align(t, e, i, s = !0) {
-	        let r, o, a, n;
+	        let r, o, n, a;
 	        let h = {},
 	          l = this.renderer,
 	          d = l.alignedObjects,
@@ -10781,7 +10783,7 @@ var highcharts = {exports: {}};
 	        let u = T(i, l[p], l),
 	          g = t.align,
 	          f = t.verticalAlign;
-	        return r = (u.x || 0) + (t.x || 0), o = (u.y || 0) + (t.y || 0), "right" === g ? a = 1 : "center" === g && (a = 2), a && (r += ((u.width || 0) - (t.width || 0)) / a), h[e ? "translateX" : "x"] = Math.round(r), "bottom" === f ? n = 1 : "middle" === f && (n = 2), n && (o += ((u.height || 0) - (t.height || 0)) / n), h[e ? "translateY" : "y"] = Math.round(o), s && (this[this.placed ? "animate" : "attr"](h), this.placed = !0), this.alignAttr = h, this;
+	        return r = (u.x || 0) + (t.x || 0), o = (u.y || 0) + (t.y || 0), "right" === g ? n = 1 : "center" === g && (n = 2), n && (r += ((u.width || 0) - (t.width || 0)) / n), h[e ? "translateX" : "x"] = Math.round(r), "bottom" === f ? a = 1 : "middle" === f && (a = 2), a && (o += ((u.height || 0) - (t.height || 0)) / a), h[e ? "translateY" : "y"] = Math.round(o), s && (this[this.placed ? "animate" : "attr"](h), this.placed = !0), this.alignAttr = h, this;
 	      }
 	      alignSetter(t) {
 	        let e = {
@@ -10793,10 +10795,10 @@ var highcharts = {exports: {}};
 	      }
 	      animate(t, e, i) {
 	        let s = o(T(e, this.renderer.globalAnimation, !0)),
-	          a = s.defer;
+	          n = s.defer;
 	        return h.hidden && (s.duration = 0), 0 !== s.duration ? (i && (s.complete = i), D(() => {
 	          this.element && r(this, t, s);
-	        }, a)) : (this.attr(t, void 0, i || s.complete), A(t, function (t, e) {
+	        }, n)) : (this.attr(t, void 0, i || s.complete), A(t, function (t, e) {
 	          s.step && s.step.call(this, t, {
 	            prop: e,
 	            pos: 1,
@@ -10831,11 +10833,11 @@ var highcharts = {exports: {}};
 	          [].forEach.call(i.querySelectorAll("text tspan"), t => {
 	            s += Number(t.getAttribute("dy"));
 	          });
-	          let a = h.createElementNS(d, "tspan");
-	          a.textContent = "​", u(a, {
+	          let n = h.createElementNS(d, "tspan");
+	          n.textContent = "​", u(n, {
 	            x: Number(e.getAttribute("x")),
 	            dy: -s
-	          }), t.appendChild(a), i.insertBefore(t, i.firstChild);
+	          }), t.appendChild(n), i.insertBefore(t, i.firstChild);
 	        }
 	      }
 	      attr(t, e, i, s) {
@@ -10843,12 +10845,12 @@ var highcharts = {exports: {}};
 	            element: r
 	          } = this,
 	          o = I.symbolCustomAttribs,
-	          n,
+	          a,
 	          h,
 	          l = this,
 	          d;
-	        return "string" == typeof t && void 0 !== e && (n = t, (t = {})[n] = e), "string" == typeof t ? l = (this[t + "Getter"] || this._defaultGetter).call(this, t, r) : (A(t, function (e, i) {
-	          d = !1, s || a(this, i), this.symbolName && -1 !== o.indexOf(i) && (h || (this.symbolAttr(t), h = !0), d = !0), this.rotation && ("x" === i || "y" === i) && (this.doTransform = !0), d || (this[i + "Setter"] || this._defaultSetter).call(this, e, i, r);
+	        return "string" == typeof t && void 0 !== e && (a = t, (t = {})[a] = e), "string" == typeof t ? l = (this[t + "Getter"] || this._defaultGetter).call(this, t, r) : (A(t, function (e, i) {
+	          d = !1, s || n(this, i), this.symbolName && -1 !== o.indexOf(i) && (h || (this.symbolAttr(t), h = !0), d = !0), this.rotation && ("x" === i || "y" === i) && (this.doTransform = !0), d || (this[i + "Setter"] || this._defaultSetter).call(this, e, i, r);
 	        }, this), this.afterSetters()), i && i.call(this), l;
 	      }
 	      clip(t) {
@@ -10871,20 +10873,20 @@ var highcharts = {exports: {}};
 	          s = t.y || this.y || 0,
 	          r = (t.width || this.width || 0) + i,
 	          o = (t.height || this.height || 0) + s,
-	          a = f(i, e),
-	          n = f(s, e);
+	          n = f(i, e),
+	          a = f(s, e);
 	        return b(t, {
-	          x: a,
-	          y: n,
-	          width: f(r, e) - a,
-	          height: f(o, e) - n
+	          x: n,
+	          y: a,
+	          width: f(r, e) - n,
+	          height: f(o, e) - a
 	        }), x(t.strokeWidth) && (t.strokeWidth = e), t;
 	      }
 	      complexColor(t, i, s) {
 	        let r = this.renderer,
 	          o,
-	          a,
 	          n,
+	          a,
 	          h,
 	          l,
 	          d,
@@ -10897,22 +10899,22 @@ var highcharts = {exports: {}};
 	        v(this.renderer, "complexColor", {
 	          args: arguments
 	        }, function () {
-	          if (t.radialGradient ? a = "radialGradient" : t.linearGradient && (a = "linearGradient"), a) {
-	            if (n = t[a], l = r.gradients, d = t.stops, u = s.radialReference, S(n) && (t[a] = n = {
-	              x1: n[0],
-	              y1: n[1],
-	              x2: n[2],
-	              y2: n[3],
+	          if (t.radialGradient ? n = "radialGradient" : t.linearGradient && (n = "linearGradient"), n) {
+	            if (a = t[n], l = r.gradients, d = t.stops, u = s.radialReference, S(a) && (t[n] = a = {
+	              x1: a[0],
+	              y1: a[1],
+	              x2: a[2],
+	              y2: a[3],
 	              gradientUnits: "userSpaceOnUse"
-	            }), "radialGradient" === a && u && !x(n.gradientUnits) && (h = n, n = w(n, r.getRadialAttr(u, h), {
+	            }), "radialGradient" === n && u && !x(a.gradientUnits) && (h = a, a = w(a, r.getRadialAttr(u, h), {
 	              gradientUnits: "userSpaceOnUse"
-	            })), A(n, function (t, e) {
+	            })), A(a, function (t, e) {
 	              "id" !== e && f.push(e, t);
 	            }), A(d, function (t) {
 	              f.push(t);
 	            }), l[f = f.join(",")]) g = l[f].attr("id");else {
-	              n.id = g = E();
-	              let t = l[f] = r.createElement(a).attr(n).add(r.defs);
+	              a.id = g = E();
+	              let t = l[f] = r.createElement(n).attr(a).add(r.defs);
 	              t.radAttr = h, t.stops = [], d.forEach(function (i) {
 	                0 === i[1].indexOf("rgba") ? (c = (o = e.parse(i[1])).get("rgb"), p = o.get("a")) : (c = i[1], p = 1);
 	                let s = r.createElement("stop").attr({
@@ -10960,15 +10962,15 @@ var highcharts = {exports: {}};
 	          s = e.ownerSVGElement,
 	          r = "SPAN" === e.nodeName && t.parentGroup || void 0,
 	          o,
-	          n;
-	        if (e.onclick = e.onmouseout = e.onmouseover = e.onmousemove = e.point = null, a(t), t.clipPath && s) {
+	          a;
+	        if (e.onclick = e.onmouseout = e.onmouseover = e.onmousemove = e.point = null, n(t), t.clipPath && s) {
 	          let e = t.clipPath;
 	          [].forEach.call(s.querySelectorAll("[clip-path],[CLIP-PATH]"), function (t) {
 	            t.getAttribute("clip-path").indexOf(e.element.id) > -1 && t.removeAttribute("clip-path");
 	          }), t.clipPath = e.destroy();
 	        }
 	        if (t.connector = t.connector?.destroy(), t.stops) {
-	          for (n = 0; n < t.stops.length; n++) t.stops[n].destroy();
+	          for (a = 0; a < t.stops.length; a++) t.stops[a].destroy();
 	          t.stops.length = 0, t.stops = void 0;
 	        }
 	        for (t.safeRemoveChild(e); r && r.div && 0 === r.div.childNodes.length;) o = r.parentGroup, t.safeRemoveChild(r.div), delete r.div, r = o;
@@ -10988,8 +10990,8 @@ var highcharts = {exports: {}};
 	      getBBox(t, e) {
 	        let i, s, r, o;
 	        let {
-	            alignValue: a,
-	            element: n,
+	            alignValue: n,
+	            element: a,
 	            renderer: h,
 	            styles: l,
 	            textStr: d
@@ -10998,20 +11000,20 @@ var highcharts = {exports: {}};
 	            cache: c,
 	            cacheKeys: p
 	          } = h,
-	          u = n.namespaceURI === this.SVG_NS,
+	          u = a.namespaceURI === this.SVG_NS,
 	          g = T(e, this.rotation, 0),
-	          f = h.styledMode ? n && I.prototype.getStyle.call(n, "font-size") : l.fontSize;
-	        if (x(d) && (-1 === (o = d.toString()).indexOf("<") && (o = o.replace(/[0-9]/g, "0")), o += ["", h.rootFontSize, f, g, this.textWidth, a, l.textOverflow, l.fontWeight].join(",")), o && !t && (i = c[o]), !i) {
+	          f = h.styledMode ? a && I.prototype.getStyle.call(a, "font-size") : l.fontSize;
+	        if (x(d) && (-1 === (o = d.toString()).indexOf("<") && (o = o.replace(/\d/g, "0")), o += ["", h.rootFontSize, f, g, this.textWidth, n, l.textOverflow, l.fontWeight].join(",")), o && !t && (i = c[o]), !i || i.polygon) {
 	          if (u || h.forExport) {
 	            try {
 	              r = this.fakeTS && function (t) {
-	                let e = n.querySelector(".highcharts-text-outline");
+	                let e = a.querySelector(".highcharts-text-outline");
 	                e && m(e, {
 	                  display: t
 	                });
-	              }, C(r) && r("none"), i = n.getBBox ? b({}, n.getBBox()) : {
-	                width: n.offsetWidth,
-	                height: n.offsetHeight,
+	              }, C(r) && r("none"), i = a.getBBox ? b({}, a.getBBox()) : {
+	                width: a.offsetWidth,
+	                height: a.offsetHeight,
 	                x: 0,
 	                y: 0
 	              }, C(r) && r("");
@@ -11027,6 +11029,10 @@ var highcharts = {exports: {}};
 	            "11px,17": 14,
 	            "13px,20": 16
 	          }[`${f || ""},${Math.round(s)}`] || s), g && (i = this.getRotatedBox(i, g));
+	          let t = {
+	            bBox: i
+	          };
+	          v(this, "afterGetBBox", t), i = t.bBox;
 	        }
 	        if (o && ("" === d || i.height > 0)) {
 	          for (; p.length > 250;) delete c[p.shift()];
@@ -11042,7 +11048,7 @@ var highcharts = {exports: {}};
 	            height: o
 	          } = t,
 	          {
-	            alignValue: a,
+	            alignValue: n,
 	            translateY: h,
 	            rotationOriginX: l = 0,
 	            rotationOriginY: d = 0
@@ -11050,10 +11056,10 @@ var highcharts = {exports: {}};
 	          c = {
 	            right: 1,
 	            center: .5
-	          }[a || 0] || 0,
+	          }[n || 0] || 0,
 	          p = Number(this.element.getAttribute("y") || 0) - (h ? 0 : s),
-	          u = e * n,
-	          g = (e - 90) * n,
+	          u = e * a,
+	          g = (e - 90) * a,
 	          f = Math.cos(u),
 	          m = Math.sin(u),
 	          x = r * f,
@@ -11077,7 +11083,8 @@ var highcharts = {exports: {}};
 	          x: I,
 	          y: j,
 	          width: B,
-	          height: R
+	          height: R,
+	          polygon: [[w, L], [A, O], [T, D], [P, E]]
 	        };
 	      }
 	      getStyle(t) {
@@ -11129,55 +11136,6 @@ var highcharts = {exports: {}};
 	      setRadialReference(t) {
 	        let e = this.element.gradient && this.renderer.gradients[this.element.gradient];
 	        return this.element.radialReference = t, e && e.radAttr && e.animate(this.renderer.getRadialAttr(t, e.radAttr)), this;
-	      }
-	      setTextPath(t, e) {
-	        e = w(!0, {
-	          enabled: !0,
-	          attributes: {
-	            dy: -5,
-	            startOffset: "50%",
-	            textAnchor: "middle"
-	          }
-	        }, e);
-	        let i = this.renderer.url,
-	          s = this.text || this,
-	          r = s.textPath,
-	          {
-	            attributes: o,
-	            enabled: a
-	          } = e;
-	        if (t = t || r && r.path, r && r.undo(), t && a) {
-	          let e = p(s, "afterModifyTree", e => {
-	            if (t && a) {
-	              let r = t.attr("id");
-	              r || t.attr("id", r = E());
-	              let a = {
-	                x: 0,
-	                y: 0
-	              };
-	              x(o.dx) && (a.dx = o.dx, delete o.dx), x(o.dy) && (a.dy = o.dy, delete o.dy), s.attr(a), this.attr({
-	                transform: ""
-	              }), this.box && (this.box = this.box.destroy());
-	              let n = e.nodes.slice(0);
-	              e.nodes.length = 0, e.nodes[0] = {
-	                tagName: "textPath",
-	                attributes: b(o, {
-	                  "text-anchor": o.textAnchor,
-	                  href: `${i}#${r}`
-	                }),
-	                children: n
-	              };
-	            }
-	          });
-	          s.textPath = {
-	            path: t,
-	            undo: e
-	          };
-	        } else s.attr({
-	          dx: 0,
-	          dy: 0
-	        }), delete s.textPath;
-	        return this.added && (s.textCache = "", this.renderer.buildText(s)), this;
 	      }
 	      shadow(t) {
 	        let {
@@ -11243,8 +11201,8 @@ var highcharts = {exports: {}};
 	            rotation: s = 0,
 	            rotationOriginX: r,
 	            rotationOriginY: o,
-	            scaleX: a,
-	            scaleY: n,
+	            scaleX: n,
+	            scaleY: a,
 	            translateX: h = 0,
 	            translateY: l = 0
 	          } = this,
@@ -11253,7 +11211,7 @@ var highcharts = {exports: {}};
 	          rotation: s,
 	          rotationOriginX: (r || 0) - this.padding,
 	          rotationOriginY: (o || 0) - this.padding
-	        })), (x(a) || x(n)) && d.push("scale(" + T(a, 1) + " " + T(n, 1) + ")"), d.length && !(this.text || this).textPath && e.setAttribute(t, d.join(" "));
+	        })), (x(n) || x(a)) && d.push("scale(" + T(n, 1) + " " + T(a, 1) + ")"), d.length && !(this.text || this).textPath && e.setAttribute(t, d.join(" "));
 	      }
 	      visibilitySetter(t, e, i) {
 	        "inherit" === t ? i.removeAttribute(e) : this[e] !== t && i.setAttribute(e, t), this[e] = t;
@@ -11266,8 +11224,8 @@ var highcharts = {exports: {}};
 	          s = this.parentGroup,
 	          r = (s || i).element || i.box,
 	          o = this.element,
-	          a = r === i.box,
-	          n,
+	          n = r === i.box,
+	          a,
 	          h,
 	          l,
 	          d = !1,
@@ -11275,8 +11233,8 @@ var highcharts = {exports: {}};
 	          p = this.added,
 	          u;
 	        if (x(t) ? (o.setAttribute("data-z-index", t), t = +t, this[e] === t && (p = !1)) : x(this[e]) && o.removeAttribute("data-z-index"), this[e] = t, p) {
-	          for ((t = this.zIndex) && s && (s.handleZ = !0), u = (n = r.childNodes).length - 1; u >= 0 && !d; u--) c = !x(l = (h = n[u]).getAttribute("data-z-index")), h !== o && (t < 0 && c && !a && !u ? (r.insertBefore(o, n[u]), d = !0) : (P(l) <= t || c && (!x(t) || t >= 0)) && (r.insertBefore(o, n[u + 1]), d = !0));
-	          d || (r.insertBefore(o, n[a ? 3 : 0]), d = !0);
+	          for ((t = this.zIndex) && s && (s.handleZ = !0), u = (a = r.childNodes).length - 1; u >= 0 && !d; u--) c = !x(l = (h = a[u]).getAttribute("data-z-index")), h !== o && (t < 0 && c && !n && !u ? (r.insertBefore(o, a[u]), d = !0) : (P(l) <= t || c && (!x(t) || t >= 0)) && (r.insertBefore(o, a[u + 1]), d = !0));
+	          d || (r.insertBefore(o, a[n ? 3 : 0]), d = !0);
 	        }
 	        return d;
 	      }
@@ -11290,13 +11248,13 @@ var highcharts = {exports: {}};
 	      extend: s,
 	      isNumber: r,
 	      merge: o,
-	      pick: a,
-	      removeEvent: n
+	      pick: n,
+	      removeEvent: a
 	    } = e;
 	    class h extends t {
-	      constructor(t, e, i, s, r, o, a, n, l, d) {
+	      constructor(t, e, i, s, r, o, n, a, l, d) {
 	        let c;
-	        super(t, "g"), this.paddingLeftSetter = this.paddingSetter, this.paddingRightSetter = this.paddingSetter, this.textStr = e, this.x = i, this.y = s, this.anchorX = o, this.anchorY = a, this.baseline = l, this.className = d, this.addClass("button" === d ? "highcharts-no-tooltip" : "highcharts-label"), d && this.addClass("highcharts-" + d), this.text = t.text(void 0, 0, 0, n).attr({
+	        super(t, "g"), this.paddingLeftSetter = this.paddingSetter, this.paddingRightSetter = this.paddingSetter, this.doUpdate = !1, this.textStr = e, this.x = i, this.y = s, this.anchorX = o, this.anchorY = n, this.baseline = l, this.className = d, this.addClass("button" === d ? "highcharts-no-tooltip" : "highcharts-label"), d && this.addClass("highcharts-" + d), this.text = t.text(void 0, 0, 0, a).attr({
 	          zIndex: 1
 	        }), "string" == typeof r && ((c = /^url\((.*?)\)$/.test(r)) || this.renderer.symbols[r]) && (this.symbolKey = r), this.bBox = h.emptyBBox, this.padding = 3, this.baselineOffset = 0, this.needsBox = t.styledMode || c, this.deferredAttr = {}, this.alignFactor = 0;
 	      }
@@ -11329,7 +11287,7 @@ var highcharts = {exports: {}};
 	        return t.prototype.css.call(this, e);
 	      }
 	      destroy() {
-	        n(this.element, "mouseenter"), n(this.element, "mouseleave"), this.text && this.text.destroy(), this.box && (this.box = this.box.destroy()), t.prototype.destroy.call(this);
+	        a(this.element, "mouseenter"), a(this.element, "mouseleave"), this.text && this.text.destroy(), this.box && (this.box = this.box.destroy()), t.prototype.destroy.call(this);
 	      }
 	      fillSetter(t, e) {
 	        t && (this.needsBox = !0), this.fill = t, this.boxAttr(e, t);
@@ -11341,12 +11299,12 @@ var highcharts = {exports: {}};
 	            height: s = 0,
 	            translateX: r = 0,
 	            translateY: o = 0,
-	            width: n = 0
+	            width: a = 0
 	          } = this,
-	          h = a(this.paddingLeft, i),
+	          h = n(this.paddingLeft, i),
 	          l = e ?? (this.rotation || 0),
 	          d = {
-	            width: n,
+	            width: a,
 	            height: s,
 	            x: r + this.bBox.x - h,
 	            y: o + this.bBox.y - i + this.baselineOffset
@@ -11357,11 +11315,14 @@ var highcharts = {exports: {}};
 	        return (this.renderer.styledMode && this.box ? this.box.strokeWidth() : this["stroke-width"] ? parseInt(this["stroke-width"], 10) : 0) % 2 / 2;
 	      }
 	      heightSetter(t) {
-	        this.heightSetting = t;
+	        this.heightSetting = t, this.doUpdate = !0;
+	      }
+	      afterSetters() {
+	        super.afterSetters(), this.doUpdate && (this.updateBoxSize(), this.doUpdate = !1);
 	      }
 	      onAdd() {
 	        this.text.add(this), this.attr({
-	          text: a(this.textStr, ""),
+	          text: n(this.textStr, ""),
 	          x: this.x || 0,
 	          y: this.y || 0
 	        }), this.box && i(this.anchorX) && this.attr({
@@ -11393,11 +11354,11 @@ var highcharts = {exports: {}};
 	        let t;
 	        let e = this.text,
 	          o = {},
-	          a = this.padding,
-	          n = this.bBox = (!r(this.widthSetting) || !r(this.heightSetting) || this.textAlign) && i(e.textStr) ? e.getBBox(void 0, 0) : h.emptyBBox;
-	        this.width = this.getPaddedWidth(), this.height = (this.heightSetting || n.height || 0) + 2 * a;
+	          n = this.padding,
+	          a = this.bBox = (!r(this.widthSetting) || !r(this.heightSetting) || this.textAlign) && i(e.textStr) ? e.getBBox(void 0, 0) : h.emptyBBox;
+	        this.width = this.getPaddedWidth(), this.height = (this.heightSetting || a.height || 0) + 2 * n;
 	        let l = this.renderer.fontMetrics(e);
-	        if (this.baselineOffset = a + Math.min((this.text.firstLineMetrics || l).b, n.height || 1 / 0), this.heightSetting && (this.baselineOffset += (this.heightSetting - l.h) / 2), this.needsBox && !e.textPath) {
+	        if (this.baselineOffset = n + Math.min((this.text.firstLineMetrics || l).b, a.height || 1 / 0), this.heightSetting && (this.baselineOffset += (this.heightSetting - l.h) / 2), this.needsBox && !e.textPath) {
 	          if (!this.box) {
 	            let t = this.box = this.symbolKey ? this.renderer.symbol(this.symbolKey) : this.renderer.rect();
 	            t.addClass(("button" === this.className ? "" : "highcharts-label-box") + (this.className ? " highcharts-" + this.className + "-box" : "")), t.add(this);
@@ -11410,7 +11371,7 @@ var highcharts = {exports: {}};
 	        if (!t.textPath) {
 	          this.updateBoxSize();
 	          let e = this.baseline ? 0 : this.baselineOffset,
-	            s = a(this.paddingLeft, this.padding);
+	            s = n(this.paddingLeft, this.padding);
 	          i(this.widthSetting) && this.bBox && ("center" === this.textAlign || "right" === this.textAlign) && (s += {
 	            center: .5,
 	            right: 1
@@ -11418,12 +11379,12 @@ var highcharts = {exports: {}};
 	        }
 	      }
 	      widthSetter(t) {
-	        this.widthSetting = r(t) ? t : void 0;
+	        this.widthSetting = r(t) ? t : void 0, this.doUpdate = !0;
 	      }
 	      getPaddedWidth() {
 	        let t = this.padding,
-	          e = a(this.paddingLeft, t),
-	          i = a(this.paddingRight, t);
+	          e = n(this.paddingLeft, t),
+	          i = n(this.paddingRight, t);
 	        return (this.widthSetting || this.bBox.width || 0) + e + i;
 	      }
 	      xSetter(t) {
@@ -11445,68 +11406,68 @@ var highcharts = {exports: {}};
 	      isNumber: i,
 	      pick: s
 	    } = t;
-	    function r(t, i, r, o, a) {
-	      let n = [];
-	      if (a) {
-	        let h = a.start || 0,
-	          l = s(a.r, r),
-	          d = s(a.r, o || r),
+	    function r(t, i, r, o, n) {
+	      let a = [];
+	      if (n) {
+	        let h = n.start || 0,
+	          l = s(n.r, r),
+	          d = s(n.r, o || r),
 	          c = 2e-4 / Math.max(l, 1),
-	          p = Math.abs((a.end || 0) - h - 2 * Math.PI) < c,
-	          u = (a.end || 0) - c,
-	          g = a.innerR,
-	          f = s(a.open, p),
+	          p = Math.abs((n.end || 0) - h - 2 * Math.PI) < c,
+	          u = (n.end || 0) - c,
+	          g = n.innerR,
+	          f = s(n.open, p),
 	          m = Math.cos(h),
 	          x = Math.sin(h),
 	          y = Math.cos(u),
 	          b = Math.sin(u),
-	          v = s(a.longArc, u - h - Math.PI < c ? 0 : 1),
-	          S = ["A", l, d, 0, v, s(a.clockwise, 1), t + l * y, i + d * b];
+	          v = s(n.longArc, u - h - Math.PI < c ? 0 : 1),
+	          S = ["A", l, d, 0, v, s(n.clockwise, 1), t + l * y, i + d * b];
 	        S.params = {
 	          start: h,
 	          end: u,
 	          cx: t,
 	          cy: i
-	        }, n.push(["M", t + l * m, i + d * x], S), e(g) && ((S = ["A", g, g, 0, v, e(a.clockwise) ? 1 - a.clockwise : 0, t + g * m, i + g * x]).params = {
+	        }, a.push(["M", t + l * m, i + d * x], S), e(g) && ((S = ["A", g, g, 0, v, e(n.clockwise) ? 1 - n.clockwise : 0, t + g * m, i + g * x]).params = {
 	          start: u,
 	          end: h,
 	          cx: t,
 	          cy: i
-	        }, n.push(f ? ["M", t + g * y, i + g * b] : ["L", t + g * y, i + g * b], S)), f || n.push(["Z"]);
+	        }, a.push(f ? ["M", t + g * y, i + g * b] : ["L", t + g * y, i + g * b], S)), f || a.push(["Z"]);
 	      }
-	      return n;
+	      return a;
 	    }
 	    function o(t, e, i, s, r) {
-	      return r && r.r ? a(t, e, i, s, r) : [["M", t, e], ["L", t + i, e], ["L", t + i, e + s], ["L", t, e + s], ["Z"]];
+	      return r && r.r ? n(t, e, i, s, r) : [["M", t, e], ["L", t + i, e], ["L", t + i, e + s], ["L", t, e + s], ["Z"]];
 	    }
-	    function a(t, e, i, s, r) {
+	    function n(t, e, i, s, r) {
 	      let o = r?.r || 0;
 	      return [["M", t + o, e], ["L", t + i - o, e], ["A", o, o, 0, 0, 1, t + i, e + o], ["L", t + i, e + s - o], ["A", o, o, 0, 0, 1, t + i - o, e + s], ["L", t + o, e + s], ["A", o, o, 0, 0, 1, t, e + s - o], ["L", t, e + o], ["A", o, o, 0, 0, 1, t + o, e], ["Z"]];
 	    }
 	    return {
 	      arc: r,
 	      callout: function (t, e, s, r, o) {
-	        let n = Math.min(o && o.r || 0, s, r),
-	          h = n + 6,
+	        let a = Math.min(o && o.r || 0, s, r),
+	          h = a + 6,
 	          l = o && o.anchorX,
 	          d = o && o.anchorY || 0,
-	          c = a(t, e, s, r, {
-	            r: n
+	          c = n(t, e, s, r, {
+	            r: a
 	          });
 	        if (!i(l) || l < s && l > 0 && d < r && d > 0) return c;
 	        if (t + l > s - h) {
-	          if (d > e + h && d < e + r - h) c.splice(3, 1, ["L", t + s, d - 6], ["L", t + s + 6, d], ["L", t + s, d + 6], ["L", t + s, e + r - n]);else if (l < s) {
+	          if (d > e + h && d < e + r - h) c.splice(3, 1, ["L", t + s, d - 6], ["L", t + s + 6, d], ["L", t + s, d + 6], ["L", t + s, e + r - a]);else if (l < s) {
 	            let i = d < e + h,
 	              o = i ? e : e + r;
-	            c.splice(i ? 2 : 5, 0, ["L", l, d], ["L", t + s - n, o]);
-	          } else c.splice(3, 1, ["L", t + s, r / 2], ["L", l, d], ["L", t + s, r / 2], ["L", t + s, e + r - n]);
+	            c.splice(i ? 2 : 5, 0, ["L", l, d], ["L", t + s - a, o]);
+	          } else c.splice(3, 1, ["L", t + s, r / 2], ["L", l, d], ["L", t + s, r / 2], ["L", t + s, e + r - a]);
 	        } else if (t + l < h) {
-	          if (d > e + h && d < e + r - h) c.splice(7, 1, ["L", t, d + 6], ["L", t - 6, d], ["L", t, d - 6], ["L", t, e + n]);else if (l > 0) {
+	          if (d > e + h && d < e + r - h) c.splice(7, 1, ["L", t, d + 6], ["L", t - 6, d], ["L", t, d - 6], ["L", t, e + a]);else if (l > 0) {
 	            let i = d < e + h,
 	              s = i ? e : e + r;
-	            c.splice(i ? 1 : 6, 0, ["L", l, d], ["L", t + n, s]);
-	          } else c.splice(7, 1, ["L", t, r / 2], ["L", l, d], ["L", t, r / 2], ["L", t, e + n]);
-	        } else d > r && l < s - h ? c.splice(5, 1, ["L", l + 6, e + r], ["L", l, e + r + 6], ["L", l - 6, e + r], ["L", t + n, e + r]) : d < 0 && l > h && c.splice(1, 1, ["L", l - 6, e], ["L", l, e - 6], ["L", l + 6, e], ["L", s - n, e]);
+	            c.splice(i ? 1 : 6, 0, ["L", l, d], ["L", t + a, s]);
+	          } else c.splice(7, 1, ["L", t, r / 2], ["L", l, d], ["L", t, r / 2], ["L", t, e + a]);
+	        } else d > r && l < s - h ? c.splice(5, 1, ["L", l + 6, e + r], ["L", l, e + r + 6], ["L", l - 6, e + r], ["L", t + a, e + r]) : d < 0 && l > h && c.splice(1, 1, ["L", l - 6, e], ["L", l, e - 6], ["L", l + 6, e], ["L", s - a, e]);
 	        return c;
 	      },
 	      circle: function (t, e, i, s) {
@@ -11520,7 +11481,7 @@ var highcharts = {exports: {}};
 	        return [["M", t + i / 2, e], ["L", t + i, e + s / 2], ["L", t + i / 2, e + s], ["L", t, e + s / 2], ["Z"]];
 	      },
 	      rect: o,
-	      roundedRect: a,
+	      roundedRect: n,
 	      square: o,
 	      triangle: function (t, e, i, s) {
 	        return [["M", t + i / 2, e], ["L", t + i, e + s], ["L", t, e + s], ["Z"]];
@@ -11536,8 +11497,8 @@ var highcharts = {exports: {}};
 	        win: o
 	      } = e,
 	      {
-	        attr: a,
-	        extend: n,
+	        attr: n,
+	        extend: a,
 	        fireEvent: h,
 	        isString: l,
 	        objectEach: d,
@@ -11553,14 +11514,14 @@ var highcharts = {exports: {}};
 	          i = e.element,
 	          r = e.renderer,
 	          o = c(e.textStr, "").toString(),
-	          a = -1 !== o.indexOf("<"),
-	          n = i.childNodes,
+	          n = -1 !== o.indexOf("<"),
+	          a = i.childNodes,
 	          h = !e.added && r.box,
 	          d = [o, this.ellipsis, this.noWrap, this.textLineHeight, this.textOutline, e.getStyle("font-size"), this.width].join(",");
 	        if (d !== e.textCache) {
 	          e.textCache = d, delete e.actualWidth;
-	          for (let t = n.length; t--;) i.removeChild(n[t]);
-	          if (a || this.ellipsis || this.width || e.textPath || -1 !== o.indexOf(" ") && (!this.noWrap || /<br.*?>/g.test(o))) {
+	          for (let t = a.length; t--;) i.removeChild(a[t]);
+	          if (n || this.ellipsis || this.width || e.textPath || -1 !== o.indexOf(" ") && (!this.noWrap || /<br.*?>/g.test(o))) {
 	            if ("" !== o) {
 	              h && h.appendChild(i);
 	              let s = new t(o);
@@ -11573,16 +11534,16 @@ var highcharts = {exports: {}};
 	      modifyDOM() {
 	        let t;
 	        let e = this.svgElement,
-	          i = a(e.element, "x");
+	          i = n(e.element, "x");
 	        for (e.firstLineMetrics = void 0; t = e.element.firstChild;) if (/^[\s\u200B]*$/.test(t.textContent || " ")) e.element.removeChild(t);else break;
 	        [].forEach.call(e.element.querySelectorAll("tspan.highcharts-br"), (t, s) => {
-	          t.nextSibling && t.previousSibling && (0 === s && 1 === t.previousSibling.nodeType && (e.firstLineMetrics = e.renderer.fontMetrics(t.previousSibling)), a(t, {
+	          t.nextSibling && t.previousSibling && (0 === s && 1 === t.previousSibling.nodeType && (e.firstLineMetrics = e.renderer.fontMetrics(t.previousSibling)), n(t, {
 	            dy: this.getLineHeight(t.nextSibling),
 	            x: i
 	          }));
 	        });
-	        let n = this.width || 0;
-	        if (!n) return;
+	        let a = this.width || 0;
+	        if (!a) return;
 	        let h = (t, o) => {
 	            let h = t.textContent || "",
 	              l = h.replace(/([^\^])-/g, "$1- ").split(" "),
@@ -11590,20 +11551,20 @@ var highcharts = {exports: {}};
 	              c = this.getLineHeight(o),
 	              p = 0,
 	              u = e.actualWidth;
-	            if (this.ellipsis) h && this.truncate(t, h, void 0, 0, Math.max(0, n - .8 * c), (t, e) => t.substring(0, e) + "…");else if (d) {
+	            if (this.ellipsis) h && this.truncate(t, h, void 0, 0, Math.max(0, a - .8 * c), (t, e) => t.substring(0, e) + "…");else if (d) {
 	              let h = [],
 	                d = [];
 	              for (; o.firstChild && o.firstChild !== t;) d.push(o.firstChild), o.removeChild(o.firstChild);
-	              for (; l.length;) l.length && !this.noWrap && p > 0 && (h.push(t.textContent || ""), t.textContent = l.join(" ").replace(/- /g, "-")), this.truncate(t, void 0, l, 0 === p && u || 0, n, (t, e) => l.slice(0, e).join(" ").replace(/- /g, "-")), u = e.actualWidth, p++;
+	              for (; l.length;) l.length && !this.noWrap && p > 0 && (h.push(t.textContent || ""), t.textContent = l.join(" ").replace(/- /g, "-")), this.truncate(t, void 0, l, 0 === p && u || 0, a, (t, e) => l.slice(0, e).join(" ").replace(/- /g, "-")), u = e.actualWidth, p++;
 	              d.forEach(e => {
 	                o.insertBefore(e, t);
 	              }), h.forEach(e => {
 	                o.insertBefore(s.createTextNode(e), t);
-	                let n = s.createElementNS(r, "tspan");
-	                n.textContent = "​", a(n, {
+	                let a = s.createElementNS(r, "tspan");
+	                a.textContent = "​", n(a, {
 	                  dy: c,
 	                  x: i
-	                }), o.insertBefore(n, t);
+	                }), o.insertBefore(a, t);
 	              });
 	            }
 	          },
@@ -11623,11 +11584,11 @@ var highcharts = {exports: {}};
 	          let {
 	              attributes: r = {},
 	              children: o,
-	              style: a = {},
+	              style: n = {},
 	              tagName: h
 	            } = i,
 	            l = this.renderer.styledMode;
-	          if ("b" === h || "strong" === h ? l ? r.class = "highcharts-strong" : a.fontWeight = "bold" : ("i" === h || "em" === h) && (l ? r.class = "highcharts-emphasized" : a.fontStyle = "italic"), a && a.color && (a.fill = a.color), "br" === h) {
+	          if ("b" === h || "strong" === h ? l ? r.class = "highcharts-strong" : n.fontWeight = "bold" : ("i" === h || "em" === h) && (l ? r.class = "highcharts-emphasized" : n.fontStyle = "italic"), n && n.color && (n.fill = n.color), "br" === h) {
 	            r.class = "highcharts-br", i.textContent = "​";
 	            let e = t[s + 1];
 	            e && e.textContent && (e.textContent = e.textContent.replace(/^ +/gm, ""));
@@ -11635,9 +11596,9 @@ var highcharts = {exports: {}};
 	            children: o,
 	            tagName: "tspan"
 	          }]);
-	          "#text" !== h && "a" !== h && (i.tagName = "tspan"), n(i, {
+	          "#text" !== h && "a" !== h && (i.tagName = "tspan"), a(i, {
 	            attributes: r,
-	            style: a
+	            style: n
 	          }), o && o.filter(t => "#text" !== t.tagName).forEach(e);
 	        };
 	        t.forEach(e), h(this.svgElement, "afterModifyTree", {
@@ -11645,7 +11606,7 @@ var highcharts = {exports: {}};
 	        });
 	      }
 	      truncate(t, e, i, s, r, o) {
-	        let a, n;
+	        let n, a;
 	        let h = this.svgElement,
 	          {
 	            rotation: l
@@ -11656,17 +11617,17 @@ var highcharts = {exports: {}};
 	          u = p,
 	          g = function (e, r) {
 	            let o = r || e,
-	              a = t.parentNode;
-	            if (a && void 0 === d[o] && a.getSubStringLength) try {
-	              d[o] = s + a.getSubStringLength(0, i ? o + 1 : o);
+	              n = t.parentNode;
+	            if (n && void 0 === d[o] && n.getSubStringLength) try {
+	              d[o] = s + n.getSubStringLength(0, i ? o + 1 : o);
 	            } catch (t) {}
 	            return d[o];
 	          };
-	        if (h.rotation = 0, s + (n = g(t.textContent.length)) > r) {
-	          for (; c <= p;) u = Math.ceil((c + p) / 2), i && (a = o(i, u)), n = g(u, a && a.length - 1), c === p ? c = p + 1 : n > r ? p = u - 1 : c = u;
-	          0 === p ? t.textContent = "" : e && p === e.length - 1 || (t.textContent = a || o(e || i, u));
+	        if (h.rotation = 0, s + (a = g(t.textContent.length)) > r) {
+	          for (; c <= p;) u = Math.ceil((c + p) / 2), i && (n = o(i, u)), a = g(u, n && n.length - 1), c === p ? c = p + 1 : a > r ? p = u - 1 : c = u;
+	          0 === p ? t.textContent = "" : e && p === e.length - 1 || (t.textContent = n || o(e || i, u));
 	        }
-	        i && i.splice(0, u), h.actualWidth = n, h.rotation = l;
+	        i && i.splice(0, u), h.actualWidth = a, h.rotation = l;
 	      }
 	      unescapeEntities(t, e) {
 	        return d(this.renderer.escapes, function (i, s) {
@@ -11674,7 +11635,7 @@ var highcharts = {exports: {}};
 	        }), t;
 	      }
 	    };
-	  }), i(e, "Core/Renderer/SVG/SVGRenderer.js", [e["Core/Renderer/HTML/AST.js"], e["Core/Defaults.js"], e["Core/Color/Color.js"], e["Core/Globals.js"], e["Core/Renderer/RendererRegistry.js"], e["Core/Renderer/SVG/SVGElement.js"], e["Core/Renderer/SVG/SVGLabel.js"], e["Core/Renderer/SVG/Symbols.js"], e["Core/Renderer/SVG/TextBuilder.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o, a, n, h, l) {
+	  }), i(e, "Core/Renderer/SVG/SVGRenderer.js", [e["Core/Renderer/HTML/AST.js"], e["Core/Defaults.js"], e["Core/Color/Color.js"], e["Core/Globals.js"], e["Core/Renderer/RendererRegistry.js"], e["Core/Renderer/SVG/SVGElement.js"], e["Core/Renderer/SVG/SVGLabel.js"], e["Core/Renderer/SVG/Symbols.js"], e["Core/Renderer/SVG/TextBuilder.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o, n, a, h, l) {
 	    let d;
 	    let {
 	        defaultOptions: c
@@ -11711,14 +11672,14 @@ var highcharts = {exports: {}};
 	        uniqueKey: N
 	      } = l;
 	    class W {
-	      constructor(t, e, i, s, r, o, a) {
-	        let n, h;
+	      constructor(t, e, i, s, r, o, n) {
+	        let a, h;
 	        let l = this.createElement("svg").attr({
 	            version: "1.1",
 	            class: "highcharts-root"
 	          }),
 	          d = l.element;
-	        a || l.css(this.getStyle(s || {})), t.appendChild(d), k(t, "dir", "ltr"), -1 === t.innerHTML.indexOf("xmlns") && k(d, "xmlns", this.SVG_NS), this.box = d, this.boxWrapper = l, this.alignedObjects = [], this.url = this.getReferenceURL(), this.createElement("desc").add().element.appendChild(g.createTextNode("Created with Highcharts 11.4.3")), this.defs = this.createElement("defs").add(), this.allowHTML = o, this.forExport = r, this.styledMode = a, this.gradients = {}, this.cache = {}, this.cacheKeys = [], this.imgCount = 0, this.rootFontSize = l.getStyle("font-size"), this.setSize(e, i, !1), f && t.getBoundingClientRect && ((n = function () {
+	        n || l.css(this.getStyle(s || {})), t.appendChild(d), k(t, "dir", "ltr"), -1 === t.innerHTML.indexOf("xmlns") && k(d, "xmlns", this.SVG_NS), this.box = d, this.boxWrapper = l, this.alignedObjects = [], this.url = this.getReferenceURL(), this.createElement("desc").add().element.appendChild(g.createTextNode("Created with Highcharts 11.4.6")), this.defs = this.createElement("defs").add(), this.allowHTML = o, this.forExport = r, this.styledMode = n, this.gradients = {}, this.cache = {}, this.cacheKeys = [], this.imgCount = 0, this.rootFontSize = l.getStyle("font-size"), this.setSize(e, i, !1), f && t.getBoundingClientRect && ((a = function () {
 	          A(t, {
 	            left: 0,
 	            top: 0
@@ -11726,7 +11687,7 @@ var highcharts = {exports: {}};
 	            left: Math.ceil(h.left) - h.left + "px",
 	            top: Math.ceil(h.top) - h.top + "px"
 	          });
-	        })(), this.unSubPixelFix = C(S, "resize", n));
+	        })(), this.unSubPixelFix = C(S, "resize", a));
 	      }
 	      definition(e) {
 	        return new t([e]).addToDOM(this.defs.element);
@@ -11807,7 +11768,7 @@ var highcharts = {exports: {}};
 	        };
 	      }
 	      shadowDefinition(t) {
-	        let e = [`highcharts-drop-shadow-${this.chartIndex}`, ...Object.keys(t).map(e => `${e}-${t[e]}`)].join("-").toLowerCase().replace(/[^a-z0-9\-]/g, ""),
+	        let e = [`highcharts-drop-shadow-${this.chartIndex}`, ...Object.keys(t).map(e => `${e}-${t[e]}`)].join("-").toLowerCase().replace(/[^a-z\d\-]/g, ""),
 	          i = j({
 	            color: "#000000",
 	            offsetX: 1,
@@ -11821,17 +11782,20 @@ var highcharts = {exports: {}};
 	            id: e,
 	            filterUnits: i.filterUnits
 	          },
-	          children: [{
-	            tagName: "feDropShadow",
-	            attributes: {
-	              dx: i.offsetX,
-	              dy: i.offsetY,
-	              "flood-color": i.color,
-	              "flood-opacity": Math.min(5 * i.opacity, 1),
-	              stdDeviation: i.width / 2
-	            }
-	          }]
+	          children: this.getShadowFilterContent(i)
 	        }), e;
+	      }
+	      getShadowFilterContent(t) {
+	        return [{
+	          tagName: "feDropShadow",
+	          attributes: {
+	            dx: t.offsetX,
+	            dy: t.offsetY,
+	            "flood-color": t.color,
+	            "flood-opacity": Math.min(5 * t.opacity, 1),
+	            stdDeviation: t.width / 2
+	          }
+	        }];
 	      }
 	      buildText(t) {
 	        new h(t).buildSVG();
@@ -11844,7 +11808,7 @@ var highcharts = {exports: {}};
 	          s = .2126 * e[0] + .7152 * e[1] + .0722 * e[2];
 	        return 1.05 / (s + .05) > (s + .05) / .05 ? "#FFFFFF" : "#000000";
 	      }
-	      button(e, i, s, r, o = {}, a, n, h, l, d) {
+	      button(e, i, s, r, o = {}, n, a, h, l, d) {
 	        let p = this.label(e, i, s, l, void 0, void 0, d, void 0, "button"),
 	          u = this.styledMode,
 	          g = arguments,
@@ -11897,32 +11861,32 @@ var highcharts = {exports: {}};
 	        }, r.attr(s);
 	      }
 	      arc(t, e, i, s, r, o) {
-	        let a;
-	        E(t) ? (e = (a = t).y, i = a.r, s = a.innerR, r = a.start, o = a.end, t = a.x) : a = {
+	        let n;
+	        E(t) ? (e = (n = t).y, i = n.r, s = n.innerR, r = n.start, o = n.end, t = n.x) : n = {
 	          innerR: s,
 	          start: r,
 	          end: o
 	        };
-	        let n = this.symbol("arc", t, e, i, i, a);
-	        return n.r = i, n;
+	        let a = this.symbol("arc", t, e, i, i, n);
+	        return a.r = i, a;
 	      }
 	      rect(t, e, i, s, r, o) {
-	        let a = E(t) ? t : void 0 === t ? {} : {
+	        let n = E(t) ? t : void 0 === t ? {} : {
 	            x: t,
 	            y: e,
 	            r,
 	            width: Math.max(i || 0, 0),
 	            height: Math.max(s || 0, 0)
 	          },
-	          n = this.createElement("rect");
-	        return this.styledMode || (void 0 !== o && (a["stroke-width"] = o, L(a, n.crisp(a))), a.fill = "none"), n.rSetter = function (t, e, i) {
-	          n.r = t, k(i, {
+	          a = this.createElement("rect");
+	        return this.styledMode || (void 0 !== o && (n["stroke-width"] = o, L(n, a.crisp(n))), n.fill = "none"), a.rSetter = function (t, e, i) {
+	          a.r = t, k(i, {
 	            rx: t,
 	            ry: t
 	          });
-	        }, n.rGetter = function () {
-	          return n.r || 0;
-	        }, n.attr(a);
+	        }, a.rGetter = function () {
+	          return a.r || 0;
+	        }, a.attr(n);
 	      }
 	      roundedRect(t) {
 	        return this.symbol("roundedRect").attr(t);
@@ -11947,43 +11911,43 @@ var highcharts = {exports: {}};
 	        }) : e;
 	      }
 	      image(t, e, i, s, r, o) {
-	        let a = {
+	        let n = {
 	          preserveAspectRatio: "none"
 	        };
-	        D(e) && (a.x = e), D(i) && (a.y = i), D(s) && (a.width = s), D(r) && (a.height = r);
-	        let n = this.createElement("image").attr(a),
+	        D(e) && (n.x = e), D(i) && (n.y = i), D(s) && (n.width = s), D(r) && (n.height = r);
+	        let a = this.createElement("image").attr(n),
 	          h = function (e) {
-	            n.attr({
+	            a.attr({
 	              href: t
-	            }), o.call(n, e);
+	            }), o.call(a, e);
 	          };
 	        if (o) {
-	          n.attr({
+	          a.attr({
 	            href: "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
 	          });
 	          let e = new S.Image();
 	          C(e, "load", h), e.src = t, e.complete && h({});
-	        } else n.attr({
+	        } else a.attr({
 	          href: t
 	        });
-	        return n;
+	        return a;
 	      }
 	      symbol(t, e, i, s, r, o) {
-	        let a, n, h, l;
+	        let n, a, h, l;
 	        let d = this,
 	          c = /^url\((.*?)\)$/,
 	          u = c.test(t),
 	          f = !u && (this.symbols[t] ? t : "circle"),
 	          m = f && this.symbols[f];
-	        if (m) "number" == typeof e && (n = m.call(this.symbols, e || 0, i || 0, s || 0, r || 0, o)), a = this.path(n), d.styledMode || a.attr("fill", "none"), L(a, {
+	        if (m) "number" == typeof e && (a = m.call(this.symbols, e || 0, i || 0, s || 0, r || 0, o)), n = this.path(a), d.styledMode || n.attr("fill", "none"), L(n, {
 	          symbolName: f || void 0,
 	          x: e,
 	          y: i,
 	          width: s,
 	          height: r
-	        }), o && L(a, o);else if (u) {
+	        }), o && L(n, o);else if (u) {
 	          h = t.match(c)[1];
-	          let s = a = this.image(h);
+	          let s = n = this.image(h);
 	          s.imgwidth = B(o && o.width, v[h] && v[h].width), s.imgheight = B(o && o.height, v[h] && v[h].height), l = t => t.attr({
 	            width: t.width,
 	            height: t.height
@@ -11994,16 +11958,16 @@ var highcharts = {exports: {}};
 	                  alignByTranslate: i,
 	                  element: s,
 	                  width: r,
-	                  height: a,
-	                  imgwidth: n,
+	                  height: n,
+	                  imgwidth: a,
 	                  imgheight: h
 	                } = this,
-	                l = "width" === e ? n : h,
+	                l = "width" === e ? a : h,
 	                d = 1;
-	              o && "within" === o.backgroundSize && r && a && n && h ? (d = Math.min(r / n, a / h), k(s, {
-	                width: Math.round(n * d),
+	              o && "within" === o.backgroundSize && r && n && a && h ? (d = Math.min(r / a, n / h), k(s, {
+	                width: Math.round(a * d),
 	                height: Math.round(h * d)
-	              })) : s && l && s.setAttribute(e, l), !i && n && h && this.translate(((r || 0) - n * d) / 2, ((a || 0) - h * d) / 2);
+	              })) : s && l && s.setAttribute(e, l), !i && a && h && this.translate(((r || 0) - a * d) / 2, ((n || 0) - h * d) / 2);
 	            };
 	          }), T(e) && s.attr({
 	            x: e,
@@ -12025,7 +11989,7 @@ var highcharts = {exports: {}};
 	            src: h
 	          }), this.imgCount++);
 	        }
-	        return a;
+	        return n;
 	      }
 	      clipRect(t, e, i, s) {
 	        return this.rect(t, e, i, s, 0);
@@ -12076,8 +12040,8 @@ var highcharts = {exports: {}};
 	        for (let r = 0; r < t.length; r++) I(i[0]) && D(t[r]) && i.length === s[i[0].toUpperCase()] && t.splice(r, 0, i[0].replace("M", "L").replace("m", "l")), "string" == typeof t[r] && (i.length && e.push(i.slice(0)), i.length = 0), i.push(t[r]);
 	        return e.push(i.slice(0)), e;
 	      }
-	      label(t, e, i, s, r, o, n, h, l) {
-	        return new a(this, t, e, i, s, r, o, n, h, l);
+	      label(t, e, i, s, r, o, a, h, l) {
+	        return new n(this, t, e, i, s, r, o, a, h, l);
 	      }
 	      alignElements() {
 	        this.alignedObjects.forEach(t => t.align());
@@ -12093,7 +12057,7 @@ var highcharts = {exports: {}};
 	        "'": "&#39;",
 	        '"': "&quot;"
 	      },
-	      symbols: n,
+	      symbols: a,
 	      draw: y
 	    }), r.registerRendererType("svg", W, !0), W;
 	  }), i(e, "Core/Renderer/HTML/HTMLElement.js", [e["Core/Renderer/HTML/AST.js"], e["Core/Globals.js"], e["Core/Renderer/SVG/SVGElement.js"], e["Core/Utilities.js"]], function (t, e, i, s) {
@@ -12102,8 +12066,8 @@ var highcharts = {exports: {}};
 	      } = e,
 	      {
 	        attr: o,
-	        css: a,
-	        createElement: n,
+	        css: n,
+	        createElement: a,
 	        defined: h,
 	        extend: l,
 	        pInt: d,
@@ -12117,7 +12081,7 @@ var highcharts = {exports: {}};
 	      if (!t.div) {
 	        let s = o(t.element, "class"),
 	          r = t.css,
-	          a = n("div", s ? {
+	          n = a("div", s ? {
 	            className: s
 	          } : void 0, {
 	            position: "absolute",
@@ -12129,15 +12093,15 @@ var highcharts = {exports: {}};
 	            visibility: t.visibility
 	          }, t.parentGroup?.div || e);
 	        t.classSetter = (t, e, i) => {
-	          i.setAttribute("class", t), a.className = t;
+	          i.setAttribute("class", t), n.className = t;
 	        }, t.translateXSetter = t.translateYSetter = (e, i) => {
-	          t[i] = e, a.style["translateX" === i ? "left" : "top"] = `${e}px`, t.doTransform = !0;
-	        }, t.opacitySetter = t.visibilitySetter = p, t.css = e => (r.call(t, e), e.cursor && (a.style.cursor = e.cursor), e.pointerEvents && (a.style.pointerEvents = e.pointerEvents), t), t.on = function () {
+	          t[i] = e, n.style["translateX" === i ? "left" : "top"] = `${e}px`, t.doTransform = !0;
+	        }, t.opacitySetter = t.visibilitySetter = p, t.css = e => (r.call(t, e), e.cursor && (n.style.cursor = e.cursor), e.pointerEvents && (n.style.pointerEvents = e.pointerEvents), t), t.on = function () {
 	          return i.prototype.on.apply({
-	            element: a,
+	            element: n,
 	            onEvents: t.onEvents
 	          }, arguments), t;
-	        }, t.div = a;
+	        }, t.div = n;
 	      }
 	      return t.div;
 	    };
@@ -12170,7 +12134,7 @@ var highcharts = {exports: {}};
 	          } = this,
 	          s = "SPAN" === i.tagName && t && "width" in t,
 	          r = s && t.width;
-	        return s && (delete t.width, this.textWidth = d(r) || void 0, e = !0), t?.textOverflow === "ellipsis" && (t.whiteSpace = "nowrap", t.overflow = "hidden"), l(this.styles, t), a(i, t), e && this.updateTransform(), this;
+	        return s && (delete t.width, this.textWidth = d(r) || void 0, e = !0), t?.textOverflow === "ellipsis" && (t.whiteSpace = "nowrap", t.overflow = "hidden"), l(this.styles, t), n(i, t), e && this.updateTransform(), this;
 	      }
 	      htmlGetBBox() {
 	        let {
@@ -12195,54 +12159,55 @@ var highcharts = {exports: {}};
 	            rotationOriginX: s,
 	            rotationOriginY: r,
 	            styles: o,
-	            textAlign: n = "left",
+	            textAlign: a = "left",
 	            textWidth: l,
 	            translateX: d = 0,
 	            translateY: c = 0,
 	            x: p = 0,
 	            y: u = 0
 	          } = this,
-	          g = o.whiteSpace;
-	        if (a(t, {
-	          marginLeft: `${d}px`,
-	          marginTop: `${c}px`
-	        }), "SPAN" === t.tagName) {
-	          let o = [i, n, t.innerHTML, l, this.textAlign].join(","),
-	            d = -(this.parentGroup?.padding * 1) || 0,
-	            c,
-	            f = !1;
-	          if (l !== this.oldTextWidth) {
-	            let e = this.textPxLength ? this.textPxLength : (a(t, {
-	                width: "",
-	                whiteSpace: g || "nowrap"
-	              }), t.offsetWidth),
-	              s = l || 0;
-	            (s > this.oldTextWidth || e > s) && (/[ \-]/.test(t.textContent || t.innerText) || "ellipsis" === t.style.textOverflow) && (a(t, {
-	              width: e > s || i ? l + "px" : "auto",
-	              display: "block",
-	              whiteSpace: g || "normal"
-	            }), this.oldTextWidth = l, f = !0);
-	          }
-	          this.hasBoxWidthChanged = f, o !== this.cTT && (c = e.fontMetrics(t).b, h(i) && (i !== (this.oldRotation || 0) || n !== this.oldAlign) && this.setSpanRotation(i, d, d), this.getSpanCorrection(!h(i) && this.textPxLength || t.offsetWidth, c, {
+	          g = {
 	            left: 0,
 	            center: .5,
 	            right: 1
-	          }[n]));
+	          }[a],
+	          f = o.whiteSpace;
+	        if (n(t, {
+	          marginLeft: `${d}px`,
+	          marginTop: `${c}px`
+	        }), "SPAN" === t.tagName) {
+	          let o = [i, a, t.innerHTML, l, this.textAlign].join(","),
+	            d = -(this.parentGroup?.padding * 1) || 0,
+	            c,
+	            m = !1;
+	          if (l !== this.oldTextWidth) {
+	            let e = this.textPxLength ? this.textPxLength : (n(t, {
+	                width: "",
+	                whiteSpace: f || "nowrap"
+	              }), t.offsetWidth),
+	              s = l || 0;
+	            (s > this.oldTextWidth || e > s) && (/[ \-]/.test(t.textContent || t.innerText) || "ellipsis" === t.style.textOverflow) && (n(t, {
+	              width: e > s || i ? l + "px" : "auto",
+	              display: "block",
+	              whiteSpace: f || "normal"
+	            }), this.oldTextWidth = l, m = !0);
+	          }
+	          this.hasBoxWidthChanged = m, o !== this.cTT && (c = e.fontMetrics(t).b, h(i) && (i !== (this.oldRotation || 0) || a !== this.oldAlign) && this.setSpanRotation(i, d, d), this.getSpanCorrection(!h(i) && this.textPxLength || t.offsetWidth, c, g));
 	          let {
-	              xCorr: m = 0,
-	              yCorr: x = 0
+	              xCorr: x = 0,
+	              yCorr: y = 0
 	            } = this,
-	            y = (s ?? p) - m - p - d,
-	            b = (r ?? u) - x - u - d;
-	          a(t, {
-	            left: `${p + m}px`,
-	            top: `${u + x}px`,
-	            transformOrigin: `${y}px ${b}px`
-	          }), this.cTT = o, this.oldRotation = i, this.oldAlign = n;
+	            b = (s ?? p) - x - p - d,
+	            v = (r ?? u) - y - u - d;
+	          n(t, {
+	            left: `${p + x}px`,
+	            top: `${u + y}px`,
+	            transformOrigin: `${b}px ${v}px`
+	          }), this.cTT = o, this.oldRotation = i, this.oldAlign = a;
 	        }
 	      }
 	      setSpanRotation(t, e, i) {
-	        a(this.element, {
+	        n(this.element, {
 	          transform: `rotate(${t}deg)`,
 	          transformOrigin: `${e}% ${i}px`
 	        });
@@ -12426,8 +12391,8 @@ var highcharts = {exports: {}};
 	      {
 	        clamp: r,
 	        correctFloat: o,
-	        defined: a,
-	        destroyObjectProperties: n,
+	        defined: n,
+	        destroyObjectProperties: a,
 	        extend: h,
 	        fireEvent: l,
 	        isNumber: d,
@@ -12444,7 +12409,7 @@ var highcharts = {exports: {}};
 	          i = e.axis,
 	          s = i.options,
 	          r = i.chart,
-	          n = i.categories,
+	          a = i.categories,
 	          c = i.logarithmic,
 	          p = i.names,
 	          g = e.pos,
@@ -12458,7 +12423,7 @@ var highcharts = {exports: {}};
 	          C,
 	          k,
 	          M,
-	          w = this.parameters.category || (n ? u(n[g], p[g], g) : g);
+	          w = this.parameters.category || (a ? u(a[g], p[g], g) : g);
 	        c && d(w) && (w = o(c.lin2log(w))), i.dateTime && (v ? C = (k = r.time.resolveDTLFormat(s.dateTimeLabelFormats[!s.grid && v.higherRanks[g] || v.unitName])).main : d(w) && (C = i.dateTime.getXDateFormat(w, s.dateTimeLabelFormats || {}))), e.isFirst = x, e.isLast = y;
 	        let A = {
 	          axis: i,
@@ -12484,7 +12449,7 @@ var highcharts = {exports: {}};
 	          S.attr({
 	            text: ""
 	          });
-	        } : e.shortenLabel = void 0, b && i._addedPlotLB && e.moveLabel(P, f), a(S) || e.movedLabel ? S && S.textStr !== P && !b && (!S.textWidth || f.style.width || S.styles.width || S.css({
+	        } : e.shortenLabel = void 0, b && i._addedPlotLB && e.moveLabel(P, f), n(S) || e.movedLabel ? S && S.textStr !== P && !b && (!S.textWidth || f.style.width || S.styles.width || S.css({
 	          width: null
 	        }), S.attr({
 	          text: P
@@ -12493,25 +12458,25 @@ var highcharts = {exports: {}};
 	      createLabel(t, e, i) {
 	        let s = this.axis,
 	          r = s.chart,
-	          o = a(t) && e.enabled ? r.renderer.text(t, i?.x, i?.y, e.useHTML).add(s.labelGroup) : void 0;
+	          o = n(t) && e.enabled ? r.renderer.text(t, i?.x, i?.y, e.useHTML).add(s.labelGroup) : void 0;
 	        return o && (r.styledMode || o.css(c(e.style)), o.textPxLength = o.getBBox().width), o;
 	      }
 	      destroy() {
-	        n(this, this.axis);
+	        a(this, this.axis);
 	      }
 	      getPosition(t, e, i, s) {
-	        let a = this.axis,
-	          n = a.chart,
-	          h = s && n.oldChartHeight || n.chartHeight,
+	        let n = this.axis,
+	          a = n.chart,
+	          h = s && a.oldChartHeight || a.chartHeight,
 	          d = {
-	            x: t ? o(a.translate(e + i, void 0, void 0, s) + a.transB) : a.left + a.offset + (a.opposite ? (s && n.oldChartWidth || n.chartWidth) - a.right - a.left : 0),
-	            y: t ? h - a.bottom + a.offset - (a.opposite ? a.height : 0) : o(h - a.translate(e + i, void 0, void 0, s) - a.transB)
+	            x: t ? o(n.translate(e + i, void 0, void 0, s) + n.transB) : n.left + n.offset + (n.opposite ? (s && a.oldChartWidth || a.chartWidth) - n.right - n.left : 0),
+	            y: t ? h - n.bottom + n.offset - (n.opposite ? n.height : 0) : o(h - n.translate(e + i, void 0, void 0, s) - n.transB)
 	          };
 	        return d.y = r(d.y, -1e5, 1e5), l(this, "afterGetPosition", {
 	          pos: d
 	        }), d;
 	      }
-	      getLabelPosition(t, e, i, r, o, n, h, d) {
+	      getLabelPosition(t, e, i, r, o, a, h, d) {
 	        let c, p;
 	        let g = this.axis,
 	          f = g.transA,
@@ -12524,9 +12489,9 @@ var highcharts = {exports: {}};
 	          b = r || g.reserveSpaceDefault ? 0 : -g.labelOffset * ("center" === g.labelAlign ? .5 : 1),
 	          v = o.distance,
 	          S = {};
-	        return c = 0 === g.side ? i.rotation ? -v : -i.getBBox().height : 2 === g.side ? y.y + v : Math.cos(i.rotation * s) * (y.y - i.getBBox(!1, 0).height / 2), a(o.y) && (c = 0 === g.side && g.horiz ? o.y + c : o.y), t = t + u(o.x, [0, 1, 0, -1][g.side] * v) + b + y.x - (n && r ? n * f * (m ? -1 : 1) : 0), e = e + c - (n && !r ? n * f * (m ? 1 : -1) : 0), x && (p = h / (d || 1) % x, g.opposite && (p = x - p - 1), e += g.labelOffset / x * p), S.x = t, S.y = Math.round(e), l(this, "afterGetLabelPosition", {
+	        return c = 0 === g.side ? i.rotation ? -v : -i.getBBox().height : 2 === g.side ? y.y + v : Math.cos(i.rotation * s) * (y.y - i.getBBox(!1, 0).height / 2), n(o.y) && (c = 0 === g.side && g.horiz ? o.y + c : o.y), t = t + u(o.x, [0, 1, 0, -1][g.side] * v) + b + y.x - (a && r ? a * f * (m ? -1 : 1) : 0), e = e + c - (a && !r ? a * f * (m ? 1 : -1) : 0), x && (p = h / (d || 1) % x, g.opposite && (p = x - p - 1), e += p * (g.labelOffset / x)), S.x = t, S.y = Math.round(e), l(this, "afterGetLabelPosition", {
 	          pos: S,
-	          tickmarkOffset: n,
+	          tickmarkOffset: a,
 	          index: h
 	        }), S;
 	      }
@@ -12541,9 +12506,9 @@ var highcharts = {exports: {}};
 	          i = e.options.labels,
 	          r = t.x,
 	          o = e.chart.chartWidth,
-	          a = e.chart.spacing,
-	          n = u(e.labelLeft, Math.min(e.pos, a[3])),
-	          h = u(e.labelRight, Math.max(e.isRadial ? 0 : e.pos + e.len, o - a[1])),
+	          n = e.chart.spacing,
+	          a = u(e.labelLeft, Math.min(e.pos, n[3])),
+	          h = u(e.labelRight, Math.max(e.isRadial ? 0 : e.pos + e.len, o - n[1])),
 	          l = this.label,
 	          d = this.rotation,
 	          c = {
@@ -12559,26 +12524,26 @@ var highcharts = {exports: {}};
 	          y,
 	          b,
 	          v;
-	        d || "justify" !== i.overflow ? d < 0 && r - c * p < n ? v = Math.round(r / Math.cos(d * s) - n) : d > 0 && r + c * p > h && (v = Math.round((o - r) / Math.cos(d * s))) : (y = r - c * p, b = r + (1 - c) * p, y < n ? m = t.x + m * (1 - c) - n : b > h && (m = h - t.x + m * c, x = -1), (m = Math.min(g, m)) < g && "center" === e.labelAlign && (t.x += x * (g - m - c * (g - Math.min(p, m)))), (p > m || e.autoRotation && (l.styles || {}).width) && (v = m)), v && (this.shortenLabel ? this.shortenLabel() : (f.width = Math.floor(v) + "px", (i.style || {}).textOverflow || (f.textOverflow = "ellipsis"), l.css(f)));
+	        d || "justify" !== i.overflow ? d < 0 && r - c * p < a ? v = Math.round(r / Math.cos(d * s) - a) : d > 0 && r + c * p > h && (v = Math.round((o - r) / Math.cos(d * s))) : (y = r - c * p, b = r + (1 - c) * p, y < a ? m = t.x + m * (1 - c) - a : b > h && (m = h - t.x + m * c, x = -1), (m = Math.min(g, m)) < g && "center" === e.labelAlign && (t.x += x * (g - m - c * (g - Math.min(p, m)))), (p > m || e.autoRotation && (l.styles || {}).width) && (v = m)), v && (this.shortenLabel ? this.shortenLabel() : (f.width = Math.floor(v) + "px", (i.style || {}).textOverflow || (f.textOverflow = "ellipsis"), l.css(f)));
 	      }
 	      moveLabel(t, e) {
 	        let i = this,
 	          s = i.label,
 	          r = i.axis,
 	          o = !1,
-	          a;
+	          n;
 	        s && s.textStr === t ? (i.movedLabel = s, o = !0, delete i.label) : p(r.ticks, function (e) {
 	          o || e.isNew || e === i || !e.label || e.label.textStr !== t || (i.movedLabel = e.label, o = !0, e.labelPos = i.movedLabel.xy, delete e.label);
-	        }), !o && (i.labelPos || s) && (a = i.labelPos || s.xy, i.movedLabel = i.createLabel(t, e, a), i.movedLabel && i.movedLabel.attr({
+	        }), !o && (i.labelPos || s) && (n = i.labelPos || s.xy, i.movedLabel = i.createLabel(t, e, n), i.movedLabel && i.movedLabel.attr({
 	          opacity: 0
 	        }));
 	      }
 	      render(t, e, i) {
 	        let s = this.axis,
 	          r = s.horiz,
-	          a = this.pos,
-	          n = u(this.tickmarkOffset, s.tickmarkOffset),
-	          h = this.getPosition(r, a, n, e),
+	          n = this.pos,
+	          a = u(this.tickmarkOffset, s.tickmarkOffset),
+	          h = this.getPosition(r, n, a, e),
 	          d = h.x,
 	          c = h.y,
 	          p = s.pos,
@@ -12593,16 +12558,16 @@ var highcharts = {exports: {}};
 	          s = i.options,
 	          r = {},
 	          o = this.pos,
-	          a = this.type,
-	          n = u(this.tickmarkOffset, i.tickmarkOffset),
+	          n = this.type,
+	          a = u(this.tickmarkOffset, i.tickmarkOffset),
 	          h = i.chart.renderer,
 	          l = this.gridLine,
 	          d,
 	          c = s.gridLineWidth,
 	          p = s.gridLineColor,
 	          g = s.gridLineDashStyle;
-	        "minor" === this.type && (c = s.minorGridLineWidth, p = s.minorGridLineColor, g = s.minorGridLineDashStyle), l || (i.chart.styledMode || (r.stroke = p, r["stroke-width"] = c || 0, r.dashstyle = g), a || (r.zIndex = 1), t && (e = 0), this.gridLine = l = h.path().attr(r).addClass("highcharts-" + (a ? a + "-" : "") + "grid-line").add(i.gridGroup)), l && (d = i.getPlotLinePath({
-	          value: o + n,
+	        "minor" === this.type && (c = s.minorGridLineWidth, p = s.minorGridLineColor, g = s.minorGridLineDashStyle), l || (i.chart.styledMode || (r.stroke = p, r["stroke-width"] = c || 0, r.dashstyle = g), n || (r.zIndex = 1), t && (e = 0), this.gridLine = l = h.path().attr(r).addClass("highcharts-" + (n ? n + "-" : "") + "grid-line").add(i.gridGroup)), l && (d = i.getPlotLinePath({
+	          value: o + a,
 	          lineWidth: l.strokeWidth(),
 	          force: "pass",
 	          old: t,
@@ -12617,33 +12582,33 @@ var highcharts = {exports: {}};
 	          s = i.options,
 	          r = i.chart.renderer,
 	          o = this.type,
-	          a = i.tickSize(o ? o + "Tick" : "tick"),
-	          n = t.x,
+	          n = i.tickSize(o ? o + "Tick" : "tick"),
+	          a = t.x,
 	          h = t.y,
 	          l = u(s["minor" !== o ? "tickWidth" : "minorTickWidth"], !o && i.isXAxis ? 1 : 0),
 	          d = s["minor" !== o ? "tickColor" : "minorTickColor"],
 	          c = this.mark,
 	          p = !c;
-	        a && (i.opposite && (a[0] = -a[0]), c || (this.mark = c = r.path().addClass("highcharts-" + (o ? o + "-" : "") + "tick").add(i.axisGroup), i.chart.styledMode || c.attr({
+	        n && (i.opposite && (n[0] = -n[0]), c || (this.mark = c = r.path().addClass("highcharts-" + (o ? o + "-" : "") + "tick").add(i.axisGroup), i.chart.styledMode || c.attr({
 	          stroke: d,
 	          "stroke-width": l
 	        })), c[p ? "attr" : "animate"]({
-	          d: this.getMarkPath(n, h, a[0], c.strokeWidth(), i.horiz, r),
+	          d: this.getMarkPath(a, h, n[0], c.strokeWidth(), i.horiz, r),
 	          opacity: e
 	        }));
 	      }
 	      renderLabel(t, e, i, s) {
 	        let r = this.axis,
 	          o = r.horiz,
-	          a = r.options,
-	          n = this.label,
-	          h = a.labels,
+	          n = r.options,
+	          a = this.label,
+	          h = n.labels,
 	          l = h.step,
 	          c = u(this.tickmarkOffset, r.tickmarkOffset),
 	          p = t.x,
 	          g = t.y,
 	          f = !0;
-	        n && d(p) && (n.xy = t = this.getLabelPosition(p, g, n, o, h, c, s, l), (!this.isFirst || this.isLast || a.showFirstLabel) && (!this.isLast || this.isFirst || a.showLastLabel) ? !o || h.step || h.rotation || e || 0 === i || this.handleOverflow(t) : f = !1, l && s % l && (f = !1), f && d(t.y) ? (t.opacity = i, n[this.isNewLabel ? "attr" : "animate"](t).show(!0), this.isNewLabel = !1) : (n.hide(), this.isNewLabel = !0));
+	        a && d(p) && (a.xy = t = this.getLabelPosition(p, g, a, o, h, c, s, l), (!this.isFirst || this.isLast || n.showFirstLabel) && (!this.isLast || this.isFirst || n.showLastLabel) ? !o || h.step || h.rotation || e || 0 === i || this.handleOverflow(t) : f = !1, l && s % l && (f = !1), f && d(t.y) ? (t.opacity = i, a[this.isNewLabel ? "attr" : "animate"](t).show(!0), this.isNewLabel = !1) : (a.hide(), this.isNewLabel = !0));
 	      }
 	      replaceMovedLabel() {
 	        let t = this.label,
@@ -12653,7 +12618,7 @@ var highcharts = {exports: {}};
 	        }, void 0, t.destroy), delete this.label), e.isDirty = !0, this.label = this.movedLabel, delete this.movedLabel;
 	      }
 	    };
-	  }), i(e, "Core/Axis/Axis.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Axis/AxisDefaults.js"], e["Core/Color/Color.js"], e["Core/Defaults.js"], e["Core/Foundation.js"], e["Core/Globals.js"], e["Core/Axis/Tick.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o, a, n) {
+	  }), i(e, "Core/Axis/Axis.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Axis/AxisDefaults.js"], e["Core/Color/Color.js"], e["Core/Defaults.js"], e["Core/Foundation.js"], e["Core/Globals.js"], e["Core/Axis/Tick.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o, n, a) {
 	    let {
 	        animObject: h
 	      } = t,
@@ -12694,7 +12659,7 @@ var highcharts = {exports: {}};
 	        removeEvent: j,
 	        splat: B,
 	        syncTimeout: R
-	      } = n,
+	      } = a,
 	      z = (t, e) => O(e, void 0, void 0, E(t.options.allowDecimals, e < .5 || void 0 !== t.tickAmount), !!t.tickAmount);
 	    C(c, {
 	      xAxis: l,
@@ -12711,11 +12676,11 @@ var highcharts = {exports: {}};
 	          userOptions: e
 	        }), this.opposite = E(e.opposite, this.opposite), this.side = E(e.side, this.side, r ? this.opposite ? 0 : 2 : this.opposite ? 1 : 3), this.setOptions(e);
 	        let o = this.options,
-	          a = o.labels,
-	          n = o.type;
-	        this.userOptions = e, this.minPixelPadding = 0, this.reversed = E(o.reversed, this.reversed), this.visible = o.visible, this.zoomEnabled = o.zoomEnabled, this.hasNames = "category" === n || !0 === o.categories, this.categories = A(o.categories) && o.categories || (this.hasNames ? [] : void 0), this.names || (this.names = [], this.names.keys = {}), this.plotLinesAndBandsGroups = {}, this.positiveValuesOnly = !!this.logarithmic, this.isLinked = y(o.linkedTo), this.ticks = {}, this.labelEdge = [], this.minorTicks = {}, this.plotLinesAndBands = [], this.alternateBands = {}, this.len ?? (this.len = 0), this.minRange = this.userMinRange = o.minRange || o.maxZoom, this.range = o.range, this.offset = o.offset || 0, this.max = void 0, this.min = void 0;
+	          n = o.labels,
+	          a = o.type;
+	        this.userOptions = e, this.minPixelPadding = 0, this.reversed = E(o.reversed, this.reversed), this.visible = o.visible, this.zoomEnabled = o.zoomEnabled, this.hasNames = "category" === a || !0 === o.categories, this.categories = A(o.categories) && o.categories || (this.hasNames ? [] : void 0), this.names || (this.names = [], this.names.keys = {}), this.plotLinesAndBandsGroups = {}, this.positiveValuesOnly = !!this.logarithmic, this.isLinked = y(o.linkedTo), this.ticks = {}, this.labelEdge = [], this.minorTicks = {}, this.plotLinesAndBands = [], this.alternateBands = {}, this.len ?? (this.len = 0), this.minRange = this.userMinRange = o.minRange || o.maxZoom, this.range = o.range, this.offset = o.offset || 0, this.max = void 0, this.min = void 0;
 	        let h = E(o.crosshair, B(t.options.tooltip.crosshairs)[s ? 0 : 1]);
-	        this.crosshair = !0 === h ? {} : h, -1 === t.axes.indexOf(this) && (s ? t.axes.splice(t.xAxis.length, 0, this) : t.axes.push(this), w(this, t[this.coll])), t.orderItems(this.coll), this.series = this.series || [], t.inverted && !this.isZAxis && s && !y(this.reversed) && (this.reversed = !0), this.labelRotation = T(a.rotation) ? a.rotation : void 0, p(this, o), k(this, "afterInit");
+	        this.crosshair = !0 === h ? {} : h, -1 === t.axes.indexOf(this) && (s ? t.axes.splice(t.xAxis.length, 0, this) : t.axes.push(this), w(this, t[this.coll])), t.orderItems(this.coll), this.series = this.series || [], t.inverted && !this.isZAxis && s && !y(this.reversed) && (this.reversed = !0), this.labelRotation = T(n.rotation) ? n.rotation : void 0, p(this, o), k(this, "afterInit");
 	      }
 	      setOptions(t) {
 	        let e = this.horiz ? {
@@ -12745,14 +12710,14 @@ var highcharts = {exports: {}};
 	          s = t.chart.time,
 	          r = t.categories,
 	          o = this.dateTimeLabelFormat,
-	          a = c.lang,
-	          n = a.numericSymbols,
-	          h = a.numericSymbolMagnitude || 1e3,
+	          n = c.lang,
+	          a = n.numericSymbols,
+	          h = n.numericSymbolMagnitude || 1e3,
 	          l = t.logarithmic ? Math.abs(i) : t.tickInterval,
-	          d = n && n.length,
+	          d = a && a.length,
 	          p,
 	          u;
-	        if (r) u = `${this.value}`;else if (o) u = s.dateFormat(o, i);else if (d && n && l >= 1e3) for (; d-- && void 0 === u;) l >= (p = Math.pow(h, d + 1)) && 10 * i % p == 0 && null !== n[d] && 0 !== i && (u = e(i / p, -1) + n[d]);
+	        if (r) u = `${this.value}`;else if (o) u = s.dateFormat(o, i);else if (d && a && l >= 1e3) for (; d-- && void 0 === u;) l >= (p = Math.pow(h, d + 1)) && 10 * i % p == 0 && null !== a[d] && 0 !== i && (u = e(i / p, -1) + a[d]);
 	        return void 0 === u && (u = Math.abs(i) >= 1e4 ? e(i, -1) : e(i, -1, void 0, "")), u;
 	      }
 	      getSeriesExtremes() {
@@ -12764,27 +12729,27 @@ var highcharts = {exports: {}};
 	              let s = i.options,
 	                r,
 	                o = s.threshold,
-	                a,
-	                n;
-	              if (e.hasVisibleSeries = !0, e.positiveValuesOnly && 0 >= (o || 0) && (o = void 0), e.isXAxis) (r = i.xData) && r.length && (r = e.logarithmic ? r.filter(t => t > 0) : r, a = (t = i.getXExtremes(r)).min, n = t.max, T(a) || a instanceof Date || (r = r.filter(T), a = (t = i.getXExtremes(r)).min, n = t.max), r.length && (e.dataMin = Math.min(E(e.dataMin, a), a), e.dataMax = Math.max(E(e.dataMax, n), n)));else {
+	                n,
+	                a;
+	              if (e.hasVisibleSeries = !0, e.positiveValuesOnly && 0 >= (o || 0) && (o = void 0), e.isXAxis) (r = i.xData) && r.length && (r = e.logarithmic ? r.filter(t => t > 0) : r, n = (t = i.getXExtremes(r)).min, a = t.max, T(n) || n instanceof Date || (r = r.filter(T), n = (t = i.getXExtremes(r)).min, a = t.max), r.length && (e.dataMin = Math.min(E(e.dataMin, n), n), e.dataMax = Math.max(E(e.dataMax, a), a)));else {
 	                let t = i.applyExtremes();
-	                T(t.dataMin) && (a = t.dataMin, e.dataMin = Math.min(E(e.dataMin, a), a)), T(t.dataMax) && (n = t.dataMax, e.dataMax = Math.max(E(e.dataMax, n), n)), y(o) && (e.threshold = o), (!s.softThreshold || e.positiveValuesOnly) && (e.softThreshold = !1);
+	                T(t.dataMin) && (n = t.dataMin, e.dataMin = Math.min(E(e.dataMin, n), n)), T(t.dataMax) && (a = t.dataMax, e.dataMax = Math.max(E(e.dataMax, a), a)), y(o) && (e.threshold = o), (!s.softThreshold || e.positiveValuesOnly) && (e.softThreshold = !1);
 	              }
 	            }
 	          });
 	        }), k(this, "afterGetSeriesExtremes");
 	      }
 	      translate(t, e, i, s, r, o) {
-	        let a = this.linkedParent || this,
-	          n = s && a.old ? a.old.min : a.min;
-	        if (!T(n)) return NaN;
-	        let h = a.minPixelPadding,
-	          l = (a.isOrdinal || a.brokenAxis?.hasBreaks || a.logarithmic && r) && a.lin2val,
+	        let n = this.linkedParent || this,
+	          a = s && n.old ? n.old.min : n.min;
+	        if (!T(a)) return NaN;
+	        let h = n.minPixelPadding,
+	          l = (n.isOrdinal || n.brokenAxis?.hasBreaks || n.logarithmic && r) && n.lin2val,
 	          d = 1,
 	          c = 0,
-	          p = s && a.old ? a.old.transA : a.transA,
+	          p = s && n.old ? n.old.transA : n.transA,
 	          u = 0;
-	        return p || (p = a.transA), i && (d *= -1, c = a.len), a.reversed && (d *= -1, c -= d * (a.sector || a.len)), e ? (u = (t = t * d + c - h) / p + n, l && (u = a.lin2val(u))) : (l && (t = a.val2lin(t)), u = d * (t - n) * p + c + d * h + (T(o) ? p * o : 0), a.isRadial || (u = x(u))), u;
+	        return p || (p = n.transA), i && (d *= -1, c = n.len), n.reversed && (d *= -1, c -= d * (n.sector || n.len)), e ? (u = (t = t * d + c - h) / p + a, l && (u = n.lin2val(u))) : (l && (t = n.val2lin(t)), u = d * (t - a) * p + c + d * h + (T(o) ? p * o : 0), n.isRadial || (u = x(u))), u;
 	      }
 	      toPixels(t, e) {
 	        return this.translate(t, !1, !this.horiz, void 0, !0) + (e ? 0 : this.pos);
@@ -12798,8 +12763,8 @@ var highcharts = {exports: {}};
 	          s = e.left,
 	          r = e.top,
 	          o = t.old,
-	          a = t.value,
-	          n = t.lineWidth,
+	          n = t.value,
+	          a = t.lineWidth,
 	          h = o && i.oldChartHeight || i.chartHeight,
 	          l = o && i.oldChartWidth || i.chartWidth,
 	          d = e.transB,
@@ -12814,24 +12779,24 @@ var highcharts = {exports: {}};
 	          return "pass" !== p && (t < e || t > i) && (p ? t = m(t, e, i) : y = !0), t;
 	        }
 	        let v = {
-	          value: a,
-	          lineWidth: n,
+	          value: n,
+	          lineWidth: a,
 	          old: o,
 	          force: p,
 	          acrossPanes: t.acrossPanes,
 	          translatedValue: c
 	        };
 	        return k(this, "getPlotLinePath", v, function (t) {
-	          u = f = (c = m(c = E(c, e.translate(a, void 0, void 0, o)), -1e5, 1e5)) + d, g = x = h - c - d, T(c) ? e.horiz ? (g = r, x = h - e.bottom + (i.scrollablePixelsY || 0), u = f = b(u, s, s + e.width)) : (u = s, f = l - e.right + (i.scrollablePixelsX || 0), g = x = b(g, r, r + e.height)) : (y = !0, p = !1), t.path = y && !p ? void 0 : i.renderer.crispLine([["M", u, g], ["L", f, x]], n || 1);
+	          u = f = (c = m(c = E(c, e.translate(n, void 0, void 0, o)), -1e5, 1e5)) + d, g = x = h - c - d, T(c) ? e.horiz ? (g = r, x = h - e.bottom + (e.options.isInternal ? 0 : i.scrollablePixelsY || 0), u = f = b(u, s, s + e.width)) : (u = s, f = l - e.right + (i.scrollablePixelsX || 0), g = x = b(g, r, r + e.height)) : (y = !0, p = !1), t.path = y && !p ? void 0 : i.renderer.crispLine([["M", u, g], ["L", f, x]], a || 1);
 	        }), v.path;
 	      }
 	      getLinearTickPositions(t, e, i) {
 	        let s, r, o;
-	        let a = x(Math.floor(e / t) * t),
-	          n = x(Math.ceil(i / t) * t),
+	        let n = x(Math.floor(e / t) * t),
+	          a = x(Math.ceil(i / t) * t),
 	          h = [];
-	        if (x(a + t) === a && (o = 20), this.single) return [e];
-	        for (s = a; s <= n && (h.push(s), (s = x(s + t, o)) !== r);) r = s;
+	        if (x(n + t) === n && (o = 20), this.single) return [e];
+	        for (s = n; s <= a && (h.push(s), (s = x(s + t, o)) !== r);) r = s;
 	        return h;
 	      }
 	      getMinorTickInterval() {
@@ -12848,16 +12813,16 @@ var highcharts = {exports: {}};
 	          s = this.pointRangePadding || 0,
 	          r = (this.min || 0) - s,
 	          o = (this.max || 0) + s,
-	          a = o - r,
-	          n = [],
+	          n = o - r,
+	          a = [],
 	          h;
-	        if (a && a / i < this.len / 3) {
+	        if (n && n / i < this.len / 3) {
 	          let s = this.logarithmic;
 	          if (s) this.paddedTicks.forEach(function (t, e, r) {
-	            e && n.push.apply(n, s.getLogTickPositions(i, r[e - 1], r[e], !0));
-	          });else if (this.dateTime && "auto" === this.getMinorTickInterval()) n = n.concat(this.getTimeTicks(this.dateTime.normalizeTimeTickInterval(i), r, o, t.startOfWeek));else for (h = r + (e[0] - r) % i; h <= o && h !== n[0]; h += i) n.push(h);
+	            e && a.push.apply(a, s.getLogTickPositions(i, r[e - 1], r[e], !0));
+	          });else if (this.dateTime && "auto" === this.getMinorTickInterval()) a = a.concat(this.getTimeTicks(this.dateTime.normalizeTimeTickInterval(i), r, o, t.startOfWeek));else for (h = r + (e[0] - r) % i; h <= o && h !== a[0]; h += i) a.push(h);
 	        }
-	        return 0 !== n.length && this.trimTicks(n), n;
+	        return 0 !== a.length && this.trimTicks(a), a;
 	      }
 	      adjustForMinRange() {
 	        let t = this.options,
@@ -12868,10 +12833,10 @@ var highcharts = {exports: {}};
 	            minRange: r
 	          } = this,
 	          o,
-	          a,
 	          n,
+	          a,
 	          h;
-	        this.isXAxis && void 0 === r && !e && (r = y(t.min) || y(t.max) || y(t.floor) || y(t.ceiling) ? null : Math.min(5 * (M(this.series.map(t => (t.xIncrement ? t.xData?.slice(0, 2) : t.xData) || [])) || 0), this.dataMax - this.dataMin)), T(i) && T(s) && T(r) && i - s < r && (a = this.dataMax - this.dataMin >= r, o = (r - i + s) / 2, n = [s - o, E(t.min, s - o)], a && (n[2] = e ? e.log2lin(this.dataMin) : this.dataMin), h = [(s = g(n)) + r, E(t.max, s + r)], a && (h[2] = e ? e.log2lin(this.dataMax) : this.dataMax), (i = f(h)) - s < r && (n[0] = i - r, n[1] = E(t.min, i - r), s = g(n))), this.minRange = r, this.min = s, this.max = i;
+	        this.isXAxis && void 0 === r && !e && (r = y(t.min) || y(t.max) || y(t.floor) || y(t.ceiling) ? null : Math.min(5 * (M(this.series.map(t => (t.xIncrement ? t.xData?.slice(0, 2) : t.xData) || [])) || 0), this.dataMax - this.dataMin)), T(i) && T(s) && T(r) && i - s < r && (n = this.dataMax - this.dataMin >= r, o = (r - i + s) / 2, a = [s - o, E(t.min, s - o)], n && (a[2] = e ? e.log2lin(this.dataMin) : this.dataMin), h = [(s = g(a)) + r, E(t.max, s + r)], n && (h[2] = e ? e.log2lin(this.dataMax) : this.dataMax), (i = f(h)) - s < r && (a[0] = i - r, a[1] = E(t.min, i - r), s = g(a))), this.minRange = r, this.min = s, this.max = i;
 	      }
 	      getClosest() {
 	        let t, e;
@@ -12910,19 +12875,19 @@ var highcharts = {exports: {}};
 	          s = !!t.categories,
 	          r = t.isXAxis,
 	          o = t.axisPointRange || 0,
-	          a,
-	          n = 0,
+	          n,
+	          a = 0,
 	          h = 0,
 	          l,
 	          d = t.transA;
-	        (r || s || o) && (a = t.getClosest(), i ? (n = i.minPointOffset, h = i.pointRangePadding) : t.series.forEach(function (e) {
-	          let i = s ? 1 : r ? E(e.options.pointRange, a, 0) : t.axisPointRange || 0,
+	        (r || s || o) && (n = t.getClosest(), i ? (a = i.minPointOffset, h = i.pointRangePadding) : t.series.forEach(function (e) {
+	          let i = s ? 1 : r ? E(e.options.pointRange, n, 0) : t.axisPointRange || 0,
 	            l = e.options.pointPlacement;
 	          if (o = Math.max(o, i), !t.single || s) {
 	            let t = e.is("xrange") ? !r : r;
-	            n = Math.max(n, t && P(l) ? 0 : i / 2), h = Math.max(h, t && "on" === l ? 0 : i);
+	            a = Math.max(a, t && P(l) ? 0 : i / 2), h = Math.max(h, t && "on" === l ? 0 : i);
 	          }
-	        }), l = t.ordinal && t.ordinal.slope && a ? t.ordinal.slope / a : 1, t.minPointOffset = n *= l, t.pointRangePadding = h *= l, t.pointRange = Math.min(o, t.single && s ? 1 : e), r && a && (t.closestPointRange = a)), t.translationSlope = t.transA = d = t.staticScale || t.len / (e + h || 1), t.transB = t.horiz ? t.left : t.bottom, t.minPixelPadding = d * n, k(this, "afterSetAxisTranslation");
+	        }), l = t.ordinal && t.ordinal.slope && n ? t.ordinal.slope / n : 1, t.minPointOffset = a *= l, t.pointRangePadding = h *= l, t.pointRange = Math.min(o, t.single && s ? 1 : e), r && n && (t.closestPointRange = n)), t.translationSlope = t.transA = d = t.staticScale || t.len / (e + h || 1), t.transB = t.horiz ? t.left : t.bottom, t.minPixelPadding = d * a, k(this, "afterSetAxisTranslation");
 	      }
 	      minFromRange() {
 	        let {
@@ -12938,8 +12903,8 @@ var highcharts = {exports: {}};
 	            dataMax: s,
 	            dataMin: r,
 	            dateTime: o,
-	            isXAxis: a,
-	            logarithmic: n,
+	            isXAxis: n,
+	            logarithmic: a,
 	            options: h,
 	            softThreshold: l
 	          } = this,
@@ -12963,14 +12928,14 @@ var highcharts = {exports: {}};
 	          O,
 	          D,
 	          I;
-	        if (o || e || b || this.getTickAmount(), D = E(this.userMin, h.min), I = E(this.userMax, h.max), b ? (this.linkedParent = b, A = b.getExtremes(), this.min = E(A.min, A.dataMin), this.max = E(A.max, A.dataMax), h.type !== b.options.type && S(11, !0, i)) : (l && y(d) && T(s) && T(r) && (r >= d ? (L = d, M = 0) : s <= d && (O = d, C = 0)), this.min = E(D, L, r), this.max = E(I, O, s)), T(this.max) && T(this.min) && (n && (this.positiveValuesOnly && !t && 0 >= Math.min(this.min, E(r, this.min)) && S(10, !0, i), this.min = x(n.log2lin(this.min), 16), this.max = x(n.log2lin(this.max), 16)), this.range && T(r) && (this.userMin = this.min = D = Math.max(r, this.minFromRange() || 0), this.userMax = I = this.max, this.range = void 0)), k(this, "foundExtremes"), this.adjustForMinRange(), T(this.min) && T(this.max)) {
+	        if (o || e || b || this.getTickAmount(), D = E(this.userMin, h.min), I = E(this.userMax, h.max), b ? (this.linkedParent = b, A = b.getExtremes(), this.min = E(A.min, A.dataMin), this.max = E(A.max, A.dataMax), h.type !== b.options.type && S(11, !0, i)) : (l && y(d) && T(s) && T(r) && (r >= d ? (L = d, M = 0) : s <= d && (O = d, C = 0)), this.min = E(D, L, r), this.max = E(I, O, s)), T(this.max) && T(this.min) && (a && (this.positiveValuesOnly && !t && 0 >= Math.min(this.min, E(r, this.min)) && S(10, !0, i), this.min = x(a.log2lin(this.min), 16), this.max = x(a.log2lin(this.max), 16)), this.range && T(r) && (this.userMin = this.min = D = Math.max(r, this.minFromRange() || 0), this.userMax = I = this.max, this.range = void 0)), k(this, "foundExtremes"), this.adjustForMinRange(), T(this.min) && T(this.max)) {
 	          if (!T(this.userMin) && T(m) && m < this.min && (this.min = D = m), !T(this.userMax) && T(f) && f > this.max && (this.max = I = f), e || this.axisPointRange || this.stacking?.usePercentage || b || !(w = this.max - this.min) || (!y(D) && M && (this.min -= w * M), y(I) || !C || (this.max += w * C)), !T(this.userMin) && T(u) && (this.min = Math.max(this.min, u)), !T(this.userMax) && T(p) && (this.max = Math.min(this.max, p)), l && T(r) && T(s)) {
 	            let t = d || 0;
 	            !y(D) && this.min < t && r >= t ? this.min = h.minRange ? Math.min(t, this.max - c) : t : !y(I) && this.max > t && s <= t && (this.max = h.minRange ? Math.max(t, this.min + c) : t);
 	          }
 	          !i.polar && this.min > this.max && (y(h.min) ? this.max = this.min : y(h.max) && (this.min = this.max)), w = this.max - this.min;
 	        }
-	        if (this.min !== this.max && T(this.min) && T(this.max) ? b && !P && v === b.options.tickPixelInterval ? this.tickInterval = P = b.tickInterval : this.tickInterval = E(P, this.tickAmount ? w / Math.max(this.tickAmount - 1, 1) : void 0, e ? 1 : w * v / Math.max(this.len, v)) : this.tickInterval = 1, a && !t) {
+	        if (this.min !== this.max && T(this.min) && T(this.max) ? b && !P && v === b.options.tickPixelInterval ? this.tickInterval = P = b.tickInterval : this.tickInterval = E(P, this.tickAmount ? w / Math.max(this.tickAmount - 1, 1) : void 0, e ? 1 : w * v / Math.max(this.len, v)) : this.tickInterval = 1, n && !t) {
 	          let t = this.min !== this.old?.min || this.max !== this.old?.max;
 	          this.series.forEach(function (e) {
 	            e.forceCrop = e.forceCropping?.(), e.processData(t);
@@ -12980,7 +12945,7 @@ var highcharts = {exports: {}};
 	        }
 	        this.setAxisTranslation(), k(this, "initialAxisTranslation"), this.pointRange && !P && (this.tickInterval = Math.max(this.pointRange, this.tickInterval));
 	        let j = E(h.minTickInterval, o && !this.series.some(t => t.noSharedTooltip) ? this.closestPointRange : 0);
-	        !P && this.tickInterval < j && (this.tickInterval = j), o || n || P || (this.tickInterval = z(this, this.tickInterval)), this.tickAmount || (this.tickInterval = this.unsquish()), this.setTickPositions();
+	        !P && this.tickInterval < j && (this.tickInterval = j), o || a || P || (this.tickInterval = z(this, this.tickInterval)), this.tickAmount || (this.tickInterval = this.unsquish()), this.setTickPositions();
 	      }
 	      setTickPositions() {
 	        let t = this.options,
@@ -12989,18 +12954,18 @@ var highcharts = {exports: {}};
 	          s = this.getMinorTickInterval(),
 	          r = !this.isPanning,
 	          o = r && t.startOnTick,
-	          a = r && t.endOnTick,
-	          n = [],
+	          n = r && t.endOnTick,
+	          a = [],
 	          h;
-	        if (this.tickmarkOffset = this.categories && "between" === t.tickmarkPlacement && 1 === this.tickInterval ? .5 : 0, this.minorTickInterval = "auto" === s && this.tickInterval ? this.tickInterval / t.minorTicksPerMajor : s, this.single = this.min === this.max && y(this.min) && !this.tickAmount && (this.min % 1 == 0 || !1 !== t.allowDecimals), e) n = e.slice();else if (T(this.min) && T(this.max)) {
-	          if (!this.ordinal?.positions && (this.max - this.min) / this.tickInterval > Math.max(2 * this.len, 200)) n = [this.min, this.max], S(19, !1, this.chart);else if (this.dateTime) n = this.getTimeTicks(this.dateTime.normalizeTimeTickInterval(this.tickInterval, t.units), this.min, this.max, t.startOfWeek, this.ordinal?.positions, this.closestPointRange, !0);else if (this.logarithmic) n = this.logarithmic.getLogTickPositions(this.tickInterval, this.min, this.max);else {
+	        if (this.tickmarkOffset = this.categories && "between" === t.tickmarkPlacement && 1 === this.tickInterval ? .5 : 0, this.minorTickInterval = "auto" === s && this.tickInterval ? this.tickInterval / t.minorTicksPerMajor : s, this.single = this.min === this.max && y(this.min) && !this.tickAmount && (this.min % 1 == 0 || !1 !== t.allowDecimals), e) a = e.slice();else if (T(this.min) && T(this.max)) {
+	          if (!this.ordinal?.positions && (this.max - this.min) / this.tickInterval > Math.max(2 * this.len, 200)) a = [this.min, this.max], S(19, !1, this.chart);else if (this.dateTime) a = this.getTimeTicks(this.dateTime.normalizeTimeTickInterval(this.tickInterval, t.units), this.min, this.max, t.startOfWeek, this.ordinal?.positions, this.closestPointRange, !0);else if (this.logarithmic) a = this.logarithmic.getLogTickPositions(this.tickInterval, this.min, this.max);else {
 	            let t = this.tickInterval,
 	              e = t;
-	            for (; e <= 2 * t;) if (n = this.getLinearTickPositions(this.tickInterval, this.min, this.max), this.tickAmount && n.length > this.tickAmount) this.tickInterval = z(this, e *= 1.1);else break;
+	            for (; e <= 2 * t;) if (a = this.getLinearTickPositions(this.tickInterval, this.min, this.max), this.tickAmount && a.length > this.tickAmount) this.tickInterval = z(this, e *= 1.1);else break;
 	          }
-	          n.length > this.len && (n = [n[0], n[n.length - 1]])[0] === n[1] && (n.length = 1), i && (this.tickPositions = n, (h = i.apply(this, [this.min, this.max])) && (n = h));
+	          a.length > this.len && (a = [a[0], a[a.length - 1]])[0] === a[1] && (a.length = 1), i && (this.tickPositions = a, (h = i.apply(this, [this.min, this.max])) && (a = h));
 	        }
-	        this.tickPositions = n, this.paddedTicks = n.slice(0), this.trimTicks(n, o, a), !this.isLinked && T(this.min) && T(this.max) && (this.single && n.length < 2 && !this.categories && !this.series.some(t => t.is("heatmap") && "between" === t.options.pointPlacement) && (this.min -= .5, this.max += .5), e || h || this.adjustTickAmount()), k(this, "afterSetTickPositions");
+	        this.tickPositions = a, this.paddedTicks = a.slice(0), this.trimTicks(a, o, n), !this.isLinked && T(this.min) && T(this.max) && (this.single && a.length < 2 && !this.categories && !this.series.some(t => t.is("heatmap") && "between" === t.options.pointPlacement) && (this.min -= .5, this.max += .5), e || h || this.adjustTickAmount()), k(this, "afterSetTickPositions");
 	      }
 	      trimTicks(t, e, i) {
 	        let s = t[0],
@@ -13019,9 +12984,9 @@ var highcharts = {exports: {}};
 	          s = [this],
 	          r = e.options,
 	          o = i.options.chart,
-	          a = "yAxis" === this.coll && o.alignThresholds,
-	          n = [];
-	        if (e.thresholdAlignment = void 0, (!1 !== o.alignTicks && r.alignTicks || a) && !1 !== r.startOnTick && !1 !== r.endOnTick && !e.logarithmic) {
+	          n = "yAxis" === this.coll && o.alignThresholds,
+	          a = [];
+	        if (e.thresholdAlignment = void 0, (!1 !== o.alignTicks && r.alignTicks || n) && !1 !== r.startOnTick && !1 !== r.endOnTick && !e.logarithmic) {
 	          let r = t => {
 	              let {
 	                horiz: e,
@@ -13032,17 +12997,17 @@ var highcharts = {exports: {}};
 	            o = r(this);
 	          i[this.coll].forEach(function (i) {
 	            let {
-	              series: a
+	              series: n
 	            } = i;
-	            a.length && a.some(t => t.visible) && i !== e && r(i) === o && (t = !0, s.push(i));
+	            n.length && n.some(t => t.visible) && i !== e && r(i) === o && (t = !0, s.push(i));
 	          });
 	        }
-	        if (t && a) {
+	        if (t && n) {
 	          s.forEach(t => {
 	            let i = t.getThresholdAlignment(e);
-	            T(i) && n.push(i);
+	            T(i) && a.push(i);
 	          });
-	          let t = n.length > 1 ? n.reduce((t, e) => t += e, 0) / n.length : void 0;
+	          let t = a.length > 1 ? a.reduce((t, e) => t += e, 0) / a.length : void 0;
 	          s.forEach(e => {
 	            e.thresholdAlignment = t;
 	          });
@@ -13069,8 +13034,8 @@ var highcharts = {exports: {}};
 	            min: s,
 	            options: r,
 	            tickPositions: o,
-	            tickAmount: a,
-	            thresholdAlignment: n
+	            tickAmount: n,
+	            thresholdAlignment: a
 	          } = t,
 	          h = o?.length,
 	          l = E(t.threshold, t.softThreshold ? 0 : null),
@@ -13080,20 +13045,20 @@ var highcharts = {exports: {}};
 	          u,
 	          g = () => o.push(x(o[o.length - 1] + p)),
 	          f = () => o.unshift(x(o[0] - p));
-	        if (T(n) && (u = n < .5 ? Math.ceil(n * (a - 1)) : Math.floor(n * (a - 1)), r.reversed && (u = a - 1 - u)), t.hasData() && T(s) && T(i)) {
-	          let n = () => {
-	            t.transA *= (h - 1) / (a - 1), t.min = r.startOnTick ? o[0] : Math.min(s, o[0]), t.max = r.endOnTick ? o[o.length - 1] : Math.max(i, o[o.length - 1]);
+	        if (T(a) && (u = a < .5 ? Math.ceil(a * (n - 1)) : Math.floor(a * (n - 1)), r.reversed && (u = n - 1 - u)), t.hasData() && T(s) && T(i)) {
+	          let a = () => {
+	            t.transA *= (h - 1) / (n - 1), t.min = r.startOnTick ? o[0] : Math.min(s, o[0]), t.max = r.endOnTick ? o[o.length - 1] : Math.max(i, o[o.length - 1]);
 	          };
 	          if (T(u) && T(t.threshold)) {
-	            for (; o[u] !== l || o.length !== a || o[0] > s || o[o.length - 1] < i;) {
-	              for (o.length = 0, o.push(t.threshold); o.length < a;) void 0 === o[u] || o[u] > t.threshold ? f() : g();
+	            for (; o[u] !== l || o.length !== n || o[0] > s || o[o.length - 1] < i;) {
+	              for (o.length = 0, o.push(t.threshold); o.length < n;) void 0 === o[u] || o[u] > t.threshold ? f() : g();
 	              if (p > 8 * t.tickInterval) break;
 	              p *= 2;
 	            }
-	            n();
-	          } else if (h < a) {
-	            for (; o.length < a;) o.length % 2 || s === l ? g() : f();
-	            n();
+	            a();
+	          } else if (h < n) {
+	            for (; o.length < n;) o.length % 2 || s === l ? g() : f();
+	            a();
 	          }
 	          if (y(e)) {
 	            for (c = d = o.length; c--;) (3 === e && c % 2 == 1 || e <= 2 && c > 0 && c < d - 1) && o.splice(c, 1);
@@ -13131,9 +13096,9 @@ var highcharts = {exports: {}};
 	          s = this.horiz,
 	          r = this.width = Math.round(I(E(e.width, t.plotWidth - i[3] + i[1]), t.plotWidth)),
 	          o = this.height = Math.round(I(E(e.height, t.plotHeight - i[0] + i[2]), t.plotHeight)),
-	          a = this.top = Math.round(I(E(e.top, t.plotTop + i[0]), t.plotHeight, t.plotTop)),
-	          n = this.left = Math.round(I(E(e.left, t.plotLeft + i[3]), t.plotWidth, t.plotLeft));
-	        this.bottom = t.chartHeight - o - a, this.right = t.chartWidth - r - n, this.len = Math.max(s ? r : o, 0), this.pos = s ? n : a;
+	          n = this.top = Math.round(I(E(e.top, t.plotTop + i[0]), t.plotHeight, t.plotTop)),
+	          a = this.left = Math.round(I(E(e.left, t.plotLeft + i[3]), t.plotWidth, t.plotLeft));
+	        this.bottom = t.chartHeight - o - n, this.right = t.chartWidth - r - a, this.len = Math.max(s ? r : o, 0), this.pos = s ? a : n;
 	      }
 	      getExtremes() {
 	        let t = this.logarithmic;
@@ -13185,11 +13150,11 @@ var highcharts = {exports: {}};
 	          s = this.tickInterval,
 	          r = this.len / (((this.categories ? 1 : 0) + this.max - this.min) / s),
 	          o = t.rotation,
-	          a = x(.8 * this.labelMetrics().h),
-	          n = Math.max(this.max - this.min, 0),
+	          n = x(.8 * this.labelMetrics().h),
+	          a = Math.max(this.max - this.min, 0),
 	          h = function (t) {
 	            let i = (t + 2 * e) / (r || 1);
-	            return (i = i > 1 ? Math.ceil(i) : 1) * s > n && t !== 1 / 0 && r !== 1 / 0 && n && (i = Math.ceil(n / s)), x(i * s);
+	            return (i = i > 1 ? Math.ceil(i) : 1) * s > a && t !== 1 / 0 && r !== 1 / 0 && a && (i = Math.ceil(a / s)), x(i * s);
 	          },
 	          l = s,
 	          d,
@@ -13198,9 +13163,9 @@ var highcharts = {exports: {}};
 	        if (i) {
 	          if (!t.staggerLines && (T(o) ? p = [o] : r < t.autoRotationLimit && (p = t.autoRotation)), p) {
 	            let t, e;
-	            for (let i of p) (i === o || i && i >= -90 && i <= 90) && (e = (t = h(Math.abs(a / Math.sin(u * i)))) + Math.abs(i / 360)) < c && (c = e, d = i, l = t);
+	            for (let i of p) (i === o || i && i >= -90 && i <= 90) && (e = (t = h(Math.abs(n / Math.sin(u * i)))) + Math.abs(i / 360)) < c && (c = e, d = i, l = t);
 	          }
-	        } else l = h(.75 * a);
+	        } else l = h(.75 * n);
 	        return this.autoRotation = p, this.labelRotation = E(d, T(o) ? o : 0), t.step ? s : l;
 	      }
 	      getSlotWidth(t) {
@@ -13225,9 +13190,9 @@ var highcharts = {exports: {}};
 	          s = this.ticks,
 	          r = this.options.labels,
 	          o = r.style,
-	          a = this.horiz,
-	          n = this.getSlotWidth(),
-	          h = Math.max(1, Math.round(n - (a ? 2 * (r.padding || 0) : r.distance || 0))),
+	          n = this.horiz,
+	          a = this.getSlotWidth(),
+	          h = Math.max(1, Math.round(a - (n ? 2 * (r.padding || 0) : r.distance || 0))),
 	          l = {},
 	          d = this.labelMetrics(),
 	          c = o.textOverflow,
@@ -13239,17 +13204,17 @@ var highcharts = {exports: {}};
 	        if (P(r.rotation) || (l.rotation = r.rotation || 0), i.forEach(function (t) {
 	          let e = s[t];
 	          e.movedLabel && e.replaceMovedLabel(), e && e.label && e.label.textPxLength > g && (g = e.label.textPxLength);
-	        }), this.maxLabelLength = g, this.autoRotation) g > h && g > d.h ? l.rotation = this.labelRotation : this.labelRotation = 0;else if (n && (p = h, !c)) for (u = "clip", m = i.length; !a && m--;) (f = s[i[m]].label) && ("ellipsis" === f.styles.textOverflow ? f.css({
+	        }), this.maxLabelLength = g, this.autoRotation) g > h && g > d.h ? l.rotation = this.labelRotation : this.labelRotation = 0;else if (a && (p = h, !c)) for (u = "clip", m = i.length; !n && m--;) (f = s[i[m]].label) && ("ellipsis" === f.styles.textOverflow ? f.css({
 	          textOverflow: "clip"
-	        }) : f.textPxLength > n && f.css({
-	          width: n + "px"
+	        }) : f.textPxLength > a && f.css({
+	          width: a + "px"
 	        }), f.getBBox().height > this.len / i.length - (d.h - d.f) && (f.specificTextOverflow = "ellipsis"));
 	        l.rotation && (p = g > .5 * t.chartHeight ? .33 * t.chartHeight : g, c || (u = "ellipsis")), this.labelAlign = r.align || this.autoLabelAlign(this.labelRotation), this.labelAlign && (l.align = this.labelAlign), i.forEach(function (t) {
 	          let e = s[t],
 	            i = e && e.label,
 	            r = o.width,
-	            a = {};
-	          i && (i.attr(l), e.shortenLabel ? e.shortenLabel() : p && !r && "nowrap" !== o.whiteSpace && (p < i.textPxLength || "SPAN" === i.element.tagName) ? (a.width = p + "px", c || (a.textOverflow = i.specificTextOverflow || u), i.css(a)) : !i.styles.width || a.width || r || i.css({
+	            n = {};
+	          i && (i.attr(l), e.shortenLabel ? e.shortenLabel() : p && !r && "nowrap" !== o.whiteSpace && (p < i.textPxLength || "SPAN" === i.element.tagName) ? (n.width = p + "px", c || (n.textOverflow = i.specificTextOverflow || u), i.css(n)) : !i.styles.width || n.width || r || i.css({
 	            width: null
 	          }), delete i.specificTextOverflow, e.rotation = l.rotation);
 	        }, this), this.tickRotCorr = e.rotCorr(d.b, this.labelRotation || 0, 0 !== this.side);
@@ -13265,7 +13230,7 @@ var highcharts = {exports: {}};
 	          s = this.horiz,
 	          r = this.opposite,
 	          o = this.options.title,
-	          a = this.chart.styledMode;
+	          n = this.chart.styledMode;
 	        this.axisTitle || ((e = o.textAlign) || (e = (s ? {
 	          low: "left",
 	          middle: "center",
@@ -13278,13 +13243,13 @@ var highcharts = {exports: {}};
 	          zIndex: 7,
 	          rotation: o.rotation || 0,
 	          align: e
-	        }).addClass("highcharts-axis-title"), a || this.axisTitle.css(L(o.style)), this.axisTitle.add(this.axisGroup), this.axisTitle.isNew = !0), a || o.style.width || this.isRadial || this.axisTitle.css({
+	        }).addClass("highcharts-axis-title"), n || this.axisTitle.css(L(o.style)), this.axisTitle.add(this.axisGroup), this.axisTitle.isNew = !0), n || o.style.width || this.isRadial || this.axisTitle.css({
 	          width: this.len + "px"
 	        }), this.axisTitle[t ? "show" : "hide"](t);
 	      }
 	      generateTick(t) {
 	        let e = this.ticks;
-	        e[t] ? e[t].addLabel() : e[t] = new a(this, t);
+	        e[t] ? e[t].addLabel() : e[t] = new n(this, t);
 	      }
 	      createGroups() {
 	        let {
@@ -13294,8 +13259,8 @@ var highcharts = {exports: {}};
 	            options: s
 	          } = this,
 	          r = e.renderer,
-	          o = (e, o, a) => r.g(e).attr({
-	            zIndex: a
+	          o = (e, o, n) => r.g(e).attr({
+	            zIndex: n
 	          }).addClass(`highcharts-${i.toLowerCase()}${o} ` + (this.isRadial ? `highcharts-radial-axis${o} ` : "") + (s.className || "")).add(t);
 	        this.axisGroup || (this.gridGroup = o("grid", "-grid", s.gridZIndex), this.axisGroup = o("axis", "", s.zIndex), this.labelGroup = o("axis-labels", "-labels", s.labels.zIndex));
 	      }
@@ -13307,8 +13272,8 @@ var highcharts = {exports: {}};
 	            options: s,
 	            side: r,
 	            ticks: o,
-	            tickPositions: a,
-	            coll: n
+	            tickPositions: n,
+	            coll: a
 	          } = t,
 	          h = e.inverted && !t.isZAxis ? [1, 0, 3, 2][r] : r,
 	          l = t.hasData(),
@@ -13325,21 +13290,21 @@ var highcharts = {exports: {}};
 	          S = 0,
 	          C,
 	          M;
-	        if (t.showAxis = m = l || s.showEmpty, t.staggerLines = t.horiz && c.staggerLines || void 0, t.createGroups(), l || t.isLinked ? (a.forEach(function (e) {
+	        if (t.showAxis = m = l || s.showEmpty, t.staggerLines = t.horiz && c.staggerLines || void 0, t.createGroups(), l || t.isLinked ? (n.forEach(function (e) {
 	          t.generateTick(e);
 	        }), t.renderUnsquish(), t.reserveSpaceDefault = 0 === r || 2 === r || {
 	          1: "left",
 	          3: "right"
-	        }[r] === t.labelAlign, E(c.reserveSpace, !p && null, "center" === t.labelAlign || null, t.reserveSpaceDefault) && a.forEach(function (t) {
+	        }[r] === t.labelAlign, E(c.reserveSpace, !p && null, "center" === t.labelAlign || null, t.reserveSpaceDefault) && n.forEach(function (t) {
 	          S = Math.max(o[t].getLabelSize(), S);
 	        }), t.staggerLines && (S *= t.staggerLines), t.labelOffset = S * (t.opposite ? -1 : 1)) : D(o, function (t, e) {
 	          t.destroy(), delete o[e];
 	        }), d?.text && !1 !== d.enabled && (t.addTitle(m), m && !p && !1 !== d.reserveSpace && (t.titleOffset = x = t.axisTitle.getBBox()[i ? "height" : "width"], v = y(b = d.offset) ? 0 : E(d.margin, i ? 5 : 10))), t.renderLine(), t.offset = f * E(s.offset, u[r] ? u[r] + (s.margin || 0) : 0), t.tickRotCorr = t.tickRotCorr || {
 	          x: 0,
 	          y: 0
-	        }, M = 0 === r ? -t.labelMetrics().h : 2 === r ? t.tickRotCorr.y : 0, C = Math.abs(S) + v, S && (C -= M, C += f * (i ? E(c.y, t.tickRotCorr.y + f * c.distance) : E(c.x, f * c.distance))), t.axisTitleMargin = E(b, C), t.getMaxLabelDimensions && (t.maxLabelDimensions = t.getMaxLabelDimensions(o, a)), "colorAxis" !== n && g) {
+	        }, M = 0 === r ? -t.labelMetrics().h : 2 === r ? t.tickRotCorr.y : 0, C = Math.abs(S) + v, S && (C -= M, C += f * (i ? E(c.y, t.tickRotCorr.y + f * c.distance) : E(c.x, f * c.distance))), t.axisTitleMargin = E(b, C), t.getMaxLabelDimensions && (t.maxLabelDimensions = t.getMaxLabelDimensions(o, n)), "colorAxis" !== a && g) {
 	          let e = this.tickSize("tick");
-	          u[r] = Math.max(u[r], (t.axisTitleMargin || 0) + x + f * t.offset, C, a && a.length && e ? e[0] + f * t.offset : 0);
+	          u[r] = Math.max(u[r], (t.axisTitleMargin || 0) + x + f * t.offset, C, n && n.length && e ? e[0] + f * t.offset : 0);
 	          let i = !t.axisLine || s.offset ? 0 : t.axisLine.strokeWidth() / 2;
 	          g[h] = Math.max(g[h], i);
 	        }
@@ -13351,8 +13316,8 @@ var highcharts = {exports: {}};
 	          s = this.offset,
 	          r = this.horiz,
 	          o = this.left + (i ? this.width : 0) + s,
-	          a = e.chartHeight - this.bottom - (i ? this.height : 0) + s;
-	        return i && (t *= -1), e.renderer.crispLine([["M", r ? this.left : o, r ? a : this.top], ["L", r ? e.chartWidth - this.right : o, r ? a : e.chartHeight - this.bottom]], t);
+	          n = e.chartHeight - this.bottom - (i ? this.height : 0) + s;
+	        return i && (t *= -1), e.renderer.crispLine([["M", r ? this.left : o, r ? n : this.top], ["L", r ? e.chartWidth - this.right : o, r ? n : e.chartHeight - this.bottom]], t);
 	      }
 	      renderLine() {
 	        this.axisLine || (this.axisLine = this.chart.renderer.path().addClass("highcharts-axis-line").add(this.axisGroup), this.chart.styledMode || this.axisLine.attr({
@@ -13367,22 +13332,22 @@ var highcharts = {exports: {}};
 	          s = this.top,
 	          r = this.len,
 	          o = this.options.title,
-	          a = e ? i : s,
-	          n = this.opposite,
+	          n = e ? i : s,
+	          a = this.opposite,
 	          h = this.offset,
 	          l = o.x,
 	          d = o.y,
 	          c = this.chart.renderer.fontMetrics(t),
 	          p = t ? Math.max(t.getBBox(!1, 0).height - c.h - 1, 0) : 0,
 	          u = {
-	            low: a + (e ? 0 : r),
-	            middle: a + r / 2,
-	            high: a + (e ? r : 0)
+	            low: n + (e ? 0 : r),
+	            middle: n + r / 2,
+	            high: n + (e ? r : 0)
 	          }[o.align],
-	          g = (e ? s + this.height : i) + (e ? 1 : -1) * (n ? -1 : 1) * (this.axisTitleMargin || 0) + [-p, p, c.f, -p][this.side],
+	          g = (e ? s + this.height : i) + (e ? 1 : -1) * (a ? -1 : 1) * (this.axisTitleMargin || 0) + [-p, p, c.f, -p][this.side],
 	          f = {
-	            x: e ? u + l : g + (n ? this.width : 0) + h + l,
-	            y: e ? g + d - (n ? this.height : 0) + h : u + d
+	            x: e ? u + l : g + (a ? this.width : 0) + h + l,
+	            y: e ? g + d - (a ? this.height : 0) + h : u + d
 	          };
 	        return k(this, "afterGetTitlePosition", {
 	          titlePosition: f
@@ -13390,19 +13355,19 @@ var highcharts = {exports: {}};
 	      }
 	      renderMinorTick(t, e) {
 	        let i = this.minorTicks;
-	        i[t] || (i[t] = new a(this, t, "minor")), e && i[t].isNew && i[t].render(null, !0), i[t].render(null, !1, 1);
+	        i[t] || (i[t] = new n(this, t, "minor")), e && i[t].isNew && i[t].render(null, !0), i[t].render(null, !1, 1);
 	      }
 	      renderTick(t, e, i) {
 	        let s = this.isLinked,
 	          r = this.ticks;
-	        (!s || t >= this.min && t <= this.max || this.grid && this.grid.isColumn) && (r[t] || (r[t] = new a(this, t)), i && r[t].isNew && r[t].render(e, !0, -1), r[t].render(e));
+	        (!s || t >= this.min && t <= this.max || this.grid && this.grid.isColumn) && (r[t] || (r[t] = new n(this, t)), i && r[t].isNew && r[t].render(e, !0, -1), r[t].render(e));
 	      }
 	      render() {
 	        let t, e;
 	        let i = this,
 	          s = i.chart,
 	          r = i.logarithmic,
-	          n = s.renderer,
+	          a = s.renderer,
 	          l = i.options,
 	          d = i.isLinked,
 	          c = i.tickPositions,
@@ -13416,7 +13381,7 @@ var highcharts = {exports: {}};
 	          b = i.tickmarkOffset,
 	          v = i.axisLine,
 	          S = i.showAxis,
-	          C = h(n.globalAnimation);
+	          C = h(a.globalAnimation);
 	        if (i.labelEdge.length = 0, i.overlap = !1, [u, g, f].forEach(function (t) {
 	          D(t, function (t) {
 	            t.isActive = !1;
@@ -13430,18 +13395,18 @@ var highcharts = {exports: {}};
 	          }
 	        }
 	        if (i.hasData() || d) {
-	          let n = i.chart.hasRendered && i.old && T(i.old.min);
+	          let a = i.chart.hasRendered && i.old && T(i.old.min);
 	          i.minorTickInterval && !i.categories && i.getMinorTickPositions().forEach(function (t) {
-	            i.renderMinorTick(t, n);
+	            i.renderMinorTick(t, a);
 	          }), c.length && (c.forEach(function (t, e) {
-	            i.renderTick(t, e, n);
-	          }), b && (0 === i.min || i.single) && (u[-1] || (u[-1] = new a(i, -1, null, !0)), u[-1].render(-1))), x && c.forEach(function (a, n) {
-	            e = void 0 !== c[n + 1] ? c[n + 1] + b : i.max - b, n % 2 == 0 && a < i.max && e <= i.max + (s.polar ? -b : b) && (f[a] || (f[a] = new o.PlotLineOrBand(i, {})), t = a + b, f[a].options = {
+	            i.renderTick(t, e, a);
+	          }), b && (0 === i.min || i.single) && (u[-1] || (u[-1] = new n(i, -1, null, !0)), u[-1].render(-1))), x && c.forEach(function (n, a) {
+	            e = void 0 !== c[a + 1] ? c[a + 1] + b : i.max - b, a % 2 == 0 && n < i.max && e <= i.max + (s.polar ? -b : b) && (f[n] || (f[n] = new o.PlotLineOrBand(i, {})), t = n + b, f[n].options = {
 	              from: r ? r.lin2log(t) : t,
 	              to: r ? r.lin2log(e) : e,
 	              color: x,
 	              className: "highcharts-alternate-grid"
-	            }, f[a].render(), f[a].isActive = !0);
+	            }, f[n].render(), f[n].isActive = !0);
 	          }), i._addedPlotLB || (i._addedPlotLB = !0, (l.plotLines || []).concat(l.plotBands || []).forEach(function (t) {
 	            i.addPlotBandOrLine(t);
 	          }));
@@ -13499,8 +13464,8 @@ var highcharts = {exports: {}};
 	        let s = this.crosshair,
 	          r = E(s && s.snap, !0),
 	          o = this.chart,
-	          a,
 	          n,
+	          a,
 	          h,
 	          l = this.cross,
 	          d;
@@ -13508,15 +13473,15 @@ var highcharts = {exports: {}};
 	          e: t,
 	          point: e
 	        }), t || (t = this.cross && this.cross.e), s && !1 !== (y(e) || !r)) {
-	          if (r ? y(e) && (n = E("colorAxis" !== this.coll ? e.crosshairPos : null, this.isXAxis ? e.plotX : this.len - e.plotY)) : n = t && (this.horiz ? t.chartX - this.pos : this.len - t.chartY + this.pos), y(n) && (d = {
+	          if (r ? y(e) && (a = E("colorAxis" !== this.coll ? e.crosshairPos : null, this.isXAxis ? e.plotX : this.len - e.plotY)) : a = t && (this.horiz ? t.chartX - this.pos : this.len - t.chartY + this.pos), y(a) && (d = {
 	            value: e && (this.isXAxis ? e.x : E(e.stackY, e.y)),
-	            translatedValue: n
+	            translatedValue: a
 	          }, o.polar && C(d, {
 	            isCrosshair: !0,
 	            chartX: t && t.chartX,
 	            chartY: t && t.chartY,
 	            point: e
-	          }), a = this.getPlotLinePath(d) || null), !y(a)) {
+	          }), n = this.getPlotLinePath(d) || null), !y(n)) {
 	            this.hideCrosshair();
 	            return;
 	          }
@@ -13530,7 +13495,7 @@ var highcharts = {exports: {}};
 	          }), s.dashStyle && l.attr({
 	            dashstyle: s.dashStyle
 	          }))), l.show().attr({
-	            d: a
+	            d: n
 	          }), h && !s.width && l.attr({
 	            "stroke-width": this.transA
 	          }), this.cross.e = t;
@@ -13579,33 +13544,33 @@ var highcharts = {exports: {}};
 	      function e() {
 	        return this.chart.time.getTimeTicks.apply(this.chart.time, arguments);
 	      }
-	      function a() {
+	      function n() {
 	        if ("datetime" !== this.options.type) {
 	          this.dateTime = void 0;
 	          return;
 	        }
-	        this.dateTime || (this.dateTime = new n(this));
+	        this.dateTime || (this.dateTime = new a(this));
 	      }
 	      t.compose = function (t) {
-	        return t.keepProps.includes("dateTime") || (t.keepProps.push("dateTime"), t.prototype.getTimeTicks = e, i(t, "afterSetOptions", a)), t;
+	        return t.keepProps.includes("dateTime") || (t.keepProps.push("dateTime"), t.prototype.getTimeTicks = e, i(t, "afterSetOptions", n)), t;
 	      };
-	      class n {
+	      class a {
 	        constructor(t) {
 	          this.axis = t;
 	        }
 	        normalizeTimeTickInterval(t, e) {
 	          let i = e || [["millisecond", [1, 2, 5, 10, 20, 25, 50, 100, 200, 500]], ["second", [1, 2, 5, 10, 15, 30]], ["minute", [1, 2, 5, 10, 15, 30]], ["hour", [1, 2, 3, 4, 6, 8, 12]], ["day", [1, 2]], ["week", [1, 2]], ["month", [1, 2, 3, 4, 6]], ["year", null]],
-	            a = i[i.length - 1],
-	            n = o[a[0]],
-	            h = a[1],
+	            n = i[i.length - 1],
+	            a = o[n[0]],
+	            h = n[1],
 	            l;
-	          for (l = 0; l < i.length && (n = o[(a = i[l])[0]], h = a[1], !i[l + 1] || !(t <= (n * h[h.length - 1] + o[i[l + 1][0]]) / 2)); l++);
-	          n === o.year && t < 5 * n && (h = [1, 2, 5]);
-	          let d = r(t / n, h, "year" === a[0] ? Math.max(s(t / n), 1) : 1);
+	          for (l = 0; l < i.length && (a = o[(n = i[l])[0]], h = n[1], !i[l + 1] || !(t <= (a * h[h.length - 1] + o[i[l + 1][0]]) / 2)); l++);
+	          a === o.year && t < 5 * a && (h = [1, 2, 5]);
+	          let d = r(t / a, h, "year" === n[0] ? Math.max(s(t / a), 1) : 1);
 	          return {
-	            unitRange: n,
+	            unitRange: a,
 	            count: d,
-	            unitName: a[0]
+	            unitName: n[0]
 	          };
 	        }
 	        getXDateFormat(t, e) {
@@ -13616,7 +13581,7 @@ var highcharts = {exports: {}};
 	          return i.closestPointRange ? s.getDateFormat(i.closestPointRange, t, i.options.startOfWeek, e) || s.resolveDTLFormat(e.year).main : s.resolveDTLFormat(e.day).main;
 	        }
 	      }
-	      t.Additions = n;
+	      t.Additions = a;
 	    }(e || (e = {})), e;
 	  }), i(e, "Core/Axis/LogarithmicAxis.js", [e["Core/Utilities.js"]], function (t) {
 	    var e;
@@ -13629,7 +13594,7 @@ var highcharts = {exports: {}};
 	      function e(t) {
 	        let e = t.userOptions,
 	          i = this.logarithmic;
-	        "logarithmic" !== e.type ? this.logarithmic = void 0 : i || (i = this.logarithmic = new a(this));
+	        "logarithmic" !== e.type ? this.logarithmic = void 0 : i || (i = this.logarithmic = new n(this));
 	      }
 	      function o() {
 	        let t = this.logarithmic;
@@ -13642,28 +13607,28 @@ var highcharts = {exports: {}};
 	      t.compose = function (t) {
 	        return t.keepProps.includes("logarithmic") || (t.keepProps.push("logarithmic"), i(t, "init", e), i(t, "afterInit", o)), t;
 	      };
-	      class a {
+	      class n {
 	        constructor(t) {
 	          this.axis = t;
 	        }
 	        getLogTickPositions(t, e, i, o) {
-	          let a = this.axis,
-	            n = a.len,
-	            h = a.options,
+	          let n = this.axis,
+	            a = n.len,
+	            h = n.options,
 	            l = [];
-	          if (o || (this.minorAutoInterval = void 0), t >= .5) t = Math.round(t), l = a.getLinearTickPositions(t, e, i);else if (t >= .08) {
-	            let s, r, a, n, h, d, c;
+	          if (o || (this.minorAutoInterval = void 0), t >= .5) t = Math.round(t), l = n.getLinearTickPositions(t, e, i);else if (t >= .08) {
+	            let s, r, n, a, h, d, c;
 	            let p = Math.floor(e);
-	            for (s = t > .3 ? [1, 2, 4] : t > .15 ? [1, 2, 4, 6, 8] : [1, 2, 3, 4, 5, 6, 7, 8, 9], r = p; r < i + 1 && !c; r++) for (a = 0, n = s.length; a < n && !c; a++) (h = this.log2lin(this.lin2log(r) * s[a])) > e && (!o || d <= i) && void 0 !== d && l.push(d), d > i && (c = !0), d = h;
+	            for (s = t > .3 ? [1, 2, 4] : t > .15 ? [1, 2, 4, 6, 8] : [1, 2, 3, 4, 5, 6, 7, 8, 9], r = p; r < i + 1 && !c; r++) for (n = 0, a = s.length; n < a && !c; n++) (h = this.log2lin(this.lin2log(r) * s[n])) > e && (!o || d <= i) && void 0 !== d && l.push(d), d > i && (c = !0), d = h;
 	          } else {
 	            let d = this.lin2log(e),
 	              c = this.lin2log(i),
-	              p = o ? a.getMinorTickInterval() : h.tickInterval,
+	              p = o ? n.getMinorTickInterval() : h.tickInterval,
 	              u = h.tickPixelInterval / (o ? 5 : 1),
-	              g = o ? n / a.tickPositions.length : n;
-	            t = s(t = r("auto" === p ? null : p, this.minorAutoInterval, (c - d) * u / (g || 1))), l = a.getLinearTickPositions(t, d, c).map(this.log2lin), o || (this.minorAutoInterval = t / 5);
+	              g = o ? a / n.tickPositions.length : a;
+	            t = s(t = r("auto" === p ? null : p, this.minorAutoInterval, (c - d) * u / (g || 1))), l = n.getLinearTickPositions(t, d, c).map(this.log2lin), o || (this.minorAutoInterval = t / 5);
 	          }
-	          return o || (a.tickInterval = t), l;
+	          return o || (n.tickInterval = t), l;
 	        }
 	        lin2log(t) {
 	          return Math.pow(10, t);
@@ -13672,7 +13637,7 @@ var highcharts = {exports: {}};
 	          return Math.log(t) / Math.LN10;
 	        }
 	      }
-	      t.Additions = a;
+	      t.Additions = n;
 	    }(e || (e = {})), e;
 	  }), i(e, "Core/Axis/PlotLineOrBand/PlotLineOrBandAxis.js", [e["Core/Utilities.js"]], function (t) {
 	    var e;
@@ -13686,7 +13651,7 @@ var highcharts = {exports: {}};
 	      function o(t) {
 	        return this.addPlotBandOrLine(t, "plotBands");
 	      }
-	      function a(t, i) {
+	      function n(t, i) {
 	        let s = this.userOptions,
 	          r = new e(this, t);
 	        if (this.visible && (r = r.render()), r) {
@@ -13700,7 +13665,7 @@ var highcharts = {exports: {}};
 	        }
 	        return r;
 	      }
-	      function n(t) {
+	      function a(t) {
 	        return this.addPlotBandOrLine(t, "plotLines");
 	      }
 	      function h(t, e, i) {
@@ -13711,8 +13676,8 @@ var highcharts = {exports: {}};
 	            acrossPanes: i.acrossPanes
 	          }),
 	          o = [],
-	          a = this.horiz,
-	          n = !r(this.min) || !r(this.max) || t < this.min && e < this.min || t > this.max && e > this.max,
+	          n = this.horiz,
+	          a = !r(this.min) || !r(this.max) || t < this.min && e < this.min || t > this.max && e > this.max,
 	          h = this.getPlotLinePath({
 	            value: t,
 	            force: !0,
@@ -13721,12 +13686,12 @@ var highcharts = {exports: {}};
 	          l,
 	          d = 1,
 	          c;
-	        if (h && s) for (n && (c = h.toString() === s.toString(), d = 0), l = 0; l < h.length; l += 2) {
+	        if (h && s) for (a && (c = h.toString() === s.toString(), d = 0), l = 0; l < h.length; l += 2) {
 	          let t = h[l],
 	            e = h[l + 1],
 	            i = s[l],
 	            r = s[l + 1];
-	          ("M" === t[0] || "L" === t[0]) && ("M" === e[0] || "L" === e[0]) && ("M" === i[0] || "L" === i[0]) && ("M" === r[0] || "L" === r[0]) && (a && i[1] === t[1] ? (i[1] += d, r[1] += d) : a || i[2] !== t[2] || (i[2] += d, r[2] += d), o.push(["M", t[1], t[2]], ["L", e[1], e[2]], ["L", r[1], r[2]], ["L", i[1], i[2]], ["Z"])), o.isFlat = c;
+	          ("M" === t[0] || "L" === t[0]) && ("M" === e[0] || "L" === e[0]) && ("M" === i[0] || "L" === i[0]) && ("M" === r[0] || "L" === r[0]) && (n && i[1] === t[1] ? (i[1] += d, r[1] += d) : n || i[2] !== t[2] || (i[2] += d, r[2] += d), o.push(["M", t[1], t[2]], ["L", e[1], e[2]], ["L", r[1], r[2]], ["L", i[1], i[2]], ["Z"])), o.isFlat = c;
 	        }
 	        return o;
 	      }
@@ -13752,8 +13717,8 @@ var highcharts = {exports: {}};
 	        let r = i.prototype;
 	        return r.addPlotBand || (e = t, s(r, {
 	          addPlotBand: o,
-	          addPlotLine: n,
-	          addPlotBandOrLine: a,
+	          addPlotLine: a,
+	          addPlotBandOrLine: n,
 	          getPlotBandPath: h,
 	          removePlotBand: l,
 	          removePlotLine: c,
@@ -13767,8 +13732,8 @@ var highcharts = {exports: {}};
 	      arrayMin: s,
 	      defined: r,
 	      destroyObjectProperties: o,
-	      erase: a,
-	      fireEvent: n,
+	      erase: n,
+	      fireEvent: a,
 	      merge: h,
 	      objectEach: l,
 	      pick: d
@@ -13781,7 +13746,7 @@ var highcharts = {exports: {}};
 	        this.axis = t, this.options = e, this.id = e.id;
 	      }
 	      render() {
-	        n(this, "render");
+	        a(this, "render");
 	        let {
 	            axis: t,
 	            options: e
@@ -13792,7 +13757,7 @@ var highcharts = {exports: {}};
 	          } = t,
 	          {
 	            color: o,
-	            events: a,
+	            events: n,
 	            zIndex: c = 0
 	          } = e,
 	          p = {},
@@ -13823,9 +13788,9 @@ var highcharts = {exports: {}};
 	          if (!(r(f) && r(g))) return;
 	          S = t.getPlotBandPath(s?.log2lin(f) ?? f, s?.log2lin(g) ?? g, e);
 	        }
-	        return !this.eventsAdded && a && (l(a, (t, e) => {
+	        return !this.eventsAdded && n && (l(n, (t, e) => {
 	          v?.on(e, t => {
-	            a[e].apply(this, [t]);
+	            n[e].apply(this, [t]);
 	          });
 	        }), this.eventsAdded = !0), (w || !v.d) && S?.length ? v.attr({
 	          d: S
@@ -13840,15 +13805,15 @@ var highcharts = {exports: {}};
 	        }, y), this.renderLabel(y, S, k, c)) : b && b.hide(), this;
 	      }
 	      renderLabel(t, e, r, o) {
-	        let a = this.axis,
-	          n = a.chart.renderer,
+	        let n = this.axis,
+	          a = n.chart.renderer,
 	          l = this.label;
-	        l || (this.label = l = n.text(this.getLabelText(t), 0, 0, t.useHTML).attr({
+	        l || (this.label = l = a.text(this.getLabelText(t), 0, 0, t.useHTML).attr({
 	          align: t.textAlign || t.align,
 	          rotation: t.rotation,
 	          class: "highcharts-plot-" + (r ? "band" : "line") + "-label " + (t.className || ""),
 	          zIndex: o
-	        }), a.chart.styledMode || l.css(h({
+	        }), n.chart.styledMode || l.css(h({
 	          fontSize: "0.8em",
 	          textOverflow: "ellipsis"
 	        }, t.style)), l.add());
@@ -13862,9 +13827,9 @@ var highcharts = {exports: {}};
 	          width: i(d) - p,
 	          height: i(c) - u
 	        }), !l.alignValue || "left" === l.alignValue) {
-	          let e = t.clip ? a.width : a.chart.chartWidth;
+	          let e = t.clip ? n.width : n.chart.chartWidth;
 	          l.css({
-	            width: (90 === l.rotation ? a.height - (l.alignAttr.y - a.top) : e - (l.alignAttr.x - a.left)) + "px"
+	            width: (90 === l.rotation ? n.height - (l.alignAttr.y - n.top) : e - (l.alignAttr.x - n.left)) + "px"
 	          });
 	        }
 	        l.show(!0);
@@ -13873,14 +13838,14 @@ var highcharts = {exports: {}};
 	        return r(t.formatter) ? t.formatter.call(this) : t.text;
 	      }
 	      destroy() {
-	        a(this.axis.plotLinesAndBands, this), delete this.axis, o(this);
+	        n(this.axis.plotLinesAndBands, this), delete this.axis, o(this);
 	      }
 	    }
 	    return c;
 	  }), i(e, "Core/Tooltip.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Templating.js"], e["Core/Globals.js"], e["Core/Renderer/RendererUtilities.js"], e["Core/Renderer/RendererRegistry.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o) {
-	    var a;
+	    var n;
 	    let {
-	        animObject: n
+	        animObject: a
 	      } = t,
 	      {
 	        format: h
@@ -13940,15 +13905,15 @@ var highcharts = {exports: {}};
 	            pointer: r
 	          } = this,
 	          o = s.inverted,
-	          a = s.plotTop,
-	          n = s.plotLeft;
-	        if ((t = w(t))[0].series && t[0].series.yAxis && !t[0].series.yAxis.options.reversedStacks && (t = t.slice().reverse()), this.followPointer && e) void 0 === e.chartX && (e = r.normalize(e)), i = [e.chartX - n, e.chartY - a];else if (t[0].tooltipPos) i = t[0].tooltipPos;else {
+	          n = s.plotTop,
+	          a = s.plotLeft;
+	        if ((t = w(t))[0].series && t[0].series.yAxis && !t[0].series.yAxis.options.reversedStacks && (t = t.slice().reverse()), this.followPointer && e) void 0 === e.chartX && (e = r.normalize(e)), i = [e.chartX - a, e.chartY - n];else if (t[0].tooltipPos) i = t[0].tooltipPos;else {
 	          let s = 0,
 	            r = 0;
 	          t.forEach(function (t) {
 	            let e = t.pos(!0);
 	            e && (s += e[0], r += e[1]);
-	          }), s /= t.length, r /= t.length, this.shared && t.length > 1 && e && (o ? s = e.chartX : r = e.chartY), i = [s - n, r - a];
+	          }), s /= t.length, r /= t.length, this.shared && t.length > 1 && e && (o ? s = e.chartX : r = e.chartY), i = [s - a, r - n];
 	        }
 	        return i.map(Math.round);
 	      }
@@ -13963,8 +13928,8 @@ var highcharts = {exports: {}};
 	          e = this.chart.styledMode,
 	          s = this.options,
 	          o = this.split && this.allowShared,
-	          a = this.container,
-	          n = this.chart.renderer;
+	          n = this.container,
+	          a = this.chart.renderer;
 	        if (this.label) {
 	          let t = !this.label.hasClass("highcharts-label");
 	          (!o && t || o && !t) && this.destroy();
@@ -13973,14 +13938,14 @@ var highcharts = {exports: {}};
 	          if (this.outside) {
 	            let t = this.chart.options.chart.style,
 	              e = r.getRendererType();
-	            this.container = a = i.doc.createElement("div"), a.className = "highcharts-tooltip-container", f(a, {
+	            this.container = n = i.doc.createElement("div"), n.className = "highcharts-tooltip-container", f(n, {
 	              position: "absolute",
 	              top: "1px",
 	              pointerEvents: "none",
 	              zIndex: Math.max(this.options.style.zIndex || 0, (t && t.zIndex || 0) + 3)
-	            }), this.renderer = n = new e(a, 0, 0, t, void 0, void 0, n.styledMode);
+	            }), this.renderer = a = new e(n, 0, 0, t, void 0, void 0, a.styledMode);
 	          }
-	          if (o ? this.label = n.g("tooltip") : (this.label = n.label("", 0, 0, s.shape, void 0, void 0, s.useHTML, void 0, "tooltip").attr({
+	          if (o ? this.label = a.g("tooltip") : (this.label = a.label("", 0, 0, s.shape, void 0, void 0, s.useHTML, void 0, "tooltip").attr({
 	            padding: s.padding,
 	            r: s.borderRadius
 	          }), e || this.label.attr({
@@ -13992,7 +13957,7 @@ var highcharts = {exports: {}};
 	            let e = this.label;
 	            [e.xSetter, e.ySetter].forEach((i, s) => {
 	              e[s ? "ySetter" : "xSetter"] = r => {
-	                i.call(e, t.distance), e[s ? "y" : "x"] = r, a && (a.style[s ? "top" : "left"] = `${r}px`);
+	                i.call(e, t.distance), e[s ? "y" : "x"] = r, n && (n.style[s ? "top" : "left"] = `${r}px`);
 	              };
 	            });
 	          }
@@ -14000,7 +13965,7 @@ var highcharts = {exports: {}};
 	            zIndex: 8
 	          }).shadow(s.shadow).add();
 	        }
-	        return a && !a.parentElement && i.doc.body.appendChild(a), this.label;
+	        return n && !n.parentElement && i.doc.body.appendChild(n), this.label;
 	      }
 	      getPlayingField() {
 	        let {
@@ -14022,10 +13987,10 @@ var highcharts = {exports: {}};
 	            distance: s,
 	            chart: r,
 	            outside: o,
-	            pointer: a
+	            pointer: n
 	          } = this,
 	          {
-	            inverted: n,
+	            inverted: a,
 	            plotLeft: h,
 	            plotTop: l,
 	            polar: d
@@ -14035,34 +14000,34 @@ var highcharts = {exports: {}};
 	            plotY: p = 0
 	          } = i,
 	          u = {},
-	          g = n && i.h || 0,
+	          g = a && i.h || 0,
 	          {
 	            height: f,
 	            width: m
 	          } = this.getPlayingField(),
-	          x = a.getChartPosition(),
+	          x = n.getChartPosition(),
 	          y = t => t * x.scaleX,
 	          b = t => t * x.scaleY,
 	          v = i => {
-	            let a = "x" === i;
-	            return [i, a ? m : f, a ? t : e].concat(o ? [a ? y(t) : b(e), a ? x.left - s + y(c + h) : x.top - s + b(p + l), 0, a ? m : f] : [a ? t : e, a ? c + h : p + l, a ? h : l, a ? h + r.plotWidth : l + r.plotHeight]);
+	            let n = "x" === i;
+	            return [i, n ? m : f, n ? t : e].concat(o ? [n ? y(t) : b(e), n ? x.left - s + y(c + h) : x.top - s + b(p + l), 0, n ? m : f] : [n ? t : e, n ? c + h : p + l, n ? h : l, n ? h + r.plotWidth : l + r.plotHeight]);
 	          },
 	          S = v("y"),
 	          C = v("x"),
 	          M,
 	          w = !!i.negative;
 	        !d && r.hoverSeries?.yAxis?.reversed && (w = !w);
-	        let A = !this.followPointer && k(i.ttBelow, !d && !n === w),
-	          T = function (t, e, i, r, a, n, h) {
+	        let A = !this.followPointer && k(i.ttBelow, !d && !a === w),
+	          T = function (t, e, i, r, n, a, h) {
 	            let l = o ? "y" === t ? b(s) : y(s) : s,
 	              d = (i - r) / 2,
-	              c = r < a - s,
-	              p = a + s + r < e,
-	              f = a - l - i + d,
-	              m = a + l - d;
+	              c = r < n - s,
+	              p = n + s + r < e,
+	              f = n - l - i + d,
+	              m = n + l - d;
 	            if (A && p) u[t] = m;else if (!A && c) u[t] = f;else if (c) u[t] = Math.min(h - r, f - g < 0 ? f : f - g);else {
 	              if (!p) return !1;
-	              u[t] = Math.max(n, m + g + i > e ? m : m + g);
+	              u[t] = Math.max(a, m + g + i > e ? m : m + g);
 	            }
 	          },
 	          P = function (t, e, i, r, o) {
@@ -14075,7 +14040,7 @@ var highcharts = {exports: {}};
 	          O = () => {
 	            !1 !== T.apply(0, S) ? !1 !== P.apply(0, C) || M || (L(!0), O()) : M ? u.x = u.y = 0 : (L(!0), O());
 	          };
-	        return (n && !d || this.len > 1) && L(), O(), u;
+	        return (a && !d || this.len > 1) && L(), O(), u;
 	      }
 	      hide(t) {
 	        let e = this;
@@ -14099,23 +14064,23 @@ var highcharts = {exports: {}};
 	      }
 	      move(t, e, i, s) {
 	        let r = this,
-	          o = n(!r.isHidden && r.options.animation),
-	          a = r.followPointer || (r.len || 0) > 1,
+	          o = a(!r.isHidden && r.options.animation),
+	          n = r.followPointer || (r.len || 0) > 1,
 	          h = {
 	            x: t,
 	            y: e
 	          };
-	        a || (h.anchorX = i, h.anchorY = s), o.step = () => r.drawTracker(), r.getLabel().animate(h, o);
+	        n || (h.anchorX = i, h.anchorY = s), o.step = () => r.drawTracker(), r.getLabel().animate(h, o);
 	      }
 	      refresh(t, e) {
 	        let {
 	            chart: i,
 	            options: s,
 	            pointer: r,
-	            shared: a
+	            shared: n
 	          } = this,
-	          n = w(t),
-	          l = n[0],
+	          a = w(t),
+	          l = a[0],
 	          d = [],
 	          c = s.format,
 	          p = s.formatter || this.defaultFormatter,
@@ -14126,22 +14091,23 @@ var highcharts = {exports: {}};
 	        let f = this.getAnchor(t, e),
 	          m = f[0],
 	          x = f[1];
-	        a && this.allowShared ? (r.applyInactiveState(n), n.forEach(function (t) {
+	        n && this.allowShared ? (r.applyInactiveState(a), a.forEach(function (t) {
 	          t.setState("hover"), d.push(t.getLabelConfig());
 	        }), (g = l.getLabelConfig()).points = d) : g = l.getLabelConfig(), this.len = d.length;
 	        let v = S(c) ? h(c, g, i) : p.call(g, this),
 	          C = l.series;
 	        if (this.distance = k(C.tooltipOptions.distance, 16), !1 === v) this.hide();else {
-	          if (this.split && this.allowShared) this.renderSplit(v, n);else {
+	          if (this.split && this.allowShared) this.renderSplit(v, a);else {
 	            let t = m,
 	              o = x;
-	            if (e && r.isDirectTouch && (t = e.chartX - i.plotLeft, o = e.chartY - i.plotTop), i.polar || !1 === C.options.clip || n.some(e => r.isDirectTouch || e.series.shouldShowTooltip(t, o))) {
+	            if (e && r.isDirectTouch && (t = e.chartX - i.plotLeft, o = e.chartY - i.plotTop), i.polar || !1 === C.options.clip || a.some(e => r.isDirectTouch || e.series.shouldShowTooltip(t, o))) {
 	              let t = this.getLabel();
 	              (!s.style.width || u) && t.css({
 	                width: (this.outside ? this.getPlayingField() : i.spacingBox).width + "px"
 	              }), t.attr({
+	                class: this.getClassName(l),
 	                text: v && v.join ? v.join("") : v
-	              }), t.addClass(this.getClassName(l), !0), u || t.attr({
+	              }), u || t.attr({
 	                stroke: s.borderColor || l.color || C.color || "#666666"
 	              }), this.updatePosition({
 	                plotX: m,
@@ -14168,8 +14134,8 @@ var highcharts = {exports: {}};
 	            chart: {
 	              chartWidth: r,
 	              chartHeight: o,
-	              plotHeight: a,
-	              plotLeft: n,
+	              plotHeight: n,
+	              plotLeft: a,
 	              plotTop: h,
 	              scrollablePixelsY: l = 0,
 	              scrollablePixelsX: u,
@@ -14201,12 +14167,12 @@ var highcharts = {exports: {}};
 	          } = v.getChartPosition(),
 	          D = h + M,
 	          E = 0,
-	          I = a - l;
+	          I = n - l;
 	        function j(t, e, s, r, o = !0) {
-	          let a, n;
-	          return s ? (a = P ? 0 : I, n = g(t - r / 2, w.left, w.right - r - (i.outside ? L : 0))) : (a = e - D, n = g(n = o ? t - r - m : t + m, o ? n : w.left, w.right)), {
-	            x: n,
-	            y: a
+	          let n, a;
+	          return s ? (n = P ? 0 : I, a = g(t - r / 2, w.left, w.right - r - (i.outside ? L : 0))) : (n = e - D, a = g(a = o ? t - r - m : t + m, o ? a : w.left, w.right)), {
+	            x: a,
+	            y: n
 	          };
 	        }
 	        S(t) && (t = [!1, t]);
@@ -14215,7 +14181,7 @@ var highcharts = {exports: {}};
 	            let o = e[r - 1] || {
 	                isHeader: !0,
 	                plotX: e[0].plotX,
-	                plotY: a,
+	                plotY: n,
 	                series: {}
 	              },
 	              l = o.isHeader,
@@ -14224,7 +14190,7 @@ var highcharts = {exports: {}};
 	                let r = t,
 	                  {
 	                    isHeader: o,
-	                    series: a
+	                    series: n
 	                  } = e;
 	                if (!r) {
 	                  let t = {
@@ -14236,7 +14202,7 @@ var highcharts = {exports: {}};
 	                return r.isActive = !0, r.attr({
 	                  text: s
 	                }), f || r.css(y.style).attr({
-	                  stroke: y.borderColor || e.color || a.color || "#333333"
+	                  stroke: y.borderColor || e.color || n.color || "#333333"
 	                }), r;
 	              }(d.tt, o, s.toString()),
 	              p = c.getBBox(),
@@ -14253,7 +14219,7 @@ var highcharts = {exports: {}};
 	                plotY: o = 0,
 	                series: l
 	              } = t;
-	              if (s) e = Math.max(n + r, n), i = h + a / 2;else {
+	              if (s) e = Math.max(a + r, a), i = h + n / 2;else {
 	                let {
 	                  xAxis: t,
 	                  yAxis: s
@@ -14320,10 +14286,10 @@ var highcharts = {exports: {}};
 	              anchorY: r,
 	              pos: o,
 	              point: {
-	                isHeader: a
+	                isHeader: n
 	              }
 	            } = t,
-	            n = {
+	            a = {
 	              visibility: void 0 === o ? "hidden" : "inherit",
 	              x: e,
 	              y: (o || 0) + D,
@@ -14332,9 +14298,9 @@ var highcharts = {exports: {}};
 	            };
 	          if (i.outside && e < s) {
 	            let t = L - R.left;
-	            t > 0 && (a || (n.x = e + t, n.anchorX = s + t), a && (n.x = (R.right - R.left) / 2, n.anchorX = s + t));
+	            t > 0 && (n || (a.x = e + t, a.anchorX = s + t), n && (a.x = (R.right - R.left) / 2, a.anchorX = s + t));
 	          }
-	          t.tt.attr(n);
+	          t.tt.attr(a);
 	        });
 	        let {
 	          container: z,
@@ -14383,20 +14349,20 @@ var highcharts = {exports: {}};
 	          s = i.tooltipOptions,
 	          r = i.xAxis,
 	          o = r && r.dateTime,
-	          a = {
+	          n = {
 	            isFooter: e,
 	            labelConfig: t
 	          },
-	          n = s.xDateFormat,
+	          a = s.xDateFormat,
 	          l = s[e ? "footerFormat" : "headerFormat"];
-	        return y(this, "headerFormatter", a, function (e) {
-	          o && !n && v(t.key) && (n = o.getXDateFormat(t.key, s.dateTimeLabelFormats)), o && n && (t.point && t.point.tooltipDateKeys || ["key"]).forEach(function (t) {
-	            l = l.replace("{point." + t + "}", "{point." + t + ":" + n + "}");
+	        return y(this, "headerFormatter", n, function (e) {
+	          o && !a && v(t.key) && (a = o.getXDateFormat(t.key, s.dateTimeLabelFormats)), o && a && (t.point && t.point.tooltipDateKeys || ["key"]).forEach(function (t) {
+	            l = l.replace("{point." + t + "}", "{point." + t + ":" + a + "}");
 	          }), i.chart.styledMode && (l = this.styledModeFormat(l)), e.text = h(l, {
 	            point: t,
 	            series: i
 	          }, this.chart);
-	        }), a.text;
+	        }), n.text;
 	      }
 	      update(t) {
 	        this.destroy(), this.init(this.chart, C(!0, this.options, t));
@@ -14408,10 +14374,10 @@ var highcharts = {exports: {}};
 	            distance: s,
 	            options: r,
 	            pointer: o,
-	            renderer: a
+	            renderer: n
 	          } = this,
 	          {
-	            height: n = 0,
+	            height: a = 0,
 	            width: h = 0
 	          } = this.getLabel(),
 	          {
@@ -14420,19 +14386,19 @@ var highcharts = {exports: {}};
 	            scaleX: c,
 	            scaleY: p
 	          } = o.getChartPosition(),
-	          u = (r.positioner || this.getPosition).call(this, h, n, t),
+	          u = (r.positioner || this.getPosition).call(this, h, a, t),
 	          g = (t.plotX || 0) + e.plotLeft,
 	          m = (t.plotY || 0) + e.plotTop,
 	          x;
-	        a && i && (r.positioner && (u.x += l - s, u.y += d - s), x = (r.borderWidth || 0) + 2 * s + 2, a.setSize(h + x, n + x, !1), (1 !== c || 1 !== p) && (f(i, {
+	        n && i && (r.positioner && (u.x += l - s, u.y += d - s), x = (r.borderWidth || 0) + 2 * s + 2, n.setSize(h + x, a + x, !1), (1 !== c || 1 !== p) && (f(i, {
 	          transform: `scale(${c}, ${p})`
 	        }), g *= c, m *= p), g += l - u.x, m += d - u.y), this.move(Math.round(u.x), Math.round(u.y || 0), g, m);
 	      }
 	    }
-	    return (a = T || (T = {})).compose = function (t) {
+	    return (n = T || (T = {})).compose = function (t) {
 	      M(l, "Core.Tooltip") && u(t, "afterInit", function () {
 	        let t = this.chart;
-	        t.options.tooltip && (t.tooltip = new a(t, t.options.tooltip, this));
+	        t.options.tooltip && (t.tooltip = new n(t, t.options.tooltip, this));
 	      });
 	    }, T;
 	  }), i(e, "Core/Series/Point.js", [e["Core/Renderer/HTML/AST.js"], e["Core/Animation/AnimationUtilities.js"], e["Core/Defaults.js"], e["Core/Templating.js"], e["Core/Utilities.js"]], function (t, e, i, s, r) {
@@ -14440,10 +14406,10 @@ var highcharts = {exports: {}};
 	        animObject: o
 	      } = e,
 	      {
-	        defaultOptions: a
+	        defaultOptions: n
 	      } = i,
 	      {
-	        format: n
+	        format: a
 	      } = s,
 	      {
 	        addEvent: h,
@@ -14490,7 +14456,7 @@ var highcharts = {exports: {}};
 	      applyOptions(t, e) {
 	        let i = this.series,
 	          s = i.options.pointValKey || i.pointValKey;
-	        return c(this, t = k.prototype.optionsToObject.call(this, t)), this.options = this.options ? c(this.options, t) : t, t.group && delete this.group, t.dataLabels && delete this.dataLabels, s && (this.y = k.prototype.getNestedProperty.call(this, s)), this.selected && (this.state = "select"), "name" in this && void 0 === e && i.xAxis && i.xAxis.hasNames && (this.x = i.xAxis.nameToX(this)), void 0 === this.x && i ? void 0 === e ? this.x = i.autoIncrement() : this.x = e : m(t.x) && i.options.relativeXValue && (this.x = i.autoIncrement(t.x)), this.isNull = this.isValid && !this.isValid(), this.formatPrefix = this.isNull ? "null" : "point", this;
+	        return c(this, t = k.prototype.optionsToObject.call(this, t)), this.options = this.options ? c(this.options, t) : t, t.group && delete this.group, t.dataLabels && delete this.dataLabels, s && (this.y = k.prototype.getNestedProperty.call(this, s)), this.selected && (this.state = "select"), "name" in this && void 0 === e && i.xAxis && i.xAxis.hasNames && (this.x = i.xAxis.nameToX(this)), void 0 === this.x && i ? this.x = e ?? i.autoIncrement() : m(t.x) && i.options.relativeXValue && (this.x = i.autoIncrement(t.x)), this.isNull = this.isValid && !this.isValid(), this.formatPrefix = this.isNull ? "null" : "point", this;
 	      }
 	      destroy() {
 	        if (!this.destroyed) {
@@ -14499,11 +14465,11 @@ var highcharts = {exports: {}};
 	            i = e.chart,
 	            s = e.options.dataSorting,
 	            r = i.hoverPoints,
-	            a = o(t.series.chart.renderer.globalAnimation),
-	            n = () => {
+	            n = o(t.series.chart.renderer.globalAnimation),
+	            a = () => {
 	              for (let e in (t.graphic || t.graphics || t.dataLabel || t.dataLabels) && (S(t), t.destroyElements()), t) delete t[e];
 	            };
-	          t.legendItem && i.legend.destroyItem(t), r && (t.setState(), d(r, t), r.length || (i.hoverPoints = null)), t === i.hoverPoint && t.onMouseOut(), s && s.enabled ? (this.animateBeforeDestroy(), v(n, a.duration)) : n(), i.pointCount--;
+	          t.legendItem && i.legend.destroyItem(t), r && (t.setState(), d(r, t), r.length || (i.hoverPoints = null)), t === i.hoverPoint && t.onMouseOut(), s && s.enabled ? (this.animateBeforeDestroy(), v(a, n.duration)) : a(), i.pointCount--;
 	        }
 	        this.destroyed = !0;
 	      }
@@ -14585,10 +14551,10 @@ var highcharts = {exports: {}};
 	          s = i || e.pointArrayMap || ["y"],
 	          r = s.length,
 	          o = {},
-	          a,
-	          n = 0,
+	          n,
+	          a = 0,
 	          h = 0;
-	        if (m(t) || null === t) o[s[0]] = t;else if (g(t)) for (!i && t.length > r && ("string" == (a = typeof t[0]) ? o.name = t[0] : "number" === a && (o.x = t[0]), n++); h < r;) i && void 0 === t[n] || (s[h].indexOf(".") > 0 ? k.prototype.setNestedProperty(o, t[n], s[h]) : o[s[h]] = t[n]), n++, h++;else "object" == typeof t && (o = t, t.dataLabels && (e.hasDataLabels = () => !0), t.marker && (e._hasPointMarkers = !0));
+	        if (m(t) || null === t) o[s[0]] = t;else if (g(t)) for (!i && t.length > r && ("string" == (n = typeof t[0]) ? o.name = t[0] : "number" === n && (o.x = t[0]), a++); h < r;) i && void 0 === t[a] || (s[h].indexOf(".") > 0 ? k.prototype.setNestedProperty(o, t[a], s[h]) : o[s[h]] = t[a]), a++, h++;else "object" == typeof t && (o = t, t.dataLabels && (e.hasDataLabels = () => !0), t.marker && (e._hasPointMarkers = !0));
 	        return o;
 	      }
 	      pos(t, e = this.plotY) {
@@ -14600,11 +14566,11 @@ var highcharts = {exports: {}};
 	            {
 	              chart: r,
 	              xAxis: o,
-	              yAxis: a
+	              yAxis: n
 	            } = s,
-	            n = 0,
+	            a = 0,
 	            h = 0;
-	          if (m(i) && m(e)) return t && (n = o ? o.pos : r.plotLeft, h = a ? a.pos : r.plotTop), r.inverted && o && a ? [a.len - e + h, o.len - i + n] : [i + n, e + h];
+	          if (m(i) && m(e)) return t && (a = o ? o.pos : r.plotLeft, h = n ? n.pos : r.plotTop), r.inverted && o && n ? [n.len - e + h, o.len - i + a] : [i + a, e + h];
 	        }
 	      }
 	      resolveColor() {
@@ -14614,8 +14580,8 @@ var highcharts = {exports: {}};
 	          s,
 	          r,
 	          o = e.colorCount,
-	          a;
-	        delete this.nonZonedColor, t.options.colorByPoint ? (i || (s = (r = t.options.colors || t.chart.options.colors)[t.colorCounter], o = r.length), a = t.colorCounter, t.colorCounter++, t.colorCounter === o && (t.colorCounter = 0)) : (i || (s = t.color), a = t.colorIndex), this.colorIndex = b(this.options.colorIndex, a), this.color = b(this.options.color, s);
+	          n;
+	        delete this.nonZonedColor, t.options.colorByPoint ? (i || (s = (r = t.options.colors || t.chart.options.colors)[t.colorCounter], o = r.length), n = t.colorCounter, t.colorCounter++, t.colorCounter === o && (t.colorCounter = 0)) : (i || (s = t.color), n = t.colorIndex), this.colorIndex = b(this.options.colorIndex, n), this.color = b(this.options.color, s);
 	      }
 	      setNestedProperty(t, e, i) {
 	        return i.split(".").reduce(function (t, i, s, r) {
@@ -14634,7 +14600,7 @@ var highcharts = {exports: {}};
 	          o = i.valueSuffix || "";
 	        return e.chart.styledMode && (t = e.chart.tooltip.styledModeFormat(t)), (e.pointArrayMap || ["y"]).forEach(function (e) {
 	          e = "{point." + e, (r || o) && (t = t.replace(RegExp(e + "}", "g"), r + e + "}" + o)), t = t.replace(RegExp(e + "}", "g"), e + ":,." + s + "f}");
-	        }), n(t, {
+	        }), a(t, {
 	          point: this,
 	          series: this.series
 	        }, e.chart);
@@ -14642,15 +14608,15 @@ var highcharts = {exports: {}};
 	      update(t, e, i, s) {
 	        let r;
 	        let o = this,
-	          a = o.series,
-	          n = o.graphic,
-	          h = a.chart,
-	          l = a.options;
+	          n = o.series,
+	          a = o.graphic,
+	          h = n.chart,
+	          l = n.options;
 	        function d() {
 	          o.applyOptions(t);
-	          let s = n && o.hasMockGraphic,
+	          let s = a && o.hasMockGraphic,
 	            d = null === o.y ? !s : s;
-	          n && d && (o.graphic = n.destroy(), delete o.hasMockGraphic), x(t, !0) && (n && n.element && t && t.marker && void 0 !== t.marker.symbol && (o.graphic = n.destroy()), t?.dataLabels && o.dataLabel && (o.dataLabel = o.dataLabel.destroy())), r = o.index, a.updateParallelArrays(o, r), l.data[r] = x(l.data[r], !0) || x(t, !0) ? o.options : b(t, l.data[r]), a.isDirty = a.isDirtyData = !0, !a.fixedBox && a.hasCartesianSeries && (h.isDirtyBox = !0), "point" === l.legendType && (h.isDirtyLegend = !0), e && h.redraw(i);
+	          a && d && (o.graphic = a.destroy(), delete o.hasMockGraphic), x(t, !0) && (a && a.element && t && t.marker && void 0 !== t.marker.symbol && (o.graphic = a.destroy()), t?.dataLabels && o.dataLabel && (o.dataLabel = o.dataLabel.destroy())), r = o.index, n.updateParallelArrays(o, r), l.data[r] = x(l.data[r], !0) || x(t, !0) ? o.options : b(t, l.data[r]), n.isDirty = n.isDirtyData = !0, !n.fixedBox && n.hasCartesianSeries && (h.isDirtyBox = !0), "point" === l.legendType && (h.isDirtyLegend = !0), e && h.redraw(i);
 	        }
 	        e = b(e, !0), !1 === s ? d() : o.firePointEvent("update", {
 	          options: t
@@ -14688,19 +14654,19 @@ var highcharts = {exports: {}};
 	      manageEvent(t) {
 	        let e = y(this.series.options.point, this.options),
 	          i = e.events?.[t];
-	        f(i) && (!this.hcEvents?.[t] || this.hcEvents?.[t]?.map(t => t.fn).indexOf(i) === -1) ? (h(this, t, i), this.hasImportedEvents = !0) : this.hasImportedEvents && !i && this.hcEvents?.[t] && (S(this, t), delete this.hcEvents[t], Object.keys(this.hcEvents) || (this.hasImportedEvents = !1));
+	        f(i) && (!this.hcEvents?.[t] || this.hcEvents?.[t]?.map(t => t.fn).indexOf(i) === -1) ? (this.importedUserEvent?.(), this.importedUserEvent = h(this, t, i)) : this.importedUserEvent && !i && this.hcEvents?.[t] && (S(this, t), delete this.hcEvents[t], Object.keys(this.hcEvents) || delete this.importedUserEvent);
 	      }
 	      setState(e, i) {
 	        let s = this.series,
 	          r = this.state,
 	          o = s.options.states[e || "normal"] || {},
-	          n = a.plotOptions[s.type].marker && s.options.marker,
-	          h = n && !1 === n.enabled,
-	          l = n && n.states && n.states[e || "normal"] || {},
+	          a = n.plotOptions[s.type].marker && s.options.marker,
+	          h = a && !1 === a.enabled,
+	          l = a && a.states && a.states[e || "normal"] || {},
 	          d = !1 === l.enabled,
 	          u = this.marker || {},
 	          g = s.chart,
-	          f = n && s.markerAttribs,
+	          f = a && s.markerAttribs,
 	          x = s.halo,
 	          y,
 	          v,
@@ -14720,7 +14686,7 @@ var highcharts = {exports: {}};
 	              }, S));
 	            }), this.graphic.animate(v, S);
 	          }
-	          y && this.graphic.animate(y, b(g.options.chart.animation, l.animation, n.animation)), C && C.hide();
+	          y && this.graphic.animate(y, b(g.options.chart.animation, l.animation, a.animation)), C && C.hide();
 	        } else e && l && (k = u.symbol || s.symbol, C && C.currentSymbol !== k && (C = C.destroy()), y && (C ? C[i ? "animate" : "attr"]({
 	          x: y.x,
 	          y: y.y
@@ -14756,8 +14722,8 @@ var highcharts = {exports: {}};
 	      } = t,
 	      {
 	        charts: o,
-	        composed: a,
-	        isTouchDevice: n
+	        composed: n,
+	        isTouchDevice: a
 	      } = e,
 	      {
 	        addEvent: h,
@@ -14804,14 +14770,14 @@ var highcharts = {exports: {}};
 	          let {
 	              chart: r,
 	              zoomHor: o,
-	              zoomVert: a
+	              zoomVert: n
 	            } = this,
 	            {
-	              mouseDownX: n = 0,
+	              mouseDownX: a = 0,
 	              mouseDownY: h = 0
 	            } = r,
 	            l = i.attrs;
-	          l.x = r.plotLeft, l.y = r.plotTop, l.width = o ? 1 : r.plotWidth, l.height = a ? 1 : r.plotHeight, o && (s = t - n, l.width = Math.max(1, Math.abs(s)), l.x = (s > 0 ? 0 : s) + n), a && (s = e - h, l.height = Math.max(1, Math.abs(s)), l.y = (s > 0 ? 0 : s) + h);
+	          l.x = r.plotLeft, l.y = r.plotTop, l.width = o ? 1 : r.plotWidth, l.height = n ? 1 : r.plotHeight, o && (s = t - a, l.width = Math.max(1, Math.abs(s)), l.x = (s > 0 ? 0 : s) + a), n && (s = e - h, l.height = Math.max(1, Math.abs(s)), l.y = (s > 0 ? 0 : s) + h);
 	        }), i;
 	      }
 	      drag(t) {
@@ -14824,15 +14790,15 @@ var highcharts = {exports: {}};
 	          } = e,
 	          {
 	            panning: o,
-	            panKey: a,
-	            selectionMarkerFill: n
+	            panKey: n,
+	            selectionMarkerFill: a
 	          } = e.options.chart,
 	          h = e.plotLeft,
 	          l = e.plotTop,
 	          d = e.plotWidth,
 	          c = e.plotHeight,
 	          p = f(o) ? o.enabled : o,
-	          u = a && t[`${a}Key`],
+	          u = n && t[`${n}Key`],
 	          g = t.chartX,
 	          m = t.chartY,
 	          x,
@@ -14842,14 +14808,14 @@ var highcharts = {exports: {}};
 	            visiblePlotOnly: !0
 	          });
 	          let {
-	            shapeType: a,
+	            shapeType: n,
 	            attrs: d
 	          } = this.getSelectionMarkerAttrs(g, m);
-	          (e.hasCartesianSeries || e.mapView) && this.hasZoom && x && !u && !y && (this.selectionMarker = y = e.renderer[a](), y.attr({
+	          (e.hasCartesianSeries || e.mapView) && this.hasZoom && x && !u && !y && (this.selectionMarker = y = e.renderer[n](), y.attr({
 	            class: "highcharts-selection-marker",
 	            zIndex: 7
 	          }).add(), e.styledMode || y.attr({
-	            fill: n || r("#334eff").setOpacity(.25).get()
+	            fill: a || r("#334eff").setOpacity(.25).get()
 	          })), y && y.attr(d), x && !y && p && e.pan(t, o);
 	        }
 	      }
@@ -14914,13 +14880,13 @@ var highcharts = {exports: {}};
 	          r = t.shapeArgs;
 	        if (i && s) {
 	          let o = t.clientX ?? t.plotX ?? 0,
-	            a = t.plotY || 0;
-	          return t.isNode && r && g(r.x) && g(r.y) && (o = r.x, a = r.y), e ? {
-	            chartX: s.len + s.pos - a,
+	            n = t.plotY || 0;
+	          return t.isNode && r && g(r.x) && g(r.y) && (o = r.x, n = r.y), e ? {
+	            chartX: s.len + s.pos - n,
 	            chartY: i.len + i.pos - o
 	          } : {
 	            chartX: o + i.pos,
-	            chartY: a + s.pos
+	            chartY: n + s.pos
 	          };
 	        }
 	        if (r && r.x && r.y) return {
@@ -14958,8 +14924,8 @@ var highcharts = {exports: {}};
 	        return e;
 	      }
 	      getHoverData(t, e, i, s, r, o) {
-	        let a = [],
-	          n = function (t) {
+	        let n = [],
+	          a = function (t) {
 	            return t.visible && !(!r && t.directTouch) && y(t.options.enableMouseTracking, !0);
 	          },
 	          h = e,
@@ -14969,21 +14935,21 @@ var highcharts = {exports: {}};
 	            chartY: o ? o.chartY : void 0,
 	            shared: r
 	          };
-	        u(this, "beforeGetHoverData", d), l = h && !h.stickyTracking ? [h] : i.filter(t => t.stickyTracking && (d.filter || n)(t));
+	        u(this, "beforeGetHoverData", d), l = h && !h.stickyTracking ? [h] : i.filter(t => t.stickyTracking && (d.filter || a)(t));
 	        let c = s && t || !o ? t : this.findNearestKDPoint(l, r, o);
 	        return h = c && c.series, c && (r && !h.noSharedTooltip ? (l = i.filter(function (t) {
-	          return d.filter ? d.filter(t) : n(t) && !t.noSharedTooltip;
+	          return d.filter ? d.filter(t) : a(t) && !t.noSharedTooltip;
 	        })).forEach(function (t) {
 	          let e = p(t.points, function (t) {
 	            return t.x === c.x && !t.isNull;
 	          });
-	          f(e) && (t.boosted && t.boost && (e = t.boost.getPoint(e)), a.push(e));
-	        }) : a.push(c)), u(this, "afterGetHoverData", d = {
+	          f(e) && (t.boosted && t.boost && (e = t.boost.getPoint(e)), n.push(e));
+	        }) : n.push(c)), u(this, "afterGetHoverData", d = {
 	          hoverPoint: c
 	        }), {
 	          hoverPoint: d.hoverPoint,
 	          hoverSeries: h,
-	          hoverPoints: a
+	          hoverPoints: n
 	        };
 	      }
 	      getPointFromEvent(t) {
@@ -15043,7 +15009,7 @@ var highcharts = {exports: {}};
 	        let {
 	          pointer: e
 	        } = o[y(S.hoverChartIndex, -1)] || {};
-	        t = this.normalize(t), this.onContainerMouseMove(t), e && t.relatedTarget && !this.inClass(t.relatedTarget, "highcharts-tooltip") && (e.reset(), e.chartPosition = void 0);
+	        t = this.normalize(t), this.onContainerMouseMove(t), e && !this.inClass(t.relatedTarget, "highcharts-tooltip") && (e.reset(), e.chartPosition = void 0);
 	      }
 	      onContainerMouseEnter() {
 	        delete this.chartPosition;
@@ -15072,7 +15038,7 @@ var highcharts = {exports: {}};
 	          r = this.normalize(t, s);
 	        !s || e.isInsidePlot(r.chartX - e.plotLeft, r.chartY - e.plotTop, {
 	          visiblePlotOnly: !0
-	        }) || i && i.shouldStickOnContact(r) || this.inClass(r.target, "highcharts-tracker") || this.reset();
+	        }) || i && i.shouldStickOnContact(r) || r.target !== e.container.ownerDocument && this.inClass(r.target, "highcharts-tracker") || this.reset();
 	      }
 	      onDocumentMouseUp(t) {
 	        o[y(S.hoverChartIndex, -1)]?.pointer?.drop(t);
@@ -15085,11 +15051,11 @@ var highcharts = {exports: {}};
 	            lastTouches: r
 	          } = e,
 	          o = [].map.call(t.touches || [], t => e.normalize(t)),
-	          a = o.length,
-	          n = 1 === a && (e.inClass(t.target, "highcharts-tracker") && i.runTrackerClick || e.runChartClick),
+	          n = o.length,
+	          a = 1 === n && (e.inClass(t.target, "highcharts-tracker") && i.runTrackerClick || e.runChartClick),
 	          h = i.tooltip,
-	          l = 1 === a && y(h?.options.followTouchMove, !0);
-	        a > 1 ? e.initiated = !0 : l && (e.initiated = !1), s && e.initiated && !n && !1 !== t.cancelable && t.preventDefault(), "touchstart" === t.type ? (e.pinchDown = o, e.res = !0) : l ? this.runPointActions(e.normalize(t)) : r && (u(i, "touchpan", {
+	          l = 1 === n && y(h?.options.followTouchMove, !0);
+	        n > 1 ? e.initiated = !0 : l && (e.initiated = !1), s && e.initiated && !a && !1 !== t.cancelable && t.preventDefault(), "touchstart" === t.type ? (e.pinchDown = o, e.res = !0, i.mouseDownX = t.chartX) : l ? this.runPointActions(e.normalize(t)) : r && (u(i, "touchpan", {
 	          originalEvent: t,
 	          touches: o
 	        }, () => {
@@ -15116,47 +15082,47 @@ var highcharts = {exports: {}};
 	          s = i.hoverSeries,
 	          r = i.hoverPoint,
 	          o = i.hoverPoints,
-	          a = i.tooltip,
-	          n = a && a.shared ? o : r;
-	        t && n && v(n).forEach(function (e) {
+	          n = i.tooltip,
+	          a = n && n.shared ? o : r;
+	        t && a && v(a).forEach(function (e) {
 	          e.series.isCartesian && void 0 === e.plotX && (t = !1);
-	        }), t ? a && n && v(n).length && (a.refresh(n), a.shared && o ? o.forEach(function (t) {
+	        }), t ? n && a && v(a).length && (n.refresh(a), n.shared && o ? o.forEach(function (t) {
 	          t.setState(t.state, !0), t.series.isCartesian && (t.series.xAxis.crosshair && t.series.xAxis.drawCrosshair(null, t), t.series.yAxis.crosshair && t.series.yAxis.drawCrosshair(null, t));
 	        }) : r && (r.setState(r.state, !0), i.axes.forEach(function (t) {
 	          t.crosshair && r.series[t.coll] === t && t.drawCrosshair(null, r);
 	        }))) : (r && r.onMouseOut(), o && o.forEach(function (t) {
 	          t.setState();
-	        }), s && s.onMouseOut(), a && a.hide(e), this.unDocMouseMove && (this.unDocMouseMove = this.unDocMouseMove()), i.axes.forEach(function (t) {
+	        }), s && s.onMouseOut(), n && n.hide(e), this.unDocMouseMove && (this.unDocMouseMove = this.unDocMouseMove()), i.axes.forEach(function (t) {
 	          t.hideCrosshair();
 	        }), i.hoverPoints = i.hoverPoint = void 0);
 	      }
 	      runPointActions(t, e, i) {
 	        let s = this.chart,
 	          r = s.series,
-	          a = s.tooltip && s.tooltip.options.enabled ? s.tooltip : void 0,
-	          n = !!a && a.shared,
+	          n = s.tooltip && s.tooltip.options.enabled ? s.tooltip : void 0,
+	          a = !!n && n.shared,
 	          l = e || s.hoverPoint,
 	          d = l && l.series || s.hoverSeries,
 	          c = (!t || "touchmove" !== t.type) && (!!e || d && d.directTouch && this.isDirectTouch),
-	          u = this.getHoverData(l, d, r, c, n, t);
+	          u = this.getHoverData(l, d, r, c, a, t);
 	        l = u.hoverPoint, d = u.hoverSeries;
 	        let g = u.hoverPoints,
 	          f = d && d.tooltipOptions.followPointer && !d.tooltipOptions.split,
-	          m = n && d && !d.noSharedTooltip;
-	        if (l && (i || l !== s.hoverPoint || a && a.isHidden)) {
+	          m = a && d && !d.noSharedTooltip;
+	        if (l && (i || l !== s.hoverPoint || n && n.isHidden)) {
 	          if ((s.hoverPoints || []).forEach(function (t) {
 	            -1 === g.indexOf(t) && t.setState();
 	          }), s.hoverSeries !== d && d.onMouseOver(), this.applyInactiveState(g), (g || []).forEach(function (t) {
 	            t.setState("hover");
 	          }), s.hoverPoint && s.hoverPoint.firePointEvent("mouseOut"), !l.series) return;
 	          s.hoverPoints = g, s.hoverPoint = l, l.firePointEvent("mouseOver", void 0, () => {
-	            a && l && a.refresh(m ? g : l, t);
+	            n && l && n.refresh(m ? g : l, t);
 	          });
-	        } else if (f && a && !a.isHidden) {
-	          let e = a.getAnchor([{}], t);
+	        } else if (f && n && !n.isHidden) {
+	          let e = n.getAnchor([{}], t);
 	          s.isInsidePlot(e[0], e[1], {
 	            visiblePlotOnly: !0
-	          }) && a.updatePosition({
+	          }) && n.updatePosition({
 	            plotX: e[0],
 	            plotY: e[1]
 	          });
@@ -15184,7 +15150,7 @@ var highcharts = {exports: {}};
 	        })), this.setPointerCapture(), h(this.chart, "redraw", this.setPointerCapture.bind(this));
 	      }
 	      setPointerCapture() {
-	        if (!n) return;
+	        if (!a) return;
 	        let t = this.pointerCaptureEventsToUnbind,
 	          e = this.chart,
 	          i = e.container,
@@ -15202,9 +15168,16 @@ var highcharts = {exports: {}};
 	      setHoverChartIndex(t) {
 	        let i = this.chart,
 	          s = e.charts[y(S.hoverChartIndex, -1)];
-	        s && s !== i && s.pointer?.onContainerMouseLeave(t || {
-	          relatedTarget: i.container
-	        }), s && s.mouseIsDown || (S.hoverChartIndex = i.index);
+	        if (s && s !== i) {
+	          let e = {
+	            relatedTarget: i.container
+	          };
+	          t && !t?.relatedTarget && (t = {
+	            ...e,
+	            ...t
+	          }), s.pointer?.onContainerMouseLeave(t || e);
+	        }
+	        s && s.mouseIsDown || (S.hoverChartIndex = i.index);
 	      }
 	      touch(t, e) {
 	        let i;
@@ -15212,9 +15185,9 @@ var highcharts = {exports: {}};
 	          chart: s,
 	          pinchDown: r = []
 	        } = this;
-	        this.setHoverChartIndex(), 1 === t.touches.length ? (t = this.normalize(t), s.isInsidePlot(t.chartX - s.plotLeft, t.chartY - s.plotTop, {
+	        this.setHoverChartIndex(), 1 === (t = this.normalize(t)).touches.length ? s.isInsidePlot(t.chartX - s.plotLeft, t.chartY - s.plotTop, {
 	          visiblePlotOnly: !0
-	        }) && !s.openMenu ? (e && this.runPointActions(t), "touchmove" === t.type && (i = !!r[0] && Math.pow(r[0].chartX - t.chartX, 2) + Math.pow(r[0].chartY - t.chartY, 2) >= 16), y(i, !0) && this.pinch(t)) : e && this.reset()) : 2 === t.touches.length && this.pinch(t);
+	        }) && !s.openMenu ? (e && this.runPointActions(t), "touchmove" === t.type && (i = !!r[0] && Math.pow(r[0].chartX - t.chartX, 2) + Math.pow(r[0].chartY - t.chartY, 2) >= 16), y(i, !0) && this.pinch(t)) : e && this.reset() : 2 === t.touches.length && this.pinch(t);
 	      }
 	      touchSelect(t) {
 	        return !!(this.chart.zooming.singleTouch && t.touches && 1 === t.touches.length);
@@ -15229,427 +15202,10 @@ var highcharts = {exports: {}};
 	      }
 	    }
 	    return (s = S || (S = {})).compose = function (t) {
-	      b(a, "Core.Pointer") && h(t, "beforeRender", function () {
+	      b(n, "Core.Pointer") && h(t, "beforeRender", function () {
 	        this.pointer = new s(this, this.options);
 	      });
 	    }, S;
-	  }), i(e, "Core/Legend/Legend.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Templating.js"], e["Core/Globals.js"], e["Core/Series/Point.js"], e["Core/Renderer/RendererUtilities.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o) {
-	    var a;
-	    let {
-	        animObject: n,
-	        setAnimation: h
-	      } = t,
-	      {
-	        format: l
-	      } = e,
-	      {
-	        composed: d,
-	        marginNames: c
-	      } = i,
-	      {
-	        distribute: p
-	      } = r,
-	      {
-	        addEvent: u,
-	        createElement: g,
-	        css: f,
-	        defined: m,
-	        discardElement: x,
-	        find: y,
-	        fireEvent: b,
-	        isNumber: v,
-	        merge: S,
-	        pick: C,
-	        pushUnique: k,
-	        relativeLength: M,
-	        stableSort: w,
-	        syncTimeout: A
-	      } = o;
-	    class T {
-	      constructor(t, e) {
-	        this.allItems = [], this.initialItemY = 0, this.itemHeight = 0, this.itemMarginBottom = 0, this.itemMarginTop = 0, this.itemX = 0, this.itemY = 0, this.lastItemY = 0, this.lastLineHeight = 0, this.legendHeight = 0, this.legendWidth = 0, this.maxItemWidth = 0, this.maxLegendWidth = 0, this.offsetWidth = 0, this.padding = 0, this.pages = [], this.symbolHeight = 0, this.symbolWidth = 0, this.titleHeight = 0, this.totalItemWidth = 0, this.widthOption = 0, this.chart = t, this.setOptions(e), e.enabled && (this.render(), u(this.chart, "endResize", function () {
-	          this.legend.positionCheckboxes();
-	        })), u(this.chart, "render", () => {
-	          this.options.enabled && this.proximate && (this.proximatePositions(), this.positionItems());
-	        });
-	      }
-	      setOptions(t) {
-	        let e = C(t.padding, 8);
-	        this.options = t, this.chart.styledMode || (this.itemStyle = t.itemStyle, this.itemHiddenStyle = S(this.itemStyle, t.itemHiddenStyle)), this.itemMarginTop = t.itemMarginTop, this.itemMarginBottom = t.itemMarginBottom, this.padding = e, this.initialItemY = e - 5, this.symbolWidth = C(t.symbolWidth, 16), this.pages = [], this.proximate = "proximate" === t.layout && !this.chart.inverted, this.baseline = void 0;
-	      }
-	      update(t, e) {
-	        let i = this.chart;
-	        this.setOptions(S(!0, this.options, t)), this.destroy(), i.isDirtyLegend = i.isDirtyBox = !0, C(e, !0) && i.redraw(), b(this, "afterUpdate", {
-	          redraw: e
-	        });
-	      }
-	      colorizeItem(t, e) {
-	        let {
-	          area: i,
-	          group: s,
-	          label: r,
-	          line: o,
-	          symbol: a
-	        } = t.legendItem || {};
-	        if (s?.[e ? "removeClass" : "addClass"]("highcharts-legend-item-hidden"), !this.chart.styledMode) {
-	          let {
-	              itemHiddenStyle: s = {}
-	            } = this,
-	            n = s.color,
-	            {
-	              fillColor: h,
-	              fillOpacity: l,
-	              lineColor: d,
-	              marker: c
-	            } = t.options,
-	            p = t => (!e && (t.fill && (t.fill = n), t.stroke && (t.stroke = n)), t);
-	          r?.css(S(e ? this.itemStyle : s)), o?.attr(p({
-	            stroke: d || t.color
-	          })), a && a.attr(p(c && a.isMarker ? t.pointAttribs() : {
-	            fill: t.color
-	          })), i?.attr(p({
-	            fill: h || t.color,
-	            "fill-opacity": h ? 1 : l ?? .75
-	          }));
-	        }
-	        b(this, "afterColorizeItem", {
-	          item: t,
-	          visible: e
-	        });
-	      }
-	      positionItems() {
-	        this.allItems.forEach(this.positionItem, this), this.chart.isResizing || this.positionCheckboxes();
-	      }
-	      positionItem(t) {
-	        let {
-	            group: e,
-	            x: i = 0,
-	            y: s = 0
-	          } = t.legendItem || {},
-	          r = this.options,
-	          o = r.symbolPadding,
-	          a = !r.rtl,
-	          n = t.checkbox;
-	        if (e && e.element) {
-	          let r = {
-	            translateX: a ? i : this.legendWidth - i - 2 * o - 4,
-	            translateY: s
-	          };
-	          e[m(e.translateY) ? "animate" : "attr"](r, void 0, () => {
-	            b(this, "afterPositionItem", {
-	              item: t
-	            });
-	          });
-	        }
-	        n && (n.x = i, n.y = s);
-	      }
-	      destroyItem(t) {
-	        let e = t.checkbox,
-	          i = t.legendItem || {};
-	        for (let t of ["group", "label", "line", "symbol"]) i[t] && (i[t] = i[t].destroy());
-	        e && x(e), t.legendItem = void 0;
-	      }
-	      destroy() {
-	        for (let t of this.getAllItems()) this.destroyItem(t);
-	        for (let t of ["clipRect", "up", "down", "pager", "nav", "box", "title", "group"]) this[t] && (this[t] = this[t].destroy());
-	        this.display = null;
-	      }
-	      positionCheckboxes() {
-	        let t;
-	        let e = this.group && this.group.alignAttr,
-	          i = this.clipHeight || this.legendHeight,
-	          s = this.titleHeight;
-	        e && (t = e.translateY, this.allItems.forEach(function (r) {
-	          let o;
-	          let a = r.checkbox;
-	          a && (o = t + s + a.y + (this.scrollOffset || 0) + 3, f(a, {
-	            left: e.translateX + r.checkboxOffset + a.x - 20 + "px",
-	            top: o + "px",
-	            display: this.proximate || o > t - 6 && o < t + i - 6 ? "" : "none"
-	          }));
-	        }, this));
-	      }
-	      renderTitle() {
-	        let t = this.options,
-	          e = this.padding,
-	          i = t.title,
-	          s,
-	          r = 0;
-	        i.text && (this.title || (this.title = this.chart.renderer.label(i.text, e - 3, e - 4, void 0, void 0, void 0, t.useHTML, void 0, "legend-title").attr({
-	          zIndex: 1
-	        }), this.chart.styledMode || this.title.css(i.style), this.title.add(this.group)), i.width || this.title.css({
-	          width: this.maxLegendWidth + "px"
-	        }), r = (s = this.title.getBBox()).height, this.offsetWidth = s.width, this.contentGroup.attr({
-	          translateY: r
-	        })), this.titleHeight = r;
-	      }
-	      setText(t) {
-	        let e = this.options;
-	        t.legendItem.label.attr({
-	          text: e.labelFormat ? l(e.labelFormat, t, this.chart) : e.labelFormatter.call(t)
-	        });
-	      }
-	      renderItem(t) {
-	        let e = t.legendItem = t.legendItem || {},
-	          i = this.chart,
-	          s = i.renderer,
-	          r = this.options,
-	          o = "horizontal" === r.layout,
-	          a = this.symbolWidth,
-	          n = r.symbolPadding || 0,
-	          h = this.itemStyle,
-	          l = this.itemHiddenStyle,
-	          d = o ? C(r.itemDistance, 20) : 0,
-	          c = !r.rtl,
-	          p = !t.series,
-	          u = !p && t.series.drawLegendSymbol ? t.series : t,
-	          g = u.options,
-	          f = !!this.createCheckboxForItem && g && g.showCheckbox,
-	          m = r.useHTML,
-	          x = t.options.className,
-	          y = e.label,
-	          b = a + n + d + (f ? 20 : 0);
-	        !y && (e.group = s.g("legend-item").addClass("highcharts-" + u.type + "-series highcharts-color-" + t.colorIndex + (x ? " " + x : "") + (p ? " highcharts-series-" + t.index : "")).attr({
-	          zIndex: 1
-	        }).add(this.scrollGroup), e.label = y = s.text("", c ? a + n : -n, this.baseline || 0, m), i.styledMode || y.css(S(t.visible ? h : l)), y.attr({
-	          align: c ? "left" : "right",
-	          zIndex: 2
-	        }).add(e.group), !this.baseline && (this.fontMetrics = s.fontMetrics(y), this.baseline = this.fontMetrics.f + 3 + this.itemMarginTop, y.attr("y", this.baseline), this.symbolHeight = C(r.symbolHeight, this.fontMetrics.f), r.squareSymbol && (this.symbolWidth = C(r.symbolWidth, Math.max(this.symbolHeight, 16)), b = this.symbolWidth + n + d + (f ? 20 : 0), c && y.attr("x", this.symbolWidth + n))), u.drawLegendSymbol(this, t), this.setItemEvents && this.setItemEvents(t, y, m)), f && !t.checkbox && this.createCheckboxForItem && this.createCheckboxForItem(t), this.colorizeItem(t, t.visible), (i.styledMode || !h.width) && y.css({
-	          width: (r.itemWidth || this.widthOption || i.spacingBox.width) - b + "px"
-	        }), this.setText(t);
-	        let v = y.getBBox(),
-	          k = this.fontMetrics && this.fontMetrics.h || 0;
-	        t.itemWidth = t.checkboxOffset = r.itemWidth || e.labelWidth || v.width + b, this.maxItemWidth = Math.max(this.maxItemWidth, t.itemWidth), this.totalItemWidth += t.itemWidth, this.itemHeight = t.itemHeight = Math.round(e.labelHeight || (v.height > 1.5 * k ? v.height : k));
-	      }
-	      layoutItem(t) {
-	        let e = this.options,
-	          i = this.padding,
-	          s = "horizontal" === e.layout,
-	          r = t.itemHeight,
-	          o = this.itemMarginBottom,
-	          a = this.itemMarginTop,
-	          n = s ? C(e.itemDistance, 20) : 0,
-	          h = this.maxLegendWidth,
-	          l = e.alignColumns && this.totalItemWidth > h ? this.maxItemWidth : t.itemWidth,
-	          d = t.legendItem || {};
-	        s && this.itemX - i + l > h && (this.itemX = i, this.lastLineHeight && (this.itemY += a + this.lastLineHeight + o), this.lastLineHeight = 0), this.lastItemY = a + this.itemY + o, this.lastLineHeight = Math.max(r, this.lastLineHeight), d.x = this.itemX, d.y = this.itemY, s ? this.itemX += l : (this.itemY += a + r + o, this.lastLineHeight = r), this.offsetWidth = this.widthOption || Math.max((s ? this.itemX - i - (t.checkbox ? 0 : n) : l) + i, this.offsetWidth);
-	      }
-	      getAllItems() {
-	        let t = [];
-	        return this.chart.series.forEach(function (e) {
-	          let i = e && e.options;
-	          e && C(i.showInLegend, !m(i.linkedTo) && void 0, !0) && (t = t.concat((e.legendItem || {}).labels || ("point" === i.legendType ? e.data : e)));
-	        }), b(this, "afterGetAllItems", {
-	          allItems: t
-	        }), t;
-	      }
-	      getAlignment() {
-	        let t = this.options;
-	        return this.proximate ? t.align.charAt(0) + "tv" : t.floating ? "" : t.align.charAt(0) + t.verticalAlign.charAt(0) + t.layout.charAt(0);
-	      }
-	      adjustMargins(t, e) {
-	        let i = this.chart,
-	          s = this.options,
-	          r = this.getAlignment();
-	        r && [/(lth|ct|rth)/, /(rtv|rm|rbv)/, /(rbh|cb|lbh)/, /(lbv|lm|ltv)/].forEach(function (o, a) {
-	          o.test(r) && !m(t[a]) && (i[c[a]] = Math.max(i[c[a]], i.legend[(a + 1) % 2 ? "legendHeight" : "legendWidth"] + [1, -1, -1, 1][a] * s[a % 2 ? "x" : "y"] + C(s.margin, 12) + e[a] + (i.titleOffset[a] || 0)));
-	        });
-	      }
-	      proximatePositions() {
-	        let t;
-	        let e = this.chart,
-	          i = [],
-	          s = "left" === this.options.align;
-	        for (let r of (this.allItems.forEach(function (t) {
-	          let r,
-	            o,
-	            a = s,
-	            n,
-	            h;
-	          t.yAxis && (t.xAxis.options.reversed && (a = !a), t.points && (r = y(a ? t.points : t.points.slice(0).reverse(), function (t) {
-	            return v(t.plotY);
-	          })), o = this.itemMarginTop + t.legendItem.label.getBBox().height + this.itemMarginBottom, h = t.yAxis.top - e.plotTop, n = t.visible ? (r ? r.plotY : t.yAxis.height) + (h - .3 * o) : h + t.yAxis.height, i.push({
-	            target: n,
-	            size: o,
-	            item: t
-	          }));
-	        }, this), p(i, e.plotHeight))) t = r.item.legendItem || {}, v(r.pos) && (t.y = e.plotTop - e.spacing[0] + r.pos);
-	      }
-	      render() {
-	        let t = this.chart,
-	          e = t.renderer,
-	          i = this.options,
-	          s = this.padding,
-	          r = this.getAllItems(),
-	          o,
-	          a,
-	          n,
-	          h = this.group,
-	          l,
-	          d = this.box;
-	        this.itemX = s, this.itemY = this.initialItemY, this.offsetWidth = 0, this.lastItemY = 0, this.widthOption = M(i.width, t.spacingBox.width - s), l = t.spacingBox.width - 2 * s - i.x, ["rm", "lm"].indexOf(this.getAlignment().substring(0, 2)) > -1 && (l /= 2), this.maxLegendWidth = this.widthOption || l, h || (this.group = h = e.g("legend").addClass(i.className || "").attr({
-	          zIndex: 7
-	        }).add(), this.contentGroup = e.g().attr({
-	          zIndex: 1
-	        }).add(h), this.scrollGroup = e.g().add(this.contentGroup)), this.renderTitle(), w(r, (t, e) => (t.options && t.options.legendIndex || 0) - (e.options && e.options.legendIndex || 0)), i.reversed && r.reverse(), this.allItems = r, this.display = o = !!r.length, this.lastLineHeight = 0, this.maxItemWidth = 0, this.totalItemWidth = 0, this.itemHeight = 0, r.forEach(this.renderItem, this), r.forEach(this.layoutItem, this), a = (this.widthOption || this.offsetWidth) + s, n = this.lastItemY + this.lastLineHeight + this.titleHeight, n = this.handleOverflow(n) + s, d || (this.box = d = e.rect().addClass("highcharts-legend-box").attr({
-	          r: i.borderRadius
-	        }).add(h)), t.styledMode || d.attr({
-	          stroke: i.borderColor,
-	          "stroke-width": i.borderWidth || 0,
-	          fill: i.backgroundColor || "none"
-	        }).shadow(i.shadow), a > 0 && n > 0 && d[d.placed ? "animate" : "attr"](d.crisp.call({}, {
-	          x: 0,
-	          y: 0,
-	          width: a,
-	          height: n
-	        }, d.strokeWidth())), h[o ? "show" : "hide"](), t.styledMode && "none" === h.getStyle("display") && (a = n = 0), this.legendWidth = a, this.legendHeight = n, o && this.align(), this.proximate || this.positionItems(), b(this, "afterRender");
-	      }
-	      align(t = this.chart.spacingBox) {
-	        let e = this.chart,
-	          i = this.options,
-	          s = t.y;
-	        /(lth|ct|rth)/.test(this.getAlignment()) && e.titleOffset[0] > 0 ? s += e.titleOffset[0] : /(lbh|cb|rbh)/.test(this.getAlignment()) && e.titleOffset[2] > 0 && (s -= e.titleOffset[2]), s !== t.y && (t = S(t, {
-	          y: s
-	        })), e.hasRendered || (this.group.placed = !1), this.group.align(S(i, {
-	          width: this.legendWidth,
-	          height: this.legendHeight,
-	          verticalAlign: this.proximate ? "top" : i.verticalAlign
-	        }), !0, t);
-	      }
-	      handleOverflow(t) {
-	        let e = this,
-	          i = this.chart,
-	          s = i.renderer,
-	          r = this.options,
-	          o = r.y,
-	          a = "top" === r.verticalAlign,
-	          n = this.padding,
-	          h = r.maxHeight,
-	          l = r.navigation,
-	          d = C(l.animation, !0),
-	          c = l.arrowSize || 12,
-	          p = this.pages,
-	          u = this.allItems,
-	          g = function (t) {
-	            "number" == typeof t ? S.attr({
-	              height: t
-	            }) : S && (e.clipRect = S.destroy(), e.contentGroup.clip()), e.contentGroup.div && (e.contentGroup.div.style.clip = t ? "rect(" + n + "px,9999px," + (n + t) + "px,0)" : "auto");
-	          },
-	          f = function (t) {
-	            return e[t] = s.circle(0, 0, 1.3 * c).translate(c / 2, c / 2).add(v), i.styledMode || e[t].attr("fill", "rgba(0,0,0,0.0001)"), e[t];
-	          },
-	          m,
-	          x,
-	          y,
-	          b = i.spacingBox.height + (a ? -o : o) - n,
-	          v = this.nav,
-	          S = this.clipRect;
-	        return "horizontal" !== r.layout || "middle" === r.verticalAlign || r.floating || (b /= 2), h && (b = Math.min(b, h)), p.length = 0, t && b > 0 && t > b && !1 !== l.enabled ? (this.clipHeight = m = Math.max(b - 20 - this.titleHeight - n, 0), this.currentPage = C(this.currentPage, 1), this.fullHeight = t, u.forEach((t, e) => {
-	          let i = (y = t.legendItem || {}).y || 0,
-	            s = Math.round(y.label.getBBox().height),
-	            r = p.length;
-	          (!r || i - p[r - 1] > m && (x || i) !== p[r - 1]) && (p.push(x || i), r++), y.pageIx = r - 1, x && ((u[e - 1].legendItem || {}).pageIx = r - 1), e === u.length - 1 && i + s - p[r - 1] > m && i > p[r - 1] && (p.push(i), y.pageIx = r), i !== x && (x = i);
-	        }), S || (S = e.clipRect = s.clipRect(0, n - 2, 9999, 0), e.contentGroup.clip(S)), g(m), v || (this.nav = v = s.g().attr({
-	          zIndex: 1
-	        }).add(this.group), this.up = s.symbol("triangle", 0, 0, c, c).add(v), f("upTracker").on("click", function () {
-	          e.scroll(-1, d);
-	        }), this.pager = s.text("", 15, 10).addClass("highcharts-legend-navigation"), !i.styledMode && l.style && this.pager.css(l.style), this.pager.add(v), this.down = s.symbol("triangle-down", 0, 0, c, c).add(v), f("downTracker").on("click", function () {
-	          e.scroll(1, d);
-	        })), e.scroll(0), t = b) : v && (g(), this.nav = v.destroy(), this.scrollGroup.attr({
-	          translateY: 1
-	        }), this.clipHeight = 0), t;
-	      }
-	      scroll(t, e) {
-	        let i = this.chart,
-	          s = this.pages,
-	          r = s.length,
-	          o = this.clipHeight,
-	          a = this.options.navigation,
-	          l = this.pager,
-	          d = this.padding,
-	          c = this.currentPage + t;
-	        c > r && (c = r), c > 0 && (void 0 !== e && h(e, i), this.nav.attr({
-	          translateX: d,
-	          translateY: o + this.padding + 7 + this.titleHeight,
-	          visibility: "inherit"
-	        }), [this.up, this.upTracker].forEach(function (t) {
-	          t.attr({
-	            class: 1 === c ? "highcharts-legend-nav-inactive" : "highcharts-legend-nav-active"
-	          });
-	        }), l.attr({
-	          text: c + "/" + r
-	        }), [this.down, this.downTracker].forEach(function (t) {
-	          t.attr({
-	            x: 18 + this.pager.getBBox().width,
-	            class: c === r ? "highcharts-legend-nav-inactive" : "highcharts-legend-nav-active"
-	          });
-	        }, this), i.styledMode || (this.up.attr({
-	          fill: 1 === c ? a.inactiveColor : a.activeColor
-	        }), this.upTracker.css({
-	          cursor: 1 === c ? "default" : "pointer"
-	        }), this.down.attr({
-	          fill: c === r ? a.inactiveColor : a.activeColor
-	        }), this.downTracker.css({
-	          cursor: c === r ? "default" : "pointer"
-	        })), this.scrollOffset = -s[c - 1] + this.initialItemY, this.scrollGroup.animate({
-	          translateY: this.scrollOffset
-	        }), this.currentPage = c, this.positionCheckboxes(), A(() => {
-	          b(this, "afterScroll", {
-	            currentPage: c
-	          });
-	        }, n(C(e, i.renderer.globalAnimation, !0)).duration));
-	      }
-	      setItemEvents(t, e, i) {
-	        let r = this,
-	          o = t.legendItem || {},
-	          a = r.chart.renderer.boxWrapper,
-	          n = t instanceof s,
-	          h = "highcharts-legend-" + (n ? "point" : "series") + "-active",
-	          l = r.chart.styledMode,
-	          d = i ? [e, o.symbol] : [o.group],
-	          c = e => {
-	            r.allItems.forEach(i => {
-	              t !== i && [i].concat(i.linkedSeries || []).forEach(t => {
-	                t.setState(e, !n);
-	              });
-	            });
-	          };
-	        for (let i of d) i && i.on("mouseover", function () {
-	          t.visible && c("inactive"), t.setState("hover"), t.visible && a.addClass(h), l || e.css(r.options.itemHoverStyle);
-	        }).on("mouseout", function () {
-	          r.chart.styledMode || e.css(S(t.visible ? r.itemStyle : r.itemHiddenStyle)), c(""), a.removeClass(h), t.setState();
-	        }).on("click", function (e) {
-	          let i = "legendItemClick",
-	            s = function () {
-	              t.setVisible && t.setVisible(), c(t.visible ? "inactive" : "");
-	            };
-	          a.removeClass(h), e = {
-	            browserEvent: e
-	          }, t.firePointEvent ? t.firePointEvent(i, e, s) : b(t, i, e, s);
-	        });
-	      }
-	      createCheckboxForItem(t) {
-	        t.checkbox = g("input", {
-	          type: "checkbox",
-	          className: "highcharts-legend-checkbox",
-	          checked: t.selected,
-	          defaultChecked: t.selected
-	        }, this.options.itemCheckboxStyle, this.chart.container), u(t.checkbox, "click", function (e) {
-	          let i = e.target;
-	          b(t.series || t, "checkboxClick", {
-	            checked: i.checked,
-	            item: t
-	          }, function () {
-	            t.select();
-	          });
-	        });
-	      }
-	    }
-	    return (a = T || (T = {})).compose = function (t) {
-	      k(d, "Core.Legend") && u(t, "beforeMargins", function () {
-	        this.legend = new a(this, this.options.legend);
-	      });
-	    }, T;
 	  }), i(e, "Core/Legend/LegendSymbol.js", [e["Core/Utilities.js"]], function (t) {
 	    var e;
 	    let {
@@ -15659,9 +15215,9 @@ var highcharts = {exports: {}};
 	    } = t;
 	    return function (t) {
 	      function e(t, e, o) {
-	        let a = this.legendItem = this.legendItem || {},
+	        let n = this.legendItem = this.legendItem || {},
 	          {
-	            chart: n,
+	            chart: a,
 	            options: h
 	          } = this,
 	          {
@@ -15671,18 +15227,18 @@ var highcharts = {exports: {}};
 	          } = t,
 	          p = this.symbol || "circle",
 	          u = c / 2,
-	          g = n.renderer,
-	          f = a.group,
+	          g = a.renderer,
+	          f = n.group,
 	          m = l - Math.round(c * (o ? .4 : .3)),
 	          x = {},
 	          y,
 	          b = h.marker,
 	          v = 0;
-	        if (n.styledMode || (x["stroke-width"] = Math.min(h.lineWidth || 0, 24), h.dashStyle ? x.dashstyle = h.dashStyle : "square" === h.linecap || (x["stroke-linecap"] = "round")), a.line = g.path().addClass("highcharts-graph").attr(x).add(f), o && (a.area = g.path().addClass("highcharts-area").add(f)), x["stroke-linecap"] && (v = Math.min(a.line.strokeWidth(), d) / 2), d) {
+	        if (a.styledMode || (x["stroke-width"] = Math.min(h.lineWidth || 0, 24), h.dashStyle ? x.dashstyle = h.dashStyle : "square" === h.linecap || (x["stroke-linecap"] = "round")), n.line = g.path().addClass("highcharts-graph").attr(x).add(f), o && (n.area = g.path().addClass("highcharts-area").add(f)), x["stroke-linecap"] && (v = Math.min(n.line.strokeWidth(), d) / 2), d) {
 	          let t = [["M", v, m], ["L", d - v, m]];
-	          a.line.attr({
+	          n.line.attr({
 	            d: t
-	          }), a.area?.attr({
+	          }), n.area?.attr({
 	            d: [...t, ["L", d - v, l], ["L", v, l]]
 	          });
 	        }
@@ -15691,7 +15247,7 @@ var highcharts = {exports: {}};
 	          0 === p.indexOf("url") && (b = s(b, {
 	            width: c,
 	            height: c
-	          }), t = 0), a.symbol = y = g.symbol(p, d / 2 - t, m - t, 2 * t, 2 * t, i({
+	          }), t = 0), n.symbol = y = g.symbol(p, d / 2 - t, m - t, 2 * t, 2 * t, i({
 	            context: "legend"
 	          }, b)).addClass("highcharts-point").add(f), y.isMarker = !0;
 	        }
@@ -15702,9 +15258,9 @@ var highcharts = {exports: {}};
 	        let i = e.legendItem || {},
 	          s = t.options,
 	          o = t.symbolHeight,
-	          a = s.squareSymbol,
-	          n = a ? o : t.symbolWidth;
-	        i.symbol = this.chart.renderer.rect(a ? (t.symbolWidth - o) / 2 : 0, t.baseline - o + 1, n, o, r(t.options.symbolRadius, o / 2)).addClass("highcharts-point").attr({
+	          n = s.squareSymbol,
+	          a = n ? o : t.symbolWidth;
+	        i.symbol = this.chart.renderer.rect(n ? (t.symbolWidth - o) / 2 : 0, t.baseline - o + 1, a, o, r(t.options.symbolRadius, o / 2)).addClass("highcharts-point").attr({
 	          zIndex: 3
 	        }).add(i.group);
 	      };
@@ -15810,27 +15366,27 @@ var highcharts = {exports: {}};
 	        defaultOptions: o
 	      } = e,
 	      {
-	        extend: a,
-	        extendClass: n,
+	        extend: n,
+	        extendClass: a,
 	        merge: h
 	      } = s;
 	    return function (e) {
 	      function s(t, s) {
 	        let r = o.plotOptions || {},
-	          a = s.defaultOptions,
-	          n = s.prototype;
-	        return n.type = t, n.pointClass || (n.pointClass = i), !e.seriesTypes[t] && (a && (r[t] = a), e.seriesTypes[t] = s, !0);
+	          n = s.defaultOptions,
+	          a = s.prototype;
+	        return a.type = t, a.pointClass || (a.pointClass = i), !e.seriesTypes[t] && (n && (r[t] = n), e.seriesTypes[t] = s, !0);
 	      }
 	      e.seriesTypes = t.seriesTypes, e.registerSeriesType = s, e.seriesType = function (t, r, l, d, c) {
 	        let p = o.plotOptions || {};
-	        if (r = r || "", p[t] = h(p[r], l), delete e.seriesTypes[t], s(t, n(e.seriesTypes[r] || function () {}, d)), e.seriesTypes[t].prototype.type = t, c) {
+	        if (r = r || "", p[t] = h(p[r], l), delete e.seriesTypes[t], s(t, a(e.seriesTypes[r] || function () {}, d)), e.seriesTypes[t].prototype.type = t, c) {
 	          class s extends i {}
-	          a(s.prototype, c), e.seriesTypes[t].prototype.pointClass = s;
+	          n(s.prototype, c), e.seriesTypes[t].prototype.pointClass = s;
 	        }
 	        return e.seriesTypes[t];
 	      };
 	    }(r || (r = {})), r;
-	  }), i(e, "Core/Series/Series.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Defaults.js"], e["Core/Foundation.js"], e["Core/Globals.js"], e["Core/Legend/LegendSymbol.js"], e["Core/Series/Point.js"], e["Core/Series/SeriesDefaults.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Renderer/SVG/SVGElement.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o, a, n, h, l) {
+	  }), i(e, "Core/Series/Series.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Defaults.js"], e["Core/Foundation.js"], e["Core/Globals.js"], e["Core/Legend/LegendSymbol.js"], e["Core/Series/Point.js"], e["Core/Series/SeriesDefaults.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Renderer/SVG/SVGElement.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o, n, a, h, l) {
 	    let {
 	        animObject: d,
 	        setAnimation: c
@@ -15847,7 +15403,7 @@ var highcharts = {exports: {}};
 	      } = s,
 	      {
 	        seriesTypes: m
-	      } = n,
+	      } = a,
 	      {
 	        arrayMax: x,
 	        arrayMin: y,
@@ -15888,15 +15444,15 @@ var highcharts = {exports: {}};
 	          r = t.series;
 	        this.eventsToUnbind = [], s.chart = t, s.options = s.setOptions(e);
 	        let o = s.options,
-	          a = !1 !== o.visible;
+	          n = !1 !== o.visible;
 	        s.linkedSeries = [], s.bindAxes(), T(s, {
 	          name: o.name,
 	          state: "",
-	          visible: a,
+	          visible: n,
 	          selected: !0 === o.selected
 	        }), u(this, o);
-	        let n = o.events;
-	        (n && n.click || o.point && o.point.events && o.point.events.click || o.allowPointSelect) && (t.runTrackerClick = !0), s.getColor(), s.getSymbol(), s.parallelArrays.forEach(function (t) {
+	        let a = o.events;
+	        (a && a.click || o.point && o.point.events && o.point.events.click || o.allowPointSelect) && (t.runTrackerClick = !0), s.getColor(), s.getSymbol(), s.parallelArrays.forEach(function (t) {
 	          s[t + "Data"] || (s[t + "Data"] = []);
 	        }), s.isCartesian && (t.hasCartesianSeries = !0), r.length && (i = r[r.length - 1]), s._i = N(i && i._i, -1) + 1, s.opacity = s.options.opacity, t.orderItems("series", E(this, r)), o.dataSorting && o.dataSorting.enabled ? s.setDataSortingOptions() : s.points || s.data || s.setData(o.data, !1), L(this, "afterInit");
 	      }
@@ -15940,9 +15496,9 @@ var highcharts = {exports: {}};
 	          s = e.relativeXValue,
 	          r = this.chart.time,
 	          o = this.xIncrement,
-	          a,
-	          n;
-	        return (o = N(o, e.pointStart, 0), this.pointInterval = n = N(this.pointInterval, e.pointInterval, 1), s && j(t) && (n *= t), i && (a = new r.Date(o), "day" === i ? r.set("Date", a, r.get("Date", a) + n) : "month" === i ? r.set("Month", a, r.get("Month", a) + n) : "year" === i && r.set("FullYear", a, r.get("FullYear", a) + n), n = a.getTime() - o), s && j(t)) ? o + n : (this.xIncrement = o + n, o);
+	          n,
+	          a;
+	        return (o = N(o, e.pointStart, 0), this.pointInterval = a = N(this.pointInterval, e.pointInterval, 1), s && j(t) && (a *= t), i && (n = new r.Date(o), "day" === i ? r.set("Date", n, r.get("Date", n) + a) : "month" === i ? r.set("Month", n, r.get("Month", n) + a) : "year" === i && r.set("FullYear", n, r.get("FullYear", n) + a), a = n.getTime() - o), s && j(t)) ? o + a : (this.xIncrement = o + a, o);
 	      }
 	      setDataSortingOptions() {
 	        let t = this.options;
@@ -15959,18 +15515,18 @@ var highcharts = {exports: {}};
 	          s = i.options.plotOptions,
 	          r = i.userOptions || {},
 	          o = R(t),
-	          a = i.styledMode,
-	          n = {
+	          n = i.styledMode,
+	          a = {
 	            plotOptions: s,
 	            userOptions: o
 	          };
-	        L(this, "setOptions", n);
-	        let h = n.plotOptions[this.type],
+	        L(this, "setOptions", a);
+	        let h = a.plotOptions[this.type],
 	          l = r.plotOptions || {},
 	          d = l.series || {},
 	          c = p.plotOptions[this.type] || {},
 	          u = l[this.type] || {};
-	        this.userOptions = n.userOptions;
+	        this.userOptions = a.userOptions;
 	        let g = R(h, s.series, u, o);
 	        this.tooltipOptions = R(p.tooltip, p.plotOptions.series?.tooltip, c?.tooltip, i.userOptions.tooltip, l.series?.tooltip, u.tooltip, o.tooltip), this.stickyTracking = N(o.stickyTracking, u.stickyTracking, d.stickyTracking, !!this.tooltipOptions.shared && !this.noSharedTooltip || g.stickyTracking), null === h.marker && delete g.marker, this.zoneAxis = g.zoneAxis || "y";
 	        let f = this.zones = (g.zones || []).map(t => ({
@@ -15979,7 +15535,7 @@ var highcharts = {exports: {}};
 	        return (g.negativeColor || g.negativeFillColor) && !g.zones && (e = {
 	          value: g[this.zoneAxis + "Threshold"] || g.threshold || 0,
 	          className: "highcharts-negative"
-	        }, a || (e.color = g.negativeColor, e.fillColor = g.negativeFillColor), f.push(e)), f.length && C(f[f.length - 1].value) && f.push(a ? {} : {
+	        }, n || (e.color = g.negativeColor, e.fillColor = g.negativeFillColor), f.push(e)), f.length && C(f[f.length - 1].value) && f.push(n ? {} : {
 	          color: this.color,
 	          fillColor: this.fillColor
 	        }), L(this, "afterSetOptions", {
@@ -15992,10 +15548,10 @@ var highcharts = {exports: {}};
 	      getCyclic(t, e, i) {
 	        let s, r;
 	        let o = this.chart,
-	          a = `${t}Index`,
-	          n = `${t}Counter`,
+	          n = `${t}Index`,
+	          a = `${t}Counter`,
 	          h = i?.length || o.options.chart.colorCount;
-	        !e && (C(r = N("color" === t ? this.options.colorIndex : void 0, this[a])) ? s = r : (o.series.length || (o[n] = 0), s = o[n] % h, o[n] += 1), i && (e = i[s])), void 0 !== s && (this[a] = s), this[t] = e;
+	        !e && (C(r = N("color" === t ? this.options.colorIndex : void 0, this[n])) ? s = r : (o.series.length || (o[a] = 0), s = o[a] % h, o[a] += 1), i && (e = i[s])), void 0 !== s && (this[n] = s), this[t] = e;
 	      }
 	      getColor() {
 	        this.chart.styledMode ? this.getCyclic("color") : this.options.colorByPoint ? this.color = "#cccccc" : this.getCyclic("color", this.options.color || p.plotOptions[this.type].color, this.chart.options.colors);
@@ -16009,26 +15565,26 @@ var highcharts = {exports: {}};
 	      }
 	      findPointIndex(t, e) {
 	        let i, s, r;
-	        let a = t.id,
-	          n = t.x,
+	        let n = t.id,
+	          a = t.x,
 	          h = this.points,
 	          l = this.options.dataSorting;
-	        if (a) {
-	          let t = this.chart.get(a);
+	        if (n) {
+	          let t = this.chart.get(n);
 	          t instanceof o && (i = t);
 	        } else if (this.linkedParent || this.enabledDataSorting || this.options.relativeXValue) {
 	          let e = e => !e.touched && e.index === t.index;
 	          if (l && l.matchByName ? e = e => !e.touched && e.name === t.name : this.options.relativeXValue && (e = e => !e.touched && e.options.x === t.x), !(i = P(h, e))) return;
 	        }
-	        return i && void 0 !== (r = i && i.index) && (s = !0), void 0 === r && j(n) && (r = this.xData.indexOf(n, e)), -1 !== r && void 0 !== r && this.cropped && (r = r >= this.cropStart ? r - this.cropStart : r), !s && j(r) && h[r] && h[r].touched && (r = void 0), r;
+	        return i && void 0 !== (r = i && i.index) && (s = !0), void 0 === r && j(a) && (r = this.xData.indexOf(a, e)), -1 !== r && void 0 !== r && this.cropped && (r = r >= this.cropStart ? r - this.cropStart : r), !s && j(r) && h[r] && h[r].touched && (r = void 0), r;
 	      }
 	      updateData(t, e) {
 	        let i = this.options,
 	          s = i.dataSorting,
 	          r = this.points,
 	          o = [],
-	          a = this.requireSorting,
-	          n = t.length === r.length,
+	          n = this.requireSorting,
+	          a = t.length === r.length,
 	          h,
 	          l,
 	          d,
@@ -16040,8 +15596,8 @@ var highcharts = {exports: {}};
 	              series: this
 	            }, t) || {},
 	            p = d.x;
-	          d.id || j(p) ? (-1 === (l = this.findPointIndex(d, c)) || void 0 === l ? o.push(t) : r[l] && t !== i.data[l] ? (r[l].update(t, !1, null, !1), r[l].touched = !0, a && (c = l + 1)) : r[l] && (r[l].touched = !0), (!n || e !== l || s && s.enabled || this.hasDerivedData) && (h = !0)) : o.push(t);
-	        }, this), h) for (l = r.length; l--;) (d = r[l]) && !d.touched && d.remove && d.remove(!1, e);else !n || s && s.enabled ? p = !1 : (t.forEach(function (t, e) {
+	          d.id || j(p) ? (-1 === (l = this.findPointIndex(d, c)) || void 0 === l ? o.push(t) : r[l] && t !== i.data[l] ? (r[l].update(t, !1, null, !1), r[l].touched = !0, n && (c = l + 1)) : r[l] && (r[l].touched = !0), (!a || e !== l || s && s.enabled || this.hasDerivedData) && (h = !0)) : o.push(t);
+	        }, this), h) for (l = r.length; l--;) (d = r[l]) && !d.touched && d.remove && d.remove(!1, e);else !a || s && s.enabled ? p = !1 : (t.forEach(function (t, e) {
 	          t === r[e].y || r[e].destroyed || r[e].update(t, !1, null, !1);
 	        }), o.length = 0);
 	        return r.forEach(function (t) {
@@ -16053,42 +15609,47 @@ var highcharts = {exports: {}};
 	      setData(t, e = !0, i, s) {
 	        let r = this,
 	          o = r.points,
-	          a = o && o.length || 0,
-	          n = r.options,
+	          n = o && o.length || 0,
+	          a = r.options,
 	          h = r.chart,
-	          l = n.dataSorting,
+	          l = a.dataSorting,
 	          d = r.xAxis,
-	          c = n.turboThreshold,
+	          c = a.turboThreshold,
 	          p = this.xData,
 	          u = this.yData,
 	          g = r.pointArrayMap,
 	          f = g && g.length,
-	          m = n.keys,
+	          m = a.keys,
 	          x,
 	          y,
 	          b,
 	          v = 0,
 	          S = 1,
-	          C = null,
-	          k;
-	        h.options.chart.allowMutatingData || (n.data && delete r.options.data, r.userOptions.data && delete r.userOptions.data, k = R(!0, t));
-	        let M = (t = k || t || []).length;
-	        if (l && l.enabled && (t = this.sortData(t)), h.options.chart.allowMutatingData && !1 !== s && M && a && !r.cropped && !r.hasGroupedData && r.visible && !r.boosted && (b = this.updateData(t, i)), !b) {
-	          if (r.xIncrement = null, r.colorCounter = 0, this.parallelArrays.forEach(function (t) {
+	          C;
+	        h.options.chart.allowMutatingData || (a.data && delete r.options.data, r.userOptions.data && delete r.userOptions.data, C = R(!0, t));
+	        let k = (t = C || t || []).length;
+	        if (l && l.enabled && (t = this.sortData(t)), h.options.chart.allowMutatingData && !1 !== s && k && n && !r.cropped && !r.hasGroupedData && r.visible && !r.boosted && (b = this.updateData(t, i)), !b) {
+	          r.xIncrement = null, r.colorCounter = 0, this.parallelArrays.forEach(function (t) {
 	            r[t + "Data"].length = 0;
-	          }), c && M > c) {
-	            if (j(C = r.getFirstValidPoint(t))) for (x = 0; x < M; x++) p[x] = this.autoIncrement(), u[x] = t[x];else if (I(C)) {
+	          });
+	          let e = c && k > c;
+	          if (e) {
+	            let i = r.getFirstValidPoint(t),
+	              s = r.getFirstValidPoint(t, k - 1, -1),
+	              o = t => !!(I(t) && (m || j(t[0])));
+	            if (j(i) && j(s)) for (x = 0; x < k; x++) p[x] = this.autoIncrement(), u[x] = t[x];else if (o(i) && o(s)) {
 	              if (f) {
-	                if (C.length === f) for (x = 0; x < M; x++) p[x] = this.autoIncrement(), u[x] = t[x];else for (x = 0; x < M; x++) y = t[x], p[x] = y[0], u[x] = y.slice(1, f + 1);
-	              } else if (m && (v = m.indexOf("x"), S = m.indexOf("y"), v = v >= 0 ? v : 0, S = S >= 0 ? S : 1), 1 === C.length && (S = 0), v === S) for (x = 0; x < M; x++) p[x] = this.autoIncrement(), u[x] = t[x][S];else for (x = 0; x < M; x++) y = t[x], p[x] = y[v], u[x] = y[S];
-	            } else A(12, !1, h);
-	          } else for (x = 0; x < M; x++) y = {
+	                if (i.length === f) for (x = 0; x < k; x++) p[x] = this.autoIncrement(), u[x] = t[x];else for (x = 0; x < k; x++) y = t[x], p[x] = y[0], u[x] = y.slice(1, f + 1);
+	              } else if (m && (v = m.indexOf("x"), S = m.indexOf("y"), v = v >= 0 ? v : 0, S = S >= 0 ? S : 1), 1 === i.length && (S = 0), v === S) for (x = 0; x < k; x++) p[x] = this.autoIncrement(), u[x] = t[x][S];else for (x = 0; x < k; x++) y = t[x], p[x] = y[v], u[x] = y[S];
+	            } else e = !1;
+	          }
+	          if (!e) for (x = 0; x < k; x++) y = {
 	            series: r
 	          }, r.pointClass.prototype.applyOptions.apply(y, [t[x]]), r.updateParallelArrays(y, x);
-	          for (u && B(u[0]) && A(14, !0, h), r.data = [], r.options.data = r.userOptions.data = t, x = a; x--;) o[x]?.destroy();
+	          for (u && B(u[0]) && A(14, !0, h), r.data = [], r.options.data = r.userOptions.data = t, x = n; x--;) o[x]?.destroy();
 	          d && (d.minRange = d.userMinRange), r.isDirty = h.isDirtyBox = !0, r.isDirtyData = !!o, i = !1;
 	        }
-	        "point" === n.legendType && (this.processData(), this.generatePoints()), e && h.redraw(i);
+	        "point" === a.legendType && (this.processData(), this.generatePoints()), e && h.redraw(i);
 	      }
 	      sortData(t) {
 	        let e = this,
@@ -16120,8 +15681,8 @@ var highcharts = {exports: {}};
 	          s = e.options.cropThreshold,
 	          r = i?.logarithmic,
 	          o = e.isCartesian,
-	          a,
 	          n,
+	          a,
 	          h = 0,
 	          l,
 	          d,
@@ -16130,12 +15691,12 @@ var highcharts = {exports: {}};
 	          u = e.yData,
 	          g = !1,
 	          f = p.length;
-	        i && (d = (l = i.getExtremes()).min, c = l.max, g = !!(i.categories && !i.names.length)), o && e.sorted && !t && (!s || f > s || e.forceCrop) && (p[f - 1] < d || p[0] > c ? (p = [], u = []) : e.yData && (p[0] < d || p[f - 1] > c) && (p = (a = this.cropData(e.xData, e.yData, d, c)).xData, u = a.yData, h = a.start, n = !0));
+	        i && (d = (l = i.getExtremes()).min, c = l.max, g = !!(i.categories && !i.names.length)), o && e.sorted && !t && (!s || f > s || e.forceCrop) && (p[f - 1] < d || p[0] > c ? (p = [], u = []) : e.yData && (p[0] < d || p[f - 1] > c) && (p = (n = this.cropData(e.xData, e.yData, d, c)).xData, u = n.yData, h = n.start, a = !0));
 	        let m = O([r ? p.map(r.log2lin) : p], () => e.requireSorting && !g && A(15, !1, e.chart));
 	        return {
 	          xData: p,
 	          yData: u,
-	          cropped: n,
+	          cropped: a,
 	          cropStart: h,
 	          closestPointRange: m
 	        };
@@ -16149,21 +15710,21 @@ var highcharts = {exports: {}};
 	      cropData(t, e, i, s) {
 	        let r = t.length,
 	          o,
-	          a,
-	          n = 0,
+	          n,
+	          a = 0,
 	          h = r;
 	        for (o = 0; o < r; o++) if (t[o] >= i) {
-	          n = Math.max(0, o - 1);
+	          a = Math.max(0, o - 1);
 	          break;
 	        }
-	        for (a = o; a < r; a++) if (t[a] > s) {
-	          h = a + 1;
+	        for (n = o; n < r; n++) if (t[n] > s) {
+	          h = n + 1;
 	          break;
 	        }
 	        return {
-	          xData: t.slice(n, h),
-	          yData: e.slice(n, h),
-	          start: n,
+	          xData: t.slice(a, h),
+	          yData: e.slice(a, h),
+	          start: a,
 	          end: h
 	        };
 	      }
@@ -16174,22 +15735,22 @@ var highcharts = {exports: {}};
 	          s = this.processedYData,
 	          r = this.pointClass,
 	          o = i.length,
-	          a = this.cropStart || 0,
-	          n = this.hasGroupedData,
+	          n = this.cropStart || 0,
+	          a = this.hasGroupedData,
 	          h = t.keys,
 	          l = [],
-	          d = t.dataGrouping && t.dataGrouping.groupAll ? a : 0,
+	          d = t.dataGrouping && t.dataGrouping.groupAll ? n : 0,
 	          c,
 	          p,
 	          u,
 	          g,
 	          f = this.data;
-	        if (!f && !n) {
+	        if (!f && !a) {
 	          let t = [];
 	          t.length = e.length, f = this.data = t;
 	        }
-	        for (h && n && (this.options.keys = !1), g = 0; g < o; g++) p = a + g, n ? ((u = new r(this, [i[g]].concat(G(s[g])))).dataGroup = this.groupMap[d + g], u.dataGroup.options && (u.options = u.dataGroup.options, T(u, u.dataGroup.options), delete u.dataLabels)) : (u = f[p]) || void 0 === e[p] || (f[p] = u = new r(this, e[p], i[g])), u && (u.index = n ? d + g : p, l[g] = u);
-	        if (this.options.keys = h, f && (o !== (c = f.length) || n)) for (g = 0; g < c; g++) g !== a || n || (g += o), f[g] && (f[g].destroyElements(), f[g].plotX = void 0);
+	        for (h && a && (this.options.keys = !1), g = 0; g < o; g++) p = n + g, a ? ((u = new r(this, [i[g]].concat(G(s[g])))).dataGroup = this.groupMap[d + g], u.dataGroup.options && (u.options = u.dataGroup.options, T(u, u.dataGroup.options), delete u.dataLabels)) : (u = f[p]) || void 0 === e[p] || (f[p] = u = new r(this, e[p], i[g])), u && (u.index = a ? d + g : p, l[g] = u);
+	        if (this.options.keys = h, f && (o !== (c = f.length) || a)) for (g = 0; g < c; g++) g !== n || a || (g += o), f[g] && (f[g].destroyElements(), f[g].plotX = void 0);
 	        this.data = f, this.points = l, L(this, "afterGeneratePoints");
 	      }
 	      getXExtremes(t) {
@@ -16203,8 +15764,8 @@ var highcharts = {exports: {}};
 	          s = this.yAxis,
 	          r = [],
 	          o = this.requireSorting && !this.is("column") ? 1 : 0,
-	          a = !!s && s.positiveValuesOnly,
-	          n = e || this.getExtremesFromAll || this.options.getExtremesFromAll,
+	          n = !!s && s.positiveValuesOnly,
+	          a = e || this.getExtremesFromAll || this.options.getExtremesFromAll,
 	          {
 	            processedXData: h,
 	            processedYData: l
@@ -16219,13 +15780,13 @@ var highcharts = {exports: {}};
 	          b = 0,
 	          v = 0,
 	          S = 0;
-	        if (this.cropped && n) {
+	        if (this.cropped && a) {
 	          let t = this.getProcessedData(!0);
 	          h = t.xData, l = t.yData;
 	        }
 	        let C = (t = t || this.stackedYData || l || []).length,
 	          k = h || this.xData;
-	        for (i && (b = (d = i.getExtremes()).min, v = d.max), f = 0; f < C; f++) if (u = k[f], c = (j(g = t[f]) || I(g)) && ((j(g) ? g > 0 : g.length) || !a), p = e || this.getExtremesFromAll || this.options.getExtremesFromAll || this.cropped || !i || (k[f + o] || u) >= b && (k[f - o] || u) <= v, c && p) {
+	        for (i && (b = (d = i.getExtremes()).min, v = d.max), f = 0; f < C; f++) if (u = k[f], c = (j(g = t[f]) || I(g)) && ((j(g) ? g > 0 : g.length) || !n), p = e || this.getExtremesFromAll || this.options.getExtremesFromAll || this.cropped || !i || (k[f + o] || u) >= b && (k[f - o] || u) <= v, c && p) {
 	          if (m = g.length) for (; m--;) j(g[m]) && (r[S++] = g[m]);else r[S++] = g;
 	        }
 	        let M = {
@@ -16241,12 +15802,13 @@ var highcharts = {exports: {}};
 	        let t = this.getExtremes();
 	        return this.dataMin = t.dataMin, this.dataMax = t.dataMax, t;
 	      }
-	      getFirstValidPoint(t) {
-	        let e = t.length,
-	          i = 0,
-	          s = null;
-	        for (; null === s && i < e;) s = t[i], i++;
-	        return s;
+	      getFirstValidPoint(t, e = 0, i = 1) {
+	        let s = t.length,
+	          r = e;
+	        for (; r >= 0 && r < s;) {
+	          if (C(t[r])) return t[r];
+	          r += i;
+	        }
 	      }
 	      translate() {
 	        this.processedXData || this.processData(), this.generatePoints();
@@ -16256,8 +15818,8 @@ var highcharts = {exports: {}};
 	          s = i.categories,
 	          r = this.enabledDataSorting,
 	          o = this.yAxis,
-	          a = this.points,
-	          n = a.length,
+	          n = this.points,
+	          a = n.length,
 	          h = this.pointPlacementToXValue(),
 	          l = !!h,
 	          d = t.threshold,
@@ -16270,16 +15832,16 @@ var highcharts = {exports: {}};
 	        function x(t) {
 	          return b(t, -1e5, 1e5);
 	        }
-	        for (p = 0; p < n; p++) {
+	        for (p = 0; p < a; p++) {
 	          let t;
-	          let n = a[p],
-	            y = n.x,
+	          let a = n[p],
+	            y = a.x,
 	            b,
 	            S,
-	            k = n.y,
-	            M = n.low,
+	            k = a.y,
+	            M = a.low,
 	            w = e && o.stacking?.stacks[(this.negStacks && k < (c ? 0 : d) ? "-" : "") + this.stackKey];
-	          u = i.translate(y, !1, !1, !1, !0, h), n.plotX = j(u) ? v(x(u)) : void 0, e && this.visible && w && w[y] && (f = this.getStackIndicator(f, y, this.index), !n.isNull && f.key && (S = (b = w[y]).points[f.key]), b && I(S) && (M = S[0], k = S[1], M === c && f.key === w[y].base && (M = N(j(d) ? d : o.min)), o.positiveValuesOnly && C(M) && M <= 0 && (M = void 0), n.total = n.stackTotal = N(b.total), n.percentage = C(n.y) && b.total ? n.y / b.total * 100 : void 0, n.stackY = k, this.irregularWidths || b.setOffset(this.pointXOffset || 0, this.barW || 0, void 0, void 0, void 0, this.xAxis))), n.yBottom = C(M) ? x(o.translate(M, !1, !0, !1, !0)) : void 0, this.dataModify && (k = this.dataModify.modifyValue(k, p)), j(k) && void 0 !== n.plotX && (t = j(t = o.translate(k, !1, !0, !1, !0)) ? x(t) : void 0), n.plotY = t, n.isInside = this.isPointInside(n), n.clientX = l ? v(i.translate(y, !1, !1, !1, !0, h)) : u, n.negative = (n.y || 0) < (d || 0), n.category = N(s && s[n.x], n.x), n.isNull || !1 === n.visible || (void 0 !== g && (m = Math.min(m, Math.abs(u - g))), g = u), n.zone = this.zones.length ? n.getZone() : void 0, !n.graphic && this.group && r && (n.isNew = !0);
+	          u = i.translate(y, !1, !1, !1, !0, h), a.plotX = j(u) ? v(x(u)) : void 0, e && this.visible && w && w[y] && (f = this.getStackIndicator(f, y, this.index), !a.isNull && f.key && (S = (b = w[y]).points[f.key]), b && I(S) && (M = S[0], k = S[1], M === c && f.key === w[y].base && (M = N(j(d) ? d : o.min)), o.positiveValuesOnly && C(M) && M <= 0 && (M = void 0), a.total = a.stackTotal = N(b.total), a.percentage = C(a.y) && b.total ? a.y / b.total * 100 : void 0, a.stackY = k, this.irregularWidths || b.setOffset(this.pointXOffset || 0, this.barW || 0, void 0, void 0, void 0, this.xAxis))), a.yBottom = C(M) ? x(o.translate(M, !1, !0, !1, !0)) : void 0, this.dataModify && (k = this.dataModify.modifyValue(k, p)), j(k) && void 0 !== a.plotX && (t = j(t = o.translate(k, !1, !0, !1, !0)) ? x(t) : void 0), a.plotY = t, a.isInside = this.isPointInside(a), a.clientX = l ? v(i.translate(y, !1, !1, !1, !0, h)) : u, a.negative = (a.y || 0) < (d || 0), a.category = N(s && s[a.x], a.x), a.isNull || !1 === a.visible || (void 0 !== g && (m = Math.min(m, Math.abs(u - g))), g = u), a.zone = this.zones.length ? a.getZone() : void 0, !a.graphic && this.group && r && (a.isNew = !0);
 	        }
 	        this.closestPointRangePx = m, L(this, "afterTranslate");
 	      }
@@ -16305,13 +15867,13 @@ var highcharts = {exports: {}};
 	            x: s,
 	            y: r,
 	            width: o,
-	            height: a
+	            height: n
 	          } = R(t.clipBox);
-	        return e && e.len !== t.plotSizeX && (o = e.len), i && i.len !== t.plotSizeY && (a = i.len), t.inverted && !this.invertible && ([o, a] = [a, o]), {
+	        return e && e.len !== t.plotSizeX && (o = e.len), i && i.len !== t.plotSizeY && (n = i.len), t.inverted && !this.invertible && ([o, n] = [n, o]), {
 	          x: s,
 	          y: r,
 	          width: o,
-	          height: a
+	          height: n
 	        };
 	      }
 	      getSharedClipKey() {
@@ -16326,9 +15888,9 @@ var highcharts = {exports: {}};
 	          s = t.sharedClips,
 	          r = t.renderer,
 	          o = this.getClipBox(),
-	          a = this.getSharedClipKey(),
-	          n = s[a];
-	        n ? n.animate(o) : s[a] = n = r.clipRect(o), e && e.clip(!1 === this.options.clip ? void 0 : n), i && i.clip();
+	          n = this.getSharedClipKey(),
+	          a = s[n];
+	        a ? a.animate(o) : s[n] = a = r.clipRect(o), e && e.clip(!1 === this.options.clip ? void 0 : a), i && i.clip();
 	      }
 	      animate(t) {
 	        let {
@@ -16338,28 +15900,28 @@ var highcharts = {exports: {}};
 	          } = this,
 	          r = e.inverted,
 	          o = d(this.options.animation),
-	          a = [this.getSharedClipKey(), o.duration, o.easing, o.defer].join(","),
-	          n = e.sharedClips[a],
-	          h = e.sharedClips[a + "m"];
+	          n = [this.getSharedClipKey(), o.duration, o.easing, o.defer].join(","),
+	          a = e.sharedClips[n],
+	          h = e.sharedClips[n + "m"];
 	        if (t && i) {
 	          let t = this.getClipBox();
-	          if (n) n.attr("height", t.height);else {
-	            t.width = 0, r && (t.x = e.plotHeight), n = e.renderer.clipRect(t), e.sharedClips[a] = n;
+	          if (a) a.attr("height", t.height);else {
+	            t.width = 0, r && (t.x = e.plotHeight), a = e.renderer.clipRect(t), e.sharedClips[n] = a;
 	            let i = {
 	              x: -99,
 	              y: -99,
 	              width: r ? e.plotWidth + 199 : 99,
 	              height: r ? 99 : e.plotHeight + 199
 	            };
-	            h = e.renderer.clipRect(i), e.sharedClips[a + "m"] = h;
+	            h = e.renderer.clipRect(i), e.sharedClips[n + "m"] = h;
 	          }
-	          i.clip(n), s?.clip(h);
-	        } else if (n && !n.hasClass("highcharts-animating")) {
+	          i.clip(a), s?.clip(h);
+	        } else if (a && !a.hasClass("highcharts-animating")) {
 	          let t = this.getClipBox(),
 	            i = o.step;
 	          (s?.element.childNodes.length || e.series.length > 1) && (o.step = function (t, e) {
 	            i && i.apply(e, arguments), "width" === e.prop && h?.element && h.attr(r ? "height" : "width", t + 99);
-	          }), n.addClass("highcharts-animating").animate(t, o);
+	          }), a.addClass("highcharts-animating").animate(t, o);
 	        }
 	      }
 	      afterAnimate() {
@@ -16368,7 +15930,7 @@ var highcharts = {exports: {}};
 	        }), this.finishedAnimating = !0, L(this, "afterAnimate");
 	      }
 	      drawPoints(t = this.points) {
-	        let e, i, s, r, o, a, n;
+	        let e, i, s, r, o, n, a;
 	        let h = this.chart,
 	          l = h.styledMode,
 	          {
@@ -16379,13 +15941,13 @@ var highcharts = {exports: {}};
 	          u = this[this.specialGroup || "markerGroup"],
 	          g = this.xAxis,
 	          f = N(p.enabled, !g || !!g.isRadial || null, this.closestPointRangePx >= p.enabledThreshold * p.radius);
-	        if (!1 !== p.enabled || this._hasPointMarkers) for (e = 0; e < t.length; e++) if (r = (s = (i = t[e]).graphic) ? "animate" : "attr", o = i.marker || {}, a = !!i.marker, (f && void 0 === o.enabled || o.enabled) && !i.isNull && !1 !== i.visible) {
+	        if (!1 !== p.enabled || this._hasPointMarkers) for (e = 0; e < t.length; e++) if (r = (s = (i = t[e]).graphic) ? "animate" : "attr", o = i.marker || {}, n = !!i.marker, (f && void 0 === o.enabled || o.enabled) && !i.isNull && !1 !== i.visible) {
 	          let t = N(o.symbol, this.symbol, "rect");
-	          n = this.markerAttribs(i, i.selected && "select"), this.enabledDataSorting && (i.startXPos = g.reversed ? -(n.width || 0) : g.width);
+	          a = this.markerAttribs(i, i.selected && "select"), this.enabledDataSorting && (i.startXPos = g.reversed ? -(a.width || 0) : g.width);
 	          let e = !1 !== i.isInside;
-	          if (!s && e && ((n.width || 0) > 0 || i.hasImage) && (i.graphic = s = h.renderer.symbol(t, n.x, n.y, n.width, n.height, a ? o : p).add(u), this.enabledDataSorting && h.hasRendered && (s.attr({
+	          if (!s && e && ((a.width || 0) > 0 || i.hasImage) && (i.graphic = s = h.renderer.symbol(t, a.x, a.y, a.width, a.height, n ? o : p).add(u), this.enabledDataSorting && h.hasRendered && (s.attr({
 	            x: i.startXPos
-	          }), r = "animate")), s && "animate" === r && s[e ? "show" : "hide"](e).animate(n), s) {
+	          }), r = "animate")), s && "animate" === r && s[e ? "show" : "hide"](e).animate(a), s) {
 	            let t = this.pointAttribs(i, l || !i.selected ? void 0 : "select");
 	            l ? d && s.css({
 	              fill: t.fill
@@ -16399,21 +15961,21 @@ var highcharts = {exports: {}};
 	          s = i.marker,
 	          r = t.marker || {},
 	          o = r.symbol || s.symbol,
-	          a = {},
-	          n,
+	          n = {},
+	          a,
 	          h,
 	          l = N(r.radius, s && s.radius);
-	        e && (n = s.states[e], l = N((h = r.states && r.states[e]) && h.radius, n && n.radius, l && l + (n && n.radiusPlus || 0))), t.hasImage = o && 0 === o.indexOf("url"), t.hasImage && (l = 0);
+	        e && (a = s.states[e], l = N((h = r.states && r.states[e]) && h.radius, a && a.radius, l && l + (a && a.radiusPlus || 0))), t.hasImage = o && 0 === o.indexOf("url"), t.hasImage && (l = 0);
 	        let d = t.pos();
-	        return j(l) && d && (i.crisp && (d[0] = S(d[0], t.hasImage ? 0 : "rect" === o ? s?.lineWidth || 0 : 1)), a.x = d[0] - l, a.y = d[1] - l), l && (a.width = a.height = 2 * l), a;
+	        return j(l) && d && (i.crisp && (d[0] = S(d[0], t.hasImage ? 0 : "rect" === o ? s?.lineWidth || 0 : 1)), n.x = d[0] - l, n.y = d[1] - l), l && (n.width = n.height = 2 * l), n;
 	      }
 	      pointAttribs(t, e) {
 	        let i = this.options.marker,
 	          s = t && t.options,
 	          r = s && s.marker || {},
 	          o = s && s.color,
-	          a = t && t.color,
-	          n = t && t.zone && t.zone.color,
+	          n = t && t.color,
+	          a = t && t.zone && t.zone.color,
 	          h,
 	          l,
 	          d = this.color,
@@ -16421,7 +15983,7 @@ var highcharts = {exports: {}};
 	          p,
 	          u = N(r.lineWidth, i.lineWidth),
 	          g = 1;
-	        return d = o || n || a || d, c = r.fillColor || i.fillColor || d, p = r.lineColor || i.lineColor || d, e = e || "normal", h = i.states[e] || {}, u = N((l = r.states && r.states[e] || {}).lineWidth, h.lineWidth, u + N(l.lineWidthPlus, h.lineWidthPlus, 0)), c = l.fillColor || h.fillColor || c, {
+	        return d = o || a || n || d, c = r.fillColor || i.fillColor || d, p = r.lineColor || i.lineColor || d, e = e || "normal", h = i.states[e] || {}, u = N((l = r.states && r.states[e] || {}).lineWidth, h.lineWidth, u + N(l.lineWidthPlus, h.lineWidthPlus, 0)), c = l.fillColor || h.fillColor || c, {
 	          stroke: p = l.lineColor || h.lineColor || p,
 	          "stroke-width": u,
 	          fill: c,
@@ -16432,16 +15994,16 @@ var highcharts = {exports: {}};
 	        let e, i, s;
 	        let r = this,
 	          o = r.chart,
-	          a = /AppleWebKit\/533/.test(f.navigator.userAgent),
-	          n = r.data || [];
+	          n = /AppleWebKit\/533/.test(f.navigator.userAgent),
+	          a = r.data || [];
 	        for (L(r, "destroy", {
 	          keepEventsForUpdate: t
 	        }), this.removeEvents(t), (r.axisTypes || []).forEach(function (t) {
 	          (s = r[t]) && s.series && (w(s.series, r), s.isDirty = s.forceRedraw = !0);
-	        }), r.legendItem && r.chart.legend.destroyItem(r), e = n.length; e--;) (i = n[e]) && i.destroy && i.destroy();
+	        }), r.legendItem && r.chart.legend.destroyItem(r), e = a.length; e--;) (i = a[e]) && i.destroy && i.destroy();
 	        for (let t of r.zones) k(t, void 0, !0);
 	        l.clearTimeout(r.animationTimeout), z(r, function (t, e) {
-	          t instanceof h && !t.survive && t[a && "group" === e ? "hide" : "destroy"]();
+	          t instanceof h && !t.survive && t[n && "group" === e ? "hide" : "destroy"]();
 	        }), o.hoverSeries === r && (o.hoverSeries = void 0), w(o.series, r), o.orderItems("series"), z(r, function (e, i) {
 	          t && "hcEvents" === i || delete r[i];
 	        });
@@ -16454,14 +16016,14 @@ var highcharts = {exports: {}};
 	            zones: s,
 	            points: r,
 	            xAxis: o,
-	            yAxis: a,
-	            zoneAxis: n
+	            yAxis: n,
+	            zoneAxis: a
 	          } = this,
 	          {
 	            inverted: h,
 	            renderer: l
 	          } = e,
-	          d = this[`${n}Axis`],
+	          d = this[`${a}Axis`],
 	          {
 	            isXAxis: c,
 	            len: p = 0
@@ -16485,7 +16047,7 @@ var highcharts = {exports: {}};
 	            };
 	          if (s.forEach(t => {
 	            t.lineClip = [], t.translated = b(d.toPixels(N(t.value, e), !0) || 0, 0, p);
-	          }), i && !this.showLine && i.hide(), t && t.hide(), "y" === n && r.length < o.len) for (let t of r) {
+	          }), i && !this.showLine && i.hide(), t && t.hide(), "y" === a && r.length < o.len) for (let t of r) {
 	            let {
 	                plotX: e,
 	                plotY: i,
@@ -16501,32 +16063,32 @@ var highcharts = {exports: {}};
 	              r = Math.round(e.translated || 0);
 	            o.reversed && s.reverse();
 	            let {
-	                clip: n,
+	                clip: a,
 	                simpleClip: d
 	              } = e,
 	              p = 0,
 	              g = 0,
 	              x = o.len,
-	              y = a.len;
+	              y = n.len;
 	            c ? (p = r, x = m) : (g = r, y = m);
 	            let b = [["M", p, g], ["L", x, g], ["L", x, y], ["L", p, y], ["Z"]],
 	              v = [b[0], ...s, b[1], b[2], ...f, b[3], b[4]];
-	            f = s.reverse(), m = r, h && (u(v), t && u(b)), n ? (n.animate({
+	            f = s.reverse(), m = r, h && (u(v), t && u(b)), a ? (a.animate({
 	              d: v
 	            }), d?.animate({
 	              d: b
-	            })) : (n = e.clip = l.path(v), t && (d = e.simpleClip = l.path(b))), i && e.graph?.clip(n), t && e.area?.clip(d);
+	            })) : (a = e.clip = l.path(v), t && (d = e.simpleClip = l.path(b))), i && e.graph?.clip(a), t && e.area?.clip(d);
 	          });
 	        } else this.visible && (i && i.show(), t && t.show());
 	      }
 	      plotGroup(t, e, i, s, r) {
 	        let o = this[t],
-	          a = !o,
-	          n = {
+	          n = !o,
+	          a = {
 	            visibility: i,
 	            zIndex: s || .1
 	          };
-	        return C(this.opacity) && !this.chart.styledMode && "inactive" !== this.state && (n.opacity = this.opacity), o || (this[t] = o = this.chart.renderer.g().add(r)), o.addClass("highcharts-" + e + " highcharts-series-" + this.index + " highcharts-" + this.type + "-series " + (C(this.colorIndex) ? "highcharts-color-" + this.colorIndex + " " : "") + (this.options.className || "") + (o.hasClass("highcharts-tracker") ? " highcharts-tracker" : ""), !0), o.attr(n)[a ? "attr" : "animate"](this.getPlotBox(e)), o;
+	        return C(this.opacity) && !this.chart.styledMode && "inactive" !== this.state && (a.opacity = this.opacity), o || (this[t] = o = this.chart.renderer.g().add(r)), o.addClass("highcharts-" + e + " highcharts-series-" + this.index + " highcharts-" + this.type + "-series " + (C(this.colorIndex) ? "highcharts-color-" + this.colorIndex + " " : "") + (this.options.className || "") + (o.hasClass("highcharts-tracker") ? " highcharts-tracker" : ""), !0), o.attr(a)[n ? "attr" : "animate"](this.getPlotBox(e)), o;
 	      }
 	      getPlotBox(t) {
 	        let e = this.xAxis,
@@ -16560,10 +16122,10 @@ var highcharts = {exports: {}};
 	          } = t,
 	          r = d(i.animation),
 	          o = t.visible ? "inherit" : "hidden",
-	          a = i.zIndex,
-	          n = e.seriesGroup,
+	          n = i.zIndex,
+	          a = e.seriesGroup,
 	          h = t.finishedAnimating ? 0 : r.duration;
-	        L(this, "render"), t.plotGroup("group", "series", o, a, n), t.markerGroup = t.plotGroup("markerGroup", "markers", o, a, n), !1 !== i.clip && t.setClip(), h && t.animate?.(!0), t.drawGraph && (t.drawGraph(), t.applyZones()), t.visible && t.drawPoints(), t.drawDataLabels?.(), t.redrawPoints?.(), i.enableMouseTracking && t.drawTracker?.(), h && t.animate?.(), s || (h && r.defer && (h += r.defer), t.animationTimeout = H(() => {
+	        L(this, "render"), t.plotGroup("group", "series", o, n, a), t.markerGroup = t.plotGroup("markerGroup", "markers", o, n, a), !1 !== i.clip && t.setClip(), h && t.animate?.(!0), t.drawGraph && (t.drawGraph(), t.applyZones()), t.visible && t.drawPoints(), t.drawDataLabels?.(), t.redrawPoints?.(), i.enableMouseTracking && t.drawTracker?.(), h && t.animate?.(), s || (h && r.defer && (h += r.defer), t.animationTimeout = H(() => {
 	          t.afterAnimate();
 	        }, h || 0)), t.isDirty = !1, t.hasRendered = !0, L(t, "afterRender");
 	      }
@@ -16591,12 +16153,12 @@ var highcharts = {exports: {}};
 	          i = e.options.findNearestPointBy.indexOf("y") > -1 ? 2 : 1;
 	        delete e.kdTree, H(function () {
 	          e.kdTree = function t(i, s, r) {
-	            let o, a;
-	            let n = i?.length;
-	            if (n) return o = e.kdAxisArray[s % r], i.sort((t, e) => (t[o] || 0) - (e[o] || 0)), {
-	              point: i[a = Math.floor(n / 2)],
-	              left: t(i.slice(0, a), s + 1, r),
-	              right: t(i.slice(a + 1), s + 1, r)
+	            let o, n;
+	            let a = i?.length;
+	            if (a) return o = e.kdAxisArray[s % r], i.sort((t, e) => (t[o] || 0) - (e[o] || 0)), {
+	              point: i[n = Math.floor(a / 2)],
+	              left: t(i.slice(0, n), s + 1, r),
+	              right: t(i.slice(n + 1), s + 1, r)
 	            };
 	          }(e.getValidPoints(void 0, !e.directTouch), i, i), e.buildingKdTree = !1;
 	        }, e.options.kdNow || t?.type === "touchstart" ? 0 : 1);
@@ -16604,30 +16166,30 @@ var highcharts = {exports: {}};
 	      searchKDTree(t, e, i) {
 	        let s = this,
 	          [r, o] = this.kdAxisArray,
-	          a = e ? "distX" : "dist",
-	          n = (s.options.findNearestPointBy || "").indexOf("y") > -1 ? 2 : 1,
+	          n = e ? "distX" : "dist",
+	          a = (s.options.findNearestPointBy || "").indexOf("y") > -1 ? 2 : 1,
 	          h = !!s.isBubble;
-	        if (this.kdTree || this.buildingKdTree || this.buildKDTree(i), this.kdTree) return function t(e, i, n, l) {
+	        if (this.kdTree || this.buildingKdTree || this.buildKDTree(i), this.kdTree) return function t(e, i, a, l) {
 	          let d = i.point,
-	            c = s.kdAxisArray[n % l],
+	            c = s.kdAxisArray[a % l],
 	            p,
 	            u,
 	            g = d;
 	          !function (t, e) {
 	            let i = t[r],
 	              s = e[r],
-	              a = C(i) && C(s) ? i - s : null,
-	              n = t[o],
+	              n = C(i) && C(s) ? i - s : null,
+	              a = t[o],
 	              l = e[o],
-	              d = C(n) && C(l) ? n - l : 0,
+	              d = C(a) && C(l) ? a - l : 0,
 	              c = h && e.marker?.radius || 0;
-	            e.dist = Math.sqrt((a && a * a || 0) + d * d) - c, e.distX = C(a) ? Math.abs(a) - c : Number.MAX_VALUE;
+	            e.dist = Math.sqrt((n && n * n || 0) + d * d) - c, e.distX = C(n) ? Math.abs(n) - c : Number.MAX_VALUE;
 	          }(e, d);
 	          let f = (e[c] || 0) - (d[c] || 0) + (h && d.marker?.radius || 0),
 	            m = f < 0 ? "left" : "right",
 	            x = f < 0 ? "right" : "left";
-	          return i[m] && (g = (p = t(e, i[m], n + 1, l))[a] < g[a] ? p : d), i[x] && Math.sqrt(f * f) < g[a] && (g = (u = t(e, i[x], n + 1, l))[a] < g[a] ? u : g), g;
-	        }(t, this.kdTree, n, n);
+	          return i[m] && (g = (p = t(e, i[m], a + 1, l))[n] < g[n] ? p : d), i[x] && Math.sqrt(f * f) < g[n] && (g = (u = t(e, i[x], a + 1, l))[n] < g[n] ? u : g), g;
+	        }(t, this.kdTree, a, a);
 	      }
 	      pointPlacementToXValue() {
 	        let {
@@ -16656,8 +16218,8 @@ var highcharts = {exports: {}};
 	          s = [].concat((i ? t.areaPath : t.graphPath) || []),
 	          r = t.chart,
 	          o = r.pointer,
-	          a = r.renderer,
-	          n = r.options.tooltip?.snap || 0,
+	          n = r.renderer,
+	          a = r.options.tooltip?.snap || 0,
 	          h = () => {
 	            e.enableMouseTracking && r.hoverSeries !== t && t.onMouseOver();
 	          },
@@ -16665,7 +16227,7 @@ var highcharts = {exports: {}};
 	          d = t.tracker;
 	        d ? d.attr({
 	          d: s
-	        }) : t.graph && (t.tracker = d = a.path(s).attr({
+	        }) : t.graph && (t.tracker = d = n.path(s).attr({
 	          visibility: t.visible ? "inherit" : "hidden",
 	          zIndex: 2
 	        }).addClass(i ? "highcharts-tracker-area" : "highcharts-tracker-line").add(t.group), r.styledMode || d.attr({
@@ -16673,7 +16235,7 @@ var highcharts = {exports: {}};
 	          "stroke-linejoin": "round",
 	          stroke: l,
 	          fill: i ? l : "none",
-	          "stroke-width": t.graph.strokeWidth() + (i ? 0 : 2 * n)
+	          "stroke-width": t.graph.strokeWidth() + (i ? 0 : 2 * a)
 	        }), [t.tracker, t.markerGroup, t.dataLabelsGroup].forEach(t => {
 	          t && (t.addClass("highcharts-tracker").on("mouseover", h).on("mouseout", t => {
 	            o?.onTrackerMouseOut(t);
@@ -16683,13 +16245,13 @@ var highcharts = {exports: {}};
 	        })), L(this, "afterDrawTracker");
 	      }
 	      addPoint(t, e, i, s, r) {
-	        let o, a;
-	        let n = this.options,
+	        let o, n;
+	        let a = this.options,
 	          h = this.data,
 	          l = this.chart,
 	          d = this.xAxis,
 	          c = d && d.hasNames && d.names,
-	          p = n.data,
+	          p = a.data,
 	          u = this.xData;
 	        e = N(e, !0);
 	        let g = {
@@ -16697,8 +16259,8 @@ var highcharts = {exports: {}};
 	        };
 	        this.pointClass.prototype.applyOptions.apply(g, [t]);
 	        let f = g.x;
-	        if (a = u.length, this.requireSorting && f < u[a - 1]) for (o = !0; a && u[a - 1] > f;) a--;
-	        this.updateParallelArrays(g, "splice", [a, 0, 0]), this.updateParallelArrays(g, a), c && g.name && (c[f] = g.name), p.splice(a, 0, t), (o || this.processedData) && (this.data.splice(a, 0, null), this.processData()), "point" === n.legendType && this.generatePoints(), i && (h[0] && h[0].remove ? h[0].remove(!1) : (h.shift(), this.updateParallelArrays(g, "shift"), p.shift())), !1 !== r && L(this, "addPoint", {
+	        if (n = u.length, this.requireSorting && f < u[n - 1]) for (o = !0; n && u[n - 1] > f;) n--;
+	        this.updateParallelArrays(g, "splice", [n, 0, 0]), this.updateParallelArrays(g, n), c && g.name && (c[f] = g.name), p.splice(n, 0, t), (o || this.processedData) && (this.data.splice(n, 0, null), this.processData()), "point" === a.legendType && this.generatePoints(), i && (h[0] && h[0].remove ? h[0].remove(!1) : (h.shift(), this.updateParallelArrays(g, "shift"), p.shift())), !1 !== r && L(this, "addPoint", {
 	          point: g
 	        }), this.isDirty = !0, this.isDirtyData = !0, e && l.redraw(s);
 	      }
@@ -16706,22 +16268,22 @@ var highcharts = {exports: {}};
 	        let s = this,
 	          r = s.data,
 	          o = r[t],
-	          a = s.points,
-	          n = s.chart,
+	          n = s.points,
+	          a = s.chart,
 	          h = function () {
-	            a && a.length === r.length && a.splice(t, 1), r.splice(t, 1), s.options.data.splice(t, 1), s.updateParallelArrays(o || {
+	            n && n.length === r.length && n.splice(t, 1), r.splice(t, 1), s.options.data.splice(t, 1), s.updateParallelArrays(o || {
 	              series: s
-	            }, "splice", [t, 1]), o && o.destroy(), s.isDirty = !0, s.isDirtyData = !0, e && n.redraw();
+	            }, "splice", [t, 1]), o && o.destroy(), s.isDirty = !0, s.isDirtyData = !0, e && a.redraw();
 	          };
-	        c(i, n), e = N(e, !0), o ? o.firePointEvent("remove", null, h) : h();
+	        c(i, a), e = N(e, !0), o ? o.firePointEvent("remove", null, h) : h();
 	      }
 	      remove(t, e, i, s) {
 	        let r = this,
 	          o = r.chart;
-	        function a() {
+	        function n() {
 	          r.destroy(s), o.isDirtyLegend = o.isDirtyBox = !0, o.linkSeries(s), N(t, !0) && o.redraw(e);
 	        }
-	        !1 !== i ? L(r, "remove", null, a) : a();
+	        !1 !== i ? L(r, "remove", null, n) : n();
 	      }
 	      update(t, e) {
 	        L(this, "update", {
@@ -16731,8 +16293,8 @@ var highcharts = {exports: {}};
 	          s = i.chart,
 	          r = i.userOptions,
 	          o = i.initialType || i.type,
-	          a = s.options.plotOptions,
-	          n = m[o].prototype,
+	          n = s.options.plotOptions,
+	          a = m[o].prototype,
 	          h = i.finishedAnimating && {
 	            animation: !1
 	          },
@@ -16746,7 +16308,7 @@ var highcharts = {exports: {}};
 	          p.push(t + "Data");
 	        }), t.data && (t.dataSorting && T(i.options.dataSorting, t.dataSorting), this.setData(t.data, !1))), t = R(r, {
 	          index: void 0 === r.index ? i.index : r.index,
-	          pointStart: a?.series?.pointStart ?? r.pointStart ?? i.xData?.[0]
+	          pointStart: n?.series?.pointStart ?? r.pointStart ?? i.xData?.[0]
 	        }, !g && {
 	          data: i.options.data
 	        }, t, h), g && t.data && (t.data = i.options.data), (p = ["group", "markerGroup", "dataLabelsGroup", "transformGroup"].concat(p)).forEach(function (t) {
@@ -16757,7 +16319,7 @@ var highcharts = {exports: {}};
 	          if (f = u !== i.type, i.remove(!1, !1, !1, !0), f) {
 	            if (s.propFromSeries(), Object.setPrototypeOf) Object.setPrototypeOf(i, m[u].prototype);else {
 	              let t = Object.hasOwnProperty.call(i, "hcEvents") && i.hcEvents;
-	              for (c in n) i[c] = void 0;
+	              for (c in a) i[c] = void 0;
 	              T(i, m[u].prototype), t ? i.hcEvents = t : delete i.hcEvents;
 	            }
 	          }
@@ -16800,21 +16362,21 @@ var highcharts = {exports: {}};
 	          s = i.options,
 	          r = i.graph,
 	          o = s.inactiveOtherPoints,
-	          a = s.states,
-	          n = N(a[t || "normal"] && a[t || "normal"].animation, i.chart.options.chart.animation),
+	          n = s.states,
+	          a = N(n[t || "normal"] && n[t || "normal"].animation, i.chart.options.chart.animation),
 	          h = s.lineWidth,
 	          l = s.opacity;
 	        if (t = t || "", i.state !== t && ([i.group, i.markerGroup, i.dataLabelsGroup].forEach(function (e) {
 	          e && (i.state && e.removeClass("highcharts-series-" + i.state), t && e.addClass("highcharts-series-" + t));
 	        }), i.state = t, !i.chart.styledMode)) {
-	          if (a[t] && !1 === a[t].enabled) return;
-	          if (t && (h = a[t].lineWidth || h + (a[t].lineWidthPlus || 0), l = N(a[t].opacity, l)), r && !r.dashstyle && j(h)) for (let t of [r, ...this.zones.map(t => t.graph)]) t?.animate({
+	          if (n[t] && !1 === n[t].enabled) return;
+	          if (t && (h = n[t].lineWidth || h + (n[t].lineWidthPlus || 0), l = N(n[t].opacity, l)), r && !r.dashstyle && j(h)) for (let t of [r, ...this.zones.map(t => t.graph)]) t?.animate({
 	            "stroke-width": h
-	          }, n);
+	          }, a);
 	          o || [i.group, i.markerGroup, i.dataLabelsGroup, i.labelBySeries].forEach(function (t) {
 	            t && t.animate({
 	              opacity: l
-	            }, n);
+	            }, a);
 	          });
 	        }
 	        e && o && i.points && i.setAllPointsToState(t || void 0);
@@ -16830,14 +16392,14 @@ var highcharts = {exports: {}};
 	          r = s.options.chart.ignoreHiddenSeries,
 	          o = i.visible;
 	        i.visible = t = i.options.visible = i.userOptions.visible = void 0 === t ? !o : t;
-	        let a = t ? "show" : "hide";
+	        let n = t ? "show" : "hide";
 	        ["group", "dataLabelsGroup", "markerGroup", "tracker", "tt"].forEach(t => {
-	          i[t]?.[a]();
+	          i[t]?.[n]();
 	        }), (s.hoverSeries === i || s.hoverPoint?.series === i) && i.onMouseOut(), i.legendItem && s.legend.colorizeItem(i, t), i.isDirty = !0, i.options.stacking && s.series.forEach(t => {
 	          t.options.stacking && t.visible && (t.isDirty = !0);
 	        }), i.linkedSeries.forEach(e => {
 	          e.setVisible(t, !1);
-	        }), r && (s.isDirtyBox = !0), L(i, a), !1 !== e && s.redraw();
+	        }), r && (s.isDirtyBox = !0), L(i, n), !1 !== e && s.redraw();
 	      }
 	      show() {
 	        this.setVisible(!0);
@@ -16855,7 +16417,7 @@ var highcharts = {exports: {}};
 	        r[this.options.legendSymbol || "rectangle"]?.call(this, t, e);
 	      }
 	    }
-	    return X.defaultOptions = a, X.types = n.seriesTypes, X.registerType = n.registerSeriesType, T(X.prototype, {
+	    return X.defaultOptions = n, X.types = a.seriesTypes, X.registerType = a.registerSeriesType, T(X.prototype, {
 	      axisTypes: ["xAxis", "yAxis"],
 	      coll: "series",
 	      colorCounter: 0,
@@ -16867,8 +16429,433 @@ var highcharts = {exports: {}};
 	      pointClass: o,
 	      requireSorting: !0,
 	      sorted: !0
-	    }), n.series = X, X;
-	  }), i(e, "Core/Chart/Chart.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Axis/Axis.js"], e["Core/Defaults.js"], e["Core/Templating.js"], e["Core/Foundation.js"], e["Core/Globals.js"], e["Core/Renderer/RendererRegistry.js"], e["Core/Series/Series.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Renderer/SVG/SVGRenderer.js"], e["Core/Time.js"], e["Core/Utilities.js"], e["Core/Renderer/HTML/AST.js"], e["Core/Axis/Tick.js"]], function (t, e, i, s, r, o, a, n, h, l, d, c, p, u) {
+	    }), a.series = X, X;
+	  }), i(e, "Core/Legend/Legend.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Foundation.js"], e["Core/Globals.js"], e["Core/Series/Series.js"], e["Core/Series/Point.js"], e["Core/Renderer/RendererUtilities.js"], e["Core/Templating.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o, n, a) {
+	    var h;
+	    let {
+	        animObject: l,
+	        setAnimation: d
+	      } = t,
+	      {
+	        registerEventOptions: c
+	      } = e,
+	      {
+	        composed: p,
+	        marginNames: u
+	      } = i,
+	      {
+	        distribute: g
+	      } = o,
+	      {
+	        format: f
+	      } = n,
+	      {
+	        addEvent: m,
+	        createElement: x,
+	        css: y,
+	        defined: b,
+	        discardElement: v,
+	        find: S,
+	        fireEvent: C,
+	        isNumber: k,
+	        merge: M,
+	        pick: w,
+	        pushUnique: A,
+	        relativeLength: T,
+	        stableSort: P,
+	        syncTimeout: L
+	      } = a;
+	    class O {
+	      constructor(t, e) {
+	        this.allItems = [], this.initialItemY = 0, this.itemHeight = 0, this.itemMarginBottom = 0, this.itemMarginTop = 0, this.itemX = 0, this.itemY = 0, this.lastItemY = 0, this.lastLineHeight = 0, this.legendHeight = 0, this.legendWidth = 0, this.maxItemWidth = 0, this.maxLegendWidth = 0, this.offsetWidth = 0, this.padding = 0, this.pages = [], this.symbolHeight = 0, this.symbolWidth = 0, this.titleHeight = 0, this.totalItemWidth = 0, this.widthOption = 0, this.chart = t, this.setOptions(e), e.enabled && (this.render(), c(this, e), m(this.chart, "endResize", function () {
+	          this.legend.positionCheckboxes();
+	        })), m(this.chart, "render", () => {
+	          this.options.enabled && this.proximate && (this.proximatePositions(), this.positionItems());
+	        });
+	      }
+	      setOptions(t) {
+	        let e = w(t.padding, 8);
+	        this.options = t, this.chart.styledMode || (this.itemStyle = t.itemStyle, this.itemHiddenStyle = M(this.itemStyle, t.itemHiddenStyle)), this.itemMarginTop = t.itemMarginTop, this.itemMarginBottom = t.itemMarginBottom, this.padding = e, this.initialItemY = e - 5, this.symbolWidth = w(t.symbolWidth, 16), this.pages = [], this.proximate = "proximate" === t.layout && !this.chart.inverted, this.baseline = void 0;
+	      }
+	      update(t, e) {
+	        let i = this.chart;
+	        this.setOptions(M(!0, this.options, t)), "events" in this.options && c(this, this.options), this.destroy(), i.isDirtyLegend = i.isDirtyBox = !0, w(e, !0) && i.redraw(), C(this, "afterUpdate", {
+	          redraw: e
+	        });
+	      }
+	      colorizeItem(t, e) {
+	        let {
+	          area: i,
+	          group: s,
+	          label: r,
+	          line: o,
+	          symbol: n
+	        } = t.legendItem || {};
+	        if (s?.[e ? "removeClass" : "addClass"]("highcharts-legend-item-hidden"), !this.chart.styledMode) {
+	          let {
+	              itemHiddenStyle: s = {}
+	            } = this,
+	            a = s.color,
+	            {
+	              fillColor: h,
+	              fillOpacity: l,
+	              lineColor: d,
+	              marker: c
+	            } = t.options,
+	            p = t => (!e && (t.fill && (t.fill = a), t.stroke && (t.stroke = a)), t);
+	          r?.css(M(e ? this.itemStyle : s)), o?.attr(p({
+	            stroke: d || t.color
+	          })), n && n.attr(p(c && n.isMarker ? t.pointAttribs() : {
+	            fill: t.color
+	          })), i?.attr(p({
+	            fill: h || t.color,
+	            "fill-opacity": h ? 1 : l ?? .75
+	          }));
+	        }
+	        C(this, "afterColorizeItem", {
+	          item: t,
+	          visible: e
+	        });
+	      }
+	      positionItems() {
+	        this.allItems.forEach(this.positionItem, this), this.chart.isResizing || this.positionCheckboxes();
+	      }
+	      positionItem(t) {
+	        let {
+	            group: e,
+	            x: i = 0,
+	            y: s = 0
+	          } = t.legendItem || {},
+	          r = this.options,
+	          o = r.symbolPadding,
+	          n = !r.rtl,
+	          a = t.checkbox;
+	        if (e && e.element) {
+	          let r = {
+	            translateX: n ? i : this.legendWidth - i - 2 * o - 4,
+	            translateY: s
+	          };
+	          e[b(e.translateY) ? "animate" : "attr"](r, void 0, () => {
+	            C(this, "afterPositionItem", {
+	              item: t
+	            });
+	          });
+	        }
+	        a && (a.x = i, a.y = s);
+	      }
+	      destroyItem(t) {
+	        let e = t.checkbox,
+	          i = t.legendItem || {};
+	        for (let t of ["group", "label", "line", "symbol"]) i[t] && (i[t] = i[t].destroy());
+	        e && v(e), t.legendItem = void 0;
+	      }
+	      destroy() {
+	        for (let t of this.getAllItems()) this.destroyItem(t);
+	        for (let t of ["clipRect", "up", "down", "pager", "nav", "box", "title", "group"]) this[t] && (this[t] = this[t].destroy());
+	        this.display = null;
+	      }
+	      positionCheckboxes() {
+	        let t;
+	        let e = this.group && this.group.alignAttr,
+	          i = this.clipHeight || this.legendHeight,
+	          s = this.titleHeight;
+	        e && (t = e.translateY, this.allItems.forEach(function (r) {
+	          let o;
+	          let n = r.checkbox;
+	          n && (o = t + s + n.y + (this.scrollOffset || 0) + 3, y(n, {
+	            left: e.translateX + r.checkboxOffset + n.x - 20 + "px",
+	            top: o + "px",
+	            display: this.proximate || o > t - 6 && o < t + i - 6 ? "" : "none"
+	          }));
+	        }, this));
+	      }
+	      renderTitle() {
+	        let t = this.options,
+	          e = this.padding,
+	          i = t.title,
+	          s,
+	          r = 0;
+	        i.text && (this.title || (this.title = this.chart.renderer.label(i.text, e - 3, e - 4, void 0, void 0, void 0, t.useHTML, void 0, "legend-title").attr({
+	          zIndex: 1
+	        }), this.chart.styledMode || this.title.css(i.style), this.title.add(this.group)), i.width || this.title.css({
+	          width: this.maxLegendWidth + "px"
+	        }), r = (s = this.title.getBBox()).height, this.offsetWidth = s.width, this.contentGroup.attr({
+	          translateY: r
+	        })), this.titleHeight = r;
+	      }
+	      setText(t) {
+	        let e = this.options;
+	        t.legendItem.label.attr({
+	          text: e.labelFormat ? f(e.labelFormat, t, this.chart) : e.labelFormatter.call(t)
+	        });
+	      }
+	      renderItem(t) {
+	        let e = t.legendItem = t.legendItem || {},
+	          i = this.chart,
+	          s = i.renderer,
+	          r = this.options,
+	          o = "horizontal" === r.layout,
+	          n = this.symbolWidth,
+	          a = r.symbolPadding || 0,
+	          h = this.itemStyle,
+	          l = this.itemHiddenStyle,
+	          d = o ? w(r.itemDistance, 20) : 0,
+	          c = !r.rtl,
+	          p = !t.series,
+	          u = !p && t.series.drawLegendSymbol ? t.series : t,
+	          g = u.options,
+	          f = !!this.createCheckboxForItem && g && g.showCheckbox,
+	          m = r.useHTML,
+	          x = t.options.className,
+	          y = e.label,
+	          b = n + a + d + (f ? 20 : 0);
+	        !y && (e.group = s.g("legend-item").addClass("highcharts-" + u.type + "-series highcharts-color-" + t.colorIndex + (x ? " " + x : "") + (p ? " highcharts-series-" + t.index : "")).attr({
+	          zIndex: 1
+	        }).add(this.scrollGroup), e.label = y = s.text("", c ? n + a : -a, this.baseline || 0, m), i.styledMode || y.css(M(t.visible ? h : l)), y.attr({
+	          align: c ? "left" : "right",
+	          zIndex: 2
+	        }).add(e.group), !this.baseline && (this.fontMetrics = s.fontMetrics(y), this.baseline = this.fontMetrics.f + 3 + this.itemMarginTop, y.attr("y", this.baseline), this.symbolHeight = w(r.symbolHeight, this.fontMetrics.f), r.squareSymbol && (this.symbolWidth = w(r.symbolWidth, Math.max(this.symbolHeight, 16)), b = this.symbolWidth + a + d + (f ? 20 : 0), c && y.attr("x", this.symbolWidth + a))), u.drawLegendSymbol(this, t), this.setItemEvents && this.setItemEvents(t, y, m)), f && !t.checkbox && this.createCheckboxForItem && this.createCheckboxForItem(t), this.colorizeItem(t, t.visible), (i.styledMode || !h.width) && y.css({
+	          width: (r.itemWidth || this.widthOption || i.spacingBox.width) - b + "px"
+	        }), this.setText(t);
+	        let v = y.getBBox(),
+	          S = this.fontMetrics && this.fontMetrics.h || 0;
+	        t.itemWidth = t.checkboxOffset = r.itemWidth || e.labelWidth || v.width + b, this.maxItemWidth = Math.max(this.maxItemWidth, t.itemWidth), this.totalItemWidth += t.itemWidth, this.itemHeight = t.itemHeight = Math.round(e.labelHeight || (v.height > 1.5 * S ? v.height : S));
+	      }
+	      layoutItem(t) {
+	        let e = this.options,
+	          i = this.padding,
+	          s = "horizontal" === e.layout,
+	          r = t.itemHeight,
+	          o = this.itemMarginBottom,
+	          n = this.itemMarginTop,
+	          a = s ? w(e.itemDistance, 20) : 0,
+	          h = this.maxLegendWidth,
+	          l = e.alignColumns && this.totalItemWidth > h ? this.maxItemWidth : t.itemWidth,
+	          d = t.legendItem || {};
+	        s && this.itemX - i + l > h && (this.itemX = i, this.lastLineHeight && (this.itemY += n + this.lastLineHeight + o), this.lastLineHeight = 0), this.lastItemY = n + this.itemY + o, this.lastLineHeight = Math.max(r, this.lastLineHeight), d.x = this.itemX, d.y = this.itemY, s ? this.itemX += l : (this.itemY += n + r + o, this.lastLineHeight = r), this.offsetWidth = this.widthOption || Math.max((s ? this.itemX - i - (t.checkbox ? 0 : a) : l) + i, this.offsetWidth);
+	      }
+	      getAllItems() {
+	        let t = [];
+	        return this.chart.series.forEach(function (e) {
+	          let i = e && e.options;
+	          e && w(i.showInLegend, !b(i.linkedTo) && void 0, !0) && (t = t.concat((e.legendItem || {}).labels || ("point" === i.legendType ? e.data : e)));
+	        }), C(this, "afterGetAllItems", {
+	          allItems: t
+	        }), t;
+	      }
+	      getAlignment() {
+	        let t = this.options;
+	        return this.proximate ? t.align.charAt(0) + "tv" : t.floating ? "" : t.align.charAt(0) + t.verticalAlign.charAt(0) + t.layout.charAt(0);
+	      }
+	      adjustMargins(t, e) {
+	        let i = this.chart,
+	          s = this.options,
+	          r = this.getAlignment();
+	        r && [/(lth|ct|rth)/, /(rtv|rm|rbv)/, /(rbh|cb|lbh)/, /(lbv|lm|ltv)/].forEach(function (o, n) {
+	          o.test(r) && !b(t[n]) && (i[u[n]] = Math.max(i[u[n]], i.legend[(n + 1) % 2 ? "legendHeight" : "legendWidth"] + [1, -1, -1, 1][n] * s[n % 2 ? "x" : "y"] + w(s.margin, 12) + e[n] + (i.titleOffset[n] || 0)));
+	        });
+	      }
+	      proximatePositions() {
+	        let t;
+	        let e = this.chart,
+	          i = [],
+	          s = "left" === this.options.align;
+	        for (let r of (this.allItems.forEach(function (t) {
+	          let r,
+	            o,
+	            n = s,
+	            a,
+	            h;
+	          t.yAxis && (t.xAxis.options.reversed && (n = !n), t.points && (r = S(n ? t.points : t.points.slice(0).reverse(), function (t) {
+	            return k(t.plotY);
+	          })), o = this.itemMarginTop + t.legendItem.label.getBBox().height + this.itemMarginBottom, h = t.yAxis.top - e.plotTop, a = t.visible ? (r ? r.plotY : t.yAxis.height) + (h - .3 * o) : h + t.yAxis.height, i.push({
+	            target: a,
+	            size: o,
+	            item: t
+	          }));
+	        }, this), g(i, e.plotHeight))) t = r.item.legendItem || {}, k(r.pos) && (t.y = e.plotTop - e.spacing[0] + r.pos);
+	      }
+	      render() {
+	        let t = this.chart,
+	          e = t.renderer,
+	          i = this.options,
+	          s = this.padding,
+	          r = this.getAllItems(),
+	          o,
+	          n,
+	          a,
+	          h = this.group,
+	          l,
+	          d = this.box;
+	        this.itemX = s, this.itemY = this.initialItemY, this.offsetWidth = 0, this.lastItemY = 0, this.widthOption = T(i.width, t.spacingBox.width - s), l = t.spacingBox.width - 2 * s - i.x, ["rm", "lm"].indexOf(this.getAlignment().substring(0, 2)) > -1 && (l /= 2), this.maxLegendWidth = this.widthOption || l, h || (this.group = h = e.g("legend").addClass(i.className || "").attr({
+	          zIndex: 7
+	        }).add(), this.contentGroup = e.g().attr({
+	          zIndex: 1
+	        }).add(h), this.scrollGroup = e.g().add(this.contentGroup)), this.renderTitle(), P(r, (t, e) => (t.options && t.options.legendIndex || 0) - (e.options && e.options.legendIndex || 0)), i.reversed && r.reverse(), this.allItems = r, this.display = o = !!r.length, this.lastLineHeight = 0, this.maxItemWidth = 0, this.totalItemWidth = 0, this.itemHeight = 0, r.forEach(this.renderItem, this), r.forEach(this.layoutItem, this), n = (this.widthOption || this.offsetWidth) + s, a = this.lastItemY + this.lastLineHeight + this.titleHeight, a = this.handleOverflow(a) + s, d || (this.box = d = e.rect().addClass("highcharts-legend-box").attr({
+	          r: i.borderRadius
+	        }).add(h)), t.styledMode || d.attr({
+	          stroke: i.borderColor,
+	          "stroke-width": i.borderWidth || 0,
+	          fill: i.backgroundColor || "none"
+	        }).shadow(i.shadow), n > 0 && a > 0 && d[d.placed ? "animate" : "attr"](d.crisp.call({}, {
+	          x: 0,
+	          y: 0,
+	          width: n,
+	          height: a
+	        }, d.strokeWidth())), h[o ? "show" : "hide"](), t.styledMode && "none" === h.getStyle("display") && (n = a = 0), this.legendWidth = n, this.legendHeight = a, o && this.align(), this.proximate || this.positionItems(), C(this, "afterRender");
+	      }
+	      align(t = this.chart.spacingBox) {
+	        let e = this.chart,
+	          i = this.options,
+	          s = t.y;
+	        /(lth|ct|rth)/.test(this.getAlignment()) && e.titleOffset[0] > 0 ? s += e.titleOffset[0] : /(lbh|cb|rbh)/.test(this.getAlignment()) && e.titleOffset[2] > 0 && (s -= e.titleOffset[2]), s !== t.y && (t = M(t, {
+	          y: s
+	        })), e.hasRendered || (this.group.placed = !1), this.group.align(M(i, {
+	          width: this.legendWidth,
+	          height: this.legendHeight,
+	          verticalAlign: this.proximate ? "top" : i.verticalAlign
+	        }), !0, t);
+	      }
+	      handleOverflow(t) {
+	        let e = this,
+	          i = this.chart,
+	          s = i.renderer,
+	          r = this.options,
+	          o = r.y,
+	          n = "top" === r.verticalAlign,
+	          a = this.padding,
+	          h = r.maxHeight,
+	          l = r.navigation,
+	          d = w(l.animation, !0),
+	          c = l.arrowSize || 12,
+	          p = this.pages,
+	          u = this.allItems,
+	          g = function (t) {
+	            "number" == typeof t ? S.attr({
+	              height: t
+	            }) : S && (e.clipRect = S.destroy(), e.contentGroup.clip()), e.contentGroup.div && (e.contentGroup.div.style.clip = t ? "rect(" + a + "px,9999px," + (a + t) + "px,0)" : "auto");
+	          },
+	          f = function (t) {
+	            return e[t] = s.circle(0, 0, 1.3 * c).translate(c / 2, c / 2).add(v), i.styledMode || e[t].attr("fill", "rgba(0,0,0,0.0001)"), e[t];
+	          },
+	          m,
+	          x,
+	          y,
+	          b = i.spacingBox.height + (n ? -o : o) - a,
+	          v = this.nav,
+	          S = this.clipRect;
+	        return "horizontal" !== r.layout || "middle" === r.verticalAlign || r.floating || (b /= 2), h && (b = Math.min(b, h)), p.length = 0, t && b > 0 && t > b && !1 !== l.enabled ? (this.clipHeight = m = Math.max(b - 20 - this.titleHeight - a, 0), this.currentPage = w(this.currentPage, 1), this.fullHeight = t, u.forEach((t, e) => {
+	          let i = (y = t.legendItem || {}).y || 0,
+	            s = Math.round(y.label.getBBox().height),
+	            r = p.length;
+	          (!r || i - p[r - 1] > m && (x || i) !== p[r - 1]) && (p.push(x || i), r++), y.pageIx = r - 1, x && ((u[e - 1].legendItem || {}).pageIx = r - 1), e === u.length - 1 && i + s - p[r - 1] > m && i > p[r - 1] && (p.push(i), y.pageIx = r), i !== x && (x = i);
+	        }), S || (S = e.clipRect = s.clipRect(0, a - 2, 9999, 0), e.contentGroup.clip(S)), g(m), v || (this.nav = v = s.g().attr({
+	          zIndex: 1
+	        }).add(this.group), this.up = s.symbol("triangle", 0, 0, c, c).add(v), f("upTracker").on("click", function () {
+	          e.scroll(-1, d);
+	        }), this.pager = s.text("", 15, 10).addClass("highcharts-legend-navigation"), !i.styledMode && l.style && this.pager.css(l.style), this.pager.add(v), this.down = s.symbol("triangle-down", 0, 0, c, c).add(v), f("downTracker").on("click", function () {
+	          e.scroll(1, d);
+	        })), e.scroll(0), t = b) : v && (g(), this.nav = v.destroy(), this.scrollGroup.attr({
+	          translateY: 1
+	        }), this.clipHeight = 0), t;
+	      }
+	      scroll(t, e) {
+	        let i = this.chart,
+	          s = this.pages,
+	          r = s.length,
+	          o = this.clipHeight,
+	          n = this.options.navigation,
+	          a = this.pager,
+	          h = this.padding,
+	          c = this.currentPage + t;
+	        c > r && (c = r), c > 0 && (void 0 !== e && d(e, i), this.nav.attr({
+	          translateX: h,
+	          translateY: o + this.padding + 7 + this.titleHeight,
+	          visibility: "inherit"
+	        }), [this.up, this.upTracker].forEach(function (t) {
+	          t.attr({
+	            class: 1 === c ? "highcharts-legend-nav-inactive" : "highcharts-legend-nav-active"
+	          });
+	        }), a.attr({
+	          text: c + "/" + r
+	        }), [this.down, this.downTracker].forEach(function (t) {
+	          t.attr({
+	            x: 18 + this.pager.getBBox().width,
+	            class: c === r ? "highcharts-legend-nav-inactive" : "highcharts-legend-nav-active"
+	          });
+	        }, this), i.styledMode || (this.up.attr({
+	          fill: 1 === c ? n.inactiveColor : n.activeColor
+	        }), this.upTracker.css({
+	          cursor: 1 === c ? "default" : "pointer"
+	        }), this.down.attr({
+	          fill: c === r ? n.inactiveColor : n.activeColor
+	        }), this.downTracker.css({
+	          cursor: c === r ? "default" : "pointer"
+	        })), this.scrollOffset = -s[c - 1] + this.initialItemY, this.scrollGroup.animate({
+	          translateY: this.scrollOffset
+	        }), this.currentPage = c, this.positionCheckboxes(), L(() => {
+	          C(this, "afterScroll", {
+	            currentPage: c
+	          });
+	        }, l(w(e, i.renderer.globalAnimation, !0)).duration));
+	      }
+	      setItemEvents(t, e, i) {
+	        let o = this,
+	          n = t.legendItem || {},
+	          a = o.chart.renderer.boxWrapper,
+	          h = t instanceof r,
+	          l = t instanceof s,
+	          d = "highcharts-legend-" + (h ? "point" : "series") + "-active",
+	          c = o.chart.styledMode,
+	          p = i ? [e, n.symbol] : [n.group],
+	          u = e => {
+	            o.allItems.forEach(i => {
+	              t !== i && [i].concat(i.linkedSeries || []).forEach(t => {
+	                t.setState(e, !h);
+	              });
+	            });
+	          };
+	        for (let i of p) i && i.on("mouseover", function () {
+	          t.visible && u("inactive"), t.setState("hover"), t.visible && a.addClass(d), c || e.css(o.options.itemHoverStyle);
+	        }).on("mouseout", function () {
+	          o.chart.styledMode || e.css(M(t.visible ? o.itemStyle : o.itemHiddenStyle)), u(""), a.removeClass(d), t.setState();
+	        }).on("click", function (e) {
+	          let i = function () {
+	            t.setVisible && t.setVisible(), u(t.visible ? "inactive" : "");
+	          };
+	          a.removeClass(d), C(o, "itemClick", {
+	            browserEvent: e,
+	            legendItem: t
+	          }, i), h ? t.firePointEvent("legendItemClick", {
+	            browserEvent: e
+	          }) : l && C(t, "legendItemClick", {
+	            browserEvent: e
+	          });
+	        });
+	      }
+	      createCheckboxForItem(t) {
+	        t.checkbox = x("input", {
+	          type: "checkbox",
+	          className: "highcharts-legend-checkbox",
+	          checked: t.selected,
+	          defaultChecked: t.selected
+	        }, this.options.itemCheckboxStyle, this.chart.container), m(t.checkbox, "click", function (e) {
+	          let i = e.target;
+	          C(t.series || t, "checkboxClick", {
+	            checked: i.checked,
+	            item: t
+	          }, function () {
+	            t.select();
+	          });
+	        });
+	      }
+	    }
+	    return (h = O || (O = {})).compose = function (t) {
+	      A(p, "Core.Legend") && m(t, "beforeMargins", function () {
+	        this.legend = new h(this, this.options.legend);
+	      });
+	    }, O;
+	  }), i(e, "Core/Chart/Chart.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Axis/Axis.js"], e["Core/Defaults.js"], e["Core/Templating.js"], e["Core/Foundation.js"], e["Core/Globals.js"], e["Core/Renderer/RendererRegistry.js"], e["Core/Series/Series.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Renderer/SVG/SVGRenderer.js"], e["Core/Time.js"], e["Core/Utilities.js"], e["Core/Renderer/HTML/AST.js"], e["Core/Axis/Tick.js"]], function (t, e, i, s, r, o, n, a, h, l, d, c, p, u) {
 	    let {
 	        animate: g,
 	        animObject: f,
@@ -16978,7 +16965,7 @@ var highcharts = {exports: {}};
 	          r = this.userOptions[t] = this.userOptions[t] ? q(this.userOptions[t]).slice() : [];
 	        if (this.hasRendered && (s.splice(e), r.splice(e)), i) for (let t = e, o = i.length; t < o; ++t) {
 	          let e = i[t];
-	          e && (e.index = t, e instanceof n && (e.name = e.getName()), e.options.isInternal || (s[t] = e.options, r[t] = e.userOptions));
+	          e && (e.index = t, e instanceof a && (e.name = e.getName()), e.options.isInternal || (s[t] = e.options, r[t] = e.userOptions));
 	        }
 	      }
 	      isInsidePlot(t, e, i = {}) {
@@ -16986,15 +16973,15 @@ var highcharts = {exports: {}};
 	            inverted: s,
 	            plotBox: r,
 	            plotLeft: o,
-	            plotTop: a,
-	            scrollablePlotBox: n
+	            plotTop: n,
+	            scrollablePlotBox: a
 	          } = this,
 	          {
 	            scrollLeft: h = 0,
 	            scrollTop: l = 0
 	          } = i.visiblePlotOnly && this.scrollablePlotArea?.scrollingContainer || {},
 	          d = i.series,
-	          c = i.visiblePlotOnly && n || r,
+	          c = i.visiblePlotOnly && a || r,
 	          p = i.inverted ? e : t,
 	          u = i.inverted ? t : e,
 	          g = {
@@ -17013,11 +17000,11 @@ var highcharts = {exports: {}};
 	        }
 	        if (!i.ignoreY && g.isInsidePlot) {
 	          let t = !s && i.axis && !i.axis.isXAxis && i.axis || d && (s ? d.xAxis : d.yAxis) || {
-	              pos: a,
+	              pos: n,
 	              len: 1 / 0
 	            },
-	            e = i.paneCoordinates ? t.pos + u : a + u;
-	          e >= Math.max(l + a, t.pos) && e <= Math.min(l + a + c.height, t.pos + t.len) || (g.isInsidePlot = !1);
+	            e = i.paneCoordinates ? t.pos + u : n + u;
+	          e >= Math.max(l + n, t.pos) && e <= Math.min(l + n + c.height, t.pos + t.len) || (g.isInsidePlot = !1);
 	        }
 	        return N(this, "afterIsInsidePlot", g), g.isInsidePlot;
 	      }
@@ -17028,8 +17015,8 @@ var highcharts = {exports: {}};
 	          s = this.pointer,
 	          r = this.legend,
 	          o = this.userOptions.legend,
-	          a = this.renderer,
-	          n = a.isHidden(),
+	          n = this.renderer,
+	          a = n.isHidden(),
 	          h = [],
 	          l,
 	          d,
@@ -17037,7 +17024,7 @@ var highcharts = {exports: {}};
 	          p = this.isDirtyBox,
 	          u = this.isDirtyLegend,
 	          g;
-	        for (a.rootFontSize = a.boxWrapper.getStyle("font-size"), this.setResponsive && this.setResponsive(!1), m(!!this.hasRendered && t, this), n && this.temporaryDisplay(), this.layOutTitles(!1), c = i.length; c--;) if (((g = i[c]).options.stacking || g.options.centerInCategory) && (d = !0, g.isDirty)) {
+	        for (n.rootFontSize = n.boxWrapper.getStyle("font-size"), this.setResponsive && this.setResponsive(!1), m(!!this.hasRendered && t, this), a && this.temporaryDisplay(), this.layOutTitles(!1), c = i.length; c--;) if (((g = i[c]).options.stacking || g.options.centerInCategory) && (d = !0, g.isDirty)) {
 	          l = !0;
 	          break;
 	        }
@@ -17055,7 +17042,7 @@ var highcharts = {exports: {}};
 	          })), (p || d) && t.redraw();
 	        }), p && this.drawChartBox(), N(this, "predraw"), i.forEach(function (t) {
 	          (p || t.isDirty) && t.visible && t.redraw(), t.isDirtyData = !1;
-	        }), s && s.reset(!0), a.draw(), N(this, "redraw"), N(this, "render"), n && this.temporaryDisplay(!0), h.forEach(function (t) {
+	        }), s && s.reset(!0), n.draw(), N(this, "redraw"), N(this, "render"), a && this.temporaryDisplay(!0), h.forEach(function (t) {
 	          t.call();
 	        });
 	      }
@@ -17107,8 +17094,8 @@ var highcharts = {exports: {}};
 	        ["title", "subtitle", "caption"].forEach(function (t) {
 	          let r = this[t],
 	            o = this.options[t],
-	            a = o.verticalAlign || "top",
-	            n = "title" === t ? "top" === a ? -3 : 0 : "top" === a ? e[0] + 2 : 0;
+	            n = o.verticalAlign || "top",
+	            a = "title" === t ? "top" === n ? -3 : 0 : "top" === n ? e[0] + 2 : 0;
 	          if (r) {
 	            r.css({
 	              width: (o.width || s.width + (o.widthAdjust || 0)) + "px"
@@ -17116,9 +17103,9 @@ var highcharts = {exports: {}};
 	            let t = i.fontMetrics(r).b,
 	              h = Math.round(r.getBBox(o.useHTML).height);
 	            r.align(R({
-	              y: "bottom" === a ? t : n + t,
+	              y: "bottom" === n ? t : a + t,
 	              height: h
-	            }, o), !1, "spacingBox"), o.floating || ("top" === a ? e[0] = Math.ceil(e[0] + h) : "bottom" === a && (e[2] = Math.ceil(e[2] + h)));
+	            }, o), !1, "spacingBox"), o.floating || ("top" === n ? e[0] = Math.ceil(e[0] + h) : "bottom" === n && (e[2] = Math.ceil(e[2] + h)));
 	          }
 	        }, this), e[0] && "top" === (this.options.title.verticalAlign || "top") && (e[0] += this.options.title.margin), e[2] && "bottom" === this.options.caption.verticalAlign && (e[2] += this.options.caption.margin);
 	        let r = !this.titleOffset || this.titleOffset.join(",") !== e.join(",");
@@ -17158,19 +17145,20 @@ var highcharts = {exports: {}};
 	          i = "data-highcharts-chart",
 	          s = J(),
 	          r,
-	          o = this.renderTo;
-	        o || (this.renderTo = o = e.renderTo), F(o) && (this.renderTo = o = C.getElementById(o)), o || B(13, !0, this);
-	        let n = $(P(o, i));
-	        H(n) && S[n] && S[n].hasRendered && S[n].destroy(), P(o, i, this.index), o.innerHTML = p.emptyHTML, e.skipClone || o.offsetWidth || this.temporaryDisplay(), this.getChartSize();
-	        let h = this.chartHeight,
-	          d = this.chartWidth;
-	        O(o, {
-	          overflow: "hidden"
+	          a = this.renderTo;
+	        a || (this.renderTo = a = e.renderTo), F(a) && (this.renderTo = a = C.getElementById(a)), a || B(13, !0, this);
+	        let h = $(P(a, i));
+	        H(h) && S[h] && S[h].hasRendered && S[h].destroy(), P(a, i, this.index), a.innerHTML = p.emptyHTML, e.skipClone || a.offsetWidth || this.temporaryDisplay(), this.getChartSize();
+	        let d = this.chartHeight,
+	          c = this.chartWidth;
+	        O(a, {
+	          overflow: "hidden",
+	          pointerEvents: o.isChrome ? "fill" : "auto"
 	        }), this.styledMode || (r = R({
 	          position: "relative",
 	          overflow: "hidden",
-	          width: d + "px",
-	          height: h + "px",
+	          width: c + "px",
+	          height: d + "px",
 	          textAlign: "left",
 	          lineHeight: "normal",
 	          zIndex: 0,
@@ -17179,14 +17167,14 @@ var highcharts = {exports: {}};
 	          "touch-action": "manipulation",
 	          outline: "none"
 	        }, e.style || {}));
-	        let c = L("div", {
+	        let u = L("div", {
 	          id: s
-	        }, r, o);
-	        this.container = c, this.getChartSize(), d === this.chartWidth || (d = this.chartWidth, this.styledMode || O(c, {
-	          width: V(e.style?.width, d + "px")
-	        })), this.containerBox = this.getContainerBox(), this._cursor = c.style.cursor;
-	        let u = e.renderer || !M ? a.getRendererType(e.renderer) : l;
-	        if (this.renderer = new u(c, d, h, void 0, e.forExport, t.exporting && t.exporting.allowHTML, this.styledMode), m(void 0, this), this.setClassName(e.className), this.styledMode) for (let e in t.defs) this.renderer.definition(t.defs[e]);else this.renderer.setStyle(e.style);
+	        }, r, a);
+	        this.container = u, this.getChartSize(), c === this.chartWidth || (c = this.chartWidth, this.styledMode || O(u, {
+	          width: V(e.style?.width, c + "px")
+	        })), this.containerBox = this.getContainerBox(), this._cursor = u.style.cursor;
+	        let g = e.renderer || !M ? n.getRendererType(e.renderer) : l;
+	        if (this.renderer = new g(u, c, d, void 0, e.forExport, t.exporting && t.exporting.allowHTML, this.styledMode), m(void 0, this), this.setClassName(e.className), this.styledMode) for (let e in t.defs) this.renderer.definition(t.defs[e]);else this.renderer.setStyle(e.style);
 	        this.renderer.chartIndex = this.index, N(this, "afterGetContainer");
 	      }
 	      getMargins(t) {
@@ -17239,15 +17227,15 @@ var highcharts = {exports: {}};
 	        let o = r.globalAnimation;
 	        s.oldChartHeight = s.chartHeight, s.oldChartWidth = s.chartWidth, void 0 !== t && (s.options.chart.width = t), void 0 !== e && (s.options.chart.height = e), s.getChartSize();
 	        let {
-	          chartWidth: a,
-	          chartHeight: n,
+	          chartWidth: n,
+	          chartHeight: a,
 	          scrollablePixelsX: h = 0,
 	          scrollablePixelsY: l = 0
 	        } = s;
-	        (s.isDirtyBox || a !== s.oldChartWidth || n !== s.oldChartHeight) && (s.styledMode || (o ? g : O)(s.container, {
-	          width: `${a + h}px`,
-	          height: `${n + l}px`
-	        }, o), s.setChartSize(!0), r.setSize(a, n, o), s.axes.forEach(function (t) {
+	        (s.isDirtyBox || n !== s.oldChartWidth || a !== s.oldChartHeight) && (s.styledMode || (o ? g : O)(s.container, {
+	          width: `${n + h}px`,
+	          height: `${a + l}px`
+	        }, o), s.setChartSize(!0), r.setSize(n, a, o), s.axes.forEach(function (t) {
 	          t.isDirty = !0, t.setScale();
 	        }), s.isDirtyLegend = !0, s.isDirtyBox = !0, s.layOutTitles(), s.getMargins(), s.redraw(o), s.oldChartHeight = void 0, N(s, "resize"), setTimeout(() => {
 	          s && N(s, "endResize");
@@ -17257,17 +17245,17 @@ var highcharts = {exports: {}};
 	        let e, i, s, r;
 	        let {
 	            chartHeight: o,
-	            chartWidth: a,
-	            inverted: n,
+	            chartWidth: n,
+	            inverted: a,
 	            spacing: h,
 	            renderer: l
 	          } = this,
 	          d = this.clipOffset,
-	          c = Math[n ? "floor" : "round"];
-	        this.plotLeft = e = Math.round(this.plotLeft), this.plotTop = i = Math.round(this.plotTop), this.plotWidth = s = Math.max(0, Math.round(a - e - this.marginRight)), this.plotHeight = r = Math.max(0, Math.round(o - i - this.marginBottom)), this.plotSizeX = n ? r : s, this.plotSizeY = n ? s : r, this.spacingBox = l.spacingBox = {
+	          c = Math[a ? "floor" : "round"];
+	        this.plotLeft = e = Math.round(this.plotLeft), this.plotTop = i = Math.round(this.plotTop), this.plotWidth = s = Math.max(0, Math.round(n - e - this.marginRight)), this.plotHeight = r = Math.max(0, Math.round(o - i - this.marginBottom)), this.plotSizeX = a ? r : s, this.plotSizeY = a ? s : r, this.spacingBox = l.spacingBox = {
 	          x: h[3],
 	          y: h[0],
-	          width: a - h[3] - h[1],
+	          width: n - h[3] - h[1],
 	          height: o - h[0] - h[2]
 	        }, this.plotBox = l.plotBox = {
 	          x: e,
@@ -17308,8 +17296,8 @@ var highcharts = {exports: {}};
 	          s = this.chartHeight,
 	          r = this.styledMode,
 	          o = this.plotBGImage,
-	          a = t.backgroundColor,
-	          n = t.plotBackgroundColor,
+	          n = t.backgroundColor,
+	          a = t.plotBackgroundColor,
 	          h = t.plotBackgroundImage,
 	          l = this.plotLeft,
 	          d = this.plotTop,
@@ -17326,7 +17314,7 @@ var highcharts = {exports: {}};
 	          S,
 	          C = "animate";
 	        m || (this.chartBackground = m = e.rect().addClass("highcharts-background").add(), C = "attr"), r ? b = v = m.strokeWidth() : (v = (b = t.borderWidth || 0) + (t.shadow ? 8 : 0), S = {
-	          fill: a || "none"
+	          fill: n || "none"
 	        }, (b || m["stroke-width"]) && (S.stroke = t.borderColor, S["stroke-width"] = b), m.attr(S).shadow(t.shadow)), m[C]({
 	          x: v / 2,
 	          y: v / 2,
@@ -17334,7 +17322,7 @@ var highcharts = {exports: {}};
 	          height: s - v - b % 2,
 	          r: t.borderRadius
 	        }), C = "animate", x || (C = "attr", this.plotBackground = x = e.rect().addClass("highcharts-plot-background").add()), x[C](u), !r && (x.attr({
-	          fill: n || "none"
+	          fill: a || "none"
 	        }).shadow(t.plotShadow), h && (o ? (h !== o.attr("href") && o.attr("href", h), o.animate(u)) : this.plotBGImage = e.image(h, l, d, c, p).add())), g ? g.animate({
 	          width: f.width,
 	          height: f.height
@@ -17356,9 +17344,9 @@ var highcharts = {exports: {}};
 	        let s = this,
 	          r = s.options.chart,
 	          o = s.options.series;
-	        ["inverted", "angular", "polar"].forEach(function (a) {
-	          for (e = A[r.type], i = r[a] || e && e.prototype[a], t = o && o.length; !i && t--;) (e = A[o[t].type]) && e.prototype[a] && (i = !0);
-	          s[a] = i;
+	        ["inverted", "angular", "polar"].forEach(function (n) {
+	          for (e = A[r.type], i = r[n] || e && e.prototype[n], t = o && o.length; !i && t--;) (e = A[o[t].type]) && e.prototype[n] && (i = !0);
+	          s[n] = i;
 	        });
 	      }
 	      linkSeries(t) {
@@ -17394,8 +17382,8 @@ var highcharts = {exports: {}};
 	            });
 	          },
 	          o = 0,
-	          a = !0,
-	          n,
+	          n = !0,
+	          a,
 	          h = 0;
 	        for (let e of (this.setTitle(), N(this, "beforeMargins"), this.getStacks?.(), this.getMargins(!0), this.setChartSize(), t)) {
 	          let {
@@ -17414,11 +17402,11 @@ var highcharts = {exports: {}};
 	            }
 	          }
 	        }
-	        for (this.plotHeight = Math.max(this.plotHeight - o, 0); (a || n || s > 1) && h < s;) {
+	        for (this.plotHeight = Math.max(this.plotHeight - o, 0); (n || a || s > 1) && h < s;) {
 	          let e = this.plotWidth,
 	            i = this.plotHeight;
-	          for (let e of t) 0 === h ? e.setScale() : (e.horiz && a || !e.horiz && n) && e.setTickInterval(!0);
-	          0 === h ? this.getAxisMargins() : this.getMargins(), a = e / this.plotWidth > (h ? 1 : 1.1), n = i / this.plotHeight > (h ? 1 : 1.05), h++;
+	          for (let e of t) 0 === h ? e.setScale() : (e.horiz && n || !e.horiz && a) && e.setTickInterval(!0);
+	          0 === h ? this.getAxisMargins() : this.getMargins(), n = e / this.plotWidth > (h ? 1 : 1.1), a = i / this.plotHeight > (h ? 1 : 1.05), h++;
 	        }
 	        this.drawChartBox(), this.hasCartesianSeries ? r(t) : e && e.length && r(e), this.seriesGroup || (this.seriesGroup = i.g("series-group").attr({
 	          zIndex: 3
@@ -17442,13 +17430,13 @@ var highcharts = {exports: {}};
 	          i = e.axes,
 	          s = e.series,
 	          r = e.container,
-	          a = r && r.parentNode;
+	          n = r && r.parentNode;
 	        for (N(e, "destroy"), e.renderer.forExport ? j(S, e) : S[e.index] = void 0, o.chartCount--, e.renderTo.removeAttribute("data-highcharts-chart"), _(e), t = i.length; t--;) i[t] = i[t].destroy();
 	        for (this.scroller && this.scroller.destroy && this.scroller.destroy(), t = s.length; t--;) s[t] = s[t].destroy();
 	        ["title", "subtitle", "chartBackground", "plotBackground", "plotBGImage", "plotBorder", "seriesGroup", "clipRect", "credits", "pointer", "rangeSelector", "legend", "resetZoomButton", "tooltip", "renderer"].forEach(function (t) {
 	          let i = e[t];
 	          i && i.destroy && (e[t] = i.destroy());
-	        }), r && (r.innerHTML = p.emptyHTML, _(r), a && I(r)), U(e, function (t, i) {
+	        }), r && (r.innerHTML = p.emptyHTML, _(r), n && I(r)), U(e, function (t, i) {
 	          delete e[i];
 	        });
 	      }
@@ -17518,14 +17506,14 @@ var highcharts = {exports: {}};
 	            });
 	          },
 	          o = e.loadingDiv,
-	          a = e.loadingSpan;
+	          n = e.loadingSpan;
 	        o || (e.loadingDiv = o = L("div", {
 	          className: "highcharts-loading highcharts-loading-hidden"
-	        }, null, e.container)), a || (e.loadingSpan = a = L("span", {
+	        }, null, e.container)), n || (e.loadingSpan = n = L("span", {
 	          className: "highcharts-loading-inner"
-	        }, null, o), T(e, "redraw", r)), o.className = "highcharts-loading", p.setElementHTML(a, V(t, i.lang.loading, "")), e.styledMode || (O(o, R(s.style, {
+	        }, null, o), T(e, "redraw", r)), o.className = "highcharts-loading", p.setElementHTML(n, V(t, i.lang.loading, "")), e.styledMode || (O(o, R(s.style, {
 	          zIndex: 10
-	        })), O(a, s.labelStyle), e.loadingShown || (O(o, {
+	        })), O(n, s.labelStyle), e.loadingShown || (O(o, {
 	          opacity: 0,
 	          display: ""
 	        }), g(o, {
@@ -17549,8 +17537,8 @@ var highcharts = {exports: {}};
 	        })), this.loadingShown = !1;
 	      }
 	      update(t, e, i, s) {
-	        let r, o, a;
-	        let n = this,
+	        let r, o, n;
+	        let a = this,
 	          h = {
 	            credits: "addCredits",
 	            title: "setTitle",
@@ -17559,32 +17547,32 @@ var highcharts = {exports: {}};
 	          },
 	          l = t.isResponsiveOptions,
 	          c = [];
-	        N(n, "update", {
+	        N(a, "update", {
 	          options: t
-	        }), l || n.setResponsive(!1, !0), t = E(t, n.options), n.userOptions = Y(n.userOptions, t);
+	        }), l || a.setResponsive(!1, !0), t = E(t, a.options), a.userOptions = Y(a.userOptions, t);
 	        let p = t.chart;
-	        p && (Y(!0, n.options.chart, p), this.setZoomOptions(), "className" in p && n.setClassName(p.className), ("inverted" in p || "polar" in p || "type" in p) && (n.propFromSeries(), r = !0), "alignTicks" in p && (r = !0), "events" in p && v(this, p), U(p, function (t, e) {
-	          -1 !== n.propsRequireUpdateSeries.indexOf("chart." + e) && (o = !0), -1 !== n.propsRequireDirtyBox.indexOf(e) && (n.isDirtyBox = !0), -1 === n.propsRequireReflow.indexOf(e) || (n.isDirtyBox = !0, l || (a = !0));
-	        }), !n.styledMode && p.style && n.renderer.setStyle(n.options.chart.style || {})), !n.styledMode && t.colors && (this.options.colors = t.colors), t.time && (this.time === y && (this.time = new d(t.time)), Y(!0, n.options.time, t.time)), U(t, function (e, i) {
-	          n[i] && "function" == typeof n[i].update ? n[i].update(e, !1) : "function" == typeof n[h[i]] ? n[h[i]](e) : "colors" !== i && -1 === n.collectionsWithUpdate.indexOf(i) && Y(!0, n.options[i], t[i]), "chart" !== i && -1 !== n.propsRequireUpdateSeries.indexOf(i) && (o = !0);
+	        p && (Y(!0, a.options.chart, p), this.setZoomOptions(), "className" in p && a.setClassName(p.className), ("inverted" in p || "polar" in p || "type" in p) && (a.propFromSeries(), r = !0), "alignTicks" in p && (r = !0), "events" in p && v(this, p), U(p, function (t, e) {
+	          -1 !== a.propsRequireUpdateSeries.indexOf("chart." + e) && (o = !0), -1 !== a.propsRequireDirtyBox.indexOf(e) && (a.isDirtyBox = !0), -1 === a.propsRequireReflow.indexOf(e) || (a.isDirtyBox = !0, l || (n = !0));
+	        }), !a.styledMode && p.style && a.renderer.setStyle(a.options.chart.style || {})), !a.styledMode && t.colors && (this.options.colors = t.colors), t.time && (this.time === y && (this.time = new d(t.time)), Y(!0, a.options.time, t.time)), U(t, function (e, i) {
+	          a[i] && "function" == typeof a[i].update ? a[i].update(e, !1) : "function" == typeof a[h[i]] ? a[h[i]](e) : "colors" !== i && -1 === a.collectionsWithUpdate.indexOf(i) && Y(!0, a.options[i], t[i]), "chart" !== i && -1 !== a.propsRequireUpdateSeries.indexOf(i) && (o = !0);
 	        }), this.collectionsWithUpdate.forEach(function (e) {
 	          t[e] && (q(t[e]).forEach(function (t, s) {
 	            let r;
 	            let o = D(t.id);
-	            o && (r = n.get(t.id)), !r && n[e] && (r = n[e][V(t.index, s)]) && (o && D(r.options.id) || r.options.isInternal) && (r = void 0), r && r.coll === e && (r.update(t, !1), i && (r.touched = !0)), !r && i && n.collectionsWithInit[e] && (n.collectionsWithInit[e][0].apply(n, [t].concat(n.collectionsWithInit[e][1] || []).concat([!1])).touched = !0);
-	          }), i && n[e].forEach(function (t) {
+	            o && (r = a.get(t.id)), !r && a[e] && (r = a[e][V(t.index, s)]) && (o && D(r.options.id) || r.options.isInternal) && (r = void 0), r && r.coll === e && (r.update(t, !1), i && (r.touched = !0)), !r && i && a.collectionsWithInit[e] && (a.collectionsWithInit[e][0].apply(a, [t].concat(a.collectionsWithInit[e][1] || []).concat([!1])).touched = !0);
+	          }), i && a[e].forEach(function (t) {
 	            t.touched || t.options.isInternal ? delete t.touched : c.push(t);
 	          }));
 	        }), c.forEach(function (t) {
 	          t.chart && t.remove && t.remove(!1);
-	        }), r && n.axes.forEach(function (t) {
+	        }), r && a.axes.forEach(function (t) {
 	          t.update({}, !1);
-	        }), o && n.getSeriesOrderByLinks().forEach(function (t) {
+	        }), o && a.getSeriesOrderByLinks().forEach(function (t) {
 	          t.chart && t.update({}, !1);
 	        }, this);
 	        let u = p && p.width,
-	          g = p && (F(p.height) ? Z(p.height, u || n.chartWidth) : p.height);
-	        a || H(u) && u !== n.chartWidth || H(g) && g !== n.chartHeight ? n.setSize(u, g, s) : V(e, !0) && n.redraw(s), N(n, "afterUpdate", {
+	          g = p && (F(p.height) ? Z(p.height, u || a.chartWidth) : p.height);
+	        n || H(u) && u !== a.chartWidth || H(g) && g !== a.chartHeight ? a.setSize(u, g, s) : V(e, !0) && a.redraw(s), N(a, "afterUpdate", {
 	          options: t,
 	          redraw: e,
 	          animation: s
@@ -17632,8 +17620,8 @@ var highcharts = {exports: {}};
 	            xy: "axes",
 	            y: "yAxis"
 	          }[r]].filter(t => t.options.panningEnabled && !t.options.isInternal),
-	          a = i.options.chart;
-	        a?.panning && (a.panning = s), N(this, "pan", {
+	          n = i.options.chart;
+	        n?.panning && (n.panning = s), N(this, "pan", {
 	          originalEvent: t
 	        }, () => {
 	          i.transform({
@@ -17656,72 +17644,73 @@ var highcharts = {exports: {}};
 	            from: s = {},
 	            reset: r,
 	            selection: o,
-	            to: a = {},
-	            trigger: n
+	            to: n = {},
+	            trigger: a
 	          } = t,
 	          {
 	            inverted: h
 	          } = this,
 	          l = !1,
-	          d;
+	          d,
+	          c;
 	        for (let t of (this.hoverPoints?.forEach(t => t.setState()), e)) {
 	          let {
 	              horiz: e,
-	              len: c,
-	              minPointOffset: p = 0,
-	              options: u,
-	              reversed: g
+	              len: p,
+	              minPointOffset: u = 0,
+	              options: g,
+	              reversed: f
 	            } = t,
-	            f = e ? "width" : "height",
-	            m = e ? "x" : "y",
-	            x = V(a[f], t.len),
-	            y = V(s[f], t.len),
-	            b = 10 > Math.abs(x) ? 1 : x / y,
-	            v = (s[m] || 0) + y / 2 - t.pos,
-	            S = v - ((a[m] ?? t.pos) + x / 2 - t.pos) / b,
-	            C = g && !h || !g && h ? -1 : 1;
-	          if (!r && (v < 0 || v > t.len)) continue;
-	          let k = t.toValue(S, !0) + (o ? 0 : p * C),
-	            M = t.toValue(S + c / b, !0) - (o ? 0 : p * C || 0),
-	            w = t.allExtremes;
-	          if (k > M && ([k, M] = [M, k]), 1 === b && !r && "yAxis" === t.coll && !w) {
+	            m = e ? "width" : "height",
+	            x = e ? "x" : "y",
+	            y = V(n[m], t.len),
+	            b = V(s[m], t.len),
+	            v = 10 > Math.abs(y) ? 1 : y / b,
+	            S = (s[x] || 0) + b / 2 - t.pos,
+	            C = S - ((n[x] ?? t.pos) + y / 2 - t.pos) / v,
+	            k = f && !h || !f && h ? -1 : 1;
+	          if (!r && (S < 0 || S > t.len)) continue;
+	          let M = t.toValue(C, !0) + (o ? 0 : u * k),
+	            w = t.toValue(C + p / v, !0) - (o ? 0 : u * k || 0),
+	            A = t.allExtremes;
+	          if (M > w && ([M, w] = [w, M]), 1 === v && !r && "yAxis" === t.coll && !A) {
 	            for (let e of t.series) {
 	              let t = e.getExtremes(e.getProcessedData(!0).yData, !0);
-	              w ?? (w = {
+	              A ?? (A = {
 	                dataMin: Number.MAX_VALUE,
 	                dataMax: -Number.MAX_VALUE
-	              }), H(t.dataMin) && H(t.dataMax) && (w.dataMin = Math.min(t.dataMin, w.dataMin), w.dataMax = Math.max(t.dataMax, w.dataMax));
+	              }), H(t.dataMin) && H(t.dataMax) && (A.dataMin = Math.min(t.dataMin, A.dataMin), A.dataMax = Math.max(t.dataMax, A.dataMax));
 	            }
-	            t.allExtremes = w;
+	            t.allExtremes = A;
 	          }
 	          let {
-	              dataMin: A,
-	              dataMax: T,
-	              min: P,
-	              max: L
-	            } = R(t.getExtremes(), w || {}),
-	            O = A ?? u.min,
-	            E = T ?? u.max,
-	            I = M - k,
-	            j = t.categories ? 0 : Math.min(I, E - O),
-	            B = O - j * (D(u.min) ? 0 : u.minPadding),
-	            z = E + j * (D(u.max) ? 0 : u.maxPadding),
-	            N = t.allowZoomOutside || 1 === b || "zoom" !== n && b > 1,
-	            W = Math.min(u.min ?? B, B, N ? P : B),
-	            G = Math.max(u.max ?? z, z, N ? L : z);
-	          (!t.isOrdinal || 1 !== b || r) && (k < W && (k = W, b >= 1 && (M = k + I)), M > G && (M = G, b >= 1 && (k = M - I)), (r || t.series.length && (k !== P || M !== L) && k >= W && M <= G) && (o ? o[t.coll].push({
+	              dataMin: T,
+	              dataMax: P,
+	              min: L,
+	              max: O
+	            } = R(t.getExtremes(), A || {}),
+	            E = T ?? g.min,
+	            I = P ?? g.max,
+	            j = w - M,
+	            B = t.categories ? 0 : Math.min(j, I - E),
+	            z = E - B * (D(g.min) ? 0 : g.minPadding),
+	            N = I + B * (D(g.max) ? 0 : g.maxPadding),
+	            W = t.allowZoomOutside || 1 === v || "zoom" !== a && v > 1,
+	            G = Math.min(g.min ?? z, z, W ? L : z),
+	            X = Math.max(g.max ?? N, N, W ? O : N);
+	          (!t.isOrdinal || 1 !== v || r) && (M < G && (M = G, v >= 1 && (w = M + j)), w > X && (w = X, v >= 1 && (M = w - j)), (r || t.series.length && (M !== L || w !== O) && M >= G && w <= X) && (o ? o[t.coll].push({
 	            axis: t,
-	            min: k,
-	            max: M
-	          }) : (t.isPanning = "zoom" !== n, t.setExtremes(r ? void 0 : k, r ? void 0 : M, !1, !1, {
-	            move: S,
-	            trigger: n,
-	            scale: b
-	          }), !r && (k > W || M < G) && "mousewheel" !== n && (d = !0)), l = !0), i && (this[e ? "mouseDownX" : "mouseDownY"] = i[e ? "chartX" : "chartY"]));
+	            min: M,
+	            max: w
+	          }) : (t.isPanning = "zoom" !== a, t.isPanning && (c = !0), t.setExtremes(r ? void 0 : M, r ? void 0 : w, !1, !1, {
+	            move: C,
+	            trigger: a,
+	            scale: v
+	          }), !r && (M > G || w < X) && "mousewheel" !== a && (d = !0)), l = !0), i && (this[e ? "mouseDownX" : "mouseDownY"] = i[e ? "chartX" : "chartY"]));
 	        }
 	        return l && (o ? N(this, "selection", o, () => {
 	          delete t.selection, t.trigger = "zoom", this.transform(t);
-	        }) : (d && !this.resetZoomButton ? this.showResetZoom() : !d && this.resetZoomButton && (this.resetZoomButton = this.resetZoomButton.destroy()), this.redraw("zoom" === n && (this.options.chart.animation ?? this.pointCount < 100)))), l;
+	        }) : (!d || c || this.resetZoomButton ? !d && this.resetZoomButton && (this.resetZoomButton = this.resetZoomButton.destroy()) : this.showResetZoom(), this.redraw("zoom" === a && (this.options.chart.animation ?? this.pointCount < 100)))), l;
 	      }
 	    }
 	    return R(Q.prototype, {
@@ -17744,8 +17733,8 @@ var highcharts = {exports: {}};
 	        composed: o
 	      } = e,
 	      {
-	        addEvent: a,
-	        createElement: n,
+	        addEvent: n,
+	        createElement: a,
 	        css: h,
 	        defined: l,
 	        merge: d,
@@ -17760,21 +17749,21 @@ var highcharts = {exports: {}};
 	    }
 	    class g {
 	      static compose(t, e, i) {
-	        c(o, this.compose) && (a(t, "afterInit", u), a(e, "afterSetChartSize", t => this.afterSetSize(t.target, t)), a(e, "render", p), a(i, "show", u));
+	        c(o, this.compose) && (n(t, "afterInit", u), n(e, "afterSetChartSize", t => this.afterSetSize(t.target, t)), n(e, "render", p), n(i, "show", u));
 	      }
 	      static afterSetSize(t, e) {
 	        let i, s, r;
 	        let {
 	            minWidth: o,
-	            minHeight: a
+	            minHeight: n
 	          } = t.options.chart.scrollablePlotArea || {},
 	          {
-	            clipBox: n,
+	            clipBox: a,
 	            plotBox: h,
 	            inverted: c,
 	            renderer: p
 	          } = t;
-	        if (!p.forExport && (o ? (t.scrollablePixelsX = i = Math.max(0, o - t.chartWidth), i && (t.scrollablePlotBox = d(t.plotBox), h.width = t.plotWidth += i, n[c ? "height" : "width"] += i, r = !0)) : a && (t.scrollablePixelsY = s = Math.max(0, a - t.chartHeight), l(s) && (t.scrollablePlotBox = d(t.plotBox), h.height = t.plotHeight += s, n[c ? "width" : "height"] += s, r = !1)), l(r) && !e.skipAxes)) for (let e of t.axes) e.horiz === r && (e.setAxisSize(), e.setAxisTranslation());
+	        if (!p.forExport && (o ? (t.scrollablePixelsX = i = Math.max(0, o - t.chartWidth), i && (t.scrollablePlotBox = d(t.plotBox), h.width = t.plotWidth += i, a[c ? "height" : "width"] += i, r = !0)) : n && (t.scrollablePixelsY = s = Math.max(0, n - t.chartHeight), l(s) && (t.scrollablePlotBox = d(t.plotBox), h.height = t.plotHeight += s, a[c ? "width" : "height"] += s, r = !1)), l(r) && !e.skipAxes)) for (let e of t.axes) e.horiz === r && (e.setAxisSize(), e.setAxisTranslation());
 	      }
 	      constructor(t) {
 	        let e;
@@ -17788,18 +17777,18 @@ var highcharts = {exports: {}};
 	            overflowY: "hidden"
 	          };
 	        t.scrollablePixelsX && (d.overflowX = "auto"), t.scrollablePixelsY && (d.overflowY = "auto"), this.chart = t;
-	        let c = this.parentDiv = n("div", {
+	        let c = this.parentDiv = a("div", {
 	            className: "highcharts-scrolling-parent"
 	          }, {
 	            position: "relative"
 	          }, t.renderTo),
-	          p = this.scrollingContainer = n("div", {
+	          p = this.scrollingContainer = a("div", {
 	            className: "highcharts-scrolling"
 	          }, d, c),
-	          u = this.innerContainer = n("div", {
+	          u = this.innerContainer = a("div", {
 	            className: "highcharts-inner-container"
 	          }, void 0, p),
-	          g = this.fixedDiv = n("div", {
+	          g = this.fixedDiv = a("div", {
 	            className: "highcharts-fixed"
 	          }, {
 	            position: "absolute",
@@ -17815,7 +17804,7 @@ var highcharts = {exports: {}};
 	          zIndex: -1
 	        }).addClass("highcharts-scrollable-mask").add(), p.parentNode.insertBefore(g, p), h(t.renderTo, {
 	          overflow: "visible"
-	        }), a(t, "afterShowResetZoom", l), a(t, "afterApplyDrilldown", l), a(t, "afterLayOutTitles", l), a(p, "scroll", () => {
+	        }), n(t, "afterShowResetZoom", l), n(t, "afterApplyDrilldown", l), n(t, "afterLayOutTitles", l), n(p, "scroll", () => {
 	          let {
 	            pointer: i,
 	            hoverPoint: s
@@ -17832,8 +17821,8 @@ var highcharts = {exports: {}};
 	          } = this,
 	          {
 	            axisOffset: o,
-	            chartWidth: a,
-	            chartHeight: n,
+	            chartWidth: n,
+	            chartHeight: a,
 	            container: d,
 	            plotHeight: c,
 	            plotLeft: p,
@@ -17846,9 +17835,9 @@ var highcharts = {exports: {}};
 	            scrollPositionX: x = 0,
 	            scrollPositionY: y = 0
 	          } = t.options.chart.scrollablePlotArea || {},
-	          b = a + f,
-	          v = n + m;
-	        e.setSize(a, n), (i ?? !0) && (this.isDirty = !1, this.moveFixedElements()), r(t.container), h(d, {
+	          b = n + f,
+	          v = a + m;
+	        e.setSize(n, a), (i ?? !0) && (this.isDirty = !1, this.moveFixedElements()), r(t.container), h(d, {
 	          width: `${b}px`,
 	          height: `${v}px`
 	        }), t.renderer.boxWrapper.attr({
@@ -17859,8 +17848,8 @@ var highcharts = {exports: {}};
 	          width: b,
 	          height: v
 	        }), h(s, {
-	          width: `${a}px`,
-	          height: `${n}px`
+	          width: `${n}px`,
+	          height: `${a}px`
 	        }), l(i) || (s.scrollLeft = f * x, s.scrollTop = m * y);
 	        let S = u - o[0] - 1,
 	          C = p - o[3] - 1,
@@ -17869,7 +17858,7 @@ var highcharts = {exports: {}};
 	          w = p + g - f,
 	          A = u + c - m,
 	          T = [["M", 0, 0]];
-	        f ? T = [["M", 0, S], ["L", p - 1, S], ["L", p - 1, k], ["L", 0, k], ["Z"], ["M", w, S], ["L", a, S], ["L", a, k], ["L", w, k], ["Z"]] : m && (T = [["M", C, 0], ["L", C, u - 1], ["L", M, u - 1], ["L", M, 0], ["Z"], ["M", C, A], ["L", C, n], ["L", M, n], ["L", M, A], ["Z"]]), "adjustHeight" !== t.redrawTrigger && this.mask.attr({
+	        f ? T = [["M", 0, S], ["L", p - 1, S], ["L", p - 1, k], ["L", 0, k], ["Z"], ["M", w, S], ["L", n, S], ["L", n, k], ["L", w, k], ["Z"]] : m && (T = [["M", C, 0], ["L", C, u - 1], ["L", M, u - 1], ["L", M, 0], ["Z"], ["M", C, A], ["L", C, a], ["L", M, a], ["L", M, A], ["Z"]]), "adjustHeight" !== t.redrawTrigger && this.mask.attr({
 	          d: T
 	        });
 	      }
@@ -17882,8 +17871,8 @@ var highcharts = {exports: {}};
 	            scrollablePixelsY: r
 	          } = this.chart,
 	          o = this.fixedRenderer,
-	          a = g.fixedSelectors;
-	        for (let n of (s && !i ? t = ".highcharts-yaxis" : s && i ? t = ".highcharts-xaxis" : r && !i ? t = ".highcharts-xaxis" : r && i && (t = ".highcharts-yaxis"), t && a.push(`${t}:not(.highcharts-radial-axis)`, `${t}-labels:not(.highcharts-radial-axis-labels)`), a)) [].forEach.call(e.querySelectorAll(n), t => {
+	          n = g.fixedSelectors;
+	        for (let a of (s && !i ? t = ".highcharts-yaxis" : s && i ? t = ".highcharts-xaxis" : r && !i ? t = ".highcharts-xaxis" : r && i && (t = ".highcharts-yaxis"), t && n.push(`${t}:not(.highcharts-radial-axis)`, `${t}-labels:not(.highcharts-radial-axis-labels)`), n)) [].forEach.call(e.querySelectorAll(a), t => {
 	          (t.namespaceURI === o.SVG_NS ? o.box : o.box.parentNode).appendChild(t), t.style.pointerEvents = "auto";
 	        });
 	      }
@@ -17898,22 +17887,22 @@ var highcharts = {exports: {}};
 	      } = e,
 	      {
 	        destroyObjectProperties: o,
-	        fireEvent: a,
-	        isNumber: n,
+	        fireEvent: n,
+	        isNumber: a,
 	        pick: h
 	      } = i;
 	    return class {
 	      constructor(t, e, i, s, r) {
 	        let o = t.chart.inverted,
-	          a = t.reversed;
+	          n = t.reversed;
 	        this.axis = t;
-	        let n = this.isNegative = !!i != !!a;
+	        let a = this.isNegative = !!i != !!n;
 	        this.options = e = e || {}, this.x = s, this.total = null, this.cumulative = null, this.points = {}, this.hasValidPoints = !1, this.stack = r, this.leftCliff = 0, this.rightCliff = 0, this.alignOptions = {
-	          align: e.align || (o ? n ? "left" : "right" : "center"),
-	          verticalAlign: e.verticalAlign || (o ? "middle" : n ? "bottom" : "top"),
+	          align: e.align || (o ? a ? "left" : "right" : "center"),
+	          verticalAlign: e.verticalAlign || (o ? "middle" : a ? "bottom" : "top"),
 	          y: e.y,
 	          x: e.x
-	        }, this.textAlign = e.textAlign || (o ? n ? "right" : "left" : "center");
+	        }, this.textAlign = e.textAlign || (o ? a ? "right" : "left" : "center");
 	      }
 	      destroy() {
 	        o(this, this.axis);
@@ -17936,7 +17925,7 @@ var highcharts = {exports: {}};
 	          };
 	          e.styledMode || (s.fill = i.backgroundColor, s.stroke = i.borderColor, s["stroke-width"] = i.borderWidth, this.label.css(i.style || {})), this.label.attr(s), this.label.added || this.label.add(t);
 	        }
-	        this.label.labelrank = e.plotSizeY, a(this, "afterRender");
+	        this.label.labelrank = e.plotSizeY, n(this, "afterRender");
 	      }
 	      setOffset(t, e, i, s, o, l) {
 	        let {
@@ -17966,13 +17955,13 @@ var highcharts = {exports: {}};
 	          d.x = u.x || 0, d.y = u.y || 0;
 	          let {
 	            x: o,
-	            y: a
+	            y: n
 	          } = this.adjustStackPosition({
 	            labelBox: t,
 	            verticalAlign: x,
 	            textAlign: g
 	          });
-	          m.x -= o, m.y -= a, p.align(d, !1, m), (s = f.isInsidePlot(p.alignAttr.x + d.x + o, p.alignAttr.y + d.y + a)) || (i = !1), i && r.prototype.justifyDataLabel.call(c, p, d, p.alignAttr, t, m), p.attr({
+	          m.x -= o, m.y -= n, p.align(d, !1, m), (s = f.isInsidePlot(p.alignAttr.x + d.x + o, p.alignAttr.y + d.y + n)) || (i = !1), i && r.prototype.justifyDataLabel.call(c, p, d, p.alignAttr, t, m), p.attr({
 	            x: p.alignAttr.x,
 	            y: p.alignAttr.y,
 	            rotation: u.rotation,
@@ -17982,9 +17971,9 @@ var highcharts = {exports: {}};
 	              right: 1
 	            }[u.textAlign || "center"],
 	            rotationOriginY: t.height / 2
-	          }), h(!i && u.crop, !0) && (s = n(p.x) && n(p.y) && f.isInsidePlot(p.x - e + (p.width || 0), p.y) && f.isInsidePlot(p.x + e, p.y)), p[s ? "show" : "hide"]();
+	          }), h(!i && u.crop, !0) && (s = a(p.x) && a(p.y) && f.isInsidePlot(p.x - e + (p.width || 0), p.y) && f.isInsidePlot(p.x + e, p.y)), p[s ? "show" : "hide"]();
 	        }
-	        a(this, "afterSetOffset", {
+	        n(this, "afterSetOffset", {
 	          xOffset: t,
 	          width: e
 	        });
@@ -18016,25 +18005,25 @@ var highcharts = {exports: {}};
 	            boxTop: s,
 	            defaultX: r,
 	            xOffset: o,
-	            width: a,
+	            width: n,
 	            boxBottom: l
 	          } = t,
 	          d = e.stacking.usePercentage ? 100 : h(s, this.total, 0),
 	          c = e.toPixels(d),
 	          p = t.xAxis || i.xAxis[0],
 	          u = h(r, p.translate(this.x)) + o,
-	          g = Math.abs(c - e.toPixels(l || n(e.min) && e.logarithmic && e.logarithmic.lin2log(e.min) || 0)),
+	          g = Math.abs(c - e.toPixels(l || a(e.min) && e.logarithmic && e.logarithmic.lin2log(e.min) || 0)),
 	          f = i.inverted,
 	          m = this.isNegative;
 	        return f ? {
 	          x: (m ? c : c - g) - i.plotLeft,
-	          y: p.height - u - a,
+	          y: p.height - u - n + p.top - i.plotTop,
 	          width: g,
-	          height: a
+	          height: n
 	        } : {
 	          x: u + p.transB - i.plotLeft,
 	          y: (m ? c - g : c) - i.plotTop,
-	          width: a,
+	          width: n,
 	          height: g
 	        };
 	      }
@@ -18042,11 +18031,11 @@ var highcharts = {exports: {}};
 	  }), i(e, "Core/Axis/Stacking/StackingAxis.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Axis/Axis.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Axis/Stacking/StackItem.js"], e["Core/Utilities.js"]], function (t, e, i, s, r) {
 	    var o;
 	    let {
-	        getDeferredAnimation: a
+	        getDeferredAnimation: n
 	      } = t,
 	      {
 	        series: {
-	          prototype: n
+	          prototype: a
 	        }
 	      } = i,
 	      {
@@ -18096,14 +18085,14 @@ var highcharts = {exports: {}};
 	        s = e.stackKey || "",
 	        r = i.stacking.stacks,
 	        o = e.processedXData,
-	        a = e.options.stacking,
-	        n = e[a + "Stacker"];
-	      n && [s, "-" + s].forEach(i => {
+	        n = e.options.stacking,
+	        a = e[n + "Stacker"];
+	      a && [s, "-" + s].forEach(i => {
 	        let s = o.length,
-	          a,
+	          n,
 	          h,
 	          l;
-	        for (; s--;) a = o[s], t = e.getStackIndicator(t, a, e.index, i), h = r[i]?.[a], (l = h?.points[t.key || ""]) && n.call(e, l, h, s);
+	        for (; s--;) n = o[s], t = e.getStackIndicator(t, n, e.index, i), h = r[i]?.[n], (l = h?.points[t.key || ""]) && a.call(e, l, h, s);
 	      });
 	    }
 	    function C(t, e, i) {
@@ -18111,10 +18100,10 @@ var highcharts = {exports: {}};
 	      t[0] = l(t[0] * s), t[1] = l(t[1] * s), this.stackedYData[i] = t[1];
 	    }
 	    function k(t) {
-	      (this.is("column") || this.is("columnrange")) && (this.options.centerInCategory && !this.options.stacking && this.chart.series.length > 1 ? n.setStackedPoints.call(this, t, "group") : t.stacking.resetStacks());
+	      (this.is("column") || this.is("columnrange")) && (this.options.centerInCategory && !this.options.stacking && this.chart.series.length > 1 ? a.setStackedPoints.call(this, t, "group") : t.stacking.resetStacks());
 	    }
 	    function M(t, e) {
-	      let i, r, o, a, n, h, c, p, g;
+	      let i, r, o, n, a, h, c, p, g;
 	      let f = e || this.options.stacking;
 	      if (!f || !this.reserveSpace() || ({
 	        group: "xAxis"
@@ -18134,9 +18123,9 @@ var highcharts = {exports: {}};
 	        L = P.stacks,
 	        O = P.oldStacks;
 	      for (P.stacksTouched += 1, c = 0; c < v; c++) {
-	        p = x[c], g = y[c], h = (i = this.getStackIndicator(i, p, this.index)).key || "", L[n = (r = T && g < (k ? 0 : C)) ? A : w] || (L[n] = {}), L[n][p] || (O[n]?.[p] ? (L[n][p] = O[n][p], L[n][p].total = null) : L[n][p] = new s(t, t.options.stackLabels, !!r, p, M)), o = L[n][p], null !== g ? (o.points[h] = o.points[this.index] = [m(o.cumulative, k)], d(o.cumulative) || (o.base = h), o.touched = P.stacksTouched, i.index > 0 && !1 === this.singleStacks && (o.points[h][0] = o.points[this.index + "," + p + ",0"][0])) : (delete o.points[h], delete o.points[this.index]);
+	        p = x[c], g = y[c], h = (i = this.getStackIndicator(i, p, this.index)).key || "", L[a = (r = T && g < (k ? 0 : C)) ? A : w] || (L[a] = {}), L[a][p] || (O[a]?.[p] ? (L[a][p] = O[a][p], L[a][p].total = null) : L[a][p] = new s(t, t.options.stackLabels, !!r, p, M)), o = L[a][p], null !== g ? (o.points[h] = o.points[this.index] = [m(o.cumulative, k)], d(o.cumulative) || (o.base = h), o.touched = P.stacksTouched, i.index > 0 && !1 === this.singleStacks && (o.points[h][0] = o.points[this.index + "," + p + ",0"][0])) : (delete o.points[h], delete o.points[this.index]);
 	        let e = o.total || 0;
-	        "percent" === f ? (a = r ? w : A, e = T && L[a]?.[p] ? (a = L[a][p]).total = Math.max(a.total || 0, e) + Math.abs(g) || 0 : l(e + (Math.abs(g) || 0))) : "group" === f ? (u(g) && (g = g[0]), null !== g && e++) : e = l(e + (g || 0)), "group" === f ? o.cumulative = (e || 1) - 1 : o.cumulative = l(m(o.cumulative, k) + (g || 0)), o.total = e, null !== g && (o.points[h].push(o.cumulative), b[c] = o.cumulative, o.hasValidPoints = !0);
+	        "percent" === f ? (n = r ? w : A, e = T && L[n]?.[p] ? (n = L[n][p]).total = Math.max(n.total || 0, e) + Math.abs(g) || 0 : l(e + (Math.abs(g) || 0))) : "group" === f ? (u(g) && (g = g[0]), null !== g && e++) : e = l(e + (g || 0)), "group" === f ? o.cumulative = (e || 1) - 1 : o.cumulative = l(m(o.cumulative, k) + (g || 0)), o.total = e, null !== g && (o.points[h].push(o.cumulative), b[c] = o.cumulative, o.hasValidPoints = !0);
 	      }
 	      "percent" === f && (P.usePercentage = !0), "group" !== f && (this.stackedYData = b), P.oldStacks = {};
 	    }
@@ -18150,9 +18139,9 @@ var highcharts = {exports: {}};
 	          s = i.series,
 	          r = "xAxis" === i.coll,
 	          o = i.options.reversedStacks,
-	          a = s.length;
-	        for (this.resetStacks(), this.usePercentage = !1, e = a; e--;) t = s[o ? e : a - e - 1], r && t.setGroupedPoints(i), t.setStackedPoints(i);
-	        if (!r) for (e = 0; e < a; e++) s[e].modifyStacks();
+	          n = s.length;
+	        for (this.resetStacks(), this.usePercentage = !1, e = n; e--;) t = s[o ? e : n - e - 1], r && t.setGroupedPoints(i), t.setStackedPoints(i);
+	        if (!r) for (e = 0; e < n; e++) s[e].modifyStacks();
 	        p(i, "afterBuildStacks");
 	      }
 	      cleanStacks() {
@@ -18174,7 +18163,7 @@ var highcharts = {exports: {}};
 	          e = t.chart,
 	          i = e.renderer,
 	          s = this.stacks,
-	          r = a(e, t.options.stackLabels?.animation || !1),
+	          r = n(e, t.options.stackLabels?.animation || !1),
 	          o = this.stackTotalGroup = this.stackTotalGroup || i.g("stack-labels").attr({
 	            zIndex: 6,
 	            opacity: 0
@@ -18199,25 +18188,25 @@ var highcharts = {exports: {}};
 	      merge: r,
 	      isObject: o
 	    } = i;
-	    class a extends t {
+	    class n extends t {
 	      drawGraph() {
 	        let t = this.options,
 	          e = (this.gappedPath || this.getGraphPath).call(this),
 	          i = this.chart.styledMode;
-	        [this, ...this.zones].forEach((s, a) => {
-	          let n,
+	        [this, ...this.zones].forEach((s, n) => {
+	          let a,
 	            h = s.graph,
 	            l = h ? "animate" : "attr",
 	            d = s.dashStyle || t.dashStyle;
 	          h ? (h.endX = this.preventGraphAnimation ? null : e.xMap, h.animate({
 	            d: e
-	          })) : e.length && (s.graph = h = this.chart.renderer.path(e).addClass("highcharts-graph" + (a ? ` highcharts-zone-graph-${a - 1} ` : " ") + (a && s.className || "")).attr({
+	          })) : e.length && (s.graph = h = this.chart.renderer.path(e).addClass("highcharts-graph" + (n ? ` highcharts-zone-graph-${n - 1} ` : " ") + (n && s.className || "")).attr({
 	            zIndex: 1
-	          }).add(this.group)), h && !i && (n = {
-	            stroke: !a && t.lineColor || s.color || this.color || "#cccccc",
+	          }).add(this.group)), h && !i && (a = {
+	            stroke: !n && t.lineColor || s.color || this.color || "#cccccc",
 	            "stroke-width": t.lineWidth || 0,
 	            fill: this.fillGraph && this.color || "none"
-	          }, d ? n.dashstyle = d : "square" !== t.linecap && (n["stroke-linecap"] = n["stroke-linejoin"] = "round"), h[l](n).shadow(a < 2 && t.shadow && r({
+	          }, d ? a.dashstyle = d : "square" !== t.linecap && (a["stroke-linecap"] = a["stroke-linejoin"] = "round"), h[l](a).shadow(n < 2 && t.shadow && r({
 	            filterUnits: "userSpaceOnUse"
 	          }, o(t.shadow) ? t.shadow : {}))), h && (h.startX = e.xMap, h.isArea = e.isArea);
 	        });
@@ -18225,8 +18214,8 @@ var highcharts = {exports: {}};
 	      getGraphPath(t, e, i) {
 	        let r = this,
 	          o = r.options,
-	          a = [],
 	          n = [],
+	          a = [],
 	          h,
 	          l = o.step,
 	          d = (t = t || r.points).reversed;
@@ -18239,13 +18228,13 @@ var highcharts = {exports: {}};
 	            g = d.plotY,
 	            f = t[c - 1],
 	            m = d.isNull || "number" != typeof g;
-	          (d.leftCliff || f && f.rightCliff) && !i && (h = !0), m && !s(e) && c > 0 ? h = !o.connectNulls : m && !e ? h = !0 : (0 === c || h ? p = [["M", d.plotX, d.plotY]] : r.getPointSpline ? p = [r.getPointSpline(t, d, c)] : l ? (p = 1 === l ? [["L", f.plotX, g]] : 2 === l ? [["L", (f.plotX + u) / 2, f.plotY], ["L", (f.plotX + u) / 2, g]] : [["L", u, f.plotY]]).push(["L", u, g]) : p = [["L", u, g]], n.push(d.x), l && (n.push(d.x), 2 === l && n.push(d.x)), a.push.apply(a, p), h = !1);
-	        }), a.xMap = n, r.graphPath = a, a;
+	          (d.leftCliff || f && f.rightCliff) && !i && (h = !0), m && !s(e) && c > 0 ? h = !o.connectNulls : m && !e ? h = !0 : (0 === c || h ? p = [["M", d.plotX, d.plotY]] : r.getPointSpline ? p = [r.getPointSpline(t, d, c)] : l ? (p = 1 === l ? [["L", f.plotX, g]] : 2 === l ? [["L", (f.plotX + u) / 2, f.plotY], ["L", (f.plotX + u) / 2, g]] : [["L", u, f.plotY]]).push(["L", u, g]) : p = [["L", u, g]], a.push(d.x), l && (a.push(d.x), 2 === l && a.push(d.x)), n.push.apply(n, p), h = !1);
+	        }), n.xMap = a, r.graphPath = n, n;
 	      }
 	    }
-	    return a.defaultOptions = r(t.defaultOptions, {
+	    return n.defaultOptions = r(t.defaultOptions, {
 	      legendSymbol: "lineMarker"
-	    }), e.registerSeriesType("line", a), a;
+	    }), e.registerSeriesType("line", n), n;
 	  }), i(e, "Series/Area/AreaSeriesDefaults.js", [], function () {
 	    return {
 	      threshold: 0,
@@ -18260,8 +18249,8 @@ var highcharts = {exports: {}};
 	      {
 	        extend: r,
 	        merge: o,
-	        objectEach: a,
-	        pick: n
+	        objectEach: n,
+	        pick: a
 	      } = i;
 	    class h extends s {
 	      drawGraph() {
@@ -18273,37 +18262,37 @@ var highcharts = {exports: {}};
 	        [this, ...this.zones].forEach((i, s) => {
 	          let r = {},
 	            o = i.fillColor || e.fillColor,
-	            a = i.area,
-	            n = a ? "animate" : "attr";
-	          a ? (a.endX = this.preventGraphAnimation ? null : t.xMap, a.animate({
+	            n = i.area,
+	            a = n ? "animate" : "attr";
+	          n ? (n.endX = this.preventGraphAnimation ? null : t.xMap, n.animate({
 	            d: t
-	          })) : (r.zIndex = 0, (a = i.area = this.chart.renderer.path(t).addClass("highcharts-area" + (s ? ` highcharts-zone-area-${s - 1} ` : " ") + (s && i.className || "")).add(this.group)).isArea = !0), this.chart.styledMode || (r.fill = o || i.color || this.color, r["fill-opacity"] = o ? 1 : e.fillOpacity ?? .75, a.css({
+	          })) : (r.zIndex = 0, (n = i.area = this.chart.renderer.path(t).addClass("highcharts-area" + (s ? ` highcharts-zone-area-${s - 1} ` : " ") + (s && i.className || "")).add(this.group)).isArea = !0), this.chart.styledMode || (r.fill = o || i.color || this.color, r["fill-opacity"] = o ? 1 : e.fillOpacity ?? .75, n.css({
 	            pointerEvents: this.stickyTracking ? "none" : "auto"
-	          })), a[n](r), a.startX = t.xMap, a.shiftUnit = e.step ? 2 : 1;
+	          })), n[a](r), n.startX = t.xMap, n.shiftUnit = e.step ? 2 : 1;
 	        });
 	      }
 	      getGraphPath(t) {
 	        let e, i, r;
 	        let o = s.prototype.getGraphPath,
-	          a = this.options,
-	          h = a.stacking,
+	          n = this.options,
+	          h = n.stacking,
 	          l = this.yAxis,
 	          d = [],
 	          c = [],
 	          p = this.index,
 	          u = l.stacking.stacks[this.stackKey],
-	          g = a.threshold,
-	          f = Math.round(l.getThreshold(a.threshold)),
-	          m = n(a.connectNulls, "percent" === h),
+	          g = n.threshold,
+	          f = Math.round(l.getThreshold(n.threshold)),
+	          m = a(n.connectNulls, "percent" === h),
 	          x = function (i, s, r) {
 	            let o = t[i],
-	              a = h && u[o.x].points[p],
-	              n = o[r + "Null"] || 0,
+	              n = h && u[o.x].points[p],
+	              a = o[r + "Null"] || 0,
 	              m = o[r + "Cliff"] || 0,
 	              x,
 	              y,
 	              b = !0;
-	            m || n ? (x = (n ? a[0] : a[1]) + m, y = a[0] + m, b = !!n) : !h && t[s] && t[s].isNull && (x = y = g), void 0 !== x && (c.push({
+	            m || a ? (x = (a ? n[0] : n[1]) + m, y = n[0] + m, b = !!a) : !h && t[s] && t[s].isNull && (x = y = g), void 0 !== x && (c.push({
 	              plotX: e,
 	              plotY: null === x ? f : l.getThreshold(x),
 	              isNull: b,
@@ -18315,7 +18304,7 @@ var highcharts = {exports: {}};
 	            }));
 	          };
 	        t = t || this.points, h && (t = this.getStackPoints(t));
-	        for (let s = 0, o = t.length; s < o; ++s) h || (t[s].leftCliff = t[s].rightCliff = t[s].leftNull = t[s].rightNull = void 0), i = t[s].isNull, e = n(t[s].rectPlotX, t[s].plotX), r = h ? n(t[s].yBottom, f) : f, i && !m || (m || x(s, s - 1, "left"), i && !h && m || (c.push(t[s]), d.push({
+	        for (let s = 0, o = t.length; s < o; ++s) h || (t[s].leftCliff = t[s].rightCliff = t[s].leftNull = t[s].rightNull = void 0), i = t[s].isNull, e = a(t[s].rectPlotX, t[s].plotX), r = h ? a(t[s].yBottom, f) : f, i && !m || (m || x(s, s - 1, "left"), i && !h && m || (c.push(t[s]), d.push({
 	          x: s,
 	          plotX: e,
 	          plotY: r
@@ -18328,7 +18317,7 @@ var highcharts = {exports: {}};
 	        let S = y.concat(b);
 	        S.length && S.push(["Z"]);
 	        let C = o.call(this, c, !1, m);
-	        return S.xMap = y.xMap, this.areaPath = S, C;
+	        return this.chart.series.length > 1 && h && c.some(t => t.isCliff) && (S.hasStackedCliffs = C.hasStackedCliffs = !0), S.xMap = y.xMap, this.areaPath = S, C;
 	      }
 	      getStackPoints(t) {
 	        let e = this,
@@ -18344,28 +18333,28 @@ var highcharts = {exports: {}};
 	          u = d.indexOf(e);
 	        if (t = t || this.points, this.options.stacking) {
 	          for (let e = 0; e < t.length; e++) t[e].leftNull = t[e].rightNull = void 0, l[t[e].x] = t[e];
-	          a(h, function (t, e) {
+	          n(h, function (t, e) {
 	            null !== t.total && s.push(e);
 	          }), s.sort(function (t, e) {
 	            return t - e;
 	          });
 	          let g = d.map(t => t.visible);
-	          s.forEach(function (t, a) {
+	          s.forEach(function (t, n) {
 	            let f = 0,
 	              m,
 	              x;
 	            if (l[t] && !l[t].isNull) i.push(l[t]), [-1, 1].forEach(function (i) {
 	              let r = 1 === i ? "rightNull" : "leftNull",
-	                o = h[s[a + i]],
-	                n = 0;
+	                o = h[s[n + i]],
+	                a = 0;
 	              if (o) {
 	                let i = u;
 	                for (; i >= 0 && i < c;) {
 	                  let s = d[i].index;
-	                  !(m = o.points[s]) && (s === e.index ? l[t][r] = !0 : g[i] && (x = h[t].points[s]) && (n -= x[1] - x[0])), i += p;
+	                  !(m = o.points[s]) && (s === e.index ? l[t][r] = !0 : g[i] && (x = h[t].points[s]) && (a -= x[1] - x[0])), i += p;
 	                }
 	              }
-	              l[t][1 === i ? "rightCliff" : "leftCliff"] = n;
+	              l[t][1 === i ? "rightCliff" : "leftCliff"] = a;
 	            });else {
 	              let e = u;
 	              for (; e >= 0 && e < c;) {
@@ -18376,7 +18365,7 @@ var highcharts = {exports: {}};
 	                }
 	                e += p;
 	              }
-	              f = n(f, 0), f = o.translate(f, 0, 1, 0, 1), i.push({
+	              f = a(f, 0), f = o.translate(f, 0, 1, 0, 1), i.push({
 	                isNull: !0,
 	                plotX: r.translate(t, 0, 0, 0, 1),
 	                x: t,
@@ -18402,7 +18391,7 @@ var highcharts = {exports: {}};
 	      } = e;
 	    class o extends i {
 	      getPointSpline(t, e, i) {
-	        let s, o, a, n;
+	        let s, o, n, a;
 	        let h = e.plotX || 0,
 	          l = e.plotY || 0,
 	          d = t[i - 1],
@@ -18416,9 +18405,9 @@ var highcharts = {exports: {}};
 	            r = c.plotX || 0,
 	            p = c.plotY || 0,
 	            u = 0;
-	          s = (1.5 * h + t) / 2.5, o = (1.5 * l + i) / 2.5, a = (1.5 * h + r) / 2.5, n = (1.5 * l + p) / 2.5, a !== s && (u = (n - o) * (a - h) / (a - s) + l - n), o += u, n += u, o > i && o > l ? (o = Math.max(i, l), n = 2 * l - o) : o < i && o < l && (o = Math.min(i, l), n = 2 * l - o), n > p && n > l ? (n = Math.max(p, l), o = 2 * l - n) : n < p && n < l && (n = Math.min(p, l), o = 2 * l - n), e.rightContX = a, e.rightContY = n, e.controlPoints = {
+	          s = (1.5 * h + t) / 2.5, o = (1.5 * l + i) / 2.5, n = (1.5 * h + r) / 2.5, a = (1.5 * l + p) / 2.5, n !== s && (u = (a - o) * (n - h) / (n - s) + l - a), o += u, a += u, o > i && o > l ? (o = Math.max(i, l), a = 2 * l - o) : o < i && o < l && (o = Math.min(i, l), a = 2 * l - o), a > p && a > l ? (a = Math.max(p, l), o = 2 * l - a) : a < p && a < l && (a = Math.min(p, l), o = 2 * l - a), e.rightContX = n, e.rightContY = a, e.controlPoints = {
 	            low: [s, o],
-	            high: [a, n]
+	            high: [n, a]
 	          };
 	        }
 	        let u = ["C", r(d.rightContX, d.plotX, 0), r(d.rightContY, d.plotY, 0), r(s, h, 0), r(o, l, 0), h, l];
@@ -18435,14 +18424,14 @@ var highcharts = {exports: {}};
 	      } = e.seriesTypes,
 	      {
 	        extend: o,
-	        merge: a
+	        merge: n
 	      } = i;
-	    class n extends t {}
-	    return n.defaultOptions = a(t.defaultOptions, s.defaultOptions), o(n.prototype, {
+	    class a extends t {}
+	    return a.defaultOptions = n(t.defaultOptions, s.defaultOptions), o(a.prototype, {
 	      getGraphPath: r.getGraphPath,
 	      getStackPoints: r.getStackPoints,
 	      drawGraph: r.drawGraph
-	    }), e.registerSeriesType("areaspline", n), n;
+	    }), e.registerSeriesType("areaspline", a), a;
 	  }), i(e, "Series/Column/ColumnSeriesDefaults.js", [], function () {
 	    return {
 	      borderRadius: 3,
@@ -18476,9 +18465,9 @@ var highcharts = {exports: {}};
 	      threshold: 0,
 	      borderColor: "#ffffff"
 	    };
-	  }), i(e, "Series/Column/ColumnSeries.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Color/Color.js"], e["Series/Column/ColumnSeriesDefaults.js"], e["Core/Globals.js"], e["Core/Series/Series.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o, a) {
+	  }), i(e, "Series/Column/ColumnSeries.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Color/Color.js"], e["Series/Column/ColumnSeriesDefaults.js"], e["Core/Globals.js"], e["Core/Series/Series.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o, n) {
 	    let {
-	        animObject: n
+	        animObject: a
 	      } = t,
 	      {
 	        parse: h
@@ -18497,14 +18486,14 @@ var highcharts = {exports: {}};
 	        merge: x,
 	        pick: y,
 	        objectEach: b
-	      } = a;
+	      } = n;
 	    class v extends r {
 	      animate(t) {
 	        let e, i;
 	        let s = this,
 	          r = this.yAxis,
 	          o = r.pos,
-	          a = r.reversed,
+	          n = r.reversed,
 	          h = s.options,
 	          {
 	            clipOffset: l,
@@ -18512,9 +18501,9 @@ var highcharts = {exports: {}};
 	          } = this.chart,
 	          p = {},
 	          g = c ? "translateX" : "translateY";
-	        t && l ? (p.scaleY = .001, i = d(r.toPixels(h.threshold), o, o + r.len), c ? (i += a ? -Math.floor(l[0]) : Math.ceil(l[2]), p.translateX = i - r.len) : (i += a ? Math.ceil(l[0]) : -Math.floor(l[2]), p.translateY = i), s.clipBox && s.setClip(), s.group.attr(p)) : (e = Number(s.group.attr(g)), s.group.animate({
+	        t && l ? (p.scaleY = .001, i = d(r.toPixels(h.threshold), o, o + r.len), c ? (i += n ? -Math.floor(l[0]) : Math.ceil(l[2]), p.translateX = i - r.len) : (i += n ? Math.ceil(l[0]) : -Math.floor(l[2]), p.translateY = i), s.clipBox && s.setClip(), s.group.attr(p)) : (e = Number(s.group.attr(g)), s.group.animate({
 	          scaleY: 1
-	        }, u(n(s.options.animation), {
+	        }, u(a(s.options.animation), {
 	          step: function (t, i) {
 	            s.group && (p[g] = e + i.pos * (o - e), s.group.attr(p));
 	          }
@@ -18534,14 +18523,14 @@ var highcharts = {exports: {}};
 	          s = t.yAxis,
 	          r = i.options.reversedStacks,
 	          o = i.reversed && !r || !i.reversed && r,
-	          a = {},
-	          n,
+	          n = {},
+	          a,
 	          h = 0;
 	        !1 === e.grouping ? h = 1 : t.chart.series.forEach(function (e) {
 	          let i;
 	          let r = e.yAxis,
 	            o = e.options;
-	          e.type === t.type && e.reserveSpace() && s.len === r.len && s.pos === r.pos && (o.stacking && "group" !== o.stacking ? (void 0 === a[n = e.stackKey] && (a[n] = h++), i = a[n]) : !1 !== o.grouping && (i = h++), e.columnIndex = i);
+	          e.type === t.type && e.reserveSpace() && s.len === r.len && s.pos === r.pos && (o.stacking && "group" !== o.stacking ? (void 0 === n[a = e.stackKey] && (n[a] = h++), i = n[a]) : !1 !== o.grouping && (i = h++), e.columnIndex = i);
 	        });
 	        let l = Math.min(Math.abs(i.transA) * (!i.brokenAxis?.hasBreaks && i.ordinal?.slope || e.pointRange || i.closestPointRange || i.tickInterval || 1), i.len),
 	          d = l * e.groupPadding,
@@ -18569,18 +18558,18 @@ var highcharts = {exports: {}};
 	        if (!i.isNull && s.columnCount > 1) {
 	          let r = this.xAxis.series.filter(t => t.visible).map(t => t.index),
 	            o = 0,
-	            a = 0;
+	            n = 0;
 	          b(this.xAxis.stacking?.stacks, t => {
 	            if ("number" == typeof i.x) {
 	              let e = t[i.x.toString()];
 	              if (e && f(e.points[this.index])) {
 	                let t = Object.keys(e.points).filter(t => !t.match(",") && e.points[t] && e.points[t].length > 1).map(parseFloat).filter(t => -1 !== r.indexOf(t)).sort((t, e) => e - t);
-	                o = t.indexOf(this.index), a = t.length;
+	                o = t.indexOf(this.index), n = t.length;
 	              }
 	            }
-	          }), o = this.xAxis.reversed ? a - 1 - o : o;
-	          let n = (a - 1) * s.paddedWidth + e;
-	          t = (i.plotX || 0) + n / 2 - e - o * s.paddedWidth;
+	          }), o = this.xAxis.reversed ? n - 1 - o : o;
+	          let a = (n - 1) * s.paddedWidth + e;
+	          t = (i.plotX || 0) + a / 2 - e - o * s.paddedWidth;
 	        }
 	        return t;
 	      }
@@ -18590,8 +18579,8 @@ var highcharts = {exports: {}};
 	          i = t.options,
 	          s = t.dense = t.closestPointRange * t.xAxis.transA < 2,
 	          o = t.borderWidth = y(i.borderWidth, s ? 0 : 1),
-	          a = t.xAxis,
-	          n = t.yAxis,
+	          n = t.xAxis,
+	          a = t.yAxis,
 	          h = i.threshold,
 	          l = y(i.minPointLength, 5),
 	          c = t.getColumnMetrics(),
@@ -18599,20 +18588,20 @@ var highcharts = {exports: {}};
 	          f = t.pointXOffset = c.offset,
 	          x = t.dataMin,
 	          b = t.dataMax,
-	          v = t.translatedThreshold = n.getThreshold(h),
+	          v = t.translatedThreshold = a.getThreshold(h),
 	          S = t.barW = Math.max(u, 1 + 2 * o);
 	        i.pointPadding && (S = Math.ceil(S)), r.prototype.translate.apply(t), t.points.forEach(function (s) {
 	          let r = y(s.yBottom, v),
 	            o = 999 + Math.abs(r),
 	            g = s.plotX || 0,
-	            C = d(s.plotY, -o, n.len + o),
+	            C = d(s.plotY, -o, a.len + o),
 	            k,
 	            M = Math.min(C, r),
 	            w = Math.max(C, r) - M,
 	            A = u,
 	            T = g + f,
 	            P = S;
-	          l && Math.abs(w) < l && (w = l, k = !n.reversed && !s.negative || n.reversed && s.negative, m(h) && m(b) && s.y === h && b <= h && (n.min || 0) < h && (x !== b || (n.max || 0) <= h) && (k = !k, s.negative = !s.negative), M = Math.abs(M - v) > l ? r - l : v - (k ? l : 0)), p(s.options.pointWidth) && (T -= Math.round(((A = P = Math.ceil(s.options.pointWidth)) - u) / 2)), i.centerInCategory && !i.stacking && (T = t.adjustForMissingColumns(T, A, s, c)), s.barX = T, s.pointWidth = A, s.tooltipPos = e.inverted ? [d(n.len + n.pos - e.plotLeft - C, n.pos - e.plotLeft, n.len + n.pos - e.plotLeft), a.len + a.pos - e.plotTop - T - P / 2, w] : [a.left - e.plotLeft + T + P / 2, d(C + n.pos - e.plotTop, n.pos - e.plotTop, n.len + n.pos - e.plotTop), w], s.shapeType = t.pointClass.prototype.shapeType || "roundedRect", s.shapeArgs = t.crispCol(T, s.isNull ? v : M, P, s.isNull ? 0 : w);
+	          l && Math.abs(w) < l && (w = l, k = !a.reversed && !s.negative || a.reversed && s.negative, m(h) && m(b) && s.y === h && b <= h && (a.min || 0) < h && (x !== b || (a.max || 0) <= h) && (k = !k, s.negative = !s.negative), M = Math.abs(M - v) > l ? r - l : v - (k ? l : 0)), p(s.options.pointWidth) && (T -= Math.round(((A = P = Math.ceil(s.options.pointWidth)) - u) / 2)), i.centerInCategory && !i.stacking && (T = t.adjustForMissingColumns(T, A, s, c)), s.barX = T, s.pointWidth = A, s.tooltipPos = e.inverted ? [d(a.len + a.pos - e.plotLeft - C, a.pos - e.plotLeft, a.len + a.pos - e.plotLeft), n.len + n.pos - e.plotTop - T - P / 2, w] : [n.left - e.plotLeft + T + P / 2, d(C + a.pos - e.plotTop, a.pos - e.plotTop, a.len + a.pos - e.plotTop), w], s.shapeType = t.pointClass.prototype.shapeType || "roundedRect", s.shapeArgs = t.crispCol(T, s.isNull ? v : M, P, s.isNull ? 0 : w);
 	        }), g(this, "afterColumnTranslate");
 	      }
 	      drawGraph() {
@@ -18623,15 +18612,15 @@ var highcharts = {exports: {}};
 	          s = this.pointAttrToOptions || {},
 	          r = s.stroke || "borderColor",
 	          o = s["stroke-width"] || "borderWidth",
-	          a,
 	          n,
+	          a,
 	          l,
 	          d = t && t.color || this.color,
 	          c = t && t[r] || i[r] || d,
 	          p = t && t.options.dashStyle || i.dashStyle,
 	          u = t && t[o] || i[o] || this[o] || 0,
 	          g = y(t && t.opacity, i.opacity, 1);
-	        t && this.zones.length && (n = t.getZone(), d = t.options.color || n && (n.color || t.nonZonedColor) || this.color, n && (c = n.borderColor || c, p = n.dashStyle || p, u = n.borderWidth || u)), e && t && (l = (a = x(i.states[e], t.options.states && t.options.states[e] || {})).brightness, d = a.color || void 0 !== l && h(d).brighten(a.brightness).get() || d, c = a[r] || c, u = a[o] || u, p = a.dashStyle || p, g = y(a.opacity, g));
+	        t && this.zones.length && (a = t.getZone(), d = t.options.color || a && (a.color || t.nonZonedColor) || this.color, a && (c = a.borderColor || c, p = a.dashStyle || p, u = a.borderWidth || u)), e && t && (l = (n = x(i.states[e], t.options.states && t.options.states[e] || {})).brightness, d = n.color || void 0 !== l && h(d).brighten(n.brightness).get() || d, c = n[r] || c, u = n[o] || u, p = n.dashStyle || p, g = y(n.opacity, g));
 	        let f = {
 	          fill: d,
 	          stroke: c,
@@ -18646,13 +18635,13 @@ var highcharts = {exports: {}};
 	          s = this.chart,
 	          r = i.options,
 	          o = s.renderer,
-	          a = r.animationLimit || 250;
+	          n = r.animationLimit || 250;
 	        t.forEach(function (t) {
-	          let n = t.plotY,
+	          let a = t.plotY,
 	            h = t.graphic,
 	            l = !!h,
-	            d = h && s.pointCount < a ? "animate" : "attr";
-	          m(n) && null !== t.y ? (e = t.shapeArgs, h && t.hasNewShapeType() && (h = h.destroy()), i.enabledDataSorting && (t.startXPos = i.xAxis.reversed ? -(e && e.width || 0) : i.xAxis.width), !h && (t.graphic = h = o[t.shapeType](e).add(t.group || i.group), h && i.enabledDataSorting && s.hasRendered && s.pointCount < a && (h.attr({
+	            d = h && s.pointCount < n ? "animate" : "attr";
+	          m(a) && null !== t.y ? (e = t.shapeArgs, h && t.hasNewShapeType() && (h = h.destroy()), i.enabledDataSorting && (t.startXPos = i.xAxis.reversed ? -(e && e.width || 0) : i.xAxis.width), !h && (t.graphic = h = o[t.shapeType](e).add(t.group || i.group), h && i.enabledDataSorting && s.hasRendered && s.pointCount < n && (h.attr({
 	            x: t.startXPos
 	          }), l = !0, d = "animate")), h && l && h[d](x(e)), s.styledMode || h[d](i.pointAttribs(t, t.selected && "select")).shadow(!1 !== t.allowShadow && r.shadow), h && (h.addClass(t.getClassName(), !0), h.attr({
 	            visibility: t.visible ? "inherit" : "hidden"
@@ -18703,8 +18692,8 @@ var highcharts = {exports: {}};
 	        format: o
 	      } = e,
 	      {
-	        defined: a,
-	        extend: n,
+	        defined: n,
+	        extend: a,
 	        fireEvent: h,
 	        isArray: l,
 	        isString: d,
@@ -18727,13 +18716,13 @@ var highcharts = {exports: {}};
 	          d = t.plotX,
 	          p = t.plotY,
 	          g = i.rotation || 0,
-	          f = a(d) && a(p) && o.isInsidePlot(d, Math.round(p), {
+	          f = n(d) && n(p) && o.isInsidePlot(d, Math.round(p), {
 	            inverted: l,
 	            paneCoordinates: !0,
 	            series: this
 	          }),
 	          m = 0 === g && "justify" === u(i.overflow, h ? "none" : "justify"),
-	          x = this.visible && !1 !== t.visible && a(d) && (t.series.forceDL || h && !m || f || u(i.inside, !!this.options.stacking) && s && o.isInsidePlot(d, l ? s.x + 1 : s.y + s.height - 1, {
+	          x = this.visible && !1 !== t.visible && n(d) && (t.series.forceDL || h && !m || f || u(i.inside, !!this.options.stacking) && s && o.isInsidePlot(d, l ? s.x + 1 : s.y + s.height - 1, {
 	            inverted: l,
 	            paneCoordinates: !0,
 	            series: this
@@ -18741,7 +18730,7 @@ var highcharts = {exports: {}};
 	          y = t.pos();
 	        if (x && y) {
 	          var b;
-	          let a = e.getBBox(),
+	          let n = e.getBBox(),
 	            d = e.getBBox(void 0, 0),
 	            p = {
 	              right: 1,
@@ -18751,23 +18740,23 @@ var highcharts = {exports: {}};
 	              bottom: 1,
 	              middle: .5
 	            }[i.verticalAlign || 0] || 0;
-	          if (s = n({
+	          if (s = a({
 	            x: y[0],
 	            y: Math.round(y[1]),
 	            width: 0,
 	            height: 0
-	          }, s || {}), "plotEdges" === i.alignTo && this.isCartesian && (s[l ? "x" : "y"] = 0, s[l ? "width" : "height"] = this.yAxis?.len || 0), n(i, {
-	            width: a.width,
-	            height: a.height
+	          }, s || {}), "plotEdges" === i.alignTo && this.isCartesian && (s[l ? "x" : "y"] = 0, s[l ? "width" : "height"] = this.yAxis?.len || 0), a(i, {
+	            width: n.width,
+	            height: n.height
 	          }), b = s, h && this.xAxis && !m && this.setDataLabelStartPos(t, e, r, f, b), e.align(c(i, {
 	            width: d.width,
 	            height: d.height
-	          }), !1, s, !1), e.alignAttr.x += p * (d.width - a.width), e.alignAttr.y += v * (d.height - a.height), e[e.placed ? "animate" : "attr"]({
-	            x: e.alignAttr.x + (a.width - d.width) / 2,
-	            y: e.alignAttr.y + (a.height - d.height) / 2,
+	          }), !1, s, !1), e.alignAttr.x += p * (d.width - n.width), e.alignAttr.y += v * (d.height - n.height), e[e.placed ? "animate" : "attr"]({
+	            x: e.alignAttr.x + (n.width - d.width) / 2,
+	            y: e.alignAttr.y + (n.height - d.height) / 2,
 	            rotationOriginX: (e.width || 0) / 2,
 	            rotationOriginY: (e.height || 0) / 2
-	          }), m && s.height >= 0) this.justifyDataLabel(e, i, e.alignAttr, a, s, r);else if (u(i.crop, !0)) {
+	          }), m && s.height >= 0) this.justifyDataLabel(e, i, e.alignAttr, n, s, r);else if (u(i.crop, !0)) {
 	            let {
 	              x: t,
 	              y: i
@@ -18775,7 +18764,7 @@ var highcharts = {exports: {}};
 	            x = o.isInsidePlot(t, i, {
 	              paneCoordinates: !0,
 	              series: this
-	            }) && o.isInsidePlot(t + a.width - 1, i + a.height - 1, {
+	            }) && o.isInsidePlot(t + n.width - 1, i + n.height - 1, {
 	              paneCoordinates: !0,
 	              series: this
 	            });
@@ -18806,7 +18795,7 @@ var highcharts = {exports: {}};
 	        t = t || this.points;
 	        let i = this,
 	          s = i.chart,
-	          n = i.options,
+	          a = i.options,
 	          l = s.renderer,
 	          {
 	            backgroundColor: c,
@@ -18824,8 +18813,8 @@ var highcharts = {exports: {}};
 	          };
 	        h(this, "drawDataLabels"), i.hasDataLabels?.() && (e = this.initDataLabels(k), t.forEach(t => {
 	          let r = t.dataLabels || [];
-	          f(b(y, t.dlOptions || t.options?.dataLabels)).forEach((h, c) => {
-	            let f = h.enabled && (t.visible || t.dataLabelOnHidden) && (!t.isNull || t.dataLabelOnNull) && function (t, e) {
+	          f(b(y, t.dlOptions || t.options?.dataLabels)).forEach((c, f) => {
+	            let m = c.enabled && (t.visible || t.dataLabelOnHidden) && (!t.isNull || t.dataLabelOnNull) && function (t, e) {
 	                let i = e.filter;
 	                if (i) {
 	                  let e = i.operator,
@@ -18834,55 +18823,54 @@ var highcharts = {exports: {}};
 	                  return ">" === e && s > r || "<" === e && s < r || ">=" === e && s >= r || "<=" === e && s <= r || "==" === e && s == r || "===" === e && s === r || "!=" === e && s != r || "!==" === e && s !== r;
 	                }
 	                return !0;
-	              }(t, h),
+	              }(t, c),
 	              {
-	                backgroundColor: m,
-	                borderColor: y,
-	                distance: b,
-	                style: v = {}
-	              } = h,
-	              S,
+	                backgroundColor: y,
+	                borderColor: b,
+	                distance: v,
+	                style: S = {}
+	              } = c,
 	              C,
 	              k,
 	              M,
-	              w = {},
-	              A = r[c],
-	              T = !A,
-	              P;
-	            if (f && (C = u(h[t.formatPrefix + "Format"], h.format), S = t.getLabelConfig(), k = a(C) ? o(C, S, s) : (h[t.formatPrefix + "Formatter"] || h.formatter).call(S, h), M = h.rotation, !s.styledMode && (v.color = u(h.color, v.color, d(i.color) ? i.color : void 0, "#000000"), "contrast" === v.color ? ("none" !== m && (P = m), t.contrastColor = l.getContrast("auto" !== P && P || t.color || i.color), v.color = P || !a(b) && h.inside || 0 > g(b || 0) || n.stacking ? t.contrastColor : x) : delete t.contrastColor, n.cursor && (v.cursor = n.cursor)), w = {
-	              r: h.borderRadius || 0,
-	              rotation: M,
-	              padding: h.padding,
+	              w,
+	              A = {},
+	              T = r[f],
+	              P = !T,
+	              L;
+	            m && (k = u(c[t.formatPrefix + "Format"], c.format), C = t.getLabelConfig(), M = n(k) ? o(k, C, s) : (c[t.formatPrefix + "Formatter"] || c.formatter).call(C, c), w = c.rotation, !s.styledMode && (S.color = u(c.color, S.color, d(i.color) ? i.color : void 0, "#000000"), "contrast" === S.color ? ("none" !== y && (L = y), t.contrastColor = l.getContrast("auto" !== L && L || t.color || i.color), S.color = L || !n(v) && c.inside || 0 > g(v || 0) || a.stacking ? t.contrastColor : x) : delete t.contrastColor, a.cursor && (S.cursor = a.cursor)), A = {
+	              r: c.borderRadius || 0,
+	              rotation: w,
+	              padding: c.padding,
 	              zIndex: 1
-	            }, s.styledMode || (w.fill = "auto" === m ? t.color : m, w.stroke = "auto" === y ? t.color : y, w["stroke-width"] = h.borderWidth), p(w, (t, e) => {
-	              void 0 === t && delete w[e];
-	            })), !A || f && a(k) && !!A.div == !!h.useHTML && (A.rotation && h.rotation || A.rotation === h.rotation) || (A = void 0, T = !0), f && a(k) && (A ? w.text = k : (A = l.label(k, 0, 0, h.shape, void 0, void 0, h.useHTML, void 0, "data-label")).addClass(" highcharts-data-label-color-" + t.colorIndex + " " + (h.className || "") + (h.useHTML ? " highcharts-tracker" : "")), A)) {
-	              A.options = h, A.attr(w), s.styledMode || A.css(v).shadow(h.shadow);
-	              let o = h[t.formatPrefix + "TextPath"] || h.textPath;
-	              o && !h.useHTML && (A.setTextPath(t.getDataLabelPath?.(A) || t.graphic, o), t.dataLabelPath && !o.enabled && (t.dataLabelPath = t.dataLabelPath.destroy())), A.added || A.add(e), i.alignDataLabel(t, A, h, void 0, T), A.isActive = !0, r[c] && r[c] !== A && r[c].destroy(), r[c] = A;
-	            }
+	            }, s.styledMode || (A.fill = "auto" === y ? t.color : y, A.stroke = "auto" === b ? t.color : b, A["stroke-width"] = c.borderWidth), p(A, (t, e) => {
+	              void 0 === t && delete A[e];
+	            })), !T || m && n(M) && !!T.div == !!c.useHTML && (T.rotation && c.rotation || T.rotation === c.rotation) || (T = void 0, P = !0), m && n(M) && (T ? A.text = M : (T = l.label(M, 0, 0, c.shape, void 0, void 0, c.useHTML, void 0, "data-label")).addClass(" highcharts-data-label-color-" + t.colorIndex + " " + (c.className || "") + (c.useHTML ? " highcharts-tracker" : "")), T && (T.options = c, T.attr(A), s.styledMode || T.css(S).shadow(c.shadow), h(T, "beforeAddingDataLabel", {
+	              labelOptions: c,
+	              point: t
+	            }), T.added || T.add(e), i.alignDataLabel(t, T, c, void 0, P), T.isActive = !0, r[f] && r[f] !== T && r[f].destroy(), r[f] = T));
 	          });
-	          let h = r.length;
-	          for (; h--;) r[h] && r[h].isActive ? r[h].isActive = !1 : (r[h]?.destroy(), r.splice(h, 1));
+	          let c = r.length;
+	          for (; c--;) r[c] && r[c].isActive ? r[c].isActive = !1 : (r[c]?.destroy(), r.splice(c, 1));
 	          t.dataLabel = r[0], t.dataLabels = r;
 	        })), h(this, "afterDrawDataLabels");
 	      }
 	      function y(t, e, i, s, r, o) {
-	        let a = this.chart,
-	          n = e.align,
+	        let n = this.chart,
+	          a = e.align,
 	          h = e.verticalAlign,
 	          l = t.box ? 0 : t.padding || 0,
-	          d = a.inverted ? this.yAxis : this.xAxis,
-	          c = d ? d.left - a.plotLeft : 0,
-	          p = a.inverted ? this.xAxis : this.yAxis,
-	          u = p ? p.top - a.plotTop : 0,
+	          d = n.inverted ? this.yAxis : this.xAxis,
+	          c = d ? d.left - n.plotLeft : 0,
+	          p = n.inverted ? this.xAxis : this.yAxis,
+	          u = p ? p.top - n.plotTop : 0,
 	          {
 	            x: g = 0,
 	            y: f = 0
 	          } = e,
 	          m,
 	          x;
-	        return (m = (i.x || 0) + l + c) < 0 && ("right" === n && g >= 0 ? (e.align = "left", e.inside = !0) : g -= m, x = !0), (m = (i.x || 0) + s.width - l + c) > a.plotWidth && ("left" === n && g <= 0 ? (e.align = "right", e.inside = !0) : g += a.plotWidth - m, x = !0), (m = i.y + l + u) < 0 && ("bottom" === h && f >= 0 ? (e.verticalAlign = "top", e.inside = !0) : f -= m, x = !0), (m = (i.y || 0) + s.height - l + u) > a.plotHeight && ("top" === h && f <= 0 ? (e.verticalAlign = "bottom", e.inside = !0) : f += a.plotHeight - m, x = !0), x && (e.x = g, e.y = f, t.placed = !o, t.align(e, void 0, r)), x;
+	        return (m = (i.x || 0) + l + c) < 0 && ("right" === a && g >= 0 ? (e.align = "left", e.inside = !0) : g -= m, x = !0), (m = (i.x || 0) + s.width - l + c) > n.plotWidth && ("left" === a && g <= 0 ? (e.align = "right", e.inside = !0) : g += n.plotWidth - m, x = !0), (m = i.y + l + u) < 0 && ("bottom" === h && f >= 0 ? (e.verticalAlign = "top", e.inside = !0) : f -= m, x = !0), (m = (i.y || 0) + s.height - l + u) > n.plotHeight && ("top" === h && f <= 0 ? (e.verticalAlign = "bottom", e.inside = !0) : f += n.plotHeight - m, x = !0), x && (e.x = g, e.y = f, t.placed = !o, t.align(e, void 0, r)), x;
 	      }
 	      function b(t, e) {
 	        let i = [],
@@ -18902,13 +18890,13 @@ var highcharts = {exports: {}};
 	      }
 	      function S(t, e, i, s, r) {
 	        let o = this.chart,
-	          a = o.inverted,
-	          n = this.xAxis,
-	          h = n.reversed,
-	          l = ((a ? e.height : e.width) || 0) / 2,
+	          n = o.inverted,
+	          a = this.xAxis,
+	          h = a.reversed,
+	          l = ((n ? e.height : e.width) || 0) / 2,
 	          d = t.pointWidth,
 	          c = d ? d / 2 : 0;
-	        e.startXPos = a ? r.x : h ? -l - c : n.width - l + c, e.startYPos = a ? h ? this.yAxis.height - l + c : -l - c : r.y, s ? "hidden" === e.visibility && (e.show(), e.attr({
+	        e.startXPos = n ? r.x : h ? -l - c : a.width - l + c, e.startYPos = n ? h ? this.yAxis.height - l + c : -l - c : r.y, s ? "hidden" === e.visibility && (e.show(), e.attr({
 	          opacity: 0
 	        }).animate({
 	          opacity: 1
@@ -18932,10 +18920,10 @@ var highcharts = {exports: {}};
 	        composed: o
 	      } = e,
 	      {
-	        series: a
+	        series: n
 	      } = i,
 	      {
-	        merge: n,
+	        merge: a,
 	        pick: h,
 	        pushUnique: l
 	      } = s;
@@ -18949,7 +18937,7 @@ var highcharts = {exports: {}};
 	          u = h(t.below, t.plotY > h(this.translatedThreshold, c)),
 	          g = h(i.inside, !!this.options.stacking);
 	        if (p) {
-	          if (s = n(p), !("allow" === i.overflow && !1 === i.crop)) {
+	          if (s = a(p), !("allow" === i.overflow && !1 === i.crop)) {
 	            s.y < 0 && (s.height += s.y, s.y = 0);
 	            let t = s.y + s.height - c;
 	            t > 0 && t < s.height - 1 && (s.height -= t);
@@ -18961,12 +18949,12 @@ var highcharts = {exports: {}};
 	            height: s.width
 	          }), g || (o ? (s.x += u ? 0 : s.width, s.width = 0) : (s.y += u ? s.height : 0, s.height = 0));
 	        }
-	        i.align = h(i.align, !o || g ? "center" : u ? "right" : "left"), i.verticalAlign = h(i.verticalAlign, o || g ? "middle" : u ? "top" : "bottom"), a.prototype.alignDataLabel.call(this, t, e, i, s, r), i.inside && t.contrastColor && e.css({
+	        i.align = h(i.align, !o || g ? "center" : u ? "right" : "left"), i.verticalAlign = h(i.verticalAlign, o || g ? "middle" : u ? "top" : "bottom"), n.prototype.alignDataLabel.call(this, t, e, i, s, r), i.inside && t.contrastColor && e.css({
 	          color: t.contrastColor
 	        });
 	      }
 	      e.compose = function (e) {
-	        t.compose(a), l(o, "ColumnDataLabel") && (e.prototype.alignDataLabel = i);
+	        t.compose(n), l(o, "ColumnDataLabel") && (e.prototype.alignDataLabel = i);
 	      };
 	    }(r || (r = {})), r;
 	  }), i(e, "Series/Bar/BarSeries.js", [e["Series/Column/ColumnSeries.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Utilities.js"]], function (t, e, i) {
@@ -19001,8 +18989,8 @@ var highcharts = {exports: {}};
 	      } = e.seriesTypes,
 	      {
 	        addEvent: o,
-	        extend: a,
-	        merge: n
+	        extend: n,
+	        merge: a
 	      } = i;
 	    class h extends r {
 	      applyJitter() {
@@ -19010,18 +18998,18 @@ var highcharts = {exports: {}};
 	          e = this.options.jitter,
 	          i = this.points.length;
 	        e && this.points.forEach(function (s, r) {
-	          ["x", "y"].forEach(function (o, a) {
+	          ["x", "y"].forEach(function (o, n) {
 	            if (e[o] && !s.isNull) {
-	              let n = `plot${o.toUpperCase()}`,
+	              let a = `plot${o.toUpperCase()}`,
 	                h = t[`${o}Axis`],
 	                l = e[o] * h.transA;
 	              if (h && !h.logarithmic) {
-	                let t = Math.max(0, (s[n] || 0) - l),
-	                  e = Math.min(h.len, (s[n] || 0) + l);
-	                s[n] = t + (e - t) * function (t) {
+	                let t = Math.max(0, (s[a] || 0) - l),
+	                  e = Math.min(h.len, (s[a] || 0) + l);
+	                s[a] = t + (e - t) * function (t) {
 	                  let e = 1e4 * Math.sin(t);
 	                  return e - Math.floor(e);
-	                }(r + a * i), "x" === o && (s.clientX = s.plotX);
+	                }(r + n * i), "x" === o && (s.clientX = s.plotX);
 	              }
 	            }
 	          });
@@ -19031,7 +19019,7 @@ var highcharts = {exports: {}};
 	        this.options.lineWidth ? super.drawGraph() : this.graph && (this.graph = this.graph.destroy());
 	      }
 	    }
-	    return h.defaultOptions = n(r.defaultOptions, t), a(h.prototype, {
+	    return h.defaultOptions = a(r.defaultOptions, t), n(h.prototype, {
 	      drawTracker: s.prototype.drawTracker,
 	      sorted: !1,
 	      requireSorting: !1,
@@ -19046,8 +19034,8 @@ var highcharts = {exports: {}};
 	        deg2rad: o
 	      } = t,
 	      {
-	        fireEvent: a,
-	        isNumber: n,
+	        fireEvent: n,
+	        isNumber: a,
 	        pick: h,
 	        relativeLength: l
 	      } = i;
@@ -19068,12 +19056,12 @@ var highcharts = {exports: {}};
 	      "string" == typeof g && (g = parseFloat(g)), "string" == typeof f && (f = parseFloat(f));
 	      let y = [h(d[0], "50%"), h(d[1], "50%"), h(g && g < 0 ? void 0 : t.size, "100%"), h(f && f < 0 ? void 0 : t.innerSize || 0, "0%")];
 	      for (!i.angular || this instanceof e || (y[3] = 0), m = 0; m < 4; ++m) x = y[m], u = m < 2 || 2 === m && /%$/.test(x), y[m] = l(x, [r, o, c, y[2]][m]) + (u ? s : 0);
-	      return y[3] > y[2] && (y[3] = y[2]), n(p) && 2 * p < y[2] && p > 0 && (y[3] = y[2] - 2 * p), a(this, "afterGetCenter", {
+	      return y[3] > y[2] && (y[3] = y[2]), a(p) && 2 * p < y[2] && p > 0 && (y[3] = y[2] - 2 * p), n(this, "afterGetCenter", {
 	        positions: y
 	      }), y;
 	    }, r.getStartAndEndRadians = function (t, e) {
-	      let i = n(t) ? t : 0,
-	        s = n(e) && e > i && e - i < 360 ? e : i + 360;
+	      let i = a(t) ? t : 0,
+	        s = a(e) && e > i && e - i < 360 ? e : i + 360;
 	      return {
 	        start: o * (i + -90),
 	        end: o * (s + -90)
@@ -19086,8 +19074,8 @@ var highcharts = {exports: {}};
 	      {
 	        addEvent: r,
 	        defined: o,
-	        extend: a,
-	        isNumber: n,
+	        extend: n,
+	        isNumber: a,
 	        pick: h,
 	        relativeLength: l
 	      } = i;
@@ -19125,7 +19113,7 @@ var highcharts = {exports: {}};
 	        r(this, "select", s), r(this, "unselect", s);
 	      }
 	      isValid() {
-	        return n(this.y) && this.y >= 0;
+	        return a(this.y) && this.y >= 0;
 	      }
 	      setVisible(t, e = !0) {
 	        t !== this.visible && this.update({
@@ -19137,7 +19125,7 @@ var highcharts = {exports: {}};
 	        s(i, r.chart), e = h(e, !0), this.sliced = this.options.sliced = t = o(t) ? t : !this.sliced, r.options.data[r.data.indexOf(this)] = this.options, this.graphic && this.graphic.animate(this.getTranslate());
 	      }
 	    }
-	    return a(d.prototype, {
+	    return n(d.prototype, {
 	      connectorShapes: {
 	        fixedOffset: function (t, e, i) {
 	          let s = e.breakAt,
@@ -19157,7 +19145,7 @@ var highcharts = {exports: {}};
 	            {
 	              series: o
 	            } = this,
-	            [a, n, h] = o.center,
+	            [n, a, h] = o.center,
 	            d = h / 2,
 	            {
 	              plotLeft: c,
@@ -19171,8 +19159,8 @@ var highcharts = {exports: {}};
 	            m = s.x;
 	          if (i.crookDistance) {
 	            let t = l(i.crookDistance, 1);
-	            m = u ? a + d + (p + c - a - d) * (1 - t) : c + (a - d) * t;
-	          } else m = a + (n - f) * Math.tan((this.angle || 0) - Math.PI / 2);
+	            m = u ? n + d + (p + c - n - d) * (1 - t) : c + (n - d) * t;
+	          } else m = n + (a - f) * Math.tan((this.angle || 0) - Math.PI / 2);
 	          let x = [["M", g, f]];
 	          return (u ? m <= g && m >= s.x : m >= g && m <= s.x) && x.push(["L", m, f]), x.push(["L", s.x, s.y], ["L", r.x, r.y]), x;
 	        }
@@ -19217,7 +19205,7 @@ var highcharts = {exports: {}};
 	        }
 	      }
 	    };
-	  }), i(e, "Series/Pie/PieSeries.js", [e["Series/CenteredUtilities.js"], e["Series/Column/ColumnSeries.js"], e["Core/Globals.js"], e["Series/Pie/PiePoint.js"], e["Series/Pie/PieSeriesDefaults.js"], e["Core/Series/Series.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Renderer/SVG/Symbols.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o, a, n, h) {
+	  }), i(e, "Series/Pie/PieSeries.js", [e["Series/CenteredUtilities.js"], e["Series/Column/ColumnSeries.js"], e["Core/Globals.js"], e["Series/Pie/PiePoint.js"], e["Series/Pie/PieSeriesDefaults.js"], e["Core/Series/Series.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Renderer/SVG/Symbols.js"], e["Core/Utilities.js"]], function (t, e, i, s, r, o, n, a, h) {
 	    let {
 	        getStartAndEndRadians: l
 	      } = t,
@@ -19256,7 +19244,7 @@ var highcharts = {exports: {}};
 	          s = this.endAngleRad,
 	          r = this.options;
 	        0 === this.total && this.center ? (t = this.center[0], e = this.center[1], this.graph || (this.graph = this.chart.renderer.arc(t, e, this.center[1] / 2, 0, i, s).addClass("highcharts-empty-series").add(this.group)), this.graph.attr({
-	          d: n.arc(t, e, this.center[2] / 2, 0, {
+	          d: a.arc(t, e, this.center[2] / 2, 0, {
 	            start: i,
 	            end: s,
 	            innerR: this.center[3] / 2
@@ -19279,10 +19267,10 @@ var highcharts = {exports: {}};
 	      getX(t, e, i, s) {
 	        let r = this.center,
 	          o = this.radii ? this.radii[i.index] || 0 : r[2] / 2,
-	          a = s.dataLabelPosition,
-	          n = a?.distance || 0,
-	          h = Math.asin(c((t - r[1]) / (o + n), -1, 1));
-	        return r[0] + Math.cos(h) * (o + n) * (e ? -1 : 1) + (n > 0 ? (e ? -1 : 1) * (s.padding || 0) : 0);
+	          n = s.dataLabelPosition,
+	          a = n?.distance || 0,
+	          h = Math.asin(c((t - r[1]) / (o + a), -1, 1));
+	        return r[0] + Math.cos(h) * (o + a) * (e ? -1 : 1) + (a > 0 ? (e ? -1 : 1) * (s.padding || 0) : 0);
 	      }
 	      hasData() {
 	        return !!this.processedXData.length;
@@ -19291,13 +19279,13 @@ var highcharts = {exports: {}};
 	        let t, e, i, s;
 	        let r = this,
 	          o = r.chart;
-	        this.drawEmpty(), r.group && !o.styledMode && r.group.shadow(r.options.shadow), r.points.forEach(function (a) {
-	          let n = {};
-	          e = a.graphic, !a.isNull && e ? (s = a.shapeArgs, t = a.getTranslate(), o.styledMode || (i = r.pointAttribs(a, a.selected && "select")), a.delayedRendering ? (e.setRadialReference(r.center).attr(s).attr(t), o.styledMode || e.attr(i).attr({
+	        this.drawEmpty(), r.group && !o.styledMode && r.group.shadow(r.options.shadow), r.points.forEach(function (n) {
+	          let a = {};
+	          e = n.graphic, !n.isNull && e ? (s = n.shapeArgs, t = n.getTranslate(), o.styledMode || (i = r.pointAttribs(n, n.selected && "select")), n.delayedRendering ? (e.setRadialReference(r.center).attr(s).attr(t), o.styledMode || e.attr(i).attr({
 	            "stroke-linejoin": "round"
-	          }), a.delayedRendering = !1) : (e.setRadialReference(r.center), o.styledMode || g(!0, n, i), g(!0, n, s, t), e.animate(n)), e.attr({
-	            visibility: a.visible ? "inherit" : "hidden"
-	          }), e.addClass(a.getClassName(), !0)) : e && (a.graphic = e.destroy());
+	          }), n.delayedRendering = !1) : (e.setRadialReference(r.center), o.styledMode || g(!0, a, i), g(!0, a, s, t), e.animate(a)), e.attr({
+	            visibility: n.visible ? "inherit" : "hidden"
+	          }), e.addClass(n.getClassName(), !0)) : e && (n.graphic = e.destroy());
 	        });
 	      }
 	      sortByAngle(t, e) {
@@ -19312,9 +19300,9 @@ var highcharts = {exports: {}};
 	          s = l(e.startAngle, e.endAngle),
 	          r = this.startAngleRad = s.start,
 	          o = (this.endAngleRad = s.end) - r,
-	          a = this.points,
-	          n = e.ignoreHiddenPoint,
-	          h = a.length,
+	          n = this.points,
+	          a = e.ignoreHiddenPoint,
+	          h = n.length,
 	          d,
 	          c,
 	          p,
@@ -19324,7 +19312,7 @@ var highcharts = {exports: {}};
 	          x,
 	          y = 0;
 	        for (t || (this.center = t = this.getCenter()), m = 0; m < h; m++) {
-	          x = a[m], d = r + y * o, x.isValid() && (!n || x.visible) && (y += x.percentage / 100), c = r + y * o;
+	          x = n[m], d = r + y * o, x.isValid() && (!a || x.visible) && (y += x.percentage / 100), c = r + y * o;
 	          let e = {
 	            x: t[0],
 	            y: t[1],
@@ -19366,12 +19354,12 @@ var highcharts = {exports: {}};
 	      requireSorting: !1,
 	      searchPoint: d,
 	      trackerGroups: ["group", "dataLabelsGroup"]
-	    }), a.registerSeriesType("pie", m), m;
+	    }), n.registerSeriesType("pie", m), m;
 	  }), i(e, "Series/Pie/PieDataLabel.js", [e["Core/Series/DataLabel.js"], e["Core/Globals.js"], e["Core/Renderer/RendererUtilities.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Utilities.js"]], function (t, e, i, s, r) {
 	    var o;
 	    let {
-	        composed: a,
-	        noop: n
+	        composed: n,
+	        noop: a
 	      } = e,
 	      {
 	        distribute: h
@@ -19418,22 +19406,22 @@ var highcharts = {exports: {}};
 	          } = this,
 	          r = i[2] / 2,
 	          o = t.angle || 0,
-	          a = Math.cos(o),
-	          n = Math.sin(o),
-	          h = i[0] + a * r,
-	          l = i[1] + n * r,
+	          n = Math.cos(o),
+	          a = Math.sin(o),
+	          h = i[0] + n * r,
+	          l = i[1] + a * r,
 	          d = Math.min((s.slicedOffset || 0) + (s.borderWidth || 0), e / 5);
 	        return {
 	          natural: {
-	            x: h + a * e,
-	            y: l + n * e
+	            x: h + n * e,
+	            y: l + a * e
 	          },
 	          computed: {},
 	          alignment: e < 0 ? "center" : t.half ? "right" : "left",
 	          connectorPosition: {
 	            breakAt: {
-	              x: h + a * d,
-	              y: l + n * d
+	              x: h + n * d,
+	              y: l + a * d
 	            },
 	            touchingSliceAt: {
 	              x: h,
@@ -19450,10 +19438,10 @@ var highcharts = {exports: {}};
 	          s = i.plotWidth,
 	          r = i.plotHeight,
 	          o = i.plotLeft,
-	          a = Math.round(i.chartWidth / 3),
-	          n = t.center,
-	          c = n[2] / 2,
-	          g = n[1],
+	          n = Math.round(i.chartWidth / 3),
+	          a = t.center,
+	          c = a[2] / 2,
+	          g = a[1],
 	          m = [[], []],
 	          x = [0, 0, 0, 0],
 	          y = t.dataLabelPositioners,
@@ -19472,25 +19460,25 @@ var highcharts = {exports: {}};
 	          });
 	        }), l.prototype.drawDataLabels.apply(t), e.forEach(t => {
 	          (t.dataLabels || []).forEach((e, i) => {
-	            let s = n[2] / 2,
+	            let s = a[2] / 2,
 	              r = e.options,
 	              o = f(r?.distance || 0, s);
-	            0 === i && m[t.half].push(t), !p(r?.style?.width) && e.getBBox().width > a && (e.css({
-	              width: Math.round(.7 * a) + "px"
+	            0 === i && m[t.half].push(t), !p(r?.style?.width) && e.getBBox().width > n && (e.css({
+	              width: Math.round(.7 * n) + "px"
 	            }), e.shortened = !0), e.dataLabelPosition = this.getDataLabelPosition(t, o), C = Math.max(C, o);
 	          });
-	        }), m.forEach((e, a) => {
+	        }), m.forEach((e, n) => {
 	          let l = e.length,
 	            d = [],
 	            f,
 	            m,
 	            b = 0,
 	            k;
-	          l && (t.sortByAngle(e, a - .5), C > 0 && (f = Math.max(0, g - c - C), m = Math.min(g + c + C, i.plotHeight), e.forEach(t => {
+	          l && (t.sortByAngle(e, n - .5), C > 0 && (f = Math.max(0, g - c - C), m = Math.min(g + c + C, i.plotHeight), e.forEach(t => {
 	            (t.dataLabels || []).forEach(e => {
 	              let s = e.dataLabelPosition;
-	              s && s.distance > 0 && (s.top = Math.max(0, g - c - s.distance), s.bottom = Math.min(g + c + s.distance, i.plotHeight), b = e.getBBox().height || 21, t.distributeBox = {
-	                target: (e.dataLabelPosition?.natural.y || 0) - s.top + b / 2,
+	              s && s.distance > 0 && (s.top = Math.max(0, g - c - s.distance), s.bottom = Math.min(g + c + s.distance, i.plotHeight), b = e.getBBox().height || 21, e.lineHeight = i.renderer.fontMetrics(e.text || e).h + 2 * e.padding, t.distributeBox = {
+	                target: (e.dataLabelPosition?.natural.y || 0) - s.top + e.lineHeight / 2,
 	                size: b,
 	                rank: t.y
 	              }, d.push(t.distributeBox));
@@ -19502,32 +19490,34 @@ var highcharts = {exports: {}};
 	                f = h.dataLabelPosition,
 	                m = f?.natural.y || 0,
 	                b = l.connectorPadding || 0,
-	                C = 0,
-	                k = m,
-	                M = "inherit";
+	                C = h.lineHeight || 21,
+	                k = (C - h.getBBox().height) / 2,
+	                M = 0,
+	                w = m,
+	                A = "inherit";
 	              if (f) {
-	                if (d && p(g) && f.distance > 0 && (void 0 === g.pos ? M = "hidden" : (S = g.size, k = y.radialDistributionY(i, h))), l.justify) C = y.justify(i, h, c, n);else switch (l.alignTo) {
+	                if (d && p(g) && f.distance > 0 && (void 0 === g.pos ? A = "hidden" : (S = g.size, w = y.radialDistributionY(i, h))), l.justify) M = y.justify(i, h, c, a);else switch (l.alignTo) {
 	                  case "connectors":
-	                    C = y.alignToConnectors(e, a, s, o);
+	                    M = y.alignToConnectors(e, n, s, o);
 	                    break;
 	                  case "plotEdges":
-	                    C = y.alignToPlotEdges(h, a, s, o);
+	                    M = y.alignToPlotEdges(h, n, s, o);
 	                    break;
 	                  default:
-	                    C = y.radialDistributionX(t, i, k, m, h);
+	                    M = y.radialDistributionX(t, i, w - k, m, h);
 	                }
 	                if (f.attribs = {
-	                  visibility: M,
+	                  visibility: A,
 	                  align: f.alignment
 	                }, f.posAttribs = {
-	                  x: C + (l.x || 0) + ({
+	                  x: M + (l.x || 0) + ({
 	                    left: b,
 	                    right: -b
 	                  }[f.alignment] || 0),
-	                  y: k + (l.y || 0) - h.getBBox().height / 2
-	                }, f.computed.x = C, f.computed.y = k, u(l.crop, !0)) {
+	                  y: w + (l.y || 0) - C / 2
+	                }, f.computed.x = M, f.computed.y = w - k, u(l.crop, !0)) {
 	                  let t;
-	                  C - (v = h.getBBox().width) < b && 1 === a ? (t = Math.round(v - C + b), x[3] = Math.max(t, x[3])) : C + v > s - b && 0 === a && (t = Math.round(C + v - s + b), x[1] = Math.max(t, x[1])), k - S / 2 < 0 ? x[0] = Math.max(Math.round(-k + S / 2), x[0]) : k + S / 2 > r && (x[2] = Math.max(Math.round(k + S / 2 - r), x[2])), f.sideOverflow = t;
+	                  M - (v = h.getBBox().width) < b && 1 === n ? (t = Math.round(v - M + b), x[3] = Math.max(t, x[3])) : M + v > s - b && 0 === n && (t = Math.round(M + v - s + b), x[1] = Math.max(t, x[1])), w - S / 2 < 0 ? x[0] = Math.max(Math.round(-w + S / 2), x[0]) : w + S / 2 > r && (x[2] = Math.max(Math.round(w + S / 2 - r), x[2])), f.sideOverflow = t;
 	                }
 	              }
 	            });
@@ -19538,16 +19528,16 @@ var highcharts = {exports: {}};
 	                connectorColor: r,
 	                connectorWidth: o = 1
 	              } = s.options || {},
-	              a = s.dataLabelPosition;
+	              n = s.dataLabelPosition;
 	            if (o) {
-	              let n;
-	              b = s.connector, a && a.distance > 0 ? (n = !b, b || (s.connector = b = i.renderer.path().addClass("highcharts-data-label-connector  highcharts-color-" + e.colorIndex + (e.className ? " " + e.className : "")).add(t.dataLabelsGroup)), i.styledMode || b.attr({
+	              let a;
+	              b = s.connector, n && n.distance > 0 ? (a = !b, b || (s.connector = b = i.renderer.path().addClass("highcharts-data-label-connector  highcharts-color-" + e.colorIndex + (e.className ? " " + e.className : "")).add(t.dataLabelsGroup)), i.styledMode || b.attr({
 	                "stroke-width": o,
 	                stroke: r || e.color || "#666666"
-	              }), b[n ? "attr" : "animate"]({
+	              }), b[a ? "attr" : "animate"]({
 	                d: e.getConnectorPath(s)
 	              }), b.attr({
-	                visibility: a.attribs?.visibility
+	                visibility: n.attribs?.visibility
 	              })) : b && (s.connector = b.destroy());
 	            }
 	          });
@@ -19572,33 +19562,73 @@ var highcharts = {exports: {}};
 	          s = i.center,
 	          r = i.minSize || 80,
 	          o = r,
-	          a = null !== i.size;
-	        return !a && (null !== s[0] ? o = Math.max(e[2] - Math.max(t[1], t[3]), r) : (o = Math.max(e[2] - t[1] - t[3], r), e[0] += (t[3] - t[1]) / 2), null !== s[1] ? o = c(o, r, e[2] - Math.max(t[0], t[2])) : (o = c(o, r, e[2] - t[0] - t[2]), e[1] += (t[0] - t[2]) / 2), o < e[2] ? (e[2] = o, e[3] = Math.min(i.thickness ? Math.max(0, o - 2 * i.thickness) : Math.max(0, f(i.innerSize || 0, o)), o), this.translate(e), this.drawDataLabels && this.drawDataLabels()) : a = !0), a;
+	          n = null !== i.size;
+	        return !n && (null !== s[0] ? o = Math.max(e[2] - Math.max(t[1], t[3]), r) : (o = Math.max(e[2] - t[1] - t[3], r), e[0] += (t[3] - t[1]) / 2), null !== s[1] ? o = c(o, r, e[2] - Math.max(t[0], t[2])) : (o = c(o, r, e[2] - t[0] - t[2]), e[1] += (t[0] - t[2]) / 2), o < e[2] ? (e[2] = o, e[3] = Math.min(i.thickness ? Math.max(0, o - 2 * i.thickness) : Math.max(0, f(i.innerSize || 0, o)), o), this.translate(e), this.drawDataLabels && this.drawDataLabels()) : n = !0), n;
 	      }
 	      e.compose = function (e) {
-	        if (t.compose(l), g(a, "PieDataLabel")) {
+	        if (t.compose(l), g(n, "PieDataLabel")) {
 	          let t = e.prototype;
-	          t.dataLabelPositioners = i, t.alignDataLabel = n, t.drawDataLabels = r, t.getDataLabelPosition = s, t.placeDataLabels = o, t.verifyDataLabelOverflow = m;
+	          t.dataLabelPositioners = i, t.alignDataLabel = a, t.drawDataLabels = r, t.getDataLabelPosition = s, t.placeDataLabels = o, t.verifyDataLabelOverflow = m;
 	        }
 	      };
 	    }(o || (o = {})), o;
-	  }), i(e, "Extensions/OverlappingDataLabels.js", [e["Core/Utilities.js"]], function (t) {
-	    let {
-	      addEvent: e,
-	      fireEvent: i,
-	      objectEach: s,
-	      pick: r
-	    } = t;
-	    function o(t) {
-	      let e = t.length,
-	        s = (t, e) => !(e.x >= t.x + t.width || e.x + e.width <= t.x || e.y >= t.y + t.height || e.y + e.height <= t.y),
+	  }), i(e, "Core/Geometry/GeometryUtilities.js", [], function () {
+	    var t, e;
+	    return (e = t || (t = {})).getCenterOfPoints = function (t) {
+	      let e = t.reduce((t, e) => (t.x += e.x, t.y += e.y, t), {
+	        x: 0,
+	        y: 0
+	      });
+	      return {
+	        x: e.x / t.length,
+	        y: e.y / t.length
+	      };
+	    }, e.getDistanceBetweenPoints = function (t, e) {
+	      return Math.sqrt(Math.pow(e.x - t.x, 2) + Math.pow(e.y - t.y, 2));
+	    }, e.getAngleBetweenPoints = function (t, e) {
+	      return Math.atan2(e.x - t.x, e.y - t.y);
+	    }, e.pointInPolygon = function ({
+	      x: t,
+	      y: e
+	    }, i) {
+	      let s = i.length,
 	        r,
 	        o,
+	        n = !1;
+	      for (r = 0, o = s - 1; r < s; o = r++) {
+	        let [s, a] = i[r],
+	          [h, l] = i[o];
+	        a > e != l > e && t < (h - s) * (e - a) / (l - a) + s && (n = !n);
+	      }
+	      return n;
+	    }, t;
+	  }), i(e, "Extensions/OverlappingDataLabels.js", [e["Core/Geometry/GeometryUtilities.js"], e["Core/Utilities.js"]], function (t, e) {
+	    let {
+	        pointInPolygon: i
+	      } = t,
+	      {
+	        addEvent: s,
+	        fireEvent: r,
+	        objectEach: o,
+	        pick: n
+	      } = e;
+	    function a(t) {
+	      let e = t.length,
+	        s = (t, e) => !(e.x >= t.x + t.width || e.x + e.width <= t.x || e.y >= t.y + t.height || e.y + e.height <= t.y),
+	        o = (t, e) => {
+	          for (let s of t) if (i({
+	            x: s[0],
+	            y: s[1]
+	          }, e)) return !0;
+	          return !1;
+	        },
 	        n,
-	        h,
+	        a,
 	        l,
-	        d = !1;
-	      for (let i = 0; i < e; i++) (r = t[i]) && (r.oldOpacity = r.opacity, r.newOpacity = 1, r.absoluteBox = function (t) {
+	        d,
+	        c,
+	        p = !1;
+	      for (let i = 0; i < e; i++) (n = t[i]) && (n.oldOpacity = n.opacity, n.newOpacity = 1, n.absoluteBox = function (t) {
 	        if (t && (!t.alignAttr || t.placed)) {
 	          let e = t.box ? 0 : t.padding || 0,
 	            i = t.alignAttr || {
@@ -19610,46 +19640,59 @@ var highcharts = {exports: {}};
 	            x: i.x + (t.parentGroup?.translateX || 0) + e,
 	            y: i.y + (t.parentGroup?.translateY || 0) + e,
 	            width: (t.width || 0) - 2 * e,
-	            height: (t.height || 0) - 2 * e
+	            height: (t.height || 0) - 2 * e,
+	            polygon: s?.polygon
 	          };
 	        }
-	      }(r));
+	      }(n));
 	      t.sort((t, e) => (e.labelrank || 0) - (t.labelrank || 0));
 	      for (let i = 0; i < e; ++i) {
-	        h = (o = t[i]) && o.absoluteBox;
-	        for (let r = i + 1; r < e; ++r) l = (n = t[r]) && n.absoluteBox, h && l && o !== n && 0 !== o.newOpacity && 0 !== n.newOpacity && "hidden" !== o.visibility && "hidden" !== n.visibility && s(h, l) && ((o.labelrank < n.labelrank ? o : n).newOpacity = 0);
+	        d = (a = t[i]) && a.absoluteBox;
+	        let r = d?.polygon;
+	        for (let n = i + 1; n < e; ++n) {
+	          c = (l = t[n]) && l.absoluteBox;
+	          let e = !1;
+	          if (d && c && a !== l && 0 !== a.newOpacity && 0 !== l.newOpacity && "hidden" !== a.visibility && "hidden" !== l.visibility) {
+	            let t = c.polygon;
+	            if (r && t && r !== t ? o(r, t) && (e = !0) : s(d, c) && (e = !0), e) {
+	              let t = a.labelrank < l.labelrank ? a : l,
+	                e = t.text;
+	              t.newOpacity = 0, e?.element.querySelector("textPath") && e.hide();
+	            }
+	          }
+	        }
 	      }
-	      for (let e of t) a(e, this) && (d = !0);
-	      d && i(this, "afterHideAllOverlappingLabels");
+	      for (let e of t) h(e, this) && (p = !0);
+	      p && r(this, "afterHideAllOverlappingLabels");
 	    }
-	    function a(t, e) {
-	      let s,
-	        r,
+	    function h(t, e) {
+	      let i,
+	        s,
 	        o = !1;
-	      return t && (r = t.newOpacity, t.oldOpacity !== r && (t.hasClass("highcharts-data-label") ? (t[r ? "removeClass" : "addClass"]("highcharts-data-label-hidden"), s = function () {
+	      return t && (s = t.newOpacity, t.oldOpacity !== s && (t.hasClass("highcharts-data-label") ? (t[s ? "removeClass" : "addClass"]("highcharts-data-label-hidden"), i = function () {
 	        e.styledMode || t.css({
-	          pointerEvents: r ? "auto" : "none"
+	          pointerEvents: s ? "auto" : "none"
 	        });
 	      }, o = !0, t[t.isOld ? "animate" : "attr"]({
-	        opacity: r
-	      }, void 0, s), i(e, "afterHideOverlappingLabel")) : t.attr({
-	        opacity: r
+	        opacity: s
+	      }, void 0, i), r(e, "afterHideOverlappingLabel")) : t.attr({
+	        opacity: s
 	      })), t.isOld = !0), o;
 	    }
-	    function n() {
+	    function l() {
 	      let t = this,
 	        e = [];
 	      for (let i of t.labelCollectors || []) e = e.concat(i());
-	      for (let i of t.yAxis || []) i.stacking && i.options.stackLabels && !i.options.stackLabels.allowOverlap && s(i.stacking.stacks, t => {
-	        s(t, t => {
+	      for (let i of t.yAxis || []) i.stacking && i.options.stackLabels && !i.options.stackLabels.allowOverlap && o(i.stacking.stacks, t => {
+	        o(t, t => {
 	          t.label && e.push(t.label);
 	        });
 	      });
 	      for (let i of t.series || []) if (i.visible && i.hasDataLabels?.()) {
 	        let s = i => {
 	          for (let s of i) s.visible && (s.dataLabels || []).forEach(i => {
-	            let o = i.options || {};
-	            i.labelrank = r(o.labelrank, s.labelrank, s.shapeArgs?.height), o.allowOverlap ?? Number(o.distance) > 0 ? (i.oldOpacity = i.opacity, i.newOpacity = 1, a(i, t)) : e.push(i);
+	            let r = i.options || {};
+	            i.labelrank = n(r.labelrank, s.labelrank, s.shapeArgs?.height), r.allowOverlap ?? Number(r.distance) > 0 ? (i.oldOpacity = i.opacity, i.newOpacity = 1, h(i, t)) : e.push(i);
 	          });
 	        };
 	        s(i.nodes || []), s(i.points);
@@ -19658,8 +19701,8 @@ var highcharts = {exports: {}};
 	    }
 	    return {
 	      compose: function (t) {
-	        let i = t.prototype;
-	        i.hideOverlappingLabels || (i.hideOverlappingLabels = o, e(t, "render", n));
+	        let e = t.prototype;
+	        e.hideOverlappingLabels || (e.hideOverlappingLabels = a, s(t, "render", l));
 	      }
 	    };
 	  }), i(e, "Extensions/BorderRadius.js", [e["Core/Defaults.js"], e["Core/Globals.js"], e["Core/Utilities.js"]], function (t, e, i) {
@@ -19671,8 +19714,8 @@ var highcharts = {exports: {}};
 	      } = e,
 	      {
 	        addEvent: o,
-	        extend: a,
-	        isObject: n,
+	        extend: n,
+	        isObject: a,
 	        merge: h,
 	        relativeLength: l
 	      } = i,
@@ -19686,24 +19729,24 @@ var highcharts = {exports: {}};
 	    function u(t, e, i, s, r = {}) {
 	      let o = c(t, e, i, s, r),
 	        {
-	          innerR: a = 0,
-	          r: n = i,
+	          innerR: n = 0,
+	          r: a = i,
 	          start: h = 0,
 	          end: d = 0
 	        } = r;
 	      if (r.open || !r.borderRadius) return o;
 	      let p = d - h,
-	        u = Math.sin(p / 2),
-	        g = Math.max(Math.min(l(r.borderRadius || 0, n - a), (n - a) / 2, n * u / (1 + u)), 0),
-	        f = Math.min(g, p / Math.PI * 2 * a),
-	        m = o.length - 1;
-	      for (; m--;) !function (t, e, i) {
+	        g = Math.sin(p / 2),
+	        f = Math.max(Math.min(l(r.borderRadius || 0, a - n), (a - n) / 2, a * g / (1 + g)), 0),
+	        m = Math.min(f, p / Math.PI * 2 * n),
+	        x = o.length - 1;
+	      for (; x--;) !function (t, e, i) {
 	        let s, r, o;
-	        let a = t[e],
-	          n = t[e + 1];
-	        if ("Z" === n[0] && (n = t[0]), ("M" === a[0] || "L" === a[0]) && "A" === n[0] ? (s = a, r = n, o = !0) : "A" === a[0] && ("M" === n[0] || "L" === n[0]) && (s = n, r = a), s && r && r.params) {
-	          let a = r[1],
-	            n = r[5],
+	        let n = t[e],
+	          a = t[e + 1];
+	        if ("Z" === a[0] && (a = t[0]), ("M" === n[0] || "L" === n[0]) && "A" === a[0] ? (s = n, r = a, o = !0) : "A" === n[0] && ("M" === a[0] || "L" === a[0]) && (s = a, r = n), s && r && r.params) {
+	          let n = r[1],
+	            a = r[5],
 	            h = r.params,
 	            {
 	              start: l,
@@ -19711,13 +19754,13 @@ var highcharts = {exports: {}};
 	              cx: c,
 	              cy: p
 	            } = h,
-	            u = n ? a - i : a + i,
+	            u = a ? n - i : n + i,
 	            g = u ? Math.asin(i / u) : 0,
-	            f = n ? g : -g,
+	            f = a ? g : -g,
 	            m = Math.cos(g) * u;
-	          o ? (h.start = l + f, s[1] = c + m * Math.cos(l), s[2] = p + m * Math.sin(l), t.splice(e + 1, 0, ["A", i, i, 0, 0, 1, c + a * Math.cos(h.start), p + a * Math.sin(h.start)])) : (h.end = d - f, r[6] = c + a * Math.cos(h.end), r[7] = p + a * Math.sin(h.end), t.splice(e + 1, 0, ["A", i, i, 0, 0, 1, c + m * Math.cos(d), p + m * Math.sin(d)])), r[4] = Math.abs(h.end - h.start) < Math.PI ? 0 : 1;
+	          o ? (h.start = l + f, s[1] = c + m * Math.cos(l), s[2] = p + m * Math.sin(l), t.splice(e + 1, 0, ["A", i, i, 0, 0, 1, c + n * Math.cos(h.start), p + n * Math.sin(h.start)])) : (h.end = d - f, r[6] = c + n * Math.cos(h.end), r[7] = p + n * Math.sin(h.end), t.splice(e + 1, 0, ["A", i, i, 0, 0, 1, c + m * Math.cos(d), p + m * Math.sin(d)])), r[4] = Math.abs(h.end - h.start) < Math.PI ? 0 : 1;
 	        }
-	      }(o, m, m > 1 ? f : g);
+	      }(o, x, x > 1 ? m : f);
 	      return o;
 	    }
 	    function g() {
@@ -19728,7 +19771,7 @@ var highcharts = {exports: {}};
 	          } = this,
 	          i = "percent" === t.stacking,
 	          r = s.plotOptions?.[this.type]?.borderRadius,
-	          o = f(t.borderRadius, n(r) ? r : {}),
+	          o = f(t.borderRadius, a(r) ? r : {}),
 	          h = e.options.reversed;
 	        for (let s of this.points) {
 	          let {
@@ -19736,7 +19779,7 @@ var highcharts = {exports: {}};
 	          } = s;
 	          if ("roundedRect" === s.shapeType && r) {
 	            let {
-	                width: n = 0,
+	                width: a = 0,
 	                height: d = 0,
 	                y: c = 0
 	              } = r,
@@ -19745,14 +19788,14 @@ var highcharts = {exports: {}};
 	            if ("stack" === o.scope && s.stackTotal) {
 	              let r = e.translate(i ? 100 : s.stackTotal, !1, !0, !1, !0),
 	                o = e.translate(t.threshold || 0, !1, !0, !1, !0),
-	                a = this.crispCol(0, Math.min(r, o), 0, Math.abs(r - o));
-	              p = a.y, u = a.height;
+	                n = this.crispCol(0, Math.min(r, o), 0, Math.abs(r - o));
+	              p = n.y, u = n.height;
 	            }
 	            let g = (s.negative ? -1 : 1) * (h ? -1 : 1) == -1,
 	              f = o.where;
 	            !f && this.is("waterfall") && Math.abs((s.yBottom || 0) - (this.translatedThreshold || 0)) > this.borderWidth && (f = "all"), f || (f = "end");
-	            let m = Math.min(l(o.radius, n), n / 2, "all" === f ? d / 2 : 1 / 0) || 0;
-	            "end" === f && (g && (p -= m), u += m), a(r, {
+	            let m = Math.min(l(o.radius, a), a / 2, "all" === f ? d / 2 : 1 / 0) || 0;
+	            "end" === f && (g && (p -= m), u += m), n(r, {
 	              brBoxHeight: u,
 	              brBoxY: p,
 	              r: m
@@ -19762,7 +19805,7 @@ var highcharts = {exports: {}};
 	      }
 	    }
 	    function f(t, e) {
-	      return n(t) || (t = {
+	      return a(t) || (t = {
 	        radius: t || 0
 	      }), h(d, e, t);
 	    }
@@ -19776,42 +19819,42 @@ var highcharts = {exports: {}};
 	    function x(t, e, i, s, r = {}) {
 	      let o = p(t, e, i, s, r),
 	        {
-	          r: a = 0,
-	          brBoxHeight: n = s,
+	          r: n = 0,
+	          brBoxHeight: a = s,
 	          brBoxY: h = e
 	        } = r,
 	        l = e - h,
-	        d = h + n - (e + s),
-	        c = l - a > -.1 ? 0 : a,
-	        u = d - a > -.1 ? 0 : a,
+	        d = h + a - (e + s),
+	        c = l - n > -.1 ? 0 : n,
+	        u = d - n > -.1 ? 0 : n,
 	        g = Math.max(c && l, 0),
 	        f = Math.max(u && d, 0),
 	        m = [t + c, e],
-	        x = [t + i - c, e],
-	        y = [t + i, e + c],
-	        b = [t + i, e + s - u],
-	        v = [t + i - u, e + s],
-	        S = [t + u, e + s],
-	        C = [t, e + s - u],
-	        k = [t, e + c],
-	        M = (t, e) => Math.sqrt(Math.pow(t, 2) - Math.pow(e, 2));
+	        y = [t + i - c, e],
+	        b = [t + i, e + c],
+	        v = [t + i, e + s - u],
+	        S = [t + i - u, e + s],
+	        C = [t + u, e + s],
+	        k = [t, e + s - u],
+	        M = [t, e + c],
+	        w = (t, e) => Math.sqrt(Math.pow(t, 2) - Math.pow(e, 2));
 	      if (g) {
-	        let t = M(c, c - g);
-	        m[0] -= t, x[0] += t, y[1] = k[1] = e + c - g;
+	        let t = w(c, c - g);
+	        m[0] -= t, y[0] += t, b[1] = M[1] = e + c - g;
 	      }
 	      if (s < c - g) {
-	        let r = M(c, c - g - s);
-	        y[0] = b[0] = t + i - c + r, v[0] = Math.min(y[0], v[0]), S[0] = Math.max(b[0], S[0]), C[0] = k[0] = t + c - r, y[1] = k[1] = e + s;
+	        let r = w(c, c - g - s);
+	        b[0] = v[0] = t + i - c + r, S[0] = Math.min(b[0], S[0]), C[0] = Math.max(v[0], C[0]), k[0] = M[0] = t + c - r, b[1] = M[1] = e + s;
 	      }
 	      if (f) {
-	        let t = M(u, u - f);
-	        v[0] += t, S[0] -= t, b[1] = C[1] = e + s - u + f;
+	        let t = w(u, u - f);
+	        S[0] += t, C[0] -= t, v[1] = k[1] = e + s - u + f;
 	      }
 	      if (s < u - f) {
-	        let r = M(u, u - f - s);
-	        y[0] = b[0] = t + i - u + r, x[0] = Math.min(y[0], x[0]), m[0] = Math.max(b[0], m[0]), C[0] = k[0] = t + u - r, b[1] = C[1] = e;
+	        let r = w(u, u - f - s);
+	        b[0] = v[0] = t + i - u + r, y[0] = Math.min(b[0], y[0]), m[0] = Math.max(v[0], m[0]), k[0] = M[0] = t + u - r, v[1] = k[1] = e;
 	      }
-	      return o.length = 0, o.push(["M", ...m], ["L", ...x], ["A", c, c, 0, 0, 1, ...y], ["L", ...b], ["A", u, u, 0, 0, 1, ...v], ["L", ...S], ["A", u, u, 0, 0, 1, ...C], ["L", ...k], ["A", c, c, 0, 0, 1, ...m], ["Z"]), o;
+	      return o.length = 0, o.push(["M", ...m], ["L", ...y], ["A", c, c, 0, 0, 1, ...b], ["L", ...v], ["A", u, u, 0, 0, 1, ...S], ["L", ...C], ["A", u, u, 0, 0, 1, ...k], ["L", ...M], ["A", c, c, 0, 0, 1, ...m], ["Z"]), o;
 	    }
 	    return {
 	      compose: function (t, e, i) {
@@ -19832,32 +19875,32 @@ var highcharts = {exports: {}};
 	      extend: s,
 	      find: r,
 	      merge: o,
-	      pick: a,
-	      uniqueKey: n
+	      pick: n,
+	      uniqueKey: a
 	    } = t;
 	    return function (t) {
 	      function e(t, e) {
 	        let i = t.condition;
 	        (i.callback || function () {
-	          return this.chartWidth <= a(i.maxWidth, Number.MAX_VALUE) && this.chartHeight <= a(i.maxHeight, Number.MAX_VALUE) && this.chartWidth >= a(i.minWidth, 0) && this.chartHeight >= a(i.minHeight, 0);
+	          return this.chartWidth <= n(i.maxWidth, Number.MAX_VALUE) && this.chartHeight <= n(i.maxHeight, Number.MAX_VALUE) && this.chartWidth >= n(i.minWidth, 0) && this.chartHeight >= n(i.minHeight, 0);
 	        }).call(this) && e.push(t._id);
 	      }
 	      function h(t, e) {
 	        let s = this.options.responsive,
-	          a = this.currentResponsive,
+	          n = this.currentResponsive,
 	          h = [],
 	          l;
 	        !e && s && s.rules && s.rules.forEach(t => {
-	          void 0 === t._id && (t._id = n()), this.matchResponsiveRule(t, h);
+	          void 0 === t._id && (t._id = a()), this.matchResponsiveRule(t, h);
 	        }, this);
 	        let d = o(...h.map(t => r((s || {}).rules || [], e => e._id === t)).map(t => t && t.chartOptions));
 	        d.isResponsiveOptions = !0, h = h.toString() || void 0;
-	        let c = a && a.ruleIds;
-	        h !== c && (a && this.update(a.undoOptions, t, !0), h ? ((l = i(d, this.options, !0, this.collectionsWithUpdate)).isResponsiveOptions = !0, this.currentResponsive = {
+	        let c = n && n.ruleIds;
+	        h === c || (n && (this.currentResponsive = void 0, this.updatingResponsive = !0, this.update(n.undoOptions, t, !0), this.updatingResponsive = !1), h ? ((l = i(d, this.options, !0, this.collectionsWithUpdate)).isResponsiveOptions = !0, this.currentResponsive = {
 	          ruleIds: h,
 	          mergedOptions: d,
 	          undoOptions: l
-	        }, this.update(d, t, !0)) : this.currentResponsive = void 0);
+	        }, this.updatingResponsive || this.update(d, t, !0)) : this.currentResponsive = void 0);
 	      }
 	      t.compose = function (t) {
 	        let i = t.prototype;
@@ -19867,8 +19910,8 @@ var highcharts = {exports: {}};
 	        }), t;
 	      };
 	    }(e || (e = {})), e;
-	  }), i(e, "masters/highcharts.src.js", [e["Core/Globals.js"], e["Core/Utilities.js"], e["Core/Defaults.js"], e["Core/Animation/Fx.js"], e["Core/Animation/AnimationUtilities.js"], e["Core/Renderer/HTML/AST.js"], e["Core/Templating.js"], e["Core/Renderer/RendererRegistry.js"], e["Core/Renderer/RendererUtilities.js"], e["Core/Renderer/SVG/SVGElement.js"], e["Core/Renderer/SVG/SVGRenderer.js"], e["Core/Renderer/HTML/HTMLElement.js"], e["Core/Axis/Axis.js"], e["Core/Axis/DateTimeAxis.js"], e["Core/Axis/LogarithmicAxis.js"], e["Core/Axis/PlotLineOrBand/PlotLineOrBand.js"], e["Core/Axis/Tick.js"], e["Core/Tooltip.js"], e["Core/Series/Point.js"], e["Core/Pointer.js"], e["Core/Legend/Legend.js"], e["Core/Legend/LegendSymbol.js"], e["Core/Chart/Chart.js"], e["Extensions/ScrollablePlotArea.js"], e["Core/Axis/Stacking/StackingAxis.js"], e["Core/Axis/Stacking/StackItem.js"], e["Core/Series/Series.js"], e["Core/Series/SeriesRegistry.js"], e["Series/Column/ColumnDataLabel.js"], e["Series/Pie/PieDataLabel.js"], e["Core/Series/DataLabel.js"], e["Extensions/OverlappingDataLabels.js"], e["Extensions/BorderRadius.js"], e["Core/Responsive.js"], e["Core/Color/Color.js"], e["Core/Time.js"]], function (t, e, i, s, r, o, a, n, h, l, d, c, p, u, g, f, m, x, y, b, v, S, C, k, M, w, A, T, P, L, O, D, E, I, j, B) {
-	    return t.AST = o, t.Axis = p, t.Chart = C, t.Color = j, t.DataLabel = O, t.Fx = s, t.HTMLElement = c, t.Legend = v, t.LegendSymbol = S, t.OverlappingDataLabels = t.OverlappingDataLabels || D, t.PlotLineOrBand = f, t.Point = y, t.Pointer = b, t.RendererRegistry = n, t.Series = A, t.SeriesRegistry = T, t.StackItem = w, t.SVGElement = l, t.SVGRenderer = d, t.Templating = a, t.Tick = m, t.Time = B, t.Tooltip = x, t.animate = r.animate, t.animObject = r.animObject, t.chart = C.chart, t.color = j.parse, t.dateFormat = a.dateFormat, t.defaultOptions = i.defaultOptions, t.distribute = h.distribute, t.format = a.format, t.getDeferredAnimation = r.getDeferredAnimation, t.getOptions = i.getOptions, t.numberFormat = a.numberFormat, t.seriesType = T.seriesType, t.setAnimation = r.setAnimation, t.setOptions = i.setOptions, t.stop = r.stop, t.time = i.defaultTime, t.timers = s.timers, E.compose(t.Series, t.SVGElement, t.SVGRenderer), P.compose(t.Series.types.column), O.compose(t.Series), u.compose(t.Axis), c.compose(t.SVGRenderer), v.compose(t.Chart), g.compose(t.Axis), D.compose(t.Chart), L.compose(t.Series.types.pie), f.compose(t.Axis), b.compose(t.Chart), I.compose(t.Chart), k.compose(t.Axis, t.Chart, t.Series), M.compose(t.Axis, t.Chart, t.Series), x.compose(t.Pointer), e.extend(t, e), t;
+	  }), i(e, "masters/highcharts.src.js", [e["Core/Globals.js"], e["Core/Utilities.js"], e["Core/Defaults.js"], e["Core/Animation/Fx.js"], e["Core/Animation/AnimationUtilities.js"], e["Core/Renderer/HTML/AST.js"], e["Core/Templating.js"], e["Core/Renderer/RendererRegistry.js"], e["Core/Renderer/RendererUtilities.js"], e["Core/Renderer/SVG/SVGElement.js"], e["Core/Renderer/SVG/SVGRenderer.js"], e["Core/Renderer/HTML/HTMLElement.js"], e["Core/Axis/Axis.js"], e["Core/Axis/DateTimeAxis.js"], e["Core/Axis/LogarithmicAxis.js"], e["Core/Axis/PlotLineOrBand/PlotLineOrBand.js"], e["Core/Axis/Tick.js"], e["Core/Tooltip.js"], e["Core/Series/Point.js"], e["Core/Pointer.js"], e["Core/Legend/Legend.js"], e["Core/Legend/LegendSymbol.js"], e["Core/Chart/Chart.js"], e["Extensions/ScrollablePlotArea.js"], e["Core/Axis/Stacking/StackingAxis.js"], e["Core/Axis/Stacking/StackItem.js"], e["Core/Series/Series.js"], e["Core/Series/SeriesRegistry.js"], e["Series/Column/ColumnDataLabel.js"], e["Series/Pie/PieDataLabel.js"], e["Core/Series/DataLabel.js"], e["Extensions/OverlappingDataLabels.js"], e["Extensions/BorderRadius.js"], e["Core/Responsive.js"], e["Core/Color/Color.js"], e["Core/Time.js"]], function (t, e, i, s, r, o, n, a, h, l, d, c, p, u, g, f, m, x, y, b, v, S, C, k, M, w, A, T, P, L, O, D, E, I, j, B) {
+	    return t.AST = o, t.Axis = p, t.Chart = C, t.Color = j, t.DataLabel = O, t.Fx = s, t.HTMLElement = c, t.Legend = v, t.LegendSymbol = S, t.OverlappingDataLabels = t.OverlappingDataLabels || D, t.PlotLineOrBand = f, t.Point = y, t.Pointer = b, t.RendererRegistry = a, t.Series = A, t.SeriesRegistry = T, t.StackItem = w, t.SVGElement = l, t.SVGRenderer = d, t.Templating = n, t.Tick = m, t.Time = B, t.Tooltip = x, t.animate = r.animate, t.animObject = r.animObject, t.chart = C.chart, t.color = j.parse, t.dateFormat = n.dateFormat, t.defaultOptions = i.defaultOptions, t.distribute = h.distribute, t.format = n.format, t.getDeferredAnimation = r.getDeferredAnimation, t.getOptions = i.getOptions, t.numberFormat = n.numberFormat, t.seriesType = T.seriesType, t.setAnimation = r.setAnimation, t.setOptions = i.setOptions, t.stop = r.stop, t.time = i.defaultTime, t.timers = s.timers, E.compose(t.Series, t.SVGElement, t.SVGRenderer), P.compose(t.Series.types.column), O.compose(t.Series), u.compose(t.Axis), c.compose(t.SVGRenderer), v.compose(t.Chart), g.compose(t.Axis), D.compose(t.Chart), L.compose(t.Series.types.pie), f.compose(t.Axis), b.compose(t.Chart), I.compose(t.Chart), k.compose(t.Axis, t.Chart, t.Series), M.compose(t.Axis, t.Chart, t.Series), x.compose(t.Pointer), e.extend(t, e), t;
 	  }), e["masters/highcharts.src.js"]._modules = e, e["masters/highcharts.src.js"];
 	}); 
 } (highcharts));
@@ -20404,7 +20447,7 @@ var highchartsMore = {exports: {}};
 (function (module) {
 	!
 	/**
-	* Highcharts JS v11.4.3 (2024-05-22)
+	* Highcharts JS v11.4.6 (2024-07-08)
 	*
 	* (c) 2009-2024 Torstein Honsi
 	*
@@ -20415,11 +20458,11 @@ var highchartsMore = {exports: {}};
 	}(function (t) {
 
 	  var e = t ? t._modules : {};
-	  function i(t, e, i, s) {
-	    t.hasOwnProperty(e) || (t[e] = s.apply(null, i), "function" == typeof CustomEvent && window.dispatchEvent(new CustomEvent("HighchartsModuleLoaded", {
+	  function i(e, i, s, o) {
+	    e.hasOwnProperty(i) || (e[i] = o.apply(null, s), "function" == typeof CustomEvent && t.win.dispatchEvent(new CustomEvent("HighchartsModuleLoaded", {
 	      detail: {
-	        path: e,
-	        module: t[e]
+	        path: i,
+	        module: e[i]
 	      }
 	    })));
 	  }
@@ -20440,12 +20483,13 @@ var highchartsMore = {exports: {}};
 	    function r(t, e, o, a, r) {
 	      let n = !0,
 	        l = o[0],
-	        h = o[1];
+	        h = o[1],
+	        p = Math.sqrt(Math.pow(t - l, 2) + Math.pow(e - h, 2));
 	      if (s(a) && s(r)) {
 	        let s = Math.atan2(i(e - h, 8), i(t - l, 8));
 	        r !== a && (n = a > r ? s >= a && s <= Math.PI || s <= r && s >= -Math.PI : s >= a && s <= i(r, 8));
 	      }
-	      return Math.sqrt(Math.pow(t - l, 2) + Math.pow(e - h, 2)) <= Math.ceil(o[2] / 2) && n;
+	      return p <= Math.ceil(o[2] / 2) && n;
 	    }
 	    function n(t) {
 	      this.polar && (t.options.inverted && ([t.x, t.y] = [t.y, t.x]), t.isInsidePlot = this.pane.some(e => r(t.x, t.y, e.center, e.axis && e.axis.normalizedStartAngleRad, e.axis && e.axis.normalizedEndAngleRad)));
@@ -20836,15 +20880,15 @@ var highchartsMore = {exports: {}};
 	          let f = (l = S.graphic) ? "animate" : "attr",
 	            M = S.shapeArgs,
 	            L = {},
-	            k = {},
 	            C = {},
+	            k = {},
 	            v = {},
 	            A = S.color || this.color;
 	          if (void 0 !== S.plotY) {
 	            let w;
-	            p = M.width, c = (d = M.x) + p, u = p / 2, t = x ? S.q1Plot : S.lowPlot, e = x ? S.q3Plot : S.lowPlot, i = S.highPlot, s = S.lowPlot, l || (S.graphic = l = y.g("point").add(this.group), S.stem = y.path().addClass("highcharts-boxplot-stem").add(l), P && (S.whiskers = y.path().addClass("highcharts-boxplot-whisker").add(l)), x && (S.box = y.path(n).addClass("highcharts-boxplot-box").add(l)), S.medianShape = y.path(a).addClass("highcharts-boxplot-median").add(l)), m.styledMode || (k.stroke = S.stemColor || b.stemColor || A, k["stroke-width"] = h(S.stemWidth, b.stemWidth, b.lineWidth), k.dashstyle = S.stemDashStyle || b.stemDashStyle || b.dashStyle, S.stem.attr(k), P && (C.stroke = S.whiskerColor || b.whiskerColor || A, C["stroke-width"] = h(S.whiskerWidth, b.whiskerWidth, b.lineWidth), C.dashstyle = S.whiskerDashStyle || b.whiskerDashStyle || b.dashStyle, S.whiskers.attr(C)), x && (L.fill = S.fillColor || b.fillColor || A, L.stroke = b.lineColor || A, L["stroke-width"] = b.lineWidth || 0, L.dashstyle = S.boxDashStyle || b.boxDashStyle || b.dashStyle, S.box.attr(L)), v.stroke = S.medianColor || b.medianColor || A, v["stroke-width"] = h(S.medianWidth, b.medianWidth, b.lineWidth), v.dashstyle = S.medianDashStyle || b.medianDashStyle || b.dashStyle, S.medianShape.attr(v));
-	            let N = r(S.plotX || 0, S.stem.strokeWidth());
-	            if (w = [["M", N, e], ["L", N, i], ["M", N, t], ["L", N, s]], S.stem[f]({
+	            p = M.width, c = (d = M.x) + p, u = p / 2, t = x ? S.q1Plot : S.lowPlot, e = x ? S.q3Plot : S.lowPlot, i = S.highPlot, s = S.lowPlot, l || (S.graphic = l = y.g("point").add(this.group), S.stem = y.path().addClass("highcharts-boxplot-stem").add(l), P && (S.whiskers = y.path().addClass("highcharts-boxplot-whisker").add(l)), x && (S.box = y.path(n).addClass("highcharts-boxplot-box").add(l)), S.medianShape = y.path(a).addClass("highcharts-boxplot-median").add(l)), m.styledMode || (C.stroke = S.stemColor || b.stemColor || A, C["stroke-width"] = h(S.stemWidth, b.stemWidth, b.lineWidth), C.dashstyle = S.stemDashStyle || b.stemDashStyle || b.dashStyle, S.stem.attr(C), P && (k.stroke = S.whiskerColor || b.whiskerColor || A, k["stroke-width"] = h(S.whiskerWidth, b.whiskerWidth, b.lineWidth), k.dashstyle = S.whiskerDashStyle || b.whiskerDashStyle || b.dashStyle, S.whiskers.attr(k)), x && (L.fill = S.fillColor || b.fillColor || A, L.stroke = b.lineColor || A, L["stroke-width"] = b.lineWidth || 0, L.dashstyle = S.boxDashStyle || b.boxDashStyle || b.dashStyle, S.box.attr(L)), v.stroke = S.medianColor || b.medianColor || A, v["stroke-width"] = h(S.medianWidth, b.medianWidth, b.lineWidth), v.dashstyle = S.medianDashStyle || b.medianDashStyle || b.dashStyle, S.medianShape.attr(v));
+	            let T = r((S.plotX || 0) + (this.pointXOffset || 0) + (this.barW || 0) / 2, S.stem.strokeWidth());
+	            if (w = [["M", T, e], ["L", T, i], ["M", T, t], ["L", T, s]], S.stem[f]({
 	              d: w
 	            }), x) {
 	              let i = S.box.strokeWidth();
@@ -20854,7 +20898,7 @@ var highchartsMore = {exports: {}};
 	            }
 	            if (P) {
 	              let t = S.whiskers.strokeWidth();
-	              i = r(S.highPlot, t), s = r(S.lowPlot, t), w = [["M", r(N - (g = "string" == typeof P && /%$/.test(P) ? u * parseFloat(P) / 100 : Number(P) / 2)), i], ["L", r(N + g), i], ["M", r(N - g), s], ["L", r(N + g), s]], S.whiskers[f]({
+	              i = r(S.highPlot, t), s = r(S.lowPlot, t), w = [["M", r(T - (g = "string" == typeof P && /%$/.test(P) ? u * parseFloat(P) / 100 : Number(P) / 2)), i], ["L", r(T + g), i], ["M", r(T - g), s], ["L", r(T + g), s]], S.whiskers[f]({
 	                d: w
 	              });
 	            }
@@ -21094,9 +21138,10 @@ var highchartsMore = {exports: {}};
 	          l = n.getPxExtremes(),
 	          h = Math.ceil(l.minPxSize),
 	          p = Math.ceil(l.maxPxSize),
-	          d,
-	          c = n.options.maxSize;
-	        return i || !/%$/.test(c) ? d = p : (d = (Math.min(r, a) + o) * (c = parseFloat(c)) / 100 / (c / 100 + 1), (s && r - d >= a || !s && a - d >= r) && (d = p)), [h, Math.ceil(d)];
+	          d = Math.min(r, a),
+	          c,
+	          u = n.options.maxSize;
+	        return i || !/%$/.test(u) ? c = p : (c = (d + o) * (u = parseFloat(u)) / 100 / (u / 100 + 1), (s && r - c >= a || !s && a - c >= r) && (c = p)), [h, Math.ceil(c)];
 	      }
 	      updateRanges(t, e) {
 	        let i = this.legend.options.bubbleLegend;
@@ -21169,14 +21214,14 @@ var highchartsMore = {exports: {}};
 	    function f(t) {
 	      let e;
 	      if (t.defaultPrevented) return !1;
-	      let i = this.chart,
-	        s = this.visible,
-	        o = this.chart.legend;
-	      o && o.bubbleLegend && (this.visible = !s, this.ignoreSeries = s, e = c(i) >= 0, o.bubbleLegend.visible !== e && (o.update({
+	      let i = t.legendItem,
+	        s = this.chart,
+	        o = i.visible;
+	      this && this.bubbleLegend && (i.visible = !o, i.ignoreSeries = o, e = c(s) >= 0, this.bubbleLegend.visible !== e && (this.update({
 	        bubbleLegend: {
 	          enabled: e
 	        }
-	      }), o.bubbleLegend.visible = e), this.visible = s);
+	      }), this.bubbleLegend.visible = e), i.visible = o);
 	    }
 	    function b(t, e) {
 	      let i = t.allItems,
@@ -21195,12 +21240,12 @@ var highchartsMore = {exports: {}};
 	      });
 	    }
 	    return {
-	      compose: function (e, i, s) {
+	      compose: function (e, i) {
 	        h(r, "Series.BubbleLegend") && (a({
 	          legend: {
 	            bubbleLegend: t
 	          }
-	        }), p(e.prototype, "drawChartBox", d), n(i, "afterGetAllItems", g), n(s, "legendItemClick", f));
+	        }), p(e.prototype, "drawChartBox", d), n(i, "afterGetAllItems", g), n(i, "itemClick", f));
 	      }
 	    };
 	  }), i(e, "Series/Bubble/BubblePoint.js", [e["Core/Series/Point.js"], e["Core/Series/SeriesRegistry.js"], e["Core/Utilities.js"]], function (t, e, i) {
@@ -21282,8 +21327,8 @@ var highchartsMore = {exports: {}};
 	      })));
 	    }
 	    class M extends d {
-	      static compose(e, i, s, o) {
-	        t.compose(i, s, o), P(n, "Series.Bubble") && c(e, "foundExtremes", S);
+	      static compose(e, i, s) {
+	        t.compose(i, s), P(n, "Series.Bubble") && c(e, "foundExtremes", S);
 	      }
 	      animate(t) {
 	        !t && this.points.length < this.options.animationLimit && this.points.forEach(function (t) {
@@ -21637,21 +21682,21 @@ var highchartsMore = {exports: {}};
 	            S,
 	            M,
 	            L,
-	            k,
 	            C,
+	            k,
 	            v,
 	            A,
 	            w,
-	            N,
-	            T;
+	            T,
+	            N;
 	          e.centerInCategory && (x = this.adjustForMissingColumns(x, p, i, h)), i.barX = x, i.pointWidth = p, i.tooltipPos = t.inverted ? [a.len + a.pos - t.plotLeft - f, this.xAxis.len - x - b, y] : [x + b, f + a.pos - t.plotTop, y], P = n + (i.total || i.y), "percent" === e.stacking && (P = n + (i.y < 0) ? -100 : 100);
 	          let X = a.toPixels(P, !0);
-	          M = (S = t.plotHeight - X - (t.plotHeight - c)) ? b * (m - X) / S : 0, L = S ? b * (m + y - X) / S : 0, C = x - M + b, v = x + M + b, A = x + L + b, w = x - L + b, N = m - l, T = m + y, i.y < 0 && (N = m, T = m + y + l), t.inverted && (k = a.width - m, S = X - (a.width - c), M = b * (X - k) / S, L = b * (X - (k - y)) / S, v = (C = x + b + M) - 2 * M, A = x - L + b, w = x + L + b, N = m, T = m + y - l, i.y < 0 && (T = m + y + l)), i.shapeType = "path", i.shapeArgs = {
-	            x: C,
-	            y: N,
-	            width: v - C,
+	          M = (S = t.plotHeight - X - (t.plotHeight - c)) ? b * (m - X) / S : 0, L = S ? b * (m + y - X) / S : 0, k = x - M + b, v = x + M + b, A = x + L + b, w = x - L + b, T = m - l, N = m + y, i.y < 0 && (T = m, N = m + y + l), t.inverted && (C = a.width - m, S = X - (a.width - c), M = b * (X - C) / S, L = b * (X - (C - y)) / S, v = (k = x + b + M) - 2 * M, A = x - L + b, w = x + L + b, T = m, N = m + y - l, i.y < 0 && (N = m + y + l)), i.shapeType = "path", i.shapeArgs = {
+	            x: k,
+	            y: T,
+	            width: v - k,
 	            height: y,
-	            d: [["M", C, N], ["L", v, N], ["L", A, T], ["L", w, T], ["Z"]]
+	            d: [["M", k, T], ["L", v, T], ["L", A, N], ["L", w, N], ["Z"]]
 	          };
 	        }
 	      }
@@ -21957,7 +22002,7 @@ var highchartsMore = {exports: {}};
 	    } = i;
 	    return class extends s {
 	      destroy() {
-	        return this.series.layout && this.series.layout.removeElementFromCollection(this, this.series.layout.nodes), e.prototype.destroy.apply(this, arguments);
+	        return this.series?.layout && this.series.layout.removeElementFromCollection(this, this.series.layout.nodes), e.prototype.destroy.apply(this, arguments);
 	      }
 	      firePointEvent() {
 	        let t = this.series.options;
@@ -22524,42 +22569,162 @@ var highchartsMore = {exports: {}};
 	        }, t ? o(t.animation).defer : 0) : this.deferDataLabels = !1;
 	      }
 	    };
-	  }), i(e, "Series/PackedBubble/PackedBubbleSeries.js", [e["Core/Color/Color.js"], e["Series/DragNodesComposition.js"], e["Series/GraphLayoutComposition.js"], e["Core/Globals.js"], e["Series/PackedBubble/PackedBubblePoint.js"], e["Series/PackedBubble/PackedBubbleSeriesDefaults.js"], e["Series/PackedBubble/PackedBubbleLayout.js"], e["Core/Series/SeriesRegistry.js"], e["Series/SimulationSeriesUtilities.js"], e["Core/Utilities.js"]], function (t, e, i, s, o, a, r, n, l, h) {
+	  }), i(e, "Extensions/TextPath.js", [e["Core/Globals.js"], e["Core/Utilities.js"]], function (t, e) {
 	    let {
-	        parse: p
+	        deg2rad: i
 	      } = t,
 	      {
-	        noop: d
+	        addEvent: s,
+	        merge: o,
+	        uniqueKey: a,
+	        defined: r,
+	        extend: n
+	      } = e;
+	    function l(t, e) {
+	      e = o(!0, {
+	        enabled: !0,
+	        attributes: {
+	          dy: -5,
+	          startOffset: "50%",
+	          textAnchor: "middle"
+	        }
+	      }, e);
+	      let i = this.renderer.url,
+	        l = this.text || this,
+	        h = l.textPath,
+	        {
+	          attributes: p,
+	          enabled: d
+	        } = e;
+	      if (t = t || h && h.path, h && h.undo(), t && d) {
+	        let e = s(l, "afterModifyTree", e => {
+	          if (t && d) {
+	            let s = t.attr("id");
+	            s || t.attr("id", s = a());
+	            let o = {
+	              x: 0,
+	              y: 0
+	            };
+	            r(p.dx) && (o.dx = p.dx, delete p.dx), r(p.dy) && (o.dy = p.dy, delete p.dy), l.attr(o), this.attr({
+	              transform: ""
+	            }), this.box && (this.box = this.box.destroy());
+	            let h = e.nodes.slice(0);
+	            e.nodes.length = 0, e.nodes[0] = {
+	              tagName: "textPath",
+	              attributes: n(p, {
+	                "text-anchor": p.textAnchor,
+	                href: `${i}#${s}`
+	              }),
+	              children: h
+	            };
+	          }
+	        });
+	        l.textPath = {
+	          path: t,
+	          undo: e
+	        };
+	      } else l.attr({
+	        dx: 0,
+	        dy: 0
+	      }), delete l.textPath;
+	      return this.added && (l.textCache = "", this.renderer.buildText(l)), this;
+	    }
+	    function h(t) {
+	      let e = t.bBox,
+	        s = this.element?.querySelector("textPath");
+	      if (s) {
+	        let t = [],
+	          {
+	            b: o,
+	            h: a
+	          } = this.renderer.fontMetrics(this.element),
+	          r = a - o,
+	          n = RegExp('(<tspan>|<tspan(?!\\sclass="highcharts-br")[^>]*>|<\\/tspan>)', "g"),
+	          l = s.innerHTML.replace(n, "").split(/<tspan class="highcharts-br"[^>]*>/),
+	          h = l.length,
+	          p = (t, e) => {
+	            let {
+	                x: a,
+	                y: n
+	              } = e,
+	              l = (s.getRotationOfChar(t) - 90) * i,
+	              h = Math.cos(l),
+	              p = Math.sin(l);
+	            return [[a - r * h, n - r * p], [a + o * h, n + o * p]];
+	          };
+	        for (let e = 0, i = 0; i < h; i++) {
+	          let o = l[i].length;
+	          for (let a = 0; a < o; a += 5) try {
+	            let o = e + a + i,
+	              [r, n] = p(o, s.getStartPositionOfChar(o));
+	            0 === a ? (t.push(n), t.push(r)) : (0 === i && t.unshift(n), i === h - 1 && t.push(r));
+	          } catch (t) {
+	            break;
+	          }
+	          e += o - 1;
+	          try {
+	            let o = e + i,
+	              a = s.getEndPositionOfChar(o),
+	              [r, n] = p(o, a);
+	            t.unshift(n), t.unshift(r);
+	          } catch (t) {
+	            break;
+	          }
+	        }
+	        t.length && t.push(t[0].slice()), e.polygon = t;
+	      }
+	      return e;
+	    }
+	    function p(t) {
+	      let e = t.labelOptions,
+	        i = t.point,
+	        s = e[i.formatPrefix + "TextPath"] || e.textPath;
+	      s && !e.useHTML && (this.setTextPath(i.getDataLabelPath?.(this) || i.graphic, s), i.dataLabelPath && !s.enabled && (i.dataLabelPath = i.dataLabelPath.destroy()));
+	    }
+	    return {
+	      compose: function (t) {
+	        s(t, "afterGetBBox", h), s(t, "beforeAddingDataLabel", p);
+	        let e = t.prototype;
+	        e.setTextPath || (e.setTextPath = l);
+	      }
+	    };
+	  }), i(e, "Series/PackedBubble/PackedBubbleSeries.js", [e["Core/Color/Color.js"], e["Series/DragNodesComposition.js"], e["Series/GraphLayoutComposition.js"], e["Core/Globals.js"], e["Series/PackedBubble/PackedBubblePoint.js"], e["Series/PackedBubble/PackedBubbleSeriesDefaults.js"], e["Series/PackedBubble/PackedBubbleLayout.js"], e["Core/Series/SeriesRegistry.js"], e["Series/SimulationSeriesUtilities.js"], e["Core/Utilities.js"], e["Core/Renderer/SVG/SVGElement.js"], e["Extensions/TextPath.js"]], function (t, e, i, s, o, a, r, n, l, h, p, d) {
+	    let {
+	        parse: c
+	      } = t,
+	      {
+	        noop: u
 	      } = s,
 	      {
 	        series: {
-	          prototype: c
+	          prototype: g
 	        },
 	        seriesTypes: {
-	          bubble: u
+	          bubble: f
 	        }
 	      } = n,
 	      {
-	        initDataLabels: g,
-	        initDataLabelsDefer: f
+	        initDataLabels: b,
+	        initDataLabelsDefer: m
 	      } = l,
 	      {
-	        addEvent: b,
-	        clamp: m,
-	        defined: y,
-	        extend: x,
-	        fireEvent: P,
-	        isArray: S,
-	        isNumber: M,
-	        merge: L,
-	        pick: k
+	        addEvent: y,
+	        clamp: x,
+	        defined: P,
+	        extend: S,
+	        fireEvent: M,
+	        isArray: L,
+	        isNumber: C,
+	        merge: k,
+	        pick: v
 	      } = h;
-	    class C extends u {
+	    d.compose(p);
+	    class A extends f {
 	      constructor() {
 	        super(...arguments), this.parentNodeMass = 0, this.deferDataLabels = !0;
 	      }
-	      static compose(t, i, s, o) {
-	        u.compose(t, i, s, o), e.compose(i), r.compose(i);
+	      static compose(t, i, s) {
+	        f.compose(t, i, s), e.compose(i), r.compose(i);
 	      }
 	      accumulateAllPoints() {
 	        let t;
@@ -22583,7 +22748,7 @@ var highchartsMore = {exports: {}};
 	          o = this.chart.graphLayoutsStorage,
 	          a = this.chart.graphLayoutsLookup,
 	          r;
-	        o || (this.chart.graphLayoutsStorage = o = {}, this.chart.graphLayoutsLookup = a = []), (r = o[e]) || (t.enableSimulation = y(s.forExport) ? !s.forExport : t.enableSimulation, o[e] = r = new i.layouts[e](), r.init(t), a.splice(r.index, 0, r)), this.layout = r, this.points.forEach(t => {
+	        o || (this.chart.graphLayoutsStorage = o = {}, this.chart.graphLayoutsLookup = a = []), (r = o[e]) || (t.enableSimulation = P(s.forExport) ? !s.forExport : t.enableSimulation, o[e] = r = new i.layouts[e](), r.init(t), a.splice(r.index, 0, r)), this.layout = r, this.points.forEach(t => {
 	          t.mass = 2, t.degree = 1, t.collisionNmb = 1;
 	        }), r.setArea(0, 0, this.chart.plotWidth, this.chart.plotHeight), r.addElementsToCollection([this], r.series), r.addElementsToCollection(this.points, r.nodes);
 	      }
@@ -22592,7 +22757,7 @@ var highchartsMore = {exports: {}};
 	          e = t.type || "packedbubble",
 	          s = this.chart.graphLayoutsStorage,
 	          o = this.chart.graphLayoutsLookup,
-	          a = L(t, t.parentNodeOptions, {
+	          a = k(t, t.parentNodeOptions, {
 	            enableSimulation: this.layout.options.enableSimulation
 	          }),
 	          r = s[e + "-series"];
@@ -22600,7 +22765,7 @@ var highchartsMore = {exports: {}};
 	      }
 	      calculateParentRadius() {
 	        let t = this.seriesBox();
-	        this.parentNodeRadius = m(Math.sqrt(2 * this.parentNodeMass / Math.PI) + 20, 20, t ? Math.max(Math.sqrt(Math.pow(t.width, 2) + Math.pow(t.height, 2)) / 2 + 20, 20) : Math.sqrt(2 * this.parentNodeMass / Math.PI) + 20), this.parentNode && (this.parentNode.marker.radius = this.parentNode.radius = this.parentNodeRadius);
+	        this.parentNodeRadius = x(Math.sqrt(2 * this.parentNodeMass / Math.PI) + 20, 20, t ? Math.max(Math.sqrt(Math.pow(t.width, 2) + Math.pow(t.height, 2)) / 2 + 20, 20) : Math.sqrt(2 * this.parentNodeMass / Math.PI) + 20), this.parentNode && (this.parentNode.marker.radius = this.parentNode.radius = this.parentNodeRadius);
 	      }
 	      calculateZExtremes() {
 	        let t = this.chart.series,
@@ -22610,9 +22775,9 @@ var highchartsMore = {exports: {}};
 	          o = -1 / 0;
 	        return e && i ? [e, i] : (t.forEach(t => {
 	          t.yData.forEach(t => {
-	            y(t) && (t > o && (o = t), t < s && (s = t));
+	            P(t) && (t > o && (o = t), t < s && (s = t));
 	          });
-	        }), [e = k(e, s), i = k(i, o)]);
+	        }), [e = v(e, s), i = v(i, o)]);
 	      }
 	      checkOverlap(t, e) {
 	        let i = t[0] - e[0],
@@ -22629,9 +22794,9 @@ var highchartsMore = {exports: {}};
 	          r = {
 	            radius: this.parentNodeRadius,
 	            lineColor: this.color,
-	            fillColor: p(this.color).brighten(.4).get()
+	            fillColor: c(this.color).brighten(.4).get()
 	          };
-	        s.parentNodeOptions && (r = L(s.parentNodeOptions.marker || {}, r)), this.parentNodeMass = 0, this.points.forEach(t => {
+	        s.parentNodeOptions && (r = k(s.parentNodeOptions.marker || {}, r)), this.parentNodeMass = 0, this.points.forEach(t => {
 	          this.parentNodeMass += Math.PI * Math.pow(t.marker.radius, 2);
 	        }), this.calculateParentRadius(), i.nodes.forEach(t => {
 	          t.seriesIndex === this.index && (o = !0);
@@ -22662,25 +22827,25 @@ var highchartsMore = {exports: {}};
 	      destroy() {
 	        this.chart.graphLayoutsLookup && this.chart.graphLayoutsLookup.forEach(t => {
 	          t.removeElementFromCollection(this, t.series);
-	        }, this), this.parentNode && this.parentNodeLayout && (this.parentNodeLayout.removeElementFromCollection(this.parentNode, this.parentNodeLayout.nodes), this.parentNode.dataLabel && (this.parentNode.dataLabel = this.parentNode.dataLabel.destroy())), c.destroy.apply(this, arguments);
+	        }, this), this.parentNode && this.parentNodeLayout && (this.parentNodeLayout.removeElementFromCollection(this.parentNode, this.parentNodeLayout.nodes), this.parentNode.dataLabel && (this.parentNode.dataLabel = this.parentNode.dataLabel.destroy())), g.destroy.apply(this, arguments);
 	      }
 	      drawDataLabels() {
-	        !this.deferDataLabels && (c.drawDataLabels.call(this, this.points), this.parentNode && (this.parentNode.formatPrefix = "parentNode", c.drawDataLabels.call(this, [this.parentNode])));
+	        !this.deferDataLabels && (g.drawDataLabels.call(this, this.points), this.parentNode && (this.parentNode.formatPrefix = "parentNode", g.drawDataLabels.call(this, [this.parentNode])));
 	      }
 	      drawGraph() {
 	        if (!this.layout || !this.layout.options.splitSeries) return;
 	        let t = this.chart,
 	          e = this.layout.options.parentNodeOptions.marker,
 	          i = {
-	            fill: e.fillColor || p(this.color).brighten(.4).get(),
+	            fill: e.fillColor || c(this.color).brighten(.4).get(),
 	            opacity: e.fillOpacity,
 	            stroke: e.lineColor || this.color,
-	            "stroke-width": k(e.lineWidth, this.options.lineWidth)
+	            "stroke-width": v(e.lineWidth, this.options.lineWidth)
 	          },
 	          s = {};
 	        this.parentNodesGroup = this.plotGroup("parentNodesGroup", "parentNode", this.visible ? "inherit" : "hidden", .1, t.seriesGroup), this.group?.attr({
 	          zIndex: 2
-	        }), this.calculateParentRadius(), this.parentNode && y(this.parentNode.plotX) && y(this.parentNode.plotY) && y(this.parentNodeRadius) && (s = L({
+	        }), this.calculateParentRadius(), this.parentNode && P(this.parentNode.plotX) && P(this.parentNode.plotY) && P(this.parentNodeRadius) && (s = k({
 	          x: this.parentNode.plotX - this.parentNodeRadius,
 	          y: this.parentNode.plotY - this.parentNodeRadius,
 	          width: 2 * this.parentNodeRadius,
@@ -22690,7 +22855,7 @@ var highchartsMore = {exports: {}};
 	      drawTracker() {
 	        let t;
 	        let e = this.parentNode;
-	        super.drawTracker(), e && (t = S(e.dataLabels) ? e.dataLabels : e.dataLabel ? [e.dataLabel] : [], e.graphic && (e.graphic.element.point = e), t.forEach(t => {
+	        super.drawTracker(), e && (t = L(e.dataLabels) ? e.dataLabels : e.dataLabel ? [e.dataLabel] : [], e.graphic && (e.graphic.element.point = e), t.forEach(t => {
 	          (t.div || t.element).point = e;
 	        }));
 	      }
@@ -22713,11 +22878,11 @@ var highchartsMore = {exports: {}};
 	        }), o.minRadius = t = p.minSize / Math.sqrt(u), o.maxRadius = e = p.maxSize / Math.sqrt(u);
 	        let g = l ? this.calculateZExtremes() : [t, e];
 	        c.forEach((o, a) => {
-	          i = l ? m(o[2], g[0], g[1]) : o[2], 0 === (s = this.getRadius(g[0], g[1], t, e, i)) && (s = null), c[a][2] = s, d.push(s);
+	          i = l ? x(o[2], g[0], g[1]) : o[2], 0 === (s = this.getRadius(g[0], g[1], t, e, i)) && (s = null), c[a][2] = s, d.push(s);
 	        }), this.radii = d;
 	      }
 	      init() {
-	        return c.init.apply(this, arguments), f.call(this), this.eventsToUnbind.push(b(this, "updatedData", function () {
+	        return g.init.apply(this, arguments), m.call(this), this.eventsToUnbind.push(y(this, "updatedData", function () {
 	          this.chart.series.forEach(t => {
 	            t.type === this.type && (t.isDirty = !0);
 	          }, this);
@@ -22729,7 +22894,7 @@ var highchartsMore = {exports: {}};
 	          let s = this.layout,
 	            o = this.parentNodeLayout;
 	          o && s.options.dragBetweenSeries && o.nodes.forEach(e => {
-	            t && t.marker && e !== t.series.parentNode && (i = s.getDistXY(t, e), s.vectorLength(i) - e.marker.radius - t.marker.radius < 0 && (e.series.addPoint(L(t.options, {
+	            t && t.marker && e !== t.series.parentNode && (i = s.getDistXY(t, e), s.vectorLength(i) - e.marker.radius - t.marker.radius < 0 && (e.series.addPoint(k(t.options, {
 	              plotX: t.plotX,
 	              plotY: t.plotY
 	            }), !1), s.removeElementFromCollection(t, s.nodes), t.remove()));
@@ -22759,21 +22924,26 @@ var highchartsMore = {exports: {}};
 	          o = i.marker;
 	        s && i.layoutAlgorithm && i.layoutAlgorithm.parentNodeOptions && (o = i.layoutAlgorithm.parentNodeOptions.marker);
 	        let a = o.fillOpacity,
-	          r = c.pointAttribs.call(this, t, e);
+	          r = g.pointAttribs.call(this, t, e);
 	        return 1 !== a && (r["fill-opacity"] = a), r;
 	      }
 	      positionBubble(t, e, i) {
-	        let s = Math.pow,
-	          o = (0, Math.sqrt)(s(t[0] - e[0], 2) + s(t[1] - e[1], 2)),
-	          a = (0, Math.acos)((s(o, 2) + s(i[2] + e[2], 2) - s(i[2] + t[2], 2)) / (2 * (i[2] + e[2]) * o)),
-	          r = (0, Math.asin)((0, Math.abs)(t[0] - e[0]) / o),
-	          n = (t[1] - e[1] < 0 ? 0 : Math.PI) + a + r * ((t[0] - e[0]) * (t[1] - e[1]) < 0 ? 1 : -1);
-	        return [e[0] + (e[2] + i[2]) * Math.sin(n), e[1] - (e[2] + i[2]) * Math.cos(n), i[2], i[3], i[4]];
+	        let s = Math.asin,
+	          o = Math.acos,
+	          a = Math.pow,
+	          r = Math.abs,
+	          n = (0, Math.sqrt)(a(t[0] - e[0], 2) + a(t[1] - e[1], 2)),
+	          l = o((a(n, 2) + a(i[2] + e[2], 2) - a(i[2] + t[2], 2)) / (2 * (i[2] + e[2]) * n)),
+	          h = s(r(t[0] - e[0]) / n),
+	          p = (t[1] - e[1] < 0 ? 0 : Math.PI) + l + h * ((t[0] - e[0]) * (t[1] - e[1]) < 0 ? 1 : -1),
+	          d = Math.cos(p),
+	          c = Math.sin(p);
+	        return [e[0] + (e[2] + i[2]) * c, e[1] - (e[2] + i[2]) * d, i[2], i[3], i[4]];
 	      }
 	      render() {
 	        let t = [];
-	        c.render.apply(this, arguments), !this.options.dataLabels.allowOverlap && (this.data.forEach(e => {
-	          S(e.dataLabels) && e.dataLabels.forEach(e => {
+	        g.render.apply(this, arguments), !this.options.dataLabels.allowOverlap && (this.data.forEach(e => {
+	          L(e.dataLabels) && e.dataLabels.forEach(e => {
 	            t.push(e);
 	          });
 	        }), this.options.useSimulation && this.chart.hideOverlappingLabels(t));
@@ -22805,12 +22975,12 @@ var highchartsMore = {exports: {}};
 	          o = Math.min,
 	          a = [e.plotLeft, e.plotLeft + e.plotWidth, e.plotTop, e.plotTop + e.plotHeight];
 	        return i.forEach(e => {
-	          y(e.plotX) && y(e.plotY) && e.marker.radius && (t = e.marker.radius, a[0] = o(a[0], e.plotX - t), a[1] = s(a[1], e.plotX + t), a[2] = o(a[2], e.plotY - t), a[3] = s(a[3], e.plotY + t));
-	        }), M(a.width / a.height) ? a : null;
+	          P(e.plotX) && P(e.plotY) && e.marker.radius && (t = e.marker.radius, a[0] = o(a[0], e.plotX - t), a[1] = s(a[1], e.plotX + t), a[2] = o(a[2], e.plotY - t), a[3] = s(a[3], e.plotY + t));
+	        }), C(a.width / a.height) ? a : null;
 	      }
 	      setVisible() {
 	        let t = this;
-	        c.setVisible.apply(t, arguments), t.parentNodeLayout && t.graph ? t.visible ? (t.graph.show(), t.parentNode.dataLabel && t.parentNode.dataLabel.show()) : (t.graph.hide(), t.parentNodeLayout.removeElementFromCollection(t.parentNode, t.parentNodeLayout.nodes), t.parentNode.dataLabel && t.parentNode.dataLabel.hide()) : t.layout && (t.visible ? t.layout.addElementsToCollection(t.points, t.layout.nodes) : t.points.forEach(e => {
+	        g.setVisible.apply(t, arguments), t.parentNodeLayout && t.graph ? t.visible ? (t.graph.show(), t.parentNode.dataLabel && t.parentNode.dataLabel.show()) : (t.graph.hide(), t.parentNodeLayout.removeElementFromCollection(t.parentNode, t.parentNodeLayout.nodes), t.parentNode.dataLabel && t.parentNode.dataLabel.hide()) : t.layout && (t.visible ? t.layout.addElementsToCollection(t.points, t.layout.nodes) : t.points.forEach(e => {
 	          t.layout.removeElementFromCollection(e, t.layout.nodes);
 	        }));
 	      }
@@ -22820,15 +22990,15 @@ var highchartsMore = {exports: {}};
 	          o = this.data,
 	          a = this.index,
 	          r = this.options.useSimulation;
-	        for (let n of (this.processedXData = this.xData, this.generatePoints(), y(s.allDataPoints) || (s.allDataPoints = this.accumulateAllPoints(), this.getPointRadius()), r ? i = s.allDataPoints : (i = this.placeBubbles(s.allDataPoints), this.options.draggable = !1), i)) n[3] === a && (t = o[n[4]], e = k(n[2], void 0), r || (t.plotX = n[0] - s.plotLeft + s.diffX, t.plotY = n[1] - s.plotTop + s.diffY), M(e) && (t.marker = x(t.marker, {
+	        for (let n of (this.processedXData = this.xData, this.generatePoints(), P(s.allDataPoints) || (s.allDataPoints = this.accumulateAllPoints(), this.getPointRadius()), r ? i = s.allDataPoints : (i = this.placeBubbles(s.allDataPoints), this.options.draggable = !1), i)) n[3] === a && (t = o[n[4]], e = v(n[2], void 0), r || (t.plotX = n[0] - s.plotLeft + s.diffX, t.plotY = n[1] - s.plotTop + s.diffY), C(e) && (t.marker = S(t.marker, {
 	          radius: e,
 	          width: 2 * e,
 	          height: 2 * e
 	        }), t.radius = e));
-	        r && this.deferLayout(), P(this, "afterTranslate");
+	        r && this.deferLayout(), M(this, "afterTranslate");
 	      }
 	    }
-	    return C.defaultOptions = L(u.defaultOptions, a), x(C.prototype, {
+	    return A.defaultOptions = k(f.defaultOptions, a), S(A.prototype, {
 	      pointClass: o,
 	      axisTypes: [],
 	      directTouch: !0,
@@ -22841,14 +23011,14 @@ var highchartsMore = {exports: {}};
 	      pointValKey: "value",
 	      requireSorting: !1,
 	      trackerGroups: ["group", "dataLabelsGroup", "parentNodesGroup"],
-	      initDataLabels: g,
-	      alignDataLabel: c.alignDataLabel,
-	      indexateNodes: d,
+	      initDataLabels: b,
+	      alignDataLabel: g.alignDataLabel,
+	      indexateNodes: u,
 	      onMouseDown: e.onMouseDown,
 	      onMouseMove: e.onMouseMove,
 	      redrawHalo: e.redrawHalo,
-	      searchPoint: d
-	    }), n.registerSeriesType("packedbubble", C), C;
+	      searchPoint: u
+	    }), n.registerSeriesType("packedbubble", A), A;
 	  }), i(e, "Series/Polygon/PolygonSeriesDefaults.js", [], function () {
 	    return {
 	      marker: {
@@ -23061,7 +23231,7 @@ var highchartsMore = {exports: {}};
 	        }
 	        return x;
 	      }
-	      function k(t) {
+	      function C(t) {
 	        let e = this.pane.center,
 	          i = this.chart,
 	          s = i.inverted,
@@ -23084,10 +23254,10 @@ var highchartsMore = {exports: {}};
 	          S,
 	          M,
 	          L,
-	          k = this.getPosition(u),
-	          C = k.x,
-	          v = k.y;
-	        if (d && (u = (M = this.getCrosshairPosition(t, l, h))[0], C = M[1], v = M[2]), this.isCircular) f = Math.sqrt(Math.pow(C - l, 2) + Math.pow(v - h, 2)), b = "string" == typeof r ? m(r, 1) : r / f, y = "string" == typeof n ? m(n, 1) : n / f, e && c && (b < (g = c / f) && (b = g), y < g && (y = g)), L = [["M", l + b * (C - l), h - b * (h - v)], ["L", C - (1 - y) * (C - l), v + (1 - y) * (h - v)]];else if ((u = this.translate(u)) && (u < 0 || u > p) && (u = 0), "circle" === this.options.gridLineInterpolation) L = this.getLinePath(0, u, c);else if (L = [], i[s ? "yAxis" : "xAxis"].forEach(t => {
+	          C = this.getPosition(u),
+	          k = C.x,
+	          v = C.y;
+	        if (d && (u = (M = this.getCrosshairPosition(t, l, h))[0], k = M[1], v = M[2]), this.isCircular) f = Math.sqrt(Math.pow(k - l, 2) + Math.pow(v - h, 2)), b = "string" == typeof r ? m(r, 1) : r / f, y = "string" == typeof n ? m(n, 1) : n / f, e && c && (b < (g = c / f) && (b = g), y < g && (y = g)), L = [["M", l + b * (k - l), h - b * (h - v)], ["L", k - (1 - y) * (k - l), v + (1 - y) * (h - v)]];else if ((u = this.translate(u)) && (u < 0 || u > p) && (u = 0), "circle" === this.options.gridLineInterpolation) L = this.getLinePath(0, u, c);else if (L = [], i[s ? "yAxis" : "xAxis"].forEach(t => {
 	          t.pane === this.pane && (x = t);
 	        }), x) {
 	          S = x.tickPositions, x.autoConnect && (S = S.concat([S[0]])), o && (S = S.slice().reverse()), u && (u += c);
@@ -23095,7 +23265,7 @@ var highchartsMore = {exports: {}};
 	        }
 	        return L;
 	      }
-	      function C(t, e) {
+	      function k(t, e) {
 	        let i = this.translate(t);
 	        return this.postTranslate(this.isCircular ? i : this.angleRad, f(this.isCircular ? e : i < 0 ? 0 : i, this.center[2] / 2) - this.offset);
 	      }
@@ -23113,7 +23283,7 @@ var highchartsMore = {exports: {}};
 	        };
 	      }
 	      function A(t) {
-	        t.beforeSetTickPositions = s, t.createLabelCollector = o, t.getCrosshairPosition = P, t.getLinePath = S, t.getOffset = M, t.getPlotBandPath = L, t.getPlotLinePath = k, t.getPosition = C, t.getTitlePosition = v, t.postTranslate = D, t.setAxisSize = E, t.setAxisTranslation = z, t.setOptions = O;
+	        t.beforeSetTickPositions = s, t.createLabelCollector = o, t.getCrosshairPosition = P, t.getLinePath = S, t.getOffset = M, t.getPlotBandPath = L, t.getPlotLinePath = C, t.getPosition = k, t.getTitlePosition = v, t.postTranslate = D, t.setAxisSize = B, t.setAxisTranslation = z, t.setOptions = O;
 	      }
 	      function w() {
 	        let t = this.chart,
@@ -23131,10 +23301,10 @@ var highchartsMore = {exports: {}};
 	          a > Math.PI && (a -= t), r > Math.PI && (r -= t), this.normalizedStartAngleRad = a, this.normalizedEndAngleRad = r;
 	        }
 	      }
-	      function N(t) {
+	      function T(t) {
 	        this.isRadial && (t.align = void 0, t.preventDefault());
 	      }
-	      function T() {
+	      function N() {
 	        if (this.chart && this.chart.labelCollectors) {
 	          let t = this.labelCollector ? this.chart.labelCollectors.indexOf(this.labelCollector) : -1;
 	          t >= 0 && this.chart.labelCollectors.splice(t, 1);
@@ -23153,7 +23323,7 @@ var highchartsMore = {exports: {}};
 	          this.isRadial = !1;
 	          return;
 	        }
-	        s ? (s && a ? (this.isHidden = !0, this.createLabelCollector = x, this.getOffset = n, this.redraw = B, this.render = B, this.setScale = n, this.setCategories = n, this.setTitle = n) : A(this), e = !a) : o && (A(this), e = this.horiz), s || o ? (this.isRadial = !0, this.labelCollector || (this.labelCollector = this.createLabelCollector()), this.labelCollector && i.labelCollectors.push(this.labelCollector)) : this.isRadial = !1, h && e && (h.axis = this), this.isCircular = e;
+	        s ? (s && a ? (this.isHidden = !0, this.createLabelCollector = x, this.getOffset = n, this.redraw = E, this.render = E, this.setScale = n, this.setCategories = n, this.setTitle = n) : A(this), e = !a) : o && (A(this), e = this.horiz), s || o ? (this.isRadial = !0, this.labelCollector || (this.labelCollector = this.createLabelCollector()), this.labelCollector && i.labelCollectors.push(this.labelCollector)) : this.isRadial = !1, h && e && (h.axis = this), this.isCircular = e;
 	      }
 	      function R() {
 	        this.isRadial && this.beforeSetTickPositions();
@@ -23200,10 +23370,10 @@ var highchartsMore = {exports: {}};
 	          y: i.plotTop + s[1] + Math.sin(t) * e
 	        };
 	      }
-	      function B() {
+	      function E() {
 	        this.isDirty = !1;
 	      }
-	      function E() {
+	      function B() {
 	        let t, e;
 	        this.constructor.prototype.setAxisSize.call(this), this.isRadial && (this.pane.updateCenter(this), t = this.center = this.pane.center.slice(), this.isCircular ? this.sector = this.endAngleRad - this.startAngleRad : (e = this.postTranslate(this.angleRad, t[3] / 2), t[0] = e.x - this.chart.plotLeft, t[1] = e.y - this.chart.plotTop), this.len = this.width = this.height = (t[2] - t[3]) * f(this.sector, 1) / 2);
 	      }
@@ -23230,7 +23400,7 @@ var highchartsMore = {exports: {}};
 	        return l.isRadial ? ["M", e, i, "L", (n = l.getPosition(this.pos, l.center[2] / 2 + s)).x, n.y] : t.call(this, e, i, s, o, a, r);
 	      }
 	      e.radialDefaultOptions = g(t), e.compose = function (t, e) {
-	        return b(r, "Axis.Radial") && (l(t, "afterInit", w), l(t, "autoLabelAlign", N), l(t, "destroy", T), l(t, "init", X), l(t, "initialAxisTranslation", R), l(e, "afterGetLabelPosition", Y), l(e, "afterGetPosition", j), l(i, "setOptions", I), y(e.prototype, "getMarkPath", W)), t;
+	        return b(r, "Axis.Radial") && (l(t, "afterInit", w), l(t, "autoLabelAlign", T), l(t, "destroy", N), l(t, "init", X), l(t, "initialAxisTranslation", R), l(e, "afterGetLabelPosition", Y), l(e, "afterGetPosition", j), l(i, "setOptions", I), y(e.prototype, "getMarkPath", W)), t;
 	      };
 	    }(o || (o = {})), o;
 	  }), i(e, "Series/PolarComposition.js", [e["Core/Animation/AnimationUtilities.js"], e["Core/Globals.js"], e["Core/Series/Series.js"], e["Extensions/Pane/Pane.js"], e["Core/Axis/RadialAxis.js"], e["Core/Utilities.js"]], function (t, e, i, s, o, a) {
@@ -23366,11 +23536,11 @@ var highchartsMore = {exports: {}};
 	        t.attrs = d, t.shapeType = c;
 	      }
 	    }
-	    function k() {
-	      let t = this.chart;
-	      t.polar && (this.polar = new B(this), t.inverted && (this.isRadialSeries = !0, this.is("column") && (this.isRadialBar = !0)));
-	    }
 	    function C() {
+	      let t = this.chart;
+	      t.polar && (this.polar = new E(this), t.inverted && (this.isRadialSeries = !0, this.is("column") && (this.isRadialBar = !0)));
+	    }
+	    function k() {
 	      if (this.chart.polar && this.xAxis) {
 	        let {
 	            xAxis: t,
@@ -23424,7 +23594,7 @@ var highchartsMore = {exports: {}};
 	    function w(t, e) {
 	      return p(this.pane || [], t => t.options.id === e) || t.call(this, e);
 	    }
-	    function N(t, e, s, o, a, r) {
+	    function T(t, e, s, o, a, r) {
 	      let n, l, h;
 	      let p = this.chart,
 	        d = u(o.inside, !!this.options.stacking);
@@ -23443,7 +23613,7 @@ var highchartsMore = {exports: {}};
 	        i.prototype.alignDataLabel.call(this, e, s, o, a, r), this.isRadialBar && e.shapeArgs && e.shapeArgs.start === e.shapeArgs.end ? s.hide() : s.show();
 	      } else t.call(this, e, s, o, a, r);
 	    }
-	    function T() {
+	    function N() {
 	      let t = this.options,
 	        e = t.stacking,
 	        i = this.chart,
@@ -23464,21 +23634,21 @@ var highchartsMore = {exports: {}};
 	        S = 0,
 	        M,
 	        L,
-	        k,
 	        C,
+	        k,
 	        v,
 	        A,
 	        w,
-	        N;
+	        T;
 	      if (s.isRadial) for (m = (g = this.points).length, y = o.translate(o.min), x = o.translate(o.max), c = t.threshold || 0, i.inverted && d(c) && h(u = o.translate(c)) && (u < 0 ? u = 0 : u > p && (u = p), this.translatedThreshold = u + l); m--;) {
-	        if (A = (b = g[m]).barX, L = b.x, k = b.y, b.shapeType = "arc", i.inverted) {
-	          b.plotY = o.translate(k), e && o.stacking ? (v = o.stacking.stacks[(k < 0 ? "-" : "") + this.stackKey], this.visible && v && v[L] && !b.isNull && (C = v[L].points[this.getStackIndicator(void 0, L, this.index).key], P = o.translate(C[0]), S = o.translate(C[1]), h(P) && (P = a.clamp(P, 0, p)))) : (P = u, S = b.plotY), P > S && (S = [P, P = S][0]), r ? S > y ? S = y : P < x ? P = x : (P > y || S < x) && (P = S = p) : P < y ? P = y : S > x ? S = x : (S < y || P > x) && (P = S = 0), o.min > o.max && (P = S = r ? p : 0), P += l, S += l, n && (b.barX = A += n[3] / 2), w = Math.max(A, 0), N = Math.max(A + b.pointWidth, 0);
+	        if (A = (b = g[m]).barX, L = b.x, C = b.y, b.shapeType = "arc", i.inverted) {
+	          b.plotY = o.translate(C), e && o.stacking ? (v = o.stacking.stacks[(C < 0 ? "-" : "") + this.stackKey], this.visible && v && v[L] && !b.isNull && (k = v[L].points[this.getStackIndicator(void 0, L, this.index).key], P = o.translate(k[0]), S = o.translate(k[1]), h(P) && (P = a.clamp(P, 0, p)))) : (P = u, S = b.plotY), P > S && (S = [P, P = S][0]), r ? S > y ? S = y : P < x ? P = x : (P > y || S < x) && (P = S = p) : P < y ? P = y : S > x ? S = x : (S < y || P > x) && (P = S = 0), o.min > o.max && (P = S = r ? p : 0), P += l, S += l, n && (b.barX = A += n[3] / 2), w = Math.max(A, 0), T = Math.max(A + b.pointWidth, 0);
 	          let i = t.borderRadius,
-	            s = f(("object" == typeof i ? i.radius : i) || 0, N - w);
+	            s = f(("object" == typeof i ? i.radius : i) || 0, T - w);
 	          b.shapeArgs = {
 	            x: n[0],
 	            y: n[1],
-	            r: N,
+	            r: T,
 	            innerR: w,
 	            start: P,
 	            end: S,
@@ -23580,9 +23750,9 @@ var highchartsMore = {exports: {}};
 	              r = (1.5 * P + b) / 2.5, n = (1.5 * S + m) / 2.5, l = (1.5 * P + y) / 2.5, h = (1.5 * S + x) / 2.5;
 	              let M = Math.sqrt(Math.pow(r - P, 2) + Math.pow(n - S, 2)),
 	                L = Math.sqrt(Math.pow(l - P, 2) + Math.pow(h - S, 2)),
-	                k = Math.atan2(n - S, r - P);
-	              p = Math.PI / 2 + (k + Math.atan2(h - S, l - P)) / 2, Math.abs(k - p) > Math.PI / 2 && (p -= Math.PI), r = P + Math.cos(p) * M, n = S + Math.sin(p) * M;
-	              let C = {
+	                C = Math.atan2(n - S, r - P);
+	              p = Math.PI / 2 + (C + Math.atan2(h - S, l - P)) / 2, Math.abs(C - p) > Math.PI / 2 && (p -= Math.PI), r = P + Math.cos(p) * M, n = S + Math.sin(p) * M;
+	              let k = {
 	                rightContX: l = P + Math.cos(Math.PI + p) * L,
 	                rightContY: h = S + Math.sin(Math.PI + p) * L,
 	                leftContX: r,
@@ -23590,7 +23760,7 @@ var highchartsMore = {exports: {}};
 	                plotX: P,
 	                plotY: S
 	              };
-	              return s && (C.prevPointCont = t(e, c, !1, o)), C;
+	              return s && (k.prevPointCont = t(e, c, !1, o)), k;
 	            }(e, s, !0, this.connectEnds)).prevPointCont && a.prevPointCont.rightContX,
 	            i = a.prevPointCont && a.prevPointCont.rightContY;
 	          o = ["C", d(t) ? t : a.plotX, d(i) ? i : a.plotY, d(a.leftContX) ? a.leftContX : a.plotX, d(a.leftContY) ? a.leftContY : a.plotY, a.plotX, a.plotY];
@@ -23610,20 +23780,20 @@ var highchartsMore = {exports: {}};
 	        return a.polar && d(s) && d(i) ? [s + (e ? a.plotLeft : 0), i + (e ? a.plotTop : 0)] : t.call(this, e, i);
 	      }
 	    }
-	    class B {
+	    class E {
 	      static compose(t, e, i, a, r, h, p, d, c, u) {
 	        if (s.compose(e, i), o.compose(t, r), g(n, "Polar")) {
 	          let t = e.prototype,
 	            s = h.prototype,
 	            o = i.prototype,
 	            r = a.prototype;
-	          if (l(e, "afterDrawChartBox", x), l(e, "getAxes", S), l(e, "init", P), y(t, "get", w), y(o, "getCoordinates", R), y(o, "pinch", Y), l(i, "getSelectionMarkerAttrs", L), l(i, "getSelectionBox", M), l(a, "afterInit", k), l(a, "afterTranslate", C, {
+	          if (l(e, "afterDrawChartBox", x), l(e, "getAxes", S), l(e, "init", P), y(t, "get", w), y(o, "getCoordinates", R), y(o, "pinch", Y), l(i, "getSelectionMarkerAttrs", L), l(i, "getSelectionBox", M), l(a, "afterInit", C), l(a, "afterTranslate", k, {
 	            order: 2
-	          }), l(a, "afterColumnTranslate", T, {
+	          }), l(a, "afterColumnTranslate", N, {
 	            order: 4
 	          }), y(r, "animate", j), y(s, "pos", D), d) {
 	            let t = d.prototype;
-	            y(t, "alignDataLabel", N), y(t, "animate", j);
+	            y(t, "alignDataLabel", T), y(t, "animate", j);
 	          }
 	          if (c && y(c.prototype, "getGraphPath", X), u) {
 	            let t = u.prototype;
@@ -23668,7 +23838,7 @@ var highchartsMore = {exports: {}};
 	        e.kdByAngle ? ((p = (a / Math.PI * 180 + s.pane.options.startAngle) % 360) < 0 && (p += 360), t.clientX = p) : t.clientX = t.plotX;
 	      }
 	    }
-	    return B;
+	    return E;
 	  }), i(e, "Core/Axis/WaterfallAxis.js", [e["Core/Globals.js"], e["Core/Axis/Stacking/StackItem.js"], e["Core/Utilities.js"]], function (t, e, i) {
 	    var s;
 	    let {
@@ -23946,16 +24116,16 @@ var highchartsMore = {exports: {}};
 	          }
 	        } else p = Math.max(h, h + L) + M[0], S.y = i.translate(p, !1, !0, !1, !0), b.isSum ? (S.y = i.translate(M[1], !1, !0, !1, !0), S.height = Math.min(i.translate(M[0], !1, !0, !1, !0), i.len) - S.y, b.below = M[1] <= a) : b.isIntermediateSum ? (L >= 0 ? (y = M[1] + l, x = l) : (y = l, x = M[1] + l), i.reversed && (y ^= x, x ^= y, y ^= x), S.y = i.translate(y, !1, !0, !1, !0), S.height = Math.abs(S.y - Math.min(i.translate(x, !1, !0, !1, !0), i.len)), l += M[1], b.below = y <= a) : (S.height = P > 0 ? i.translate(h, !1, !0, !1, !0) - S.y : i.translate(h, !1, !0, !1, !0) - i.translate(h - P, !1, !0, !1, !0), h += P, b.below = h < a), S.height < 0 && (S.y += S.height, S.height *= -1);
 	        b.plotY = S.y, b.yBottom = S.y + S.height, S.height <= s && !b.isNull ? (S.height = s, S.y -= o, b.yBottom = S.y + S.height, b.plotY = S.y, L < 0 ? b.minPointLengthOffset = -o : b.minPointLengthOffset = o) : (b.isNull && (S.width = 0), b.minPointLengthOffset = 0);
-	        let k = b.plotY + (b.negative ? S.height : 0);
-	        b.below && (b.plotY += S.height), b.tooltipPos && (this.chart.inverted ? b.tooltipPos[0] = i.len - k : b.tooltipPos[1] = k), b.isInside = this.isPointInside(b);
-	        let C = d(b.yBottom, this.borderWidth);
-	        S.y = d(S.y, this.borderWidth), S.height = C - S.y, g(!0, b.shapeArgs, S);
+	        let C = b.plotY + (b.negative ? S.height : 0);
+	        b.below && (b.plotY += S.height), b.tooltipPos && (this.chart.inverted ? b.tooltipPos[0] = i.len - C : b.tooltipPos[1] = C), b.isInside = this.isPointInside(b);
+	        let k = d(b.yBottom, this.borderWidth);
+	        S.y = d(S.y, this.borderWidth), S.height = k - S.y, g(!0, b.shapeArgs, S);
 	      }
 	    }, {
 	      order: 2
 	    }), t.registerSeriesType("waterfall", y), y;
 	  }), i(e, "masters/highcharts-more.src.js", [e["Core/Globals.js"], e["Core/Series/SeriesRegistry.js"], e["Extensions/Pane/Pane.js"], e["Series/Bubble/BubbleSeries.js"], e["Series/PackedBubble/PackedBubbleSeries.js"], e["Series/PolarComposition.js"], e["Core/Axis/RadialAxis.js"], e["Series/Waterfall/WaterfallSeries.js"]], function (t, e, i, s, o, a, r, n) {
-	    return t.RadialAxis = r, s.compose(t.Axis, t.Chart, t.Legend, t.Series), o.compose(t.Axis, t.Chart, t.Legend, t.Series), i.compose(t.Chart, t.Pointer), a.compose(t.Axis, t.Chart, t.Pointer, t.Series, t.Tick, t.Point, e.seriesTypes.areasplinerange, e.seriesTypes.column, e.seriesTypes.line, e.seriesTypes.spline), n.compose(t.Axis, t.Chart), t;
+	    return t.RadialAxis = r, s.compose(t.Axis, t.Chart, t.Legend), o.compose(t.Axis, t.Chart, t.Legend), i.compose(t.Chart, t.Pointer), a.compose(t.Axis, t.Chart, t.Pointer, t.Series, t.Tick, t.Point, e.seriesTypes.areasplinerange, e.seriesTypes.column, e.seriesTypes.line, e.seriesTypes.spline), n.compose(t.Axis, t.Chart), t;
 	  });
 	}); 
 } (highchartsMore));
