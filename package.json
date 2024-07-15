@@ -57,6 +57,6 @@
     "build:css": "./demo/bin/yarn build:css"
   },
   "devDependencies": {
-    "prettier": "3.3.2"
+    "prettier": "3.3.3"
   }
 }
