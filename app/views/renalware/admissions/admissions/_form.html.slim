@@ -47,7 +47,7 @@
       / (eg trix editor)
       = link_to t("snippets.insert"),
                 authoring.snippets_path,
-                class: :button,
+                class: "float-right insert-snippet-button button alternative",
                 data: { turbo: true, turbo_frame: "modal" }
       = f.label :discharge_summary
       = f.input :discharge_summary,

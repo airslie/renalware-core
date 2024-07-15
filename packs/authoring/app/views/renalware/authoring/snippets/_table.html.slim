@@ -1,10 +1,11 @@
 - delete_confirmation_msg = I18n.t("prompts.confirm_delete_with_model", model: "snippet")
 
 .scrollable
-  table.snippets
+  table.toggleable.snippets(data-controller="toggle")
     thead
       tr
-        th.togglers.col-width-medium = rows_toggler
+        th(style="width: 14rem")
+          /= rows_toggler
         - unless author == :me
           th.col-width-medium.author
             = sort_link([:authoring, search], :author_family_name, t(".author"))
@@ -18,8 +19,8 @@
           th.col-width-date-time.updated_at
             = sort_link([:authoring, search], :updated_at, t("thead.updated_at"))
           th.col-width-medium
-    tbody
-      = render snippets,
-               author: author,
-               delete_confirmation_msg: delete_confirmation_msg,
-               remote: remote
+
+    = render snippets,
+              author: author,
+              delete_confirmation_msg: delete_confirmation_msg,
+              remote: remote
