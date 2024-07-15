@@ -13,6 +13,7 @@ This project adheres to Semantic Versioning.
 ### Added
 ### Changed
 - Reorganisation of research, hospitals, and contacts (directory) folders, so these need some brief testing #4895
+- Only an admin can update RReg and KB preferences #4925
 ### Fixed
 - Fixed but after updating an event, where the user had gone straight to the edit page rather than clicking on an 'Edit' link to get there  #4911
 - Fix pagination in the snippets dialog which was causing the Insert Snippet dialog not to load #4900
