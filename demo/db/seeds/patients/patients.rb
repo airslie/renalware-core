@@ -9,7 +9,10 @@ module Renalware
       system_user = SystemUser.find
       countries = System::Country.all
       patients = []
-      host_hospital_centre_id = Hospitals::Centre.where(host_site: true).order(:name).pluck(:id).first
+      host_hospital_centre_id = Hospitals::Centre
+        .where(host_site: true)
+        .order(:name)
+        .pick(:id)
 
       Patient.transaction do
         CSV.foreach(file_path, headers: true) do |row|
@@ -28,6 +31,7 @@ module Renalware
             patient.updated_by_id = system_user.id
             patient.ukrdc_external_id = SecureRandom.uuid
             patient.secure_id = SecureRandom.uuid
+            patient.generate_renal_registry_id
             patient.hospital_centre_id = host_hospital_centre_id
           end
 

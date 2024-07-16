@@ -2748,7 +2748,8 @@ CREATE TABLE renalware.patients (
     actual_death_location_id bigint,
     ukrdc_anonymise boolean DEFAULT false NOT NULL,
     ukrdc_anonymise_decision_on date,
-    ukrdc_anonymise_recorded_by character varying
+    ukrdc_anonymise_recorded_by character varying,
+    renal_registry_id character varying
 );
 
 
@@ -12507,7 +12508,7 @@ CREATE TABLE renalware.research_participations (
 -- Name: COLUMN research_participations.external_id_deprecated; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-07-10 14:51:29 +0100 before changing its type from int to text';
+COMMENT ON COLUMN renalware.research_participations.external_id_deprecated IS 'Backup of external_id taken 2024-07-16 12:13:11 +0100 before changing its type from int to text';
 
 
 --
@@ -23446,6 +23447,13 @@ CREATE INDEX index_patients_on_religion_id ON renalware.patients USING btree (re
 
 
 --
+-- Name: index_patients_on_renal_registry_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patients_on_renal_registry_id ON renalware.patients USING btree (renal_registry_id);
+
+
+--
 -- Name: index_patients_on_second_cause_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -29149,6 +29157,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240716103158'),
 ('20240709161234'),
 ('20240709161233'),
 ('20240709161232'),
