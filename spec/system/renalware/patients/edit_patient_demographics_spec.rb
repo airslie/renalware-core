@@ -3,7 +3,7 @@
 module Renalware
   describe "Editing a patient's demographics" do
     it "updates UKRDC settings" do
-      user = login_as_clinical
+      user = login_as_admin
       patient = create(:patient, by: user)
 
       visit edit_patient_path(patient)

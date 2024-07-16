@@ -3,6 +3,9 @@
 module Renalware
   module Patients
     class PatientPolicy < BasePolicy
+      def update_renalreg_preferences?  = user_is_any_admin?
+      def update_pkb_preferences?       = user_is_any_admin?
+
       class Scope
         attr_reader :user, :scope
 
