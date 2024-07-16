@@ -25,6 +25,7 @@ module Renalware
         is_expected.to have_db_index(:local_patient_id_3).unique(true)
         is_expected.to have_db_index(:local_patient_id_4).unique(true)
         is_expected.to have_db_index(:local_patient_id_5).unique(true)
+        is_expected.to have_db_index(:renal_registry_id).unique(true)
       end
     end
 
@@ -82,7 +83,8 @@ module Renalware
           local_patient_id_2: "2",
           local_patient_id_3: "3",
           local_patient_id_4: "4",
-          local_patient_id_5: "5"
+          local_patient_id_5: "5",
+          renal_registry_id: "abC"
         )
       }
 
@@ -90,6 +92,7 @@ module Renalware
         aggregate_failures do
           is_expected.to validate_uniqueness_of(:nhs_number).case_insensitive
           is_expected.to validate_uniqueness_of(:local_patient_id).case_insensitive
+          is_expected.to validate_uniqueness_of(:renal_registry_id)
         end
       end
 
