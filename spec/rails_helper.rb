@@ -12,7 +12,6 @@ require "rspec/rails"
 
 require "fuubar"
 require "factory_bot_rails"
-require "byebug"
 require "shoulda/matchers"
 require "pundit/rspec"
 require "paper_trail/frameworks/rspec"
