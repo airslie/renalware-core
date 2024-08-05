@@ -32,13 +32,14 @@ module Renalware
         HD::Patient
           .include(ModalityScopes)
           .with_current_modality_of_class(HD::ModalityDescription)
+          .eager_load(:hd_profile)
           .includes(hd_profile: [:hospital_unit, :schedule_definition])
           .select(:id, :family_name, :given_name, :nhs_number)
       end
 
       def patients_json(patients)
         patients.map do |patient|
-          { id: patient.id, text: patient_string(patient) }
+          { value: patient.id, text: patient_string(patient) }
         end.to_json
       end
 
