@@ -250,6 +250,26 @@ CREATE TYPE renalware.enum_hd_slot_request_urgency AS ENUM (
 
 
 --
+-- Name: enum_hl7_observation_result_status_codes; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.enum_hl7_observation_result_status_codes AS ENUM (
+    'C',
+    'D',
+    'F',
+    'I',
+    'N',
+    'O',
+    'P',
+    'R',
+    'S',
+    'U',
+    'W',
+    'X'
+);
+
+
+--
 -- Name: enum_hl7_orc_order_status; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -2581,7 +2601,8 @@ CREATE TABLE renalware.pathology_observations (
     request_id integer NOT NULL,
     cancelled boolean,
     nresult double precision,
-    legacy_comment text
+    legacy_comment text,
+    result_status renalware.enum_hl7_observation_result_status_codes
 );
 
 
@@ -2590,6 +2611,25 @@ CREATE TABLE renalware.pathology_observations (
 --
 
 COMMENT ON COLUMN renalware.pathology_observations.nresult IS 'The result column cast to a float, for ease of using graphing and claculations.Will be null if the result has a text value that cannot be coreced into a number';
+
+
+--
+-- Name: COLUMN pathology_observations.result_status; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.pathology_observations.result_status IS 'C Record coming over is a correction and thus replaces a final result
+D Deletes the OBX record
+F Final results; Can only be changed with a corrected result.
+I Specimen in lab; results pending
+N Not asked
+O Order detail description only (no result)
+P Preliminary results
+R Results entered -- not verified
+S Partial results. Deprecated. Retained only for backward compatibility as of V2.6.
+U Results status change to final without retransmitting results already sent as preliminary
+W Post original as wrong, e.g., transmitted for wrong patient
+X Results cannot be obtained for this observation
+';
 
 
 --
@@ -8353,6 +8393,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -29157,6 +29207,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240807111645'),
 ('20240716103158'),
 ('20240709161234'),
 ('20240709161233'),
