@@ -27,6 +27,8 @@ http_interactions:
       - RAJ01OT001
       Mex-To:
       - DEST
+      To:
+      - DEST
       Content-Type:
       - application/xml
       User-Agent:

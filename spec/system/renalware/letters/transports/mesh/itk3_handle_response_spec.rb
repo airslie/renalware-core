@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 module Renalware::Letters::Transports
   module Mesh
     describe "Handling ITK3 responses" do

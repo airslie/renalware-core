@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 module Renalware::Letters::Transports::Mesh
   describe API::RequestHeaders do
     describe "#to_h" do
@@ -31,7 +29,7 @@ module Renalware::Letters::Transports::Mesh
           "Mex-OSVersion" => "",
           "Mex-FileName" => "None",
           "Mex-MessageType" => "DATA",
-          "Mex-WorkflowID" => "GPCONNECT_SEND_DOCUMENT",
+          "Mex-WorkflowID" => "GPFED_CONSULT_REPORT",
           "Mex-From" => "SendingMailbox1", # GPCM-SD-062
           "Mex-To" => "NHSNumber_DOB_Surname",
           "Mex-LocalID" => "ODS123", # GPCM-SD-146

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 # describe "ToC queued letter management" do
 #   include LettersSpecHelper
 #   let(:user) { create(:user) }

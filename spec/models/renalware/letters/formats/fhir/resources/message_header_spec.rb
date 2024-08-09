@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 module Renalware
   module Letters
     module Formats
@@ -28,7 +26,7 @@ module Renalware
 
             it "resolves the correct workflow id to use in HTTP headers etc" do
               allow(Renalware.config).to receive(:letters_mesh_workflow).and_return(:gp_connect)
-              expect(Renalware.config.mesh_workflow_id).to eq("GPCONNECT_SEND_DOCUMENT")
+              expect(Renalware.config.mesh_workflow_id).to eq("GPFED_CONSULT_REPORT")
             end
 
             describe "#resource" do

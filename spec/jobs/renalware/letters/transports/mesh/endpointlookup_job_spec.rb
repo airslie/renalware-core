@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 module Renalware::Letters::Transports::Mesh
   describe EndpointlookupJob do
     pending "test when ods code not found"

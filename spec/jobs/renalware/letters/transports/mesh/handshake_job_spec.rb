@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 module Renalware::Letters::Transports::Mesh
   describe HandshakeJob do
     it "calls a handshake method on the API client" do

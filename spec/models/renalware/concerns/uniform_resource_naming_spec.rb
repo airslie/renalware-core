@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 module Renalware
-  describe UniformResourceNaming do
+  describe UniformResourceNaming do # rubocop:disable RSpec/SpecFilePathFormat
     let(:test_class) { Class.new { include Renalware::UniformResourceNaming } }
 
     describe "#uid_urn" do
