@@ -20,6 +20,7 @@ module Renalware
           sign(by: by)
           store_page_count
           archive_content(by: by)
+          set_gp_send_status
           # before_letter_approved event
           # - lets listeners clobber the txn by raising an error
           # - lets listeners make other db changes inside the txn eg create a active job
@@ -68,6 +69,11 @@ module Renalware
 
         letter_presenter = LetterPresenterFactory.new(letter)
         letter.page_count = Formats::Pdf::Document.new(letter_presenter, nil).build.page_count
+      end
+
+      def set_gp_send_status
+        letter.gp_send_status = letter.gp_is_a_recipient? ? :pending : :not_applicable
+        letter.save!
       end
     end
   end

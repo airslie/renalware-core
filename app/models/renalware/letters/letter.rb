@@ -86,6 +86,14 @@ module Renalware
         NilClass => Event::Unknown
       }.freeze
 
+      enum gp_send_status: {
+        not_applicable: "not_applicable",
+        pending: "pending",
+        success: "success",
+        failure: "failure",
+        requires_intervention: "requires_intervention"
+      }
+
       def self.policy_class = LetterPolicy
 
       def self.for_event(event)
@@ -188,6 +196,14 @@ module Renalware
       # Helper method to coerce a Letters::Letter instance into its STI type
       def to_typed_instance
         is_a?(type.constantize) ? self : becomes(type.constantize)
+      end
+
+      def gp_is_a_recipient?
+        gp_recipient.present?
+      end
+
+      def gp_recipient
+        recipients.find(&:primary_care_physician?)
       end
     end
   end

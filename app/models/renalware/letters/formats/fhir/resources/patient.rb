@@ -103,7 +103,7 @@ module Renalware
             "M" => "male",
             "F" => "female",
             "O" => "other"
-          }.fetch(patient.sex&.code, "unknown")
+          }.fetch(patient.sex, "unknown")
         end
 
         def telecoms

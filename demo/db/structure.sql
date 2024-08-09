@@ -287,6 +287,19 @@ CREATE TYPE renalware.enum_hl7_orc_order_status AS ENUM (
 
 
 --
+-- Name: enum_letters_gp_send_status; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.enum_letters_gp_send_status AS ENUM (
+    'not_applicable',
+    'pending',
+    'success',
+    'failure',
+    'requires_intervention'
+);
+
+
+--
 -- Name: enum_mesh_api_action; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -8312,8 +8325,16 @@ CREATE TABLE renalware.letter_letters (
     topic_id bigint,
     deleted_at timestamp(6) without time zone,
     deletion_notes text,
-    deleted_by_id bigint
+    deleted_by_id bigint,
+    gp_send_status renalware.enum_letters_gp_send_status
 );
+
+
+--
+-- Name: COLUMN letter_letters.gp_send_status; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.letter_letters.gp_send_status IS 'Captures the status of out attempt to send a copy of the letter to the GP over MESH using eg GP Connect.';
 
 
 --
@@ -22501,6 +22522,13 @@ CREATE INDEX index_letter_letters_on_event_type_and_event_id ON renalware.letter
 
 
 --
+-- Name: index_letter_letters_on_gp_send_status; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_gp_send_status ON renalware.letter_letters USING btree (gp_send_status);
+
+
+--
 -- Name: index_letter_letters_on_id_and_type; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -29714,6 +29742,7 @@ SET search_path TO renalware,renalware_demo,public,heroku_ext;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20240909111139'),
 ('20240819095023'),
+('20240808154403'),
 ('20240807111645'),
 ('20240716103158'),
 ('20240709161234'),
