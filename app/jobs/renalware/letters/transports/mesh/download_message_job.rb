@@ -21,6 +21,7 @@ module Renalware
                   status: :success,
                   sent_to_practice_ods_code: sent_to_practice_ods_code(download_operation)
                 )
+                letter.update!(gp_send_status: :success)
               end
 
               # Update the letter to indicated which practice ODS code it was sent to
