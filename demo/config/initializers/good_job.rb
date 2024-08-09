@@ -19,6 +19,11 @@ Rails.application.configure do
   # execution_mode = :async ie an external process. No harm in setting them globally here though.
   config.good_job.enable_cron = true
   config.good_job.cron = Renalware::Engine.scheduled_jobs_config.merge(
+    reconcile_mesh_transmissions_job: {
+      cron: "every 1 minute",
+      class: "Renalware::Letters::Transports::Mesh::ReconcileTransmissionOperationsJob",
+      description: ""
+    },
     schedule_refresh_of_materialized_views: {
       cron: "every day at 10:00pm",
       class: "Renalware::System::RefreshMaterializedViewsJob",

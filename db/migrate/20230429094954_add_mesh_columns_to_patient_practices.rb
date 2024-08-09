@@ -9,8 +9,8 @@ class AddMeshColumnsToPatientPractices < ActiveRecord::Migration[7.0]
         e.g. YGM24GPXXX. Populated by a call to MESHAPI endpointlookup.
         Used when sending letters using TransferOfCare via MESH.
       COMMENT
-      add_column(:patient_practices,:toc_mesh_mailbox_description, :string, comment: <<~COMMENT)
-        Mailbox description eg Transfer of Care TPP Mailbox One.
+      add_column(:patient_practices, :toc_mesh_mailbox_description, :string, comment: <<~COMMENT)
+        Mailbox description eg GP Connect TPP Mailbox One.
         Populated by a call to MESHAPI endpointlookup.
       COMMENT
     end

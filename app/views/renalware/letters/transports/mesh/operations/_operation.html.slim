@@ -23,7 +23,7 @@ tr(classs="!bg-green-50")
   - if operation.action.to_sym == :download_message
     td.bg-neutral-100= operation.itk3_response_type
     td.bg-neutral-100
-      - if operation.itk3_response_code.to_sym != :ok
+      - if operation.itk3_response_code&.to_sym != :ok
         .rounded.bg-red-500.py-0.px-1.text-gray-50
           .flex.items-center.justify-center
             = operation.itk3_response_code
