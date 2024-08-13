@@ -96,7 +96,7 @@ describe "Department Management" do
     fill_in "Postcode", with: "NewPostcode"
     click_on t("btn.save")
 
-    expect(page).to have_content("You have successfully updated")
+    expect(page).to have_content("Department updated")
     expect(page).to have_current_path(hospitals.centre_departments_path(centre))
 
     expect(page).to have_content("NewName")

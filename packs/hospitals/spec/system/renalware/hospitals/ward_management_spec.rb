@@ -29,7 +29,7 @@ describe "Ward Management" do
     fill_in "Name", with: "NewName"
     click_on t("btn.save")
 
-    expect(page).to have_content("You have successfully updated")
+    expect(page).to have_content("Ward updated")
 
     within ".hospital-wards" do
       expect(page).to have_content("NewCode")
@@ -51,7 +51,7 @@ describe "Ward Management" do
     fill_in "Name", with: "NewName"
     click_on t("btn.create")
 
-    expect(page).to have_content("You have successfully added")
+    expect(page).to have_content("Ward added")
 
     within ".hospital-wards" do
       expect(page).to have_content("NewCode")
