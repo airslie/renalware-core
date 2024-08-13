@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_dependency "acts_as_list", "~> 1.1"
   s.add_dependency "after_commit_everywhere"
   s.add_dependency "ahoy_matey"
-  s.add_dependency "attr_extras" # , "> 6.2.4"
+  s.add_dependency "attr_extras"
   s.add_dependency "bcrypt_pbkdf"
   s.add_dependency "client_side_validations"
   s.add_dependency "client_side_validations-simple_form"
