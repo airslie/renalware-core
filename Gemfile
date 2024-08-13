@@ -57,8 +57,8 @@ gem "sentry-rails"
 
 gem "strong_migrations"
 
-gem "good_job", "~> 4.0"
 gem "fhir_stu3_models", github: "airslie/fhir_stu3_models"
+gem "good_job", "~> 4.0"
 
 gem "matrix"
 

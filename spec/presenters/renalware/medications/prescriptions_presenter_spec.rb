@@ -58,13 +58,13 @@ module Renalware
         administer_on_hd: false
       )
         create(:prescription,
-              patient: patient,
-              drug: drug,
-              prescribed_on: prescribed_on,
-              updated_at: prescribed_on,
-              created_at: prescribed_on,
-              administer_on_hd: administer_on_hd,
-              by: user)
+               patient: patient,
+               drug: drug,
+               prescribed_on: prescribed_on,
+               updated_at: prescribed_on,
+               created_at: prescribed_on,
+               administer_on_hd: administer_on_hd,
+               by: user)
       end
 
       describe "#to_s" do
@@ -106,8 +106,8 @@ module Renalware
       end
 
       # describe "#recently_stopped" do
-      #   it "comprises prescriptions stopped within the last 14 days having a drug which is not in " \
-      #     "the #current list" do
+      #   it "comprises prescriptions stopped within the last 14 days having a drug which is not
+      #      "in the #current list" do
       #     other_drug = create(:drug, name: "a drug not in the current list")
 
       #     expect(presenter.current.to_a).to eq([current_non_hd])
@@ -122,13 +122,14 @@ module Renalware
           recently_changed_hd =
             current_prescription(prescribed_on: 12.days.ago, administer_on_hd: true)
 
-          expect(presenter.recently_changed.to_a.sort).to eq([recently_changed, recently_changed_hd])
+          expect(presenter.recently_changed.to_a.sort)
+            .to eq([recently_changed, recently_changed_hd])
         end
       end
 
       describe "#recently_stopped" do
         it "comprises prescriptions stopped within the last 14 days having a drug which is not in" \
-          "the #current list" do
+           "the #current list" do
           other_drug = create(:drug, name: "a drug not in the current list")
 
           # No as not terminated

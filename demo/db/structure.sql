@@ -7914,7 +7914,7 @@ CREATE TABLE renalware.hospital_departments (
 -- Name: TABLE hospital_departments; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON TABLE renalware.hospital_departments IS 'Can be assigned for example to a Letters::Letterhead. Useful for e.g. when including the sending organisation''s details in a Transfer Of Care message.';
+COMMENT ON TABLE renalware.hospital_departments IS 'Can be assigned for example to a Letters::Letterhead. Useful for e.g. when including the sending organisation''s details in a GP Connect message.';
 
 
 --
@@ -10839,7 +10839,7 @@ Used when sending letters using TransferOfCare via MESH.
 -- Name: COLUMN patient_practices.mesh_mailbox_description; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.patient_practices.mesh_mailbox_description IS 'Mailbox description eg Transfer of Care TPP Mailbox One.
+COMMENT ON COLUMN renalware.patient_practices.mesh_mailbox_description IS 'Mailbox description eg GP Connect TPP Mailbox One.
 Populated by a call to MESHAPI endpointlookup.
 ';
 
