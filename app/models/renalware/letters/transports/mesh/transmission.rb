@@ -8,6 +8,12 @@ module Renalware
       has_many :operations, -> { order(created_at: :asc) }, dependent: :destroy
       validates :letter, presence: true
 
+      enum status: {
+        pending: "pending",
+        success: "success",
+        failure: "failure"
+      }, _prefix: true
+
       # You can cancel an operation if its status is pending and it has no operations
       scope :cancellable, -> { where(status: :pending).where.missing(:operations) }
 

@@ -17,13 +17,13 @@ module Renalware
         queue_with_priority 5
 
         def perform
-          mark_pending_as_succeeded_if_inf_and_bus_operations_were_successful
-          mark_pending_as_failed_if_response_window_elapsed
+          flag_pending_transmissions_as_successful_if_inf_and_bus_operations_were_successful
+          flag_pending_transmissions_as_failed_if_any_operation_has_error
         end
 
         private
 
-        def mark_pending_as_succeeded_if_inf_and_bus_operations_were_successful
+        def flag_pending_transmissions_as_successful_if_inf_and_bus_operations_were_successful
           Transmission
             .where(id: pending_transmission_ids_with_two_successful_download_operations)
             .find_each do |transmission|
@@ -34,8 +34,12 @@ module Renalware
             end
         end
 
-        def mark_pending_as_failed_if_response_window_elapsed
-          # need to think about this one a bit
+        def flag_pending_transmissions_as_failed_if_any_operation_has_error
+          Transmission
+            .status_pending
+            .joins(:operations)
+            .where("http_error = true OR mesh_error = true OR itk3_error = true")
+            .update_all(status: :failure)
         end
 
         # rubocop:disable Metrics/MethodLength
