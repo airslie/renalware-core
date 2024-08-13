@@ -33,7 +33,7 @@ module Renalware
       end
 
       def http_success?
-        (200..299).cover?(http_response_code.to_i)
+        (200..299).cover?(http_response_code)
       end
 
       def mesh_success?

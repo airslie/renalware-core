@@ -90,7 +90,7 @@ class CreateLetterDeliveryMeshOperations < ActiveRecord::Migration[6.0]
           comment: "Stores an unexpected exception"
         )
         # Store HTTP response if this is an outgoing message.
-        t.text(
+        t.integer(
           :http_response_code,
           comment: "eg 200, 401"
         )

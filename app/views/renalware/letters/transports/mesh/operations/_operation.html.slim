@@ -9,7 +9,7 @@ tr(classs="!bg-green-50")
       = operation.action.humanize.split(" message").first
 
   td.bg-neutral-100
-    - bg = operation.http_response_code.to_i > 300 ? "bg-red-500 text-gray-50" : "bg-neutral-100"
+    - bg = operation.http_response_code > 300 ? "bg-red-500 text-gray-50" : "bg-neutral-100"
     .rounded.py-0.px-1(class=bg)
       .flex.items-center.justify-center
         = operation.http_response_code

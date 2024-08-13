@@ -8486,7 +8486,7 @@ CREATE TABLE renalware.letter_mesh_operations (
     payload text,
     response_body text,
     unhandled_error text,
-    http_response_code text,
+    http_response_code integer,
     http_response_description text,
     http_error boolean DEFAULT false NOT NULL,
     mesh_response_error_code text,
