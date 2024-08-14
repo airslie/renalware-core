@@ -151,10 +151,10 @@ module Renalware
       end
 
       def email_summary
-        # UKRDC::SummaryMailer.export_summary(
-        #   to: email_recipients,
-        #   summary: summary
-        # ).deliver_later
+        UKRDC::SummaryMailer.export_summary(
+          to: email_recipients,
+          summary: summary
+        ).deliver_later
       end
 
       def email_recipients
