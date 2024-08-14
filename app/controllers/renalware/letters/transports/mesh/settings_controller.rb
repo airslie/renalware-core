@@ -3,6 +3,8 @@
 module Renalware
   module Letters::Transports::Mesh
     class SettingsController < BaseController
+      layout -> { turbo_frame_request? ? "turbo_rails/frame" : "renalware/layouts/admin" }
+
       def show
         authorize Transmission, :index?
         render locals: { settings: settings }

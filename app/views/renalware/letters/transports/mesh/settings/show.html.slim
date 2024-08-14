@@ -1,8 +1,7 @@
-= content_for(:tabs) do
-  = render "renalware/letters/transports/mesh/tabs"
+= content_for(:tabs)  { render "renalware/letters/transports/mesh/tabs" }
+= content_for(:title) { "GP Connect / Settings" }
 
-= within_new_admin_layout(title: "GP Connect / Settings") do
-  dl.mt-4
-    - settings.each do |key, value|
-      dt= key
-      dd= value
+dl.mt-4
+  - settings.each do |key, value|
+    dt= key
+    dd= value

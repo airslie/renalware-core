@@ -70,6 +70,7 @@ namespace :letters do
       get "help", to: "help#show"
       resource :settings
       resources :transmissions
+      resources :letters, only: :index
 
       resources :inbox_messages
       resources :jobs, only: :index
