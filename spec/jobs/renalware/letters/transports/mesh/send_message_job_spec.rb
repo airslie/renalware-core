@@ -16,18 +16,6 @@ module Renalware::Letters
         )
       end
 
-      def create_mesh_letter_to_gp(patient, user, to: :primary_care_physician)
-        create_letter(
-          state: :approved,
-          to: to,
-          patient: patient,
-          author: user,
-          by: user
-        ).reload.tap do |letter|
-          letter.archive = create(:letter_archive, letter: letter, by: user)
-        end
-      end
-
       describe "the happy path" do
         it "creates FHIR XML payload, and sends to the API client, stores the returned msg id" do
           letter.patient.practice.update!(mesh_mailbox_id: "test_mailbox_id")

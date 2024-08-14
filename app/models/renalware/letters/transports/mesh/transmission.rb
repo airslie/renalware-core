@@ -6,6 +6,22 @@ module Renalware
       include RansackAll
       belongs_to :letter, class_name: "Letters::Letter"
       has_many :operations, -> { order(created_at: :asc) }, dependent: :destroy
+      has_many :download_message_operations,
+               -> { where(action: :download_message) },
+               dependent: :destroy,
+               class_name: "Operation"
+      has_many :send_message_operation,
+               -> { where(action: :send_message) },
+               dependent: :destroy,
+               class_name: "Operation"
+      has_one :bus_response_operation,
+              -> { where(action: :download_message, itk3_response_type: :bus) },
+              dependent: :destroy,
+              class_name: "Operation"
+      has_one :inf_response_operation,
+              -> { where(action: :download_message, itk3_response_type: :inf) },
+              dependent: :destroy,
+              class_name: "Operation"
       validates :letter, presence: true
 
       enum status: {

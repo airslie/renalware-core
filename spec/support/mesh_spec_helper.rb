@@ -35,4 +35,16 @@ module MeshSpecHelper
       by: user
     )
   end
+
+  def create_mesh_letter_to_gp(patient, user, to: :primary_care_physician)
+    create_letter(
+      state: :approved,
+      to: to,
+      patient: patient,
+      author: user,
+      by: user
+    ).reload.tap do |letter|
+      letter.archive = create(:letter_archive, letter: letter, by: user)
+    end
+  end
 end

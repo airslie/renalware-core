@@ -22,6 +22,18 @@ module Renalware
         send_message: "send_message"
       }
 
+      scope :successful_business_responses, -> {
+        where(action: "download_message")
+          .where(itk3_response_type: "bus")
+          .where(itk3_operation_outcome_code: "30001")
+      }
+
+      scope :successful_infrastructure_responses, -> {
+        where(action: "download_message")
+          .where(itk3_response_type: "inf")
+          .where(itk3_operation_outcome_code: "20013")
+      }
+
       enum direction: { outbound: "outbound", inbound: "inbound" }
 
       ransacker :created_at, type: :date do

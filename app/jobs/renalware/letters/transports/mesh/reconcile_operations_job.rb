@@ -12,16 +12,17 @@ module Renalware
       # status accordingly. Note that if an operation fails, it updates the parent transmission
       # status to failure, so here we only need to worry about pending transmissions with
       # two successful operations.
-      class ReconcileTransmissionOperationsJob < ApplicationJob
+      class ReconcileOperationsJob < ApplicationJob
         queue_as :mesh
         queue_with_priority 5
 
         def perform
           flag_pending_transmissions_as_successful_if_inf_and_bus_operations_were_successful
           flag_pending_transmissions_as_failed_if_any_operation_has_error
+          flag_pending_transmissions_as_failed_if_no_bus_and_inf_response_yet
         end
 
-        private
+        # private
 
         def flag_pending_transmissions_as_successful_if_inf_and_bus_operations_were_successful
           Transmission
@@ -38,7 +39,8 @@ module Renalware
           Transmission
             .status_pending
             .joins(:operations)
-            .where("http_error = true OR mesh_error = true OR itk3_error = true")
+            .where("action in ('send_message', 'download_message') and " \
+                   "(http_error = true OR mesh_error = true OR itk3_error = true)")
             .update_all(status: :failure)
         end
 
@@ -69,6 +71,17 @@ module Renalware
           ActiveRecord::Base.connection.execute(sql).values.flatten
         end
         # rubocop:enable Metrics/MethodLength
+
+        # rubocop:disable Metrics/LineLength
+        def flag_pending_transmissions_as_failed_if_no_bus_and_inf_response_yet
+          # Transmission
+          #   .status_pending
+          #   .joins("inner join mesh_transmission_operations send_op on send_op.transmission_id = mesh_transmissions.id and send_op.action = 'send_operation'")
+          #   .joins("left outer join mesh_transmission_operations download_op on download_op.transmission_id = mesh_transmissions.id and download_op.")
+          #   .where("action in ('send_message', 'download_message') and " \
+          #          "(http_error = true OR mesh_error = true OR itk3_error = true)")
+        end
+        # rubocop:enable Metrics/LineLength
       end
     end
   end

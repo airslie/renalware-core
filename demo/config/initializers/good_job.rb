@@ -21,7 +21,7 @@ Rails.application.configure do
   config.good_job.cron = Renalware::Engine.scheduled_jobs_config.merge(
     reconcile_mesh_transmissions_job: {
       cron: "every 1 minute",
-      class: "Renalware::Letters::Transports::Mesh::ReconcileTransmissionOperationsJob",
+      class: "Renalware::Letters::Transports::Mesh::ReconcileOperationsJob",
       description: ""
     },
     schedule_refresh_of_materialized_views: {
