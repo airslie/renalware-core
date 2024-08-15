@@ -60,6 +60,9 @@ module Renalware
       # Virtual attr for the form object used to capture start and end of the session
       attribute :duration_form
 
+      # Ensure notes saved with trix editor are marked html safe
+      def notes = attributes["notes"]&.html_safe # rubocop:disable Rails/OutputSafety
+
       def compute_duration
         return unless started_at_changed? || stopped_at_changed?
 
