@@ -1,1 +1,27 @@
-h1 t
+table.toggleable data-controller="toggle"
+  thead
+    tr
+      th.border-0
+      th.border-0(colspan=3)
+      th.border-0.text-center(colspan=2) ODS
+    tr
+      th.togglers.noprint= rows_toggler
+      th.col-width-tiny ID
+      th.col-width-small Send Status
+      th Recipient
+      th.col-width-tiny Expected
+      th.col-width-tiny Actual
+      th
+  - letters.each do |letter|
+    tbody
+      tr
+        td= row_toggler
+        td= letter.id
+        td= t(letter.gp_send_status, scope: "letters.gp_send_status")
+        td.col-width-medium-with-ellipsis= letter.gp_recipient
+        td
+        td
+        td
+      tr
+        td(colspan=8) test
+

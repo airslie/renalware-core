@@ -8,6 +8,13 @@ module Renalware
 
       def index
         authorize Letters::Letter, :index?
+
+        # We need to get
+        # letters
+        # - transmission 1
+        # - transmission 2
+        letters = Letters::Letter.approved_or_completed
+        render locals: { letters: letters }
       end
     end
   end
