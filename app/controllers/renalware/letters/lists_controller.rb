@@ -4,6 +4,7 @@ module Renalware
   module Letters
     class ListsController < Letters::BaseController
       include Renalware::Concerns::Pageable
+      layout "renalware/layouts/simple"
 
       # TODO: Use a presenter here
       def show
