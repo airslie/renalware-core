@@ -60,7 +60,7 @@ require "virtus"
 require "wicked_pdf"
 require "wisper"
 require "wisper/activejob"
-require "byebug" if ENV.fetch("RAILS_ENV", nil) == "development"
+require "debug" if ENV.fetch("RAILS_ENV", nil) == "development"
 
 # Require engines inside /packs
 Dir["#{File.dirname(__FILE__)}/../../packs/*/lib/**/engine.rb"].each { |f| require f }
