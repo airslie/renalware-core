@@ -11,6 +11,7 @@ This project adheres to Semantic Versioning.
 
 ## 2.4.5
 ### Added
+- Allow editing bookmarks #?
 ### Changed
 - Reorganisation of research, hospitals, and contacts (directory) folders, so these need some brief testing #4895
 - Only an admin can update RReg and KB preferences #4925
