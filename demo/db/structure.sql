@@ -2617,7 +2617,9 @@ COMMENT ON COLUMN renalware.pathology_observations.nresult IS 'The result column
 -- Name: COLUMN pathology_observations.result_status; Type: COMMENT; Schema: renalware; Owner: -
 --
 
-COMMENT ON COLUMN renalware.pathology_observations.result_status IS 'C Record coming over is a correction and thus replaces a final result
+COMMENT ON COLUMN renalware.pathology_observations.result_status IS 'OBX.11 - Observation Result Status
+Definition:
+C Record coming over is a correction and thus replaces a final result
 D Deletes the OBX record
 F Final results; Can only be changed with a corrected result.
 I Specimen in lab; results pending
@@ -21572,6 +21574,13 @@ CREATE UNIQUE INDEX index_hd_sessions_on_external_id ON renalware.hd_sessions US
 
 
 --
+-- Name: index_hd_sessions_on_hd_station_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_hd_station_id ON renalware.hd_sessions USING btree (hd_station_id);
+
+
+--
 -- Name: index_hd_sessions_on_hospital_unit_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -29207,6 +29216,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240819095023'),
 ('20240807111645'),
 ('20240716103158'),
 ('20240709161234'),
