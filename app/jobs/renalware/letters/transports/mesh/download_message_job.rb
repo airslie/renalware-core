@@ -32,6 +32,10 @@ module Renalware
                   parent_id: send_message_operation&.id,
                   transmission_id: send_message_operation&.transmission_id
                 )
+
+                operation.transmission.update!(
+                  sent_to_practice_ods_code: response.headers["mex-from-ods"]
+                )
               end
             end
           end
