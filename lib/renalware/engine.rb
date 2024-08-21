@@ -148,13 +148,13 @@ module Renalware
 
           mesh_handshake: {
             cron: "every day at 2am",
-            class: "Renalware::Letters::Transports::TransferOfCare::Jobs::HandshakeJob",
+            class: "Renalware::Letters::Transports::Mesh::HandshakeJob",
             description: "Lets ToC know to keep the inbox connection alive"
           },
 
           mesh_check_inbox_for_outstanding_responses: {
             cron: "*/15 * * * *",
-            class: "Renalware::Letters::Transports::TransferOfCare::Jobs::CheckInboxJob",
+            class: "Renalware::Letters::Transports::Mesh::CheckInboxJob",
             description: "Check our MESH inbox for incoming ToC messages"
           }
         }.merge(good_job_config_to_enable_feed_import_via_raw_hl7_messages_table)
