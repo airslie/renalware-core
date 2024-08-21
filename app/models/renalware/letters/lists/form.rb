@@ -31,6 +31,7 @@ module Renalware
           attribute :enclosures_present, Boolean
           attribute :notes_present, Boolean
           attribute :state_eq, Integer
+          attribute :gp_send_status_eq, Integer
           attribute :author_id_eq, Integer
           attribute :created_by_id_eq, Integer
           attribute :letterhead_id_eq, Integer
@@ -67,7 +68,7 @@ module Renalware
           end
 
           def disabled_inputs = []
-          def allow_blank_inputs = [:state_eq, :page_count_in_array]
+          def allow_blank_inputs = %i(state_eq gp_send_status_eq page_count_in_array)
           def include_deleted = false
         end
 
@@ -80,7 +81,7 @@ module Renalware
           end
 
           def letter_state_options  = super([:approved])
-          def disabled_inputs       = [:enclosures_present, :notes_present, :state_eq]
+          def disabled_inputs       = %i(enclosures_present notes_present state_eq)
           def allow_blank_inputs    = []
           def enclosures_present    = false
           def notes_present         = false

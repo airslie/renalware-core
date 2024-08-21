@@ -42,6 +42,8 @@ tbody
     td.col-width-medium-with-ellipsis= letter.type
     td.state
       span= letter.state_description
+    td
+      span= t(letter.gp_send_status, scope: "letters.gp_send_status")
     td.full-name= default_patient_link(letter.patient)
     td= letter.patient.nhs_number
     td= l(letter.effective_date)

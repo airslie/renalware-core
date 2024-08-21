@@ -71,6 +71,7 @@ module Renalware
             :enclosures_present,
             :notes_present,
             :state_eq,
+            :gp_send_status_eq,
             :author_id_eq,
             :created_by_id_eq,
             :letterhead_id_eq,
