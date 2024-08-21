@@ -5257,12 +5257,12 @@ CREATE TABLE renalware.drug_trade_family_classifications (
 --
 
 CREATE MATERIALIZED VIEW renalware.drug_prescribable_drugs AS
- SELECT t.drug_id,
-    t.trade_family_id,
-    t.compound_id,
-    t.drug_name,
-    t.trade_family_name,
-    t.compound_name
+ SELECT drug_id,
+    trade_family_id,
+    compound_id,
+    drug_name,
+    trade_family_name,
+    compound_name
    FROM ( SELECT drugs.id AS drug_id,
             NULL::bigint AS trade_family_id,
             (drugs.id)::text AS compound_id,
@@ -5282,7 +5282,7 @@ CREATE MATERIALIZED VIEW renalware.drug_prescribable_drugs AS
              JOIN renalware.drug_trade_family_classifications ON ((drug_trade_family_classifications.drug_id = drugs.id)))
              JOIN renalware.drug_trade_families ON (((drug_trade_families.id = drug_trade_family_classifications.trade_family_id) AND (drug_trade_family_classifications.enabled = true))))
           WHERE ((drugs.deleted_at IS NULL) AND (drugs.inactive = false))) t
-  ORDER BY t.compound_name
+  ORDER BY compound_name
   WITH NO DATA;
 
 
@@ -7265,10 +7265,10 @@ CREATE VIEW renalware.hd_profile_for_modalities AS
            FROM renalware.hd_profiles
           ORDER BY hd_profiles.patient_id, ((hd_profiles.created_at)::date), hd_profiles.created_at DESC
         )
- SELECT m.patient_id,
-    m.modality_id,
-    m.started_on,
-    m.ended_on,
+ SELECT patient_id,
+    modality_id,
+    started_on,
+    ended_on,
     ( SELECT hp.hd_profile_id
            FROM distinct_hd_profiles hp
           WHERE ((hp.patient_id = m.patient_id) AND ((hp.deactivated_at IS NULL) OR (hp.deactivated_at > m.started_on)))
@@ -7366,8 +7366,8 @@ ALTER SEQUENCE renalware.hd_providers_id_seq OWNED BY renalware.hd_providers.id;
 --
 
 CREATE VIEW renalware.hd_schedule_definition_filters AS
- SELECT filter.ids,
-    ((filter.days_text || ' '::text) || upper((filter.dirunal_code)::text)) AS days
+ SELECT ids,
+    ((days_text || ' '::text) || upper((dirunal_code)::text)) AS days
    FROM ( SELECT array_agg(s1.id) AS ids,
             0 AS dirunal_order,
             s1.days_text,
@@ -7381,7 +7381,7 @@ CREATE VIEW renalware.hd_schedule_definition_filters AS
             hdpc.code
            FROM (renalware.hd_schedule_definitions s2
              JOIN renalware.hd_diurnal_period_codes hdpc ON ((s2.diurnal_period_id = hdpc.id)))) filter
-  ORDER BY filter.days_text, filter.dirunal_order;
+  ORDER BY days_text, dirunal_order;
 
 
 --
@@ -8674,25 +8674,6 @@ COMMENT ON COLUMN renalware.letter_mesh_operations.itk3_error IS 'true if an ITK
 
 
 --
--- Name: letter_mesh_operations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE renalware.letter_mesh_operations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: letter_mesh_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE renalware.letter_mesh_operations_id_seq OWNED BY renalware.letter_mesh_operations.id;
-
-
---
 -- Name: letter_mesh_transmissions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8715,6 +8696,184 @@ CREATE TABLE renalware.letter_mesh_transmissions (
 --
 
 COMMENT ON COLUMN renalware.letter_mesh_transmissions.letter_id IS 'A reference to the letter being sent';
+
+
+--
+-- Name: patient_practices; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.patient_practices (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    email character varying,
+    code character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    telephone character varying,
+    last_change_date date,
+    active boolean DEFAULT true,
+    mesh_mailbox_id character varying,
+    mesh_mailbox_description character varying
+);
+
+
+--
+-- Name: COLUMN patient_practices.mesh_mailbox_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.patient_practices.mesh_mailbox_id IS 'e.g. YGM24GPXXX. Populated by a call to MESHAPI endpointlookup.
+Used when sending letters using TransferOfCare via MESH.
+';
+
+
+--
+-- Name: COLUMN patient_practices.mesh_mailbox_description; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.patient_practices.mesh_mailbox_description IS 'Mailbox description eg GP Connect TPP Mailbox One.
+Populated by a call to MESHAPI endpointlookup.
+';
+
+
+--
+-- Name: letter_mesh_letters; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mesh_letters AS
+ SELECT ll.id,
+    ll.approved_at,
+    ll.completed_at,
+    ll.gp_send_status,
+    ll.type AS letter_type,
+    (((p.family_name)::text || ', '::text) || (p.given_name)::text) AS patient_name,
+    p.secure_id AS patient_secure_id,
+    p.nhs_number AS patient_nhs_number,
+    practice.code AS patient_practice_ods_code,
+    lmt.sent_to_practice_ods_code,
+    ((COALESCE(practice.code, ''::character varying))::text <> (COALESCE(lmt.sent_to_practice_ods_code, ''::character varying))::text) AS ods_code_mismatch,
+    author.id AS author_id,
+    (((author.family_name)::text || ', '::text) || (author.given_name)::text) AS author_name,
+    lmt.id AS transmission_id,
+    send_operation.mesh_response_error_code AS send_operation_mesh_response_error_code,
+    send_operation.mesh_response_error_description AS send_operation_mesh_response_error_description,
+    bus_download_operation.itk3_operation_outcome_code AS bus_download_operation_itk3_operation_outcome_code,
+    bus_download_operation.itk3_operation_outcome_description AS bus_download_operation_itk3_operation_outcome_description,
+    inf_download_operation.itk3_operation_outcome_code AS inf_download_operation_itk3_operation_outcome_code,
+    inf_download_operation.itk3_operation_outcome_description AS inf_download_operation_itk3_operation_outcome_description
+   FROM (((((((renalware.letter_mesh_transmissions lmt
+     JOIN renalware.letter_letters ll ON ((ll.id = lmt.letter_id)))
+     JOIN renalware.patients p ON ((p.id = ll.patient_id)))
+     JOIN renalware.users author ON ((author.id = ll.created_by_id)))
+     LEFT JOIN renalware.patient_practices practice ON ((practice.id = p.practice_id)))
+     LEFT JOIN LATERAL ( SELECT lmo.id,
+            lmo.uuid,
+            lmo.direction,
+            lmo.action,
+            lmo.transmission_id,
+            lmo.parent_id,
+            lmo.mesh_message_id,
+            lmo.request_headers,
+            lmo.response_headers,
+            lmo.payload,
+            lmo.response_body,
+            lmo.unhandled_error,
+            lmo.http_response_code,
+            lmo.http_response_description,
+            lmo.http_error,
+            lmo.mesh_response_error_code,
+            lmo.mesh_response_error_description,
+            lmo.mesh_response_error_event,
+            lmo.mesh_error,
+            lmo.itk3_response_type,
+            lmo.itk3_response_code,
+            lmo.itk3_operation_outcome_type,
+            lmo.itk3_operation_outcome_severity,
+            lmo.itk3_operation_outcome_code,
+            lmo.itk3_operation_outcome_description,
+            lmo.itk3_error,
+            lmo.created_at,
+            lmo.updated_at
+           FROM renalware.letter_mesh_operations lmo
+          WHERE (lmo.action = 'send_message'::renalware.enum_mesh_api_action)) send_operation ON ((send_operation.transmission_id = lmt.id)))
+     LEFT JOIN LATERAL ( SELECT lmo.id,
+            lmo.uuid,
+            lmo.direction,
+            lmo.action,
+            lmo.transmission_id,
+            lmo.parent_id,
+            lmo.mesh_message_id,
+            lmo.request_headers,
+            lmo.response_headers,
+            lmo.payload,
+            lmo.response_body,
+            lmo.unhandled_error,
+            lmo.http_response_code,
+            lmo.http_response_description,
+            lmo.http_error,
+            lmo.mesh_response_error_code,
+            lmo.mesh_response_error_description,
+            lmo.mesh_response_error_event,
+            lmo.mesh_error,
+            lmo.itk3_response_type,
+            lmo.itk3_response_code,
+            lmo.itk3_operation_outcome_type,
+            lmo.itk3_operation_outcome_severity,
+            lmo.itk3_operation_outcome_code,
+            lmo.itk3_operation_outcome_description,
+            lmo.itk3_error,
+            lmo.created_at,
+            lmo.updated_at
+           FROM renalware.letter_mesh_operations lmo
+          WHERE (lmo.itk3_response_type = 'inf'::renalware.enum_mesh_itk3_response_type)) inf_download_operation ON ((inf_download_operation.transmission_id = lmt.id)))
+     LEFT JOIN LATERAL ( SELECT lmo.id,
+            lmo.uuid,
+            lmo.direction,
+            lmo.action,
+            lmo.transmission_id,
+            lmo.parent_id,
+            lmo.mesh_message_id,
+            lmo.request_headers,
+            lmo.response_headers,
+            lmo.payload,
+            lmo.response_body,
+            lmo.unhandled_error,
+            lmo.http_response_code,
+            lmo.http_response_description,
+            lmo.http_error,
+            lmo.mesh_response_error_code,
+            lmo.mesh_response_error_description,
+            lmo.mesh_response_error_event,
+            lmo.mesh_error,
+            lmo.itk3_response_type,
+            lmo.itk3_response_code,
+            lmo.itk3_operation_outcome_type,
+            lmo.itk3_operation_outcome_severity,
+            lmo.itk3_operation_outcome_code,
+            lmo.itk3_operation_outcome_description,
+            lmo.itk3_error,
+            lmo.created_at,
+            lmo.updated_at
+           FROM renalware.letter_mesh_operations lmo
+          WHERE (lmo.itk3_response_type = 'bus'::renalware.enum_mesh_itk3_response_type)) bus_download_operation ON ((bus_download_operation.transmission_id = lmt.id)));
+
+
+--
+-- Name: letter_mesh_operations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.letter_mesh_operations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_mesh_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.letter_mesh_operations_id_seq OWNED BY renalware.letter_mesh_operations.id;
 
 
 --
@@ -10808,43 +10967,6 @@ ALTER SEQUENCE renalware.patient_practice_memberships_id_seq OWNED BY renalware.
 
 
 --
--- Name: patient_practices; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.patient_practices (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    email character varying,
-    code character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    telephone character varying,
-    last_change_date date,
-    active boolean DEFAULT true,
-    mesh_mailbox_id character varying,
-    mesh_mailbox_description character varying
-);
-
-
---
--- Name: COLUMN patient_practices.mesh_mailbox_id; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.patient_practices.mesh_mailbox_id IS 'e.g. YGM24GPXXX. Populated by a call to MESHAPI endpointlookup.
-Used when sending letters using TransferOfCare via MESH.
-';
-
-
---
--- Name: COLUMN patient_practices.mesh_mailbox_description; Type: COMMENT; Schema: renalware; Owner: -
---
-
-COMMENT ON COLUMN renalware.patient_practices.mesh_mailbox_description IS 'Mailbox description eg GP Connect TPP Mailbox One.
-Populated by a call to MESHAPI endpointlookup.
-';
-
-
---
 -- Name: patient_practices_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -10957,7 +11079,7 @@ CREATE TABLE renalware.problem_problems (
 --
 
 CREATE VIEW renalware.patient_summaries AS
- SELECT patients.id AS patient_id,
+ SELECT id AS patient_id,
     ( SELECT count(*) AS count
            FROM renalware.events
           WHERE ((events.patient_id = patients.id) AND (events.deleted_at IS NULL))) AS events_count,
@@ -11815,17 +11937,17 @@ CREATE VIEW renalware.pd_regime_for_modalities AS
            FROM renalware.pd_regimes
           ORDER BY pd_regimes.patient_id, pd_regimes.start_date, pd_regimes.created_at DESC
         )
- SELECT m.patient_id,
-    m.modality_id,
-    m.started_on,
-    m.ended_on,
+ SELECT patient_id,
+    modality_id,
+    started_on,
+    ended_on,
     ( SELECT pdr.pd_regime_id
            FROM distinct_pd_regimes pdr
           WHERE ((pdr.patient_id = m.patient_id) AND ((pdr.end_date IS NULL) OR (pdr.end_date > m.started_on)))
           ORDER BY pdr.created_at
          LIMIT 1) AS pd_regime_id
    FROM pd_modalities m
-  ORDER BY m.patient_id;
+  ORDER BY patient_id;
 
 
 --
@@ -15093,26 +15215,26 @@ CREATE TABLE renalware.ukrdc_transmission_logs (
 --
 
 CREATE VIEW renalware.ukrdc_daily_summaries AS
- SELECT (utl.created_at)::date AS date,
+ SELECT (created_at)::date AS date,
     count(*) AS total,
     count(
         CASE
-            WHEN (utl.status = 3) THEN 1
+            WHEN (status = 3) THEN 1
             ELSE NULL::integer
         END) AS sent,
     count(
         CASE
-            WHEN (utl.status = 2) THEN 1
+            WHEN (status = 2) THEN 1
             ELSE NULL::integer
         END) AS unsent_no_change,
     count(
         CASE
-            WHEN (utl.status = 1) THEN 1
+            WHEN (status = 1) THEN 1
             ELSE NULL::integer
         END) AS error
    FROM renalware.ukrdc_transmission_logs utl
-  GROUP BY ((utl.created_at)::date)
-  ORDER BY ((utl.created_at)::date);
+  GROUP BY ((created_at)::date)
+  ORDER BY ((created_at)::date);
 
 
 --
@@ -15504,7 +15626,7 @@ CREATE VIEW renalware_demo.reporting_example_data AS
          SELECT (date_trunc('day'::text, dd.dd))::date AS dt
            FROM generate_series('2023-01-01 00:00:00'::timestamp without time zone, '2023-12-31 00:00:00'::timestamp without time zone, '7 days'::interval) dd(dd)
         )
- SELECT dates.dt AS date,
+ SELECT dt AS date,
     (((10)::double precision + ((9)::double precision * random())) * (row_number() OVER ())::double precision) AS series1,
     (((2)::double precision + ((7)::double precision * random())) * (row_number() OVER ())::double precision) AS series2
    FROM dates;
@@ -29741,6 +29863,7 @@ SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20240909111139'),
+('20240821160342'),
 ('20240819095023'),
 ('20240808154403'),
 ('20240807111645'),

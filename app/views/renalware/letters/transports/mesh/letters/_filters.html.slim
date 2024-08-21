@@ -1,0 +1,34 @@
+- url = letters_transports_mesh_letters_path
+
+.search-form.filters
+  = simple_form_for form,
+                    as: :q,
+                    url: url,
+                    html: { autocomplete: "off" },
+                    data: { turbo_frame: "letter-mesh-turbo-frame",
+                            turbo: true,
+                            turbo_advance: true,
+                            controller: "form",
+                            action: "input->form#submit" },
+                    method: :get do |f|
+
+    .flex.gap-1.flex-wrap
+      div
+        = f.input :gp_send_status_eq,
+                  collection: Renalware::Letters::Letter.gp_send_statuses.map{ |k,v| [I18n.t(v, scope: "letters.gp_send_status"), k] },
+                  label: "GP Send Status",
+                  include_blank: true
+
+      div
+        = f.input :ods_code_mismatch_eq,
+                  as: :select,
+                  label: "ODS Code mismatch",
+                  include_blank: true
+
+
+      / div
+      /   .pt-6
+      /     .ml-2= link_to("Reset", url, class: "btn btn-secondary py-1 mt-px")
+      /   noscript
+      /     .mb-2= filter_or_reset(form: f, reset_path: url)
+
