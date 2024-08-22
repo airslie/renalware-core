@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rubygems"
+require "dotenv-rails"
 require "view_component"
 require "activerecord-import"
 require "ahoy"
@@ -16,7 +17,6 @@ require "devise-security"
 require "delayed_job_active_record"
 require "diffy"
 require "diff-lcs"
-require "dotenv-rails"
 require "dumb_delegator"
 require "email_validator"
 require "enumerize"
@@ -267,6 +267,17 @@ module Renalware
       end
       app.config.action_mailer.preview_path = Engine.root.join("app", "mailers", "renalware")
       app.config.action_mailer.deliver_later_queue_name = "mailers"
+    end
+
+    config.before_initialize do
+      # Load the config at this stage to make sure we
+      # load from the demo/.env
+      require "renalware/configuration"
+
+      # In development don't ajax poll so often for a timeout as it can upset our byebug sessions.
+      Renalware.configure do |config|
+        config.session_timeout_polling_frequency = 1.hour
+      end
     end
 
     config.to_prepare do
