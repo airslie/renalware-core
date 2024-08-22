@@ -2,14 +2,14 @@
 
 module Renalware
   module Letters
-    module Formats::FHIR::Resources
+    module Formats::FHIR
       # The top-level 'message' Bundle that will contain
       # - the message header
       # - the organisation, because it is referenced in the MessageHeader
       # - the document bundle with the main payload in.
-      class Bundle
-        include Formats::FHIR::Support::Construction
-        include Formats::FHIR::Support::Helpers
+      class Resources::Bundle
+        include Support::Construction
+        include Support::Helpers
 
         PROFILE_URL = "https://fhir.nhs.uk/STU3/StructureDefinition/ITK-Message-Bundle-1"
 
