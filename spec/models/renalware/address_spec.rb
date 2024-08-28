@@ -33,5 +33,27 @@ module Renalware
         end
       end
     end
+
+    describe "Uppercasing postcode before validation" do
+      it "does nothing if postcode is nil" do
+        address = build(:address, postcode: nil)
+        address.valid?
+        expect(address.postcode).to be_nil
+      end
+
+      it "does nothing if postcode is ''" do
+        address = build(:address, postcode: "")
+        address.valid?
+
+        expect(address.postcode).to eq("")
+      end
+
+      it "converts a lower case postcode to uppercase" do
+        address = build(:address, postcode: "abc xyz")
+        address.valid?
+
+        expect(address.postcode).to eq("ABC XYZ")
+      end
+    end
   end
 end
