@@ -153,9 +153,15 @@ module Renalware
           },
 
           mesh_check_inbox_for_outstanding_responses: {
-            cron: "*/15 * * * *",
+            cron: "every 2 minute",
             class: "Renalware::Letters::Transports::Mesh::CheckInboxJob",
             description: "Check our MESH inbox for incoming ToC messages"
+          },
+
+          reconcile_mesh_transmissions_job: {
+            cron: "every 2 minutes",
+            class: "Renalware::Letters::Transports::Mesh::ReconcileOperationsJob",
+            description: ""
           }
         }.merge(good_job_config_to_enable_feed_import_via_raw_hl7_messages_table)
       end

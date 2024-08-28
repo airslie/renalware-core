@@ -1,3 +1,1 @@
-"nhs_number","local_patient_id","family_name","given_name","born_on","sex"
-"9691375087","Z5003517","BRYDEN","Adrian","1960-02-02","M"
-"9691375109","Z5003518","STREET","Gideon Levi","1938-04-23","M"
+"nhs_number","local_patient_id","family_name","given_name","born_on","sex","gp","admin_notes"
