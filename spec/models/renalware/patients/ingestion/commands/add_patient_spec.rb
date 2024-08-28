@@ -45,7 +45,7 @@ module Renalware::Patients::Ingestion
             street_2: "address2",
             town: "town",
             county: "county",
-            postcode: "postcode"
+            postcode: "POSTCODE"
           )
 
           msh = "MSH|^~\&|ADT||||20150122154918||ADT^A31|897847653|P|2.3"

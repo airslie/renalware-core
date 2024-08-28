@@ -55,7 +55,7 @@ describe "Department Management" do
     fill_in "Street 3", with: "Street3"
     fill_in "Town", with: "TownA"
     fill_in "County", with: "CountyA"
-    fill_in "Postcode", with: "pc"
+    fill_in "Postcode", with: "GL1"
     select "United Kingdom", from: "Country"
     click_on t("btn.create")
 
@@ -73,7 +73,7 @@ describe "Department Management" do
       town: "TownA",
       county: "CountyA",
       country_id: uk.id,
-      postcode: "pc"
+      postcode: "GL1"
     )
   end
 
@@ -93,13 +93,13 @@ describe "Department Management" do
     end
 
     fill_in "Name", with: "NewName"
-    fill_in "Postcode", with: "NewPostcode"
+    fill_in "Postcode", with: "NEW_POSTCODE"
     click_on t("btn.save")
 
     expect(page).to have_content("Department updated")
     expect(page).to have_current_path(hospitals.centre_departments_path(centre))
 
     expect(page).to have_content("NewName")
-    expect(page).to have_content("NewPostcode")
+    expect(page).to have_content("NEW_POSTCODE")
   end
 end
