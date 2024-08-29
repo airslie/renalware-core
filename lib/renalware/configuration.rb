@@ -163,6 +163,11 @@ module Renalware
     }
 
     config_accessor(:hd_session_prescriptions_require_signoff) { true }
+    config_accessor(:hd_session_require_patient_group_directions) {
+      ActiveModel::Type::Boolean.new.cast(
+        ENV.fetch("HD_SESSION_REQUIRE_PATIENT_GROUP_DIRECTIONS", "false")
+      )
+    }
 
     # How many days ahead to look for prescriptions having a future prescribed_on date when
     # determining which 'give on hd' prescriptions to show on the HD session form. Could be eg 10
