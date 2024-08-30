@@ -43,16 +43,12 @@ class LetterListener
   ###########################
 
   # Inside a txn so this callback is suitable for changing database records including ActiveJobs
-  def before_letter_approved(letter)
-    # e.g. send_hl7_mdm_message_to_hospital_tie_via_mirth(letter)
-    # enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter)
-  end
+  def before_letter_approved(letter); end
 
   # Txn has been committed here, so its suited to non-transactional tasks (not involving the db)
   def letter_approved(letter)
     # TODO: might need to switch this to the pre-commit #before_letter_approved ?
     enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter)
-    # e.g. email_letter_to_practice(letter)
   end
 
   def rollback_letter_approved; end
@@ -91,7 +87,7 @@ class LetterListener
     Renalware::Letters::Delivery::Email::EmailLetterToPractice.call(letter)
   end
 
-  # This mechanism puts te letter into renalware.outgoing_documents and then Mirth polls this table
+  # This mechanism puts the letter into renalware.outgoing_documents and then Mirth polls this table
   # and sends the letter as e.g. an MDM HL7 message to the configured location - for example the
   # hospital TIE.
   def send_hl7_mdm_message_to_hospital_tie_via_mirth(letter)

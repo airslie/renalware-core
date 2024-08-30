@@ -42,12 +42,13 @@ ruby:
                   label: "State",
                   include_blank: form.allow_blank_inputs.include?(:state_eq),
                   input_html: { disabled: form.disabled_inputs.include?(:state_eq) }
-      div.w-32
-        = f.input :gp_send_status_eq,
-                  collection: Renalware::Letters::Letter.gp_send_statuses.map{ |k,v| [I18n.t(v, scope: "letters.gp_send_status"), k] },
-                  label: "GP Send",
-                  include_blank: form.allow_blank_inputs.include?(:gp_send_status_eq),
-                  input_html: { disabled: form.disabled_inputs.include?(:gp_send_status_eq) }
+      - if Renalware.config.send_gp_letters_over_mesh
+        div.w-32
+          = f.input :gp_send_status_eq,
+                    collection: Renalware::Letters::Letter.gp_send_statuses.map{ |k,v| [I18n.t(v, scope: "letters.gp_send_status"), k] },
+                    label: "GP Send",
+                    include_blank: form.allow_blank_inputs.include?(:gp_send_status_eq),
+                    input_html: { disabled: form.disabled_inputs.include?(:gp_send_status_eq) }
       div.w-72
         = f.input :author_id_eq,
                   as: :user_picker,

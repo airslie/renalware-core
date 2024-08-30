@@ -126,6 +126,11 @@ module Renalware
     # MESHAPI
     # Introduce an optional delay between letter approval and letter send, in order to allow
     # any human errors to be resolved (letter rescinded etc)
+    #
+    config_accessor(:send_gp_letters_over_mesh) do
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("SEND_GP_LETTERS_OVER_MESH", "false"))
+    end
+
     config_accessor(:mesh_delay_minutes_between_letter_approval_and_mesh_send) do
       ActiveModel::Type::Integer.new.cast(
         ENV.fetch("MESH_DELAY_MINUTES_BETWEEN_LETTER_APPROVAL_AND_MESH_SEND", "0")
