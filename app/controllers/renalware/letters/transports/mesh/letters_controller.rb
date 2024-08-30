@@ -21,7 +21,7 @@ module Renalware
 
         params
           .require(:q)
-          .permit(:gp_send_status_eq, :ods_code_mismatch_eq, :s)
+          .permit(:gp_send_status_eq, :ods_code_mismatch_eq, :author_id_eq, :typist_id_eq, :s)
       end
     end
   end

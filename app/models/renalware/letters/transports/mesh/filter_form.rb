@@ -11,6 +11,8 @@ module Renalware
       attribute :s, :string # sort order, not really part of the form
       attribute :gp_send_status_eq, :string
       attribute :ods_code_mismatch_eq, :boolean
+      attribute :author_id_eq, :integer
+      attribute :typist_id_eq, :integer
     end
   end
 end

@@ -8753,6 +8753,8 @@ CREATE VIEW renalware.letter_mesh_letters AS
     ((COALESCE(practice.code, ''::character varying))::text <> (COALESCE(lmt.sent_to_practice_ods_code, ''::character varying))::text) AS ods_code_mismatch,
     author.id AS author_id,
     (((author.family_name)::text || ', '::text) || (author.given_name)::text) AS author_name,
+    typist.id AS typist_id,
+    (((typist.family_name)::text || ', '::text) || (typist.given_name)::text) AS typist_name,
     lmt.id AS transmission_id,
     send_operation.mesh_response_error_code AS send_operation_mesh_response_error_code,
     send_operation.mesh_response_error_description AS send_operation_mesh_response_error_description,
@@ -8760,10 +8762,11 @@ CREATE VIEW renalware.letter_mesh_letters AS
     bus_download_operation.itk3_operation_outcome_description AS bus_download_operation_itk3_operation_outcome_description,
     inf_download_operation.itk3_operation_outcome_code AS inf_download_operation_itk3_operation_outcome_code,
     inf_download_operation.itk3_operation_outcome_description AS inf_download_operation_itk3_operation_outcome_description
-   FROM (((((((renalware.letter_mesh_transmissions lmt
+   FROM ((((((((renalware.letter_mesh_transmissions lmt
      JOIN renalware.letter_letters ll ON ((ll.id = lmt.letter_id)))
      JOIN renalware.patients p ON ((p.id = ll.patient_id)))
-     JOIN renalware.users author ON ((author.id = ll.created_by_id)))
+     JOIN renalware.users author ON ((author.id = ll.author_id)))
+     JOIN renalware.users typist ON ((typist.id = ll.created_by_id)))
      LEFT JOIN renalware.patient_practices practice ON ((practice.id = p.practice_id)))
      LEFT JOIN LATERAL ( SELECT lmo.id,
             lmo.uuid,
@@ -29863,6 +29866,7 @@ SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20240909111139'),
+('20240830091929'),
 ('20240821160342'),
 ('20240819095023'),
 ('20240808154403'),

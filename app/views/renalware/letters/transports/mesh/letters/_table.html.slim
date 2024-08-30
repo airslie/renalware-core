@@ -13,6 +13,8 @@
             th.col-width-tiny.bg-neutral-100 Expected
             th.col-width-tiny.bg-neutral-100 Actual
             th.col-width-medium Patient
+            th Author
+            th Typist
             th Send error
             th Infrastructure error
             th Business error
@@ -31,8 +33,9 @@
                 = link_to(letter.patient_name,
                           renalware.patient_clinical_summary_path(letter.patient_secure_id),
                           data: { turbo_frame: "_top" })
-              td
-                = [letter.send_operation_mesh_response_error_code, letter.send_operation_mesh_response_error_description].join(" ")
+              td= letter.author_name
+              td= letter.typist_name
+              td= [letter.send_operation_mesh_response_error_code, letter.send_operation_mesh_response_error_description].join(" ")
               td
                 - unless [0,20013].include?(letter.inf_download_operation_itk3_operation_outcome_code.to_i)
                   = [letter.inf_download_operation_itk3_operation_outcome_code, letter.inf_download_operation_itk3_operation_outcome_description].join(" ")
