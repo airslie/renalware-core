@@ -11,7 +11,6 @@ module Renalware
 
       CSV.foreach(file_path, headers: true) do |row|
         idx += 1
-        p row
         patient = Renalware::Patient.find_or_initialize_by(
           nhs_number: row["NHS_NUMBER"]
         ) do |pat|
