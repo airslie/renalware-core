@@ -48,7 +48,9 @@ class LetterListener
   # Txn has been committed here, so its suited to non-transactional tasks (not involving the db)
   def letter_approved(letter)
     # TODO: might need to switch this to the pre-commit #before_letter_approved ?
-    enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter)
+    if Renalware.config.send_gp_letters_over_mesh
+      enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter)
+    end
   end
 
   def rollback_letter_approved; end
@@ -59,7 +61,9 @@ class LetterListener
 
   # Inside a txn
   def before_letter_deleted(letter)
-    mesh::Transmission.cancel_pending(letter: letter)
+    if Renalware.config.send_gp_letters_over_mesh
+      mesh::Transmission.cancel_pending(letter: letter)
+    end
   end
 
   # Outside txn, after letter deleted
