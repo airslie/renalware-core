@@ -9,7 +9,7 @@ module Renalware
       include ActiveModel::Attributes
 
       attribute :s, :string # sort order, not really part of the form
-      attribute :gp_send_status_eq, :string
+      attribute :gp_send_status_in, :string
       attribute :ods_code_mismatch_eq, :boolean
       attribute :author_id_eq, :integer
       attribute :typist_id_eq, :integer

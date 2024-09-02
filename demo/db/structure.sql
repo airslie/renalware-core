@@ -294,8 +294,7 @@ CREATE TYPE renalware.enum_letters_gp_send_status AS ENUM (
     'not_applicable',
     'pending',
     'success',
-    'failure',
-    'requires_intervention'
+    'failure'
 );
 
 
@@ -8326,7 +8325,7 @@ CREATE TABLE renalware.letter_letters (
     deleted_at timestamp(6) without time zone,
     deletion_notes text,
     deleted_by_id bigint,
-    gp_send_status renalware.enum_letters_gp_send_status
+    gp_send_status renalware.enum_letters_gp_send_status DEFAULT 'not_applicable'::renalware.enum_letters_gp_send_status NOT NULL
 );
 
 

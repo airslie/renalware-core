@@ -42,13 +42,6 @@ ruby:
                   label: "State",
                   include_blank: form.allow_blank_inputs.include?(:state_eq),
                   input_html: { disabled: form.disabled_inputs.include?(:state_eq) }
-      - if Renalware.config.send_gp_letters_over_mesh
-        div.w-32
-          = f.input :gp_send_status_eq,
-                    collection: Renalware::Letters::Letter.gp_send_statuses.map{ |k,v| [I18n.t(v, scope: "letters.gp_send_status"), k] },
-                    label: "GP Send",
-                    include_blank: form.allow_blank_inputs.include?(:gp_send_status_eq),
-                    input_html: { disabled: form.disabled_inputs.include?(:gp_send_status_eq) }
       div.w-72
         = f.input :author_id_eq,
                   as: :user_picker,
@@ -75,7 +68,20 @@ ruby:
                   collection: form.page_count_options,
                   label: "Pages",
                   include_blank: form.allow_blank_inputs.include?(:page_count_in_array)
+      - if Renalware.config.send_gp_letters_over_mesh
+        div
+          / selected: form.pre_selected_gp_send_status_options,
 
+          = f.input :gp_send_status_in,
+                    collection: form.gp_send_status_options,
+                    label: "GP Send",
+                    include_blank: form.allow_blank_inputs.include?(:gp_send_status_in),
+                    input_html: { \
+                      class: "content-center",
+                      disabled: form.disabled_inputs.include?(:gp_send_status_in),
+                      multiple: "multiple",
+                      data: { controller: "slimselect", action: "change->form#submit" } \
+                    }
       div
         .pt-6
           .ml-2= link_to("Reset", renalware.letters_filtered_letters_list_path(named_filter: named_filter), class: "btn btn-secondary py-1 mt-px")
@@ -109,7 +115,7 @@ ruby:
     = f.input :enclosures_present, as: :hidden
     = f.input :notes_present, as: :hidden
     = f.input :state_eq, as: :hidden
-    = f.input :gp_send_status_eq, as: :hidden
+    = f.input :gp_send_status_in, as: :hidden
     = f.input :author_id_eq, as: :hidden
     = f.input :created_by_id_eq, as: :hidden
     = f.input :letterhead_id_eq, as: :hidden

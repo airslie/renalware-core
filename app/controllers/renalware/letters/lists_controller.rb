@@ -71,13 +71,13 @@ module Renalware
             :enclosures_present,
             :notes_present,
             :state_eq,
-            :gp_send_status_eq,
             :author_id_eq,
             :created_by_id_eq,
             :letterhead_id_eq,
             :page_count_in_array,
             :clinic_visit_clinic_id_eq,
-            :s
+            :s,
+            gp_send_status_in: []
           )
       end
     end

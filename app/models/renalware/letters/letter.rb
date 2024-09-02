@@ -90,8 +90,7 @@ module Renalware
         not_applicable: "not_applicable",
         pending: "pending",
         success: "success",
-        failure: "failure",
-        requires_intervention: "requires_intervention"
+        failure: "failure"
       }
 
       def self.policy_class = LetterPolicy

@@ -14,7 +14,7 @@
 
     .flex.gap-1.flex-wrap
       div
-        = f.input :gp_send_status_eq,
+        = f.input :gp_send_status_in,
                   collection: Renalware::Letters::Letter.gp_send_statuses.map{ |k,v| [I18n.t(v, scope: "letters.gp_send_status"), k] },
                   label: "GP Send Status",
                   include_blank: true

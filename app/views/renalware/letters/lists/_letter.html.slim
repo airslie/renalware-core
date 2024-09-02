@@ -18,7 +18,7 @@ tbody
             / Do not show this dialog if the gp_send_status is pending, ie the gp is a recipient and
             / the we are trying to send their copy via over MESH. We disable dialog by removing the
             / printing-pdf class from the link that causes the dialog to show.
-            - klass = letter.gp_send_status.to_sym == :pending ? "" : "printing-pdf"
+            - klass = letter.gp_send_status&.to_sym == :pending ? "" : "printing-pdf"
             = link_to patient_letters_letter_print_path(letter),
                       target: "_blank",
                       class: "#{klass} button secondary compact",
