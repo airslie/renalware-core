@@ -82,7 +82,7 @@ module Renalware
 
           def letter_state_options  = super([:approved])
           def disabled_inputs       = %i(enclosures_present notes_present state_eq)
-          def allow_blank_inputs    = []
+          def allow_blank_inputs    = %i(gp_send_status_eq)
           def enclosures_present    = false
           def notes_present         = false
           def state_eq              = :approved

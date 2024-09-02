@@ -36,10 +36,7 @@ module Renalware
       end
 
       def cc_recipients
-        @cc_recipients ||= begin
-          recipients = build_cc_recipients
-          present_cc_recipients(recipients)
-        end
+        @cc_recipients ||= present_cc_recipients(build_cc_recipients)
       end
 
       def cc_recipients_for_envelop_stuffing
@@ -51,6 +48,7 @@ module Renalware
 
       def electronic_cc_receipts
         @electronic_cc_receipts ||=
+          # TODO: Typo here?
           CollectionPresenter.new(super, Letters::ElectonicReceiptPresenter)
       end
 
