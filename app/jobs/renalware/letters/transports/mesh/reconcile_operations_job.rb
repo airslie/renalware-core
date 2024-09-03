@@ -25,14 +25,24 @@ module Renalware
         # private
 
         def flag_pending_transmissions_as_successful_if_inf_and_bus_operations_were_successful
-          Transmission
+          transmissions = Transmission.includes(:letter)
             .where(id: pending_transmission_ids_with_two_successful_download_operations)
-            .find_each do |transmission|
-              transmission.update!(status: "success")
-              transmission
-                .letter
-                .update_columns(gp_send_status: :success, updated_at: Time.zone.now)
-            end
+
+          transmissions.find_each do |transmission|
+            transmission.update!(status: "success")
+            transmission
+              .letter
+              .update_columns(gp_send_status: :success, updated_at: Time.zone.now)
+
+            complete_letter_if_gp_is_the_only_recipient_so_no_printing_required(transmission.letter)
+          end
+        end
+
+        def complete_letter_if_gp_is_the_only_recipient_so_no_printing_required(letter)
+          recipients = letter.recipients
+          if recipients.size == 1 && recipients.first.person_role == :primary_care_physician
+            Letters::CompleteLetter.build(letter).call(by: letter.approved_by)
+          end
         end
 
         def flag_pending_transmissions_as_failed_if_any_operation_has_error

@@ -59,24 +59,53 @@ module Renalware::Letters::Transports::Mesh
       end
     end
 
-    it "flag pending transmission as success if it has success inf and bus download operations" do
-      transmission = Transmission.create!(letter: letter, status: :pending)
-      transmission.operations.create!(
-        action: "download_message",
-        itk3_response_type: "bus",
-        itk3_operation_outcome_code: "30001"
-      )
-      transmission.operations.create!(
-        action: "download_message",
-        itk3_response_type: "inf",
-        itk3_operation_outcome_code: "20013"
-      )
-      letter.update_column(:gp_send_status, "pending")
+    context "when a pending transmission has success inf and bus download operations" do
+      # rubocop:disable Metrics/MethodLength
+      def create_pending_transmission_with_successful_inf_and_bus_operations
+        Transmission.create!(letter: letter, status: :pending).tap do |transmission|
+          transmission.operations.create!(
+            action: "download_message",
+            itk3_response_type: "bus",
+            itk3_operation_outcome_code: "30001"
+          )
+          transmission.operations.create!(
+            action: "download_message",
+            itk3_response_type: "inf",
+            itk3_operation_outcome_code: "20013"
+          )
+          letter.update_column(:gp_send_status, "pending")
+        end
+      end
+      # rubocop:enable Metrics/MethodLength
 
-      expect {
-        described_class.perform_now
-      }.to change { transmission.reload.status }.from("pending").to("success")
-      .and change { transmission.letter.gp_send_status }.from("pending").to("success")
+      it "flag as transmission and associated letter as successful" do
+        transmission = create_pending_transmission_with_successful_inf_and_bus_operations
+
+        expect {
+          described_class.perform_now
+        }.to change { transmission.reload.status }.from("pending").to("success")
+        .and change { transmission.letter.gp_send_status }.from("pending").to("success")
+      end
+
+      context "when GP was the only recipient (ie no patient or contact recipients)" do
+        it "'Completes' the letter using the approve_by user" do
+          create_pending_transmission_with_successful_inf_and_bus_operations
+          letter.update!(approved_by: user)
+          expect(letter.recipients.count).to eq(1)
+          expect(letter.recipients.first.person_role).to eq(:primary_care_physician)
+          expect(letter.completed_at).to be_nil
+
+          freeze_time do
+            described_class.perform_now
+
+            completed_letter = Renalware::Letters::Letter::Completed.find(letter.id)
+            expect(completed_letter).to have_attributes(
+              completed_at: Time.zone.now,
+              completed_by: user
+            )
+          end
+        end
+      end
     end
 
     describe "no MESH response after configured period elapsed" do
