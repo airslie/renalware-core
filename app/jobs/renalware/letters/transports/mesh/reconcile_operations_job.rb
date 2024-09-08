@@ -84,12 +84,17 @@ module Renalware
 
         # rubocop:disable Metrics/LineLength
         def flag_pending_transmissions_as_failed_if_no_bus_and_inf_response_yet
+          # timeout_duration = Renalware.config.mesh_timeout_transmissions_with_no_response_after
           # Transmission
           #   .status_pending
           #   .joins("inner join mesh_transmission_operations send_op on send_op.transmission_id = mesh_transmissions.id and send_op.action = 'send_operation'")
           #   .joins("left outer join mesh_transmission_operations download_op on download_op.transmission_id = mesh_transmissions.id and download_op.")
           #   .where("action in ('send_message', 'download_message') and " \
           #          "(http_error = true OR mesh_error = true OR itk3_error = true)")
+          # Transmission
+          #   .status_pending
+          #   .joins(:operations)
+          # ..
         end
         # rubocop:enable Metrics/LineLength
       end

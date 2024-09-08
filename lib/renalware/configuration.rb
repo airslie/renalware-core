@@ -130,7 +130,12 @@ module Renalware
     config_accessor(:send_gp_letters_over_mesh) do
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("SEND_GP_LETTERS_OVER_MESH", "false"))
     end
-
+    config_accessor(:mesh_timeout_transmissions_with_no_response_after) do
+      # Duration#parse uses the ISO8601 duration format
+      ActiveSupport::Duration.parse(
+        ENV.fetch("MESH_TIMEOUT_TRANSMISSIONS_WITH_NO_RESPONSE_AFTER", "PT24H")
+      )
+    end
     config_accessor(:mesh_delay_minutes_between_letter_approval_and_mesh_send) do
       ActiveModel::Type::Integer.new.cast(
         ENV.fetch("MESH_DELAY_MINUTES_BETWEEN_LETTER_APPROVAL_AND_MESH_SEND", "0")
