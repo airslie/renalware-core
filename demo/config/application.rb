@@ -32,7 +32,7 @@ module Demo
     config.active_support.escape_html_entities_in_json = false
 
     initializer :add_locales do
-      config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*.{rb,yml}")]
+      config.i18n.load_path += Rails.root.glob("config/locales/**/*.{rb,yml}")
     end
 
     console do
