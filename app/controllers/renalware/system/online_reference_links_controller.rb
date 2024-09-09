@@ -63,7 +63,7 @@ module Renalware
       def online_reference_params
         params
           .require(:system_online_reference_link)
-          .permit(:description, :title, :url)
+          .permit(:description, :title, :url, :include_in_letters_from, :include_in_letters_until)
       end
     end
   end
