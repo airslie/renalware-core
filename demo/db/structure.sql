@@ -8398,6 +8398,16 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT patients.id AS patient_id
+   FROM renalware.patients
+  WHERE ((patients.family_name)::text ~~ 'R%'::text);
+
+
+--
 -- Name: letter_qr_encoded_online_reference_links; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -13568,7 +13578,9 @@ CREATE TABLE renalware.system_online_reference_links (
     created_by_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    include_in_letters_from date,
+    include_in_letters_until date
 );
 
 
@@ -13591,6 +13603,20 @@ COMMENT ON COLUMN renalware.system_online_reference_links.url IS 'A URL linking 
 --
 
 COMMENT ON COLUMN renalware.system_online_reference_links.description IS 'Text displayed alongside the link or QR code';
+
+
+--
+-- Name: COLUMN system_online_reference_links.include_in_letters_from; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_online_reference_links.include_in_letters_from IS 'If set, the QR code will be included in any new letters created on orafter this date - ie its the start of the window of auto-inclusion';
+
+
+--
+-- Name: COLUMN system_online_reference_links.include_in_letters_until; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.system_online_reference_links.include_in_letters_until IS 'If ''include_in_letters_from'' is set, letters created after this date will no longer have the QR code automatically inserted - ie its the end of the window of auto-inclusion';
 
 
 --
@@ -29206,6 +29232,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240909111139'),
 ('20240819095023'),
 ('20240807111645'),
 ('20240716103158'),
