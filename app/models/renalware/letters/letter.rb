@@ -68,6 +68,7 @@ module Renalware
       scope :ordered, -> { order(Arel.sql(effective_date_sort) => :desc) }
       scope :with_letterhead, -> { includes(:letterhead) }
       scope :with_main_recipient, -> { includes(main_recipient: [:address, :addressee]) }
+      scope :with_deleted_by, -> { includes(:deleted_by) }
       scope :with_author, -> { includes(:author) }
       scope :with_patient, -> { includes(patient: :primary_care_physician) }
       scope :with_event, -> { includes(:event) }

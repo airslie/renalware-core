@@ -55,6 +55,7 @@ module Renalware
           .call
           .with_patient
           .with_main_recipient
+          .with_deleted_by
           .with_letterhead
           .with_author
           .with_created_by
