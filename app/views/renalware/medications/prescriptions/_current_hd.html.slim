@@ -4,10 +4,10 @@
   ul
       - prescriptions.each do |prescription|
         - if recently_changed.include?(prescription)
-            li= render "renalware/medications/prescriptions/prescription",
-                    prescription: prescription,
-                    date_changed: prescription.prescribed_on,
-                    recently_changed: true
+            = render "renalware/medications/prescriptions/prescription",
+                     prescription: prescription,
+                     date_changed: prescription.prescribed_on,
+                     recently_changed: true
         - else
-            li= render "renalware/medications/prescriptions/prescription",
-                    prescription: prescription
+            = render "renalware/medications/prescriptions/prescription",
+                     prescription: prescription
