@@ -9,7 +9,7 @@ module Renalware
         delegate :patient, to: :arguments
         delegate :current_address, to: :patient, allow_nil: true
 
-        SEND_HOSPITAL_NUMBER_IDENTIFIERS = false
+        SEND_HOSPITAL_NUMBER_IDENTIFIERS = false # not sent in GP Connect
 
         def call
           {

@@ -87,7 +87,9 @@ module Renalware::Letters::Transports::Mesh
         response = VCR.use_cassette(cassette("send_message/naive")) do
           described_class.send_message(
             '<Bundle xmlns="http://hl7.org/fhir"></Bundle>',
-            operation_uuid: "localID"
+            operation_uuid: "localID",
+            to: "abc",
+            subject: "xyz"
           )
         end
 

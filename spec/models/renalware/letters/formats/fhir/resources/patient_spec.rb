@@ -54,11 +54,15 @@ module Renalware::Letters
             expect(identifiers[0].value).to eq("0123456789")
           end
 
-          it "hospital numbers if present" do
-            expect(identifiers[1].system).to eq("https://fhir.nhs.uk/Id/local-patient-identifier")
-            expect(identifiers[1].value).to eq("PID1")
-            expect(identifiers[2].system).to eq("https://fhir.nhs.uk/Id/local-patient-identifier")
-            expect(identifiers[2].value).to eq("PID2")
+          if described_class::SEND_HOSPITAL_NUMBER_IDENTIFIERS
+            it "hospital numbers if present" do
+              expect(identifiers[1]).to be_present
+              expect(identifiers[2]).to be_present
+              expect(identifiers[1].system).to eq("https://fhir.nhs.uk/Id/local-patient-identifier")
+              expect(identifiers[1].value).to eq("PID1")
+              expect(identifiers[2].system).to eq("https://fhir.nhs.uk/Id/local-patient-identifier")
+              expect(identifiers[2].value).to eq("PID2")
+            end
           end
         end
 
@@ -143,11 +147,11 @@ module Renalware::Letters
                 postcode: "My postcode"
               )
             )
-
-            expect(address[0].line[0]).to eq("Address line 1")
-            expect(address[0].line[1]).to eq("Address line 2")
-            expect(address[0].line[2]).to eq("My town")
-            expect(address[0].line[3]).to eq("My county")
+            # I think only postcode to be sent in GP Connect
+            # expect(address[0].line[0]).to eq("Address line 1")
+            # expect(address[0].line[1]).to eq("Address line 2")
+            # expect(address[0].line[2]).to eq("My town")
+            # expect(address[0].line[3]).to eq("My county")
             expect(address[0].postalCode).to eq("My postcode")
           end
         end

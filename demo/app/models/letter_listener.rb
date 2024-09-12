@@ -60,9 +60,10 @@ class LetterListener
   ###########################
 
   # Inside a txn
-  def before_letter_deleted(letter)
+  def before_letter_deleted(_letter)
     if Renalware.config.send_gp_letters_over_mesh
-      mesh::Transmission.cancel_pending(letter: letter)
+      Rails.logger.warn("not implemented yet: Transmission.cancel_pending(letter: letter)")
+      # mesh::Transmission.cancel_pending(letter: letter)
     end
   end
 

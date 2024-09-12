@@ -8,6 +8,7 @@ module MeshSpecHelper
       to: to,
       patient: patient,
       author: user,
+      approved_by: user,
       by: user
     ).reload.tap do |letter|
       letter.archive = create(
@@ -42,6 +43,7 @@ module MeshSpecHelper
       to: to,
       patient: patient,
       author: user,
+      approved_by: user,
       by: user
     ).reload.tap do |letter|
       letter.archive = create(:letter_archive, letter: letter, by: user)
