@@ -47,14 +47,6 @@ gem "httparty", require: false
 
 gem "rake"
 
-# For sentry error reporting and metrics - load stackprof first
-# rubocop:disable Bundler/OrderedGems
-gem "stackprof"
-gem "sentry-opentelemetry"
-gem "sentry-ruby"
-gem "sentry-rails"
-# rubocop:enable Bundler/OrderedGems
-
 gem "strong_migrations"
 
 gem "fhir_stu3_models", github: "airslie/fhir_stu3_models"
@@ -108,6 +100,14 @@ group :development do
   # gem 'sql_tracker'
   gem "solargraph"
   gem "web-console"
+
+  # For sentry error reporting and metrics - load stackprof first
+  # rubocop:disable Bundler/OrderedGems
+  gem "stackprof"
+  gem "sentry-opentelemetry"
+  gem "sentry-ruby"
+  gem "sentry-rails"
+  # rubocop:enable Bundler/OrderedGems
 end
 
 group :development, :test do

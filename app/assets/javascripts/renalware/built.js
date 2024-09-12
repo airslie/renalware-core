@@ -10379,7 +10379,6 @@ class PathologySparklinesController extends Controller {
 
   /*
   window.Highcharts.SparkLine = function (a, b, c) {
-  console.log("defining1");
   var hasRenderToArg = typeof a === 'string' || a.nodeName,
       options = arguments[hasRenderToArg ? 1 : 0],
       defaultOptions = {
@@ -13310,7 +13309,6 @@ class SelectResetController extends Controller {
     const selectInputs = Array.prototype.slice.call(
       this.element.querySelectorAll("select")
     );
-    console.log(selectInputs);
     selectInputs.forEach(function(a){
       a.value = that.matchValue;
     });
@@ -13331,7 +13329,6 @@ class ConditionalDisplayController extends Controller {
   'test' attribute.
   */
   showhide(event) {
-    console.log("H");
     event.preventDefault();
     if (event.target.tagName.toUpperCase() == "SELECT") {
       let selectedOption = event.target.options[event.target.selectedIndex];
@@ -23000,7 +22997,7 @@ class Popover extends Controller {
 
 class LettersBatchCompileController extends Controller {
   submit(e) {
-    console.log("sub");
+    // console.log("sub")
   }
 }
 
