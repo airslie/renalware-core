@@ -33,7 +33,7 @@ module Renalware
     end
 
     it "sets gp send status to pending if there is a gp recipient" do
-      expect(letter.gp_send_status).to be_nil
+      expect(letter.gp_send_status).to eq("not_applicable")
       service.call(by: user)
       expect(letter.becomes(Renalware::Letters::Letter).reload.gp_send_status).to eq("pending")
     end
@@ -41,7 +41,7 @@ module Renalware
     it "sets gp send status to not_applicable if the gp is not among the recipients" do
       # Remove the patients GP so they are not automatically added as a CC
       # in DetermineCounterpartCCs.
-      expect(letter.gp_send_status).to be_nil
+      expect(letter.gp_send_status).to eq("not_applicable")
       patient.primary_care_physician = patient.practice = nil
       patient.save_by!(user)
 

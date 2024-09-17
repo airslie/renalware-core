@@ -114,7 +114,7 @@ module Renalware::Letters
 
       describe "mex_to" do
         it "concatenates nhs dob surname join with _" do
-          expect(arguments.mex_to).to eq("0123456789_31011970_Jones")
+          expect(arguments.mex_to).to eq("GPPROVIDER_0123456789_19700131_Jones")
         end
       end
 

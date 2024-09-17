@@ -13,9 +13,12 @@ module Renalware
           letter = Letter::Approved.new(gp_send_status: :success)
           patient = build(:letter_recipient, person_role: :patient)
           gp = build(:letter_recipient, person_role: :primary_care_physician)
-          letter.recipients = [gp, patient]
+          letter.main_recipient = patient
+          letter.cc_recipients = [gp]
 
-          expect(described_class.printable_recipients_for(letter)).to eq([patient])
+          expect(
+            described_class.printable_recipients_for(letter).map(&:person_role)
+          ).to eq([:patient])
         end
 
         Renalware::Letters::Letter.gp_send_statuses.keys
@@ -24,11 +27,14 @@ module Renalware
           .each do |status|
           it "includes the gp when gp_send_status = #{status}" do
             letter = Letter::Approved.new(gp_send_status: status)
-            patient = build(:letter_recipient, person_role: :patient)
-            gp = build(:letter_recipient, person_role: :primary_care_physician)
-            letter.recipients = [gp, patient]
+            patient = build(:letter_recipient, person_role: :patient, letter: letter)
+            gp = build(:letter_recipient, person_role: :primary_care_physician, letter: letter)
+            letter.main_recipient = patient
+            letter.cc_recipients = [gp]
 
-            expect(described_class.printable_recipients_for(letter)).to eq([gp, patient])
+            expect(
+              described_class.printable_recipients_for(letter).map(&:person_role)
+            ).to eq([:patient, :primary_care_physician])
           end
         end
       end

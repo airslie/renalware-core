@@ -150,7 +150,7 @@ module Renalware
     config_accessor(:mesh_api_secret) { ENV.fetch("MESH_API_SECRET", "?") }
     config_accessor(:mesh_use_endpoint_lookup) {
       ActiveModel::Type::Boolean.new.cast(
-        ENV.fetch("MESH_USE_ENDPOINT_LOOKUP", "true")
+        ENV.fetch("MESH_USE_ENDPOINT_LOOKUP", "false")
       )
     }
     config_accessor(:mesh_recipient_mailbox_id) {

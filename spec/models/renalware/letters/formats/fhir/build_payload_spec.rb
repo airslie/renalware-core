@@ -33,9 +33,9 @@ module Renalware::Letters
         patient = create_patient
         letter = create_mesh_letter(patient, user)
         transmission = Transports::Mesh::Transmission.create!(letter: letter)
-        Arguments.new(transmission: transmission, transaction_uuid: "123")
+        args = Arguments.new(transmission: transmission, transaction_uuid: "123")
 
-        xml_string = described_class.call(transmission: transmission, transaction_uuid: "123")
+        xml_string = described_class.call(args)
 
         expect(xml_string).to be_a(String)
         Nokogiri::XML(xml_string)
