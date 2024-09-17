@@ -18,7 +18,6 @@ export default class extends Controller {
     const selectInputs = Array.prototype.slice.call(
       this.element.querySelectorAll("select")
     )
-    console.log(selectInputs)
     selectInputs.forEach(function(a){
       a.value = that.matchValue
     })

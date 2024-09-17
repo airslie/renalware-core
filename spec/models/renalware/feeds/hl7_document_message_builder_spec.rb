@@ -85,12 +85,10 @@ module Renalware
             before { Renalware.config.letters_render_pdfs_with_prawn = true }
 
             it do
-              pending "Fix with prawn changes"
-
               stub_const("Renalware::VERSION", "9.9.9")
 
               travel_to Time.zone.parse("20211117152417") do
-                # As we are relying on JIT wicked pdf rednering, stub out renderer to return a
+                # As we are relying on JIT wicked pdf rendering, stub out renderer to return a
                 # known value - normally its '%PDF..' etc but we will return 'A' because we know it
                 # is 'QQ==' in base64
                 # renderer = Letters::Rendering::PdfRenderer.new(nil)

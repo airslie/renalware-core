@@ -5,9 +5,9 @@
       - prescriptions.each do |prescription|
         - if recently_changed.include?(prescription)
             = render "renalware/medications/prescriptions/prescription",
-                    prescription: prescription,
-                    date_changed: prescription.prescribed_on,
-                    recently_changed: true
+                     prescription: prescription,
+                     date_changed: prescription.prescribed_on,
+                     recently_changed: true
         - else
             = render "renalware/medications/prescriptions/prescription",
-                    prescription: prescription
+                     prescription: prescription

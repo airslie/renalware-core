@@ -15,9 +15,13 @@ tbody
             / See letters.js where it binds to .printing-pdf.
             / See also completed letters controller and the comments in
             / ./show.js.erb and and ./show.html.slim
+            / Do not show this dialog if the gp_send_status is pending, ie the gp is a recipient and
+            / the we are trying to send their copy via over MESH. We disable dialog by removing the
+            / printing-pdf class from the link that causes the dialog to show.
+            - klass = letter.gp_send_status&.to_sym == :pending ? "" : "printing-pdf"
             = link_to patient_letters_letter_print_path(letter),
                       target: "_blank",
-                      class: "printing-pdf button secondary compact",
+                      class: "#{klass} button secondary compact",
                       data: { \
                         "modal-url" => new_patient_letters_letter_completed_path(letter.patient, letter) \
                       } do
@@ -27,7 +31,7 @@ tbody
               | &nbsp;
               = link_to patient_letters_letter_printable_path(letter.patient, letter),
                         target: "_blank",
-                        class: "printing-pdf button secondary compact",
+                        class: "#{klass} button secondary compact",
                         data: { \
                           "modal-url" => new_patient_letters_letter_completed_path(letter.patient, letter) \
                         } do
@@ -42,6 +46,9 @@ tbody
     td.col-width-medium-with-ellipsis= letter.type
     td.state
       span= letter.state_description
+    - if Renalware.config.send_gp_letters_over_mesh
+      td
+        span= t(letter.gp_send_status, scope: "letters.gp_send_status")
     td.full-name= default_patient_link(letter.patient)
     td= letter.patient.nhs_number
     td= l(letter.effective_date)

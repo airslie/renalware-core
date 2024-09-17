@@ -25,23 +25,30 @@ module Renalware
 
         class AllLetters
           include ActiveModel::Model
-          include Virtus::Model
+          include ActiveModel::Attributes
 
-          attribute :s, String # sort order, not really part of the form
-          attribute :enclosures_present, Boolean
-          attribute :notes_present, Boolean
-          attribute :state_eq, Integer
-          attribute :author_id_eq, Integer
-          attribute :created_by_id_eq, Integer
-          attribute :letterhead_id_eq, Integer
-          attribute :page_count_in_array, Integer
-          attribute :clinic_visit_clinic_id_eq, Integer
+          attribute :s, :string # sort order, not really part of the form
+          attribute :enclosures_present, :boolean
+          attribute :notes_present, :boolean
+          attribute :state_eq, :integer
+          attribute :gp_send_status_in, array: true, default: -> { [] }
+          attribute :author_id_eq, :integer
+          attribute :created_by_id_eq, :integer
+          attribute :letterhead_id_eq, :integer
+          attribute :page_count_in_array, :string
+          attribute :clinic_visit_clinic_id_eq, :integer
 
           def letter_state_options(states = Letters::Letter.states)
             states.map do |state|
               label = I18n.t(state.to_sym, scope: "enums.letter.for_receptionists.state")
               [label, state]
             end
+          end
+
+          def gp_send_status_options
+            @gp_send_status_options ||= Letter
+              .gp_send_statuses
+              .map { |key, val| [I18n.t(val, scope: "letters.gp_send_status"), key] }
           end
 
           def author_options
@@ -67,11 +74,29 @@ module Renalware
           end
 
           def disabled_inputs = []
-          def allow_blank_inputs = [:state_eq, :page_count_in_array]
+          def allow_blank_inputs = %i(state_eq gp_send_status_in page_count_in_array)
           def include_deleted = false
         end
 
         class BatchPrintableLetters < AllLetters
+          # Because default option in the Rails attributes API does not honour the default
+          # defined by a subclass (ie having the below declaration in AllLetters will not
+          # resolve pre_selected_gp_send_status_options on this base class, but instead use the
+          # class method on All Letters only..) we re-define the attribute here with a custom
+          # default, which will always force gp_send_status_in to be an array of statuses that
+          # excludes 'pending'
+          attribute :gp_send_status_in,
+                    array: true,
+                    default: -> { pre_selected_gp_send_status_options }
+
+          # For Batch printing, hide letters where gp send_status is pending
+          def self.pre_selected_gp_send_status_options
+            return [] unless Renalware.config.send_gp_letters_over_mesh
+
+            Letter.gp_send_statuses.fetch("pending") # Fail if 'pending' enum value goes missing ;)
+            Letter.gp_send_statuses.reject { |key| key == "pending" }.keys
+          end
+
           def initialize(params)
             super
             # These are the default values that must match the filters when the page is first
@@ -79,12 +104,12 @@ module Renalware
             self.page_count_in_array ||= "[1,2]"
           end
 
-          def letter_state_options  = super([:approved])
-          def disabled_inputs       = [:enclosures_present, :notes_present, :state_eq]
-          def allow_blank_inputs    = []
-          def enclosures_present    = false
-          def notes_present         = false
-          def state_eq              = :approved
+          def letter_state_options = super([:approved])
+          def disabled_inputs    = %i(enclosures_present notes_present state_eq gp_send_status_in)
+          def allow_blank_inputs = %i(gp_send_status_in)
+          def enclosures_present = false
+          def notes_present      = false
+          def state_eq           = :approved
         end
 
         class DeletedLetters < AllLetters

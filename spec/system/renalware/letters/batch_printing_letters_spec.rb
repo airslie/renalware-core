@@ -23,8 +23,6 @@ describe "Batch printing letters", js: true do
 
       slim_select letter1.author.to_s, from: "Author"
 
-      click_on t("btn.filter")
-
       within ".letters-table" do
         expect(page).to have_content(letter1.author.to_s)
         expect(page).to have_no_content(letter2.author.to_s)

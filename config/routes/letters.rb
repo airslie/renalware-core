@@ -62,5 +62,29 @@ namespace :letters do
       get :sent
     end
   end
+
+  # Mesh etc
+  namespace :transports do
+    namespace :mesh do
+      resources :testcase_invocations
+      get "help", to: "help#show"
+      resource :settings
+      resources :transmissions
+      resources :letters, only: :index
+
+      resources :inbox_messages
+      resources :jobs, only: :index
+
+      resources :operations do
+        collection do
+          get :check_inbox
+          get :handshake
+        end
+        member do
+          get :preview_reconstituted_letter
+        end
+      end
+    end
+  end
 end
 get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"

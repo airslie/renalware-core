@@ -47,17 +47,11 @@ gem "httparty", require: false
 
 gem "rake"
 
-# For sentry error reporting and metrics - load stackprof first
-# rubocop:disable Bundler/OrderedGems
-gem "stackprof"
-gem "sentry-opentelemetry"
-gem "sentry-ruby"
-gem "sentry-rails"
-# rubocop:enable Bundler/OrderedGems
-
 gem "strong_migrations"
 
+gem "fhir_stu3_models", github: "airslie/fhir_stu3_models"
 gem "good_job", "~> 4.0"
+
 gem "matrix"
 
 group :test do
@@ -77,6 +71,7 @@ group :test do
   gem "shoulda-matchers", "~> 6.1"
   gem "simplecov", "~> 0.17", require: false # only loaded if required
   gem "test-prof"
+  gem "vcr", require: false
   gem "webmock", "~> 3.7", require: false
   gem "wisper-rspec", "~> 1.1.0"
 end
@@ -105,6 +100,14 @@ group :development do
   # gem 'sql_tracker'
   gem "solargraph"
   gem "web-console"
+
+  # For sentry error reporting and metrics - load stackprof first
+  # rubocop:disable Bundler/OrderedGems
+  gem "stackprof"
+  gem "sentry-opentelemetry"
+  gem "sentry-ruby"
+  gem "sentry-rails"
+  # rubocop:enable Bundler/OrderedGems
 end
 
 group :development, :test do

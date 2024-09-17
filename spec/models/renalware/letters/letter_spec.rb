@@ -122,6 +122,30 @@ module Renalware
           end
         end
       end
+
+      describe "#gp_is_a_recipient?" do
+        context "when gp is among the recipients" do
+          it "returns true" do
+            letter = described_class.new
+            recipient = Letters::Recipient.new
+            allow(recipient).to receive(:primary_care_physician?).and_return(true)
+            allow(letter).to receive(:recipients).and_return([recipient])
+
+            expect(letter.gp_is_a_recipient?).to be(true)
+          end
+        end
+
+        context "when gp is not among the recipients" do
+          it "returns false" do
+            letter = described_class.new
+            recipient = Letters::Recipient.new
+            allow(recipient).to receive(:primary_care_physician?).and_return(false)
+            allow(letter).to receive(:recipients).and_return([recipient])
+
+            expect(letter.gp_is_a_recipient?).to be(false)
+          end
+        end
+      end
     end
   end
 end

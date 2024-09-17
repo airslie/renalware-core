@@ -7,6 +7,16 @@ GIT
       activesupport (>= 5.0)
 
 GIT
+  remote: https://github.com/airslie/fhir_stu3_models.git
+  revision: 2c7f65f39b3fbed0cdff62736d75a61f6507792f
+  specs:
+    fhir_stu3_models (3.1.1)
+      bcp47 (>= 0.3)
+      date_time_precision (>= 0.8)
+      mime-types (>= 3.0)
+      nokogiri (>= 1.11.4)
+
+GIT
   remote: https://github.com/airslie/nhs_api_client.git
   revision: ee830d9681f02a5123898b0c02c7645f440d6306
   specs:
@@ -81,6 +91,7 @@ PATH
       enumerize (~> 2.5)
       faraday
       faraday-retry
+      fhir_models
       font-awesome-sass (~> 5.6)
       friendly_id (~> 5.3)
       fugit (>= 1.1)
@@ -256,6 +267,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     backport (1.2.0)
     base64 (0.2.0)
+    bcp47 (0.3.3)
+      i18n
     bcrypt (3.1.20)
     bcrypt_pbkdf (1.1.1)
     bcrypt_pbkdf (1.1.1-arm64-darwin)
@@ -351,6 +364,7 @@ GEM
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
     date (3.3.4)
+    date_time_precision (0.8.1)
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
@@ -407,6 +421,11 @@ GEM
       faraday (~> 2.0)
     ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
+    fhir_models (4.2.2)
+      bcp47 (>= 0.3)
+      date_time_precision (>= 0.8)
+      mime-types (>= 3.0)
+      nokogiri (>= 1.11.4)
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
     foreman (0.88.1)
@@ -521,6 +540,9 @@ GEM
     marcel (1.0.4)
     matrix (0.4.2)
     method_source (1.1.0)
+    mime-types (3.5.2)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2024.0507)
     mini_mime (1.1.5)
     minitest (5.25.1)
     msgpack (1.7.2)
@@ -921,6 +943,7 @@ GEM
     validates_timeliness (7.0.0.beta2)
       activemodel (>= 7.0.0, < 8)
       timeliness (>= 0.3.10, < 1)
+    vcr (6.2.0)
     view_component (3.14.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
@@ -985,6 +1008,7 @@ DEPENDENCIES
   execjs
   factory_bot_rails (~> 6.2)
   faker
+  fhir_stu3_models!
   foreman
   fuubar
   good_job (~> 4.0)
@@ -1037,6 +1061,7 @@ DEPENDENCIES
   terser
   test-prof
   turnip!
+  vcr
   web-console
   webmock (~> 3.7)
   wisper-rspec (~> 1.1.0)

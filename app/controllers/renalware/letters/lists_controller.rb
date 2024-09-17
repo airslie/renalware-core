@@ -4,7 +4,7 @@ module Renalware
   module Letters
     class ListsController < Letters::BaseController
       include Renalware::Concerns::Pageable
-      layout "renalware/layouts/simple"
+      layout -> { turbo_frame_request? ? "turbo_rails/frame" : "renalware/layouts/simple" }
 
       # TODO: Use a presenter here
       def show
@@ -76,7 +76,8 @@ module Renalware
             :letterhead_id_eq,
             :page_count_in_array,
             :clinic_visit_clinic_id_eq,
-            :s
+            :s,
+            gp_send_status_in: []
           )
       end
     end

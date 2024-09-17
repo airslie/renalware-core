@@ -23,6 +23,26 @@ module Renalware
         it { is_expected.to eq "TEST abc" }
       end
 
+      describe "#to_s" do
+        it "returns a string as close as possible to NHS guidelines" do
+          drug = instance_double(Drugs::Drug, name: "Drug X", to_s: "Drug X")
+          unit_of_measure = instance_double(Drugs::UnitOfMeasure, name: "mg")
+          prescription = instance_double(
+            Prescription,
+            drug: drug,
+            dose_amount: "10",
+            unit_of_measure: unit_of_measure,
+            medication_route: instance_double(MedicationRoute, name: "PO", other?: false),
+            frequency: "nocte",
+            frequency_comment: "abc",
+            drug_name: "Drug X"
+          )
+          presenter = described_class.new(prescription)
+
+          expect(presenter.to_s).to eq("Drug X - DOSE 10 mg - PO - nocte abc")
+        end
+      end
+
       describe "#last_given_or_due_date_with_indicator" do
         context "when hd and stat and not yet given" do
           it "displays date with suffix (D) meaning due" do
