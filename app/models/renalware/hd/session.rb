@@ -54,9 +54,6 @@ module Renalware
       validates :signed_on_by, presence: true
       validates :started_at, presence: true, timeliness: { type: :datetime }
       validates :stopped_at, timeliness: { type: :datetime, allow_blank: true }
-      validates :patient_group_directions,
-                presence: true,
-                if: -> { Renalware.config.hd_session_require_patient_group_directions }
 
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
 
