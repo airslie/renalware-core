@@ -28,7 +28,7 @@ module Renalware
       belongs_to :dialysate
       belongs_to :signed_on_by, class_name: "User"
       belongs_to :signed_off_by, class_name: "User"
-      has_many :session_patient_group_directions, dependent: :destroy
+      has_many :session_patient_group_directions, dependent: :destroy, inverse_of: :session
       has_many :patient_group_directions,
                through: :session_patient_group_directions,
                class_name: "Drugs::PatientGroupDirection"
