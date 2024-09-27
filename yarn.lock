@@ -1707,10 +1707,10 @@ signal-exit@^4.0.1:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-4.1.0.tgz#952188c1cbd546070e2dd20d0f41c0ae0530cb04"
   integrity sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==
 
-slim-select@^2.4.2:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-2.9.0.tgz#79e8ac9bb23b0727c1e78f363e3d62ab6bbfe525"
-  integrity sha512-AwAm4kliM1utztdXfKyiidgnQanAKQVJ1+61rJYHwDfzu3LAn/spFKb+xBiSqr3E/dlZu0MrBxflBL2sN5q2xA==
+slim-select@2.8.2:
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-2.8.2.tgz#6f315e34a22787308d785966b49d0366da591f8b"
+  integrity sha512-f4urDhh1aYVK2JCg1UMPKj+LaP3S8xO2LAt06svMQq4aLZyYWB9D6vmgqAoMJuXBOl+F0tVuo/zG2lerRxy3aA==
 
 sortablejs@^1.13.0:
   version "1.15.3"
