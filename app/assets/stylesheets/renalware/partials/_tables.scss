@@ -39,7 +39,7 @@ td.actions {
 
   /* If the action link is just an icon, make it quite subtle so it does not draw attention */
   > a.icon-only {
-    color: $link-hover-colour;
+    color: var(--link-focus-colour);
 
     &:hover {
       color: $link-colour;
@@ -126,7 +126,7 @@ table {
     //border-top: solid 1px $letter-preview-background-colour;
 
     a {
-      color: $muted-dark-grey;
+      color: var(--muted-dark-grey);
       text-decoration: underline;
     }
 
@@ -215,7 +215,7 @@ table {
   tr td {
     border-bottom: 1px solid $table-border-colour;
     border-left-width: 0;
-    border-right: solid 1px $white;
+    border-right: solid 1px var(--white);
     font-size: 1rem;
 
     &:last-child {
