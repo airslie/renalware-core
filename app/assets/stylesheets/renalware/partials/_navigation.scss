@@ -281,7 +281,7 @@ dd.patient-name {
   border: solid transparent;
   border-radius: 3px 3px 0 0;
   border-width: 3px 1px 1px;
-  color: $monsoon;
+  color: var(--muted-dark-grey);
   display: block;
   padding: 0.3rem 1.3rem;
   text-decoration: none;

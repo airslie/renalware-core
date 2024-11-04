@@ -1,12 +1,10 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
-
 @import "components/forms.css";
 @import "components/buttons.css";
 @import "components/text.css";
 @import "components/pagination.css";
 @import "components/popovers.css";
-/* @import "components/test.css"; */
 
 @import "tailwindcss/utilities";
 
@@ -27,7 +25,6 @@ textarea,
 select {
   line-height: 1.4rem ;
 }
-
 
 [type="search"],
 [type="input"] {
