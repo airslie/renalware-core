@@ -82,7 +82,7 @@ module Renalware
         end
         # rubocop:enable Metrics/MethodLength
 
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         def flag_pending_transmissions_as_failed_if_no_bus_and_inf_response_yet
           # timeout_duration = Renalware.config.mesh_timeout_transmissions_with_no_response_after
           # Transmission
@@ -96,7 +96,7 @@ module Renalware
           #   .joins(:operations)
           # ..
         end
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
     end
   end
