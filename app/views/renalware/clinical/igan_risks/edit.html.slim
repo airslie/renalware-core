@@ -13,12 +13,11 @@
       ' 'At how many months after renal biopsy would you like to determine
       ' risk of renal progression?'
 
-    = link_to(Renalware.config.igan_prediction_tool_url,
-              target: "_blank",
-              rel: "noopener",
-              class: "btn btn-tertiary") do
-      = inline_icon(:external, class: "inline")
-      = "Launch the #{Renalware.config.igan_prediction_tool_title}"
+    = external_link_to("Launch the #{Renalware.config.igan_prediction_tool_title}",
+                       Renalware.config.igan_prediction_tool_url,
+                       target: "_blank",
+                       rel: "noopener",
+                       class: "btn btn-tertiary")
 
     .mt-10
     = f.input :risk,

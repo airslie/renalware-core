@@ -19,10 +19,8 @@ tbody(id="event_#{event.id}")
         - if policy(event).destroy?
             = link_to(destroy_proc&.call(event) || patient_event_path(event.patient, event),
                       method: :delete,
-                      data: { confirm: "Are you sure you want delete this event?\n" },
-                      class: "ml-2") do
-              = inline_icon(:trash, size: :md)
-                /i.far.fa-trash-alt
+                      data: { confirm: "Are you sure you want delete this event?\n" }) do
+              = inline_icon(:trash, size: :md, class: "inline-block")
 
     td.nowrap= l event.created_at.to_date
     - unless local_assigns[:exclude_type_column] == true
