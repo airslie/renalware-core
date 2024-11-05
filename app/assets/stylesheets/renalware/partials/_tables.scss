@@ -30,6 +30,13 @@ table.column_hover .hover { // for js column hovering via stimulus controller
   }
 }
 
+td.actions2 {
+  *:not(:first-child) {
+    padding-left: .3rem;
+    margin-left: .3rem;
+    border-left: 1px solid #eee
+  }
+}
 /*
   Add a pipe between action links (Edit, Delete etc) in tables
 */
@@ -46,6 +53,7 @@ td.actions {
     }
   }
 
+  .flex a,
   > a,
   > span {
     &:after {

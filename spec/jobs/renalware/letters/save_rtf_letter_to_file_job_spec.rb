@@ -28,7 +28,9 @@ describe Renalware::Letters::SaveRTFLetterToFileJob do
       allow_any_instance_of(Renalware::Letters::LetterPresenter)
         .to receive(:to_html).and_return("test")
 
+      sleep 1 # attempt to reduce occurrences of Broken Pipe errors
       job.perform(letter: letter, file_path: file_path)
+      sleep 1 # attempt to reduce occurrences of Broken Pipe errors
 
       expect(File.exist?(file_path)).to be(true)
     end

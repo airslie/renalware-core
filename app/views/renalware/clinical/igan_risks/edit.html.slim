@@ -4,8 +4,7 @@
                     method: :put,
                     url: patient_clinical_igan_risk_path(igan_risk.patient, igan_risk) do |f|
 
-    .rounded-md.bg-blue-50.px-3.py-2.flex.items-start.shadow.mb-8
-      i.fas.fa-info-circle.mr-2.mt-1.text-blue-500
+    = help_panel do
       | Please launch the external website tool to calculate the IgAN risk,
       | and then enter it below.
       br
