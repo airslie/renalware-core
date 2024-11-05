@@ -288,6 +288,10 @@ article.clinical-allergies {
         .actions {
           padding-left: 0.6rem;
           padding-right: 0.1rem;
+
+          a {
+            color: var(--white);
+          }
         }
       }
     }
