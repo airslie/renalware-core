@@ -63,7 +63,7 @@ GIT
 PATH
   remote: .
   specs:
-    renalware-core (2.4.5)
+    renalware-core (2.4.5.1)
       activerecord-import (~> 1.0)
       activerecord-postgres_enum (~> 2.0)
       acts_as_list (~> 1.1)
@@ -1083,3 +1083,6 @@ DEPENDENCIES
 
 RUBY VERSION
    ruby 3.3.4p94
+
+BUNDLED WITH
+   2.5.22
