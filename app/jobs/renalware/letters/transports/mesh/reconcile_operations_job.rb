@@ -45,14 +45,25 @@ module Renalware
           end
         end
 
+        # rubocop:disable Metrics/MethodLength
         def flag_pending_transmissions_as_failed_if_any_operation_has_error
-          Transmission
+          transmissions = Transmission
             .status_pending
             .joins(:operations)
             .where("action in ('send_message', 'download_message') and " \
                    "(http_error = true OR mesh_error = true OR itk3_error = true)")
-            .update_all(status: :failure)
+
+          transmissions.find_each do |transmission|
+            Transmission.transaction do
+              transmission.update!(status: "failure")
+              # Using update_all here to avoid loading the letter into memory
+              Letters::Letter
+                .where(id: transmission.letter_id)
+                .update_all(gp_send_status: "failure")
+            end
+          end
         end
+        # rubocop:enable Metrics/MethodLength
 
         # rubocop:disable Metrics/MethodLength
         def pending_transmission_ids_with_two_successful_download_operations
@@ -89,6 +100,7 @@ module Renalware
                 status: "failure",
                 comment: "Timeout out waiting for MESH inf or bus response"
               )
+              # Using update_all here to avoid loading the letter into memory
               Letters::Letter
                 .where(id: transmission.letter_id)
                 .update_all(gp_send_status: "failure")

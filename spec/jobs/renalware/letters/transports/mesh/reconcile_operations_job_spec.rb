@@ -34,12 +34,15 @@ module Renalware::Letters::Transports::Mesh
           :mesh_error,
           :itk3_error
         ].each do |attr_name|
+          letter.update!(gp_send_status: :pending)
           transmission = Transmission.create!(letter: letter)
           transmission.operations.create!(action: "download_message", attr_name => true)
 
           expect {
             described_class.perform_now
           }.to change { transmission.reload.status }.from("pending").to("failure")
+
+          expect(letter.reload.gp_send_status).to eq("failure")
         end
       end
 
