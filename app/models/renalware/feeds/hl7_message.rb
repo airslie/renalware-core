@@ -33,11 +33,9 @@ module Renalware
         # Select only OBX children. OBR can have other types of child
         # segments but we want to ignore those.
         def observations
-          @observations ||= begin
-            children
-              .select { |segment| segment.is_a? HL7::Message::Segment::OBX }
-              .map { |obx_segment| Observation.new(obx_segment) }
-          end
+          @observations ||= children
+            .select { |segment| segment.is_a? HL7::Message::Segment::OBX }
+            .map { |obx_segment| Observation.new(obx_segment) }
         end
 
         def filler_order_number       = super.split("^").first
