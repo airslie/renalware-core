@@ -70,7 +70,7 @@ RSpec/VerifiedDoubleReference:
     - "spec/models/renalware/pathology/observation_requests_attributes_builder_spec.rb"
 
 Rails/WhereRange:
-  Enabled: false
+  Enabled: true
 
 Naming/PredicateName:
   Enabled: false
