@@ -333,6 +333,9 @@ module Renalware
     config_accessor(:patients_must_have_at_least_one_hosp_number) { true }
     config_accessor(:only_admins_can_update_pkb_renalreg_preferences) { false }
 
+    config_accessor(:pathology_hep_b_antibody_status_obx_code) {
+      ENV.fetch("PATHOLOGY_HEP_B_ANTIBODY_STATUS_OBX_CODE", "BHBS")
+    }
     config_accessor(:pathology_post_hd_urea_code) { "P_URE" }
     config_accessor(:pathology_hours_to_search_behind_for_pre_ure_result) {
       ENV.fetch("PATHOLOGY_HOURS_TO_SEARCH_BEHIND_FOR_PRE_URE_RESULT", "6").to_i
