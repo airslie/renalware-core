@@ -24,7 +24,7 @@ module Renalware
               class_name: "Operation"
       validates :letter, presence: true
 
-      enum status: {
+      enum :status, {
         pending: "pending",
         success: "success",
         failure: "failure"
