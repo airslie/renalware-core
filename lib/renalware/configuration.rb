@@ -14,6 +14,7 @@
 # To access configuration settings use e.g.
 #   Renalware.config.x
 #
+# rubocop:disable Layout/LineLength
 module Renalware
   class Configuration # rubocop:disable Metrics/ClassLength
     include ActiveSupport::Configurable
@@ -47,6 +48,9 @@ module Renalware
     config_accessor(:page_title_spearator) { " : " }
     config_accessor(:patient_hospital_identifiers) { {} }
     config_accessor(:session_timeout_polling_frequency) { 1.minute }
+    config_accessor(:session_timeout) {
+      ActiveModel::Type::Integer.new.cast(ENV.fetch("SESSION_TIMEOUT", 20)) # use eg 10080 in dev
+    }
     config_accessor(:session_register_user_user_activity_after) { 2.minutes }
     config_accessor(:duration_of_last_url_memory_after_session_expiry) { 30.minutes }
     config_accessor(:broadcast_subscription_map) { {} }
@@ -119,9 +123,9 @@ module Renalware
       ENV.fetch("UKRDC_SEND_RREG_PATIENTS", "true") == "true"
     }
 
-    config_accessor(:nhs_client_id)     { ENV.fetch("NHS_CLIENT_ID", nil) }
-    config_accessor(:nhs_client_secret) { ENV.fetch("NHS_CLIENT_SECRET", nil) }
-    config_accessor(:nhs_trud_api_key)  { ENV.fetch("NHS_TRUD_API_KEY", nil) }
+    config_accessor(:nhs_client_id)     { ENV.fetch("NHS_CLIENT_ID",      Rails.application.credentials.nhs_client_id) }
+    config_accessor(:nhs_client_secret) { ENV.fetch("NHS_CLIENT_SECRET",  Rails.application.credentials.nhs_client_secret) }
+    config_accessor(:nhs_trud_api_key)  { ENV.fetch("NHS_TRUD_API_KEY",   Rails.application.credentials.nhs_trud_api_key) }
 
     # MESHAPI
     # Introduce an optional delay between letter approval and letter send, in order to allow
@@ -385,3 +389,4 @@ module Renalware
     yield config
   end
 end
+# rubocop:enable Layout/LineLength
