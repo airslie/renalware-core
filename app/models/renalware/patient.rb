@@ -41,7 +41,7 @@ module Renalware
       on: [:create, :update, :destroy]
     )
 
-    serialize :sex, Gender
+    serialize :sex, coder: Gender
 
     has_one :current_observation_set, class_name: "Pathology::CurrentObservationSet"
     has_one :current_address, as: :addressable, class_name: "Address"
