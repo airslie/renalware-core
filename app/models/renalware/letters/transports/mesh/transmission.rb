@@ -28,7 +28,7 @@ module Renalware
         pending: "pending",
         success: "success",
         failure: "failure"
-      }, _prefix: true
+      }, prefix: true
 
       # You can cancel an operation if its status is pending and it has no operations
       scope :cancellable, -> { where(status: :pending).where.missing(:operations) }

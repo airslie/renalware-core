@@ -91,7 +91,7 @@ module Renalware
         pending: "pending",
         success: "success",
         failure: "failure"
-      }, _prefix: true
+      }, prefix: true
 
       def self.policy_class     = LetterPolicy
       def self.for_event(event) = where(event: event).first
