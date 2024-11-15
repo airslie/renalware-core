@@ -12,4 +12,4 @@
     .small-12.medium-8.large-9.columns
       = f.input :body, as: :trix_editor, wrapper: :zilch
 
-  = save_or_cancel(form: f, back_path: authoring.snippets_path)
+  .mt-4= save_or_cancel(form: f, back_path: authoring.snippets_path)

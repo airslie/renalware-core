@@ -4,7 +4,7 @@
             class: "button create-snippet right"
 
 = content_for(:filters) do
-  .w-1/2= render "filters", search: search, author: author, remote: false
+  .w-1/2= render "filters", search: search, author: author, remote: false, in_dialog: false
 
 = content_for(:tabs) do
   = render "tabs", author: author
@@ -14,5 +14,5 @@
            snippets: snippets,
            search: search,
            author: author,
-           remote: false,
+           in_dialog: false,
            pagy: pagy

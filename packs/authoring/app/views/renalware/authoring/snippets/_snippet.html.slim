@@ -1,6 +1,6 @@
 - snippet_authored_by_me = snippet.author_id == current_user.id
 - row_selector = "tr[data-snippet-id='#{snippet.id}']"
-- col_count = 6 - (remote ? 2 : 0) - (author == :me ? 1 : 0)
+- col_count = 6 - (in_dialog ? 2 : 0) - (author == :me ? 1 : 0)
 tbody
   tr(data={ "snippet-id" => snippet.id,
             invocation_url: authoring.snippet_invocations_path(snippet),
@@ -18,7 +18,7 @@ tbody
             = inline_icon "copy", size: :md
             .ml-2= t("btn.copy")
 
-        - if remote
+        - if in_dialog
           = link_to("#",
                     class: "button secondary compact",
                     data: { action: "click->snippet#insert click->turbo-modal#close" }) do
@@ -34,7 +34,7 @@ tbody
     td.css-toggle-container.body
       = tooltip_with_block(label: snippet.body) do
         .body-content(data-clipboard-target="source" data-snippet-target="source")= snippet.body.html_safe
-    - unless remote
+    - unless in_dialog
       td.last_used_on
         = "#{snippet.last_used_on? ? l(snippet.last_used_on) : 'Never'} (#{snippet.times_used})"
       td.updated_at= l(snippet.updated_at)

@@ -5,17 +5,27 @@ module Renalware
     class SnippetsController < BaseController
       include Pagy::Backend
 
+      # rubocop:disable Metrics/MethodLength
       def index
         authorize Snippet, :index?
         snippets = snippets_for_author(author)
         search = snippets.ransack(params[:q])
         search.sorts = ["times_used desc", "last_used_on desc"] if search.sorts.empty?
-        pagy, snippets = pagy(search.result, items: 10)
-        locals = { snippets: snippets, search: search, author: author, pagy: pagy }
+        pagy, snippets = pagy(search.result, limit: 10)
+        in_dialog = ActiveModel::Type::Boolean.new.cast(params.fetch(:in_dialog, true))
+        locals = {
+          snippets: snippets,
+          search: search,
+          author: author,
+          pagy: pagy,
+          in_dialog: in_dialog
+        }
 
         template = turbo_frame_request? ? "dialog" : "index"
+
         render template, locals: locals, layout: !turbo_frame_request?
       end
+      # rubocop:enable Metrics/MethodLength
 
       def new
         authorize(snippet = new_snippet)
