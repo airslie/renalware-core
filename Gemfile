@@ -87,7 +87,7 @@ group :development do
   # gem "traceroute" # for finding unused routes
   gem "awesome_print", require: false
   gem "binding_of_caller"
-  gem "bullet"
+  gem "bullet", "~> 7.2"
   gem "foreman", require: false
   gem "query_count"
   gem "rack-mini-profiler"
