@@ -3,12 +3,16 @@
   table.toggleable.snippets(data-controller="toggle")
     thead
       tr
-        th(style="width: 14rem")
-          /= rows_toggler
+        th.togglers(style="width: 1.6rem")= rows_toggler
+        - if in_dialog
+          th.w-40
+        - else
+          th.col-width-small
+
         - unless author == :me
           th.col-width-medium.author
             = sort_link([:authoring, search], :author_family_name, t(".author"), in_dialog: in_dialog)
-        th.col-width-medium
+        th.w-1/4
           = sort_link([:authoring, search], :title, in_dialog: in_dialog)
         th(style="max-width: 100%")
           = sort_link([:authoring, search], :body, in_dialog: in_dialog)

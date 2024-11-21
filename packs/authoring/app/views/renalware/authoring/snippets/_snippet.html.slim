@@ -6,17 +6,16 @@ tbody
             invocation_url: authoring.snippet_invocations_path(snippet),
             controller: "clipboard snippet",
             "snippet-snippets-outlet": "#snippets-controller",
-            "clipboard-success-content-value" => "<div class='flex items-center'>#{inline_icon('copy', size: :md)}<div class='pl-2'>#{t('btn.copied')}</div></div>"})
+            "clipboard-success-content-value" => "<div class='flex items-center'>#{inline_icon('clipboard_tick', size: :md)}</div>"})
+    td= row_toggler
     td
       .flex.gap-4
-        = row_toggler
-
         = link_to("#",
                   class: "button secondary compact",
+                  title: t("btn.copy"),
                   data: { action: "clipboard#copy", "clipboard-target" => "button"}) do
           .flex.items-center
-            = inline_icon "copy", size: :md
-            .ml-2= t("btn.copy")
+            = inline_icon "clipboard", size: :md
 
         - if in_dialog
           = link_to("#",
