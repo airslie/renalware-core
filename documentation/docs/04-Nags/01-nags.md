@@ -1,3 +1,7 @@
+---
+title: Creating Nags
+---
+
 # Patient Nags
 
 Patient nags are alerts that appear at the top of a patient's pages to indicate missing or
@@ -60,7 +64,7 @@ When adding a nag in the UI, your function will only appear in the dropdown if i
 
 ## Caching
 
-Once rendered, a nag is caching until:
+Once rendered, a nag is cached until:
 
 - the patient's updated_at date changes (ie the patient record has been `touched` in some way,
 perhaps by an event being added)
@@ -78,7 +82,7 @@ Caching nags is useful because they can be 'expensive' in terms of processing ti
 ### Nag not dismissing once issue resolved
 
 It is possible the action the user took did not cause the patient record to be touched. Please report this as a bug.
-To remendy the situation, please update the nag_deinition updated_at by using the Touch button under the Admin -> Nags, or manually in the database.
+To remendy the situation, please update the nag_definition updated_at by using the Touch button under the Admin -> Nags, or manually in the database.
 You can also touch the patient in Renalware by e.g. updating their demographics.
 
 If the problem happens regularly you can update `nag_definitions.always_expire_cache_after_minutes` to be a lower number.
