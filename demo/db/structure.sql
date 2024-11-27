@@ -15631,7 +15631,8 @@ CREATE TABLE renalware.virology_vaccination_types (
     "position" integer DEFAULT 0 NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    atc_codes character varying[] DEFAULT '{}'::character varying[] NOT NULL
 );
 
 
@@ -30002,6 +30003,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241127162800'),
 ('20241126174455'),
 ('20241122100703'),
 ('20240917092223'),
