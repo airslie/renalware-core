@@ -25,7 +25,9 @@ module Renalware
       end
 
       def drugs_collection(vaccination_type)
-        VaccinesQuery.new(vaccination_type: vaccination_type).call.pluck(:name, :name)
+        VaccinesQuery.new(vaccination_type: vaccination_type)
+          .call
+          .pluck(:compound_name, :compound_name)
       end
 
       # Note that a new or edit url for a vaccination could be eg vaccinations/new or events/new

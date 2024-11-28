@@ -2,6 +2,8 @@
 
 describe "Creating an vaccination", js: true do
   include AjaxHelpers
+  include DrugsSpecHelper
+
   let(:event_date_time) { Time.zone.now }
   let(:vaccination_drug_type) { create(:drug_type, code: :vaccine, name: "Vaccine") }
 
@@ -15,11 +17,11 @@ describe "Creating an vaccination", js: true do
       vaccine_drug.drug_types << vaccination_drug_type
       create(:vaccination_type, code: "vacc_type_a", name: "Vac Type A")
       create(:vaccination_type, code: "vacc_type_b", name: "Vac Type B")
+      refresh_prescribable_drugs_materialized_view
 
       visit new_patient_event_path(patient)
 
       slim_select "Vaccination", from: "Event type"
-
       wait_for_ajax
       select "Vac Type A", from: "Type"
       wait_for_turbo_frame :vaccination_drugs
@@ -52,6 +54,7 @@ describe "Creating an vaccination", js: true do
       vaccine_drug2 = create(:drug, name: "XYZ")
       vaccine_drug1.drug_types << vaccination_drug_type
       vaccine_drug2.drug_types << vaccination_drug_type
+      refresh_prescribable_drugs_materialized_view
 
       visit new_patient_virology_vaccination_path(patient)
 

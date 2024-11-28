@@ -14,7 +14,10 @@
                                     "action": "change->select-update-frame#change" }}
   = turbo_frame_tag :vaccination_drugs do
     - vaccination_type = Renalware::Virology::VaccinationType.find_by(id: params[:vaccination_type_id]) || Renalware::Virology::VaccinationType.find_by(code: vaccination.document.type) || Renalware::Virology::VaccinationType.find_by(code: types[0][1])
-    = fd.input :drug, wrapper: :horizontal_medium, collection: vaccination.drugs_collection(vaccination_type)
+    = fd.input :drug,
+               wrapper: :horizontal_medium,
+               collection: vaccination.drugs_collection(vaccination_type),
+               label_html: { style: "text-align: left" }
     - if current_user_is_super_admin?
       = help_panel do
         - if vaccination_type&.atc_codes&.any?

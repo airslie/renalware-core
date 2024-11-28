@@ -13,19 +13,21 @@ module Renalware
 
       private
 
-      def all_vaccines = Renalware::Drugs::Drug.for(:vaccine)
+      def all_vaccines = Renalware::Drugs::PrescribableDrug.for(:vaccine).order(:compound_name)
 
       def vaccines_filtered_by_atc_code
         sql = <<~SQL.squish
-          select distinct on (drugs.id) drugs.* from drugs
+          select distinct on(drug_prescribable_drugs.compound_name) drug_prescribable_drugs.* from drug_prescribable_drugs
+          inner join drugs on drugs.id = drug_prescribable_drugs.drug_id
           inner join drug_types_drugs dtd on dtd.drug_id = drugs.id
           inner join drug_types dt on dt.id = dtd.drug_type_id
           inner join drug_dmd_virtual_medical_products ddvmp on ddvmp.virtual_therapeutic_moiety_code = drugs.code
           inner join virology_vaccination_types vvt on ddvmp.atc_code ~~ ANY(vvt.atc_codes)
           where dt.code = 'vaccine' and drugs.inactive = 'false' and vvt.id = ?
+          order by drug_prescribable_drugs.compound_name
         SQL
         sanitized_sql = Vaccination.sanitize_sql([sql, vaccination_type.id])
-        Drugs::Drug.find_by_sql(sanitized_sql)
+        Drugs::PrescribableDrug.find_by_sql(sanitized_sql)
       end
     end
   end
