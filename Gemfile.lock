@@ -931,6 +931,8 @@ GEM
     test-prof (1.4.2)
     thor (1.3.2)
     thread_safe (0.3.6)
+    thruster (0.1.9-arm64-darwin)
+    thruster (0.1.9-x86_64-linux)
     tilt (2.4.0)
     timeliness (0.4.5)
     timeout (0.4.2)
@@ -1070,6 +1072,7 @@ DEPENDENCIES
   strong_migrations
   terser
   test-prof
+  thruster
   turnip!
   vcr
   web-console
