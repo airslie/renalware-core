@@ -18,7 +18,7 @@ module Renalware::Letters
           given_name: "John",
           family_name: "Doe",
           title: "Mr",
-          sex: "M",
+          sex: Renalware::Gender.new("M"),
           born_on: Date.parse("2001-01-02"),
           current_address: nil,
           telephone1: nil,
@@ -88,10 +88,11 @@ module Renalware::Letters
             "NK" => "unknown",
             "U" => "unknown",
             "NS" => "unknown",
-            "BLABLA" => "unknown"
+            "BLABLA" => "unknown",
+            nil => "unknown"
           }.each do |rw_gender, fhir_gender|
             it "maps patient.sex '#{rw_gender}' to fhir '#{fhir_gender}'" do
-              allow(patient).to receive(:sex).and_return(rw_gender)
+              allow(patient.sex).to receive(:code).and_return(rw_gender)
               expect(resource.gender).to eq(fhir_gender)
             end
           end

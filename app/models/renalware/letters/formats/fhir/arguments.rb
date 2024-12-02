@@ -26,7 +26,7 @@ module Renalware
             display: "ITK GP Connect Send Document"
           },
           message_definition: {
-            reference: "https://fhir.nhs.uk/STU3/MessageDefinition/ITK-GPConnectSendDocument-MessageDefinition-Instance-1"
+            reference: "https://fhir.nhs.uk/STU3/MessageDefinition/ITK-GPConnectSendDocument-MessageDefinition-1"
           }
         },
         transfer_of_care: {
