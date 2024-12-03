@@ -26,6 +26,13 @@ module Renalware
       "NS" => 9
     }.freeze
 
+    NHS_DICTIONARY_VALUES = {
+      "0" => "NK",
+      "1" => "M",
+      "2" => "F",
+      "9" => "NS"
+    }.freeze
+
     def self.all
       DATA.map { |code, _| new(code) }
     end

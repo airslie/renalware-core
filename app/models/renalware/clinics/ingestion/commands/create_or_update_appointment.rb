@@ -8,9 +8,8 @@ module Renalware
           include Callable
 
           pattr_initialize :message
-          delegate :patient_identification, :pv1, :pv2, to: :message
-          delegate :clinic, :visit_number, :consulting_doctor, to: :pv1
-          delegate :expected_admit_date, to: :pv2
+          delegate :patient_identification, :pv1, :pv2, :sch, to: :message
+          delegate :clinic, :visit_number, :consulting_doctor, :attending_doctor, to: :pv1
 
           # If we match incoming clinic code then we create an appointment. This might mean
           # creating the patient and consultant JIT if they do not yet exist in Renalware.
@@ -21,11 +20,22 @@ module Renalware
 
             Appointment.create!(
               patient: Clinics.cast_patient(patient),
-              starts_at: expected_admit_date,
+              starts_at: appointment_starts_at,
+              ends_at: appointment_ends_at,
               clinic: rwclinic,
               consultant: rwconsultant,
               visit_number: visit_number
             )
+          end
+
+          private
+
+          def appointment_starts_at
+            message.siu? ? sch.starts_at : pv2.expected_admit_date
+          end
+
+          def appointment_ends_at
+            message.siu? ? sch.ends_at : nil
           end
 
           def find_or_create_patient
@@ -65,9 +75,15 @@ module Renalware
           end
 
           def rwconsultant
-            @rwconsultant ||= Consultant.find_or_create_by!(code: consulting_doctor.code) do |cons|
-              cons.name = consulting_doctor.name
+            @rwconsultant ||= Consultant.find_or_create_by!(code: consultant.code) do |cons|
+              cons.name = consultant.name
             end
+          end
+
+          # MSE use PV1.9 consulting_doctor
+          # BLT use PV1.7 attending_doctor and consulting_doctor is blank
+          def consultant
+            consulting_doctor.code.present? ? consulting_doctor : attending_doctor
           end
         end
       end

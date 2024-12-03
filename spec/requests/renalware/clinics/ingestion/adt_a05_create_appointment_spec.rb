@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
-describe "manage appointments via HL7 ADT messages" do
+describe "HL7 ADT^A05 create appointment" do
+  # An A05 event is sent when a patient undergoes the pre-admission process. During this process,
+  # episode related data is collected in preparation for a patient's visit or stay in a healthcare
+  # facility. For example, a pre-admit may be performed prior to inpatient or outpatient surgery
+  # so that lab tests can be performed prior to the surgery.
+  # !!
+  # This event can also be used to pre-register a non-admitted patient, and that is how it used
+  # at MSE ie for outpatient appointments
+  # !!
+
   include HL7Helpers
   include PatientsSpecHelper
 
@@ -202,49 +211,6 @@ describe "manage appointments via HL7 ADT messages" do
       }.to change(Renalware::Clinics::Appointment, :count).by(1)
 
       expect(patient.current_address.reload.postcode).to eq("NEW_POSTCODE")
-    end
-  end
-
-  describe "ADT^A38 delete/cancel appointment" do
-    it "sanity check the fixture builds using our argument" do
-      msg = hl7_message_from_file("clinics/ADT_A38_cancel_appointment", data)
-
-      expect(msg.patient_identification.nhs_number).to eq(nhs_number)
-      expect(msg.patient_identification.hospital_identifiers[:KCH]).to eq(local_patient_id)
-      expect(msg.pv1.visit_number).to eq(visit_number)
-    end
-
-    context "when patient is not found in Renalware" do
-      it "ignores the message" do
-        msg = hl7_message_from_file("clinics/ADT_A38_cancel_appointment", data)
-
-        expect {
-          Renalware::Clinics::Ingestion::Commands::DeleteAppointment.call(msg)
-        }.not_to change(Renalware::Clinics::Appointment, :count)
-      end
-    end
-
-    context "when patient found but does not have an appointment with a matching visitor_number" do
-      it "ignores the message" do
-        msg = hl7_message_from_file("clinics/ADT_A38_cancel_appointment", data)
-        create_matching_patient
-
-        expect {
-          Renalware::Clinics::Ingestion::Commands::DeleteAppointment.call(msg)
-        }.not_to change(Renalware::Clinics::Appointment, :count)
-      end
-    end
-
-    context "when patient found having appointment with a matching visitor_number" do
-      it "deletes the appointment" do
-        msg = hl7_message_from_file("clinics/ADT_A38_cancel_appointment", data)
-        clinic_patient = Renalware::Clinics.cast_patient(create_matching_patient)
-        create(:appointment, patient: clinic_patient, visit_number: visit_number)
-
-        expect {
-          Renalware::Clinics::Ingestion::Commands::DeleteAppointment.call(msg)
-        }.to change(Renalware::Clinics::Appointment, :count).by(-1)
-      end
     end
   end
 end

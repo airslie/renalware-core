@@ -61,6 +61,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "PV2"
   inflect.acronym "RaDaR"
   inflect.acronym "RTF"
+  inflect.acronym "SCH"
   inflect.acronym "SFTP"
   inflect.acronym "TRUD"
   inflect.acronym "UKRDC"

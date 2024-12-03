@@ -289,6 +289,7 @@ module Renalware
     # Note that the standard HL7 PID admin sex values are not adhered to here. For reference
     # they are:
     # F Female, M Male, O Other, U Unknown, A Ambiguous, N Not applicable
+    # Some hospitals use the numeric NHS Person Gender code.
     # Note
     # - NS = Not Stated
     # - NK = Not Known
@@ -302,7 +303,11 @@ module Renalware
         "INDETERMINATE" => "NK",
         "AMBIGUOUS" => "NS",
         "NOT APPLICABLE" => "NS",
-        "BOTH" => "NS"
+        "BOTH" => "NS",
+        "0" => "NK",
+        "1" => "M",
+        "2" => "F",
+        "9" => "NS"
       }.freeze
     end
     config_accessor(:max_file_upload_size) { ENV.fetch("MAX_FILE_UPLOAD_SIZE", "10_000_000").to_i }

@@ -8470,16 +8470,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT id AS patient_id
-   FROM renalware.patients
-  WHERE ((family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_mesh_operations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -14507,19 +14497,6 @@ ALTER SEQUENCE renalware.system_visits_id_seq OWNED BY renalware.system_visits.i
 
 
 --
--- Name: tmp_ppe_consultants; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.tmp_ppe_consultants (
-    pv_id integer,
-    patient_id integer,
-    named_consultant_id text,
-    ends date,
-    starts date
-);
-
-
---
 -- Name: transplant_donations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -19943,13 +19920,6 @@ CREATE INDEX clinic_versions_type_id ON renalware.clinic_versions USING btree (i
 --
 
 CREATE INDEX delayed_jobs_priority ON renalware.delayed_jobs USING btree (priority, run_at);
-
-
---
--- Name: drug_prescribable_drugs_compound_id_idx; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX drug_prescribable_drugs_compound_id_idx ON renalware.drug_prescribable_drugs USING btree (compound_id);
 
 
 --
