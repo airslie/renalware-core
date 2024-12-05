@@ -20,6 +20,10 @@ module Renalware::Letters
                 meta: {
                   profile: PROFILE_URL
                 },
+                text: {
+                  status: "generated",
+                  div: "<div xmlns=\"http://www.w3.org/1999/xhtml\">#{arguments.document_type_snomed_title}</div>"
+                },
                 status: "final",
                 type: {
                   coding: [

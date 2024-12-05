@@ -30,10 +30,7 @@ module Renalware
               #   system: "https://fhir.nhs.uk/Id/sds-user-id",
               #   value: "????" # SDS number
               # },
-              identifier: {
-                system: "https://fhir.provider.example/identifier/staff",
-                value: arguments.author_uuid
-              },
+              identifier: system_identifier(arguments.author_uuid),
               name: {
                 use: "official",
                 family: letter.author.family_name,
