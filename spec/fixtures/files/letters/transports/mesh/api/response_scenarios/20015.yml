@@ -39,8 +39,8 @@ scenario:
               <extension url="RecipientType">
                 <valueCoding>
                   <system value="https://fhir.nhs.uk/STU3/CodeSystem/ITK-RecipientType-1"/>
-                  <code value="FI"/>
-                  <display value="For Information"/>
+                  <code value="FA"/>
+                  <display value="For Action"/>
                 </valueCoding>
               </extension>
               <extension url="MessageDefinition">

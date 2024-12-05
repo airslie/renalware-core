@@ -37,8 +37,8 @@ module Renalware
                     url: "RecipientType",
                     valueCoding: {
                       system: "https://fhir.nhs.uk/STU3/CodeSystem/ITK-RecipientType-1",
-                      code: "FI",
-                      display: "For Information"
+                      code: "FA",
+                      display: "For Action"
                     }
                   },
                   {

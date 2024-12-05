@@ -24,11 +24,11 @@ module Renalware::Letters
                 type: {
                   coding: [
                     snomed_coding_content(
-                      "371531000",
-                      "Report of clinical encounter (record artifact)"
+                      arguments.document_type_snomed_code,
+                      arguments.document_type_snomed_title
                     )
                   ],
-                  text: "Report of clinical encounter (record artifact)"
+                  text: arguments.document_type_snomed_title
                 },
                 subject: {
                   reference: arguments.patient_urn
