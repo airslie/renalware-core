@@ -36,11 +36,6 @@ module Renalware
                 family: letter.author.family_name,
                 given: letter.author.given_name,
                 prefix: letter.author.professional_position
-              },
-              telecom: {
-                system: "phone",
-                value: telephone,
-                use: "work"
               }
             )
           }
