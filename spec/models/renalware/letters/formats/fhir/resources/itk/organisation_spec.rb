@@ -38,7 +38,7 @@ module Renalware::Letters
         }
 
         it "renders the resource" do
-          expect(resource.name).to eq("k")
+          expect(resource.identifier.first.value).to eq("RAJ01")
         end
       end
     end

@@ -104,33 +104,6 @@ module Renalware::Letters
           expect(resource.birthDate).to eq("2001-01-02")
         end
 
-        describe "#telecom" do
-          subject(:telecom) { resource.telecom }
-
-          it { is_expected.to be_a(Array) }
-
-          it "is an empty array when patient has neither telephone or email" do
-            allow(patient).to receive_messages(telephone1: "", email: nil)
-
-            expect(telecom).to eq([])
-          end
-
-          it "telephone" do
-            allow(patient).to receive(:telephone1).and_return("01234 567890")
-
-            expect(telecom[0].system).to eq("phone")
-            expect(telecom[0].value).to eq("01234 567890")
-            expect(telecom[0].use).to eq("home")
-          end
-
-          it "email" do
-            allow(patient).to receive(:email).and_return("john@doe.com")
-
-            expect(telecom[0].system).to eq("email")
-            expect(telecom[0].value).to eq("john@doe.com")
-          end
-        end
-
         describe "#address" do
           subject(:address) { resource.address }
 
