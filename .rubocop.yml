@@ -56,7 +56,7 @@ Style/SafeNavigationChainLength:
   Max: 3
 
 Rails/EnumHash:
-  Enabled: false
+  Enabled: true
 
 Rails/EnumSyntax:
   Enabled: false
