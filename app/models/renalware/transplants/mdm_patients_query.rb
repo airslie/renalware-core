@@ -41,6 +41,7 @@ module Renalware
           self # NOOP
         end
 
+        # rubocop:disable Rails/WhereRange
         def patients_with_a_transplant_date_in_the_past_3_months
           joins(<<-SQL.squish)
             LEFT JOIN transplant_recipient_operations
@@ -48,6 +49,7 @@ module Renalware
           SQL
             .where("transplant_recipient_operations.performed_on >= ?", 3.months.ago)
         end
+        # rubocop:enable Rails/WhereRange
         alias_method :recent, :patients_with_a_transplant_date_in_the_past_3_months
 
         def patients_on_the_worry_board
@@ -55,6 +57,7 @@ module Renalware
         end
         alias_method :on_worryboard, :patients_on_the_worry_board
 
+        # rubocop:disable Rails/WhereRange
         def patients_with_a_transplant_operation_in_the_past_year
           joins(<<-SQL.squish)
             LEFT JOIN transplant_recipient_operations
@@ -62,6 +65,7 @@ module Renalware
           SQL
             .where("transplant_recipient_operations.performed_on >= ?", 1.year.ago)
         end
+        # rubocop:enable Rails/WhereRange
         alias_method :past_year, :patients_with_a_transplant_operation_in_the_past_year
       end
     end

@@ -114,9 +114,11 @@ module Renalware
               "medication_prescriptions.prescribed_on <= ?", from, to)
       end
 
+      # rubocop:disable Rails/WhereRange
       def self.terminated_between(from:, to:)
         where("terminated_on >= ? and terminated_on <= ?", from, to)
       end
+      # rubocop:enable Rails/WhereRange
 
       # @section attributes
       #

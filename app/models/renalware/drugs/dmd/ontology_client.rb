@@ -16,8 +16,8 @@ module Renalware
 
       class RequestFailed < StandardError
         def initialize(message = nil, response: nil)
-          status = response.status if response&.respond_to?(:status)
-          hash = response.to_hash if response&.respond_to?(:to_hash)
+          status = response.status if response.respond_to?(:status)
+          hash = response.to_hash if response.respond_to?(:to_hash)
           super("#{message} status: #{status} response: #{hash}")
         end
       end

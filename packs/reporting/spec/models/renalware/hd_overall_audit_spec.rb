@@ -3,7 +3,7 @@
 # rubocop:disable RSpec/ExampleLength, Metrics/ModuleLength
 module Renalware
   # HD Overall Audit is currently a materialized view
-  describe "HD Overall Audit" do
+  describe "HD Overall Audit" do # rubocop:disable RSpec/DescribeClass
     include PatientsSpecHelper
 
     let(:user) { create(:user) }

@@ -2,8 +2,7 @@
 
 module Renalware
   describe(
-    "Toggle current problems & prescriptions when editing letter",
-    js: true
+    "Toggle current problems & prescriptions when editing letter", :js
   ) do
     include LettersSpecHelper
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe "Editing a swab", js: true do
+describe "Editing a swab", :js do
   include AjaxHelpers
 
   it "allows a swab to be updated" do

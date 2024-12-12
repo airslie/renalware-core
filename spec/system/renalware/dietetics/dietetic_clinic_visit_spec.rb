@@ -2,7 +2,7 @@
 
 module Renalware
   module Clinical
-    describe "Dietetic Visit", js: true do
+    describe "Dietetic Visit", :js do
       let(:user) { create(:user, :clinical) }
       let(:patient) { create(:patient, by: user) }
       let(:clinic) {

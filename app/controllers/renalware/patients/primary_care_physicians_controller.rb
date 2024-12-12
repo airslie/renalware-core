@@ -7,7 +7,7 @@ module Renalware
     class PrimaryCarePhysiciansController < BaseController
       include Pagy::Backend
 
-      before_action :find_primary_care_physician, only: [:edit, :update]
+      before_action :find_primary_care_physician, only: %i(edit update)
 
       def index
         pagy, primary_care_physicians = pagy(
@@ -90,10 +90,10 @@ module Renalware
         params.require(:patients_primary_care_physician).permit(
           :name, :practitioner_type, :code, :telephone,
           practice_ids: [],
-          address_attributes: [
-            :id, :name, :organisation_name, :street_1, :street_2, :street_3, :town, :county,
-            :postcode, :country_id, :telephone
-          ]
+          address_attributes: %i(
+            id name organisation_name street_1 street_2 street_3 town county
+            postcode country_id telephone
+          )
         )
       end
 

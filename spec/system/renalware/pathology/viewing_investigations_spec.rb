@@ -13,7 +13,7 @@ module Renalware::Pathology
       end
     end
 
-    context "when the patient has investigations", js: true do
+    context "when the patient has investigations", :js do
       it "displays a list of OBRs" do
         user = login_as_clinical
         patient = create(:pathology_patient, by: user)

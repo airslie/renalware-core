@@ -51,8 +51,8 @@ module Renalware
           @weekly_diary ||= begin
             FindOrCreateDiaryByWeekQuery.new(
               relation: WeeklyDiary.eager_load(
-                slots: [:patient, :station, :diurnal_period_code],
-                master_diary: { slots: [:patient, :station, :diurnal_period_code] }
+                slots: %i(patient station diurnal_period_code),
+                master_diary: { slots: %i(patient station diurnal_period_code) }
               ),
               unit_id: unit_id,
               week_period: week_period,

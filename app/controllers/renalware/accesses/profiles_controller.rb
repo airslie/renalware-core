@@ -62,9 +62,9 @@ module Renalware
       end
 
       def attributes
-        [
-          :formed_on, :started_on, :terminated_on, :side, :type_id, :notes
-        ]
+        %i(
+          formed_on started_on terminated_on side type_id notes
+        )
       end
     end
   end

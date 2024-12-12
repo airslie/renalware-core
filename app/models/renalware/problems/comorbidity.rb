@@ -27,7 +27,10 @@ module Renalware
         includes(:description)
           .order("#{Comorbidities::Description.table_name}.position")
       }
+
+      # rubocop:disable Rails/WhereRange
       scope :at_date, ->(date) { where("recognised_at <= ?", date) }
+      # rubocop:enable Rails/WhereRange
 
       def self.policy_class = BasePolicy
     end

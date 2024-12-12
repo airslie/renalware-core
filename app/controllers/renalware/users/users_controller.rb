@@ -11,7 +11,7 @@ module Renalware
         query[:s] ||= "family_name"
         search = User
           .includes(:roles)
-          .where.not(username: [:rwdev, :systemuser])
+          .where.not(username: %i(rwdev systemuser))
           .where(hidden: false)
           .ransack(query)
         pagy, users = pagy(search.result(distinct: true))

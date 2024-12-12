@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe "Creating an biopsy", js: true do
+describe "Creating an biopsy", :js do
   context "when adding a biopsy event" do
     it "captures extra data" do
       user = login_as_clinical

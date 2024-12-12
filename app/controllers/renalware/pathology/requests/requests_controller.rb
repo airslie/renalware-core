@@ -6,7 +6,7 @@ module Renalware
       class RequestsController < BaseController
         include Renalware::Concerns::Pageable
 
-        before_action :load_patients, only: [:new, :create]
+        before_action :load_patients, only: %i(new create)
 
         def index
           requests_query = RequestQuery.new(query_params)

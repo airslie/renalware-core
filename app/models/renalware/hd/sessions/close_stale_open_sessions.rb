@@ -13,7 +13,7 @@ module Renalware
 
           def each
             Session::Open
-              .where("started_at <= ?", performed_before)
+              .where(started_at: ..performed_before)
               .where.not(signed_off_by: nil)
               .find_each do |session|
               # Note the bang in becomes! is crucial in copying the session attributes

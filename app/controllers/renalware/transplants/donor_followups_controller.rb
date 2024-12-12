@@ -70,15 +70,15 @@ module Renalware
       end
 
       def attributes
-        [
-          :notes,
-          :last_seen_on,
-          :followed_up,
-          :ukt_center_code,
-          :lost_to_followup,
-          :transferred_for_followup,
-          :dead_on
-        ]
+        %i(
+          notes
+          last_seen_on
+          followed_up
+          ukt_center_code
+          lost_to_followup
+          transferred_for_followup
+          dead_on
+        )
       end
     end
   end

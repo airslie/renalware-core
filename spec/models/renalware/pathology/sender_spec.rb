@@ -4,7 +4,7 @@ module Renalware::Pathology
   describe Sender do
     it :aggregate_failures do
       is_expected.to validate_presence_of(:sending_facility)
-      is_expected.to have_db_index([:sending_facility, :sending_application])
+      is_expected.to have_db_index(%i(sending_facility sending_application))
     end
 
     describe "#resolve!" do

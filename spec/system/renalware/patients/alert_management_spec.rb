@@ -3,7 +3,7 @@
 describe "Alert management" do
   include AjaxHelpers
 
-  it "A clinician adds an alert to a patient", js: true do
+  it "A clinician adds an alert to a patient", :js do
     user = login_as_clinical
     patient = create(:patient, by: user)
 
@@ -24,7 +24,7 @@ describe "Alert management" do
     end
   end
 
-  it "A clinician deletes an alert", js: true do
+  it "A clinician deletes an alert", :js do
     user = login_as_clinical
     patient = create(:patient, by: user)
     create(:patient_alert,

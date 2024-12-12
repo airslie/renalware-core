@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe "Batch printing HD Session form PDFs from the HD MDM list", js: true do
+describe "Batch printing HD Session form PDFs from the HD MDM list", :js do
   include PatientsSpecHelper
   include AjaxHelpers
 

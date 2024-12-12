@@ -2,7 +2,7 @@
 
 module Renalware
   module HD
-    describe "Closed Session" do
+    describe "Closed Session" do # rubocop:disable RSpec/DescribeClass
       describe Session::Closed do
         it :aggregate_failures do
           is_expected.to validate_presence_of(:signed_off_by)

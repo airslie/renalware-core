@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe "Assign a contact to a patient", js: true do
+describe "Assign a contact to a patient", :js do
   include AjaxHelpers
 
   describe "creating a contact" do
