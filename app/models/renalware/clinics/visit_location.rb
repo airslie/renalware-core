@@ -8,7 +8,7 @@ module Renalware
 
       has_paper_trail(
         versions: { class_name: "Renalware::Clinics::Version" },
-        on: [:create, :update, :destroy]
+        on: %i(create update destroy)
       )
       validates :name, presence: true, uniqueness: true
 

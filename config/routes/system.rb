@@ -8,7 +8,7 @@ namespace :system do
   resources :user_feedback, except: :destroy, controller: "user_feedback"
   resources :messages
   resources :downloads
-  resources :view_metadata, only: [:edit, :update] do
+  resources :view_metadata, only: %i(edit update) do
     patch :restore, on: :member
   end
   resources :nag_definitions, except: :show

@@ -8,7 +8,7 @@
 #     ArrayStringifier.new({a: 1, b: 2}).to_a # => [["a", "1"], ["b", "2"]]
 #
 class ArrayStringifier < SimpleDelegator
-  alias_method :collection, :__getobj__
+  alias collection __getobj__
 
   def to_a
     stringify_items(collection.to_a)

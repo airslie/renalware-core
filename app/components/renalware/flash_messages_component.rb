@@ -9,7 +9,7 @@ module Renalware
     include IconHelper
 
     rattr_initialize [:flash_messages, toast: true]
-    alias :toast? :toast
+    alias toast? toast
 
     def render? = flash_messages&.any?
 

@@ -63,7 +63,7 @@ describe "HL7 SIU^S12 - Notification of New Appointment Booking" do
       expect {
         Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
       }.to change(Renalware::Patient, :count).by(1)
-      .and change(Renalware::Clinics::Appointment, :count).by(1)
+        .and change(Renalware::Clinics::Appointment, :count).by(1)
 
       expect(Renalware::Clinics::Consultant.last).to have_attributes(
         code: "Z3590850",
@@ -108,7 +108,7 @@ describe "HL7 SIU^S12 - Notification of New Appointment Booking" do
         expect {
           Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
         }.to change(Renalware::Clinics::Consultant, :count).by(1)
-        .and change(Renalware::Clinics::Appointment, :count).by(1)
+          .and change(Renalware::Clinics::Appointment, :count).by(1)
 
         consultant = Renalware::Clinics::Consultant.last
         expect(consultant).to have_attributes(

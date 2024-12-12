@@ -40,7 +40,7 @@ module Renalware
 
             DrugTypeClassification.upsert_all(
               upserts,
-              unique_by: [:drug_id, :drug_type_id]
+              unique_by: %i(drug_id drug_type_id)
             )
           end
         end

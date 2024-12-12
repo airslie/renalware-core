@@ -76,7 +76,7 @@ module Renalware
       def patients_on_the_worry_board
         joins("RIGHT OUTER JOIN patient_worries ON patient_worries.patient_id = patients.id")
       end
-      alias_method :on_worryboard, :patients_on_the_worry_board
+      alias on_worryboard patients_on_the_worry_board
     end
   end
 end

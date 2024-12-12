@@ -19,7 +19,7 @@ module Renalware
       delegate :present?, to: :name
       delegate :name, :id, to: :first
       delegate :to_s, to: :first
-      alias_method :to_sym, :name
+      alias to_sym name
 
       Identifier = Struct.new(:name, :id) do
         def to_s
