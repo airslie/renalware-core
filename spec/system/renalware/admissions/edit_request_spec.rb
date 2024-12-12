@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe "Update Admission Request", js: true do
+describe "Update Admission Request", :js do
   include AjaxHelpers
 
   it "Edit the request in a modal and updated it" do

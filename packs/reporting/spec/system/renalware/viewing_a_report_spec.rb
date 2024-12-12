@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe "Viewing a report", js: true do
+describe "Viewing a report", :js do
   it "displays a report" do
     report = create(
       :view_metadata,

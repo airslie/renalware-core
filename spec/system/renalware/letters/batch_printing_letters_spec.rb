@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe "Batch printing letters", js: true do
+describe "Batch printing letters", :js do
   include LettersSpecHelper
   include ActiveJob::TestHelper
 
