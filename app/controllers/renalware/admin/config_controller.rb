@@ -4,7 +4,7 @@ module Renalware
   module Admin
     class ConfigController < BaseController
       def show
-        authorize [:renalware, :admin, :config], :show?
+        authorize %i(renalware admin config), :show?
         render :show, locals: { settings: displayable_settings }
       end
 

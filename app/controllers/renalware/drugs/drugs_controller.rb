@@ -5,7 +5,7 @@ module Renalware
     class DrugsController < BaseController
       include Pagy::Backend
 
-      after_action :track_action, except: [:selected_drugs, :prescribable]
+      after_action :track_action, except: %i(selected_drugs prescribable)
 
       def prescribable
         authorize Renalware::Drugs::Drug, :prescribable?

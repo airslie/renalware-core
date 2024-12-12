@@ -21,13 +21,13 @@ describe "Clinical Frailty Score nag", :caching, type: :component do
   context "when the patient has a Clinical Frailty Score event" do
     {
       high: [
-        { modality: [:pd, :hd, :transplant], age: [281] }
+        { modality: %i(pd hd transplant), age: [281] }
       ],
       medium: [
-        { modality: [:pd, :hd, :transplant], age: [91, 180] }
+        { modality: %i(pd hd transplant), age: [91, 180] }
       ],
       none: [
-        { modality: [:pd, :hd, :transplant], age: [89] },
+        { modality: %i(pd hd transplant), age: [89] },
         { modality: [:low_clearance], age: [8, 81, 91, 181] }
       ]
     }.each do |severity, groups|

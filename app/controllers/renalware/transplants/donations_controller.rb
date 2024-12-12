@@ -71,20 +71,20 @@ module Renalware
       end
 
       def attributes
-        [
-          :state,
-          :recipient_id,
-          :relationship_with_recipient,
-          :relationship_with_recipient_other,
-          :blood_group_compatibility,
-          :mismatch_grade,
-          :paired_pooled_donation,
-          :volunteered_on,
-          :first_seen_on,
-          :workup_completed_on,
-          :donated_on,
-          :notes
-        ]
+        %i(
+          state
+          recipient_id
+          relationship_with_recipient
+          relationship_with_recipient_other
+          blood_group_compatibility
+          mismatch_grade
+          paired_pooled_donation
+          volunteered_on
+          first_seen_on
+          workup_completed_on
+          donated_on
+          notes
+        )
       end
     end
   end

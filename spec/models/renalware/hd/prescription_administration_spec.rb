@@ -2,6 +2,7 @@
 
 module Renalware
   module HD
+    # rubocop:disable RSpec/DescribedClass
     describe PrescriptionAdministration do
       let(:witnessed_by) { User.new }
       let(:administered_by) { User.new }
@@ -46,7 +47,7 @@ module Renalware
 
       describe "validation errors" do
         subject(:errors) do
-          described_class.new(
+          PrescriptionAdministration.new(
             administered: true,
             administered_by: administered_by,
             witnessed_by: witnessed_by,
@@ -123,7 +124,7 @@ module Renalware
 
         it "terminates if not already terminated" do
           expect {
-            described_class.create!(
+            PrescriptionAdministration.create!(
               prescription: prescription,
               administered: true,
               administered_by: user1,
@@ -147,7 +148,7 @@ module Renalware
           prescription.build_termination(terminated_on: terminated_on, by: user1).save!
 
           expect {
-            described_class.create!(
+            PrescriptionAdministration.create!(
               prescription: prescription,
               administered: true,
               administered_by: user1,
@@ -166,7 +167,7 @@ module Renalware
           prescription.build_termination(terminated_on: terminated_on, by: user1).save!
 
           expect {
-            described_class.create!(
+            PrescriptionAdministration.create!(
               prescription: prescription,
               administered: true,
               administered_by: user1,
@@ -197,7 +198,7 @@ module Renalware
           ).save!
 
           expect {
-            described_class.create!(
+            PrescriptionAdministration.create!(
               prescription: prescription,
               administered: true,
               administered_by: user1,
@@ -219,5 +220,6 @@ module Renalware
         end
       end
     end
+    # rubocop:enable RSpec/DescribedClass
   end
 end

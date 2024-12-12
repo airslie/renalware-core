@@ -118,7 +118,7 @@ module Renalware
       def patient_modalities
         patient
           .modalities
-          .includes([:description, :created_by, :change_type, :source_hospital_centre])
+          .includes(%i(description created_by change_type source_hospital_centre))
           .ordered
       end
 

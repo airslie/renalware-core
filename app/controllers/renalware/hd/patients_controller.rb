@@ -33,7 +33,7 @@ module Renalware
           .include(ModalityScopes)
           .with_current_modality_of_class(HD::ModalityDescription)
           .eager_load(:hd_profile)
-          .includes(hd_profile: [:hospital_unit, :schedule_definition])
+          .includes(hd_profile: %i(hospital_unit schedule_definition))
           .select(:id, :family_name, :given_name, :nhs_number)
       end
 

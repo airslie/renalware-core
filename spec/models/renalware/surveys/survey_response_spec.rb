@@ -8,7 +8,7 @@ module Renalware
         is_expected.to validate_presence_of(:patient_id)
         is_expected.to validate_presence_of(:answered_on)
         is_expected.to validate_presence_of(:question)
-        is_expected.to have_db_index([:answered_on, :patient_id, :question_id])
+        is_expected.to have_db_index(%i(answered_on patient_id question_id))
       end
 
       describe "validation" do

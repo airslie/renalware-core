@@ -6,8 +6,8 @@ module Renalware
     it { is_expected.to belong_to(:source_observation) }
 
     it {
-      is_expected.to have_db_index([:calculated_observation_id,
-                                    :source_observation_id]).unique(true)
+      is_expected.to have_db_index(%i(calculated_observation_id
+                                      source_observation_id)).unique(true)
     }
 
     it { is_expected.to validate_presence_of(:calculated_observation) }

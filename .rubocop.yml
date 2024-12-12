@@ -173,7 +173,7 @@ Style/NumericPredicate:
 RSpec/InstanceVariable:
   Enabled: false
 Gemspec/RequiredRubyVersion:
-  Enabled: false
+  Enabled: true
 Style/MultilineBlockChain:
   Enabled: false
 Style/RedundantBegin:
