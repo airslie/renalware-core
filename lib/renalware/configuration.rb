@@ -172,7 +172,7 @@ module Renalware
     }
     config_accessor(:mesh_workflow_id) {
       {
-        gp_connect: "GPCONNECT_SEND_DOCUMENT",
+        gp_connect: "GPCONNECT_SEND_DOCUMENT", # GPFED_CONSULT_REPORT
         transfer_of_care: "TOC_FHIR_OP_ATTEN"
       }[letters_mesh_workflow]
     }
