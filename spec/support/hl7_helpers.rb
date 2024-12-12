@@ -11,4 +11,8 @@ module HL7Helpers
     body = file_fixture("hl7/#{filename}.hl7.erb").read
     ERB.new(body).result(binding)
   end
+
+  def hl7_message_from_raw_string(raw)
+    Renalware::Feeds::HL7Message.new(::HL7::Message.new(raw.lines))
+  end
 end
