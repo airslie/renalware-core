@@ -26,9 +26,9 @@ module Renalware
         contacts.default_ccs.map(&:person).include?(person)
       end
 
-      def with_contact_for(person, &block)
+      def with_contact_for(person)
         contact = contacts.detect { |c| c.person == person }
-        block.call(contact)
+        yield(contact)
       end
     end
   end

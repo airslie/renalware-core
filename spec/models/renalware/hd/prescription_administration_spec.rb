@@ -35,7 +35,7 @@ module Renalware
       context "when administered is false" do
         describe "validation errors" do
           subject(:errors) do
-            PrescriptionAdministration.new(
+            described_class.new(
               administered: false
             ).tap(&:valid?).errors
           end
@@ -46,7 +46,7 @@ module Renalware
 
       describe "validation errors" do
         subject(:errors) do
-          PrescriptionAdministration.new(
+          described_class.new(
             administered: true,
             administered_by: administered_by,
             witnessed_by: witnessed_by,

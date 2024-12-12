@@ -32,7 +32,7 @@ module Renalware
     def renalware_urn(model:)
       return if model.nil? || model.id.nil?
 
-      hospital_ods_code = Renalware.config.ukrdc_site_code&.downcase&.presence || "unk"
+      hospital_ods_code = Renalware.config.ukrdc_site_code&.downcase.presence || "unk"
       "urn:renalware:#{hospital_ods_code}:#{model.class.table_name.singularize}:#{model.id}"
     end
   end

@@ -23,17 +23,17 @@ module Renalware
 
       describe "::enforce?" do
         it "returns true or false according to the role#enforce column" do
-          r1 = Role.create!(name: "r1", enforce: true)
-          _r2 = Role.create!(name: "r2", enforce: false)
+          r1 = described_class.create!(name: "r1", enforce: true)
+          _r2 = described_class.create!(name: "r2", enforce: false)
 
-          expect(Role.role_enforcement_hash).to eq({ "r1" => true, "r2" => false })
-          expect(Role.enforce?(:r1)).to be(true)
-          expect(Role.enforce?(:r2)).to be(false)
+          expect(described_class.role_enforcement_hash).to eq({ "r1" => true, "r2" => false })
+          expect(described_class.enforce?(:r1)).to be(true)
+          expect(described_class.enforce?(:r2)).to be(false)
 
           # Changing the enforce boolean will be reflected without a restart as we memoise at
           # class level on first access.
           r1.update!(enforce: false)
-          expect(Role.enforce?(:r1)).to be(false)
+          expect(described_class.enforce?(:r1)).to be(false)
         end
       end
     end

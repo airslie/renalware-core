@@ -11,7 +11,7 @@ module Renalware::Accesses
         create(:access_plan_type, name: "A", position: 1)
         create(:access_plan_type, name: "B", position: 0)
 
-        expect(PlanType.ordered.pluck(:name)).to eq(%w(B A C))
+        expect(described_class.ordered.pluck(:name)).to eq(%w(B A C))
       end
     end
   end

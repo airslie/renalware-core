@@ -87,7 +87,7 @@ module Renalware::Letters::Transports::Mesh
         expect {
           described_class.perform_now
         }.to change { transmission.reload.status }.from("pending").to("success")
-        .and change { transmission.letter.gp_send_status }.from("pending").to("success")
+          .and change { transmission.letter.gp_send_status }.from("pending").to("success")
       end
 
       context "when GP was the only recipient (ie no patient or contact recipients)" do

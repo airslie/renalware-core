@@ -125,7 +125,7 @@ Metrics/MethodLength:
     - app/models/renalware/letters/formats/fhir/**/resources/**/*
 
 Layout/MultilineMethodCallIndentation:
-  Enabled: false
+  Enabled: true
 Metrics/ClassLength:
   Enabled: true
   Exclude:
@@ -159,15 +159,15 @@ RSpec/MultipleExpectations:
   Exclude:
     - "spec/system/**/*"
 Lint/RedundantSafeNavigation:
-  Enabled: false
+  Enabled: true
 RSpec/DescribeClass:
-  Enabled: false
+  Enabled: true
 RSpec/ImplicitSubject:
   Enabled: false
 RSpec/DescribedClass:
-  Enabled: false
+  Enabled: true
 Performance/RedundantBlockCall:
-  Enabled: false
+  Enabled: true
 Style/NumericPredicate:
   Enabled: false
 RSpec/InstanceVariable:
