@@ -27,7 +27,7 @@ module Renalware
         includes(:description)
           .order("#{Comorbidities::Description.table_name}.position")
       }
-      scope :at_date, ->(date) { where("recognised_at <= ?", date) }
+      scope :at_date, ->(date) { where(recognised_at: ..date) }
 
       def self.policy_class = BasePolicy
     end

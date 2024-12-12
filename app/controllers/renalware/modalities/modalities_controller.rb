@@ -126,7 +126,7 @@ module Renalware
         Modality.transaction do
           previous_modality = patient
             .modalities
-            .where("started_on < ?", modality_to_delete.started_on)
+            .where(started_on: ...modality_to_delete.started_on)
             .order(started_on: :desc)
             .first
           previous_modality&.update_by(current_user, ended_on: nil, state: :current)

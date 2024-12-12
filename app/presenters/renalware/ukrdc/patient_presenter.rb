@@ -88,14 +88,14 @@ module Renalware
       def allergies
         clinical_patient
           .allergies
-          .where("recorded_at >= ?", changes_since)
+          .where(recorded_at: changes_since..)
       end
 
       def clinic_visits
         @clinic_visits ||= begin
           visits = clinics_patient
             .clinic_visits
-            .where("date >= ?", changes_since)
+            .where(date: changes_since..)
             .includes(:updated_by)
           CollectionPresenter.new(visits, Clinics::ClinicVisitPresenter)
         end

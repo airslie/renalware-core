@@ -115,7 +115,7 @@ module Renalware
       end
 
       def self.terminated_between(from:, to:)
-        where("terminated_on >= ? and terminated_on <= ?", from, to)
+        where(terminated_on: from..to)
       end
 
       # @section attributes

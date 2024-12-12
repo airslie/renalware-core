@@ -96,8 +96,8 @@ module Renalware
         def any_recent_score_for?(patient)
           Renal::AKIAlert
             .where(patient_id: patient.id)
-            .where("created_at >= ?", 14.days.ago)
-            .where("max_aki >= ?", 1)
+            .where(created_at: 14.days.ago..)
+            .where(max_aki: 1..)
             .order(created_at: :desc)
             .exists?
         end
@@ -105,7 +105,7 @@ module Renalware
         def recent_score_is_2_or_3?(patient)
           Renal::AKIAlert
             .where(patient_id: patient.id)
-            .where("created_at >= ?", 14.days.ago)
+            .where(created_at: 14.days.ago..)
             .group(:patient_id)
             .having("max(max_aki) >= ?", 2)
             .exists?
