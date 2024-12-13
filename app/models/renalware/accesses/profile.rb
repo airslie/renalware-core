@@ -11,7 +11,7 @@ module Renalware
 
       has_paper_trail(
         versions: { class_name: "Renalware::Accesses::Version" },
-        on: [:create, :update, :destroy]
+        on: %i(create update destroy)
       )
 
       scope :ordered, -> { order(formed_on: :desc) }

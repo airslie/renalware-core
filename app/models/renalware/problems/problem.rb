@@ -19,7 +19,7 @@ module Renalware
 
       has_paper_trail(
         versions: { class_name: "Renalware::Problems::Version" },
-        on: [:create, :update, :destroy]
+        on: %i(create update destroy)
       )
 
       belongs_to :patient, touch: true

@@ -183,7 +183,7 @@ Rails/RakeEnvironment:
 Rails/RedundantPresenceValidationOnBelongsTo:
   Enabled: false
 Rails/DurationArithmetic:
-  Enabled: false
+  Enabled: true
 Style/OpenStructUse:
   Enabled: false
 RSpec/IndexedLet:
@@ -204,3 +204,10 @@ Lint/MissingSuper:
   Enabled: true
   Exclude:
     - "**/*_drop.rb"
+
+Rails/UniqBeforePluck:
+  Enabled: true
+
+Style/Alias:
+  Enabled: true
+  EnforcedStyle: prefer_alias

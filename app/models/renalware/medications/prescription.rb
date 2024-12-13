@@ -11,7 +11,7 @@ module Renalware
 
       has_paper_trail(
         versions: { class_name: "Renalware::Medications::PrescriptionVersion" },
-        on: [:create, :update]
+        on: %i(create update)
       )
 
       belongs_to :patient, touch: true

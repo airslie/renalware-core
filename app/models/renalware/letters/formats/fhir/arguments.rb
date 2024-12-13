@@ -17,7 +17,7 @@ module Renalware
       delegate :patient, :event, :archive, to: :letter
       delegate :pdf_content, to: :archive
       delegate :uuid, to: :letter, prefix: true
-      alias :clinic_visit :event
+      alias clinic_visit event
 
       WORKFLOWS = {
         gp_connect: {

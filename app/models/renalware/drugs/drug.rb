@@ -34,7 +34,7 @@ module Renalware
 
       has_paper_trail(
         versions: { class_name: "Renalware::Drugs::Version" },
-        on: [:create, :update, :destroy]
+        on: %i(create update destroy)
       )
 
       def self.for(code)

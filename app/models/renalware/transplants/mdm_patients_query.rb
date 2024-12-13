@@ -50,12 +50,12 @@ module Renalware
             .where("transplant_recipient_operations.performed_on >= ?", 3.months.ago)
         end
         # rubocop:enable Rails/WhereRange
-        alias_method :recent, :patients_with_a_transplant_date_in_the_past_3_months
+        alias recent patients_with_a_transplant_date_in_the_past_3_months
 
         def patients_on_the_worry_board
           joins("RIGHT OUTER JOIN patient_worries ON patient_worries.patient_id = patients.id")
         end
-        alias_method :on_worryboard, :patients_on_the_worry_board
+        alias on_worryboard patients_on_the_worry_board
 
         # rubocop:disable Rails/WhereRange
         def patients_with_a_transplant_operation_in_the_past_year
@@ -66,7 +66,7 @@ module Renalware
             .where("transplant_recipient_operations.performed_on >= ?", 1.year.ago)
         end
         # rubocop:enable Rails/WhereRange
-        alias_method :past_year, :patients_with_a_transplant_operation_in_the_past_year
+        alias past_year patients_with_a_transplant_operation_in_the_past_year
       end
     end
   end

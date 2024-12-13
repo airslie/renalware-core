@@ -44,7 +44,7 @@ module Renalware
       update?
     end
 
-    alias :move? :sort?
+    alias move? sort?
 
     def contact_added?
       update?

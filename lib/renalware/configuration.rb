@@ -377,7 +377,7 @@ module Renalware
     config_accessor(:mail_oauth_email_address) { ENV.fetch("MAIL_OAUTH_EMAIL_ADDRESS", nil) }
 
     def restrict_patient_visibility_by_user_site?
-      [:by_site, :by_site_and_research_study].include?(patient_visibility_restrictions)
+      %i(by_site by_site_and_research_study).include?(patient_visibility_restrictions)
     end
 
     def restrict_patient_visibility_by_research_study?

@@ -14,7 +14,7 @@ module Renalware
                 }
       has_paper_trail(
         versions: { class_name: "Renalware::Clinical::Version" },
-        on: [:create, :update, :destroy]
+        on: %i(create update destroy)
       )
       def self.policy_class = BasePolicy
     end
