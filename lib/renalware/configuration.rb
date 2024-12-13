@@ -22,6 +22,18 @@ module Renalware
     # Force dotenv to load the .env file at this stage so we can read in the config defaults
     Dotenv::Rails.load
 
+    # Links to eg Power BI or Qlick Sense that you might like to display on the login page
+    # and on the user's Dashboard when you log in.
+    # Needs to be a 2d array [[title,url],[title,url]] loaded from an ENV var in the format
+    #  title^url|title^url
+    # Or the ENV var can be "" if there are no links to display
+    config_accessor(:external_links) do
+      links = ENV.fetch("EXTERNAL_LINKS", "")
+      pairs = links.split("|").map { |pair| pair.split("^") }
+      # Return [] unless its a 2d array each element has a size of 2 (title and url)
+      pairs.map(&:size).uniq == [2] ? pairs : []
+    end
+
     config_accessor(:disable_dmd_synchroniser_job) { ENV["DISABLE_DMD_SYNCHRONISER_JOB"].to_i > 0 }
 
     config_accessor(:report_filter_cache_expiry_seconds) {
