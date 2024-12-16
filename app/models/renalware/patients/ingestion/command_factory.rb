@@ -40,7 +40,6 @@ module Renalware
         end
 
         def make_admit_patient(message)
-          Commands::UpdatePatient.new(message)
           # Commands::AdmitPatient.new(message,
           #   patient_finder: make_patient_finder_with_add_if_missing)
         end
