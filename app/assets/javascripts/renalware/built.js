@@ -17315,85 +17315,120 @@ class ModalController extends Controller {
   }
 }
 
-/**
- * Returns a function, that, as long as it continues to be invoked, will not
- * be triggered. The function will be called after it stops being called for
- * N milliseconds. If `immediate` is passed, trigger the function on the
- * leading edge, instead of the trailing. The function also has a property 'clear' 
- * that is a function which will clear the timer to prevent previously scheduled executions. 
- *
- * @source underscore.js
- * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
- * @param {Function} function to wrap
- * @param {Number} timeout in ms (`100`)
- * @param {Boolean} whether to execute at the beginning (`false`)
- * @api public
- */
+var debounce$3 = {exports: {}};
 
-var debounce_1;
 var hasRequiredDebounce;
 
 function requireDebounce () {
-	if (hasRequiredDebounce) return debounce_1;
+	if (hasRequiredDebounce) return debounce$3.exports;
 	hasRequiredDebounce = 1;
-	function debounce(func, wait, immediate){
-	  var timeout, args, context, timestamp, result;
-	  if (null == wait) wait = 100;
+	function debounce(function_, wait = 100, options = {}) {
+		if (typeof function_ !== 'function') {
+			throw new TypeError(`Expected the first parameter to be a function, got \`${typeof function_}\`.`);
+		}
 
-	  function later() {
-	    var last = Date.now() - timestamp;
+		if (wait < 0) {
+			throw new RangeError('`wait` must not be negative.');
+		}
 
-	    if (last < wait && last >= 0) {
-	      timeout = setTimeout(later, wait - last);
-	    } else {
-	      timeout = null;
-	      if (!immediate) {
-	        result = func.apply(context, args);
-	        context = args = null;
-	      }
-	    }
-	  }
-	  var debounced = function(){
-	    context = this;
-	    args = arguments;
-	    timestamp = Date.now();
-	    var callNow = immediate && !timeout;
-	    if (!timeout) timeout = setTimeout(later, wait);
-	    if (callNow) {
-	      result = func.apply(context, args);
-	      context = args = null;
-	    }
+		// TODO: Deprecate the boolean parameter at some point.
+		const {immediate} = typeof options === 'boolean' ? {immediate: options} : options;
 
-	    return result;
-	  };
+		let storedContext;
+		let storedArguments;
+		let timeoutId;
+		let timestamp;
+		let result;
 
-	  debounced.clear = function() {
-	    if (timeout) {
-	      clearTimeout(timeout);
-	      timeout = null;
-	    }
-	  };
-	  
-	  debounced.flush = function() {
-	    if (timeout) {
-	      result = func.apply(context, args);
-	      context = args = null;
-	      
-	      clearTimeout(timeout);
-	      timeout = null;
-	    }
-	  };
+		function run() {
+			const callContext = storedContext;
+			const callArguments = storedArguments;
+			storedContext = undefined;
+			storedArguments = undefined;
+			result = function_.apply(callContext, callArguments);
+			return result;
+		}
 
-	  return debounced;
+		function later() {
+			const last = Date.now() - timestamp;
+
+			if (last < wait && last >= 0) {
+				timeoutId = setTimeout(later, wait - last);
+			} else {
+				timeoutId = undefined;
+
+				if (!immediate) {
+					result = run();
+				}
+			}
+		}
+
+		const debounced = function (...arguments_) {
+			if (
+				storedContext
+				&& this !== storedContext
+				&& Object.getPrototypeOf(this) === Object.getPrototypeOf(storedContext)
+			) {
+				throw new Error('Debounced method called with different contexts of the same prototype.');
+			}
+
+			storedContext = this; // eslint-disable-line unicorn/no-this-assignment
+			storedArguments = arguments_;
+			timestamp = Date.now();
+
+			const callNow = immediate && !timeoutId;
+
+			if (!timeoutId) {
+				timeoutId = setTimeout(later, wait);
+			}
+
+			if (callNow) {
+				result = run();
+			}
+
+			return result;
+		};
+
+		Object.defineProperty(debounced, 'isPending', {
+			get() {
+				return timeoutId !== undefined;
+			},
+		});
+
+		debounced.clear = () => {
+			if (!timeoutId) {
+				return;
+			}
+
+			clearTimeout(timeoutId);
+			timeoutId = undefined;
+		};
+
+		debounced.flush = () => {
+			if (!timeoutId) {
+				return;
+			}
+
+			debounced.trigger();
+		};
+
+		debounced.trigger = () => {
+			result = run();
+
+			debounced.clear();
+		};
+
+		return debounced;
 	}
-	// Adds compatibility for ES modules
-	debounce.debounce = debounce;
 
-	debounce_1 = debounce;
-	return debounce_1;
+	// Adds compatibility for ES modules
+	debounce$3.exports.debounce = debounce;
+
+	debounce$3.exports = debounce;
+	return debounce$3.exports;
 }
 
-var debounceExports = requireDebounce();
+var debounceExports = /*@__PURE__*/ requireDebounce();
 var debounce$2 = /*@__PURE__*/getDefaultExportFromCjs(debounceExports);
 
 /*  Adds auto-submit to a form using @hotwired turbo
