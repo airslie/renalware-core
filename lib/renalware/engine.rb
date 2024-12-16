@@ -46,7 +46,7 @@ require "prawn"
 require "puma"
 require "pundit"
 require "turbo-rails"
-require "tailwindcss-rails"
+require "tailwindcss-rails" if Rails.env.local?
 require "ransack"
 require "renalware/forms"
 require "pandoc-ruby"

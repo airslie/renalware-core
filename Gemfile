@@ -122,5 +122,7 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails"
   gem "rubocop", require: false
+  gem "tailwindcss-rails", "~> 3.0"
+  gem "tailwindcss-ruby"
   gem "wkhtmltopdf-binary", "0.12.6.8"
 end
