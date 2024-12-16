@@ -38,12 +38,12 @@ namespace :tailwindcss do
     debug = args.extras.include?("debug")
 
     command = [
-      Tailwindcss::Commands.executable,
+      Tailwindcss::Ruby.executable,
       "-i", Renalware::Engine.root.join("app/assets/stylesheets/application.tailwind.css").to_s,
       "-o", Rails.root.join("app/assets/builds/tailwind.css").to_s,
       "-c", Renalware::Engine.root.join("config/tailwind.config.js").to_s
-    ].tap do |command|
-      command << "--minify" unless debug
+    ].tap do |cmd|
+      cmd << "--minify" unless debug
     end
 
     puts command.inspect if args.extras.include?("verbose")
