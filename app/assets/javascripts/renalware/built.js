@@ -12360,7 +12360,7 @@ class PatientSearchController extends Controller {
 }
 
 /**!
- * Sortable 1.15.4
+ * Sortable 1.15.6
  * @author	RubaXa   <trash@rubaxa.org>
  * @author	owenm    <owen23355@gmail.com>
  * @license MIT
@@ -12464,7 +12464,7 @@ function _objectWithoutProperties(source, excluded) {
   return target;
 }
 
-var version = "1.15.4";
+var version = "1.15.6";
 
 function userAgent(pattern) {
   if (typeof window !== 'undefined' && window.navigator) {
@@ -13441,7 +13441,8 @@ function Sortable(el, options) {
       x: 0,
       y: 0
     },
-    supportPointer: Sortable.supportPointer !== false && 'PointerEvent' in window && !Safari,
+    // Disabled on Safari: #1571; Enabled on Safari IOS: #2244
+    supportPointer: Sortable.supportPointer !== false && 'PointerEvent' in window && (!Safari || IOS),
     emptyInsertThreshold: 5
   };
   PluginManager.initializePlugins(this, el, defaults);
@@ -13728,13 +13729,13 @@ Sortable.prototype = /** @lends Sortable.prototype */{
       on(rootEl, 'dragstart', this._onDragStart);
     }
     try {
-      _nextTick(function () {
-        if (document.selection) {
+      if (document.selection) {
+        _nextTick(function () {
           document.selection.empty();
-        } else {
-          window.getSelection().removeAllRanges();
-        }
-      });
+        });
+      } else {
+        window.getSelection().removeAllRanges();
+      }
     } catch (err) {}
   },
   _dragStarted: function _dragStarted(fallback, evt) {
@@ -13950,6 +13951,7 @@ Sortable.prototype = /** @lends Sortable.prototype */{
     _this._dragStartId = _nextTick(_this._dragStarted.bind(_this, fallback, evt));
     on(document, 'selectstart', _this);
     moved = true;
+    window.getSelection().removeAllRanges();
     if (Safari) {
       css(document.body, 'user-select', 'none');
     }
@@ -17069,87 +17071,6 @@ class SlimselectController extends Controller {
   }
 }
 
-/**
- * Returns a function, that, as long as it continues to be invoked, will not
- * be triggered. The function will be called after it stops being called for
- * N milliseconds. If `immediate` is passed, trigger the function on the
- * leading edge, instead of the trailing. The function also has a property 'clear' 
- * that is a function which will clear the timer to prevent previously scheduled executions. 
- *
- * @source underscore.js
- * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
- * @param {Function} function to wrap
- * @param {Number} timeout in ms (`100`)
- * @param {Boolean} whether to execute at the beginning (`false`)
- * @api public
- */
-
-var debounce_1;
-var hasRequiredDebounce;
-
-function requireDebounce () {
-	if (hasRequiredDebounce) return debounce_1;
-	hasRequiredDebounce = 1;
-	function debounce(func, wait, immediate){
-	  var timeout, args, context, timestamp, result;
-	  if (null == wait) wait = 100;
-
-	  function later() {
-	    var last = Date.now() - timestamp;
-
-	    if (last < wait && last >= 0) {
-	      timeout = setTimeout(later, wait - last);
-	    } else {
-	      timeout = null;
-	      if (!immediate) {
-	        result = func.apply(context, args);
-	        context = args = null;
-	      }
-	    }
-	  }
-	  var debounced = function(){
-	    context = this;
-	    args = arguments;
-	    timestamp = Date.now();
-	    var callNow = immediate && !timeout;
-	    if (!timeout) timeout = setTimeout(later, wait);
-	    if (callNow) {
-	      result = func.apply(context, args);
-	      context = args = null;
-	    }
-
-	    return result;
-	  };
-
-	  debounced.clear = function() {
-	    if (timeout) {
-	      clearTimeout(timeout);
-	      timeout = null;
-	    }
-	  };
-	  
-	  debounced.flush = function() {
-	    if (timeout) {
-	      result = func.apply(context, args);
-	      context = args = null;
-	      
-	      clearTimeout(timeout);
-	      timeout = null;
-	    }
-	  };
-
-	  return debounced;
-	}
-	// Adds compatibility for ES modules
-	debounce.debounce = debounce;
-
-	debounce_1 = debounce;
-	return debounce_1;
-}
-
-var debounceExports = requireDebounce();
-var debounce$2 = /*@__PURE__*/getDefaultExportFromCjs(debounceExports);
-
 class SlimselectAjaxController extends Controller {
   static values = { }
 
@@ -17393,6 +17314,87 @@ class ModalController extends Controller {
     document.documentElement.scrollTop = this.scrollPosition;
   }
 }
+
+/**
+ * Returns a function, that, as long as it continues to be invoked, will not
+ * be triggered. The function will be called after it stops being called for
+ * N milliseconds. If `immediate` is passed, trigger the function on the
+ * leading edge, instead of the trailing. The function also has a property 'clear' 
+ * that is a function which will clear the timer to prevent previously scheduled executions. 
+ *
+ * @source underscore.js
+ * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+ * @param {Function} function to wrap
+ * @param {Number} timeout in ms (`100`)
+ * @param {Boolean} whether to execute at the beginning (`false`)
+ * @api public
+ */
+
+var debounce_1;
+var hasRequiredDebounce;
+
+function requireDebounce () {
+	if (hasRequiredDebounce) return debounce_1;
+	hasRequiredDebounce = 1;
+	function debounce(func, wait, immediate){
+	  var timeout, args, context, timestamp, result;
+	  if (null == wait) wait = 100;
+
+	  function later() {
+	    var last = Date.now() - timestamp;
+
+	    if (last < wait && last >= 0) {
+	      timeout = setTimeout(later, wait - last);
+	    } else {
+	      timeout = null;
+	      if (!immediate) {
+	        result = func.apply(context, args);
+	        context = args = null;
+	      }
+	    }
+	  }
+	  var debounced = function(){
+	    context = this;
+	    args = arguments;
+	    timestamp = Date.now();
+	    var callNow = immediate && !timeout;
+	    if (!timeout) timeout = setTimeout(later, wait);
+	    if (callNow) {
+	      result = func.apply(context, args);
+	      context = args = null;
+	    }
+
+	    return result;
+	  };
+
+	  debounced.clear = function() {
+	    if (timeout) {
+	      clearTimeout(timeout);
+	      timeout = null;
+	    }
+	  };
+	  
+	  debounced.flush = function() {
+	    if (timeout) {
+	      result = func.apply(context, args);
+	      context = args = null;
+	      
+	      clearTimeout(timeout);
+	      timeout = null;
+	    }
+	  };
+
+	  return debounced;
+	}
+	// Adds compatibility for ES modules
+	debounce.debounce = debounce;
+
+	debounce_1 = debounce;
+	return debounce_1;
+}
+
+var debounceExports = requireDebounce();
+var debounce$2 = /*@__PURE__*/getDefaultExportFromCjs(debounceExports);
 
 /*  Adds auto-submit to a form using @hotwired turbo
     Submits the form associated with the input
