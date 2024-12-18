@@ -29,7 +29,7 @@ module Renalware::Feeds::HL7Segments
       )
     end
 
-    it "#clinic" do
+    it "#clinic (PV1.3)" do # see also assigned_location
       expect(pv1.clinic).to have_attributes(
         code: "Clinic1",
         name: "Name",
@@ -41,7 +41,7 @@ module Renalware::Feeds::HL7Segments
       expect(pv1.visit_number).to eq("VisitNumber123")
     end
 
-    describe "location" do
+    describe "#assigned_location (PV1.3)" do # see also clinic
       let(:raw_message) do
         <<~RAW
           PV1|1|I|ward^room^bed^facility^loc.stat^BED^building^floor^loc.desc|||""^""^""^""^^^""|Z2736330|||424||||79||||NEWBORN|124301137^^""^^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON|||||20241104144000|
@@ -49,7 +49,29 @@ module Renalware::Feeds::HL7Segments
       end
 
       it do
-        expect(pv1.location).to have_attributes(
+        expect(pv1.assigned_location).to have_attributes(
+          ward: "ward",
+          room: "room",
+          bed: "bed",
+          facility: "facility",
+          location_status: "loc.stat",
+          person_location_type: "BED",
+          building: "building",
+          floor: "floor",
+          location_description: "loc.desc"
+        )
+      end
+    end
+
+    describe "#prior_location (PV1.6)" do
+      let(:raw_message) do
+        <<~RAW
+          PV1|1|I|^^^^^^^^|||ward^room^bed^facility^loc.stat^BED^building^floor^loc.desc|Z2736330|||424||||79||||NEWBORN|124301137^^""^^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON|||||20241104144000|
+        RAW
+      end
+
+      it do
+        expect(pv1.prior_location).to have_attributes(
           ward: "ward",
           room: "room",
           bed: "bed",

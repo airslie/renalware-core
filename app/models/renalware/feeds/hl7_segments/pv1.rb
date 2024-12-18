@@ -52,8 +52,9 @@ module Renalware
           private attr_reader :fields
         end
 
-        def clinic            = Clinic.new(assigned_location)
-        def location          = AssignedLocation.new(assigned_location)
+        def clinic            = Clinic.new(__getobj__.assigned_location)
+        def assigned_location = AssignedLocation.new(super)
+        def prior_location    = AssignedLocation.new(super)
         def referring_doctor  = Consultant.new(super)
         def attending_doctor  = Consultant.new(super)
         def consulting_doctor = Consultant.new(super)

@@ -9,10 +9,13 @@ module Renalware
 
           pattr_initialize :message
           delegate :patient_identification, :pv1, to: :message
-          delegate :location, to: :pv1
+          delegate :assigned_location, :prior_location, to: :pv1
 
           def call
             return if patient.blank?
+
+            # Check - do we already have this admission (number)
+            # Is it patient move of ward/bed
 
             Admission.create!(
               hospital_ward: ward,
@@ -29,13 +32,36 @@ module Renalware
 
           private
 
+          # If we can't find the ward, create it using the ward name as both :code and :name
           def ward
-            @ward ||= Hospitals::Ward.find_or_create_by(code: location.ward)
+            @ward ||= Hospitals::Ward.find_or_create_by(
+              code: assigned_location.ward,
+              unit_id: unit.id
+            ) do |ward|
+              ward.name = assigned_location.ward
+            end
           end
 
+          # If we can't find the unit by name, code or alias, then create it.
+          # An example alias might be eg 'RNJ ROYALLONDON' in PV1.3.4 Facility.
+          # rubocop:disable Metrics/MethodLength
           def unit
-            @unit ||= Hospitals::Unit.find_by!(unit_code: "??")
+            @unit ||= begin
+              incoming_unit_name = assigned_location.facility
+              found_unit = Hospitals::Unit
+                .where(alias: incoming_unit_name)
+                .or(Hospitals::Unit.where(unit_code: incoming_unit_name))
+                .or(Hospitals::Unit.where(name: incoming_unit_name))
+                .first
+
+              found_unit || Hospitals::Unit.create!(
+                unit_code: incoming_unit_name,
+                name: incoming_unit_name,
+                alias: incoming_unit_name
+              )
+            end
           end
+          # rubocop:enable Metrics/MethodLength
 
           def update_existing_admission(admission)
             admission.update!(

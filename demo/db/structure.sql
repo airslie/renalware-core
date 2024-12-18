@@ -7045,6 +7045,7 @@ CREATE TABLE renalware.hospital_units (
     is_hd_site boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    alias character varying,
     ods_code character varying
 );
 
@@ -23162,6 +23163,13 @@ CREATE INDEX index_hospital_departments_on_hospital_centre_id ON renalware.hospi
 
 
 --
+-- Name: index_hospital_units_on_alias; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hospital_units_on_alias ON renalware.hospital_units USING btree (alias);
+
+
+--
 -- Name: index_hospital_units_on_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -30750,6 +30758,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20250117164135'),
 ('20241230130328'),
 ('20241220180547'),
+('20241217190421'),
 ('20241212115831'),
 ('20241205164429'),
 ('20241127162800'),
