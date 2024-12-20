@@ -6349,6 +6349,246 @@ ALTER SEQUENCE renalware.feed_sausages_id_seq OWNED BY renalware.feed_sausages.i
 
 
 --
+-- Name: geography_local_authority_districts; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.geography_local_authority_districts (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    imd_rank integer,
+    imd_pct integer,
+    imd_decile integer,
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: COLUMN geography_local_authority_districts.imd_rank; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.geography_local_authority_districts.imd_rank IS 'A simple Index of Multiple Deprivation (IMD) ranking of the LA from most to least deprived.';
+
+
+--
+-- Name: COLUMN geography_local_authority_districts.imd_pct; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.geography_local_authority_districts.imd_pct IS 'Percentage - where the most deprived 1% of LAs are 1 and the next most deprived 1% are 2 etc.';
+
+
+--
+-- Name: COLUMN geography_local_authority_districts.imd_decile; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.geography_local_authority_districts.imd_decile IS 'Grouping the most deprived 10% of LA as Decile 1 and the second most deprived 10% as decile 2 etc.';
+
+
+--
+-- Name: geography_local_authority_districts_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.geography_local_authority_districts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: geography_local_authority_districts_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.geography_local_authority_districts_id_seq OWNED BY renalware.geography_local_authority_districts.id;
+
+
+--
+-- Name: geography_lower_super_output_areas; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.geography_lower_super_output_areas (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    imd_rank integer,
+    imd_pct integer,
+    imd_decile integer,
+    middle_super_output_area_id bigint NOT NULL,
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: TABLE geography_lower_super_output_areas; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.geography_lower_super_output_areas IS 'LSOAs are a type of census geography that were created to allow for comparisons across
+different parts of the country. LSOAs fall within the boundaries of Local Authority
+Districts (LADs). LOSAa comprise between 400 and 1,200 households and have a usually
+resident population between 1,000 and 3,000 persons. LSOAs are made up of groups of
+Output Areas (OAs), usually four or five.
+';
+
+
+--
+-- Name: COLUMN geography_lower_super_output_areas.imd_rank; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.geography_lower_super_output_areas.imd_rank IS 'A simple Index of Multiple Deprivation (IMD) ranking of the LSOA from most to least deprived.';
+
+
+--
+-- Name: COLUMN geography_lower_super_output_areas.imd_pct; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.geography_lower_super_output_areas.imd_pct IS 'Percentage - where the most deprived 1% of LSOAs are 1 and the next most deprived 1% are 2 etc.';
+
+
+--
+-- Name: COLUMN geography_lower_super_output_areas.imd_decile; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.geography_lower_super_output_areas.imd_decile IS 'Grouping the most deprived 10% of LSOAs as Decile 1 and the second most deprived 10% as decile 2 etc.';
+
+
+--
+-- Name: geography_lower_super_output_areas_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.geography_lower_super_output_areas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: geography_lower_super_output_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.geography_lower_super_output_areas_id_seq OWNED BY renalware.geography_lower_super_output_areas.id;
+
+
+--
+-- Name: geography_middle_super_output_areas; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.geography_middle_super_output_areas (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    local_authority_district_id bigint NOT NULL,
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: TABLE geography_middle_super_output_areas; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.geography_middle_super_output_areas IS 'MSOAs are groups of Lower Layer Super Output Areas (LSOAs) -  usually four or five - that
+are used to publish statistics. They are designed to contain between 5,000 and 15,000
+residents and 2,000 and 6,000 households. MSOAs are generated automatically by zone-design
+software using census data. They are often used when statistics cannot be published at the
+LSOA level because they could be disclosive of an individual''s data. As of 2021, there were
+6,856 MSOAs in England and 408 in Wales.
+';
+
+
+--
+-- Name: geography_middle_super_output_areas_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.geography_middle_super_output_areas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: geography_middle_super_output_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.geography_middle_super_output_areas_id_seq OWNED BY renalware.geography_middle_super_output_areas.id;
+
+
+--
+-- Name: geography_output_areas; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.geography_output_areas (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    lower_super_output_area_id bigint NOT NULL
+);
+
+
+--
+-- Name: TABLE geography_output_areas; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.geography_output_areas IS 'Output Areas (OAs) are the lowest level of geographical area for census statistics and
+were first created following the 2001 Census
+';
+
+
+--
+-- Name: geography_output_areas_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.geography_output_areas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: geography_output_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.geography_output_areas_id_seq OWNED BY renalware.geography_output_areas.id;
+
+
+--
+-- Name: geography_postcodes; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.geography_postcodes (
+    id bigint NOT NULL,
+    postal_code character varying NOT NULL,
+    lower_super_output_area_id bigint NOT NULL
+);
+
+
+--
+-- Name: geography_postcodes_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.geography_postcodes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: geography_postcodes_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.geography_postcodes_id_seq OWNED BY renalware.geography_postcodes.id;
+
+
+--
 -- Name: good_job_batches; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8467,6 +8707,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT id AS patient_id
+   FROM renalware.patients
+  WHERE ((family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -14497,6 +14747,28 @@ ALTER SEQUENCE renalware.system_visits_id_seq OWNED BY renalware.system_visits.i
 
 
 --
+-- Name: tmp_lad_data; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.tmp_lad_data (
+    pcd7 text,
+    pcd8 text,
+    pcds text,
+    dointr text,
+    doterm text,
+    usertype text,
+    oa11cd text,
+    lsoa11cd text,
+    msoa11cd text,
+    ladcd text,
+    lsoa11nm text,
+    msoa11nm text,
+    ladnm text,
+    ladnmw text
+);
+
+
+--
 -- Name: transplant_donations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -16230,6 +16502,41 @@ ALTER TABLE ONLY renalware.feed_sausage_queue ALTER COLUMN id SET DEFAULT nextva
 --
 
 ALTER TABLE ONLY renalware.feed_sausages ALTER COLUMN id SET DEFAULT nextval('renalware.feed_sausages_id_seq'::regclass);
+
+
+--
+-- Name: geography_local_authority_districts id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_local_authority_districts ALTER COLUMN id SET DEFAULT nextval('renalware.geography_local_authority_districts_id_seq'::regclass);
+
+
+--
+-- Name: geography_lower_super_output_areas id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_lower_super_output_areas ALTER COLUMN id SET DEFAULT nextval('renalware.geography_lower_super_output_areas_id_seq'::regclass);
+
+
+--
+-- Name: geography_middle_super_output_areas id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_middle_super_output_areas ALTER COLUMN id SET DEFAULT nextval('renalware.geography_middle_super_output_areas_id_seq'::regclass);
+
+
+--
+-- Name: geography_output_areas id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_output_areas ALTER COLUMN id SET DEFAULT nextval('renalware.geography_output_areas_id_seq'::regclass);
+
+
+--
+-- Name: geography_postcodes id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_postcodes ALTER COLUMN id SET DEFAULT nextval('renalware.geography_postcodes_id_seq'::regclass);
 
 
 --
@@ -18240,6 +18547,46 @@ ALTER TABLE ONLY renalware.feed_sausages
 
 
 --
+-- Name: geography_local_authority_districts geography_local_authority_districts_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_local_authority_districts
+    ADD CONSTRAINT geography_local_authority_districts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: geography_lower_super_output_areas geography_lower_super_output_areas_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_lower_super_output_areas
+    ADD CONSTRAINT geography_lower_super_output_areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: geography_middle_super_output_areas geography_middle_super_output_areas_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_middle_super_output_areas
+    ADD CONSTRAINT geography_middle_super_output_areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: geography_output_areas geography_output_areas_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_output_areas
+    ADD CONSTRAINT geography_output_areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: geography_postcodes geography_postcodes_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_postcodes
+    ADD CONSTRAINT geography_postcodes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: good_job_batches good_job_batches_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20028,6 +20375,27 @@ CREATE INDEX idx_mp_patient_id_medication_route_id ON renalware.medication_presc
 
 
 --
+-- Name: idx_on_code_local_authority_district_id_fe2b0c7d98; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_on_code_local_authority_district_id_fe2b0c7d98 ON renalware.geography_middle_super_output_areas USING btree (code, local_authority_district_id);
+
+
+--
+-- Name: idx_on_local_authority_district_id_103e1854df; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_on_local_authority_district_id_103e1854df ON renalware.geography_middle_super_output_areas USING btree (local_authority_district_id);
+
+
+--
+-- Name: idx_on_middle_super_output_area_id_b9987db7f1; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_on_middle_super_output_area_id_b9987db7f1 ON renalware.geography_lower_super_output_areas USING btree (middle_super_output_area_id);
+
+
+--
 -- Name: idx_on_study_id_external_reference_a07278c0eb; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -21579,6 +21947,69 @@ CREATE UNIQUE INDEX index_feed_sausages_on_orc_filler_order_number ON renalware.
 --
 
 CREATE INDEX index_feed_sausages_on_sent_at ON renalware.feed_sausages USING btree (sent_at);
+
+
+--
+-- Name: index_geography_local_authority_districts_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_geography_local_authority_districts_on_code ON renalware.geography_local_authority_districts USING btree (code);
+
+
+--
+-- Name: index_geography_local_authority_districts_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_geography_local_authority_districts_on_name ON renalware.geography_local_authority_districts USING btree (name);
+
+
+--
+-- Name: index_geography_lower_super_output_areas_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_geography_lower_super_output_areas_on_code ON renalware.geography_lower_super_output_areas USING btree (code);
+
+
+--
+-- Name: index_geography_middle_super_output_areas_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_geography_middle_super_output_areas_on_code ON renalware.geography_middle_super_output_areas USING btree (code);
+
+
+--
+-- Name: index_geography_middle_super_output_areas_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_geography_middle_super_output_areas_on_name ON renalware.geography_middle_super_output_areas USING btree (name);
+
+
+--
+-- Name: index_geography_output_areas_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_geography_output_areas_on_code ON renalware.geography_output_areas USING btree (code);
+
+
+--
+-- Name: index_geography_output_areas_on_lower_super_output_area_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_geography_output_areas_on_lower_super_output_area_id ON renalware.geography_output_areas USING btree (lower_super_output_area_id);
+
+
+--
+-- Name: index_geography_postcodes_on_lower_super_output_area_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_geography_postcodes_on_lower_super_output_area_id ON renalware.geography_postcodes USING btree (lower_super_output_area_id);
+
+
+--
+-- Name: index_geography_postcodes_on_postal_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_geography_postcodes_on_postal_code ON renalware.geography_postcodes USING btree (postal_code);
 
 
 --
@@ -26321,6 +26752,13 @@ CREATE INDEX survey_responses_compound_index ON renalware.survey_responses USING
 
 
 --
+-- Name: tmp_lad_data_idx; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX tmp_lad_data_idx ON renalware.tmp_lad_data USING btree (ladcd, lsoa11cd, msoa11cd);
+
+
+--
 -- Name: tx_donor_stage_position_idx; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -27900,6 +28338,14 @@ ALTER TABLE ONLY renalware.pathology_observations
 
 
 --
+-- Name: geography_middle_super_output_areas fk_rails_7238531ba4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_middle_super_output_areas
+    ADD CONSTRAINT fk_rails_7238531ba4 FOREIGN KEY (local_authority_district_id) REFERENCES renalware.geography_local_authority_districts(id);
+
+
+--
 -- Name: admission_admissions fk_rails_74bb0c40ab; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -28633,6 +29079,14 @@ ALTER TABLE ONLY renalware.letter_qr_encoded_online_reference_links
 
 ALTER TABLE ONLY renalware.hd_diaries
     ADD CONSTRAINT fk_rails_aab1b8f3e1 FOREIGN KEY (master_diary_id) REFERENCES renalware.hd_diaries(id);
+
+
+--
+-- Name: geography_output_areas fk_rails_ab0dd53286; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_output_areas
+    ADD CONSTRAINT fk_rails_ab0dd53286 FOREIGN KEY (lower_super_output_area_id) REFERENCES renalware.geography_lower_super_output_areas(id);
 
 
 --
@@ -29372,6 +29826,14 @@ ALTER TABLE ONLY renalware.hd_session_form_batches
 
 
 --
+-- Name: geography_postcodes fk_rails_e3d9a6648a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_postcodes
+    ADD CONSTRAINT fk_rails_e3d9a6648a FOREIGN KEY (lower_super_output_area_id) REFERENCES renalware.geography_lower_super_output_areas(id);
+
+
+--
 -- Name: transplant_recipient_operations fk_rails_e41edf9bc0; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -29497,6 +29959,14 @@ ALTER TABLE ONLY renalware.hd_slot_requests
 
 ALTER TABLE ONLY renalware.letter_mesh_operations
     ADD CONSTRAINT fk_rails_f0319e3bdb FOREIGN KEY (transmission_id) REFERENCES renalware.letter_mesh_transmissions(id);
+
+
+--
+-- Name: geography_lower_super_output_areas fk_rails_f033a11cb0; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.geography_lower_super_output_areas
+    ADD CONSTRAINT fk_rails_f033a11cb0 FOREIGN KEY (middle_super_output_area_id) REFERENCES renalware.geography_middle_super_output_areas(id);
 
 
 --
@@ -30018,6 +30488,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241220180547'),
 ('20241212115831'),
 ('20241205164429'),
 ('20241127162800'),
