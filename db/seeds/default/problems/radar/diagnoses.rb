@@ -10,7 +10,7 @@ module Renalware
     CSV.foreach(file_path, headers: true).each do |row|
       Problems::RaDaR::Cohort
         .find_or_create_by(name: row["cohort"])
-        .diagnoses.upsert({ name: row["diagnosis"] }, unique_by: [:cohort_id,:name])
+        .diagnoses.upsert({ name: row["diagnosis"] }, unique_by: [:cohort_id, :name])
     end
   end
 end

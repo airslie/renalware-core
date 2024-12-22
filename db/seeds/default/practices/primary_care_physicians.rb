@@ -6,7 +6,7 @@ module Renalware
   extend SeedsHelper
 
   log "Adding Primary Care Physicians\n" do
-    practice_ids = Renalware::Patients::Practice.pluck(:code,:id).to_h
+    practice_ids = Renalware::Patients::Practice.pluck(:code, :id).to_h
     sample_status = "SAMPLE ONLY"
     file_path = File.join(File.dirname(__FILE__), "primary_care_physicians_sample.csv")
     # "id","practice_code","gp_code","name","practice_id"
