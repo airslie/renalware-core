@@ -24,7 +24,6 @@ module Renalware
       end
     end
 
-    # rubocop:disable Metrics/MethodLength
     def seed_pathology_observations_for(patient:)
       log "Adding Pathology Observations (OBX) for #{patient}" do
         file_path = file_path_for(patient: patient, file_name: "pathology_obx.csv")
@@ -44,7 +43,6 @@ module Renalware
         Pathology::Observation.insert_all(observations)
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     def seed_pathology_for(local_patient_id:)
       patient = Patient.find_by(local_patient_id: local_patient_id)
