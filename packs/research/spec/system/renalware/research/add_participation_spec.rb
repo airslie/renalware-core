@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Add a patient to a study (creating a participation)" do
   include AjaxHelpers
 

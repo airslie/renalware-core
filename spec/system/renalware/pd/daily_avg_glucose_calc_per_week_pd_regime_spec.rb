@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe "Daily average glucose(ml) calculated from bags per type assigned during one week",
            :js do

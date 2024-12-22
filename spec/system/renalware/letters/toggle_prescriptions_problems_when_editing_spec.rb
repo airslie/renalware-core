@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe(
     "Toggle current problems & prescriptions when editing letter", :js

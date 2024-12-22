@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Assign Live Donor modality to Jessica RABBIT" do
     patient = Patient.find_by(local_patient_id: "Z100002")

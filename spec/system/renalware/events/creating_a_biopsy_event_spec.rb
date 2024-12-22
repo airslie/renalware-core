@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Creating an biopsy", :js do
   context "when adding a biopsy event" do
     it "captures extra data" do

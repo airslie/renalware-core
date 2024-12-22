@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Online Reference Links " do
     System::OnlineReferenceLink.new(

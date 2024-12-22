@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Creating an Advanced Care Plan event", :js do
   context "when adding the event" do
     it "allows a user to also select the state from an event-specfic dropdown" do

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Renal Registry Ethnicities" do
     file_path = File.join(File.dirname(__FILE__), "rr18_ethnicity_codes.csv")

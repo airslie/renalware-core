@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Renal Profile", :js do
   describe "GET #show" do
     it "updating the renal profile" do

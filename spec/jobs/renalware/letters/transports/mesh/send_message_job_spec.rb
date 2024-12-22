@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware::Letters
   module Transports::Mesh
     describe SendMessageJob do

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding POS-S Renal Survey" do
     survey = Surveys::Survey.create(

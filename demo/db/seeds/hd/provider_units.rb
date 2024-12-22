@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding HD Providers" do
     unit = Hospitals::Unit.find_by(unit_code: "MOUNT")

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   module UKRDC
     # If the optional :changed_since argument is passed we select all PKB

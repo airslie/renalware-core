@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # For use only in rake task! See comments below
 module Renalware
   module UKRDC

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   #
   # Renders flash messages either as toasts with stimulus (the app default) or as inline html

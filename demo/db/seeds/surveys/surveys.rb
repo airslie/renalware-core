@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding EQ5D survey responses" do
     patient = Patient.find_by!(family_name: "RABBIT", given_name: "Roger")

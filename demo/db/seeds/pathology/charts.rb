@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   class ChartSeeder
     def create_chart_with(title, scope, *obxcodes)

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Creating Admission::Specialties" do
     %w(Cardiology

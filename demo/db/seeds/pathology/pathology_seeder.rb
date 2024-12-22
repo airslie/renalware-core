@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   class PathologySeeder
     def file_path_for(patient:, file_name:)

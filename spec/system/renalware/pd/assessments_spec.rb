@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe "PD Assessment management", :js do
     it "Add a PD Assessment" do

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Assign a person as a main recipient" do
   include AjaxHelpers
 

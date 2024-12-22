@@ -133,9 +133,8 @@ Layout/LineLength:
     - "app/inputs/**.*"
     - "demo/db/**/*"
 Style/FrozenStringLiteralComment:
-  Exclude:
-    - "demo/db/migrate/**/*"
-    - "db/migrate/**/*"
+  Enabled: false
+
 Metrics/AbcSize:
   Exclude:
     - "spec/acceptance/renalware/steps/**/*"

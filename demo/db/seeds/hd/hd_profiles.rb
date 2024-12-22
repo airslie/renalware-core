@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Assigning HD Profiles to Random Patients" do
     kch_doc = User.find_by!(username: "kchdoc")

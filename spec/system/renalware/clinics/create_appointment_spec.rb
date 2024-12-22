@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Create new appointment manually (not via HL7 message)", :js do
   context "with valid inputs" do
     it "creates a new clinic appointment" do

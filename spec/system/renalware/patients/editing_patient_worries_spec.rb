@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe "editing a worries", :js do
     it "editing a worry from the worryboard" do

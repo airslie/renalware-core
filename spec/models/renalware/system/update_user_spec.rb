@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware::System
   describe UpdateUser do
     describe "#call" do

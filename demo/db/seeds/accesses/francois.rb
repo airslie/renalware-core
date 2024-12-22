@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   procedure1 = procedure2 = nil
   users = User.limit(3).to_a

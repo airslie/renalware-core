@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Creating a investigation event", :js do
   context "when adding a investigation event through the Events screen" do
     it "captures extra data" do

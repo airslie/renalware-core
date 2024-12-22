@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+# rubocop:disable Metrics/ModuleLength
 module Renalware
   Rails.benchmark "Adding Pathology Code Groups" do
     groups = {

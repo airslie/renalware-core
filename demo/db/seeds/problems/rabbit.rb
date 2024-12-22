@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
 

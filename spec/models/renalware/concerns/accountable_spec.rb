@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe Accountable do # rubocop:disable RSpec/SpecFilePathFormat
     def test_class

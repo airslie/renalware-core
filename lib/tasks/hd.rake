@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :hd do
   desc "Signs-off Open sessions that have a signed_off_by and are more than a few days old. " \
        "A usability update may render this task redundant in the future but currently there are " \

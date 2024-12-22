@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   module Problems
     # An instance of a single patient comorbidity problem eg 'Dementia' (defined by the

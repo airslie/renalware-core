@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "PD PET Dextrose Concentrations" do
     PD::PETDextroseConcentration.create!(name: "Dextrose 1.36%", value: 1.36, position: 1)

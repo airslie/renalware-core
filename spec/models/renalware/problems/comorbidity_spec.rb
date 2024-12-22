@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware::Problems
   describe Comorbidity do
     let(:user) { create(:user) }

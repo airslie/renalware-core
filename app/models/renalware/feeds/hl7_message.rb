@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   module Feeds
     # Responsible for representing an HL7 message. Fields can be queried via

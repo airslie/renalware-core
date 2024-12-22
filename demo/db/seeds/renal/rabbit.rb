@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Renal Profile and Comorbidities for Roger RABBIT" do
     Renal::Profile.create!(

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rails.benchmark "Seeding default data" do
   require_relative "system/seeds"
   require_relative "ukrdc/seeds"

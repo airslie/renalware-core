@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddLetterDateIndexes < ActiveRecord::Migration[5.1]
   def change
     within_renalware_schema do

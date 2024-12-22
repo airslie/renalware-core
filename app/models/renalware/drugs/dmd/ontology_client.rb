@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "faraday"
 
 module Renalware
@@ -7,10 +5,10 @@ module Renalware
     class OntologyClient
       include Callable
 
-      ENDPOINT = "https://ontology.nhs.uk"
+      ENDPOINT = "https://ontology.nhs.uk".freeze
       CLIENT_ID = Renalware.config.nhs_client_id
       CLIENT_SECRET = Renalware.config.nhs_client_secret
-      ACCESS_TOKEN_URL = "https://ontology.nhs.uk/authorisation/auth/realms/nhs-digital-terminology/protocol/openid-connect/token"
+      ACCESS_TOKEN_URL = "https://ontology.nhs.uk/authorisation/auth/realms/nhs-digital-terminology/protocol/openid-connect/token".freeze
 
       class Unauthenticated < StandardError; end
 

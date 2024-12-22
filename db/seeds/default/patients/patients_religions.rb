@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Religions" do
     file_path = File.join(File.dirname(__FILE__), "patients_religions.csv")

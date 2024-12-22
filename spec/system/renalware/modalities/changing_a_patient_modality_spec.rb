@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Changing a patient's modality", :js do
   it "allows specifying a source hospital if the change type requires it" do
     user = login_as_clinical

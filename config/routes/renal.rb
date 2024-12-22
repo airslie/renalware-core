@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 resources :patients, only: [] do
   namespace :renal do
     resource :profile, only: %i(show edit update)

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Creating an clinical frailty score event", :js do
   context "when adding the event" do
     it "allows a user to also select the score from an event-specific dropdown" do

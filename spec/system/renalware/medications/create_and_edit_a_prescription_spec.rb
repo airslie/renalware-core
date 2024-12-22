@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Prescriptions - create / edit / terminate", :js do
   include DrugsSpecHelper
 

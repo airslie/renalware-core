@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Bookmarks" do
     return if Patients::Bookmark.any?

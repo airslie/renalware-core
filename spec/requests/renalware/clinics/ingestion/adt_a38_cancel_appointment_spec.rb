@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "HL7 ADT^A38 cancel appointment" do
   # As used at MSE for appointment cancellation.
   # The A38 event is sent when an A05 (pre-admit a patient) event is cancelled, either because of

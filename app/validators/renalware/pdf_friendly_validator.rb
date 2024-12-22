@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   # rubocop:disable Style/AsciiComments
   # Prawn uses the Windows-1252 character set so that it can be compatible with the limnited fonts
@@ -18,7 +16,7 @@ module Renalware
   # the async generation of PDFs prevents changing the content.
   # rubocop:enable Style/AsciiComments
   class PdfFriendlyValidator < ActiveModel::EachValidator
-    PRAWN_PDF_ENCODING = "Windows-1252"
+    PRAWN_PDF_ENCODING = "Windows-1252".freeze
 
     def validate_each(record, attribute, value)
       value.to_s.dup.force_encoding(PRAWN_PDF_ENCODING).encode("utf-8")

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :api do
   # The UKRDC XML API
   namespace :ukrdc, defaults: { format: :xml } do

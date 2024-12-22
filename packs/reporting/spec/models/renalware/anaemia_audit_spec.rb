@@ -1,5 +1,4 @@
 # TODO: list
-# frozen_string_literal: true
 
 # Anaemia Audit
 # - Refactor helpers into an AuditHelper mixin as some duplication here with other audit tests.

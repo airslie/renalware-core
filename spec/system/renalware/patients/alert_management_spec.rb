@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Alert management" do
   include AjaxHelpers
 

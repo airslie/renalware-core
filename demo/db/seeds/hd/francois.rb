@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disable Metrics/MethodLength
 module Renalware
   patient = HD::Patient.find_by(local_patient_id: "Z100003")

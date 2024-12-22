@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Responsible for decorating a collection which responds to `to_a` which will
 # stringify all of the elements.
 #

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Create an Admission Request", :js do
   it "Creating a new request from the patient LH menu" do
     user = login_as_clinical

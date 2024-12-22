@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding fake HD session" do
     units = Hospitals::Unit.hd_sites.limit(3).to_a

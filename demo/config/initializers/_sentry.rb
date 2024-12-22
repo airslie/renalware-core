@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 if defined?(Sentry)
   Sentry.init do |config|
     config.dsn = Renalware.config.sentry_dsn

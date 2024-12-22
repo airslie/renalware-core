@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding HD Slot Request Deletion Reasons" do
     HD::SlotRequests::DeletionReason.find_or_create_by!(reason: "Deceased")

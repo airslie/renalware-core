@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware::Letters::Transports::Mesh
   describe ReconcileOperationsJob do
     include LettersSpecHelper

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Clinic Consultants" do
     Clinics::Consultant.find_or_create_by(code: "A", name: "Dr Jonathon Strange")

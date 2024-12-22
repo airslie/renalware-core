@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Problem notes management", :js do
   it "adding a problem note" do
     user = login_as_clinical

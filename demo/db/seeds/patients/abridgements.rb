@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Abridged Patients" do
     return if Patients::Abridgement.any?

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Prescriptions - from an exit site infection", :js do
   include DrugsSpecHelper
 

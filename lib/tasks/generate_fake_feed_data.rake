@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative "../../app/models/concerns/renalware/callable"
 
 namespace :feeds do

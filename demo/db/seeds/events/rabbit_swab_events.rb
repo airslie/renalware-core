@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Swab events for Roger RABBIT" do
     class CreateSwab

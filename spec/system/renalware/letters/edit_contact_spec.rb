@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Managing an existing letter contact", :js do
   include AjaxHelpers
 

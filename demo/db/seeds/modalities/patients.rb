@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Random Modalities for non-RABBIT Patients" do
     # Note the RABBIT family have special modalities assigned elsewhere, so skip them here

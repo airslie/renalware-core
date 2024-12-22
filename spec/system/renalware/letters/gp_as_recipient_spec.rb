@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe("Persisting the correct recipients when a letter is saved", :js) do
   include AjaxHelpers
 

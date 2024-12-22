@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Creating a mailshot", :js do
   include ActiveJob::TestHelper
 

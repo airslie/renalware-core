@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   module Patients
     Rails.benchmark "Adding ITK3 test patients 2" do

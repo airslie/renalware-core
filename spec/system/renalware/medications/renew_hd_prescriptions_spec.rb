@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Renewing all Give On HD prescriptions via a button", :js do
   let(:hd_prescriber_role) { create(:role, :hd_prescriber, enforce: true) }
 

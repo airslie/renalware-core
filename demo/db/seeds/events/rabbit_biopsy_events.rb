@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Biopsy events for Roger RABBIT" do
     class CreateBiopsy

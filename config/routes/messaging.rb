@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :messaging do
   namespace :internal do
     resources :messages, only: %i(new create index) do
