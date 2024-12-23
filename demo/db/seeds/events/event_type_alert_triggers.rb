@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Renalware
   log "Adding Events Type Alert Triggers" do
