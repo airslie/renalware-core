@@ -60,6 +60,23 @@ GIT
       cucumber-gherkin
       rspec (>= 3.0, < 4.0)
 
+GIT
+  remote: https://github.com/cucumber/cucumber-ruby.git
+  revision: 5cec9226789ab1742d5bc36ec3bc194906c58dbc
+  specs:
+    cucumber (9.2.0)
+      builder (~> 3.2)
+      cucumber-ci-environment (> 9, < 11)
+      cucumber-core (> 13, < 14)
+      cucumber-cucumber-expressions (~> 17.0)
+      cucumber-gherkin (> 24, < 28)
+      cucumber-html-formatter (> 20.3, < 22)
+      cucumber-messages (> 19, < 25)
+      diff-lcs (~> 1.5)
+      mini_mime (~> 1.1)
+      multi_test (~> 1.1)
+      sys-uname (~> 1.2)
+
 PATH
   remote: .
   specs:
@@ -318,19 +335,7 @@ GEM
     cronex (0.15.0)
       tzinfo
       unicode (>= 0.4.4.5)
-    csv (3.3.2)
-    cucumber (9.2.0)
-      builder (~> 3.2)
-      cucumber-ci-environment (> 9, < 11)
-      cucumber-core (> 13, < 14)
-      cucumber-cucumber-expressions (~> 17.0)
-      cucumber-gherkin (> 24, < 28)
-      cucumber-html-formatter (> 20.3, < 22)
-      cucumber-messages (> 19, < 25)
-      diff-lcs (~> 1.5)
-      mini_mime (~> 1.1)
-      multi_test (~> 1.1)
-      sys-uname (~> 1.2)
+    csv (3.3.1)
     cucumber-ci-environment (10.0.1)
     cucumber-core (13.0.3)
       cucumber-gherkin (>= 27, < 28)
@@ -1000,7 +1005,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   capybara-select-2
-  cucumber (~> 9.2)
+  cucumber!
   cucumber-rails
   daemons
   database_cleaner
