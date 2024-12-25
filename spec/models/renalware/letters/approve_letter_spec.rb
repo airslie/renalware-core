@@ -13,6 +13,11 @@ module Renalware
     let(:letter) { create_letter(state: :pending_review, to: :patient, patient: patient) }
     let(:approved_letter) { letter.becomes(Letters::Letter::Approved) }
 
+    before do
+      ActiveJob::Base.queue_adapter = :test
+      ActiveJob::Base.queue_adapter.enqueued_jobs.clear
+    end
+
     it "updates when and by who the letter was approved" do
       time = Time.zone.now
       travel_to(time) do
@@ -62,11 +67,6 @@ module Renalware
 
       describe "async listeners" do
         let(:adapter) { ActiveJob::Base.queue_adapter }
-
-        before do
-          ActiveJob::Base.queue_adapter = :test
-          ActiveJob::Base.queue_adapter.enqueued_jobs.clear
-        end
 
         context "when using wicked_pdf/wkhtmltopdf" do
           before do

@@ -65,14 +65,16 @@ GIT
   revision: 5cec9226789ab1742d5bc36ec3bc194906c58dbc
   specs:
     cucumber (9.2.0)
+      base64 (~> 0.2)
       builder (~> 3.2)
       cucumber-ci-environment (> 9, < 11)
       cucumber-core (> 13, < 14)
       cucumber-cucumber-expressions (~> 17.0)
       cucumber-gherkin (> 24, < 28)
       cucumber-html-formatter (> 20.3, < 22)
-      cucumber-messages (> 19, < 25)
+      cucumber-messages (> 19, < 26)
       diff-lcs (~> 1.5)
+      logger (~> 1.6)
       mini_mime (~> 1.1)
       multi_test (~> 1.1)
       sys-uname (~> 1.2)
@@ -1079,7 +1081,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku (~> 3.0.0)
 
 RUBY VERSION
-   ruby 3.4.0.rc1
+   ruby 3.4.1p0
 
 BUNDLED WITH
-   2.5.22
+   2.6.2

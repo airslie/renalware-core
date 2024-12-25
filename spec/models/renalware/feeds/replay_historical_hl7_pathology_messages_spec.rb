@@ -105,7 +105,7 @@ module Renalware
               expect(MessageReplay.first).to have_attributes(
                 success: false,
                 message: feed_message_fail,
-                error_message: /undefined method `message_type' for nil/
+                error_message: /undefined method 'message_type' for nil/
               )
 
               expect(MessageReplay.last).to have_attributes(
