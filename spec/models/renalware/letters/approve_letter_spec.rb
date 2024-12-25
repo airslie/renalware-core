@@ -88,7 +88,7 @@ module Renalware
               have_been_enqueued.with(
                 "Renalware::Letters::CalculatePageCountJob",
                 "letter_approved",
-                [approved_letter]
+                approved_letter
               )
             )
           end
@@ -108,7 +108,7 @@ module Renalware
             have_been_enqueued.with(
               "Renalware::Letters::CalculatePageCountJob",
               "letter_approved",
-              [approved_letter]
+              approved_letter
             )
           )
         end
