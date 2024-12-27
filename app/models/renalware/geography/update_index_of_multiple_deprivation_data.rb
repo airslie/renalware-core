@@ -31,10 +31,9 @@ module Renalware
       pattr_initialize [:csv_path!]
 
       def call
-        elapsed_ms = Benchmark.ms do
+        Rails.benchmark "UpdateIndexOfMultipleDeprivationData" do
           do_updates
         end
-        Rails.logger.info "Took #{elapsed_ms / 1000.0}s"
       end
 
       def do_updates # rubocop:disable Metrics/AbcSize
