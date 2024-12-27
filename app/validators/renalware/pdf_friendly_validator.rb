@@ -1,6 +1,6 @@
 module Renalware
   # rubocop:disable Style/AsciiComments
-  # Prawn uses the Windows-1252 character set so that it can be compatible with the limnited fonts
+  # Prawn uses the Windows-1252 character set so that it can be compatible with the limited fonts
   # built into PDF viewers. This has the advantage that PDF file sizes are very small (5-6KB as
   # opposed to 40KB+ if adding a custom TTF font to allow wider glyph support).
   # Prawn converts the content to UTF-8 before rendering, and characters, outside

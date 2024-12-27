@@ -2,8 +2,8 @@
 # See also AuditableSessionCollection
 #
 # Example usage:
-#  audtiable_session = AuditableSession.new(session)
-#  audtiable_session.weight_loss => 0.91
+#  auditable_session = AuditableSession.new(session)
+#  auditable_session.weight_loss => 0.91
 #
 
 module Renalware

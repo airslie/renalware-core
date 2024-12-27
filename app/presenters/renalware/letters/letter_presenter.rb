@@ -40,7 +40,7 @@ module Renalware
       # Unused, can be removed
       # def electronic_cc_receipts
       #   @electronic_cc_receipts ||=
-      #     CollectionPresenter.new(super, Letters::ElectonicReceiptPresenter)
+      #     CollectionPresenter.new(super, Letters::ElectronicReceiptPresenter)
       # end
 
       def description = "(#{letterhead.site_code}) #{super}"
