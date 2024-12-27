@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Renalware::Reporting::Engine.routes.draw do
   resources :audits, except: %i(destroy create new)
   resources :view_metadata_refreshments, only: [:create]

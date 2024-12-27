@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Assigning ESA Prescriptions to Random Patients" do
     # Reference: ESA type drug_ids

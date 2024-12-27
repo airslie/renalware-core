@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 resources :patients, only: [] do
   namespace :clinical do
     resource :igan_risk, only: %i(edit update)

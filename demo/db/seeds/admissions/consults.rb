@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Creating Admission::Consults" do
     patient_ids = Patient.order("RANDOM()").limit(40).pluck(:id).uniq

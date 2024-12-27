@@ -60,6 +60,25 @@ GIT
       cucumber-gherkin
       rspec (>= 3.0, < 4.0)
 
+GIT
+  remote: https://github.com/cucumber/cucumber-ruby.git
+  revision: 5cec9226789ab1742d5bc36ec3bc194906c58dbc
+  specs:
+    cucumber (9.2.0)
+      base64 (~> 0.2)
+      builder (~> 3.2)
+      cucumber-ci-environment (> 9, < 11)
+      cucumber-core (> 13, < 14)
+      cucumber-cucumber-expressions (~> 17.0)
+      cucumber-gherkin (> 24, < 28)
+      cucumber-html-formatter (> 20.3, < 22)
+      cucumber-messages (> 19, < 26)
+      diff-lcs (~> 1.5)
+      logger (~> 1.6)
+      mini_mime (~> 1.1)
+      multi_test (~> 1.1)
+      sys-uname (~> 1.2)
+
 PATH
   remote: .
   specs:
@@ -267,7 +286,6 @@ GEM
       i18n
     bcrypt (3.1.20)
     bcrypt_pbkdf (1.1.1)
-    bcrypt_pbkdf (1.1.1-arm64-darwin)
     benchmark (0.4.0)
     bigdecimal (3.1.8)
     bindex (0.8.1)
@@ -319,19 +337,7 @@ GEM
     cronex (0.15.0)
       tzinfo
       unicode (>= 0.4.4.5)
-    csv (3.3.2)
-    cucumber (9.2.0)
-      builder (~> 3.2)
-      cucumber-ci-environment (> 9, < 11)
-      cucumber-core (> 13, < 14)
-      cucumber-cucumber-expressions (~> 17.0)
-      cucumber-gherkin (> 24, < 28)
-      cucumber-html-formatter (> 20.3, < 22)
-      cucumber-messages (> 19, < 25)
-      diff-lcs (~> 1.5)
-      mini_mime (~> 1.1)
-      multi_test (~> 1.1)
-      sys-uname (~> 1.2)
+    csv (3.3.1)
     cucumber-ci-environment (10.0.1)
     cucumber-core (13.0.3)
       cucumber-gherkin (>= 27, < 28)
@@ -413,8 +419,7 @@ GEM
       net-http (>= 0.5.0)
     faraday-retry (2.2.1)
       faraday (~> 2.0)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.0)
     fhir_models (5.0.0)
       bcp47 (>= 0.3)
       date_time_precision (>= 0.8)
@@ -440,10 +445,7 @@ GEM
       fugit (>= 1.11.0)
       railties (>= 6.1.0)
       thor (>= 1.0.0)
-    google-protobuf (4.29.2-arm64-darwin)
-      bigdecimal
-      rake (>= 13)
-    google-protobuf (4.29.2-x86_64-linux)
+    google-protobuf (4.29.2)
       bigdecimal
       rake (>= 13)
     googleapis-common-protos-types (1.16.0)
@@ -539,6 +541,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2024.1203)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.8)
     minitest (5.25.4)
     msgpack (1.7.5)
     multi_test (1.1.0)
@@ -563,9 +566,8 @@ GEM
       net-protocol
     net-ssh (7.3.0)
     nio4r (2.7.4)
-    nokogiri (1.17.2-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.17.2-x86_64-linux)
+    nokogiri (1.17.2)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     octokit (4.25.1)
       faraday (>= 1, < 3)
@@ -1005,7 +1007,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   capybara-select-2
-  cucumber (~> 9.2)
+  cucumber!
   cucumber-rails
   daemons
   database_cleaner
@@ -1079,7 +1081,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku (~> 3.0.0)
 
 RUBY VERSION
-   ruby 3.3.6p108
+   ruby 3.4.1p0
 
 BUNDLED WITH
-   2.5.22
+   2.6.2

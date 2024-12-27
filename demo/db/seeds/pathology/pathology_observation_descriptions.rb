@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Pathology Observation Descriptions" do
     file_path = File.join(File.dirname(__FILE__), "pathology_observation_descriptions.csv")

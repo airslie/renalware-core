@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   module UKRDC
     # Represents a Renal Reg modality QBL or Text code and description

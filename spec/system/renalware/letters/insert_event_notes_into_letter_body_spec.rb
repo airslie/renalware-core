@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Insert letter.event notes (e.g. from a clinic visit) into the letter body", :js do
   before do
     login_as_clinical

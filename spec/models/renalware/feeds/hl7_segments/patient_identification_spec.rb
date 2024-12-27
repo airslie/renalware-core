@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware::Feeds
   describe PatientIdentification do # rubocop:disable RSpec/SpecFilePathFormat
     subject(:pi) { MessageParser.parse(raw_message).patient_identification }

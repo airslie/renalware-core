@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding HD Slot Request Locations" do
     # These are based on what's in use at BLT

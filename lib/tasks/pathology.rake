@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :pathology do
   namespace :test do
     desc "In development only, import a test HL7 message. Useful for testing listeners."

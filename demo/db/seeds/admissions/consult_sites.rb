@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Creating Admission::ConsultSites" do
     ["Site A", "Site B", "Site C"].each do |name|

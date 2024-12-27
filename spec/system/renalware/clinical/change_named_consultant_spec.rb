@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   module Clinical
     describe "Change a patient's named consultant", :js do

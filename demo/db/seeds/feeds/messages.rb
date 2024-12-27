@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding demo feeds messages" do
     sql = <<-SQL.squish

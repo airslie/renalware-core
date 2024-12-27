@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Assign Letters to Roger RABBIT" do
     patient = Letters::Patient.find_by(local_patient_id: "Z100001")

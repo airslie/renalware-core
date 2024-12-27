@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disable Layout/LineLength
 describe "HL7 SIU^S12 - Notification of New Appointment Booking" do
   # This message is sent from a filler application to notify other applications that a

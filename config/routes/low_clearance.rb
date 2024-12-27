@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 resources :patients, only: [] do
   namespace :low_clearance do
     resource :dashboard, only: :show

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Pathology Request Algorithm Sample Types" do
     file_path = File.join(File.dirname(__FILE__), "request_algorithm_sample_types.csv")

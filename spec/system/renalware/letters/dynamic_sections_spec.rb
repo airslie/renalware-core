@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe "Manage dynamic sections - HDSection,..", :js do
     include LettersSpecHelper

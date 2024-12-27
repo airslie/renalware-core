@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Register homecare suppliers for delivery" do
     Drugs::HomecareForm.create!(

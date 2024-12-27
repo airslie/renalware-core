@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe Patient do # rubocop:disable RSpec/SpecFilePathFormat
     before do

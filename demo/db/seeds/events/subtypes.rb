@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Event Subtypes" do
     type = Renalware::Events::Type.find_by!(name: "Dental Study")

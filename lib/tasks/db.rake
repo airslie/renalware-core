@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :db do
   desc "Check that we are not about to drop an anonymised database"
   task drop_check: :environment do

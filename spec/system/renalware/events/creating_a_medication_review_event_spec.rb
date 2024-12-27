@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Creating an medication review event", :js do
   it "captures extra data" do
     user = login_as_clinical

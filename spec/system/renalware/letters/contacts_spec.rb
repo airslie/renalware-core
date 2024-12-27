@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Assign a contact to a patient", :js do
   include AjaxHelpers
 

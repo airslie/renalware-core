@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe "Ordered Set scope" do # rubocop:disable RSpec/DescribeClass
     before do

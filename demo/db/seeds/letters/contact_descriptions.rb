@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Contact Descriptions" do
     CSV.foreach(File.join(File.dirname(__FILE__), "contact_descriptions.csv"), headers: true) do |row|

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe Renalware::System::ViewMetadata do
   describe "#edit HTML" do
     it "renders a form" do

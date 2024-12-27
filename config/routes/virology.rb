@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 resources :patients, only: [] do
   namespace :virology do
     resource :dashboard, only: :show, path: "/dashboard"

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware::System
   describe ViewMetadata do
     it { is_expected.to have_many :calls }

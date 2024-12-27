@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Create remote monitoring registration event", :js do
   it "creates successfully" do
     user = login_as_clinical

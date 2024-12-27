@@ -1,9 +1,7 @@
-# frozen_string_literal: true
-
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby ">= 3.3"
+ruby "3.4.1"
 
 gemspec
 
@@ -59,7 +57,7 @@ group :test do
   gem "capybara" # , "~> 3.32"
   gem "capybara-screenshot" # , "~> 1.0"
   gem "capybara-select-2"
-  gem "cucumber", "~> 9.2"
+  gem "cucumber", github: "cucumber/cucumber-ruby"
   gem "cucumber-rails", require: false # , "~> 2.6.1", require: false # must be loaded in env.rb
   gem "database_cleaner", require: false # for cucumber (now not needed for rspec)
   gem "execjs" # , "2.7.0" # 2.8.1 raises an error

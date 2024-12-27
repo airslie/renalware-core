@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Remote Monitoring frequencies" do
     RemoteMonitoring::Frequency.find_or_create_by!(period: 4.months)

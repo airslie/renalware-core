@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Perspectives" do
   let(:patient) { create(:patient) }
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Vaccination events for Roger RABBIT" do
     class CreateVaccination

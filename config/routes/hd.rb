@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 resources :patients, only: [] do
   namespace :hd do
     resource :mdm, only: :show, controller: "mdm"

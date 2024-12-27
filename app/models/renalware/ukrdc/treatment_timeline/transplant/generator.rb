@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # QBL   TXT   Description
 # "20"  "20"  "Transplant ; Cadaver donor"
 # "21"  "21"  "Transplant ; Live related - sibling"

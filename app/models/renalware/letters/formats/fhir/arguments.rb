@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   module Letters::Formats::FHIR
     # 'Parameter Object' Passed to any class rendering part of a FHIR document message.

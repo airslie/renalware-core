@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Editing a swab", :js do
   include AjaxHelpers
 

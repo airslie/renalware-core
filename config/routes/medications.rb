@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 resources :patients, only: [] do
   resources :prescriptions, controller: "medications/prescriptions", except: :destroy
 

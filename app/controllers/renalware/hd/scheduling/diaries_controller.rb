@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # The route to the edit route for this controller takes /:year/:week_number segments
 # rather than an id. THat is because when we load the diary, and when we navigate back and forth
 # through diaries, we are concerned with the week more then an id. Its easier to navigate to the

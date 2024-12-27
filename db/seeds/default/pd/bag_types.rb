@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding PD Bag Types" do
     file_path = File.join(File.dirname(__FILE__), "bag_types.csv")

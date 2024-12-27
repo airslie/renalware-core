@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disable Layout/LineLength, Layout/ExtraSpacing
 module Renalware
   module Events

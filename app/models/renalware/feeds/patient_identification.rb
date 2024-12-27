@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   module Feeds
     # Note in the PID segment internal_id == NHS number

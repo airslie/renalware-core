@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Viewing a report", :js do
   it "displays a report" do
     report = create(

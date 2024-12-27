@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Batch printing Pathology request forms (for monthly bloods) from the HD MDM list", :js do
   include PatientsSpecHelper
 

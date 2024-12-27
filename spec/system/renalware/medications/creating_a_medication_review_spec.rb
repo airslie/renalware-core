@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Creating a medication review on the prescriptions page", :js do
   it "after accepting an alert it adds the latest review to the page using ajax" do
     create(:medication_review_event_type)

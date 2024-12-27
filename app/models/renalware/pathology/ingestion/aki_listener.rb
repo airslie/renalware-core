@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 #
 # When subscribed to HL7 `oru_message_arrived` messages, gets notified of incoming HL7 messages.
 # Here we are interested only in AKI path results
@@ -12,7 +10,7 @@ module Renalware
           pattr_initialize :hl7_message
           delegate_missing_to :hl7_message
 
-          AKI_CODE = "AKI"
+          AKI_CODE = "AKI".freeze
 
           # Return the first AKI score found in any OBR in the message
           def score

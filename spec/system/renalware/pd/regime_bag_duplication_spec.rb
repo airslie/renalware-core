@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe "PD Regime bag duplication", :js do
     include PatientsSpecHelper

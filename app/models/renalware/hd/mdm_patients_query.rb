@@ -1,11 +1,9 @@
-# frozen_string_literal: true
-
 # TODO: code here bleeds across modules
 
 module Renalware
   module HD
     class MDMPatientsQuery
-      DEFAULT_SEARCH_PREDICATE = "hgb_date desc"
+      DEFAULT_SEARCH_PREDICATE = "hgb_date desc".freeze
       attr_reader :params, :named_filter, :relation
 
       def initialize(params:, named_filter:, relation: HD::Patient.all)

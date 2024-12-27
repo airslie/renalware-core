@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   class MDMPresenter
     NullAccess = Naught.build do |config|

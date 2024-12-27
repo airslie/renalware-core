@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :admin do
   resources :users
   resource :dashboard, only: :show

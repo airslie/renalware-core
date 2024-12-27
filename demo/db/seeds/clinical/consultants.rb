@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Assign the consultant flag to a sample of users" do
     user_ids = User.pluck(:id)

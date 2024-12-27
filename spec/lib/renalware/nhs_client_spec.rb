@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe NHSClient do
     let(:nhs_client) { described_class.new }

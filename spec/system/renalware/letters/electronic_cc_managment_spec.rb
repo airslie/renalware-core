@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Manage electronic CCs" do
   include LettersSpecHelper
   include AjaxHelpers

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 resources :patients, only: [] do
   namespace :pathology do
     resources :observation_descriptions, only: :show # for charts

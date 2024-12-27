@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :system do
   resources :online_reference_links do
     get :search, on: :collection

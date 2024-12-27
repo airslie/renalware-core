@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Session timeout", :js do
   around do |example|
     original_session_timeout = Devise.timeout_in

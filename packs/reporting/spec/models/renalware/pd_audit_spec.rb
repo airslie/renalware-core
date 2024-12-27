@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe "PD Audit" do # rubocop:disable RSpec/DescribeClass
     include PatientsSpecHelper

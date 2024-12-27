@@ -32,7 +32,7 @@ AllCops:
   NewCops: enable
   UseCache: true
   SuggestExtensions: true
-  TargetRubyVersion: 3.3.6
+  TargetRubyVersion: 3.4.1
   # Defining the Exclude or Include keys here overwrites the settings in styleguide/rubocop.yml
   # so we have to redefine the entire set.
   Exclude:
@@ -133,9 +133,8 @@ Layout/LineLength:
     - "app/inputs/**.*"
     - "demo/db/**/*"
 Style/FrozenStringLiteralComment:
-  Exclude:
-    - "demo/db/migrate/**/*"
-    - "db/migrate/**/*"
+  Enabled: false
+
 Metrics/AbcSize:
   Exclude:
     - "spec/acceptance/renalware/steps/**/*"

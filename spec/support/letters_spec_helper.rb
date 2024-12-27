@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disable Metrics/MethodLength, Metrics/ParameterLists
 module LettersSpecHelper
   def build_letter(to:, patient:, state: :draft, **args)

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 def find_param_id(row)
   case row["type"].demodulize
   when "ObservationResult"

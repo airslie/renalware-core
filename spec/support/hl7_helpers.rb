@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module HL7Helpers
   def hl7_message_from_file(filename, data)
     result = parse_hl7_file(filename, data)

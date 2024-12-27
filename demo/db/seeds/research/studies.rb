@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Research Studies" do
     unless Renalware::Research::Study.exists?

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   # Rails.benchmark "Adding HD Diaries" do
   class CreateDiary

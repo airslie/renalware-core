@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Managing a patient's comorbidities", :js do
   include ActionView::RecordIdentifier
 

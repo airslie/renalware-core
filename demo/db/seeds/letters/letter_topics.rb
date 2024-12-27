@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   Rails.benchmark "Adding Letter Topics" do
     CSV.foreach(File.join(File.dirname(__FILE__), "letter_descriptions.csv"),

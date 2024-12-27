@@ -1,9 +1,7 @@
-# frozen_string_literal: true
-
 module Renalware
   module UKRDC
     class XmlRenderer
-      DEFAULT_TEMPLATE = "/renalware/api/ukrdc/patients/show"
+      DEFAULT_TEMPLATE = "/renalware/api/ukrdc/patients/show".freeze
       attr_reader :template, :errors, :locals, :schema
 
       class Success < ::Success

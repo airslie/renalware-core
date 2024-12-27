@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disable Layout/LineLength
 describe "SIU^S15 - Notification of Appointment Cancellation" do
   # A notification of appointment cancellation is sent by the filler application to other

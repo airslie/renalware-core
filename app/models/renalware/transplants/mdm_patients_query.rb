@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   module Transplants
     #  a list of everyone whose Modality is Transplant and the sort should
@@ -7,7 +5,7 @@ module Renalware
     #  at the top) - the default sort order should be same for all of the
     #  different filter groups
     class MDMPatientsQuery
-      DEFAULT_SEARCH_PREDICATE = "cre_date DESC"
+      DEFAULT_SEARCH_PREDICATE = "cre_date DESC".freeze
       attr_reader :params, :relation, :named_filter
 
       def initialize(relation: Transplants::Patient.all, named_filter: nil, params: nil)

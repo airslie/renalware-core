@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe Pathology::CalculationSource do
     it { is_expected.to belong_to(:calculated_observation) }

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Renalware
   describe Age, type: :model do # rubocop:disable RSpec/SpecFilePathFormat
     describe "#valid?" do

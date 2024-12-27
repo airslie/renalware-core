@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Sending a private message" do
   include AjaxHelpers
 

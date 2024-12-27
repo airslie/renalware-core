@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "Remove Admission Request", :js do
   include AjaxHelpers
 

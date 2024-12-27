@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 describe "HL7 ADT^A05 create appointment" do
   # An A05 event is sent when a patient undergoes the pre-admission process. During this process,
   # episode related data is collected in preparation for a patient's visit or stay in a healthcare

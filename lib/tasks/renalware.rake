@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :renalware do
   desc "Install package.json dependencies with yarn for the renalware-core engine - " \
        "without this <path to installed gem>/renalware-core/node_modules is not populated " \
