@@ -3,9 +3,7 @@
 require_relative "../../seeds_helper"
 
 module Renalware
-  extend SeedsHelper
-
-  log "Adding Renal Reg Cause of Death codes" do
+  Rails.benchmark "Adding Renal Reg Cause of Death codes" do
     file_path = File.join(File.dirname(__FILE__), "death_causes.csv")
     causes = CSV.foreach(file_path, headers: true).map do |row|
       {

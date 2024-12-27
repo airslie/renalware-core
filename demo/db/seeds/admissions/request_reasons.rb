@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  log "Creating Admission::RequestReasons" do
+  Rails.benchmark "Creating Admission::RequestReasons" do
     [
       "AKI",
       "For Biopsy",

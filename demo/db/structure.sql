@@ -8710,16 +8710,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT id AS patient_id
-   FROM renalware.patients
-  WHERE ((family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_mesh_operations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -14744,28 +14734,6 @@ CREATE SEQUENCE renalware.system_visits_id_seq
 --
 
 ALTER SEQUENCE renalware.system_visits_id_seq OWNED BY renalware.system_visits.id;
-
-
---
--- Name: tmp_lad_data; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.tmp_lad_data (
-    pcd7 text,
-    pcd8 text,
-    pcds text,
-    dointr text,
-    doterm text,
-    usertype text,
-    oa11cd text,
-    lsoa11cd text,
-    msoa11cd text,
-    ladcd text,
-    lsoa11nm text,
-    msoa11nm text,
-    ladnm text,
-    ladnmw text
-);
 
 
 --
@@ -26752,13 +26720,6 @@ CREATE INDEX survey_responses_compound_index ON renalware.survey_responses USING
 
 
 --
--- Name: tmp_lad_data_idx; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX tmp_lad_data_idx ON renalware.tmp_lad_data USING btree (ladcd, lsoa11cd, msoa11cd);
-
-
---
 -- Name: tx_donor_stage_position_idx; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -30485,7 +30446,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware,renalware_demo,public,heroku_ext;
+SET search_path TO renalware, renalware_demo, public, heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20241220180547'),

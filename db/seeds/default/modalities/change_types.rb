@@ -4,9 +4,7 @@ require_relative "../../seeds_helper"
 
 module Renalware
   module Modalities
-    extend SeedsHelper
-
-    log "Adding modality change types.." do
+    Rails.benchmark "Adding modality change types.." do
       user = SystemUser.find
       {
         change_in_modality: {

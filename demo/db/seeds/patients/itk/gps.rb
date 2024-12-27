@@ -2,8 +2,7 @@
 
 module Renalware
   module Patients
-    extend SeedsHelper
-    log "Adding ITK3 test pratice and GPs" do
+    Rails.benchmark "Adding ITK3 test pratice and GPs" do
       file_path = File.join(File.dirname(__FILE__), "gps.csv")
 
       CSV.foreach(file_path, headers: true) do |row|

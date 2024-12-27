@@ -5,7 +5,7 @@ module Renalware
   users = User.all.to_a
   dates = (1..365).to_a
   worry_categories = Patients::WorryCategory.pluck(:id)
-  log "Adding Patients to Worryboard" do
+  Rails.benchmark "Adding Patients to Worryboard" do
     Patient.transaction do
       patients = Patient.all
       i = 0

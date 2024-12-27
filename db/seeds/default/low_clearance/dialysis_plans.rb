@@ -3,9 +3,7 @@
 require_relative "../../seeds_helper"
 
 module Renalware
-  extend SeedsHelper
-
-  log "Adding AKCC dialysis plans" do
+  Rails.benchmark "Adding AKCC dialysis plans" do
     {
       pd: "PD",
       capd_la: "CAPD LA",

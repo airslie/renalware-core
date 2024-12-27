@@ -3,9 +3,7 @@
 require_relative "../../seeds_helper"
 
 module Renalware
-  extend SeedsHelper
-
-  log "Adding View Metadata" do
+  Rails.benchmark "Adding View Metadata" do
     Renalware::System::ViewMetadata.find_or_create_by!(
       view_name: "transplant_mdm_patients",
       scope: "transplants", # code namespace

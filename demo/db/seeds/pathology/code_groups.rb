@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  log "Adding Pathology Code Groups" do
+  Rails.benchmark "Adding Pathology Code Groups" do
     groups = {
       pd_mdm: {
         description: "Pathology relating to PD",
