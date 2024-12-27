@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "benchmark"
-
 module Renalware
   module UKRDC
     class XmlRenderer
