@@ -34,7 +34,7 @@ gem "net-smtp", require: false # remove in Rails 7
 gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
-gem "rails", "~> 7.2.2"
+gem "rails", "~> 8.0.1"
 gem "renalware-forms", ">=0.1", github: "airslie/renalware-forms", branch: "main"
 gem "ruby-prof", require: false
 gem "solid_cache"
@@ -88,7 +88,7 @@ group :development do
   # gem "traceroute" # for finding unused routes
   gem "awesome_print", require: false
   gem "binding_of_caller"
-  gem "bullet", "~> 7.2"
+  # gem "bullet"
   gem "foreman", require: false
   gem "query_count"
   gem "rack-mini-profiler"

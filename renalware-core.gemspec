@@ -103,7 +103,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sprockets-rails"
   s.add_dependency "store_model", "< 3"
   s.add_dependency "turbo-rails", "2.0.11" # matches "@hotwired/turbo-rails" => "8.0.12"
-  s.add_dependency "validates_timeliness", "~> 7.0.0.beta1"
+  s.add_dependency "validates_timeliness"
   s.add_dependency "view_component", "< 4.0"
   s.add_dependency "virtus", "~> 1.0.5"
   s.add_dependency "wicked_pdf", "~> 2.8.0"
