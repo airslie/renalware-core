@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  log "Adding Templates" do
+  Rails.benchmark "Adding Templates" do
     class CreateSystemTemplate
       def self.call(name:, title:, description:)
         Renalware::System::Template.find_or_create_by!(name: name) do |template|

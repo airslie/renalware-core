@@ -3,7 +3,7 @@
 module Renalware
   patient = Patient.find_by(family_name: "RABBIT", given_name: "François")
 
-  log "Adding Prescriptions for #{patient}" do
+  Rails.benchmark "Adding Prescriptions for #{patient}" do
     barts_doc = User.find_by!(username: "bartsdoc")
 
     patient.prescriptions.create!(

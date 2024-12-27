@@ -3,9 +3,7 @@
 require_relative "../../seeds_helper"
 
 module Renalware
-  extend SeedsHelper
-
-  log "Adding Primary Care Physicians\n" do
+  Rails.benchmark "Adding Primary Care Physicians" do
     practice_ids = Renalware::Patients::Practice.pluck(:code, :id).to_h
     sample_status = "SAMPLE ONLY"
     file_path = File.join(File.dirname(__FILE__), "primary_care_physicians_sample.csv")
@@ -21,6 +19,6 @@ module Renalware
       end
     end
     log_count = Patients::PrimaryCarePhysician.count
-    log "#{log_count} NHS primary care physicians imported #{sample_status}", type: :sub
+    Rails.logger.info "#{log_count} NHS primary care physicians imported #{sample_status}"
   end
 end

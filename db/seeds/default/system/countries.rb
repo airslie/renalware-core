@@ -3,9 +3,7 @@
 require_relative "../../seeds_helper"
 
 module Renalware
-  extend SeedsHelper
-
-  log "Adding Countries" do
+  Rails.benchmark "Adding Countries" do
     file_path = File.join(File.dirname(__FILE__), "countries.csv")
     countries = CSV.foreach(file_path, headers: true).map.each_with_index do |row, index|
       {

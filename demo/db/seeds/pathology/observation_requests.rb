@@ -6,7 +6,7 @@ def create_observation(patient, request_description)
   msg = "Adding observations for #{patient.full_name} "\
         "with request description code: #{request_description.code}"
 
-  log msg do
+  Rails.benchmark msg do
     request = pathology_patient.observation_requests.create!(
       description: request_description,
       requestor_order_number: rand(100000),

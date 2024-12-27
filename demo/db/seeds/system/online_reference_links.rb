@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  log "Adding Online Reference Links " do
+  Rails.benchmark "Adding Online Reference Links " do
     System::OnlineReferenceLink.new(
       url: "https://www.nhs.uk/conditions/kidney-disease/diagnosis/",
       title: "Chronic kidney disease - Diagnosis",

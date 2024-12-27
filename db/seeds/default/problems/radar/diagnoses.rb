@@ -3,9 +3,7 @@
 require_relative "../../../seeds_helper"
 
 module Renalware
-  extend SeedsHelper
-
-  log "Adding RaDaR cohorts and diagnoses" do
+  Rails.benchmark "Adding RaDaR cohorts and diagnoses" do
     file_path = File.join(File.dirname(__FILE__), "diagnoses.csv")
     CSV.foreach(file_path, headers: true).each do |row|
       Problems::RaDaR::Cohort

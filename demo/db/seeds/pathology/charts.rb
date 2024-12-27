@@ -11,7 +11,7 @@ module Renalware
     end
   end
 
-  log "Adding Pathology Charts" do
+  Rails.benchmark "Adding Pathology Charts" do
     seeder = ChartSeeder.new
     seeder.create_chart_with("HGB", "perspectives/anaemia", "HGB")
     seeder.create_chart_with("Ferritin", "perspectives/anaemia", "FER")

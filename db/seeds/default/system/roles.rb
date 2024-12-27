@@ -3,9 +3,7 @@
 require_relative "../../seeds_helper"
 
 module Renalware
-  extend SeedsHelper
-
-  log "Adding Roles" do
+  Rails.benchmark "Adding Roles" do
     Role.install!
   end
 end

@@ -3,9 +3,7 @@
 require_relative "../../seeds_helper"
 
 module Renalware
-  extend SeedsHelper
-
-  log "Adding Drug Frequencies" do
+  Rails.benchmark "Adding Drug Frequencies" do
     [
       ["once_daily", "Once daily", 7],
       ["every_other_day", "Every other day", 3.5],

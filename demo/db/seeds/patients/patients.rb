@@ -3,7 +3,7 @@
 module Renalware
   extend SeedsHelper
 
-  log "Adding Patients" do
+  Rails.benchmark "Adding Patients" do
     without_papertrail_versioning_for(Patient) do
       file_path = Rails.root.join(File.dirname(__FILE__), "patients.csv")
       system_user = SystemUser.find

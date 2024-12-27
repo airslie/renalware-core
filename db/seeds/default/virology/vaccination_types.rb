@@ -4,9 +4,7 @@ require_relative "../../seeds_helper"
 
 module Renalware
   module Virology
-    extend SeedsHelper
-
-    log "Adding virology vaccination types" do
+    Rails.benchmark "Adding virology vaccination types" do
       {
         hbv1: { name: "HBV Vaccination 1", atc_codes: ["J07BC%"] },
         hbv2: { name: "HBV Vaccination 2", atc_codes: ["J07BC%"] },

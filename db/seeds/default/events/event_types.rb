@@ -3,9 +3,7 @@
 require_relative "../../seeds_helper"
 
 module Renalware
-  extend SeedsHelper
-
-  log "Adding Default Event Types e.g. Biopsy, Swabs" do
+  Rails.benchmark "Adding Default Event Types e.g. Biopsy, Swabs" do
     file_path = File.join(File.dirname(__FILE__), "event_types.csv")
 
     CSV.foreach(file_path, headers: true) do |row|

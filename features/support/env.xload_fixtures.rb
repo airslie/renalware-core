@@ -47,11 +47,10 @@ class Fixtures
   ].freeze
 
   def reload
-    # elapsed_ms = Benchmark.ms do
-    ActiveRecord::FixtureSet.reset_cache
-    ActiveRecord::FixtureSet.create_fixtures(fixtures_folder, fixtures, table_model_map)
-    # end
-    # puts "  Reloading fixtures took #{elapsed_ms.round(2)}ms"
+    Rails.benchmark "Reload fixtures" do
+      ActiveRecord::FixtureSet.reset_cache
+      ActiveRecord::FixtureSet.create_fixtures(fixtures_folder, fixtures, table_model_map)
+    end
   end
 
   def table_model_map

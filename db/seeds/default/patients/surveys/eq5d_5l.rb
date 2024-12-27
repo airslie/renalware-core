@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware
-  extend SeedsHelper
-
-  log "Adding EQ5D Survey" do
+  Rails.benchmark "Adding EQ5D Survey" do
     survey = Surveys::Survey.create(
       name: "EQ5D-5L",
       code: "eq5d",

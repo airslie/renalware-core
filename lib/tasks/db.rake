@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "benchmark"
-
 namespace :db do
   desc "Check that we are not about to drop an anonymised database"
   task drop_check: :environment do
@@ -13,10 +11,9 @@ namespace :db do
 
   desc "Refreshes all materialized views e.g. audits. May take a while so only run overnight."
   task refresh_all_materialized_views: :environment do
-    ms = Benchmark.ms do
+    Rails.benchmark "Refreshing materialized views" do
       ActiveRecord::Base.connection.execute("SELECT refresh_all_matierialized_views();")
     end
-    puts "Refreshing materialized views took #{ms}"
   end
 
   namespace :demo do

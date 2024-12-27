@@ -9,7 +9,7 @@ module Renalware
 
     def seed_pathology_requests_for(patient:)
       Pathology::ObservationRequest.transaction do
-        log "Adding Pathology Requests (OBR) for #{patient}" do
+        Rails.benchmark "Adding Pathology Requests (OBR) for #{patient}" do
           file_path = file_path_for(patient: patient, file_name: "pathology_obr.csv")
           CSV.foreach(file_path, headers: true) do |row|
             request_desc = Pathology::RequestDescription.find_by!(code: row["description"])
@@ -25,7 +25,7 @@ module Renalware
     end
 
     def seed_pathology_observations_for(patient:)
-      log "Adding Pathology Observations (OBX) for #{patient}" do
+      Rails.benchmark "Adding Pathology Observations (OBX) for #{patient}" do
         file_path = file_path_for(patient: patient, file_name: "pathology_obx.csv")
 
         observations = CSV.foreach(file_path, headers: true).map do |row|

@@ -29,9 +29,7 @@ module Renalware
 
               pdf_file = Tempfile.new("merged_pdf", Rails.root.join("tmp"))
 
-              Benchmark.ms do
-                File.binwrite(pdf_file, described_class.call(letter))
-              end
+              File.binwrite(pdf_file, described_class.call(letter))
 
               open_pdf_in_preview(pdf_file)
 
@@ -117,9 +115,7 @@ module Renalware
               )
               pdf_file = Tempfile.new("merged_pdf", Rails.root.join("tmp"))
 
-              Benchmark.ms do
-                File.binwrite(pdf_file, described_class.call(letter))
-              end
+              File.binwrite(pdf_file, described_class.call(letter))
 
               open_pdf_in_preview(pdf_file)
 
