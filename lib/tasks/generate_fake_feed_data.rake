@@ -56,7 +56,7 @@ module Renalware
         }
       end
       ids = Patient.upsert_all(patients, unique_by: :secure_id)
-      #ids.map { |x| x["id"] }
+      # ids.map { |x| x["id"] }
       patients
     end
 

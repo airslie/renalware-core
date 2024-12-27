@@ -22,7 +22,7 @@ module Renalware
       "urn:nhs-uk:addressing:ods:#{codes}"
     end
 
-    # Generates a urn for a particilar database record at particular hospital.
+    # Generates a urn for a particular database record at particular hospital.
     # Examples:
     #   For a prescriptions with id 123 at MSE (RAJ):
     #     "urn:renalware:RAJ:medication_prescriptions:123"
