@@ -36,6 +36,8 @@ gem "rails", "~> 8.0.1"
 gem "renalware-forms", ">=0.1", github: "airslie/renalware-forms", branch: "main"
 gem "ruby-prof", require: false
 gem "solid_cache"
+gem "tailwindcss-rails", "~> 3.0"
+gem "tailwindcss-ruby"
 gem "terser"
 gem "thruster"
 # Re wkhtmltopdf binary for letter generation
@@ -120,7 +122,5 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails"
   gem "rubocop", require: false
-  gem "tailwindcss-rails", "~> 3.0"
-  gem "tailwindcss-ruby"
   gem "wkhtmltopdf-binary", "0.12.6.8"
 end

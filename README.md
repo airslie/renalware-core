@@ -5,28 +5,29 @@ undertake clinical and administrative audits and share data with external system
 
 ## Technical Overview
 
-renalware-core is a Ruby On Rails [engine](http://guides.rubyonrails.org/engines.html) encapsulating the majority of Renalware's
-features in a re-usable [gem](http://guides.rubygems.org/what-is-a-gem/). When a renal unit deploys Renalware, it will create its own _host_
-Rails application, and configure it to include the Renalware engine. The host application may be
-extremely thin, adding no custom features other than site-specific configuration, or it may include
-Ruby, HTML and JavaScript to override or augment renalware-core's features.
+`renalware-core` is a open-source Ruby On Rails [engine](http://guides.rubyonrails.org/engines.html)
+that encapsulates Renalware's features in a re-usable [gem](http://guides.rubygems.org/what-is-a-gem/).
+In order to deploy an instance of Renalware that is tailored to a
+renal unit's needs, it is necessary to create a new host Rails application that includes the
+`renalware-core` gem, adds configuration and HTML/JavaScript/CSS overrides, and optionally augments
+or replaces core behaviour with custom Ruby code.
 
-While the engine is intended to be deployed inside a host application in production, it can be run
-stand-alone in a local development environment by employing
-the _demo_ host application (`./demo`) that ships inside the engine.
+While `renalware-core` is intended to be deployed inside a host application in production, it can be run
+stand-alone in a local development environment using the _demo_ host application (`./demo`)
+that ships inside the engine.
 
 Renalware is built using using open source projects including:
 - Ruby on Rails framework
 - PostgreSQL database
 
-## Running Renalware on your Mac or PC
+## Running Renalware locally on Mac, Windows or Linux
 
 Install `git` if not already installed on your system.
 Install the [Docker Engine](https://docs.docker.com/engine/install/) and ensure it is running.
 
 ```
-git clone git@github.com:airslie/renalwarev2.git
-cd ./renalwarev2
+git clone git@github.com:airslie/renalware-core.git
+cd ./renalware-core
 docker-compose run web bundle exec rake db:setup
 docker-compose up -d
 ```
