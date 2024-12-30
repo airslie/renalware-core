@@ -15,12 +15,12 @@ module Renalware::Letters
           letter: letter
         )
       }
-      let(:transaction_uuid) { SecureRandom.uuid }
-      let(:patient_uuid) { "aaaabe8f-8694-47e3-8740-ccf306f6cf02" }
-      let(:letter_uuid) { "aaaa54bb-adfb-452e-a829-c50a42709080" }
-      let(:author_uuid) { "aaaa4316-1daa-4c41-91c9-a8d0ea6ceb5e" }
+      let(:transaction_uuid)    { SecureRandom.uuid }
+      let(:patient_uuid)        { "aaaabe8f-8694-47e3-8740-ccf306f6cf02" }
+      let(:letter_uuid)         { "aaaa54bb-adfb-452e-a829-c50a42709080" }
+      let(:author_uuid)         { "aaaa4316-1daa-4c41-91c9-a8d0ea6ceb5e" }
       let(:letter_archive_uuid) { "aaaa0000-1111-2222-2222-333333333333" }
-      let(:clinic_visit_uuid) { "aaaaf1a9-0c1c-4151-b947-7d9e7fce0a75" }
+      let(:clinic_visit_uuid)   { "aaaaf1a9-0c1c-4151-b947-7d9e7fce0a75" }
       let(:patient) {
         build_stubbed(
           :letter_patient,
@@ -37,9 +37,9 @@ module Renalware::Letters
           :letter,
           uuid: letter_uuid,
           patient: patient,
+          topic: build_stubbed(:letter_topic),
           author: build_stubbed(:user, uuid: author_uuid),
           archive: build_stubbed(:letter_archive, uuid: letter_archive_uuid),
-          description: "Clinic Letter",
           event: build_stubbed(
             :clinic_visit,
             uuid: clinic_visit_uuid,
@@ -133,6 +133,29 @@ module Renalware::Letters
       describe "document_title" do
         it "is an alias for letter.description" do
           expect(arguments.document_title).to eq("Report of clinical encounter")
+        end
+      end
+
+      describe "#document_type_snomed_*" do
+        context "when there is no row in letter_snomed_document_types with default_type: true" do
+          it "raises an error" do
+            expect {
+              arguments.document_type_snomed_code
+            }.to raise_error(Arguments::MissingSnomedDocumentTypeError)
+          end
+        end
+
+        context "when there is a row in letter_snomed_document_types with default_type: true" do
+          before do
+            Renalware::Letters::SnomedDocumentType.create!(
+              code: "123", title: "ABC", default_type: true
+            )
+          end
+
+          it "uses that for code and title" do
+            expect(arguments.document_type_snomed_code).to eq("123")
+            expect(arguments.document_type_snomed_title).to eq("ABC")
+          end
         end
       end
     end

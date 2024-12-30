@@ -10,6 +10,8 @@ module Renalware
 
       scope :ordered, -> { order(deleted_at: :desc, position: :asc, text: :asc) }
 
+      belongs_to :snomed_document_type
+
       concerning :Sections do
         included do
           cattr_accessor :letter_extension_sections, default: [

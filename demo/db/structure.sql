@@ -8424,7 +8424,8 @@ CREATE TABLE renalware.letter_descriptions (
     updated_at timestamp without time zone NOT NULL,
     "position" integer DEFAULT 0 NOT NULL,
     deleted_at timestamp without time zone,
-    section_identifiers character varying[] DEFAULT '{}'::character varying[]
+    section_identifiers character varying[] DEFAULT '{}'::character varying[],
+    snomed_document_type_id bigint
 );
 
 
@@ -8707,6 +8708,16 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
+
+
+--
+-- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
+ SELECT id AS patient_id
+   FROM renalware.patients
+  WHERE ((family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -9271,6 +9282,46 @@ CREATE SEQUENCE renalware.letter_signatures_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_signatures_id_seq OWNED BY renalware.letter_signatures.id;
+
+
+--
+-- Name: letter_snomed_document_types; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.letter_snomed_document_types (
+    id bigint NOT NULL,
+    title text NOT NULL,
+    code text NOT NULL,
+    default_type boolean DEFAULT false NOT NULL,
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: TABLE letter_snomed_document_types; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON TABLE renalware.letter_snomed_document_types IS 'SNOMED codes and their description that are attached to a letter description (aka letter topic) and used as the FHIR Composition.document_type in GP Connect messages. There can be only one default type, and this is used wherever a letter description has no associated SNOMED document type.';
+
+
+--
+-- Name: letter_snomed_document_types_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.letter_snomed_document_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_snomed_document_types_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.letter_snomed_document_types_id_seq OWNED BY renalware.letter_snomed_document_types.id;
 
 
 --
@@ -16844,6 +16895,13 @@ ALTER TABLE ONLY renalware.letter_signatures ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: letter_snomed_document_types id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_snomed_document_types ALTER COLUMN id SET DEFAULT nextval('renalware.letter_snomed_document_types_id_seq'::regclass);
+
+
+--
 -- Name: low_clearance_dialysis_plans id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -18976,6 +19034,14 @@ ALTER TABLE ONLY renalware.letter_section_snapshots
 
 ALTER TABLE ONLY renalware.letter_signatures
     ADD CONSTRAINT letter_signatures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_snomed_document_types letter_snomed_document_types_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_snomed_document_types
+    ADD CONSTRAINT letter_snomed_document_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -23052,6 +23118,13 @@ CREATE INDEX index_letter_descriptions_on_deleted_at ON renalware.letter_descrip
 
 
 --
+-- Name: index_letter_descriptions_on_snomed_document_type_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_letter_descriptions_on_snomed_document_type_id ON renalware.letter_descriptions USING btree (snomed_document_type_id);
+
+
+--
 -- Name: index_letter_electronic_receipts_on_letter_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -23420,6 +23493,27 @@ CREATE INDEX index_letter_signatures_on_letter_id ON renalware.letter_signatures
 --
 
 CREATE INDEX index_letter_signatures_on_user_id ON renalware.letter_signatures USING btree (user_id);
+
+
+--
+-- Name: index_letter_snomed_document_types_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_letter_snomed_document_types_on_code ON renalware.letter_snomed_document_types USING btree (code);
+
+
+--
+-- Name: index_letter_snomed_document_types_on_default_type; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_letter_snomed_document_types_on_default_type ON renalware.letter_snomed_document_types USING btree (default_type) WHERE (default_type = true);
+
+
+--
+-- Name: index_letter_snomed_document_types_on_title; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_letter_snomed_document_types_on_title ON renalware.letter_snomed_document_types USING btree (title);
 
 
 --
@@ -27179,6 +27273,14 @@ ALTER TABLE ONLY renalware.medication_prescriptions
 
 
 --
+-- Name: letter_descriptions fk_rails_1bc6285553; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.letter_descriptions
+    ADD CONSTRAINT fk_rails_1bc6285553 FOREIGN KEY (snomed_document_type_id) REFERENCES renalware.letter_snomed_document_types(id);
+
+
+--
 -- Name: medication_prescription_terminations fk_rails_1f3fb8ef97; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -30446,9 +30548,10 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware, renalware_demo, public, heroku_ext;
+SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241230130328'),
 ('20241220180547'),
 ('20241212115831'),
 ('20241205164429'),
