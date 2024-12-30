@@ -8,9 +8,13 @@ module Renalware
       let(:user) { create(:user) }
       let(:description) { nil }
       let(:params) do
-        # What sets `created_by`? It's not validated in ActiveRecord?
-        { description: description, topic: topic, letterhead: letterhead, author: user,
-          created_by: user }
+        {
+          description: description,
+          topic: topic,
+          letterhead: letterhead,
+          author: user,
+          created_by: user
+        }
       end
 
       describe "#call" do
