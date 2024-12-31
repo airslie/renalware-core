@@ -42,6 +42,7 @@ module MeshSpecHelper
       patient: patient,
       author: user,
       approved_by: user,
+      topic: create(:letter_topic, snomed_document_type: create(:snomed_document_type)),
       by: user
     ).reload.tap do |letter|
       letter.archive = create(:letter_archive, letter: letter, by: user)

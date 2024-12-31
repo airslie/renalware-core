@@ -6,6 +6,7 @@ module Renalware::Letters
 
         let(:transmission) { instance_double(Transports::Mesh::Transmission, letter: letter) }
         let(:arguments) { Arguments.new(transmission: transmission, transaction_uuid: "123") }
+        let(:topic) { build(:letter_topic, snomed_document_type: build(:snomed_document_type)) }
         let(:patient) do
           build_stubbed(
             :letter_patient,
@@ -16,6 +17,7 @@ module Renalware::Letters
         let(:letter) do
           build_stubbed(
             :letter,
+            topic: topic,
             patient: patient,
             archive: build_stubbed(:letter_archive)
           )
