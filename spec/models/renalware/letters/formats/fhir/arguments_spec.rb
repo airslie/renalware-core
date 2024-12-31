@@ -31,13 +31,14 @@ module Renalware::Letters
           nhs_number: "0123456789"
         )
       }
+      let(:topic) { build(:letter_topic, snomed_document_type: build(:snomed_document_type)) }
       let(:clinics_patient) { Renalware::Clinics.cast_patient(patient) }
       let(:letter) {
         build_stubbed(
           :letter,
           uuid: letter_uuid,
           patient: patient,
-          topic: build_stubbed(:letter_topic),
+          topic: topic,
           author: build_stubbed(:user, uuid: author_uuid),
           archive: build_stubbed(:letter_archive, uuid: letter_archive_uuid),
           event: build_stubbed(
