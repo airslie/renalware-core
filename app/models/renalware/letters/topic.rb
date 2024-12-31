@@ -12,6 +12,14 @@ module Renalware
 
       belongs_to :snomed_document_type
 
+      def snomed_document_type
+        super || default_snomed_document_type
+      end
+
+      def default_snomed_document_type
+        @default_snomed_document_type ||= SnomedDocumentType.find_by(default_type: true)
+      end
+
       concerning :Sections do
         included do
           cattr_accessor :letter_extension_sections, default: [

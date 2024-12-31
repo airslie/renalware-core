@@ -125,7 +125,7 @@ module Renalware::Letters
           )
 
           expect(arguments.mex_subject).to eq(
-            "Report of clinical encounter for JONES, Jenny, NHS Number: 0123456789, " \
+            "Clinical letter (record artifact) for JONES, Jenny, NHS Number: 0123456789, " \
             "seen at Some Hospital, ODS1, Version: 1"
           )
         end
@@ -133,29 +133,33 @@ module Renalware::Letters
 
       describe "document_title" do
         it "is an alias for letter.description" do
-          expect(arguments.document_title).to eq("Report of clinical encounter")
+          expect(arguments.document_title).to eq("Clinical letter (record artifact)")
         end
       end
 
       describe "#document_type_snomed_*" do
-        context "when there is no row in letter_snomed_document_types with default_type: true" do
-          it "raises an error" do
-            expect {
-              arguments.document_type_snomed_code
-            }.to raise_error(Arguments::MissingSnomedDocumentTypeError)
-          end
-        end
+        context "when letter.topic has no letter_snomed_document_type" do
+          let(:letter) { build_stubbed(:letter, patient: patient) }
 
-        context "when there is a row in letter_snomed_document_types with default_type: true" do
-          before do
-            Renalware::Letters::SnomedDocumentType.create!(
-              code: "123", title: "ABC", default_type: true
-            )
+          context "when there is no row in letter_snomed_document_types with default_type: true" do
+            it "raises an error" do
+              expect {
+                arguments.document_type_snomed_code
+              }.to raise_error(Arguments::MissingSnomedDocumentTypeError)
+            end
           end
 
-          it "uses that for code and title" do
-            expect(arguments.document_type_snomed_code).to eq("123")
-            expect(arguments.document_type_snomed_title).to eq("ABC")
+          context "when there is a row in letter_snomed_document_types with default_type: true" do
+            before do
+              Renalware::Letters::SnomedDocumentType.create!(
+                code: "123", title: "ABC", default_type: true
+              )
+            end
+
+            it "uses that for code and title" do
+              expect(arguments.document_type_snomed_code).to eq("123")
+              expect(arguments.document_type_snomed_title).to eq("ABC")
+            end
           end
         end
       end
