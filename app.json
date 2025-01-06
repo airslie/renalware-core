@@ -5,10 +5,14 @@
   "success_url": "/",
   "stack": "heroku-24",
   "addons": [
-    "heroku-postgresql:in-dyno"
+    {
+      "plan": "heroku-postgresql:essential-1",
+      "options": {
+        "version": "16"
+      }
+    }
   ],
   "env": {
-    "POSTGRESQL_VERSION": "16",
     "DEMO": "1",
     "UKRDC_WORKING_PATH": "tmp/ukrdc",
     "RACK_ENV": "production",
