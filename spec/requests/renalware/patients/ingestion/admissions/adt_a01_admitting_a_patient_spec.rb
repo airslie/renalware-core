@@ -4,7 +4,8 @@ describe "HL7 ADT^A01 message handling: 'Inpatient admission'" do
   include HL7Helpers
   include PatientsSpecHelper
 
-  let(:visit_number) { "124301137" }
+  let(:visit_number) { "123" }
+  let(:system_user) { create(:user, :system) }
 
   let(:raw_hl7) do
     hl7 = <<-HL7
@@ -34,7 +35,7 @@ describe "HL7 ADT^A01 message handling: 'Inpatient admission'" do
   # rubocop:enable Layout/LineLength
 
   before do
-    create(:user, :system)
+    system_user
     create(:modality_change_type, :default)
   end
 
@@ -51,17 +52,35 @@ describe "HL7 ADT^A01 message handling: 'Inpatient admission'" do
   end
 
   context "when patient is found" do
-    it "creates the admission" do
+    it "creates the admission, creating the unit and ward JIT if not found" do
       create_patient
-      # ward = create(:hospital_ward, code: "ward")
+
       msg = hl7_message_from_raw_string(raw_hl7)
 
       expect {
         Renalware::Admissions::Ingestion::Commands::AdmitPatient.call(msg)
       }.to change(Renalware::Admissions::Admission, :count).by(1)
 
-      expect(Renalware::Admissions::Admission.last).to have_attributes(
+      admission = Renalware::Admissions::Admission.last
+      expect(admission).to have_attributes(
+        updated_by: system_user,
+        created_by: system_user,
         visit_number: visit_number
+      )
+
+      # it created the ward JIT
+      ward = admission.hospital_ward
+      expect(ward).to have_attributes(
+        code: "ward",
+        name: "ward"
+      )
+
+      # it created the unit JIT
+      expect(ward.hospital_unit).to have_attributes(
+        unit_code: "facility",
+        name: "facility",
+        renal_registry_code: "?",
+        unit_type: "hospital"
       )
     end
   end

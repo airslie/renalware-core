@@ -58,6 +58,7 @@ module Renalware
         def referring_doctor  = Consultant.new(super)
         def attending_doctor  = Consultant.new(super)
         def consulting_doctor = Consultant.new(super)
+        def visit_number      = super&.split("^")&.first
       end
     end
   end

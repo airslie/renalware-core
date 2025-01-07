@@ -19,7 +19,12 @@ module Renalware
 
             Admission.create!(
               hospital_ward: ward,
-              patient: patient
+              patient: patient,
+              admitted_on: 1.day.ago,
+              admission_type: "unknown",
+              reason_for_admission: "?",
+              visit_number: pv1.visit_number,
+              by: SystemUser.find
             )
             # existing_admission = patient.appointments.where(visit_number: visit_number)
 
@@ -36,7 +41,7 @@ module Renalware
           def ward
             @ward ||= Hospitals::Ward.find_or_create_by(
               code: assigned_location.ward,
-              unit_id: unit.id
+              hospital_unit_id: unit.id
             ) do |ward|
               ward.name = assigned_location.ward
             end
@@ -55,13 +60,20 @@ module Renalware
                 .first
 
               found_unit || Hospitals::Unit.create!(
+                hospital_centre: hospital_centre,
                 unit_code: incoming_unit_name,
                 name: incoming_unit_name,
-                alias: incoming_unit_name
+                alias: incoming_unit_name,
+                unit_type: "hospital",
+                renal_registry_code: "?"
               )
             end
           end
           # rubocop:enable Metrics/MethodLength
+
+          def hospital_centre
+            @hospital_centre ||= Hospitals::Centre.where(host_site: true).first
+          end
 
           def update_existing_admission(admission)
             admission.update!(

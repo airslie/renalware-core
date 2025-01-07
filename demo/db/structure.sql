@@ -3653,7 +3653,8 @@ CREATE TABLE renalware.admission_admissions (
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    feed_id character varying
+    feed_id character varying,
+    visit_number text
 );
 
 
@@ -20965,6 +20966,13 @@ CREATE INDEX index_admission_admissions_on_updated_by_id ON renalware.admission_
 
 
 --
+-- Name: index_admission_admissions_on_visit_number; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_visit_number ON renalware.admission_admissions USING btree (visit_number);
+
+
+--
 -- Name: index_admission_consult_sites_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -30756,6 +30764,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20250118130334'),
 ('20250118120145'),
 ('20250117164135'),
+('20250107122234'),
 ('20241230130328'),
 ('20241220180547'),
 ('20241217190421'),
