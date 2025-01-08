@@ -8703,16 +8703,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT id AS patient_id
-   FROM renalware.patients
-  WHERE ((family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_mesh_operations; Type: TABLE; Schema: renalware; Owner: -
 --
 
