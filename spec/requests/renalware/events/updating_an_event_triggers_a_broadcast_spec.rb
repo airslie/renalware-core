@@ -1,7 +1,9 @@
 describe "Updating a Event triggers an event_updated broadcast" do
   context "when updating a simple event" do
-    class TestEventListener
-      def event_updated(event); end
+    let(:test_event_listener_class) do
+      Class.new do
+        def event_updated(event); end
+      end
     end
 
     let!(:original_map) {
@@ -10,7 +12,7 @@ describe "Updating a Event triggers an event_updated broadcast" do
 
     before do
       Renalware.config.broadcast_subscription_map["Renalware::Events::UpdateEvent"] <<
-        "TestEventListener"
+        "test_event_listener_class"
     end
 
     after do
@@ -24,8 +26,8 @@ describe "Updating a Event triggers an event_updated broadcast" do
       patient = create(:patient)
       event_type = create(:event_type, name: "Simple")
       event = create(:simple_event, event_type: event_type, patient: patient)
-      listener = TestEventListener.new
-      allow(TestEventListener).to receive(:new).and_return(listener)
+      listener = test_event_listener_class.new
+      allow(test_event_listener_class).to receive(:new).and_return(listener)
       allow(listener).to receive(:event_updated)
 
       params = {

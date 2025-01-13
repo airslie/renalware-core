@@ -1,3 +1,5 @@
+require_relative "../../support/patients_spec_helper"
+
 FactoryBot.define do
   factory :hd_patient, class: "Renalware::HD::Patient", parent: :patient do
     trait :with_hd_modality do
@@ -7,7 +9,8 @@ FactoryBot.define do
         # a contrived class so I can mix in PatientsSpecHelper.
         # Other options here
         # https://github.com/thoughtbot/factory_bot/issues/564#issuecomment-157669866
-        class ModalityMaker
+
+        modality_maker = Class.new do
           include PatientsSpecHelper
 
           def call(patient)
@@ -18,7 +21,8 @@ FactoryBot.define do
             )
           end
         end
-        ModalityMaker.new.call(instance)
+
+        modality_maker.new.call(instance)
       end
     end
   end

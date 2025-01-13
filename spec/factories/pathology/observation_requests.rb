@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:requestor_order_number) { |n| "PlacerID-#{n}" }
+  sequence(:requestor_order_number) { "PlacerID-#{it}" }
 
   factory :pathology_observation_request, class: "Renalware::Pathology::ObservationRequest" do
     description factory: %i(pathology_request_description)

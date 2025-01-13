@@ -10,12 +10,11 @@ RSpec.configure do |config|
     end
   end
 
-  Notifications = ActiveSupport::Notifications
-
   # For specs marked as monitor_database_record_creation: true, output each factory invocation
   # - useful when writing tests to check on excessive factory use.
   config.before(:each, :monitor_database_record_creation) do |_example|
-    Notifications.subscribe("factory_bot.run_factory") do |_name, _start, _finish, _id, payload|
+    ActiveSupport::Notifications
+      .subscribe("factory_bot.run_factory") do |_name, _start, _finish, _id, payload|
       warn "FactoryBot: #{payload[:strategy]}(:#{payload[:name]})"
     end
   end
@@ -25,7 +24,8 @@ RSpec.configure do |config|
     # Output this at the end of the suite so we can keep an eye on escalating factory usage.
     factory_bot_results = {}
     config.before(:suite) do
-      Notifications.subscribe("factory_bot.run_factory") do |_name, start, finish, _id, payload|
+      ActiveSupport::Notifications
+        .subscribe("factory_bot.run_factory") do |_name, start, finish, _id, payload|
         factory_name = payload[:name]
         strategy_name = payload[:strategy]
         factory_bot_results[factory_name] ||= {}

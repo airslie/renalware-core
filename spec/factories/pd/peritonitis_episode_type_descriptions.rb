@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:term) { |n| "term-#{n}" }
+  sequence(:term) { "term-#{it}" }
   factory :peritonitis_episode_type_description,
           class: "Renalware::PD::PeritonitisEpisodeTypeDescription" do
     term

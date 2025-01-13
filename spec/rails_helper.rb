@@ -42,9 +42,9 @@ end
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-Dir[Renalware::Engine.root.join("spec/support/**/*.rb")].each { |f| require f }
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
-Dir[Renalware::Engine.root.join("spec/pages/**/*.rb")].each { |f| require f }
+Dir[Renalware::Engine.root.join("spec/support/**/*.rb")].each { require it }
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { require it }
+Dir[Renalware::Engine.root.join("spec/pages/**/*.rb")].each { require it }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

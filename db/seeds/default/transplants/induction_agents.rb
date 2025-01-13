@@ -8,7 +8,7 @@ module Renalware
       "Campath",
       "ABOi desensitisation"
     ].each_with_index do |name, index|
-      Transplants::InductionAgent.find_or_create_by!(name: name) { |ia| ia.position = index }
+      Transplants::InductionAgent.find_or_create_by!(name: name) { it.position = index }
     end
   end
 end

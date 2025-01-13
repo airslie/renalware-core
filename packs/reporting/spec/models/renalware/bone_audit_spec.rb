@@ -71,8 +71,8 @@ module Renalware
             result = JSON.parse(json).deep_symbolize_keys!
 
             data = result[:data]
-            pd = data.find { |x| x[:modality] == "PD" }
-            hd = data.find { |x| x[:modality] == "HD" }
+            pd = data.find { it[:modality] == "PD" }
+            hd = data.find { it[:modality] == "HD" }
 
             expect(pd).to eq(
               modality: "PD",

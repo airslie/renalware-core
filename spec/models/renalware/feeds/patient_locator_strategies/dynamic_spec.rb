@@ -120,7 +120,7 @@ module Renalware::Feeds
         local_patient_id: hash.dig(:local_patient_id, :rw),
         born_on: hash.dig(:dob, :rw),
         **
-      ).tap { |u| u.save(validate: false) }
+      ).tap { it.save(validate: false) }
     end
 
     def create_other_patient(**) = create(:patient, **)
@@ -133,9 +133,9 @@ module Renalware::Feeds
 
     it "2 patients with same nhs number and dob and no local_patient_id" do
       build(:patient, nhs_number: "0909718644", local_patient_id: nil, born_on: "2000-01-01")
-        .tap { |u| u.save(validate: false) }
+        .tap { it.save(validate: false) }
       build(:patient, nhs_number: "0909718644", local_patient_id: nil, born_on: "2000-01-01")
-        .tap { |u| u.save(validate: false) }
+        .tap { it.save(validate: false) }
 
       pi = instance_double(
         Renalware::Feeds::PatientIdentification,

@@ -14,6 +14,26 @@ module Renalware
     let(:patient) { create(:pathology_patient, ethnicity: nil) }
     let(:observation_request) { create(:pathology_observation_request, patient: patient) }
 
+    let(:test_adjusted_egfr_observation_class) do
+      Class.new(SimpleDelegator) do
+        def adjust
+          return self if adjusted?
+
+          self.comment = adjusted_comment
+          self.result =  (result.to_f * 1.21).round(2)
+          self
+        end
+
+        def adjusted?
+          comment =~ /adjusted/i
+        end
+
+        def adjusted_comment
+          "adjusted eGFR original: #{result}"
+        end
+      end
+    end
+
     def create_original_observation
       create(
         :pathology_observation,
@@ -21,24 +41,6 @@ module Renalware
         description: obs_desc,
         result: "1.11"
       )
-    end
-
-    class TestAdjustedEgfrObservation < SimpleDelegator
-      def adjust
-        return self if adjusted?
-
-        self.comment = adjusted_comment
-        self.result =  (result.to_f * 1.21).round(2)
-        self
-      end
-
-      def adjusted?
-        comment =~ /adjusted/i
-      end
-
-      def adjusted_comment
-        "adjusted eGFR original: #{result}"
-      end
     end
 
     context "when the patient has the Time Lord ethnicity" do
@@ -55,7 +57,7 @@ module Renalware
           egfr_obs = create_original_observation
 
           service.call do |observation_qualifying_for_adjustment|
-            TestAdjustedEgfrObservation
+            test_adjusted_egfr_observation_class
               .new(observation_qualifying_for_adjustment)
               .adjust
               .save!

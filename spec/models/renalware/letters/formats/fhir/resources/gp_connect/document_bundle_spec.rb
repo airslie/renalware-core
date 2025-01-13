@@ -50,7 +50,7 @@ module Renalware
           subject(:entry) { resource.entry }
 
           it do
-            entries = resource.entry.map { |en| en.resource.class.name }
+            entries = resource.entry.map { it.resource.class.name }
             expect(entries).to eq(
               [
                 "FHIR::STU3::Composition",

@@ -48,7 +48,7 @@ module Renalware
           subject(:entry) { bundle.entry }
 
           it do
-            resources = entry.map { |en| en.resource.class.name }
+            resources = entry.map { it.resource.class.name }
 
             expect(resources).to include(
               "FHIR::STU3::MessageHeader",

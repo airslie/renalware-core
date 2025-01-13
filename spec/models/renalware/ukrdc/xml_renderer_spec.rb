@@ -48,14 +48,14 @@ module Renalware
         # - too long
         # - not correct pattern eg not matching G[0-9]{7}
         expect(
-          result.validation_errors.count { |x| x.message.include?("GPPracticeId") }
+          result.validation_errors.count { it.message.include?("GPPracticeId") }
         ).to eq(2)
 
         # There will be 3 errors about GPId
         # - too long
         # - not correct pattern eg not matching G[0-9]{7}
         expect(
-          result.validation_errors.count { |x| x.message.include?("GPId") }
+          result.validation_errors.count { it.message.include?("GPId") }
         ).to eq(2)
       end
     end

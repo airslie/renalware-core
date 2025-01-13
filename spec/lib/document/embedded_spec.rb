@@ -57,9 +57,11 @@ module Document
               "Document::Foo"
             end
 
+            # rubocop:disable Lint/ConstantDefinitionInBlock
             class Nested < Document::Embedded
               attribute :value
             end
+            # rubocop:enable Lint/ConstantDefinitionInBlock
             attribute :nested, Nested
           end
         end

@@ -1,5 +1,5 @@
 describe "renalware/virology/profiles/summary" do
-  VIROLOGY_ATTRIBUTES = %i(hiv hepatitis_b hepatitis_b_core_antibody hepatitis_c htlv).freeze
+  virology_attributes = %i(hiv hepatitis_b hepatitis_b_core_antibody hepatitis_c htlv).freeze
   helper(Renalware::Engine.routes.url_helpers, Renalware::AttributeNameHelper)
 
   let(:patient) { create(:virology_patient).tap(&:create_profile) }
@@ -12,7 +12,7 @@ describe "renalware/virology/profiles/summary" do
       profile
       render partial: partial, locals: { patient: patient, positive_results_only: true }
 
-      VIROLOGY_ATTRIBUTES.each do |virology_attribute|
+      virology_attributes.each do |virology_attribute|
         expect(rendered).not_to include(human_virology_attribute_name_for(virology_attribute))
       end
     end
@@ -22,7 +22,7 @@ describe "renalware/virology/profiles/summary" do
     attr_name(profile.document, attr_name)
   end
 
-  VIROLOGY_ATTRIBUTES.each do |virology_attr|
+  virology_attributes.each do |virology_attr|
     context "when the patient has #{virology_attr} only with a Year and year of 2011" do
       before do
         profile.document.public_send(virology_attr).status = :yes
@@ -37,7 +37,7 @@ describe "renalware/virology/profiles/summary" do
         expect(rendered).to include("Yes (2011)")
 
         # The other ones should not be displayed
-        (VIROLOGY_ATTRIBUTES - [virology_attr]).each do |absent_virology_attribute|
+        (virology_attributes - [virology_attr]).each do |absent_virology_attribute|
           expect(rendered).not_to include(
             ">#{human_virology_attribute_name_for(absent_virology_attribute)}<"
           )

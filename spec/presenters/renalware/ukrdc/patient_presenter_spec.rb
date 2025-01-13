@@ -89,7 +89,7 @@ module Renalware
         patient.reload
 
         expected = %w(pd hd transplant)
-        expect(presenter.modalities.map { |mod| mod.description.code }).to eq(expected)
+        expect(presenter.modalities.map { it.description.code }).to eq(expected)
       end
     end
 
