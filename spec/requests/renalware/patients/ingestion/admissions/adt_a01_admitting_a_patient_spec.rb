@@ -19,6 +19,15 @@ describe "HL7 ADT^A01 message handling: 'Inpatient admission'" do
 
   let(:visit_number) { "123" }
   let(:system_user) { create(:user, :system) }
+  let(:unit) { "facility" }
+  let(:ward) { "ward" }
+  let(:room) { "room" }
+  let(:bed) { "bed" }
+  let(:building) { "building" }
+  let(:floor) { "floor" }
+  let(:consultant_family_name) { "BOOMLA" }
+  let(:consultant_initial) { "S" }
+  let(:consultant_code) { "G8901343" }
 
   let(:raw_hl7) do
     hl7 = <<-HL7
@@ -26,7 +35,7 @@ describe "HL7 ADT^A01 message handling: 'Inpatient admission'" do
       EVN|A01|20241104144000
       PID|1||10769857^^^KCH^MRN||RENALOP2^MOLLY^^^^^CURRENT||19870101|2|||The Royal London Hospital^PO Box 59^^LONDON^E1 1BB^^HOME^^||""^MOBILE~""^HOME~""^EMAIL|""^BUSINESS||S||913401060||||L||||||||N
       PD1|||ST. STEPHENS HEALTH CENTRE^^F84034|G8901343^BOOMLA^S^^^^^^EXTID
-      PV1|1|I|ward^room^bed^facility^loc.stat^BED^building^floor^loc.desc|||""^""^""^""^^^""|Z2736330|||424||||79||||NEWBORN|#{visit_number}^^""^^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON|||||20241104144000|
+      PV1|1|I|#{ward}^#{room}^#{bed}^#{unit}^loc.stat^BED^#{building}^#{floor}^loc.desc|||""^""^""^""^^^""|#{consultant_code}^#{consultant_family_name}^#{consultant_initial}|||424||||79||||NEWBORN|#{visit_number}^^""^^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON|||||20241104144000|
     HL7
     hl7.gsub(/^ */, "")
   end
@@ -72,7 +81,13 @@ describe "HL7 ADT^A01 message handling: 'Inpatient admission'" do
       expect(admission).to have_attributes(
         updated_by: system_user,
         created_by: system_user,
-        visit_number: visit_number
+        visit_number: visit_number,
+        consultant_code: consultant_code,
+        consultant: [consultant_initial, consultant_family_name].join(" "),
+        room: room,
+        bed: bed,
+        building: building,
+        floor: floor
       )
 
       # it created the ward JIT

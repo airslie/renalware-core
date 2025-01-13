@@ -59,6 +59,8 @@ module Renalware
         def attending_doctor  = Consultant.new(super)
         def consulting_doctor = Consultant.new(super)
         def visit_number      = super&.split("^")&.first
+        def admitted_at       = admit_date && Time.zone.parse(admit_date)
+        def discharged_at     = discharge_date && Time.zone.parse(discharge_date)
       end
     end
   end

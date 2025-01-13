@@ -3654,7 +3654,12 @@ CREATE TABLE renalware.admission_admissions (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     feed_id character varying,
-    visit_number text
+    visit_number text,
+    room character varying,
+    bed character varying,
+    building character varying,
+    floor character varying,
+    consultant_code character varying
 );
 
 
@@ -30764,6 +30769,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20250118130334'),
 ('20250118120145'),
 ('20250117164135'),
+('20250114171718'),
+('20250114112003'),
 ('20250107122234'),
 ('20241230130328'),
 ('20241220180547'),

@@ -9,7 +9,12 @@ module Renalware
 
           pattr_initialize :message
           delegate :patient_identification, :pv1, to: :message
-          delegate :assigned_location, :prior_location, :visit_number, to: :pv1
+          delegate :assigned_location,
+                   :prior_location,
+                   :visit_number,
+                   :discharged_at,
+                   :attending_doctor,
+                   to: :pv1
 
           def call
             return if patient.blank?
@@ -17,7 +22,12 @@ module Renalware
             existing_admission = find_admission_with_matching_visit_number
 
             if existing_admission.present?
-              update_existing_admission(existing_admission)
+              if discharged_at.present?
+                discharge_admission(existing_admission)
+              else
+                # transfer
+                update_existing_admission(existing_admission)
+              end
             else
               create_new_admission
             end
@@ -37,18 +47,30 @@ module Renalware
           def update_existing_admission(admission)
             admission.update!(
               hospital_ward: ward,
+              consultant_code: attending_doctor.code,
+              consultant: attending_doctor.name,
+              room: assigned_location.room,
+              bed: assigned_location.bed,
+              building: assigned_location.building,
+              floor: assigned_location.floor,
               by: SystemUser.find
             )
           end
 
-          def create_new_admission
+          def create_new_admission # rubocop:disable Metrics/MethodLength
             Admission.create!(
-              hospital_ward: ward,
               patient: patient,
               admitted_on: 1.day.ago,
               admission_type: "unknown",
               reason_for_admission: "?",
+              consultant_code: attending_doctor.code,
+              consultant: attending_doctor.name,
               visit_number: pv1.visit_number,
+              hospital_ward: ward,
+              room: assigned_location.room,
+              bed: assigned_location.bed,
+              building: assigned_location.building,
+              floor: assigned_location.floor,
               by: SystemUser.find
             )
           end

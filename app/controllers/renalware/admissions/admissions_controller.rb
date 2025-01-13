@@ -90,8 +90,8 @@ module Renalware
         params
           .require(:admissions_admission)
           .permit(
-            :hospital_ward_id, :patient_id, :q,
-            :admitted_on, :admission_type, :consultant, :modality,
+            :hospital_ward_id, :patient_id, :q, :room, :bed, :floor, :building,
+            :admitted_on, :admission_type, :consultant, :consultant_code, :modality,
             :reason_for_admission, :notes, :transferred_on, :transferred_to,
             :discharged_on, :discharge_destination, :destination_notes,
             :discharge_summary, :summarised_on, :summarised_by_id, :modality_at_admission

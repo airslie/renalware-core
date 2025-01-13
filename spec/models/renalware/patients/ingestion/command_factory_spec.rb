@@ -14,12 +14,12 @@ module Renalware
           {
             update_person_information: Commands::UpdatePatient,
             add_person_information: Commands::UpdatePatient,
-            discharge_patient: Commands::UpdatePatient,
-            admit_patient: Commands::UpdatePatient,
-            update_admission: Commands::UpdatePatient,
-            cancel_admission: Commands::UpdatePatient,
-            transfer_patient: Commands::UpdatePatient,
-            cancel_discharge: Commands::UpdatePatient
+            discharge_patient: Admissions::Ingestion::Commands::AdmitPatient,
+            admit_patient: Admissions::Ingestion::Commands::AdmitPatient,
+            update_admission: Admissions::Ingestion::Commands::AdmitPatient,
+            cancel_admission: Admissions::Ingestion::Commands::AdmitPatient,
+            transfer_patient: Admissions::Ingestion::Commands::AdmitPatient,
+            cancel_discharge: Admissions::Ingestion::Commands::AdmitPatient
           }.each do |message_type, command_class|
             context "when a #{message_type} message type" do
               subject { factory.for(message_returning_action(message_type)) }

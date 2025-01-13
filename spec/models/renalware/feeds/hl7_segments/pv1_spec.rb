@@ -84,5 +84,21 @@ module Renalware::Feeds::HL7Segments
         )
       end
     end
+
+    describe "#admitted_at (PV1.44)" do
+      let(:raw_message) { "PV1|1|||||||||||||||||||||||||||||||||||||||||||20241104144000|" }
+
+      it do
+        expect(pv1.admitted_at).to eq(Time.zone.parse("20241104144000"))
+      end
+    end
+
+    describe "#discharged_at (PV1.45)" do
+      let(:raw_message) { "PV1|1||||||||||||||||||||||||||||||||||||||||||||20241104144000" }
+
+      it do
+        expect(pv1.discharged_at).to eq(Time.zone.parse("20241104144000"))
+      end
+    end
   end
 end
