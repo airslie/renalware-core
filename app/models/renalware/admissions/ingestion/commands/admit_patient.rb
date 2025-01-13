@@ -9,14 +9,39 @@ module Renalware
 
           pattr_initialize :message
           delegate :patient_identification, :pv1, to: :message
-          delegate :assigned_location, :prior_location, to: :pv1
+          delegate :assigned_location, :prior_location, :visit_number, to: :pv1
 
           def call
             return if patient.blank?
 
-            # Check - do we already have this admission (number)
-            # Is it patient move of ward/bed
+            existing_admission = find_admission_with_matching_visit_number
 
+            if existing_admission.present?
+              update_existing_admission(existing_admission)
+            else
+              create_new_admission
+            end
+          end
+
+          private
+
+          def find_admission_with_matching_visit_number
+            Admission
+              .currently_admitted
+              .where(patient: patient)
+              .where(visit_number: visit_number)
+              .order(created_at: :desc)
+              .first
+          end
+
+          def update_existing_admission(admission)
+            admission.update!(
+              hospital_ward: ward,
+              by: SystemUser.find
+            )
+          end
+
+          def create_new_admission
             Admission.create!(
               hospital_ward: ward,
               patient: patient,
@@ -26,16 +51,7 @@ module Renalware
               visit_number: pv1.visit_number,
               by: SystemUser.find
             )
-            # existing_admission = patient.appointments.where(visit_number: visit_number)
-
-            # if existing_appointment.present?
-            #   update_existing_appointment(existing_appointment)
-            # else
-            #   create_new_appointment(patient)
-            # end
           end
-
-          private
 
           # If we can't find the ward, create it using the ward name as both :code and :name
           def ward
@@ -73,26 +89,6 @@ module Renalware
 
           def hospital_centre
             @hospital_centre ||= Hospitals::Centre.where(host_site: true).first
-          end
-
-          def update_existing_admission(admission)
-            admission.update!(
-              starts_at: appointment_starts_at,
-              ends_at: appointment_ends_at,
-              consultant: rwconsultant,
-              clinic: rwclinic
-            )
-          end
-
-          def create_new_admission(patient)
-            Admission.create!(
-              patient: patient,
-              starts_at: appointment_starts_at,
-              ends_at: appointment_ends_at,
-              clinic: rwclinic,
-              consultant: rwconsultant,
-              visit_number: visit_number
-            )
           end
 
           def patient
