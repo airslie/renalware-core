@@ -5,6 +5,8 @@ describe "Insert letter.event notes (e.g. from a clinic visit) into the letter b
 
   let(:patient) { create(:letter_patient) }
 
+  # NB: need to be a proper class for the STI to work so refrain
+  # from refactoring to Class.new to satisfy rubocop!
   class MyClinicVisit
     include ActiveModel::Model
 

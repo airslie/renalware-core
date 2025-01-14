@@ -86,9 +86,9 @@ module Renalware::Medications::Delivery
           patient = create(:patient)
           esa_drug_type = create(:drug_type, :esa)
           immuno_drug_type = create(:drug_type, :immunosuppressant)
-          esa_drug = create(:drug, name: "esa drug").tap { |drug| drug.drug_types << esa_drug_type }
+          esa_drug = create(:drug, name: "esa drug").tap { it.drug_types << esa_drug_type }
           immuno_drug =
-            create(:drug, name: "drug2").tap { |drug| drug.drug_types << immuno_drug_type }
+            create(:drug, name: "drug2").tap { it.drug_types << immuno_drug_type }
 
           prescriptions = [
             create_home_del_prescription(patient, esa_drug, 1.week.from_now),

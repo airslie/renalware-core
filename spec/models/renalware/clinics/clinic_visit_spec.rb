@@ -53,7 +53,7 @@ describe Renalware::Clinics::ClinicVisit do
         patient: create(:clinics_patient)
       )
 
-      expect(visit.reload.body_surface_area).to satisfy("be greater than 0") { |val| val.to_i > 0 }
+      expect(visit.reload.body_surface_area).to satisfy("be greater than 0") { it.to_i > 0 }
     end
   end
 
@@ -66,7 +66,7 @@ describe Renalware::Clinics::ClinicVisit do
         patient: create(:clinics_patient)
       )
 
-      expect(visit.reload.total_body_water).to satisfy("be greater than 0") { |val| val.to_i > 0 }
+      expect(visit.reload.total_body_water).to satisfy("be greater than 0") { it.to_i > 0 }
     end
   end
 

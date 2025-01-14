@@ -4,13 +4,13 @@ module Renalware
   module System
     describe RenderLiquidTemplate do
       describe "#call" do
-        # rubocop:disable RSpec/LeakyConstantDeclaration
-        class TestPatientDrop < Liquid::Drop
-          def name
-            "John Smith"
+        let(:test_patient_drop_class) do
+          Class.new(Liquid::Drop) do
+            def name
+              "John Smith"
+            end
           end
         end
-        # rubocop:enable RSpec/LeakyConstantDeclaration
 
         def template
           Template.new(name: "test",
@@ -23,7 +23,7 @@ module Renalware
 
           output = described_class.call(
             template_name: "test",
-            variables: { "patient" => TestPatientDrop.new }
+            variables: { "patient" => test_patient_drop_class.new }
           )
 
           expect(Template).to have_received(:find_by!)

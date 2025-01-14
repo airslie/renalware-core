@@ -43,9 +43,9 @@ describe("Persisting the correct recipients when a letter is saved", :js) do
   end
 
   context "when the main recipient is one of patient or primary_care_physician" do
-    PERSON_ROLES = %i(patient primary_care_physician).freeze
-    PERSON_ROLES.each do |main_person_role|
-      cc_person_role = (PERSON_ROLES - [main_person_role]).first
+    person_roles = %i(patient primary_care_physician)
+    person_roles.each do |main_person_role|
+      cc_person_role = (person_roles - [main_person_role]).first
 
       context "when the main recipient is #{main_person_role} and there are no extra CCs" do
         it "create recipients rows main:#{main_person_role} cc:#{cc_person_role}" do

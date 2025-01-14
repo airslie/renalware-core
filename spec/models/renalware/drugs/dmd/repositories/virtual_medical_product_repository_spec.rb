@@ -120,7 +120,7 @@ module Renalware
         let(:ontology_client) {
           class_double \
             OntologyClient,
-            call: Faraday.new { |b| b.adapter(:test, stubs) }
+            call: Faraday.new { it.adapter(:test, stubs) }
         }
 
         # Quick attempt to DRY up this test but not sure it helps much

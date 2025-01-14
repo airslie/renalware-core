@@ -1,11 +1,11 @@
 describe "View a list of home delivery prescriptions filtered by delivery dates" do
   let(:esa_drug_type) { create(:drug_type, :esa) }
   let(:esa_drug) do
-    create(:drug, name: "esa drug").tap { |drug| drug.drug_types << esa_drug_type }
+    create(:drug, name: "esa drug").tap { it.drug_types << esa_drug_type }
   end
   let(:immuno_drug_type) { create(:drug_type, :immunosuppressant) }
   let(:immuno_drug) do
-    create(:drug, name: "immuno drug").tap { |drug| drug.drug_types << immuno_drug_type }
+    create(:drug, name: "immuno drug").tap { it.drug_types << immuno_drug_type }
   end
 
   def create_home_delivery_prescription(

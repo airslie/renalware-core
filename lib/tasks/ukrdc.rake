@@ -31,8 +31,9 @@ namespace :ukrdc do
     logger.level     = Logger::INFO
     Rails.logger     = logger
 
-    PROFILE = nil
-    if PROFILE
+    profile = nil
+
+    if profile
       require "ruby-prof"
       RubyProf.start
     end
@@ -43,7 +44,7 @@ namespace :ukrdc do
       force_send: ENV["force_send"] == "true"
     ).call
 
-    if PROFILE
+    if profile
       result = RubyProf.stop
       pretty = RubyProf::FlatPrinter.new(result)
       pretty.print($stdout)

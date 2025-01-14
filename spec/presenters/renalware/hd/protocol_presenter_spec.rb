@@ -57,7 +57,7 @@ describe Renalware::HD::ProtocolPresenter do
           patient: patient,
           administer_on_hd: true,
           prescribed_on: 2.days.ago
-        ).tap { |ps| ps.build_termination(terminated_on: 1.day.ago, by: user).save! }
+        ).tap { it.build_termination(terminated_on: 1.day.ago, by: user).save! }
       }
 
       presenter = described_class.new(patient, nil)

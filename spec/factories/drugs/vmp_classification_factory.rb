@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :drug_vmp_classification,
           class: "Renalware::Drugs::VMPClassification" do
-    sequence(:code) { |n| "VMP-CODE-#{n}" }
+    sequence(:code) { "VMP-CODE-#{it}" }
     drug { nil }
     form { nil }
     route { nil }

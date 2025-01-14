@@ -43,7 +43,7 @@ describe "Renewing all Give On HD prescriptions via a button", :js do
 
   context "when the user has the hd_prescriber role" do
     it "displays the Renew HD Prescriptions button" do
-      user = login_as_clinical.tap { |u| u.roles << hd_prescriber_role }
+      user = login_as_clinical.tap { it.roles << hd_prescriber_role }
       patient = create(:patient, by: user)
 
       visit patient_prescriptions_path(
@@ -57,7 +57,7 @@ describe "Renewing all Give On HD prescriptions via a button", :js do
     end
 
     it "ss" do
-      user = login_as_clinical.tap { |u| u.roles << hd_prescriber_role }
+      user = login_as_clinical.tap { it.roles << hd_prescriber_role }
       patient = create(:patient, by: user)
       non_hd_prescription = create_prescription(patient, "Drug1", hd: false, by: user)
       hd_prescription1 = create_prescription(patient, "Drug2", hd: true, by: user)

@@ -5,9 +5,11 @@ module Renalware
 
       let(:patient) { build_stubbed(:letter_patient) }
 
-      class Listener
-        def request_default_electronic_cc_recipients_for_use_in_letters(args)
-          args[:array_of_user_ids].push "6"
+      let(:listener_class) do
+        Class.new do
+          def request_default_electronic_cc_recipients_for_use_in_letters(args)
+            args[:array_of_user_ids].push "6"
+          end
         end
       end
 
@@ -17,7 +19,7 @@ module Renalware
         end
 
         it "returns values added by subscribers" do
-          listener = Listener.new
+          listener = listener_class.new
 
           resolver.subscribe(listener)
 

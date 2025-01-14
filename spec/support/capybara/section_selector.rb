@@ -7,7 +7,7 @@ Capybara.add_selector(:section) do
     # the nil function is to wrap the condition in brackets
     heading = XPath.function(
       nil,
-      XPath.descendant(*Array(heading_level).map { |i| :"h#{i}" })
+      XPath.descendant(*Array(heading_level).map { :"h#{it}" })
     )[1][XPath.string.n.is(locator.to_s)]
     XPath.descendant(*Array(section_element).map(&:to_sym))[heading]
   end
