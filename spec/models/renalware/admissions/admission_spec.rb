@@ -1,5 +1,6 @@
 describe Renalware::Admissions::Admission do
   include PatientsSpecHelper
+
   let(:patient) do
     create(:patient).tap do |pat|
       set_modality(
@@ -13,6 +14,7 @@ describe Renalware::Admissions::Admission do
   let(:modality_desc) { create(:hd_modality_description) }
 
   it :aggregate_failures do
+    is_expected.to be_versioned
     is_expected.to validate_presence_of :patient_id
     is_expected.to validate_presence_of :hospital_ward_id
     is_expected.to validate_presence_of :admitted_on

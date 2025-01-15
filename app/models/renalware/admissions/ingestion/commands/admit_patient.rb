@@ -22,12 +22,8 @@ module Renalware
             existing_admission = find_admission_with_matching_visit_number
 
             if existing_admission.present?
-              if discharged_at.present?
-                discharge_admission(existing_admission)
-              else
-                # transfer
-                update_existing_admission(existing_admission)
-              end
+              # A02 transfer or A03 discharge or A08 update
+              update(existing_admission)
             else
               create_new_admission
             end
@@ -44,7 +40,7 @@ module Renalware
               .first
           end
 
-          def update_existing_admission(admission)
+          def update(admission)
             admission.update!(
               hospital_ward: ward,
               consultant_code: attending_doctor.code,
@@ -53,6 +49,8 @@ module Renalware
               bed: assigned_location.bed,
               building: assigned_location.building,
               floor: assigned_location.floor,
+              admitted_on: pv1.admit_date&.to_date,
+              discharged_on: pv1.discharge_date&.to_date,
               by: SystemUser.find
             )
           end
@@ -60,7 +58,8 @@ module Renalware
           def create_new_admission # rubocop:disable Metrics/MethodLength
             Admission.create!(
               patient: patient,
-              admitted_on: 1.day.ago,
+              admitted_on: pv1.admit_date&.to_date,
+              discharged_on: pv1.discharge_date&.to_date,
               admission_type: "unknown",
               reason_for_admission: "?",
               consultant_code: attending_doctor.code,

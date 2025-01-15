@@ -6,7 +6,7 @@ module Renalware
       #
       class CommandFactory
         def for(msg)
-          case message.action
+          case msg.action
           when :add_person_information    then make_add_patient(msg)
           when :update_person_information then make_update_patient(msg)
           when :admit_patient             then make_admit_patient(msg)
@@ -14,7 +14,7 @@ module Renalware
           when :cancel_admission          then make_cancel_admission(msg)
           when :transfer_patient          then make_transfer_patient(msg)
           when :discharge_patient         then make_discharge_patient(msg)
-          when :cancel_discharge          then make_cancel_discharge(msgs)
+          when :cancel_discharge          then make_cancel_discharge(msg)
           else noop
           end
         end
