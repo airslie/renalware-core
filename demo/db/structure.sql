@@ -1217,6 +1217,7 @@ CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp wit
       -- one orc_filler_order_number, but probably not that useful
       insert into renalware.feed_sausage_queue (feed_sausage_id, created_at, updated_at)
       values (id_of_upserted_feed_sausage, current_timestamp, current_timestamp)
+      on conflict(feed_sausage_id) do update set updated_at = current_timestamp
       returning feed_sausage_queue.id into id_of_inserted_feed_sausage_queue;
     end if;
 
@@ -21948,7 +21949,7 @@ CREATE INDEX index_feed_replay_requests_on_patient_id ON renalware.feed_replay_r
 -- Name: index_feed_sausage_queue_on_feed_sausage_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_feed_sausage_queue_on_feed_sausage_id ON renalware.feed_sausage_queue USING btree (feed_sausage_id);
+CREATE UNIQUE INDEX index_feed_sausage_queue_on_feed_sausage_id ON renalware.feed_sausage_queue USING btree (feed_sausage_id);
 
 
 --
@@ -30530,9 +30531,10 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware, renalware_demo, public, heroku_ext;
+SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250117140334'),
 ('20241230130328'),
 ('20241220180547'),
 ('20241212115831'),

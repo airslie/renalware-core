@@ -194,45 +194,58 @@ describe "Mirth HL7 feed processing simulation" do
           # updated_at col has changed - also any update to a model will touch updated_at
           # so beware unless we use update_column(s), updating the updated_at col directly
           # will only ever set it to current_timestamp as it tries to capture the model touch...
+          original_timestamp = 1.day.ago
           sausage = Renalware::Feeds::Sausage.last
           queued = Renalware::Feeds::SausageQueue.last
-          sausage.update_columns(created_at: 1.day.ago, updated_at: 1.day.ago)
-          queued.update_columns(created_at: 1.day.ago, updated_at: 1.day.ago)
+          sausage.update_columns(created_at: original_timestamp, updated_at: original_timestamp)
+          queued.update_columns(created_at: original_timestamp, updated_at: original_timestamp)
 
-          # Simulate mirth adding a new version of message ie same orc_filler_order_number
-          # with a newer date, so it will keep the row and update the columns
-          result = simulate_mirth_creating_oru_message(
-            orc_filler_order_number: "12335",
-            sent_at: "20010101222222",
-            body: "content of new msg",
-            nhs_number: "1111111111",
-            local_patient_id: "new local 1",
-            local_patient_id_2: "new local 2",
-            local_patient_id_3: "new local 3",
-            header_id: "11"
-          )
+          result = nil
 
-          sausage.reload
-          queued.reload
+          Time.freeze do
+            # Simulate mirth adding a new version of message ie same orc_filler_order_number
+            # with a newer date, so it will keep the row and update the columns
+            result = simulate_mirth_creating_oru_message(
+              orc_filler_order_number: "12335",
+              sent_at: "20010101222222",
+              body: "content of new msg",
+              nhs_number: "1111111111",
+              local_patient_id: "new local 1",
+              local_patient_id_2: "new local 2",
+              local_patient_id_3: "new local 3",
+              header_id: "11"
+            )
 
-          # We should not have created new msg and queue rows, but should have updated extant ones
-          expect(Renalware::Feeds::Sausage.count).to eq(1)
-          expect(Renalware::Feeds::SausageQueue.count).to eq(2)
+            sausage.reload
+            queued.reload
 
-          sausage_id, sausage_queue_id = result.values[0]
-          expect(sausage_id).to eq(sausage.id) # same sausage
-          expect(sausage_queue_id).not_to eq(queued.id) # ie a new queue item added
+            # We should not have created new msg and queue rows, but should have updated extant ones
+            expect(Renalware::Feeds::Sausage.count).to eq(1) # upsert
+            expect(Renalware::Feeds::SausageQueue.count).to eq(1) # upsert
 
-          expect(sausage.updated_at - sausage.created_at).to be > 0.0 # ie updated_at is newer
-          expect(sausage).to have_attributes(
-            sent_at: Time.zone.parse("20010101222222"),
-            body: "content of new msg",
-            nhs_number: "1111111111",
-            local_patient_id: "new local 1",
-            local_patient_id_2: "new local 2",
-            header_id: "11",
-            local_patient_id_3: "new local 3"
-          )
+            sausage_id, sausage_queue_id = result.values[0]
+            expect(sausage_id).to eq(sausage.id) # same sausage
+            expect(sausage_queue_id).not_to eq(queued.id) # ie a new queue item added
+
+            expect(sausage.updated_at - sausage.created_at).to be > 0.0 # ie updated_at is newer
+            expect(sausage).to have_attributes(
+              sent_at: Time.zone.parse("20010101222222"),
+              body: "content of new msg",
+              nhs_number: "1111111111",
+              local_patient_id: "new local 1",
+              local_patient_id_2: "new local 2",
+              header_id: "11",
+              local_patient_id_3: "new local 3",
+              updated_at: Time.current,
+              created_at: original_timestamp
+            )
+
+            expect(Renalware::Feeds::SausageQueue.find(sausage_queue_id)).to have_attributes(
+              feed_sausage_id: sausage_id,
+              updated_at: Time.current,
+              created_at: original_timestamp
+            )
+          end
         end
       end
 
