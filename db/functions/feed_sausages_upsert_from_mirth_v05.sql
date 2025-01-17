@@ -4,7 +4,7 @@ create or replace function renalware.feed_sausages_upsert_from_mirth(
   _event_type renalware.hl7_event_type,
   _orc_filler_order_number varchar,
   _orc_order_status renalware.enum_hl7_orc_order_status,
-  _header_id varchar,
+  _message_control_id varchar,
   _body text,
   _nhs_number varchar,
   _dob date,
@@ -42,7 +42,7 @@ RETURNS TABLE(sausage_id bigint, sausage_queue_id bigint)
       event_type,
       orc_filler_order_number,
       orc_order_status,
-      header_id,
+      message_control_id,
       body,
       nhs_number,
       local_patient_id,
@@ -59,7 +59,7 @@ RETURNS TABLE(sausage_id bigint, sausage_queue_id bigint)
       _event_type,
       _orc_filler_order_number,
       _orc_order_status,
-      _header_id,
+      _message_control_id,
       _body,
       _nhs_number,
       _local_patient_id,
@@ -79,7 +79,7 @@ RETURNS TABLE(sausage_id bigint, sausage_queue_id bigint)
       message_type        = EXCLUDED.message_type,
       event_type          = EXCLUDED.event_type,
       orc_order_status    = EXCLUDED.orc_order_status,
-      header_id           = EXCLUDED.header_id,
+      -- message_control_id  = EXCLUDED.message_control_id, -- will not change
       body                = EXCLUDED.body,
       nhs_number          = EXCLUDED.nhs_number,
       local_patient_id    = EXCLUDED.local_patient_id,
@@ -90,7 +90,6 @@ RETURNS TABLE(sausage_id bigint, sausage_queue_id bigint)
       dob                 = EXCLUDED.dob,
       updated_at          = current_timestamp
       where EXCLUDED.sent_at >= feed_sausages.sent_at
-      and EXCLUDED.header_id::bigint > feed_sausages.header_id::bigint
       RETURNING feed_sausages.id into id_of_upserted_feed_sausage;
     --
     if id_of_upserted_feed_sausage > 0 then
