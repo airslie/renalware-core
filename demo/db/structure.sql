@@ -1134,7 +1134,7 @@ $$;
 -- Name: feed_sausages_upsert_from_mirth(timestamp without time zone, renalware.hl7_message_type, renalware.hl7_event_type, character varying, renalware.enum_hl7_orc_order_status, character varying, text, character varying, date, character varying, character varying, character varying, character varying, character varying); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
-CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp without time zone, _message_type renalware.hl7_message_type, _event_type renalware.hl7_event_type, _orc_filler_order_number character varying, _orc_order_status renalware.enum_hl7_orc_order_status, _header_id character varying, _body text, _nhs_number character varying, _dob date, _local_patient_id character varying, _local_patient_id_2 character varying, _local_patient_id_3 character varying, _local_patient_id_4 character varying, _local_patient_id_5 character varying) RETURNS TABLE(sausage_id bigint, sausage_queue_id bigint)
+CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp without time zone, _message_type renalware.hl7_message_type, _event_type renalware.hl7_event_type, _orc_filler_order_number character varying, _orc_order_status renalware.enum_hl7_orc_order_status, _message_control_id character varying, _body text, _nhs_number character varying, _dob date, _local_patient_id character varying, _local_patient_id_2 character varying, _local_patient_id_3 character varying, _local_patient_id_4 character varying, _local_patient_id_5 character varying) RETURNS TABLE(sausage_id bigint, sausage_queue_id bigint)
     LANGUAGE plpgsql
     AS $$
   declare id_of_upserted_feed_sausage bigint;
@@ -1160,7 +1160,7 @@ CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp wit
       event_type,
       orc_filler_order_number,
       orc_order_status,
-      header_id,
+      message_control_id,
       body,
       nhs_number,
       local_patient_id,
@@ -1177,7 +1177,7 @@ CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp wit
       _event_type,
       _orc_filler_order_number,
       _orc_order_status,
-      _header_id,
+      _message_control_id,
       _body,
       _nhs_number,
       _local_patient_id,
@@ -1197,7 +1197,7 @@ CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp wit
       message_type        = EXCLUDED.message_type,
       event_type          = EXCLUDED.event_type,
       orc_order_status    = EXCLUDED.orc_order_status,
-      header_id           = EXCLUDED.header_id,
+      -- message_control_id  = EXCLUDED.message_control_id, -- will not change
       body                = EXCLUDED.body,
       nhs_number          = EXCLUDED.nhs_number,
       local_patient_id    = EXCLUDED.local_patient_id,
@@ -1208,7 +1208,6 @@ CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp wit
       dob                 = EXCLUDED.dob,
       updated_at          = current_timestamp
       where EXCLUDED.sent_at >= feed_sausages.sent_at
-      and EXCLUDED.header_id::bigint > feed_sausages.header_id::bigint
       RETURNING feed_sausages.id into id_of_upserted_feed_sausage;
     --
     if id_of_upserted_feed_sausage > 0 then
@@ -1217,6 +1216,7 @@ CREATE FUNCTION renalware.feed_sausages_upsert_from_mirth(_sent_at timestamp wit
       -- one orc_filler_order_number, but probably not that useful
       insert into renalware.feed_sausage_queue (feed_sausage_id, created_at, updated_at)
       values (id_of_upserted_feed_sausage, current_timestamp, current_timestamp)
+      on conflict(feed_sausage_id) do update set updated_at = current_timestamp
       returning feed_sausage_queue.id into id_of_inserted_feed_sausage_queue;
     end if;
 
@@ -6307,7 +6307,7 @@ CREATE TABLE renalware.feed_sausages (
     event_type renalware.hl7_event_type NOT NULL,
     orc_filler_order_number character varying,
     orc_order_status renalware.enum_hl7_orc_order_status,
-    header_id character varying,
+    message_control_id character varying,
     body text NOT NULL,
     nhs_number character varying,
     local_patient_id character varying,
@@ -21948,7 +21948,14 @@ CREATE INDEX index_feed_replay_requests_on_patient_id ON renalware.feed_replay_r
 -- Name: index_feed_sausage_queue_on_feed_sausage_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE INDEX index_feed_sausage_queue_on_feed_sausage_id ON renalware.feed_sausage_queue USING btree (feed_sausage_id);
+CREATE UNIQUE INDEX index_feed_sausage_queue_on_feed_sausage_id ON renalware.feed_sausage_queue USING btree (feed_sausage_id);
+
+
+--
+-- Name: index_feed_sausages_on_message_control_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feed_sausages_on_message_control_id ON renalware.feed_sausages USING btree (message_control_id);
 
 
 --
@@ -30530,9 +30537,12 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware, renalware_demo, public, heroku_ext;
+SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250117170334'),
+('20250117164135'),
+('20250117140334'),
 ('20241230130328'),
 ('20241220180547'),
 ('20241212115831'),
