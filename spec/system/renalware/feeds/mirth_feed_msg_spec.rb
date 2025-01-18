@@ -4,7 +4,7 @@ describe "Mirth HL7 feed processing simulation" do
     orc_filler_order_number: "12345",
     message_control_id: SecureRandom.uuid.to_s
   )
-    Renalware::Feeds::Sausage.create!(
+    Renalware::Feeds::Msg.create!(
       sent_at: Time.zone.parse(sent_at),
       message_control_id: message_control_id,
       orc_filler_order_number: orc_filler_order_number,
@@ -17,7 +17,7 @@ describe "Mirth HL7 feed processing simulation" do
   def adt_message(
     sent_at: "20240316235859"
   )
-    Renalware::Feeds::Sausage.create!(
+    Renalware::Feeds::Msg.create!(
       sent_at: Time.zone.parse(sent_at),
       orc_filler_order_number: nil,
       message_type: "ADT",
@@ -64,7 +64,7 @@ describe "Mirth HL7 feed processing simulation" do
                   end
 
     ActiveRecord::Base.connection.execute(<<-SQL.squish)
-      select * from renalware.feed_sausages_upsert_from_mirth(
+      select * from renalware.feed_msgs_upsert_from_mirth(
         _sent_at => #{fmt_sent_at},
         _message_type => '#{message_type}',
         _event_type => '#{event_type}',
@@ -127,31 +127,31 @@ describe "Mirth HL7 feed processing simulation" do
       it "inserts a new row" do
         result = simulate_mirth_creating_oru_message
 
-        sausage_id, sausage_queue_id = result.values[0]
-        expect(sausage_id).to be > 0
-        expect(sausage_queue_id).to be > 0
+        msg_id, msg_queue_id = result.values[0]
+        expect(msg_id).to be > 0
+        expect(msg_queue_id).to be > 0
 
-        expect(Renalware::Feeds::Sausage.count).to eq(1)
-        expect(Renalware::Feeds::Sausage.first.id).to eq(sausage_id)
+        expect(Renalware::Feeds::Msg.count).to eq(1)
+        expect(Renalware::Feeds::Msg.first.id).to eq(msg_id)
 
-        expect(Renalware::Feeds::SausageQueue.count).to eq(1)
-        expect(Renalware::Feeds::SausageQueue.first.id).to eq(sausage_queue_id)
+        expect(Renalware::Feeds::MsgQueue.count).to eq(1)
+        expect(Renalware::Feeds::MsgQueue.first.id).to eq(msg_queue_id)
       end
     end
 
     context "when a msg with a ORC Filler Order Number already exists" do
       it "updates the existing row and adds the msg to the queue if sent_at is greater" do
-        sausage = oru_message(
+        msg = oru_message(
           orc_filler_order_number: "12335",
           sent_at: "20010101111111",
           message_control_id: 10
         )
 
-        expect(Renalware::Feeds::Sausage.count).to eq(1)
-        expect(Renalware::Feeds::SausageQueue.count).to eq(0)
-        expect(sausage.created_at - sausage.updated_at).to eq(0.0) # ie not changes yet
-        expect(sausage.version).to eq(1)
-        expect(sausage.message_control_id).to eq("10")
+        expect(Renalware::Feeds::Msg.count).to eq(1)
+        expect(Renalware::Feeds::MsgQueue.count).to eq(0)
+        expect(msg.created_at - msg.updated_at).to eq(0.0) # ie not changes yet
+        expect(msg.version).to eq(1)
+        expect(msg.message_control_id).to eq("10")
 
         result = simulate_mirth_creating_oru_message(
           orc_filler_order_number: "12335",
@@ -159,17 +159,17 @@ describe "Mirth HL7 feed processing simulation" do
           message_control_id: "11"
         )
 
-        sausage_id, sausage_queue_id = result.values[0]
-        expect(sausage_id).to eq(sausage.id)
-        expect(sausage_queue_id).to be > 0
+        msg_id, msg_queue_id = result.values[0]
+        expect(msg_id).to eq(msg.id)
+        expect(msg_queue_id).to be > 0
 
-        expect(Renalware::Feeds::Sausage.count).to eq(1)
-        expect(Renalware::Feeds::SausageQueue.count).to eq(1)
-        expect(Renalware::Feeds::SausageQueue.first.id).to eq(sausage_queue_id)
+        expect(Renalware::Feeds::Msg.count).to eq(1)
+        expect(Renalware::Feeds::MsgQueue.count).to eq(1)
+        expect(Renalware::Feeds::MsgQueue.first.id).to eq(msg_queue_id)
 
-        sausage.reload
-        expect(sausage.created_at - sausage.updated_at).to be > 0.0 # ie updated
-        expect(sausage.version).to eq(2)
+        msg.reload
+        expect(msg.created_at - msg.updated_at).to be > 0.0 # ie updated
+        expect(msg.version).to eq(2)
       end
     end
 
@@ -187,8 +187,8 @@ describe "Mirth HL7 feed processing simulation" do
           )
 
           # Sanity check
-          expect(Renalware::Feeds::Sausage.count).to eq(1)
-          expect(Renalware::Feeds::SausageQueue.count).to eq(1)
+          expect(Renalware::Feeds::Msg.count).to eq(1)
+          expect(Renalware::Feeds::MsgQueue.count).to eq(1)
 
           # Wind back the timestamps on both rows because were are in a txn where
           # the value of current_timestamp in postgres is frozen, so we can't test that our
@@ -196,9 +196,9 @@ describe "Mirth HL7 feed processing simulation" do
           # so beware unless we use update_column(s), updating the updated_at col directly
           # will only ever set it to current_timestamp as it tries to capture the model touch...
           original_timestamp = 1.day.ago.change(usec: 0)
-          sausage = Renalware::Feeds::Sausage.last
-          queued = Renalware::Feeds::SausageQueue.last
-          sausage.update_columns(created_at: original_timestamp, updated_at: original_timestamp)
+          msg = Renalware::Feeds::Msg.last
+          queued = Renalware::Feeds::MsgQueue.last
+          msg.update_columns(created_at: original_timestamp, updated_at: original_timestamp)
           queued.update_columns(created_at: original_timestamp, updated_at: original_timestamp)
 
           result = nil
@@ -219,20 +219,20 @@ describe "Mirth HL7 feed processing simulation" do
               message_control_id: message_control_id
             )
 
-            sausage.reload
+            msg.reload
             queued.reload
 
             # We should not have created new msg and queue rows, but should have updated extant ones
-            expect(Renalware::Feeds::Sausage.count).to eq(1) # upserted so no new row
-            expect(Renalware::Feeds::SausageQueue.count).to eq(1) # upsert so no new row
+            expect(Renalware::Feeds::Msg.count).to eq(1) # upserted so no new row
+            expect(Renalware::Feeds::MsgQueue.count).to eq(1) # upsert so no new row
 
-            sausage_id, sausage_queue_id = result.values[0]
-            expect(sausage_id).to eq(sausage.id) # same sausage
-            expect(sausage_queue_id).to eq(queued.id) # ie same queue item updated
+            msg_id, msg_queue_id = result.values[0]
+            expect(msg_id).to eq(msg.id) # same msg
+            expect(msg_queue_id).to eq(queued.id) # ie same queue item updated
 
-            expect(sausage.updated_at.to_date).to eq(Date.current)
-            expect(sausage.created_at.to_date).to eq(original_timestamp.to_date)
-            expect(sausage).to have_attributes(
+            expect(msg.updated_at.to_date).to eq(Date.current)
+            expect(msg.created_at.to_date).to eq(original_timestamp.to_date)
+            expect(msg).to have_attributes(
               sent_at: Time.zone.parse("20010101222222"),
               body: "content of new msg",
               nhs_number: "1111111111",
@@ -242,10 +242,10 @@ describe "Mirth HL7 feed processing simulation" do
               local_patient_id_3: "new local 3"
             )
 
-            expect(Renalware::Feeds::SausageQueue.find(sausage_queue_id)).to eq(queued.reload)
+            expect(Renalware::Feeds::MsgQueue.find(msg_queue_id)).to eq(queued.reload)
             expect(queued.updated_at.to_date).to eq(new_timestamp.to_date)
             expect(queued.created_at.to_date).to eq(original_timestamp.to_date)
-            expect(queued.reload).to have_attributes(feed_sausage_id: sausage_id)
+            expect(queued.reload).to have_attributes(feed_msg_id: msg_id)
           end
         end
       end
@@ -277,18 +277,18 @@ describe "Mirth HL7 feed processing simulation" do
 
           # We should not have created new msg and queue rows, and we should not have updated the
           # existing ones either
-          expect(Renalware::Feeds::Sausage.count).to eq(1)
-          expect(Renalware::Feeds::SausageQueue.count).to eq(1)
+          expect(Renalware::Feeds::Msg.count).to eq(1)
+          expect(Renalware::Feeds::MsgQueue.count).to eq(1)
 
           # No ids will have been returned from the fn
-          sausage_id, sausage_queue_id = result.values[0]
-          expect(sausage_id).to be_nil
-          expect(sausage_queue_id).to be_nil
+          msg_id, msg_queue_id = result.values[0]
+          expect(msg_id).to be_nil
+          expect(msg_queue_id).to be_nil
 
-          sausage = Renalware::Feeds::Sausage.last
+          msg = Renalware::Feeds::Msg.last
 
           # Check original msg data has not been changed
-          expect(sausage).to have_attributes(
+          expect(msg).to have_attributes(
             sent_at: Time.zone.parse(newer_datetime),
             body: "original_body"
           )
@@ -307,8 +307,8 @@ describe "Mirth HL7 feed processing simulation" do
         body: "original_body",
         orc_filler_order_number: nil
       )
-      expect(Renalware::Feeds::Sausage.count).to eq(1)
-      expect(Renalware::Feeds::SausageQueue.count).to eq(1)
+      expect(Renalware::Feeds::Msg.count).to eq(1)
+      expect(Renalware::Feeds::MsgQueue.count).to eq(1)
 
       simulate_mirth_creating_adt_message(
         sent_at: "20010101111111",
@@ -316,8 +316,8 @@ describe "Mirth HL7 feed processing simulation" do
         orc_filler_order_number: nil
       )
 
-      expect(Renalware::Feeds::Sausage.count).to eq(2)
-      expect(Renalware::Feeds::SausageQueue.count).to eq(2)
+      expect(Renalware::Feeds::Msg.count).to eq(2)
+      expect(Renalware::Feeds::MsgQueue.count).to eq(2)
     end
 
     it "always stores new messages even if there are duplicate '' orc_filler_order_numbers" do
@@ -329,8 +329,8 @@ describe "Mirth HL7 feed processing simulation" do
         body: "original_body",
         orc_filler_order_number: ""
       )
-      expect(Renalware::Feeds::Sausage.count).to eq(1)
-      expect(Renalware::Feeds::SausageQueue.count).to eq(1)
+      expect(Renalware::Feeds::Msg.count).to eq(1)
+      expect(Renalware::Feeds::MsgQueue.count).to eq(1)
 
       simulate_mirth_creating_adt_message(
         sent_at: "20010101111111",
@@ -338,8 +338,8 @@ describe "Mirth HL7 feed processing simulation" do
         orc_filler_order_number: ""
       )
 
-      expect(Renalware::Feeds::Sausage.count).to eq(2)
-      expect(Renalware::Feeds::SausageQueue.count).to eq(2)
+      expect(Renalware::Feeds::Msg.count).to eq(2)
+      expect(Renalware::Feeds::MsgQueue.count).to eq(2)
     end
   end
 end
