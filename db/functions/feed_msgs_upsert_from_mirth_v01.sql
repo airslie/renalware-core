@@ -1,4 +1,4 @@
-create or replace function renalware.feed_sausages_upsert_from_mirth(
+create or replace function renalware.feed_msgs_upsert_from_mirth(
   _sent_at timestamp,
   _message_type renalware.hl7_message_type,
   _event_type renalware.hl7_event_type,
@@ -15,12 +15,12 @@ create or replace function renalware.feed_sausages_upsert_from_mirth(
   _local_patient_id_5 varchar
 )
 /*
- * Fn called by mirth to upsert a row into the feed_sausages table.
+ * Fn called by mirth to upsert a row into the feed_msgs table.
  */
-RETURNS TABLE(sausage_id bigint, sausage_queue_id bigint)
+RETURNS TABLE(msg_id bigint, msg_queue_id bigint)
   AS $$
-  declare id_of_upserted_feed_sausage bigint;
-  declare id_of_inserted_feed_sausage_queue bigint;
+  declare id_of_upserted_feed_msg bigint;
+  declare id_of_inserted_feed_msg_queue bigint;
   BEGIN
 
     if _message_type = 'ORU' and (_orc_filler_order_number = '' or _orc_filler_order_number is null) then
@@ -36,7 +36,7 @@ RETURNS TABLE(sausage_id bigint, sausage_queue_id bigint)
     -- sent from the lab _more recently_ than the stored one.
     -- TODO: what happens if > 1 lab send the same value? Not a problem at MSE say where
     -- a SHO- prefix is used on the orc_filler_order_number
-    insert into renalware.feed_sausages (
+    insert into renalware.feed_msgs (
       sent_at,
       message_type,
       event_type,
@@ -75,7 +75,7 @@ RETURNS TABLE(sausage_id bigint, sausage_queue_id bigint)
     do update
     set
       sent_at             = EXCLUDED.sent_at,
-      version             = feed_sausages.version + 1,
+      version             = feed_msgs.version + 1,
       message_type        = EXCLUDED.message_type,
       event_type          = EXCLUDED.event_type,
       orc_order_status    = EXCLUDED.orc_order_status,
@@ -89,19 +89,19 @@ RETURNS TABLE(sausage_id bigint, sausage_queue_id bigint)
       local_patient_id_5  = EXCLUDED.local_patient_id_5,
       dob                 = EXCLUDED.dob,
       updated_at          = current_timestamp
-      where EXCLUDED.sent_at >= feed_sausages.sent_at
-      RETURNING feed_sausages.id into id_of_upserted_feed_sausage;
+      where EXCLUDED.sent_at >= feed_msgs.sent_at
+      RETURNING feed_msgs.id into id_of_upserted_feed_msg;
     --
-    if id_of_upserted_feed_sausage > 0 then
+    if id_of_upserted_feed_msg > 0 then
       -- might be interesting here to know if its an insert or an update? ir as an extra col?
       -- there is also some scope somewhere for storing the count of messages received or one
       -- one orc_filler_order_number, but probably not that useful
-      insert into renalware.feed_sausage_queue (feed_sausage_id, created_at, updated_at)
-      values (id_of_upserted_feed_sausage, current_timestamp, current_timestamp)
-      on conflict(feed_sausage_id) do update set updated_at = current_timestamp
-      returning feed_sausage_queue.id into id_of_inserted_feed_sausage_queue;
+      insert into renalware.feed_msg_queue (feed_msg_id, created_at, updated_at)
+      values (id_of_upserted_feed_msg, current_timestamp, current_timestamp)
+      on conflict(feed_msg_id) do update set updated_at = current_timestamp
+      returning feed_msg_queue.id into id_of_inserted_feed_msg_queue;
     end if;
 
-    return query(select id_of_upserted_feed_sausage, id_of_inserted_feed_sausage_queue);
+    return query(select id_of_upserted_feed_msg, id_of_inserted_feed_msg_queue);
   END;
 $$ LANGUAGE plpgsql;

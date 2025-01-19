@@ -1,6 +1,6 @@
 module Renalware
   module Feeds
-    class Sausage < ApplicationRecord
+    class Msg < ApplicationRecord
     end
   end
 end
