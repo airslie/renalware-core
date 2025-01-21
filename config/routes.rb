@@ -20,6 +20,7 @@ Renalware::Engine.routes.draw do
   draw :events
   draw :feeds
   draw :hd
+  draw :help
   draw :letters
   draw :low_clearance
   draw :medications
