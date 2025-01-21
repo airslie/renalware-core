@@ -14,7 +14,7 @@ module Renalware
           hospital.trust_name = row["trust_name"]
           hospital.trust_caption = row["trust_caption"]
           hospital.info = row["info"],
-          hospital.position = row["position"] || 99
+          hospital.position = row["position"] || 99 # rubocop:disable Layout/ArrayAlignment
         end
       end
     end

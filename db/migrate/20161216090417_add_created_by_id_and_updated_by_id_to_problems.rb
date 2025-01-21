@@ -33,10 +33,10 @@ class AddCreatedByIdAndUpdatedByIdToProblems < ActiveRecord::Migration[4.2]
   def update_problem_user_column_with_a_system_user_so_we_can_set_null_false(column_name)
     if Problem.count > 0
       system_user_id = User.system_user.id
-      Problem.all.each do |problem|
+      Problem.find_each do |problem|
         next if problem.send(column_name).present?
 
-        problem.update_attributes(column_name => system_user_id)
+        problem.update(column_name => system_user_id)
       end
     end
   end
