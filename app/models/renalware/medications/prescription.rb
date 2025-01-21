@@ -54,7 +54,8 @@ module Renalware
                 i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
 
       scope :ordered, lambda {
-        joins(:drug).order("drugs.name asc, prescribed_on desc, created_at desc")
+        joins(:drug)
+          .order("drugs.name asc, prescribed_on desc, medication_prescriptions.created_at desc")
       }
       scope :with_medication_route, -> { includes(:medication_route) }
       scope :with_forms, -> { includes(:form) }

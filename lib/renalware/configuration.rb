@@ -250,6 +250,14 @@ module Renalware
       )
     }
 
+    config_accessor(:days_ahead_to_warn_named_consultant_about_expiring_hd_prescriptions) do
+      ENV.fetch("DAYS_AHEAD_TO_WARN_NAMED_CONSULTANT_ABOUT_EXPIRING_HD_PRESCRIPTIONS", "14").to_i
+    end
+
+    config_accessor(:days_behind_to_warn_named_consultant_about_expired_hd_prescriptions) do
+      ENV.fetch("DAYS_BEHIND_TO_WARN_NAMED_CONSULTANT_ABOUT_EXPIRED_HD_PRESCRIPTIONS", "14").to_i
+    end
+
     config_accessor(:hd_session_prescriptions_require_signoff) { true }
     config_accessor(:hd_session_require_patient_group_directions) {
       ActiveModel::Type::Boolean.new.cast(
@@ -280,6 +288,11 @@ module Renalware
     }
     config_accessor(:auto_terminate_hd_prescriptions_after_period) { 6.months }
     config_accessor(:auto_terminate_hd_stat_prescriptions_after_period) { 14.days }
+    config_accessor(:enable_expiring_prescriptions_list_component) {
+      ActiveModel::Type::Boolean.new.cast(
+        ENV.fetch("ENABLE_EXPIRING_PRESCRIPTIONS_LIST_COMPONENT", "true")
+      )
+    }
     config_accessor(:medication_delivery_purchase_order_prefix) { "R" }
     config_accessor(:medication_homecare_pdf_forms) do
       # esa: { provider: :generic, version: 1 },

@@ -1,5 +1,6 @@
 .dashboard-content
   = render Renalware::Patients::NamedPatientsComponent.new(current_user: current_user)
+  = render Renalware::Medications::ExpiringPrescriptionsListComponent.new(current_user: current_user)
   = render Renalware::Letters::LettersInProgressComponent.new(current_user: current_user)
   = render Renalware::Patients::BookmarksComponent.new(current_user: current_user)
   = render Renalware::Messaging::UnreadMessagesComponent.new(current_user: current_user)

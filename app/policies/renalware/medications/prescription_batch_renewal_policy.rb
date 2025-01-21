@@ -6,6 +6,8 @@ module Renalware
       end
       alias new? create?
 
+      def index? = auto_terminate_hd_prescriptions_after_period?
+
       private
 
       def hd_prescriber?
