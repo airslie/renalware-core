@@ -1,5 +1,7 @@
 module Renalware
   describe Address do
+    it { is_expected.to be_versioned }
+
     describe ".uk?" do
       it "responds with true if the country is in the UK" do
         expect(described_class.new(country: build(:united_kingdom))).to be_uk

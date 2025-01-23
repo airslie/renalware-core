@@ -3582,6 +3582,41 @@ CREATE TABLE renalware.activesupport_cache_entries (
 
 
 --
+-- Name: address_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.address_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp(6) without time zone
+);
+
+
+--
+-- Name: address_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.address_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: address_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.address_versions_id_seq OWNED BY renalware.address_versions.id;
+
+
+--
 -- Name: addresses; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -7086,8 +7121,8 @@ CREATE TABLE renalware.hospital_units (
     is_hd_site boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    ods_code character varying,
-    alias character varying
+    alias character varying,
+    ods_code character varying
 );
 
 
@@ -8879,16 +8914,6 @@ CREATE SEQUENCE renalware.letter_mailshot_mailshots_id_seq
 --
 
 ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.letter_mailshot_mailshots.id;
-
-
---
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT id AS patient_id
-   FROM renalware.patients
-  WHERE ((family_name)::text ~~ 'R%'::text);
 
 
 --
@@ -16390,6 +16415,13 @@ ALTER TABLE ONLY renalware.active_storage_variant_records ALTER COLUMN id SET DE
 
 
 --
+-- Name: address_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.address_versions ALTER COLUMN id SET DEFAULT nextval('renalware.address_versions_id_seq'::regclass);
+
+
+--
 -- Name: addresses id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -18412,6 +18444,14 @@ ALTER TABLE ONLY renalware.active_storage_variant_records
 
 ALTER TABLE ONLY renalware.activesupport_cache_entries
     ADD CONSTRAINT activesupport_cache_entries_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: address_versions address_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.address_versions
+    ADD CONSTRAINT address_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -21090,6 +21130,13 @@ CREATE INDEX index_activesupport_cache_entries_on_expires_at ON renalware.active
 --
 
 CREATE INDEX index_activesupport_cache_entries_on_version ON renalware.activesupport_cache_entries USING btree (version);
+
+
+--
+-- Name: index_address_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_address_versions_on_item_type_and_item_id ON renalware.address_versions USING btree (item_type, item_id);
 
 
 --
@@ -31024,12 +31071,13 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware,renalware_demo,public,heroku_ext;
+SET search_path TO renalware, renalware_demo, public, heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20250206120337'),
 ('20250127145534'),
 ('20250126113248'),
+('20250123134036'),
 ('20250123132102'),
 ('20250118130334'),
 ('20250118120145'),
