@@ -24,11 +24,13 @@ module Renalware
               #   system: "https://fhir.hl7.org.uk/Id/hcpc-number",
               #   value: "????" # TODO: GPC number
               # },
-              # identifier: {
-              #   system: "https://fhir.nhs.uk/Id/sds-user-id",
-              #   value: "????" # SDS number
-              # },
-              identifier: system_identifier(arguments.author_uuid),
+              identifier: [ # sds id required even if UNK
+                {
+                  system: "https://fhir.nhs.uk/Id/sds-user-id",
+                  value: "UNK"
+                },
+                system_identifier(arguments.author_uuid)
+              ],
               name: {
                 use: "official",
                 family: letter.author.family_name,
