@@ -214,6 +214,10 @@ module Renalware
     config_accessor(:render_pdf_as_html_for_debugging) { false }
     config_accessor(:enable_new_mdms) { true }
 
+    # If the NHS number is in the PID-3 segment along with other identifiers, we need to know
+    # the assigning authority code for the NHS number so we can extract it.
+    config_accessor(:nhs_number_assigning_authority) { :NHSNBR }
+
     # If true, we use a cron-scheduled good_job to poll the renalware.feed_raw_hl7_messages table
     # for new incoming messages (most likely inserted by Mirth) and spin each off as a new
     # active job. Because we currently load the good_job cron config in engine.rb,

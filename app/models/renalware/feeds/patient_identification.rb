@@ -74,35 +74,25 @@ module Renalware
         end
       end
 
+      # NHS Number could be in PID-2 or PID-3.
+      # If its in PID-2 we make the assumption that the first component is the NHS number.
+      # If its in PID-3 then we extract it using the configured assigning authority.
       def nhs_number
         return unless defined?(patient_id)
 
-        patient_id.split("^").first
+        if patient_id.present?
+          patient_id.split("^").first
+        else
+          hospital_identifiers[Renalware.config.nhs_number_assigning_authority]
+        end
       end
 
-      def name
-        Name.new(patient_name)
-      end
-
-      def family_name
-        patient_name[0]&.strip
-      end
-
-      def given_name
-        patient_name[1]&.strip
-      end
-
-      def suffix
-        patient_name[3]&.strip
-      end
-
-      def title
-        patient_name[4]&.strip
-      end
-
-      def address
-        (super || "").split("^")
-      end
+      def name            = Name.new(patient_name)
+      def family_name     = patient_name[0]&.strip
+      def given_name      = patient_name[1]&.strip
+      def suffix          = patient_name[3]&.strip
+      def title           = patient_name[4]&.strip
+      def address         = (super || "").split("^")
 
       # We don't use the HL7::Message#sex_admin method (from the ruby hl7 gem) because it
       # raises an error during reading if the sex value in the PID is not in (F|M|O|U|A|N|C).
@@ -139,9 +129,7 @@ module Renalware
 
       private
 
-      def patient_name
-        super.split("^")
-      end
+      def patient_name = super.split("^")
     end
   end
 end

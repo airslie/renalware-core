@@ -9,10 +9,6 @@ module Renalware::Feeds
         RAW
       end
 
-      describe "#nhs_number" do
-        it { expect(pi.nhs_number).to eq("123456789") }
-      end
-
       describe "#internal_id (the first hosp number)" do
         it { expect(pi.internal_id).to eq("D7006359") }
       end
@@ -25,6 +21,28 @@ module Renalware::Feeds
               PAS2: "X1234"
             }
           )
+        end
+      end
+
+      describe "#nhs_number" do
+        context "when NHS number is in PID-2" do
+          let(:raw_message) do
+            <<~RAW
+              PID||123456789^^^NHS||
+            RAW
+          end
+
+          it { expect(pi.nhs_number).to eq("123456789") }
+        end
+
+        context "when NHS number is in PID-3 with assigning authority NHSNBR (BLT style)" do
+          let(:raw_message) do
+            <<~RAW
+              PID|||123456789^^^NHSNBR~MRN1^^^AUTH1~MRN2^^^AUTH2|
+            RAW
+          end
+
+          it { expect(pi.nhs_number).to eq("123456789") }
         end
       end
     end
