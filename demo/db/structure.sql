@@ -1131,37 +1131,21 @@ $$;
 
 
 --
--- Name: feed_msgs_upsert_from_mirth(timestamp without time zone, renalware.hl7_message_type, renalware.hl7_event_type, character varying, renalware.enum_hl7_orc_order_status, character varying, text, character varying, date, character varying, character varying, character varying, character varying, character varying); Type: FUNCTION; Schema: renalware; Owner: -
+-- Name: feed_msgs_upsert_from_mirth(timestamp without time zone, renalware.hl7_message_type, renalware.hl7_event_type, character varying, character varying, character varying, character varying, character varying, character varying, character varying, date, character varying, renalware.enum_hl7_orc_order_status, text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
-CREATE FUNCTION renalware.feed_msgs_upsert_from_mirth(_sent_at timestamp without time zone, _message_type renalware.hl7_message_type, _event_type renalware.hl7_event_type, _orc_filler_order_number character varying, _orc_order_status renalware.enum_hl7_orc_order_status, _message_control_id character varying, _body text, _nhs_number character varying, _dob date, _local_patient_id character varying, _local_patient_id_2 character varying, _local_patient_id_3 character varying, _local_patient_id_4 character varying, _local_patient_id_5 character varying) RETURNS TABLE(msg_id bigint, msg_queue_id bigint)
+CREATE FUNCTION renalware.feed_msgs_upsert_from_mirth(_sent_at timestamp without time zone, _message_type renalware.hl7_message_type, _event_type renalware.hl7_event_type, _message_control_id character varying, _nhs_number character varying, _local_patient_id character varying, _local_patient_id_2 character varying, _local_patient_id_3 character varying, _local_patient_id_4 character varying, _local_patient_id_5 character varying, _dob date, _orc_filler_order_number character varying, _orc_order_status renalware.enum_hl7_orc_order_status, _body text) RETURNS TABLE(msg_id bigint, msg_queue_id bigint)
     LANGUAGE plpgsql
     AS $$
-  declare id_of_upserted_feed_msg bigint;
+  declare id_of_inserted_feed_msg bigint;
   declare id_of_inserted_feed_msg_queue bigint;
   BEGIN
 
-    if _message_type = 'ORU' and (_orc_filler_order_number = '' or _orc_filler_order_number is null) then
-      RAISE EXCEPTION 'orc_filler_order_number cannot be blank';
-    end if;
-
-    -- The ON CONFLICT after this insert means that where orc_filler_order_number is not null or ''
-    -- (ie its an ORU path message, since ADTs do not have an orc_filler_order_number)
-    -- then only one unique value is allowed in the table (see index in a migration),
-    -- and if you try to insert a row with an
-    -- orc_filler_order_number that already exist, the DO UPDATE will execute to replace the
-    -- the row's content with the new content (body, nhs_number etc) but only if the messages was
-    -- sent from the lab _more recently_ than the stored one.
-    -- TODO: what happens if > 1 lab send the same value? Not a problem at MSE say where
-    -- a SHO- prefix is used on the orc_filler_order_number
     insert into renalware.feed_msgs (
       sent_at,
       message_type,
       event_type,
-      orc_filler_order_number,
-      orc_order_status,
       message_control_id,
-      body,
       nhs_number,
       local_patient_id,
       local_patient_id_2,
@@ -1169,16 +1153,16 @@ CREATE FUNCTION renalware.feed_msgs_upsert_from_mirth(_sent_at timestamp without
       local_patient_id_4,
       local_patient_id_5,
       dob,
+      orc_filler_order_number,
+      orc_order_status,
+      body,
       created_at,
       updated_at
     ) values (
       _sent_at,
       _message_type,
       _event_type,
-      _orc_filler_order_number,
-      _orc_order_status,
       _message_control_id,
-      _body,
       _nhs_number,
       _local_patient_id,
       _local_patient_id_2,
@@ -1186,41 +1170,22 @@ CREATE FUNCTION renalware.feed_msgs_upsert_from_mirth(_sent_at timestamp without
       _local_patient_id_4,
       _local_patient_id_5,
       _dob,
+      _orc_filler_order_number,
+      _orc_order_status,
+      _body,
       current_timestamp,
       current_timestamp
     )
-    on conflict (orc_filler_order_number) where (orc_filler_order_number is not null and orc_filler_order_number != '')
-    do update
-    set
-      sent_at             = EXCLUDED.sent_at,
-      version             = feed_msgs.version + 1,
-      message_type        = EXCLUDED.message_type,
-      event_type          = EXCLUDED.event_type,
-      orc_order_status    = EXCLUDED.orc_order_status,
-      -- message_control_id  = EXCLUDED.message_control_id, -- will not change
-      body                = EXCLUDED.body,
-      nhs_number          = EXCLUDED.nhs_number,
-      local_patient_id    = EXCLUDED.local_patient_id,
-      local_patient_id_2  = EXCLUDED.local_patient_id_2,
-      local_patient_id_3  = EXCLUDED.local_patient_id_3,
-      local_patient_id_4  = EXCLUDED.local_patient_id_4,
-      local_patient_id_5  = EXCLUDED.local_patient_id_5,
-      dob                 = EXCLUDED.dob,
-      updated_at          = current_timestamp
-      where EXCLUDED.sent_at >= feed_msgs.sent_at
-      RETURNING feed_msgs.id into id_of_upserted_feed_msg;
+    RETURNING feed_msgs.id into id_of_inserted_feed_msg;
+
     --
-    if id_of_upserted_feed_msg > 0 then
-      -- might be interesting here to know if its an insert or an update? ir as an extra col?
-      -- there is also some scope somewhere for storing the count of messages received or one
-      -- one orc_filler_order_number, but probably not that useful
+    if id_of_inserted_feed_msg > 0 then
       insert into renalware.feed_msg_queue (feed_msg_id, created_at, updated_at)
-      values (id_of_upserted_feed_msg, current_timestamp, current_timestamp)
-      on conflict(feed_msg_id) do update set updated_at = current_timestamp
+      values (id_of_inserted_feed_msg, current_timestamp, current_timestamp)
       returning feed_msg_queue.id into id_of_inserted_feed_msg_queue;
     end if;
 
-    return query(select id_of_upserted_feed_msg, id_of_inserted_feed_msg_queue);
+    return query(select id_of_inserted_feed_msg, id_of_inserted_feed_msg_queue);
   END;
 $$;
 
@@ -3616,6 +3581,41 @@ CREATE TABLE renalware.activesupport_cache_entries (
     created_at timestamp without time zone NOT NULL,
     expires_at timestamp without time zone
 );
+
+
+--
+-- Name: address_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.address_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp(6) without time zone
+);
+
+
+--
+-- Name: address_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.address_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: address_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.address_versions_id_seq OWNED BY renalware.address_versions.id;
 
 
 --
@@ -16283,6 +16283,13 @@ ALTER TABLE ONLY renalware.active_storage_variant_records ALTER COLUMN id SET DE
 
 
 --
+-- Name: address_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.address_versions ALTER COLUMN id SET DEFAULT nextval('renalware.address_versions_id_seq'::regclass);
+
+
+--
 -- Name: addresses id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -18277,6 +18284,14 @@ ALTER TABLE ONLY renalware.active_storage_variant_records
 
 ALTER TABLE ONLY renalware.activesupport_cache_entries
     ADD CONSTRAINT activesupport_cache_entries_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: address_versions address_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.address_versions
+    ADD CONSTRAINT address_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -20926,6 +20941,13 @@ CREATE INDEX index_activesupport_cache_entries_on_version ON renalware.activesup
 
 
 --
+-- Name: index_address_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_address_versions_on_item_type_and_item_id ON renalware.address_versions USING btree (item_type, item_id);
+
+
+--
 -- Name: index_addresses_on_addressable_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -22112,14 +22134,14 @@ CREATE UNIQUE INDEX index_feed_msg_queue_on_feed_msg_id ON renalware.feed_msg_qu
 -- Name: index_feed_msgs_on_message_control_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_feed_msgs_on_message_control_id ON renalware.feed_msgs USING btree (message_control_id);
+CREATE INDEX index_feed_msgs_on_message_control_id ON renalware.feed_msgs USING btree (message_control_id);
 
 
 --
 -- Name: index_feed_msgs_on_orc_filler_order_number; Type: INDEX; Schema: renalware; Owner: -
 --
 
-CREATE UNIQUE INDEX index_feed_msgs_on_orc_filler_order_number ON renalware.feed_msgs USING btree (orc_filler_order_number) WHERE ((orc_filler_order_number IS NOT NULL) AND ((orc_filler_order_number)::text <> ''::text));
+CREATE INDEX index_feed_msgs_on_orc_filler_order_number ON renalware.feed_msgs USING btree (orc_filler_order_number);
 
 
 --
@@ -30781,6 +30803,8 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250126113248'),
+('20250123134036'),
 ('20250123132102'),
 ('20250118130334'),
 ('20250118120145'),
