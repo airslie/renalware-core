@@ -20,9 +20,11 @@ module Renalware
           API::LogOperation.call(:download_message, mesh_message_id: message_id) do |operation|
             download_operation = operation
             API::Client.download_message(message_id).tap do |response|
-              local_id = response.headers["mex-localid"]
-              if local_id.present? # e.g. "busAck-736ed503-bcd1-4b66-97ba-de8b51f00123"
-                send_operation_operation_uuid = local_id.split("Ack-").last
+              # Load response xml and get the uuid of our send_message request
+              # from Bundle/entry/resource/MessageHeader/response/identifier/@value
+              send_operation_operation_uuid =
+                Letters::Transports::Mesh::API::ITK3Response.new(response).request_uuid
+              if send_operation_operation_uuid.present?
                 send_message_operation = Mesh::Operation.find_by!(
                   uuid: send_operation_operation_uuid
                 )

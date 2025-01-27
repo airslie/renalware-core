@@ -37,7 +37,7 @@ module Renalware
         !infrastructure?
       end
 
-      # Infrastructure reponse codes start with 1 or 2 eg 10010 or 20001 etc.
+      # Infrastructure response codes start with 1 or 2 eg 10010 or 20001 etc.
       # Business response codes start with 3 eg 30001.
       def infrastructure?
         %w(1 2).include?(detail_code.to_s[0])
@@ -45,6 +45,10 @@ module Renalware
 
       def response_code
         xml.xpath("Bundle/entry/resource/MessageHeader/response/code/@value").text
+      end
+
+      def request_uuid
+        xml.xpath("Bundle/entry/resource/MessageHeader/response/identifier/@value").text
       end
 
       def issue_code
