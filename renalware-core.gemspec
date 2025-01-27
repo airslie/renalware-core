@@ -39,8 +39,6 @@ Gem::Specification.new do |s|
   s.add_dependency "ahoy_matey"
   s.add_dependency "attr_extras"
   s.add_dependency "bcrypt_pbkdf"
-  s.add_dependency "client_side_validations"
-  s.add_dependency "client_side_validations-simple_form"
   s.add_dependency "clipboard-rails", "~> 1.7.1"
   s.add_dependency "cocoon", "~> 1.2.11"
   s.add_dependency "combine_pdf", "~> 1.0.26"

@@ -12,7 +12,6 @@ $(document).foundation({
 $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
   var modal = $(this);
   modal.find('[autofocus]').focus();
-  $('form[data-client-side-validations]').enableClientSideValidations();
   $('.searchable_select', modal).select2();
   // If a modal is launched again, ensure the submit button is re-enabled.
   if ($('input[data-disable-with]').length > 0) {
