@@ -1678,19 +1678,17 @@ $$;
 
 
 --
--- Name: insert_raw_hl7_message(text); Type: FUNCTION; Schema: renalware; Owner: -
+-- Name: insert_raw_hl7_message(timestamp with time zone, text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
-CREATE FUNCTION renalware.insert_raw_hl7_message(message text) RETURNS void
+CREATE FUNCTION renalware.insert_raw_hl7_message(sent_at timestamp with time zone, message text) RETURNS void
     LANGUAGE plpgsql
-    AS $$ BEGIN
+    AS $$
+BEGIN
 /*
  This function supersedes `new_hl7_message`
  */
-insert into
-  renalware.feed_raw_hl7_messages(body)
-values
-  (message);
+insert into renalware.feed_raw_hl7_messages (sent_at, body) values(sent_at, message);
 
 END;
 
@@ -6374,7 +6372,8 @@ CREATE TABLE renalware.feed_raw_hl7_messages (
     id bigint NOT NULL,
     body character varying,
     created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    sent_at timestamp(6) without time zone
 );
 
 
@@ -13206,7 +13205,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -13286,7 +13285,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -22194,6 +22193,13 @@ COMMENT ON INDEX renalware.index_feed_raw_hl7_messages_on_created_at IS 'We quer
 
 
 --
+-- Name: index_feed_raw_hl7_messages_on_sent_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_feed_raw_hl7_messages_on_sent_at ON renalware.feed_raw_hl7_messages USING btree (sent_at);
+
+
+--
 -- Name: index_feed_replay_requests_on_criteria; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -30803,6 +30809,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250127145534'),
 ('20250126113248'),
 ('20250123134036'),
 ('20250123132102'),
