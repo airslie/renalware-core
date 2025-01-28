@@ -45,7 +45,7 @@ namespace :pathology do
       raw_msg = raw_msg.gsub("20091112164645", Time.zone.now.strftime("%Y%m%d%H%M%S"))
 
       sql = if Renalware.config.process_hl7_via_raw_messages_table
-              "select renalware.insert_raw_hl7_message('#{raw_msg}'::text);"
+              "select renalware.insert_raw_hl7_message('#{Time.zone.now}','#{raw_msg}'::text);"
             else
               "select renalware.new_hl7_message('#{raw_msg}'::text);"
             end

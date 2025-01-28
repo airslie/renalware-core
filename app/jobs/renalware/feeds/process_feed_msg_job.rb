@@ -1,7 +1,7 @@
 module Renalware
   module Feeds
-    class ProcessFeedMessageJob < ApplicationJob
-      def perform(msg_id:)
+    class ProcessFeedMsgJob < ApplicationJob
+      def perform(msg_id)
         Msg.find(msg_id).update_column(:processed_at, Time.zone.now)
       end
     end

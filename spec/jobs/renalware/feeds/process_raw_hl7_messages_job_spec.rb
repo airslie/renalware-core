@@ -10,17 +10,19 @@ module Renalware
       before do
         raw_hl7_message_1 && raw_hl7_message_2
 
-        allow(ProcessRawHL7MessageJob).to receive(:perform_later)
+        allow(ProcessRawHL7MessageJob).to receive(:perform_now)
       end
 
       describe "#perform" do
         it "calls out to the message processor" do
           described_class.perform_now
 
-          expect(ProcessRawHL7MessageJob).to have_received(:perform_later)
+          expect(ProcessRawHL7MessageJob)
+            .to have_received(:perform_now)
             .with(message: "FIR\nST\n_M")
 
-          expect(ProcessRawHL7MessageJob).to have_received(:perform_later)
+          expect(ProcessRawHL7MessageJob)
+            .to have_received(:perform_now)
             .with(message: "SECOND_M")
 
           expect(RawHL7Message.count).to eq 0
