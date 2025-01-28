@@ -1,4 +1,4 @@
-class AddSentAtToFeedRawHL7Messages < ActiveRecord::Migration[8.0]
+class AddSentAtToFeedRawHL7Messages < ActiveRecord::Migration[7.0]
   def change
     within_renalware_schema do
       safety_assured do
