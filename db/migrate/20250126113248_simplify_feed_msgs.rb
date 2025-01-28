@@ -1,4 +1,4 @@
-class SimplifyFeedMsgs < ActiveRecord::Migration[8.0]
+class SimplifyFeedMsgs < ActiveRecord::Migration[7.0]
   def change
     safety_assured do
       # New fn no longer does upserts but instead ingests whatever you through at it.

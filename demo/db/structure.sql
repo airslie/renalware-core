@@ -3582,41 +3582,6 @@ CREATE TABLE renalware.activesupport_cache_entries (
 
 
 --
--- Name: address_versions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.address_versions (
-    id bigint NOT NULL,
-    item_type character varying NOT NULL,
-    item_id integer NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
-    created_at timestamp(6) without time zone
-);
-
-
---
--- Name: address_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE renalware.address_versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: address_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE renalware.address_versions_id_seq OWNED BY renalware.address_versions.id;
-
-
---
 -- Name: addresses; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -8875,16 +8840,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT id AS patient_id
-   FROM renalware.patients
-  WHERE ((family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_mesh_operations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -13205,7 +13160,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -13285,7 +13240,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -16282,13 +16237,6 @@ ALTER TABLE ONLY renalware.active_storage_variant_records ALTER COLUMN id SET DE
 
 
 --
--- Name: address_versions id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.address_versions ALTER COLUMN id SET DEFAULT nextval('renalware.address_versions_id_seq'::regclass);
-
-
---
 -- Name: addresses id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -18283,14 +18231,6 @@ ALTER TABLE ONLY renalware.active_storage_variant_records
 
 ALTER TABLE ONLY renalware.activesupport_cache_entries
     ADD CONSTRAINT activesupport_cache_entries_pkey PRIMARY KEY (key);
-
-
---
--- Name: address_versions address_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.address_versions
-    ADD CONSTRAINT address_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -20937,13 +20877,6 @@ CREATE INDEX index_activesupport_cache_entries_on_expires_at ON renalware.active
 --
 
 CREATE INDEX index_activesupport_cache_entries_on_version ON renalware.activesupport_cache_entries USING btree (version);
-
-
---
--- Name: index_address_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_address_versions_on_item_type_and_item_id ON renalware.address_versions USING btree (item_type, item_id);
 
 
 --
@@ -30806,12 +30739,11 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware,renalware_demo,public,heroku_ext;
+SET search_path TO renalware, renalware_demo, public, heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20250127145534'),
 ('20250126113248'),
-('20250123134036'),
 ('20250123132102'),
 ('20250118130334'),
 ('20250118120145'),
