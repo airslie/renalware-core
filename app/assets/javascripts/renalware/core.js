@@ -32,8 +32,6 @@
 //= require renalware/iframeResizer
 //= require clipboard
 //= require masonry-layout/dist/masonry.pkgd
-//= require rails.validations
-//= require rails.validations.simple_form
 //= require print-js/dist/print
 //= require moment/moment
 //= require trix/dist/trix
