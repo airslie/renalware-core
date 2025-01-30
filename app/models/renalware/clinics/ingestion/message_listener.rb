@@ -7,7 +7,7 @@ module Renalware
       class MessageListener
         def adt_message_arrived(args)
           hl7_message = args[:hl7_message]
-          return unless hl7_message.adt?
+          return unless hl7_message.adt? || hl7_message.siu?
 
           case hl7_message.action
           when :schedule_new_appointment then Commands::CreateOrUpdateAppointment.call(hl7_message)
@@ -15,6 +15,7 @@ module Renalware
           else noop
           end
         end
+        alias siu_message_arrived adt_message_arrived
 
         private
 

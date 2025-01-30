@@ -20,7 +20,10 @@ module Renalware
         "MFN^M02" => :add_consultant, # no
         "ADT^A34" => :merge_patient, # no
         "ADT^A13" => :cancel_discharge,
-        "ORU^R01" => :add_pathology_observations
+        "ORU^R01" => :add_pathology_observations,
+        "SIU^S12" => :schedule_new_appointment,
+        "SIU^S13" => :schedule_new_appointment,
+        "SIU^S15" => :cancel_appointment
       }.freeze
 
       class ObservationRequest < SimpleDelegator
