@@ -26,6 +26,7 @@ module Renalware::Patients::Ingestion
         )
       end
     end
+
     describe "#call" do
       context "when the patient has the death modality but no cause of death or died_on set" do
         it "can update the patient without triggering missing cause of death validations" do
@@ -175,11 +176,15 @@ module Renalware::Patients::Ingestion
           pid = "PID||" \
                 "1791963196^^^NHS|PAS123^^^HOSP_A~" \
                 "||Jones^John^^^MS||20000101|M|||" \
-                "address1^address2^address3^address4^postcode^other^HOME|||||||||||||||||||"
+                "address1^address2^address3^address4^postcode^other^HOME|" \
+                "|tel1^MOBILE~tel2^HOME~testrenal@test.co^EMAIL|||||||||||||||||"
 
           hl7_message = Renalware::Feeds::HL7Message.new(::HL7::Message.new([msh, pid]))
 
-          expected_hosp_numbers = { nhs_number: "1791963196", local_patient_id: "PAS123" }
+          expected_hosp_numbers = {
+            nhs_number: "1791963196",
+            local_patient_id: "PAS123"
+          }
 
           # Sanity check of the data we are going to try and save
           expect(hl7_message.patient_identification.identifiers).to eq(expected_hosp_numbers)
@@ -189,6 +194,11 @@ module Renalware::Patients::Ingestion
 
           # We should have saved all the numbers
           expect(patient.reload).to have_attributes(expected_hosp_numbers)
+          expect(patient).to have_attributes(
+            email: "testrenal@test.co",
+            telephone1: "tel1",
+            telephone2: "tel2"
+          )
         end
       end
     end

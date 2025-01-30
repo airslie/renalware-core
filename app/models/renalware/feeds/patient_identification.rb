@@ -127,6 +127,23 @@ module Renalware
         age_in_years < years
       end
 
+      def telecoms
+        @telecoms ||= begin
+          telcoms = { email: nil, telephone: [] }
+          (phone_home || "").split("~").each_with_object(telcoms) do |option, hash|
+            parts = option.split("^")
+            if parts[1]&.downcase == "email"
+              hash[:email] = parts[0]
+            else
+              hash[:telephone] << parts[0]
+            end
+          end
+        end
+      end
+
+      def email       = telecoms[:email]
+      def telephone   = telecoms[:telephone]
+
       private
 
       def patient_name = super.split("^")

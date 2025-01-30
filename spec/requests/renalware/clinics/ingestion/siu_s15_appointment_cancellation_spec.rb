@@ -5,13 +5,18 @@ describe "SIU^S15 - Notification of Appointment Cancellation" do
   # valid appointment from taking place. For example, if a patient scheduled for an exam cancels
   # his/her appointment, then the appointment is canceled on the filler application.
 
+  # NOTE if clinic code and name are not in PV3, then in Mirth we should move them in there to
+  # match our expectations. For example at BLT PV3.1 is not necessarily populated so we copy:
+  #  AIL3.1 => PV3.1 clinic name
+  #  SCH7.1 => PV3.2 clinic name
+
   # Example message:
 
   #   MSH|^~\&|BLT_TIE|BLT|RENALWARE|MSE|20241107153747||SIU^S15|Q166123117|P|2.4
   #   SCH|149549027|||||6080524|Nephrology Haemodialysis F/Up||60|MINUTES|^^60^20241113100000^20241113110000||||||||||||||Cancelled
   #   PID|1||10769859^^^KCH^MRN||MOLLY^RENALTESTFIVE^^^^^CURRENT||19870101|2|||51 Sidney Street^^^LONDON^E1 2GB^^HOME^^||07898989898^MOBILE~0209999998^HOME~testemail@test.co^EMAIL|""^BUSINESS||""||13401074||||N||||||||N
   #   PD1|||THE CHRISP STREET HTH CTR^^F84062|G9401882^SMALL^AM^^^^^^EXTID
-  #   PV1|1|O|RNJ Renal SBH^^^RNJ BARTS^^AMB^RNJ KGV|""|||C3590850|G9401882||361||||""||||PREADMIT|24301156^^^RNJATTNUM^VISITID|||||||||||||||||""|""||RNJ BARTS||||||
+  #   PV1|1|O|RNJ Renal SBH^Nephrology Haemodialysis F/Up^^RNJ BARTS^^AMB^RNJ KGV|""|||C3590850|G9401882||361||||""||||PREADMIT|24301156^^^RNJATTNUM^VISITID|||||||||||||||||""|""||RNJ BARTS||||||
   #   RGS|1
   #   AIG|1||RNJ Chester, Dr Brook - Nurse 2
   #   AIL|1||RNJ Renal SBH^^^RNJ BARTS^^AMB^RNJ KGV
@@ -27,7 +32,7 @@ describe "SIU^S15 - Notification of Appointment Cancellation" do
       SCH|#{visit_number}|||||6080524|Nephrology Haemodialysis F/Up||60|MINUTES|^^60^20241113100000^20241113110000||||||||||||||Cancelled
       PID|1||10769859^^^KCH^MRN||MOLLY^RENALTESTFIVE^^^^^CURRENT||19870101|2|||51 Sidney Street^^^LONDON^E1 2GB^^HOME^^||07898989898^MOBILE~0209999998^HOME~testemail@test.co^EMAIL|""^BUSINESS||""||13401074||||N||||||||N
       PD1|||THE CHRISP STREET HTH CTR^^F84062|G9401882^SMALL^AM^^^^^^EXTID
-      PV1|1|O|RNJ Renal SBH^^^RNJ BARTS^^AMB^RNJ KGV|""|||C3590850|G9401882||361||||""||||PREADMIT|24301156^^^RNJATTNUM^VISITID|||||||||||||||||""|""||RNJ BARTS||||||
+      PV1|1|O|RNJ Renal SBH^Nephrology Haemodialysis F/Up^^RNJ BARTS^^AMB^RNJ KGV|""|||C3590850|G9401882||361||||""||||PREADMIT|24301156^^^RNJATTNUM^VISITID|||||||||||||||||""|""||RNJ BARTS||||||
       RGS|1
       AIG|1||RNJ Chester, Dr Brook - Nurse 2
       AIL|1||RNJ Renal SBH^^^RNJ BARTS^^AMB^RNJ KGV

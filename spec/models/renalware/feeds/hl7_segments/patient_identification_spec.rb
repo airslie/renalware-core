@@ -148,5 +148,46 @@ module Renalware::Feeds
         end
       end
     end
+
+    describe "telephone numbers and email" do
+      context "when phone_home PID.13 is nil" do
+        let(:raw_message) do
+          <<~RAW
+            PID|||||||
+          RAW
+        end
+
+        it do
+          expect(pi.email).to be_nil
+          expect(pi.telephone).to eq([])
+        end
+      end
+
+      context "when phone_home PID.13 present" do
+        let(:raw_message) do
+          <<~RAW
+            PID|||||||||||||tel1^MOBILE~tel2^HOME~testrenal@test.co^EMAIL|
+          RAW
+        end
+
+        it do
+          expect(pi.telephone).to eq(%w(tel1 tel2))
+          expect(pi.email).to eq("testrenal@test.co")
+        end
+      end
+
+      context "when phone_home PID.13 present with a different order" do
+        let(:raw_message) do
+          <<~RAW
+            PID|||||||||||||tel1^MOBILE~testrenal@test.co^EMAIL~tel2^HOME|
+          RAW
+        end
+
+        it do
+          expect(pi.telephone).to eq(%w(tel1 tel2))
+          expect(pi.email).to eq("testrenal@test.co")
+        end
+      end
+    end
   end
 end

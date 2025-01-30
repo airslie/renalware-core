@@ -6,12 +6,17 @@ describe "HL7 SIU^S13 - Notification of Appointment Rescheduling" do
   # appointment has been moved. Additionally, it describes the unchanged information in the
   # previously booked appointment.
 
+  # NOTE if clinic code and name are not in PV3, then in Mirth we should move them in there to
+  # match our expectations. For example at BLT PV3.1 is not necessarily populated so we copy:
+  #  AIL3.1 => PV3.1 clinic name
+  #  SCH7.1 => PV3.2 clinic name
+
   # Example message:
   #   MSH|^~\&|BLT_TIE|BLT|RENALWARE|MSE|20241107154347||SIU^S13|Q1663236015T1667362682A1117|P|2.4
   #   SCH|149549023|||||Undo Cancel|Nephrology New||30|MINUTES|^^30^20241106113000^20241106120000||||||||||||||Confirmed
   #   PID|1||10769861^^^RNJ 5C4 MRN^MRN||MOLLY^RENALEIGHT^^^^^CURRENT||19870101|2|||166 Rush Home Road^^^ROMFORD^AN7 0JR^^HOME^^||0789898989^MOBILE~0209999999^HOME~testrenal@co.in^EMAIL|""^BUSINESS||M||13401076||||P||||||||N
   #   PD1|||THE CHRISP STREET HTH CTR^^F84062|G999^SMALL^AM^^^^^^EXTID
-  #   PV1|1|O|RNJ Renal OPD^^^RNJ ROYALLONDON^^AMB^RNJ MainBld RLH|""|||Z3590850|G999||361||||""||||OPREFERRAL|924301153^^^RNJATTNUM^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON||||||
+  #   PV1|1|O|RNJ Renal OPD^Nephrology New^^RNJ ROYALLONDON^^AMB^RNJ MainBld RLH|""|||Z3590850|G999||361||||""||||OPREFERRAL|924301153^^^RNJATTNUM^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON||||||
   #   RGS|1
   #   AIG|1||Stevens, Stanley
   #   AIL|1||RNJ Renal OPD^^^RNJ ROYALLONDON^^AMB^RNJ MainBld RLH
@@ -20,16 +25,18 @@ describe "HL7 SIU^S13 - Notification of Appointment Rescheduling" do
   include PatientsSpecHelper
 
   let(:visit_number) { "123" }
+  let(:clinic_code)  { "Clinic1Code" }
+  let(:clinic_name)  { "Clinic1Name" }
   let(:raw_hl7) do
     hl7 = <<-HL7
       MSH|^~\&|BLT_TIE|BLT|RENALWARE|MSE|20241107154347||SIU^S13|Q1663236015T1667362682A1117|P|2.4
-      SCH|#{visit_number}|||||Undo Cancel|Nephrology New||30|MINUTES|^^30^#{starts_at}^#{ends_at}||||||||||||||Confirmed
+      SCH|#{visit_number}|||||Undo Cancel|clinic_name_copied_into_PV3||30|MINUTES|^^30^#{starts_at}^#{ends_at}||||||||||||||Confirmed
       PID|1||10769861^^^KCH^MRN||MOLLY^RENALEIGHT^^^^^CURRENT||19870101|2|||166 Rush Home Road^^^ROMFORD^AN7 0JR^^HOME^^||0789898989^MOBILE~0209999999^HOME~testrenal@co.in^EMAIL|""^BUSINESS||M||13401076||||P||||||||N
       PD1|||THE CHRISP STREET HTH CTR^^F84062|G999^SMALL^AM^^^^^^EXTID
-      PV1|1|O|#{clinic_code}^^^RNJ ROYALLONDON^^AMB^RNJ MainBld RLH|""|||CONSULTANT2^Smith^John^^^Dr^NHSCONSULTANTNUMBER^PRSNL^^^NONGP|G999||361||||""||||OPREFERRAL|924301153^^^RNJATTNUM^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON||||||
+      PV1|1|O|#{clinic_code}^#{clinic_name}^^RNJ ROYALLONDON^^AMB^RNJ MainBld RLH|""|||CONSULTANT2^Smith^John^^^Dr^NHSCONSULTANTNUMBER^PRSNL^^^NONGP|G999||361||||""||||OPREFERRAL|924301153^^^RNJATTNUM^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON||||||
       RGS|1
       AIG|1||Stevens, Stanley
-      AIL|1||RNJ Renal OPD^^^RNJ ROYALLONDON^^AMB^RNJ MainBld RLH
+      AIL|1||clinic_code_copied_into_PV3^^^RNJ ROYALLONDON^^AMB^RNJ MainBld RLH
     HL7
     hl7.gsub(/^ */, "")
   end
@@ -65,7 +72,6 @@ describe "HL7 SIU^S13 - Notification of Appointment Rescheduling" do
   context "when the appointment already exists in RW" do
     let(:starts_at)       { "20241106114500" }
     let(:ends_at)         { "20241106123000" }
-    let(:clinic_code)     { "CLINIC2" }
     let(:consultant_code) { "CONSULTANT2" }
 
     it "updates it with the new details" do
@@ -116,7 +122,6 @@ describe "HL7 SIU^S13 - Notification of Appointment Rescheduling" do
   context "when the appointment does not exist in RW yet" do
     let(:starts_at)       { "20241106114500" }
     let(:ends_at)         { "20241106123000" }
-    let(:clinic_code)     { "CLINIC2" }
     let(:consultant_code) { "CONSULTANT2" }
 
     it "creates it" do

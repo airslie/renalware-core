@@ -46,17 +46,9 @@ module Renalware
             )
           end
 
-          def appointment_starts_at
-            message.siu? ? sch.starts_at : pv2.expected_admit_date
-          end
-
-          def appointment_ends_at
-            message.siu? ? sch.ends_at : nil
-          end
-
-          def visit_number
-            message.siu? ? sch.visit_number : pv1.visit_number
-          end
+          def appointment_starts_at = message.siu? ? sch.starts_at : pv2.expected_admit_date
+          def appointment_ends_at   = message.siu? ? sch.ends_at : nil
+          def visit_number          = message.siu? ? sch.visit_number : pv1.visit_number
 
           def find_or_create_patient
             # This is the standard A28/31 add/update command which will find or add the patient
