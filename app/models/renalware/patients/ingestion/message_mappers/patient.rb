@@ -36,6 +36,9 @@ module Renalware
               ethnicity: find_ethnicity,
               practice: find_practice(message.practice_code) || patient.practice,
               primary_care_physician: find_primary_care_physician(message.gp_code),
+              email: patient_identification.email,
+              telephone1: patient_identification.telephone[0],
+              telephone2: patient_identification.telephone[1],
               **patient_identification.identifiers
             }
 
