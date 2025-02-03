@@ -34,6 +34,7 @@ module Renalware
               born_on: Time.zone.parse(patient_identification.dob)&.to_date,
               sex: patient_identification.sex,
               ethnicity: find_ethnicity,
+              marital_status: patient_identification.marital_status,
               practice: find_practice(message.practice_code) || patient.practice,
               primary_care_physician: find_primary_care_physician(message.gp_code),
               email: patient_identification.email,

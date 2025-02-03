@@ -189,5 +189,23 @@ module Renalware::Feeds
         end
       end
     end
+
+    describe "marital_status" do
+      {
+        S: :single,
+        M: :married,
+        D: :divorced,
+        W: :widowed,
+        X: nil,
+        UNKNOWN: nil
+      }.each do |key, value|
+        it "maps #{key} to #{value || 'nil'}" do
+          raw_message = "PID||||||||||||||||#{key}|"
+          pi = MessageParser.parse(raw_message).patient_identification
+
+          expect(pi.marital_status).to eq(value)
+        end
+      end
+    end
   end
 end
