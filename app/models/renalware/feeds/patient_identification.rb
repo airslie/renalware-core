@@ -144,6 +144,15 @@ module Renalware
       def email       = telecoms[:email]
       def telephone   = telecoms[:telephone]
 
+      def marital_status
+        {
+          S: :single,
+          M: :married,
+          D: :divorced,
+          W: :widowed
+        }.fetch(super&.to_sym, nil)
+      end
+
       private
 
       def patient_name = super.split("^")
