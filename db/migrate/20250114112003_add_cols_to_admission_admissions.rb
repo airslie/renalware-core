@@ -1,4 +1,4 @@
-class AddColsToAdmissionAdmissions < ActiveRecord::Migration[7.2]
+class AddColsToAdmissionAdmissions < ActiveRecord::Migration[7.1]
   def change
     within_renalware_schema do
       add_column :admission_admissions, :room, :string

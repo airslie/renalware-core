@@ -1,4 +1,4 @@
-class AddVisitNumberToAdmissions < ActiveRecord::Migration[7.2]
+class AddVisitNumberToAdmissions < ActiveRecord::Migration[7.1]
   def change
     safety_assured do
       within_renalware_schema do
