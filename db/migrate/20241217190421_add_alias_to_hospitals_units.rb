@@ -1,4 +1,4 @@
-class AddAliasToHospitalsUnits < ActiveRecord::Migration[7.2]
+class AddAliasToHospitalsUnits < ActiveRecord::Migration[7.1]
   def change
     within_renalware_schema do
       safety_assured do
