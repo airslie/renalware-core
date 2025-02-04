@@ -1,4 +1,4 @@
-class CreateAdmissionVersions < ActiveRecord::Migration[8.0]
+class CreateAdmissionVersions < ActiveRecord::Migration[7.1]
   def change
     within_renalware_schema do
       create_table :admission_versions do |t|

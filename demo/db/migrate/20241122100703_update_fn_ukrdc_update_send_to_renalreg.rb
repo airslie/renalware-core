@@ -1,4 +1,4 @@
-class UpdateFnUKRDCUpdateSendToRenalreg < ActiveRecord::Migration[7.2]
+class UpdateFnUKRDCUpdateSendToRenalreg < ActiveRecord::Migration[7.1]
   def up
     load_function("ukrdc_update_send_to_renalreg_v02.sql")
   end
