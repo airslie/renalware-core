@@ -3,6 +3,11 @@ module Renalware
     class Appointment < ApplicationRecord
       include Accountable
 
+      has_paper_trail(
+        versions: { class_name: "Renalware::Clinics::Version" },
+        on: %i(create update destroy)
+      )
+
       def self.ransackable_attributes(*)
         %w(clinic_description clinic_id consultant_id patient_id starts_at starts_on)
       end
