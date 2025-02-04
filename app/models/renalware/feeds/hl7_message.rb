@@ -8,18 +8,18 @@ module Renalware
     #
     class HL7Message < SimpleDelegator
       ACTIONS = {
-        "ADT^A28" => :add_person_information,
-        "ADT^A31" => :update_person_information,
-        "ADT^A08" => :update_admission,
         "ADT^A01" => :admit_patient,
         "ADT^A02" => :transfer_patient,
         "ADT^A03" => :discharge_patient,
-        "ADT^A11" => :cancel_admission,
         "ADT^A05" => :schedule_new_appointment,
+        "ADT^A08" => :update_admission,
+        "ADT^A11" => :cancel_admission,
+        "ADT^A13" => :cancel_discharge,
+        "ADT^A28" => :add_person_information,
+        "ADT^A31" => :update_person_information,
+        "ADT^A34" => :merge_patient, # no
         "ADT^A38" => :cancel_appointment,
         "MFN^M02" => :add_consultant, # no
-        "ADT^A34" => :merge_patient, # no
-        "ADT^A13" => :cancel_discharge,
         "ORU^R01" => :add_pathology_observations,
         "SIU^S12" => :schedule_new_appointment,
         "SIU^S13" => :schedule_new_appointment,

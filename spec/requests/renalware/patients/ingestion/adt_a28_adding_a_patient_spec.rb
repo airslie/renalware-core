@@ -1,7 +1,19 @@
-#
-# See http://www.hl7.org.uk/repository/uploads/871/1/HL72UKA.3%20v2.pdf
-#
-describe "HL7 ADT~A28 message handling: 'Add person information'" do
+# frozen_string_literal: true
+
+describe "HL7 ADT^A28 message handling: 'Add person information'" do
+  # The A28 event can be used to send everything that is known about a person.
+  # These events should not replace the use of the
+  # - A01 (admit/visit notification)
+  # - A03 (discharge/end visit)
+  # - A04 (register a patient)
+  # - A08 (update patient information), etc., events.
+  # They are not intended to be used for notification of real-time Patient Administration events.
+  # These events are primarily for demographic data, but optional historical non-demographic data
+  # may be sent as well.
+  # May be used for backloading patients into RW from another system.
+  #
+  # Note at KCH and MSE we receive these events for new patients, where as at Barts for instance
+  # they are rare, and we rely on ADT^A01 (admissions) and SIU^S12 (appointments).
   let(:local_patient_id) { "P123" }
   let(:family_name) { "SMITH" }
   let(:given_name) { "John" }
@@ -61,12 +73,6 @@ describe "HL7 ADT~A28 message handling: 'Add person information'" do
       expect {
         FeedJob.new(message).perform
       }.to change(Renalware::Patients::Abridgement, :count).by(1)
-    end
-  end
-
-  context "when the patient is already in the master index" do
-    it "updates the patient index" do
-      # See UpdateMasterPatientIndex
     end
   end
 

@@ -3653,7 +3653,13 @@ CREATE TABLE renalware.admission_admissions (
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    feed_id character varying
+    feed_id character varying,
+    visit_number text,
+    room character varying,
+    bed character varying,
+    building character varying,
+    floor character varying,
+    consultant_code character varying
 );
 
 
@@ -3857,6 +3863,41 @@ CREATE SEQUENCE renalware.admission_specialties_id_seq
 --
 
 ALTER SEQUENCE renalware.admission_specialties_id_seq OWNED BY renalware.admission_specialties.id;
+
+
+--
+-- Name: admission_versions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.admission_versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp(6) without time zone
+);
+
+
+--
+-- Name: admission_versions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.admission_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admission_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.admission_versions_id_seq OWNED BY renalware.admission_versions.id;
 
 
 --
@@ -7045,6 +7086,7 @@ CREATE TABLE renalware.hospital_units (
     is_hd_site boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    alias character varying,
     ods_code character varying
 );
 
@@ -16286,6 +16328,13 @@ ALTER TABLE ONLY renalware.admission_specialties ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: admission_versions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.admission_versions ALTER COLUMN id SET DEFAULT nextval('renalware.admission_versions_id_seq'::regclass);
+
+
+--
 -- Name: clinic_appointments id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -18287,6 +18336,14 @@ ALTER TABLE ONLY renalware.admission_requests
 
 ALTER TABLE ONLY renalware.admission_specialties
     ADD CONSTRAINT admission_specialties_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admission_versions admission_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.admission_versions
+    ADD CONSTRAINT admission_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -20964,6 +21021,13 @@ CREATE INDEX index_admission_admissions_on_updated_by_id ON renalware.admission_
 
 
 --
+-- Name: index_admission_admissions_on_visit_number; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_admissions_on_visit_number ON renalware.admission_admissions USING btree (visit_number);
+
+
+--
 -- Name: index_admission_consult_sites_on_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -21087,6 +21151,13 @@ CREATE INDEX index_admission_requests_on_updated_by_id ON renalware.admission_re
 --
 
 CREATE UNIQUE INDEX index_admission_specialties_on_name ON renalware.admission_specialties USING btree (name);
+
+
+--
+-- Name: index_admission_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_admission_versions_on_item_type_and_item_id ON renalware.admission_versions USING btree (item_type, item_id);
 
 
 --
@@ -23159,6 +23230,13 @@ CREATE INDEX index_hospital_departments_on_deleted_at ON renalware.hospital_depa
 --
 
 CREATE INDEX index_hospital_departments_on_hospital_centre_id ON renalware.hospital_departments USING btree (hospital_centre_id);
+
+
+--
+-- Name: index_hospital_units_on_alias; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hospital_units_on_alias ON renalware.hospital_units USING btree (alias);
 
 
 --
@@ -30748,8 +30826,13 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20250118130334'),
 ('20250118120145'),
 ('20250117164135'),
+('20250115095259'),
+('20250114171718'),
+('20250114112003'),
+('20250107122234'),
 ('20241230130328'),
 ('20241220180547'),
+('20241217190421'),
 ('20241212115831'),
 ('20241205164429'),
 ('20241127162800'),

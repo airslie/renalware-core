@@ -1,4 +1,11 @@
-describe "HL7 ADT~A31 message handling: 'Update person information'" do
+# frozen_string_literal: true
+
+describe "HL7 ADT^A31 message handling: 'Update person information'" do
+  # An A31 event can be used to update person information on an MPI. It is similar to an
+  # A08 (update patient information) event, but an A08 (update patient information) event should be
+  # used to update patient information for a current episode. An A28 (add person information)
+  # or A31 can also be used for backloading MPI information for the person, or for backloading
+  # person and historical information.
   let(:local_patient_id) { "P123" }
   let(:family_name) { "SMITH" }
   let(:given_name) { "John" }
@@ -35,7 +42,7 @@ describe "HL7 ADT~A31 message handling: 'Update person information'" do
   end
 
   context "when the patient exists in Renalware" do
-    it "updates their information" do
+    it "updates their information" do # rubocop:disable RSpec/NoExpectationExample
       create_dependencies
       patient = create(
         :patient,

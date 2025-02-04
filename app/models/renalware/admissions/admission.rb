@@ -12,6 +12,11 @@ module Renalware
       include PatientsRansackHelper
       extend Enumerize
 
+      has_paper_trail(
+        versions: { class_name: "Renalware::Admissions::Version" },
+        on: %i(create update destroy)
+      )
+
       acts_as_paranoid
 
       validates :patient_id, presence: true

@@ -29,7 +29,7 @@ module Renalware::Feeds::HL7Segments
       )
     end
 
-    it "#clinic" do
+    it "#clinic (PV1.3)" do # see also assigned_location
       expect(pv1.clinic).to have_attributes(
         code: "Clinic1",
         name: "Name",
@@ -39,6 +39,66 @@ module Renalware::Feeds::HL7Segments
 
     it "#visit_number" do
       expect(pv1.visit_number).to eq("VisitNumber123")
+    end
+
+    describe "#assigned_location (PV1.3)" do # see also clinic
+      let(:raw_message) do
+        <<~RAW
+          PV1|1|I|ward^room^bed^facility^loc.stat^BED^building^floor^loc.desc|||""^""^""^""^^^""|Z2736330|||424||||79||||NEWBORN|124301137^^""^^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON|||||20241104144000|
+        RAW
+      end
+
+      it do
+        expect(pv1.assigned_location).to have_attributes(
+          ward: "ward",
+          room: "room",
+          bed: "bed",
+          facility: "facility",
+          location_status: "loc.stat",
+          person_location_type: "BED",
+          building: "building",
+          floor: "floor",
+          location_description: "loc.desc"
+        )
+      end
+    end
+
+    describe "#prior_location (PV1.6)" do
+      let(:raw_message) do
+        <<~RAW
+          PV1|1|I|^^^^^^^^|||ward^room^bed^facility^loc.stat^BED^building^floor^loc.desc|Z2736330|||424||||79||||NEWBORN|124301137^^""^^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON|||||20241104144000|
+        RAW
+      end
+
+      it do
+        expect(pv1.prior_location).to have_attributes(
+          ward: "ward",
+          room: "room",
+          bed: "bed",
+          facility: "facility",
+          location_status: "loc.stat",
+          person_location_type: "BED",
+          building: "building",
+          floor: "floor",
+          location_description: "loc.desc"
+        )
+      end
+    end
+
+    describe "#admitted_at (PV1.44)" do
+      let(:raw_message) { "PV1|1|||||||||||||||||||||||||||||||||||||||||||20241104144000|" }
+
+      it do
+        expect(pv1.admitted_at).to eq(Time.zone.parse("20241104144000"))
+      end
+    end
+
+    describe "#discharged_at (PV1.45)" do
+      let(:raw_message) { "PV1|1||||||||||||||||||||||||||||||||||||||||||||20241104144000" }
+
+      it do
+        expect(pv1.discharged_at).to eq(Time.zone.parse("20241104144000"))
+      end
     end
   end
 end
