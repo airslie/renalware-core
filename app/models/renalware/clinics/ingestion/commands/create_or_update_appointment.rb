@@ -15,7 +15,7 @@ module Renalware
             return if rwclinic.blank?
 
             patient = find_or_create_patient
-            existing_appointment = patient.appointments.where(visit_number: visit_number)
+            existing_appointment = patient.appointments.where(visit_number: visit_number).first
 
             if existing_appointment.present?
               update_existing_appointment(existing_appointment)
