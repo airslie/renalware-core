@@ -20,7 +20,7 @@ module Renalware::Letters
                 },
                 text: {
                   status: "generated",
-                  div: "<div xmlns=\"http://www.w3.org/1999/xhtml\">#{arguments.document_type_snomed_title}</div>"
+                  div: "<div xmlns=\"http://www.w3.org/1999/xhtml\">#{arguments.document_title}</div>"
                 },
                 status: "final",
                 type: {
@@ -29,23 +29,23 @@ module Renalware::Letters
                       arguments.document_type_snomed_code,
                       arguments.document_type_snomed_title
                     )
-                  ],
-                  text: arguments.document_type_snomed_title
+                  ]
                 },
                 subject: {
                   reference: arguments.patient_urn
                 },
-                date: letter.updated_at.to_date.to_s,
+                date: letter.approved_at.to_datetime.utc.iso8601,
                 author: {
                   reference: arguments.author_urn
                 },
                 custodian: {
                   reference: arguments.organisation_urn
                 },
-                title: arguments.document_title,
+                title: arguments.composition_title,
                 confidentiality: arguments.confidentiality,
                 section: {
                   entry: [
+                    { title: arguments.composition_title },
                     { reference: arguments.organisation_urn },
                     { reference: arguments.author_urn },
                     { reference: arguments.patient_urn },

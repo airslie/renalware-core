@@ -17,7 +17,7 @@ module Renalware
               type: "message",
               id: arguments.transmission_uuid,
               meta: {
-                lastUpdated: letter.updated_at.to_datetime, # Or message.created_at?
+                lastUpdated: arguments.letter_datetime,
                 profile: PROFILE_URL
               },
               identifier: system_identifier(arguments.transmission_uuid),

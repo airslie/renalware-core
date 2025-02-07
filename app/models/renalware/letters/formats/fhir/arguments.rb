@@ -12,7 +12,7 @@ module Renalware
 
       delegate :letter, to: :transmission
       delegate :uuid, to: :transmission, prefix: true
-      delegate :patient, :event, :archive, :topic, to: :letter
+      delegate :patient, :event, :archive, :topic, :approved_at, to: :letter
       delegate :snomed_document_type, to: :topic, allow_nil: true
       delegate :code, :title,
                to: :snomed_document_type,
@@ -80,9 +80,11 @@ module Renalware
       def message_definition_url  = WORKFLOWS[workflow].dig(:message_definition, :reference)
       def event_code              = WORKFLOWS[workflow].dig(:event, :code)
       def event_display           = WORKFLOWS[workflow].dig(:event, :display)
-      def document_title          = document_type_snomed_title
       def document_version        = 1
       def confidentiality         = %w(N R).first
+      def letter_datetime         = approved_at.utc.iso8601
+      def composition_title       = "Consultation report"
+      def mex_subject             = document_title
 
       # # E.g. "371531000"
       # def _code = snomed_document_type_code
@@ -114,9 +116,9 @@ module Renalware
         ].join("_")
       end
 
-      def mex_subject
+      def document_title
         [
-          "#{document_title} for #{patient}",
+          "#{composition_title} for #{patient}",
           "NHS Number: #{patient.nhs_number}",
           "seen at #{organisation_name}",
           organisation_ods_code,

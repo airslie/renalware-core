@@ -108,23 +108,20 @@ module Renalware::Letters
 
           it { is_expected.to be_a(Array) }
 
-          it do
+          it "maps the address" do
             allow(patient).to receive(:current_address).and_return(
               instance_double(
                 Renalware::Address,
-                street_1: "Address line 1",
-                street_2: "Address line 2",
+                street_1: "line1",
+                street_2: "line2",
                 street_3: "",
-                town: "My town",
-                county: "My county",
+                town: nil,
+                county: "line3",
                 postcode: "My postcode"
               )
             )
-            # I think only postcode to be sent in GP Connect
-            # expect(address[0].line[0]).to eq("Address line 1")
-            # expect(address[0].line[1]).to eq("Address line 2")
-            # expect(address[0].line[2]).to eq("My town")
-            # expect(address[0].line[3]).to eq("My county")
+            expect(address[0].use).to eq("home")
+            expect(address[0].line).to eq(%w(line1 line2 line3))
             expect(address[0].postalCode).to eq("My postcode")
           end
         end

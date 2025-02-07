@@ -22,7 +22,8 @@ module Renalware::Letters
           patient: patient,
           author: user,
           topic: create(:letter_topic, snomed_document_type: create(:snomed_document_type)),
-          by: user
+          by: user,
+          approved_at: Time.zone.now
         ).reload.tap do |letter|
           letter.archive = create(:letter_archive, letter: letter, by: user)
         end

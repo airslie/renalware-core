@@ -7,7 +7,12 @@ module Renalware
         let(:transmission) do
           instance_double(Transports::Mesh::Transmission, letter: letter, uuid: "TRANS1")
         end
-        let(:arguments) { Arguments.new(transmission: transmission, transaction_uuid: "123") }
+        let(:arguments) {
+          Arguments.new(
+            transmission: transmission,
+            transaction_uuid: "123"
+          )
+        }
         let(:resource) { composition[:resource] }
         let(:patient) { build_stubbed(:patient) }
         let(:author) { build_stubbed(:user, uuid: "abc") }
@@ -20,6 +25,7 @@ module Renalware
             archive: build_stubbed(:letter_archive),
             patient: letter_patient,
             updated_at: Time.zone.parse("2022-01-01 01:01:01"),
+            approved_at: Time.zone.parse("2022-01-01 01:01:01"),
             event: clinic_visit,
             topic: topic,
             event_id: 99,
@@ -67,7 +73,7 @@ module Renalware
           end
 
           it "includes the letter updated_at" do
-            expect(resource.date).to eq("2022-01-01")
+            expect(resource.date).to eq("2022-01-01T01:01:01Z")
           end
 
           it "author element references the sending organisation" do
@@ -85,10 +91,10 @@ module Renalware
 
           it "has correct sections" do
             section = resource.section[0]
-            expect(section.entry[0].reference).to eq arguments.organisation_urn
-            expect(section.entry[1].reference).to eq arguments.author_urn
-            expect(section.entry[2].reference).to eq arguments.patient_urn
-            expect(section.entry[3].reference).to eq arguments.binary_urn
+            expect(section.entry[1].reference).to eq arguments.organisation_urn
+            expect(section.entry[2].reference).to eq arguments.author_urn
+            expect(section.entry[3].reference).to eq arguments.patient_urn
+            expect(section.entry[4].reference).to eq arguments.binary_urn
           end
         end
       end
