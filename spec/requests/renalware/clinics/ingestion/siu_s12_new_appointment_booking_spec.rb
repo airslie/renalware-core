@@ -57,32 +57,112 @@ describe "HL7 SIU^S12 - Notification of New Appointment Booking" do
   end
 
   def create_consultant = create(:consultant, code: "Z3590850", name: "Dr John Smith")
-  def create_clinic = create(:clinic, code: clinic_code, name: clinic_name)
+  def create_clinic     = create(:clinic, code: clinic_code, name: clinic_name)
 
   context "when patient is not found" do
-    it "creates the patient and schedules the appointment" do
-      msg = hl7_message_from_raw_string(raw_hl7)
-      clinic = create_clinic
-      consultant = create_consultant
+    context "when the consultant exists" do
+      it "creates the patient and schedules the appointment" do
+        msg = hl7_message_from_raw_string(raw_hl7)
+        clinic = create_clinic
+        consultant = create_consultant
 
-      expect {
-        Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
-      }.to change(Renalware::Patient, :count).by(1)
-        .and change(Renalware::Clinics::Appointment, :count).by(1)
+        expect {
+          Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
+        }.to change(Renalware::Patient, :count).by(1)
+          .and change(Renalware::Clinics::Appointment, :count).by(1)
 
-      expect(Renalware::Clinics::Consultant.last).to have_attributes(
-        code: "Z3590850",
-        name: "Dr John Smith"
-      )
+        expect(Renalware::Clinics::Consultant.last).to have_attributes(
+          code: "Z3590850",
+          name: "Dr John Smith"
+        )
 
-      patient = Renalware::Patient.last
-      expect(Renalware::Clinics::Appointment.last).to have_attributes(
-        patient_id: patient.id,
-        consultant_id: consultant.id,
-        clinic_id: clinic.id,
-        starts_at: Time.zone.parse("20241106120000"),
-        ends_at: Time.zone.parse("20241106123000")
-      )
+        patient = Renalware::Patient.last
+        expect(Renalware::Clinics::Appointment.last).to have_attributes(
+          patient_id: patient.id,
+          consultant_id: consultant.id,
+          clinic_id: clinic.id,
+          starts_at: Time.zone.parse("20241106120000"),
+          ends_at: Time.zone.parse("20241106123000")
+        )
+      end
+
+      context "when the consultant in PV1.7 does not exist in RW" do
+        it "creates the patient and consultant and schedules the appointment" do
+          msg = hl7_message_from_raw_string(raw_hl7)
+          clinic = create_clinic
+
+          expect {
+            Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
+          }.to change(Renalware::Patient, :count).by(1)
+            .and change(Renalware::Clinics::Appointment, :count).by(1)
+            .and change(Renalware::Clinics::Consultant, :count).by(1)
+
+          expect(Renalware::Clinics::Consultant.last).to have_attributes(
+            code: "Z3590850",
+            name: "Dr John Smith"
+          )
+
+          patient = Renalware::Patient.last
+          expect(Renalware::Clinics::Appointment.last).to have_attributes(
+            patient_id: patient.id,
+            clinic_id: clinic.id,
+            starts_at: Time.zone.parse("20241106120000"),
+            ends_at: Time.zone.parse("20241106123000")
+          )
+        end
+      end
+
+      context "when the clinic in PV1.3 does not exist in RW" do
+        it "does nothing" do
+          msg = hl7_message_from_raw_string(raw_hl7)
+
+          expect {
+            Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
+          }.not_to change(Renalware::Clinics::Appointment, :count)
+        end
+
+        context "when a custom config lambda is specified to always create the clinic" do
+          it "creates the clinic JIT (e.g as @BLT)" do
+            allow(Renalware.config).to receive(:strategy_resolve_outpatients_clinic).and_return(
+              lambda { |pv1_clinic|
+                Renalware::Clinics::Clinic.find_or_create_by!(
+                  code: pv1_clinic.code
+                ) do |clinic|
+                  clinic.name = pv1_clinic.name
+                end
+              }
+            )
+
+            msg = hl7_message_from_raw_string(raw_hl7)
+
+            expect {
+              Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
+            }.to change(Renalware::Clinics::Clinic, :count).by(1)
+
+            expect(Renalware::Clinics::Clinic.last).to have_attributes(
+              code: "Clinic1Code",
+              name: "Clinic1Name"
+            )
+
+            # Create a new message with different clinic values now to make sure arguments of
+            # configured lambda are not memoized in any way.
+            new_raw_hl7 = raw_hl7
+              .gsub("Clinic1Name", "Clinic2Name")
+              .gsub("Clinic1Code", "Clinic2Code")
+
+            msg = hl7_message_from_raw_string(new_raw_hl7)
+
+            expect {
+              Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
+            }.to change(Renalware::Clinics::Clinic, :count).by(1)
+
+            expect(Renalware::Clinics::Clinic.last).to have_attributes(
+              code: "Clinic2Code",
+              name: "Clinic2Name"
+            )
+          end
+        end
+      end
     end
 
     context "when PV3.1.1 clinic code is empty" do

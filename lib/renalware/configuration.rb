@@ -231,6 +231,19 @@ module Renalware
       ENV.fetch("PROCESS_HL7_VIA_RAW_MESSAGES_TABLE", "false") == "true"
     }
 
+    # A host application can override the strategy for finding/creating (JIT) the clinic
+    # referenced in an appointment HL7 message by defining a lambda here that takes a PV1::Clinic
+    # object as an argument and returns nil or a Clinics::Clinic, eg
+    # ->(pv1_clinic) {
+    #   Renalware::Clinics::Clinic.find_or_create_by!(code: pv1_clinic.name_and_code) do |clinic|
+    #    clinic.name = pv1_clinic.name_and_code
+    #   end
+    # }
+    # As above, the configured strategy might for example always guarantee an AR Clinic is returned.
+    # BLT do this as we only receive Renal SIU outpatient messages, so if the clinic does not
+    # exist we need to create it.
+    config_accessor(:strategy_resolve_outpatients_clinic) { nil }
+
     config_accessor(:replay_historical_pathology_when_new_patient_added) {
       ActiveModel::Type::Boolean.new.cast(
         ENV.fetch("REPLAY_HISTORICAL_PATHOLOGY_WHEN_NEW_PATIENT_ADDED", "true")
