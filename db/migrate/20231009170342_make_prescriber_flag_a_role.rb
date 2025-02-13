@@ -13,7 +13,7 @@ class MakePrescriberFlagARole < ActiveRecord::Migration[7.0]
       prescriber_role = Renalware::Role.find_by!(name: "prescriber")
 
       # For each user with prescriber = true, give them the new Prescriber role.
-      Renalware::User.where(prescriber: true).each do |user|
+      Renalware::User.where(prescriber: true).find_each do |user|
         user.roles << prescriber_role
       end
     end

@@ -25,7 +25,6 @@ require:
 
 inherit_from:
   - https://raw.githubusercontent.com/airslie/styleguide/main/rubocop.yml
-  - .rubocop_strict.yml
   - .rubocop_todo.yml
 
 AllCops:
@@ -141,6 +140,7 @@ Metrics/AbcSize:
     - "spec/acceptance/renalware/steps/**/*"
     - "features/**/*"
     - "db/**/*"
+    - "demo/db/**/*"
     - app/models/renalware/letters/formats/fhir/**/resources/**/*
   Max: 25
 RSpec/ExampleLength:
@@ -206,3 +206,24 @@ Rails/UniqBeforePluck:
 Style/Alias:
   Enabled: true
   EnforcedStyle: prefer_alias
+
+Lint/Debugger: # don't leave binding.pry
+  Enabled: true
+  Exclude: []
+
+RSpec/Focus: # run ALL tests on CI
+  Enabled: true
+  Exclude: []
+
+Rails/Output: # Don't leave puts-debugging
+  Enabled: true
+  Exclude: []
+
+Rails/FindEach: # each could badly affect the performance, use find_each
+  Enabled: true
+  Exclude: []
+
+Metrics/CollectionLiteralLength:
+  Exclude:
+    - 'db/migrate/**/*'
+    - 'demo/db/migrate/**/*'

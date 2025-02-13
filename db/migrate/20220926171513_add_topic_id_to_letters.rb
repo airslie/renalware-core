@@ -6,7 +6,7 @@ class AddTopicIdToLetters < ActiveRecord::Migration[6.0]
 
     # We might not even need to update the topic id for any previous letters :hm?:
     up_only do
-      Renalware::Letters::Topic.all.each do |topic|
+      Renalware::Letters::Topic.find_each do |topic|
         Renalware::Letters::Letter.where(description: topic.text).update_all(topic_id: topic.id)
       end
     end
