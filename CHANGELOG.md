@@ -9,6 +9,36 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.4.5.3
+### Added
+- Create a Remote Monitoring Registration custom event #5080
+- Add support for HL7 SIU appointment messages #5091
+- Add support for HL7 admissions #5090
+- Display patient appointments on their clinic visits page #5097
+- Allow for display of configured external links eg QlickSense) on Logon and dashboard… #5102
+- Support loading Index of Multiple Deprivation database tables for use in analysis #5108
+- Add a letter_snomed_document_types table #5117
+  - A letter topic can be assigned a snomed_document_type, which will be used in GP Connect FHIR
+  messages as Bundle.documentType. If the letter topic has no assigned snomed_document_type,
+  the snomed_document_type with a boolean default_type=true (of which there can be only one due
+  to unique index) will be used.
+- Fetch and display Mirth queue stats (e.g. processed and errored counts) on a superadmin dashboard #5161
+### Changed
+- Update SQL fn that opts patients into renalreg based on egfr #5070
+  - Use fn prototype variant convert_to_float(val, null) to return null where egfr cannot be
+    coerced into a string eg '>60'. The current form convert_to_float(val) returns 0 for strings
+- Offer vaccines filtered by ATC code when adding Vaccination event #5082
+- Refresh prescribable_drugs materialised view after a drug edit #5098
+- Include 'UNK' SDS code for all users in the FHIR Practitioner resource
+- Add ods_code column to hospital_units #5137
+- Capture email and up to two telephone numbers from HL7 PID #5152
+- Import HL7 marital_status if available #5153
+- Add versioning to clinic appointments #5154
+- Allow a host app to override clinic resolution in outpatient HL7 message processing #5160
+### Fixed
+- Fix validation on OnlineReferenceLink#url #5086
+  - Only validate the url starts with https:// or http:// and do not attempt to regex the whole url
+
 ## 2.4.5.2
 ### Added
 ### Changed
