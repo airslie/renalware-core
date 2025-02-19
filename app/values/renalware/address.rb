@@ -7,6 +7,11 @@ module Renalware
     belongs_to :addressable, polymorphic: true
     before_validation :upcase_postcode
 
+    has_paper_trail(
+      versions: { class_name: "Renalware::AddressVersion" },
+      on: %i(create update destroy)
+    )
+
     # Set to true to avoid address validation - useful when archiving a letter with a migrated
     # address that might not have a postcode for instance
     attr_accessor :skip_validation
