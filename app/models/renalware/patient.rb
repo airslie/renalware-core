@@ -55,6 +55,13 @@ module Renalware
     has_many :alerts, class_name: "Patients::Alert"
     has_one :worry, class_name: "Patients::Worry"
 
+    # The intention is to migrate at some point from the old martial_status enum to this new
+    # db-backed marital_status in order for different marital statuses code sets to be
+    # supported across different hospitals.
+    belongs_to :marital_status1,
+               class_name: "Patients::MaritalStatus",
+               foreign_key: :marital_status_id
+
     belongs_to :first_cause, class_name: "Deaths::Cause"
     belongs_to :second_cause, class_name: "Deaths::Cause"
     belongs_to :preferred_death_location,

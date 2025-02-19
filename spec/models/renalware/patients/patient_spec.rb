@@ -431,5 +431,26 @@ module Renalware
         end
       end
     end
+
+    describe "#marital_status and marital_status1" do
+      # Patient.marital_status is an enum and we want to migrate it - its database backed so we
+      # can support other code sets (BLT marital_status is different from MSE for example).
+      # Initially we are just checking that we can store and retrieve the db-backed marital status.
+      # In a later release we will:
+      # - migrate the enum to the db-backed field
+      # - renamed the old enum to marriage_status_deprecated
+      # - rename the db-backed field to the old enum name
+      # Note in the seeds we populate it with the NHS data dictonary defaults.
+      subject(:patient) do
+        create(:patient, marital_status: :married, marital_status1: marital_status_married)
+      end
+
+      let(:marital_status_married) { Patients::MaritalStatus.create!(code: "M", name: "Married") }
+
+      it do
+        expect(patient.marital_status1.to_s).to eq("Married")
+        expect(patient.marital_status).to eq("married")
+      end
+    end
   end
 end
