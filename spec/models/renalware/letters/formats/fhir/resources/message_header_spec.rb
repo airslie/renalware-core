@@ -59,8 +59,7 @@ module Renalware
                 it "SenderReference is a uuid identifying the activity ie letter" do
                   extension = resource.extension[0].extension[4]
                   expect(extension.url).to eq("SenderReference")
-                  expect(extension.valueString).to eq("urn:uuid:#{letter.uuid}")
-                  expect(extension.valueString).to eq("urn:uuid:789")
+                  expect(extension.valueString).to eq(letter.uuid.to_s)
                 end
 
                 # GPCM-SD-044
@@ -73,7 +72,7 @@ module Renalware
 
               it "has a timestamp" do
                 freeze_time do
-                  expect(resource.timestamp).to eq(Time.zone.now.iso8601)
+                  expect(resource.timestamp).to eq(Time.zone.now.utc.iso8601)
                 end
               end
 

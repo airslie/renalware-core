@@ -28,8 +28,8 @@ module Renalware
                 {
                   system: "https://fhir.nhs.uk/Id/sds-user-id",
                   value: "UNK"
-                },
-                system_identifier(arguments.author_uuid)
+                }
+                # , system_identifier(arguments.author_uuid)
               ],
               name: {
                 use: "official",

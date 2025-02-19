@@ -20,6 +20,7 @@ module Renalware
             uuid: "LET1",
             patient: letters_patient,
             topic: topic,
+            approved_at: Time.zone.parse("2022-01-01 01:01:01"),
             updated_at: Time.zone.parse("2022-01-01 01:01:01"),
             event: build_stubbed(
               :clinic_visit,
@@ -45,8 +46,7 @@ module Renalware
 
         it do
           expect(resource.id).to eq(transmission.uuid)
-          expected_updated_at = letter.updated_at.to_datetime.to_s
-          expect(resource.meta.lastUpdated).to eq(expected_updated_at)
+          expect(resource.meta.lastUpdated).to eq(letter.approved_at.utc.iso8601)
           expect(resource.type).to eq("document")
         end
 

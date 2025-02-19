@@ -16,7 +16,7 @@ module Renalware
             fullUrl: arguments.transaction_urn, # the send_message operation
             resource: ::FHIR::STU3::MessageHeader.new(
               id: arguments.transaction_uuid,
-              timestamp: Time.zone.now.iso8601,
+              timestamp: Time.zone.now.utc.iso8601,
               meta: {
                 profile: "https://fhir.nhs.uk/STU3/StructureDefinition/ITK-MessageHeader-2"
               },
@@ -47,7 +47,7 @@ module Renalware
                   },
                   {
                     url: "SenderReference",
-                    valueString: arguments.letter_urn # i.e. 'our reference'
+                    valueString: arguments.letter_uuid # i.e. 'our reference'
                   },
                   {
                     url: "LocalExtension",

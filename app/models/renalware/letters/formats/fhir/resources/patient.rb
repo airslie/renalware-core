@@ -18,8 +18,8 @@ module Renalware
                 profile: "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1"
               },
               identifier: [
-                unverified_nhs_number_identifier,
-                *hospital_number_identifiers
+                verified_nhs_number_identifier
+                # *hospital_number_identifiers
               ],
               name: name,
               gender: gender,
@@ -131,13 +131,14 @@ module Renalware
 
           [
             {
-              # line: [
-              #   current_address.street_1,
-              #   current_address.street_2,
-              #   current_address.street_3,
-              #   current_address.town,
-              #   current_address.county
-              # ].compact_blank,
+              use: "home",
+              line: [
+                current_address.street_1,
+                current_address.street_2,
+                current_address.street_3,
+                current_address.town,
+                current_address.county
+              ].compact_blank,
               postalCode: current_address.postcode
             }
           ]
