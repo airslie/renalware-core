@@ -8,16 +8,18 @@ inherit_mode:
   merge:
     - Exclude
 
+plugins:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-rake
+
 require:
   # Standard's config uses custom cops, so it must be loaded. Skip for now though.
   # - standard
-  - rubocop-rails
-  - rubocop-rspec
   - rubocop-rspec_rails
-  - rubocop-performance
   - rubocop-factory_bot
   - rubocop-capybara
-  - rubocop-rake
 
 # Skip standard for now.
 # inherit_gem:

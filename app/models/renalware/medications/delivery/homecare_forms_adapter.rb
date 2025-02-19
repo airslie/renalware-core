@@ -13,9 +13,7 @@ module Renalware
           Forms::Homecare::Pdf.generate(build_args)
         end
 
-        def valid?(args)
-          Forms::Homecare::Pdf.valid?(args)
-        end
+        def valid?(args) = Forms::Homecare::Pdf.valid?(args) # rubocop:disable Rails/Delegate
 
         def build_args # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           args = Forms::Homecare::Args.new(
