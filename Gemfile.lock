@@ -542,7 +542,7 @@ GEM
     nested_form (0.3.2)
     net-http (0.6.0)
       uri
-    net-imap (0.5.5)
+    net-imap (0.5.6)
       date
       net-protocol
     net-pop (0.1.2)
@@ -686,7 +686,7 @@ GEM
       railties (>= 4.2)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.1.9)
+    rack (3.1.10)
     rack-attack (6.7.0)
       rack (>= 1.0, < 4)
     rack-mini-profiler (3.3.1)
