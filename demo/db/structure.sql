@@ -2900,7 +2900,8 @@ CREATE TABLE renalware.patients (
     ukrdc_anonymise boolean DEFAULT false NOT NULL,
     ukrdc_anonymise_decision_on date,
     ukrdc_anonymise_recorded_by character varying,
-    renal_registry_id character varying
+    renal_registry_id character varying,
+    marital_status_id bigint
 );
 
 
@@ -11476,6 +11477,38 @@ ALTER SEQUENCE renalware.patient_languages_id_seq OWNED BY renalware.patient_lan
 
 
 --
+-- Name: patient_marital_statuses; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.patient_marital_statuses (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: patient_marital_statuses_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.patient_marital_statuses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_marital_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.patient_marital_statuses_id_seq OWNED BY renalware.patient_marital_statuses.id;
+
+
+--
 -- Name: patient_master_index; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -17584,6 +17617,13 @@ ALTER TABLE ONLY renalware.patient_languages ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: patient_marital_statuses id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_marital_statuses ALTER COLUMN id SET DEFAULT nextval('renalware.patient_marital_statuses_id_seq'::regclass);
+
+
+--
 -- Name: patient_master_index id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -19828,6 +19868,14 @@ ALTER TABLE ONLY renalware.patient_ethnicities
 
 ALTER TABLE ONLY renalware.patient_languages
     ADD CONSTRAINT patient_languages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_marital_statuses patient_marital_statuses_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patient_marital_statuses
+    ADD CONSTRAINT patient_marital_statuses_pkey PRIMARY KEY (id);
 
 
 --
@@ -24948,6 +24996,13 @@ CREATE UNIQUE INDEX index_patient_languages_on_code ON renalware.patient_languag
 
 
 --
+-- Name: index_patient_marital_statuses_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_marital_statuses_on_code ON renalware.patient_marital_statuses USING btree (code);
+
+
+--
 -- Name: index_patient_master_index_on_family_name_and_given_name; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -25197,6 +25252,13 @@ CREATE UNIQUE INDEX index_patients_on_local_patient_id_4 ON renalware.patients U
 --
 
 CREATE UNIQUE INDEX index_patients_on_local_patient_id_5 ON renalware.patients USING btree (local_patient_id_5);
+
+
+--
+-- Name: index_patients_on_marital_status_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_patients_on_marital_status_id ON renalware.patients USING btree (marital_status_id);
 
 
 --
@@ -28041,6 +28103,14 @@ ALTER TABLE ONLY renalware.clinic_appointments
 
 ALTER TABLE ONLY renalware.pd_peritonitis_episode_types
     ADD CONSTRAINT fk_rails_2f135fd6d9 FOREIGN KEY (peritonitis_episode_id) REFERENCES renalware.pd_peritonitis_episodes(id);
+
+
+--
+-- Name: patients fk_rails_307b979186; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.patients
+    ADD CONSTRAINT fk_rails_307b979186 FOREIGN KEY (marital_status_id) REFERENCES renalware.patient_marital_statuses(id);
 
 
 --
@@ -31074,6 +31144,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware, renalware_demo, public, heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250219142848'),
 ('20250206120337'),
 ('20250127145534'),
 ('20250126113248'),
