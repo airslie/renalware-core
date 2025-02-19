@@ -27,13 +27,8 @@ class CollectionPresenter
 
   delegate :_reflect_on_association, to: :presenter_class
 
-  def to_ary
-    @decorated_collection.to_a
-  end
-
-  def to_a
-    @decorated_collection.to_a
-  end
+  def to_ary  = @decorated_collection.to_a
+  def to_a    = @decorated_collection.to_a # rubocop:disable Rails/Delegate
 
   delegate :size, to: :to_ary
 

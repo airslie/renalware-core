@@ -107,7 +107,7 @@ module Renalware
         SQL
       end
 
-      def effective_date_sort = self.class.effective_date_sort
+      def effective_date_sort = self.class.effective_date_sort # rubocop:disable Rails/Delegate
 
       # A Letter Event is unrelated to Events::Event. Instead it is an un-persisted decorator
       # around the polymorphic event relationship (determined by event_class and event_id);
