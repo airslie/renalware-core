@@ -3,6 +3,7 @@ require_relative "../../../seeds_helper"
 # rubocop:disable Style/WordArray
 module Renalware
   Rails.benchmark "Adding Drug Types" do
+    now = DateTime.now
     drug_types = [
       {
         name: "Antibiotics",
@@ -76,10 +77,7 @@ module Renalware
         code: "Psychiatric Medication",
         atc_codes: ["N05", "N06"]
       }
-    ]
-
-    now = DateTime.now
-    upserts = drug_types.map do |obj|
+    ].map do |obj|
       obj[:colour] ||= nil
       obj[:created_at] = now
       obj[:updated_at] = now

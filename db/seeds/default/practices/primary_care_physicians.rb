@@ -8,7 +8,7 @@ module Renalware
     # "id","practice_code","gp_code","name","practice_id"
 
     CSV.foreach(file_path, headers: true) do |row|
-      practice_id = row["practice_id"].to_i
+      row["practice_id"].to_i
 
       Patients::PrimaryCarePhysician.find_or_create_by!(code: row["gp_code"]) do |doc|
         doc.name = row["name"]
