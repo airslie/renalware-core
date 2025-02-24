@@ -20,23 +20,24 @@ module Renalware
       create_feed_message(patients)
     end
 
-    def user = @user ||= SystemUser.find
-    def sex = %w(M F).sample
-    def dob = Time.zone.today - rand(30000) + 100
-    def nhs_number = nhs_numbers.sample
-    def guid = SecureRandom::uuid
-    def username = "#{Faker::Creature::Animal.name}#{Time.zone.now.to_i}"
-    def message_types = %i(ORU ADT)
-    def adt_event_types = %i(A28 A31 A05)
-    def orc_order_statuses = @orc_order_statuses ||= %w(A A CM)
+    def user        = @user ||= SystemUser.find
+    def sex         = %w(M F).sample
+    def dob         = Time.zone.today - rand(30000) + 100
+    def nhs_number  = nhs_numbers.sample
+    def guid        = SecureRandom.uuid
+    def username    = "#{Faker::Creature::Animal.name}#{Time.zone.now.to_i}"
+    def message_types       = %i(ORU ADT)
+    def adt_event_types     = %i(A28 A31 A05)
+    def orc_order_statuses  = @orc_order_statuses ||= %w(A A CM)
 
     def nhs_numbers
       @nhs_numbers ||= CSV.foreach(
         Engine.root.join("doc/example_nhs_numbers.txt"),
         headers: false
-      ).flat_map { |row| row.first }
+      ).flat_map(&:first)
     end
 
+    # rubocop:disable Metrics/MethodLength
     def create_patients
       patients = (1..patient_count).flat_map do |_idx|
         {
@@ -55,11 +56,12 @@ module Renalware
           secure_id: guid
         }
       end
-      ids = Patient.upsert_all(patients, unique_by: :secure_id)
-      # ids.map { |x| x["id"] }
+      Patient.upsert_all(patients, unique_by: :secure_id)
       patients
     end
+    # rubocop:enable Metrics/MethodLength
 
+    # rubocop:disable Metrics/MethodLength
     def create_feed_message(patients)
       batches = 10
       batch_size = feed_message_count / 10
@@ -87,5 +89,6 @@ module Renalware
         Feeds::Message.upsert_all(msgs, unique_by: :body_hash)
       end
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end

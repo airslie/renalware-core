@@ -27,7 +27,7 @@ module Renalware
         menu_item(*)
       end
 
-      def menu_item(title, path, active_when_controller_matches, enabled = true)
+      def menu_item(title, path, active_when_controller_matches, enabled: true)
         klasses = %w(link)
         klasses << "active" if current_controller_matches(active_when_controller_matches)
         tag.li class: klasses.join(" ") do
