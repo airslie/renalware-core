@@ -452,5 +452,17 @@ module Renalware
         expect(patient.marital_status).to eq("married")
       end
     end
+
+    describe "telecoms fields containing double quotes from HL7" do
+      it "nullifies the field as per HL7 spec" do
+        patient = build(:patient, email: '""', telephone1: '""', telephone2: '""')
+        patient.save!
+        expect(patient.reload).to have_attributes(
+          email: nil,
+          telephone1: nil,
+          telephone2: nil
+        )
+      end
+    end
   end
 end

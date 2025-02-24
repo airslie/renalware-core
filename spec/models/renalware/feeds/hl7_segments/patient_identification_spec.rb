@@ -79,16 +79,16 @@ module Renalware::Feeds
       it { is_expected.to eq("MBE") }
     end
 
-    describe "#address" do
+    describe "#address including HL& escaped characters eg \T\ = &" do
       subject { pi.address }
 
       let(:raw_message) do
-        <<~RAW
-          PID||123456789^^^NHS|Z999990^^^HOSP1||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
+        <<~'RAW'
+          PID||123456789^^^NHS|Z999990^^^HOSP1||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBIT \T\ HOLE ROAD^Gin \T\ Tonic^^^SE8 8JR|||||||||||||||||||
         RAW
       end
 
-      it { is_expected.to eq(["18 RABBITHOLE ROAD", "LONDON", "", "", "SE8 8JR"]) }
+      it { is_expected.to eq(["18 RABBIT & HOLE ROAD", "Gin & Tonic", "", "", "SE8 8JR"]) }
 
       context "when address is nil" do
         let(:raw_message) do

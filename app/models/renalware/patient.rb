@@ -9,12 +9,14 @@ module Renalware
     extend FriendlyId
     include RansackAll
 
+    before_validation :handle_double_quote_attributes_values
     # Before creation generate a UUID to use in urls with friendly_id (i.e. in #to_param)
     # Note if inserting directly into the database (bypassing Rails) this will still work as there
     # is a default new uuid value on the secure_id column
     before_save :upcase_local_patient_ids
     before_save :nullify_unused_patient_ids
     before_create { self.secure_id ||= SecureRandom.uuid }
+
     # before_validation :strip_spaces_from_nhs_number
     friendly_id :secure_id, use: [:finders]
 
@@ -231,6 +233,15 @@ module Renalware
       self.local_patient_id_3 = nil if local_patient_id_3.blank?
       self.local_patient_id_4 = nil if local_patient_id_4.blank?
       self.local_patient_id_5 = nil if local_patient_id_5.blank?
+    end
+
+    # An HL7 value of '""' is used to indicate that whatever is stored in that field should be
+    # explicitly set to null. Here we should really only updated telecom if the value is '""' or
+    # present, but that is a work in progress.
+    def handle_double_quote_attributes_values
+      self.email = nil if email == '""'
+      self.telephone1 = nil if telephone1 == '""'
+      self.telephone2 = nil if telephone2 == '""'
     end
 
     def has_title?
