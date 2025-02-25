@@ -56,7 +56,7 @@ module Renalware::Patients::Ingestion
                 "#{pattrs.local_patient_id_5}^^^HOSP_E" \
                 "||#{pattrs.family_name}^#{pattrs.given_name}^^^MS||20000101|#{pattrs.sex}|||" \
                 "#{aattrs.street_1}^#{aattrs.street_2}^#{aattrs.town}^#{aattrs.county}^" \
-                "#{aattrs.postcode}^other^HOME||tel1^MOBILE~tel2^HOME~testrenal@test.co^EMAIL||"
+                "#{aattrs.postcode}^other^HOME||tel1^MOBILE~tel2^HOME~bad-email-address^EMAIL||"
 
           hl7_message = Renalware::Feeds::HL7Message.new(::HL7::Message.new([msh, pid]))
 
@@ -79,7 +79,7 @@ module Renalware::Patients::Ingestion
 
           # We should have saved all the numbers
           expect(patient).to have_attributes(
-            email: "testrenal@test.co",
+            email: "bad-email-address",
             telephone1: "tel1",
             telephone2: "tel2"
           )
