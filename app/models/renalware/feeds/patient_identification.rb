@@ -92,7 +92,10 @@ module Renalware
       def given_name      = patient_name[1]&.strip
       def suffix          = patient_name[3]&.strip
       def title           = patient_name[4]&.strip
-      def address         = (super || "").split("^")
+      # The address may contain the & character, escaped as \T\ in HL7 as & is a reserved character,
+      # so replace these with an ampersand. In theory this could apply to \ escaped as \E\ but its
+      # an unusual character so we don't bother with that.
+      def address = (super || "").gsub("\\T\\", "&").split("^")
 
       # We don't use the HL7::Message#sex_admin method (from the ruby hl7 gem) because it
       # raises an error during reading if the sex value in the PID is not in (F|M|O|U|A|N|C).
