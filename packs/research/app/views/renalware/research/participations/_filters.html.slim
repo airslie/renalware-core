@@ -2,19 +2,29 @@
   = simple_form_for query,
       as: :q,
       url: research.study_participations_path(study),
-      method: :get do |f|
-    .row
-      .columns.small-12.medium-4
+      method: :get,
+      data: { turbo_frame: "participants-turbo-frame",
+              turbo: true,
+              turbo_advance: true,
+              controller: "form",
+              action: "input->form#submit" } do |f|
+    .flex.flex-row.gap-2
+      div
         = f.input :identity_match, label: "Search by Hosp/NHS no or name"
-      .columns.small-12.medium-3
+      .basis-1/4
         = f.input :patient_hospital_centre_id_eq,
                   collection: Renalware::Hospitals::Centre.ordered.pluck(:name, :id),
                   label: "At site",
-                  input_html: { class: "searchable_select" }
-      .columns.small-12.medium-2
-        br
-        = f.check_box :patient_worry_id_not_null, {}, 1, nil
+                  input_html: { data: { controller: "slimselect", action: "change->form#submit" } }
+      div
         = f.label :patient_worry_id_not_null, "On Worryboard"
+        .text-center.pt-3
+          = f.check_box :patient_worry_id_not_null, {}, 1, nil
 
-      .columns.small-12.medium-2.actions.end
-        = filter_or_reset(form: f, reset_path: research.study_participations_path(study))
+      div.w-1/4.pt-6
+        = link_to(research.study_participations_path(study), class: "btn btn-secondary text-gray-500 pl-2 font-normal leading-5 border-none shadow-none", target: "_top") do
+          .flex.items-center
+            .mr-1= inline_icon(:cross, size: :md)
+            | Reset
+        noscript
+          .pt-1= filter_or_reset(form: f, reset_path: research.study_participations_path(study))

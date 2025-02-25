@@ -2,11 +2,21 @@
   = simple_form_for query,
       as: :q,
       url: research.studies_path,
-      method: :get do |f|
-    .row
-      .columns.medium-5
+      method: :get,
+      data: { turbo_frame: "studies-turbo-frame",
+              turbo: true,
+              turbo_advance: true,
+              controller: "form",
+              action: "input->form#submit" } do |f|
+    .flex.flex-row.gap-2
+      div
         = f.input :code_or_description_or_leader_cont,
                   label: "Search by any part of the code, description or leader's name"
 
-      .columns.medium-4.actions.end
-        .mt-px= filter_or_reset(form: f, reset_path: research.studies_path)
+      div.w-1/4.pt-6
+        = link_to(research.studies_path, class: "btn btn-secondary text-gray-500 pl-2 font-normal leading-5 border-none shadow-none", target: "_top") do
+          .flex.items-center
+            .mr-1= inline_icon(:cross, size: :md)
+            | Reset
+        noscript
+          .pt-1= filter_or_reset(form: f, reset_path: research.studies_path)
