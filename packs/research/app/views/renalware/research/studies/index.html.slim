@@ -7,29 +7,31 @@
 
 = within_admin_layout(title: "Clinical Studies") do
   = turbo_frame_tag "studies-turbo-frame" do
-    table
-      thead
-        tr
-          th
-          th.col-width-small= sort_link([:research, query], :code, "Code")
-          th= t("thead.description")
-          th.col-width-tiny Private
-          th= sort_link([:research, query], :code, "Leader")
-          th Participants
-          th.col-width-date= sort_link([:research, query], :started_on, "Started")
-          th.col-width-date= sort_link([:research, query], :terminated_on, "Terminated")
+    = render Renalware::SpinnerComponent.new do |spinner|
+      = spinner.with_main_content do
+        table
+          thead
+            tr
+              th
+              th.col-width-small= sort_link([:research, query], :code, "Code")
+              th= t("thead.description")
+              th.col-width-tiny Private
+              th= sort_link([:research, query], :code, "Leader")
+              th Participants
+              th.col-width-date= sort_link([:research, query], :started_on, "Started")
+              th.col-width-date= sort_link([:research, query], :terminated_on, "Terminated")
 
-      tbody
-        - studies.each do |study|
-          tr
-            td.actions
-              = link_to t("btn.view"), research.study_path(study)
-            td= study.code
-            td= study.description.truncate(60)
-            td= yes_no(study.private)
-            td= study.leader
-            td= study.participations.count
-            td= l(study.started_on)
-            td= l(study.terminated_on)
+          tbody
+            - studies.each do |study|
+              tr
+                td.actions
+                  = link_to t("btn.view"), research.study_path(study)
+                td= study.code
+                td= study.description.truncate(60)
+                td= yes_no(study.private)
+                td= study.leader
+                td= study.participations.count
+                td= l(study.started_on)
+                td= l(study.terminated_on)
 
-    == pagy_nav(pagy) if pagy.pages > 1
+        == pagy_nav(pagy) if pagy.pages > 1

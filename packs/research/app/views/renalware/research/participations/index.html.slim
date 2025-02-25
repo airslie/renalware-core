@@ -15,4 +15,6 @@
   breadcrumbs: breadcrumb_for("Clinical Studies", research.studies_path)) do
 
   = turbo_frame_tag "participants-turbo-frame" do
-    = render "table", study: study, participations: participations, query: query, pagy: pagy
+    = render Renalware::SpinnerComponent.new do |spinner|
+      = spinner.with_main_content do
+        = render "table", study: study, participations: participations, query: query, pagy: pagy
