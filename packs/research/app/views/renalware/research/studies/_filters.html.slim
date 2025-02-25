@@ -3,11 +3,11 @@
       as: :q,
       url: research.studies_path,
       method: :get,
-        data: { turbo_frame: "studies-turbo-frame",
-                turbo: true,
-                turbo_advance: true,
-                controller: "form",
-                action: "input->form#submit" } do |f|
+      data: { turbo_frame: "studies-turbo-frame",
+              turbo: true,
+              turbo_advance: true,
+              controller: "form",
+              action: "input->form#submit" } do |f|
     .flex.flex-row.gap-2
       div
         = f.input :code_or_description_or_leader_cont,
