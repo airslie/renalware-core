@@ -1,4 +1,4 @@
-class CreateAddressVersions < ActiveRecord::Migration[8.0]
+class CreateAddressVersions < ActiveRecord::Migration[7.0]
   def change
     within_renalware_schema do
       create_table :address_versions do |t|
