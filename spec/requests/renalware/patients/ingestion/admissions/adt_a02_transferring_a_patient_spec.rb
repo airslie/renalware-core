@@ -83,8 +83,8 @@ describe "HL7 ADT^A02 message handling: 'Patient Transfer'" do
 
     # it created the unit JIT
     expect(award.hospital_unit).to have_attributes(
-      unit_code: "facility",
-      name: "facility",
+      unit_code: facility,
+      name: facility,
       renal_registry_code: "?",
       unit_type: "hospital"
     )

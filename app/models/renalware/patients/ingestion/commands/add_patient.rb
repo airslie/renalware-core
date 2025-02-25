@@ -29,7 +29,7 @@ module Renalware
             patient = mapper_factory.new(message, patient).fetch
             patient.by = SystemUser.find
             new_record = patient.new_record?
-            patient.save!
+            patient.save!(validate: false)
 
             BroadcastPatientAddedEvent.call(patient, @reason) if new_record
 
