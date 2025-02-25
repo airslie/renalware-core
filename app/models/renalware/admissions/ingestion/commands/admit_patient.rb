@@ -14,13 +14,26 @@ module Renalware
                    :visit_number,
                    :discharged_at,
                    :attending_doctor,
+                   :hospital_service,
                    to: :pv1
 
           def call
-            return if patient.blank?
+            if patient_exists_in_renalware?
+              create_or_update_admission
+            elsif renal_related_admission?
+              @patient = create_patient
+              create_new_admission
+            end
+          end
 
+          private
+
+          def create_patient(reason = "Renal admission")
+            Patients::Ingestion::Commands::AddPatient.call(message, reason)
+          end
+
+          def create_or_update_admission
             existing_admission = find_admission_with_matching_visit_number
-
             if existing_admission.present?
               # A02 transfer or A03 discharge or A08 update
               update(existing_admission)
@@ -29,7 +42,9 @@ module Renalware
             end
           end
 
-          private
+          def renal_related_admission?      = hospital_service == "RENAL"
+          def patient_exists_in_renalware?  = patient.present?
+          def patient_not_in_renalware?     = patient.blank?
 
           def find_admission_with_matching_visit_number
             Admission
@@ -118,12 +133,6 @@ module Renalware
               patient_identification: patient_identification
             )
           end
-
-          # def update_patient_demographics(patient)
-          #   patient = Patients::Ingestion::MessageMappers::Patient.new(message, patient).fetch
-          #   patient.by = SystemUser.find
-          #   patient.save!
-          # end
         end
       end
     end
