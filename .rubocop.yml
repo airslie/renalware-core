@@ -55,6 +55,9 @@ Style/SafeNavigationChainLength:
 Rails/EnumHash:
   Enabled: true
 
+Lint/LiteralAsCondition:
+  Enabled: false
+
 Rails/EnumSyntax:
   Enabled: true
 

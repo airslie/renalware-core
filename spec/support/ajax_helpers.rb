@@ -6,11 +6,7 @@ module AjaxHelpers
   end
 
   def finished_all_ajax_requests?
-    if page.driver.is_a? Capybara::RackTest::Driver
-      true
-    else
-      page.evaluate_script("jQuery.active").zero?
-    end
+    page.driver.is_a?(Capybara::RackTest::Driver) || page.evaluate_script("jQuery.active").zero?
   end
 
   def wait_for_turbo_frame(selector = "turbo-frame", timeout = nil)
