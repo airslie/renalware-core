@@ -98,7 +98,6 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form", "~> 5.1"
   s.add_dependency "sinatra"
   s.add_dependency "slim-rails"
-  s.add_dependency "sprockets-rails"
   s.add_dependency "store_model", "< 5"
   s.add_dependency "tailwindcss-rails", "~> 3.0"
   s.add_dependency "tailwindcss-ruby"
