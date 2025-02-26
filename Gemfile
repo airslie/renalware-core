@@ -6,6 +6,7 @@ ruby "3.4.1"
 gemspec
 
 gem "activesupport_cache_database", github: "airslie/activesupport-cache-database"
+gem "sprockets-rails"
 
 # https://opentelemetry.io/docs/instrumentation/ruby/getting-started/
 # See demo/config/initializers/opentelemetry.rb where we load this group if

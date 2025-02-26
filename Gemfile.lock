@@ -147,7 +147,6 @@ PATH
       simple_form (~> 5.1)
       sinatra
       slim-rails
-      sprockets-rails
       store_model (< 5)
       tailwindcss-rails (~> 3.0)
       tailwindcss-ruby
@@ -1086,6 +1085,7 @@ DEPENDENCIES
   simplecov (~> 0.17)
   solargraph
   solid_cache
+  sprockets-rails
   stackprof
   strong_migrations
   tailwindcss-rails (~> 3.0)
