@@ -15,10 +15,12 @@ tr
         policy(participation).destroy?,
         "Delete",
         research.study_participation_path(participation.study, participation),
+        target: "_top",
         method: :delete,
         data: { confirm: "Are you sure?" }
     = link_to_if_allowed \
       policy(participation).edit?,
       "Edit",
       research.edit_study_participation_path(participation.study, participation),
+      target: "_top",
       data: { "reveal-id" => "study-participation-modal", "reveal-ajax" => "true" }

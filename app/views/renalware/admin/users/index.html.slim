@@ -33,7 +33,7 @@
           tbody
             - users.each do |user|
               tr.user(id=dom_id(user))
-                td= link_to t("btn.edit"), edit_admin_user_path(user) if policy(user).update?
+                td= link_to(t("btn.edit"), edit_admin_user_path(user), target: "_top") if policy(user).update?
                 td= user.id
                 td= user.to_s
                 td= user.username
