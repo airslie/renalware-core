@@ -45,6 +45,7 @@ describe "Managing a list of HD Slot Requests" do
       end
       select2(patient.to_s(:long), css: "#person-id-select2", search: true)
       select "urgent", from: "Urgency"
+      select "Yes", from: "Requires BBV Slot (hep B+)"
 
       select location.name, from: "Location"
       select access_state.name, from: "Current Access"
@@ -100,6 +101,7 @@ describe "Managing a list of HD Slot Requests" do
         select "urgent", from: "Urgency"
         select location.name, from: "Location"
         select access_state.name, from: "Current Access"
+        select "No", from: "Requires BBV Slot (hep B+)"
         check "Late presenter"
         check "Suitable for twilight slots"
         check "External referral"

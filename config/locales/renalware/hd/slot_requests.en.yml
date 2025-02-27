@@ -11,12 +11,20 @@ en:
         edit:
           page-title: Edit HD Slot Request
   activerecord:
+    errors:
+      models:
+        renalware/hd/slot_request:
+          attributes:
+            requires_bbv_slot:
+              inclusion: "must be selected"
     attributes:
       renalware/hd/slot_request:
         urgencies:
           urgent: "Urgent"
           highly_urgent: "Highly urgent"
           routine: "Routine"
+        requires_bbv_slot: "Requires BBV Slot (hep B+)"
+        access_state: "Current Access"
         medically_fit_for_discharge: "MFFD"
         medically_fit_for_discharge_by: "MFFD checked by"
         medically_fit_for_discharge_at: "MFFD checked at"

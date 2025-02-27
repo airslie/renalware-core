@@ -42,6 +42,7 @@ module Renalware
       validates :notes, presence: true
       validates :location, presence: true
       validates :access_state, presence: true
+      validates :requires_bbv_slot, inclusion: [true, false]
 
       scope :ordered, -> { order(created_at: :desc) }
     end
