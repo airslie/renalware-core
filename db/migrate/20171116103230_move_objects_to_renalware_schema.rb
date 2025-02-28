@@ -19,7 +19,7 @@ class MoveObjectsToRenalwareSchema < ActiveRecord::Migration[5.1]
   FUNCTIONS = [
     "refresh_all_matierialized_views(text, boolean)",
     "audit_view_as_json(text)"
-  ]
+  ].freeze
 
   def db_objects_of_type(type:, in_schema:)
     results = execute "SELECT table_name FROM information_schema.tables " \

@@ -1,6 +1,6 @@
 module Renalware
   # Set the current DB connection
-  connection = ActiveRecord::Base.connection()
+  connection = ActiveRecord::Base.connection
 
   # transplant_recipient_operations
   # transplant_recipient_workups

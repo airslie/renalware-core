@@ -4,34 +4,34 @@ module Renalware
     # https://guides.rubyonrails.org/layouts_and_rendering.html#partial-layouts
     # If you don't want the title argument to be used in the browser bar, pass in
     # page_title: in opts also.
-    def within_admin_layout(title: nil, **opts)
+    def within_admin_layout(title: nil, **opts, &)
       within_layout(layout: "renalware/layouts/non_patient",
                     title: opts.fetch(:page_title, title),
-                    **opts) { yield }
+                    **opts, &)
     end
 
-    def within_patient_layout(args = {}, **)
+    def within_patient_layout(args = {}, **, &)
       within_layout(layout: "renalware/layouts/patient",
                     title: args[:title],
-                    **) { yield }
+                    **, &)
     end
 
-    def within_non_patient_layout
+    def within_non_patient_layout(&)
       within_layout(layout: "renalware/layouts/non_patient",
                     title: opts.fetch(:page_title, title),
-                    **opts) { yield }
+                    **opts, &)
     end
 
-    def within_new_admin_layout(title: nil, **opts)
+    def within_new_admin_layout(title: nil, **opts, &)
       within_layout(layout: "renalware/layouts/admin",
                     title: opts.fetch(:page_title, title),
-                    **opts) { yield }
+                    **opts, &)
     end
 
-    def within_layout(layout:, title: nil, **opts)
+    def within_layout(layout:, title: nil, **opts, &)
       title ||= t?(".page_title") ? t(".page_title") : t(".title", cascade: false)
       opts[:title] = title
-      render(layout: layout, locals: opts) { yield }
+      render(layout: layout, locals: opts, &)
     end
 
     def generate_page_title(local_assigns:,

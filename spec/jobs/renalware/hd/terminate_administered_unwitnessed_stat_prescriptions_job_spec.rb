@@ -11,14 +11,7 @@ module Renalware
       describe "#perform" do
         def prescription_administration(witnessed:, administered:, stat:)
           prescription = create(:prescription, administer_on_hd: true, stat: stat)
-          pa = PrescriptionAdministration.new(
-            prescription: prescription,
-            administered: administered,
-            administered_by: user1,
-            administered_by_password: pwd,
-            recorded_on: Time.zone.now,
-            by: user1
-          )
+          pa = new_prescription_administration(prescription, administered, user1, pwd)
           if witnessed
             pa.witnessed_by = user2
             pa.witnessed_by_password = pwd
@@ -29,6 +22,17 @@ module Renalware
 
           expect(prescription.reload.termination.present?).to eq(witnessed)
           pa
+        end
+
+        def new_prescription_administration(prescription, administered, administered_by, pwd)
+          PrescriptionAdministration.new(
+            prescription: prescription,
+            administered: administered,
+            administered_by: administered_by,
+            administered_by_password: pwd,
+            recorded_on: Time.zone.now,
+            by: administered_by
+          )
         end
 
         it "terminates administered HD stat prescriptions that are sitting around unwitnessed" do
