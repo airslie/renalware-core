@@ -59,7 +59,8 @@ module Renalware
         CSV.foreach(file_path, headers: true).map do |row|
           Repositories::VirtualTherapeuticMoietyRepository::Entry.new(
             name: row["name"],
-            code: row["code"]
+            code: row["code"],
+            inactive: false
           )
         end
       }

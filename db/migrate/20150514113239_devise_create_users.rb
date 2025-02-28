@@ -45,7 +45,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[4.2]
       t.string :professional_position
 
       ## Non-devise - sign up approval
-      t.boolean :approved, default: false
+      t.boolean :approved, default: false, null: false
 
       t.timestamps
     end

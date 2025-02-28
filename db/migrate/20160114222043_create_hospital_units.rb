@@ -6,7 +6,7 @@ class CreateHospitalUnits < ActiveRecord::Migration[4.2]
       t.string :unit_code, null: false
       t.string :renal_registry_code, null: false
       t.string :unit_type, null: false
-      t.boolean :is_hd_site, default: false
+      t.boolean :is_hd_site, default: false, null: false
 
       t.timestamps null: false
     end

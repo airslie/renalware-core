@@ -6,7 +6,7 @@ class CreatePatients < ActiveRecord::Migration[4.2]
       t.string :family_name,      null: false
       t.string :given_name,       null: false
       t.date :born_on,            null: false
-      t.boolean :paediatric_patient_indicator
+      t.boolean :paediatric_patient_indicator, default: false, null: false
       t.string :sex
       t.references :ethnicity
       t.string :gp_practice_code
@@ -17,7 +17,7 @@ class CreatePatients < ActiveRecord::Migration[4.2]
       t.integer :first_cause_id
       t.integer :second_cause_id
       t.text :death_notes
-      t.boolean :cc_on_all_letters, default: true
+      t.boolean :cc_on_all_letters, default: true, null: false
       t.date :cc_decision_on
       t.timestamps null: false
     end
