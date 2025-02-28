@@ -238,6 +238,7 @@ module Renalware
               ["2017-04-01",  nil,          :hdf_pre, units.last]   # unit changes NB deactivated_at = nil as current profile
             ]
 
+            # rubocop:disable Style/RedundantCondition
             profiles_definitions.each do |defn|
               create_profile(
                 start_date: defn[0], # created_at
@@ -249,6 +250,7 @@ module Renalware
                 prescribed_time: 210
               )
             end
+            # rubocop:enable Style/RedundantCondition
 
             expect {
               modalities.each do |modality|
