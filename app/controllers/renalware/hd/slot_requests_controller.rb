@@ -18,7 +18,7 @@ module Renalware
       end
 
       def new
-        slot_request = SlotRequest.new
+        slot_request = SlotRequest.new(requires_bbv_slot: nil)
         authorize slot_request
         patient = params.key?(:patient) && Patient.find_by(secure_id: params[:patient])
         slot_request.patient = patient
@@ -190,7 +190,7 @@ module Renalware
         params
           .require(:hd_slot_request)
           .permit(:patient_id, :urgency, :notes, :allocated, :allocated_at, :location_id,
-                  :access_state_id, :deletion_reason_id, :deleted_at,
+                  :access_state_id, :deletion_reason_id, :deleted_at, :requires_bbv_slot,
                   :inpatient, :suitable_for_twilight_slots, :late_presenter, :external_referral,
                   :medically_fit_for_discharge)
       end

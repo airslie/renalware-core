@@ -24,6 +24,7 @@
           th= sort_link(query, :patient_current_modality_description_name, "Modality")
           th.col-width-small= sort_link(query, :location_id, "Location")
           th.col-width-medium= sort_link(query, :access_state_id, "Access")
+          th.col-width-tiny= sort_link(query, :requires_bbv_slot, "BBV Slot")
           th.col-width-tiny= sort_link(query, :medically_fit_for_discharge, "MFFD?")
           th.col-width-tiny= sort_link(query, :late_presenter, "Late Presenter?")
           th.col-width-tiny= sort_link(query, :suitable_for_twilight_slots, "Twilight slots?")
@@ -83,6 +84,7 @@
               td.nowrap= slot_request.patient.current_modality
               td= slot_request.location&.name
               td= slot_request.access_state&.name
+              td= inline_check_icon(slot_request.requires_bbv_slot)
               td= inline_check_icon(slot_request.medically_fit_for_discharge)
               td= inline_check_icon(slot_request.late_presenter)
               td= inline_check_icon(slot_request.suitable_for_twilight_slots)

@@ -27,10 +27,20 @@
                         }
 
 
-          = f.input :urgency, collection: urgency_dropdown_options, error: false
+          .flex.gap-2
+            .basis-1/3
+              = f.input :urgency, collection: urgency_dropdown_options, error: false
+            .basis-2/3
+              = f.association :location, error: false
 
-          = f.association :location, error: false
-          = f.association :access_state, label: "Current Access", error: false
+          .flex.gap-2
+            .basis-1/2
+              = f.association :access_state, label: "Current Access", error: false
+            .basis-1/2
+              = f.input :requires_bbv_slot,
+                        collection: [["No", false], ["Yes", true]],
+                        label: "Requires BBV Slot (hep B+)",
+                        error: false
 
           div.block
             div.mt-1
@@ -64,7 +74,7 @@
                   = f.check_box :external_referral
                   span.ml-2 External referral
 
-          = f.input :notes, as: :text, input_html: { rows: 3 }
+          = f.input :notes, as: :text, input_html: { rows: 3 }, error: false
 
   .mt-5
     div.form-actions
