@@ -33,7 +33,11 @@ module Renalware
           context "when the patients is 1yr old tomorrow" do
             let(:born_on) { today - 1.year + 1.day }
 
-            it { is_expected.to eq(0) }
+            it do
+              # Using travel_to to here as this test fails on 28 Feb 2025 because last year was
+              # a leap year...
+              travel_to("28-02-2024") { is_expected.to eq(0) }
+            end
           end
 
           context "when the patients date of birth is 100 years ago yesterday" do

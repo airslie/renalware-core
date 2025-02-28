@@ -15173,6 +15173,54 @@ function requireSlimselect () {
 		(function (global, factory) {
 		    module.exports = factory() ;
 		})(slimselect, (function () {
+		    class CssClasses {
+		        constructor(classes) {
+		            if (!classes) {
+		                classes = {};
+		            }
+		            this.main = classes.main || 'ss-main';
+		            this.placeholder = classes.placeholder || 'ss-placeholder';
+		            this.values = classes.values || 'ss-values';
+		            this.single = classes.single || 'ss-single';
+		            this.max = classes.max || 'ss-max';
+		            this.value = classes.value || 'ss-value';
+		            this.valueText = classes.valueText || 'ss-value-text';
+		            this.valueDelete = classes.valueDelete || 'ss-value-delete';
+		            this.valueOut = classes.valueOut || 'ss-value-out';
+		            this.deselect = classes.deselect || 'ss-deselect';
+		            this.deselectPath = classes.deselectPath || 'M10,10 L90,90 M10,90 L90,10';
+		            this.arrow = classes.arrow || 'ss-arrow';
+		            this.arrowClose = classes.arrowClose || 'M10,30 L50,70 L90,30';
+		            this.arrowOpen = classes.arrowOpen || 'M10,70 L50,30 L90,70';
+		            this.content = classes.content || 'ss-content';
+		            this.openAbove = classes.openAbove || 'ss-open-above';
+		            this.openBelow = classes.openBelow || 'ss-open-below';
+		            this.search = classes.search || 'ss-search';
+		            this.searchHighlighter = classes.searchHighlighter || 'ss-search-highlight';
+		            this.searching = classes.searching || 'ss-searching';
+		            this.addable = classes.addable || 'ss-addable';
+		            this.addablePath = classes.addablePath || 'M50,10 L50,90 M10,50 L90,50';
+		            this.list = classes.list || 'ss-list';
+		            this.optgroup = classes.optgroup || 'ss-optgroup';
+		            this.optgroupLabel = classes.optgroupLabel || 'ss-optgroup-label';
+		            this.optgroupLabelText = classes.optgroupLabelText || 'ss-optgroup-label-text';
+		            this.optgroupActions = classes.optgroupActions || 'ss-optgroup-actions';
+		            this.optgroupSelectAll = classes.optgroupSelectAll || 'ss-selectall';
+		            this.optgroupSelectAllBox = classes.optgroupSelectAllBox || 'M60,10 L10,10 L10,90 L90,90 L90,50';
+		            this.optgroupSelectAllCheck = classes.optgroupSelectAllCheck || 'M30,45 L50,70 L90,10';
+		            this.optgroupClosable = classes.optgroupClosable || 'ss-closable';
+		            this.option = classes.option || 'ss-option';
+		            this.optionDelete = classes.optionDelete || 'M10,10 L90,90 M10,90 L90,10';
+		            this.highlighted = classes.highlighted || 'ss-highlighted';
+		            this.open = classes.open || 'ss-open';
+		            this.close = classes.close || 'ss-close';
+		            this.selected = classes.selected || 'ss-selected';
+		            this.error = classes.error || 'ss-error';
+		            this.disabled = classes.disabled || 'ss-disabled';
+		            this.hide = classes.hide || 'ss-hide';
+		        }
+		    }
+
 		    function generateID() {
 		        return Math.random().toString(36).substring(2, 10);
 		    }
@@ -15260,6 +15308,7 @@ function requireSlimselect () {
 		        constructor(type, data) {
 		            this.selectType = 'single';
 		            this.data = [];
+		            this.selectedOrder = [];
 		            this.selectType = type;
 		            this.setData(data);
 		        }
@@ -15274,12 +15323,18 @@ function requireSlimselect () {
 		                    }
 		                    if ('options' in dataObj && dataObj.options) {
 		                        for (let option of dataObj.options) {
-		                            return this.validateOption(option);
+		                            const validationError = this.validateOption(option);
+		                            if (validationError) {
+		                                return validationError;
+		                            }
 		                        }
 		                    }
 		                }
 		                else if (dataObj instanceof Option || 'text' in dataObj) {
-		                    return this.validateOption(dataObj);
+		                    const validationError = this.validateOption(dataObj);
+		                    if (validationError) {
+		                        return validationError;
+		                    }
 		                }
 		                else {
 		                    return new Error('Data object must be a valid optgroup or option');
@@ -15316,7 +15371,7 @@ function requireSlimselect () {
 		        setData(data) {
 		            this.data = this.partialToFullData(data);
 		            if (this.selectType === 'single') {
-		                this.setSelectedBy('value', this.getSelected());
+		                this.setSelectedBy('id', this.getSelected());
 		            }
 		        }
 		        getData() {
@@ -15325,12 +15380,19 @@ function requireSlimselect () {
 		        getDataOptions() {
 		            return this.filter(null, false);
 		        }
-		        addOption(option) {
-		            this.setData(this.getData().concat(new Option(option)));
+		        addOption(option, addToStart = false) {
+		            if (addToStart) {
+		                let data = [new Option(option)];
+		                this.setData(data.concat(this.getData()));
+		            }
+		            else {
+		                this.setData(this.getData().concat(new Option(option)));
+		            }
 		        }
 		        setSelectedBy(selectedType, selectedValues) {
 		            let firstOption = null;
 		            let hasSelected = false;
+		            const selectedObjects = [];
 		            for (let dataObj of this.data) {
 		                if (dataObj instanceof Optgroup) {
 		                    for (let option of dataObj.options) {
@@ -15338,8 +15400,11 @@ function requireSlimselect () {
 		                            firstOption = option;
 		                        }
 		                        option.selected = hasSelected ? false : selectedValues.includes(option[selectedType]);
-		                        if (option.selected && this.selectType === 'single') {
-		                            hasSelected = true;
+		                        if (option.selected) {
+		                            selectedObjects.push(option);
+		                            if (this.selectType === 'single') {
+		                                hasSelected = true;
+		                            }
 		                        }
 		                    }
 		                }
@@ -15348,35 +15413,34 @@ function requireSlimselect () {
 		                        firstOption = dataObj;
 		                    }
 		                    dataObj.selected = hasSelected ? false : selectedValues.includes(dataObj[selectedType]);
-		                    if (dataObj.selected && this.selectType === 'single') {
-		                        hasSelected = true;
+		                    if (dataObj.selected) {
+		                        selectedObjects.push(dataObj);
+		                        if (this.selectType === 'single') {
+		                            hasSelected = true;
+		                        }
 		                    }
 		                }
 		            }
 		            if (this.selectType === 'single' && firstOption && !hasSelected) {
 		                firstOption.selected = true;
+		                selectedObjects.push(firstOption);
 		            }
+		            const selectedIds = selectedValues.map((value) => {
+		                var _a;
+		                return ((_a = selectedObjects.find((option) => option[selectedType] === value)) === null || _a === void 0 ? void 0 : _a.id) || '';
+		            });
+		            this.selectedOrder = selectedIds;
 		        }
 		        getSelected() {
-		            let selectedOptions = this.getSelectedOptions();
-		            let selectedValues = [];
-		            selectedOptions.forEach((option) => {
-		                selectedValues.push(option.value);
-		            });
-		            return selectedValues;
+		            return this.getSelectedOptions().map((option) => option.id);
+		        }
+		        getSelectedValues() {
+		            return this.getSelectedOptions().map((option) => option.value);
 		        }
 		        getSelectedOptions() {
 		            return this.filter((opt) => {
 		                return opt.selected;
 		            }, false);
-		        }
-		        getSelectedIDs() {
-		            let selectedOptions = this.getSelectedOptions();
-		            let selectedIDs = [];
-		            selectedOptions.forEach((op) => {
-		                selectedIDs.push(op.id);
-		            });
-		            return selectedIDs;
 		        }
 		        getOptgroupByID(id) {
 		            for (let dataObj of this.data) {
@@ -15448,60 +15512,43 @@ function requireSlimselect () {
 		            });
 		            return dataSearch;
 		        }
+		        selectedOrderOptions(options) {
+		            const newOrder = [];
+		            this.selectedOrder.forEach((id) => {
+		                const option = options.find((opt) => opt.id === id);
+		                if (option) {
+		                    newOrder.push(option);
+		                }
+		            });
+		            options.forEach((option) => {
+		                let isIn = false;
+		                newOrder.forEach((selectedOption) => {
+		                    if (option.id === selectedOption.id) {
+		                        isIn = true;
+		                        return;
+		                    }
+		                });
+		                if (!isIn) {
+		                    newOrder.push(option);
+		                }
+		            });
+		            return newOrder;
+		        }
 		    }
 
 		    class Render {
-		        constructor(settings, store, callbacks) {
-		            this.classes = {
-		                main: 'ss-main',
-		                placeholder: 'ss-placeholder',
-		                values: 'ss-values',
-		                single: 'ss-single',
-		                max: 'ss-max',
-		                value: 'ss-value',
-		                valueText: 'ss-value-text',
-		                valueDelete: 'ss-value-delete',
-		                valueOut: 'ss-value-out',
-		                deselect: 'ss-deselect',
-		                deselectPath: 'M10,10 L90,90 M10,90 L90,10',
-		                arrow: 'ss-arrow',
-		                arrowClose: 'M10,30 L50,70 L90,30',
-		                arrowOpen: 'M10,70 L50,30 L90,70',
-		                content: 'ss-content',
-		                openAbove: 'ss-open-above',
-		                openBelow: 'ss-open-below',
-		                search: 'ss-search',
-		                searchHighlighter: 'ss-search-highlight',
-		                searching: 'ss-searching',
-		                addable: 'ss-addable',
-		                addablePath: 'M50,10 L50,90 M10,50 L90,50',
-		                list: 'ss-list',
-		                optgroup: 'ss-optgroup',
-		                optgroupLabel: 'ss-optgroup-label',
-		                optgroupLabelText: 'ss-optgroup-label-text',
-		                optgroupActions: 'ss-optgroup-actions',
-		                optgroupSelectAll: 'ss-selectall',
-		                optgroupSelectAllBox: 'M60,10 L10,10 L10,90 L90,90 L90,50',
-		                optgroupSelectAllCheck: 'M30,45 L50,70 L90,10',
-		                optgroupClosable: 'ss-closable',
-		                option: 'ss-option',
-		                optionDelete: 'M10,10 L90,90 M10,90 L90,10',
-		                highlighted: 'ss-highlighted',
-		                open: 'ss-open',
-		                close: 'ss-close',
-		                selected: 'ss-selected',
-		                error: 'ss-error',
-		                disabled: 'ss-disabled',
-		                hide: 'ss-hide',
-		            };
+		        constructor(settings, classes, store, callbacks) {
 		            this.store = store;
 		            this.settings = settings;
+		            this.classes = classes;
 		            this.callbacks = callbacks;
 		            this.main = this.mainDiv();
 		            this.content = this.contentDiv();
 		            this.updateClassStyles();
 		            this.updateAriaAttributes();
-		            this.settings.contentLocation.appendChild(this.content.main);
+		            if (this.settings.contentLocation) {
+		                this.settings.contentLocation.appendChild(this.content.main);
+		            }
 		        }
 		        enable() {
 		            this.main.main.classList.remove(this.classes.disabled);
@@ -15552,7 +15599,7 @@ function requireSlimselect () {
 		                    }
 		                }
 		            }
-		            if (this.settings.contentPosition === 'relative') {
+		            if (this.settings.contentPosition === 'relative' || this.settings.contentPosition === 'fixed') {
 		                this.content.main.classList.add('ss-' + this.settings.contentPosition);
 		            }
 		        }
@@ -15591,7 +15638,10 @@ function requireSlimselect () {
 		                        this.callbacks.close();
 		                        return false;
 		                }
-		                return false;
+		                if (e.key.length === 1) {
+		                    this.callbacks.open();
+		                }
+		                return true;
 		            };
 		            main.onclick = (e) => {
 		                if (this.settings.disabled) {
@@ -15629,8 +15679,8 @@ function requireSlimselect () {
 		                    }
 		                    else {
 		                        const firstOption = this.store.getFirstOption();
-		                        const value = firstOption ? firstOption.value : '';
-		                        this.callbacks.setSelected(value, false);
+		                        const id = firstOption ? firstOption.id : '';
+		                        this.callbacks.setSelected(id, false);
 		                    }
 		                    if (this.settings.closeOnSelect) {
 		                        this.callbacks.close();
@@ -15663,12 +15713,12 @@ function requireSlimselect () {
 		                deselect: {
 		                    main: deselect,
 		                    svg: deselectSvg,
-		                    path: deselectPath,
+		                    path: deselectPath
 		                },
 		                arrow: {
 		                    main: arrow,
-		                    path: arrowPath,
-		                },
+		                    path: arrowPath
+		                }
 		            };
 		        }
 		        mainFocus(eventType) {
@@ -15754,6 +15804,9 @@ function requireSlimselect () {
 		                    maxValuesMessage.remove();
 		                }
 		            }
+		            if (this.settings.keepOrder) {
+		                selectedOptions = this.store.selectedOrderOptions(selectedOptions);
+		            }
 		            let removeNodes = [];
 		            for (let i = 0; i < currentNodes.length; i++) {
 		                const node = currentNodes[i];
@@ -15807,7 +15860,7 @@ function requireSlimselect () {
 		            value.dataset.id = option.id;
 		            const text = document.createElement('div');
 		            text.classList.add(this.classes.valueText);
-		            text.innerText = option.text;
+		            text.textContent = option.text;
 		            value.appendChild(text);
 		            if (!option.mandatory) {
 		                const deleteDiv = document.createElement('div');
@@ -15830,18 +15883,18 @@ function requireSlimselect () {
 		                        shouldDelete = this.callbacks.beforeChange(after, before) === true;
 		                    }
 		                    if (shouldDelete) {
-		                        let selectedValues = [];
+		                        let selectedIds = [];
 		                        for (const o of after) {
 		                            if (o instanceof Optgroup) {
 		                                for (const c of o.options) {
-		                                    selectedValues.push(c.value);
+		                                    selectedIds.push(c.id);
 		                                }
 		                            }
 		                            if (o instanceof Option) {
-		                                selectedValues.push(o.value);
+		                                selectedIds.push(o.id);
 		                            }
 		                        }
-		                        this.callbacks.setSelected(selectedValues, false);
+		                        this.callbacks.setSelected(selectedIds, false);
 		                        if (this.settings.closeOnSelect) {
 		                            this.callbacks.close();
 		                        }
@@ -15871,7 +15924,7 @@ function requireSlimselect () {
 		            return {
 		                main: main,
 		                search: search,
-		                list: list,
+		                list: list
 		            };
 		        }
 		        moveContent() {
@@ -15901,7 +15954,7 @@ function requireSlimselect () {
 		            main.classList.add(this.classes.search);
 		            const searchReturn = {
 		                main,
-		                input,
+		                input
 		            };
 		            if (!this.settings.showSearch) {
 		                main.classList.add(this.classes.hide);
@@ -15929,9 +15982,15 @@ function requireSlimselect () {
 		                    case 'Escape':
 		                        this.callbacks.close();
 		                        return false;
-		                    case 'Enter':
 		                    case ' ':
-		                        if (this.callbacks.addable && e.ctrlKey) {
+		                        const highlighted = this.content.list.querySelector('.' + this.classes.highlighted);
+		                        if (highlighted) {
+		                            highlighted.click();
+		                            return false;
+		                        }
+		                        return true;
+		                    case 'Enter':
+		                        if (this.callbacks.addable) {
 		                            addable.click();
 		                            return false;
 		                        }
@@ -15970,12 +16029,12 @@ function requireSlimselect () {
 		                        let newOption = new Option(oo);
 		                        this.callbacks.addOption(newOption);
 		                        if (this.settings.isMultiple) {
-		                            let values = this.store.getSelected();
-		                            values.push(newOption.value);
-		                            this.callbacks.setSelected(values, true);
+		                            let ids = this.store.getSelected();
+		                            ids.push(newOption.id);
+		                            this.callbacks.setSelected(ids, true);
 		                        }
 		                        else {
-		                            this.callbacks.setSelected([newOption.value], true);
+		                            this.callbacks.setSelected([newOption.id], true);
 		                        }
 		                        this.callbacks.search('');
 		                        if (this.settings.closeOnSelect) {
@@ -15993,8 +16052,11 @@ function requireSlimselect () {
 		                            if (typeof value === 'string') {
 		                                runFinish({
 		                                    text: value,
-		                                    value: value,
+		                                    value: value
 		                                });
+		                            }
+		                            else if (addableValue instanceof Error) {
+		                                this.renderError(addableValue.message);
 		                            }
 		                            else {
 		                                runFinish(value);
@@ -16004,8 +16066,11 @@ function requireSlimselect () {
 		                    else if (typeof addableValue === 'string') {
 		                        runFinish({
 		                            text: addableValue,
-		                            value: addableValue,
+		                            value: addableValue
 		                        });
+		                    }
+		                    else if (addableValue instanceof Error) {
+		                        this.renderError(addableValue.message);
 		                    }
 		                    else {
 		                        runFinish(addableValue);
@@ -16016,7 +16081,7 @@ function requireSlimselect () {
 		                searchReturn.addable = {
 		                    main: addable,
 		                    svg: plus,
-		                    path: plusPath,
+		                    path: plusPath
 		                };
 		            }
 		            return searchReturn;
@@ -16113,9 +16178,25 @@ function requireSlimselect () {
 		            if (data.length === 0) {
 		                const noResults = document.createElement('div');
 		                noResults.classList.add(this.classes.search);
-		                noResults.innerHTML = this.settings.searchText;
+		                if (this.callbacks.addable) {
+		                    noResults.innerHTML = this.settings.addableText.replace('{value}', this.content.search.input.value);
+		                }
+		                else {
+		                    noResults.innerHTML = this.settings.searchText;
+		                }
 		                this.content.list.appendChild(noResults);
 		                return;
+		            }
+		            if (this.settings.allowDeselect && !this.settings.isMultiple) {
+		                const placeholderOption = this.store.filter((o) => o.placeholder, false);
+		                if (!placeholderOption.length) {
+		                    this.store.addOption(new Option({
+		                        text: '',
+		                        value: '',
+		                        selected: false,
+		                        placeholder: true
+		                    }), true);
+		                }
 		            }
 		            for (const d of data) {
 		                if (d instanceof Optgroup) {
@@ -16163,7 +16244,7 @@ function requireSlimselect () {
 		                            if (allSelected) {
 		                                const newSelected = currentSelected.filter((s) => {
 		                                    for (const o of d.options) {
-		                                        if (s === o.value) {
+		                                        if (s === o.id) {
 		                                            return false;
 		                                        }
 		                                    }
@@ -16173,7 +16254,7 @@ function requireSlimselect () {
 		                                return;
 		                            }
 		                            else {
-		                                const newSelected = currentSelected.concat(d.options.map((o) => o.value));
+		                                const newSelected = currentSelected.concat(d.options.map((o) => o.id));
 		                                for (const o of d.options) {
 		                                    if (!this.store.getOptionByID(o.id)) {
 		                                        this.callbacks.addOption(o);
@@ -16242,7 +16323,6 @@ function requireSlimselect () {
 		            }
 		            const optionEl = document.createElement('div');
 		            optionEl.dataset.id = option.id;
-		            optionEl.id = option.id;
 		            optionEl.classList.add(this.classes.option);
 		            optionEl.setAttribute('role', 'option');
 		            if (option.class) {
@@ -16330,7 +16410,7 @@ function requireSlimselect () {
 		                    if (!this.store.getOptionByID(elementID)) {
 		                        this.callbacks.addOption(option);
 		                    }
-		                    this.callbacks.setSelected(after.map((o) => o.value), false);
+		                    this.callbacks.setSelected(after.map((o) => o.id), false);
 		                    if (this.settings.closeOnSelect) {
 		                        this.callbacks.close();
 		                    }
@@ -16347,7 +16427,7 @@ function requireSlimselect () {
 		        }
 		        highlightText(str, search, className) {
 		            let completedString = str;
-		            const regex = new RegExp('(' + search.trim() + ')(?![^<]*>[^<>]*</)', 'i');
+		            const regex = new RegExp('(?![^<]*>)(' + search.trim() + ')(?![^<]*>[^<>]*</)', 'i');
 		            if (!str.match(regex)) {
 		                return str;
 		            }
@@ -16366,8 +16446,10 @@ function requireSlimselect () {
 		            this.content.main.classList.add(this.classes.openAbove);
 		            const containerRect = this.main.main.getBoundingClientRect();
 		            this.content.main.style.margin = '-' + (mainHeight + contentHeight - 1) + 'px 0px 0px 0px';
-		            this.content.main.style.top = containerRect.top + containerRect.height + window.scrollY + 'px';
-		            this.content.main.style.left = containerRect.left + window.scrollX + 'px';
+		            this.content.main.style.top =
+		                containerRect.top + containerRect.height + (this.settings.contentPosition === 'fixed' ? 0 : window.scrollY) + 'px';
+		            this.content.main.style.left =
+		                containerRect.left + (this.settings.contentPosition === 'fixed' ? 0 : window.scrollX) + 'px';
 		            this.content.main.style.width = containerRect.width + 'px';
 		        }
 		        moveContentBelow() {
@@ -16378,8 +16460,13 @@ function requireSlimselect () {
 		            const containerRect = this.main.main.getBoundingClientRect();
 		            this.content.main.style.margin = '-1px 0px 0px 0px';
 		            if (this.settings.contentPosition !== 'relative') {
-		                this.content.main.style.top = containerRect.top + containerRect.height + window.scrollY + 'px';
-		                this.content.main.style.left = containerRect.left + window.scrollX + 'px';
+		                this.content.main.style.top =
+		                    containerRect.top +
+		                        containerRect.height +
+		                        (this.settings.contentPosition === 'fixed' ? 0 : window.scrollY) +
+		                        'px';
+		                this.content.main.style.left =
+		                    containerRect.left + (this.settings.contentPosition === 'fixed' ? 0 : window.scrollX) + 'px';
 		                this.content.main.style.width = containerRect.width + 'px';
 		            }
 		        }
@@ -16436,7 +16523,7 @@ function requireSlimselect () {
 		            this.select = select;
 		            this.valueChange = this.valueChange.bind(this);
 		            this.select.addEventListener('change', this.valueChange, {
-		                passive: true,
+		                passive: true
 		            });
 		            this.observer = new MutationObserver(this.observeCall.bind(this));
 		            this.changeListen(true);
@@ -16464,7 +16551,7 @@ function requireSlimselect () {
 		                    this.observer.observe(this.select, {
 		                        subtree: true,
 		                        childList: true,
-		                        attributes: true,
+		                        attributes: true
 		                    });
 		                }
 		            }
@@ -16476,7 +16563,7 @@ function requireSlimselect () {
 		        }
 		        valueChange(ev) {
 		            if (this.listen && this.onValueChange) {
-		                this.onValueChange(this.getSelectedValues());
+		                this.onValueChange(this.getSelectedOptions());
 		            }
 		            return true;
 		        }
@@ -16494,6 +16581,15 @@ function requireSlimselect () {
 		                    }
 		                    if (m.attributeName === 'class') {
 		                        classChanged = true;
+		                    }
+		                    if (m.type === 'childList') {
+		                        for (const n of m.addedNodes) {
+		                            if (n.nodeName === 'OPTION' && n.value === this.select.value) {
+		                                this.select.dispatchEvent(new Event('change'));
+		                                break;
+		                            }
+		                        }
+		                        optgroupOptionChanged = true;
 		                    }
 		                }
 		                if (m.target.nodeName === 'OPTGROUP' || m.target.nodeName === 'OPTION') {
@@ -16534,7 +16630,7 @@ function requireSlimselect () {
 		                selectAll: optgroup.dataset ? optgroup.dataset.selectall === 'true' : false,
 		                selectAllText: optgroup.dataset ? optgroup.dataset.selectalltext : 'Select all',
 		                closable: optgroup.dataset ? optgroup.dataset.closable : 'off',
-		                options: [],
+		                options: []
 		            };
 		            const options = optgroup.childNodes;
 		            for (const o of options) {
@@ -16551,26 +16647,26 @@ function requireSlimselect () {
 		                text: option.text,
 		                html: option.dataset && option.dataset.html ? option.dataset.html : '',
 		                selected: option.selected,
-		                display: option.style.display === 'none' ? false : true,
+		                display: option.style.display !== 'none',
 		                disabled: option.disabled,
 		                mandatory: option.dataset ? option.dataset.mandatory === 'true' : false,
 		                placeholder: option.dataset.placeholder === 'true',
 		                class: option.className,
 		                style: option.style.cssText,
-		                data: option.dataset,
+		                data: option.dataset
 		            };
 		        }
-		        getSelectedValues() {
-		            let values = [];
-		            const options = this.select.childNodes;
-		            for (const o of options) {
+		        getSelectedOptions() {
+		            let options = [];
+		            const opts = this.select.childNodes;
+		            for (const o of opts) {
 		                if (o.nodeName === 'OPTGROUP') {
 		                    const optgroupOptions = o.childNodes;
 		                    for (const oo of optgroupOptions) {
 		                        if (oo.nodeName === 'OPTION') {
 		                            const option = oo;
 		                            if (option.selected) {
-		                                values.push(option.value);
+		                                options.push(this.getDataFromOption(option));
 		                            }
 		                        }
 		                    }
@@ -16578,13 +16674,16 @@ function requireSlimselect () {
 		                if (o.nodeName === 'OPTION') {
 		                    const option = o;
 		                    if (option.selected) {
-		                        values.push(option.value);
+		                        options.push(this.getDataFromOption(option));
 		                    }
 		                }
 		            }
-		            return values;
+		            return options;
 		        }
-		        setSelected(value) {
+		        getSelectedValues() {
+		            return this.getSelectedOptions().map((option) => option.value);
+		        }
+		        setSelected(ids) {
 		            this.changeListen(false);
 		            const options = this.select.childNodes;
 		            for (const o of options) {
@@ -16594,13 +16693,34 @@ function requireSlimselect () {
 		                    for (const oo of optgroupOptions) {
 		                        if (oo.nodeName === 'OPTION') {
 		                            const option = oo;
-		                            option.selected = value.includes(option.value);
+		                            option.selected = ids.includes(option.id);
 		                        }
 		                    }
 		                }
 		                if (o.nodeName === 'OPTION') {
 		                    const option = o;
-		                    option.selected = value.includes(option.value);
+		                    option.selected = ids.includes(option.id);
+		                }
+		            }
+		            this.changeListen(true);
+		        }
+		        setSelectedByValue(values) {
+		            this.changeListen(false);
+		            const options = this.select.childNodes;
+		            for (const o of options) {
+		                if (o.nodeName === 'OPTGROUP') {
+		                    const optgroup = o;
+		                    const optgroupOptions = optgroup.childNodes;
+		                    for (const oo of optgroupOptions) {
+		                        if (oo.nodeName === 'OPTION') {
+		                            const option = oo;
+		                            option.selected = values.includes(option.value);
+		                        }
+		                    }
+		                }
+		                if (o.nodeName === 'OPTION') {
+		                    const option = o;
+		                    option.selected = values.includes(option.value);
 		                }
 		            }
 		            this.changeListen(true);
@@ -16634,7 +16754,7 @@ function requireSlimselect () {
 		                    this.select.appendChild(this.createOption(d));
 		                }
 		            }
-		            this.select.dispatchEvent(new Event('change'));
+		            this.select.dispatchEvent(new Event('change', { bubbles: true }));
 		            this.changeListen(true);
 		        }
 		        createOptgroup(optgroup) {
@@ -16658,7 +16778,7 @@ function requireSlimselect () {
 		            const optionEl = document.createElement('option');
 		            optionEl.id = info.id;
 		            optionEl.value = info.value;
-		            optionEl.innerHTML = info.text;
+		            optionEl.textContent = info.text;
 		            if (info.html !== '') {
 		                optionEl.setAttribute('data-html', info.html);
 		            }
@@ -16668,7 +16788,7 @@ function requireSlimselect () {
 		            if (info.disabled) {
 		                optionEl.disabled = true;
 		            }
-		            if (info.display === false) {
+		            if (!info.display) {
 		                optionEl.style.display = 'none';
 		            }
 		            if (info.placeholder) {
@@ -16719,6 +16839,7 @@ function requireSlimselect () {
 		            this.disabled = settings.disabled !== undefined ? settings.disabled : false;
 		            this.alwaysOpen = settings.alwaysOpen !== undefined ? settings.alwaysOpen : false;
 		            this.showSearch = settings.showSearch !== undefined ? settings.showSearch : true;
+		            this.focusSearch = settings.focusSearch !== undefined ? settings.focusSearch : true;
 		            this.ariaLabel = settings.ariaLabel || 'Combobox';
 		            this.searchPlaceholder = settings.searchPlaceholder || 'Search';
 		            this.searchText = settings.searchText || 'No Results';
@@ -16738,6 +16859,7 @@ function requireSlimselect () {
 		            this.timeoutDelay = settings.timeoutDelay || 200;
 		            this.maxValuesShown = settings.maxValuesShown || 20;
 		            this.maxValuesMessage = settings.maxValuesMessage || '{number} selected';
+		            this.addableText = settings.addableText || 'Press "Enter" to add {value}';
 		        }
 		    }
 
@@ -16755,7 +16877,7 @@ function requireSlimselect () {
 		                beforeOpen: undefined,
 		                afterOpen: undefined,
 		                beforeClose: undefined,
-		                afterClose: undefined,
+		                afterClose: undefined
 		            };
 		            this.windowResize = debounce(() => {
 		                if (!this.settings.isOpen && !this.settings.isFullOpen) {
@@ -16799,6 +16921,7 @@ function requireSlimselect () {
 		                this.destroy();
 		            }
 		            this.settings = new Settings(config.settings);
+		            this.cssClasses = new CssClasses(config.cssClasses);
 		            const debounceEvents = ['afterChange', 'beforeOpen', 'afterOpen', 'beforeClose', 'afterClose'];
 		            for (const key in config.events) {
 		                if (!config.events.hasOwnProperty(key)) {
@@ -16818,8 +16941,8 @@ function requireSlimselect () {
 		            this.select = new Select(this.selectEl);
 		            this.select.updateSelect(this.settings.id, this.settings.style, this.settings.class);
 		            this.select.hideUI();
-		            this.select.onValueChange = (values) => {
-		                this.setSelected(values);
+		            this.select.onValueChange = (options) => {
+		                this.setSelected(options.map((option) => option.id));
 		            };
 		            this.select.onClassChange = (classes) => {
 		                this.settings.class = classes;
@@ -16848,9 +16971,9 @@ function requireSlimselect () {
 		                addOption: this.addOption.bind(this),
 		                search: this.search.bind(this),
 		                beforeChange: this.events.beforeChange,
-		                afterChange: this.events.afterChange,
+		                afterChange: this.events.afterChange
 		            };
-		            this.render = new Render(this.settings, this.store, renderCallbacks);
+		            this.render = new Render(this.settings, this.cssClasses, this.store, renderCallbacks);
 		            this.render.renderValues();
 		            this.render.renderOptions(this.store.getData());
 		            const selectAriaLabel = this.selectEl.getAttribute('aria-label');
@@ -16909,11 +17032,27 @@ function requireSlimselect () {
 		            }
 		        }
 		        getSelected() {
-		            return this.store.getSelected();
+		            let options = this.store.getSelectedOptions();
+		            if (this.settings.keepOrder) {
+		                options = this.store.selectedOrderOptions(options);
+		            }
+		            return options.map((option) => option.value);
 		        }
-		        setSelected(value, runAfterChange = true) {
+		        setSelected(values, runAfterChange = true) {
 		            const selected = this.store.getSelected();
-		            this.store.setSelectedBy('value', Array.isArray(value) ? value : [value]);
+		            const options = this.store.getDataOptions();
+		            values = Array.isArray(values) ? values : [values];
+		            const ids = [];
+		            for (const value of values) {
+		                if (options.find((option) => option.id == value)) {
+		                    ids.push(value);
+		                    continue;
+		                }
+		                for (const option of options.filter((option) => option.value == value)) {
+		                    ids.push(option.id);
+		                }
+		            }
+		            this.store.setSelectedBy('id', ids);
 		            const data = this.store.getData();
 		            this.select.updateOptions(data);
 		            this.render.renderValues();
@@ -16948,7 +17087,7 @@ function requireSlimselect () {
 		                this.events.beforeOpen();
 		            }
 		            this.render.open();
-		            if (this.settings.showSearch) {
+		            if (this.settings.showSearch && this.settings.focusSearch) {
 		                this.render.searchFocus();
 		            }
 		            this.settings.isOpen = true;

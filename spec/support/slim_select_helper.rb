@@ -21,7 +21,8 @@ module SlimSelectHelper
       )
     end
 
-    select item_text, from: options[:from]
+    # !!Since slim-select 2.10.0 we need to select the option TWICE!
+    2.times { select item_text, from: options[:from] }
   end
 
   def slim_select_ajax(item_text, options)
