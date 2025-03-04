@@ -7,7 +7,7 @@ class CreateDrugDMDMatches < ActiveRecord::Migration[6.0]
         t.string :drug_name
         t.string :form_name
         t.string :vtm_name
-        t.boolean :approved_vtm_match, default: false
+        t.boolean :approved_vtm_match, default: false, null: false
         t.string :trade_family_name
         t.boolean :approved_trade_family_match, default: false
       end

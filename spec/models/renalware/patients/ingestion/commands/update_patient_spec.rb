@@ -6,6 +6,7 @@ module Renalware::Patients::Ingestion
 
     let(:system_user) { create(:user, username: Renalware::SystemUser.username) }
 
+    # rubocop:disable Metrics/MethodLength
     def create_deceased_patient_with_incomplete_death_attributes(
       by:,
       nhs_number: nil,
@@ -26,6 +27,7 @@ module Renalware::Patients::Ingestion
         )
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     describe "#call" do
       context "when the patient has the death modality but no cause of death or died_on set" do

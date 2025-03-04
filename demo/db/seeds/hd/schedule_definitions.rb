@@ -2,7 +2,7 @@ module Renalware
   Rails.benchmark "Adding HD Schedule Definitions" do
     file_path = File.join(File.dirname(__FILE__), "schedule_definitions.yml")
     definitions = YAML.load_file(file_path)
-    definitions.each do |_key, definition|
+    definitions.each_value do |definition|
       definition.symbolize_keys!
 
       period = HD::DiurnalPeriodCode.find_or_create_by!(code: definition[:diurnal_period_code])

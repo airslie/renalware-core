@@ -102,7 +102,7 @@ describe "API request for a single UKRDC patient XML document" do
 
       xml = response.body
 
-      validate(xml).each do |error|
+      validate(xml) do |error|
         raise error.message
       end
 

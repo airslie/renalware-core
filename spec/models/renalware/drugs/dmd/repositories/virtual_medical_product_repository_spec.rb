@@ -124,6 +124,7 @@ module Renalware
         }
 
         # Quick attempt to DRY up this test but not sure it helps much
+        # rubocop:disable Metrics/MethodLength
         def extension(value_code, value, type: :value_coding, system: "https://dmd.nhs.uk")
           hash = {
             "url" => "http://hl7.org/fhir/5.0/StructureDefinition/extension-ValueSet.expansion.contains.property",
@@ -146,6 +147,7 @@ module Renalware
           hash["extension"][1].update(ext)
           hash
         end
+        # rubocop:enable Metrics/MethodLength
 
         before do
           stubs.get("/production1/fhir/ValueSet/$expand") do |_env|

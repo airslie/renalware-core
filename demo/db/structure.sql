@@ -2845,7 +2845,7 @@ CREATE TABLE renalware.patients (
     family_name character varying NOT NULL,
     given_name character varying NOT NULL,
     born_on date NOT NULL,
-    paediatric_patient_indicator boolean,
+    paediatric_patient_indicator boolean DEFAULT false NOT NULL,
     sex character varying,
     ethnicity_id integer,
     hospital_centre_code character varying,
@@ -2854,7 +2854,7 @@ CREATE TABLE renalware.patients (
     first_cause_id integer,
     second_cause_id integer,
     death_notes text,
-    cc_on_all_letters boolean DEFAULT true,
+    cc_on_all_letters boolean DEFAULT true NOT NULL,
     cc_decision_on date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -3991,7 +3991,7 @@ CREATE TABLE renalware.hospital_centres (
     name character varying NOT NULL,
     location character varying,
     active boolean,
-    is_transplant_site boolean DEFAULT false,
+    is_transplant_site boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     info text,
@@ -3999,7 +3999,7 @@ CREATE TABLE renalware.hospital_centres (
     trust_caption character varying,
     host_site boolean DEFAULT false NOT NULL,
     abbrev character varying,
-    default_site boolean DEFAULT false,
+    default_site boolean DEFAULT false NOT NULL,
     departments_count integer DEFAULT 0 NOT NULL,
     units_count integer DEFAULT 0 NOT NULL,
     uuid uuid DEFAULT public.uuid_generate_v4(),
@@ -4184,7 +4184,7 @@ CREATE TABLE renalware.users (
     last_activity_at timestamp without time zone,
     expired_at timestamp without time zone,
     professional_position character varying,
-    approved boolean DEFAULT false,
+    approved boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     telephone character varying,
@@ -5007,7 +5007,7 @@ CREATE TABLE renalware.drug_dmd_matches (
     drug_name character varying,
     form_name character varying,
     vtm_name character varying,
-    approved_vtm_match boolean DEFAULT false,
+    approved_vtm_match boolean DEFAULT false NOT NULL,
     trade_family_name character varying,
     approved_trade_family_match boolean DEFAULT false
 );
@@ -5104,7 +5104,7 @@ CREATE TABLE renalware.drug_dmd_virtual_therapeutic_moieties (
     id bigint NOT NULL,
     code character varying NOT NULL,
     name character varying,
-    inactive boolean DEFAULT false,
+    inactive boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
@@ -5373,7 +5373,7 @@ CREATE TABLE renalware.drug_trade_family_classifications (
     id bigint NOT NULL,
     drug_id bigint NOT NULL,
     trade_family_id bigint NOT NULL,
-    enabled boolean DEFAULT false,
+    enabled boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
@@ -7119,7 +7119,7 @@ CREATE TABLE renalware.hospital_units (
     unit_code character varying NOT NULL,
     renal_registry_code character varying NOT NULL,
     unit_type character varying NOT NULL,
-    is_hd_site boolean DEFAULT false,
+    is_hd_site boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     alias character varying,
@@ -9160,7 +9160,7 @@ CREATE TABLE renalware.patient_practices (
     updated_at timestamp without time zone NOT NULL,
     telephone character varying,
     last_change_date date,
-    active boolean DEFAULT true,
+    active boolean DEFAULT true NOT NULL,
     mesh_mailbox_id character varying,
     mesh_mailbox_description character varying
 );
@@ -14969,7 +14969,7 @@ CREATE TABLE renalware.system_view_metadata (
     display_type renalware.system_view_display_type DEFAULT 'tabular'::renalware.system_view_display_type NOT NULL,
     category renalware.system_view_category DEFAULT 'mdm'::renalware.system_view_category NOT NULL,
     sub_category character varying,
-    materialized boolean DEFAULT false,
+    materialized boolean DEFAULT false NOT NULL,
     materialized_view_refreshed_at timestamp without time zone,
     refresh_schedule text,
     refresh_concurrently boolean DEFAULT false NOT NULL,
@@ -31145,6 +31145,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware, renalware_demo, public, heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250228173152'),
 ('20250227115753'),
 ('20250219142848'),
 ('20250206120337'),

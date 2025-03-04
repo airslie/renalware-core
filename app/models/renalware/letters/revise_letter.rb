@@ -41,7 +41,7 @@ module Renalware
 
         params[:update_sections].select { |_section, should_update|
           ActiveModel::Type::Boolean.new.cast(should_update)
-        }.keys.each do |section_identifier|
+        }.each_key do |section_identifier|
           Letters::SectionSnapshot.update_or_create_one(letter, section_identifier)
         end
       end

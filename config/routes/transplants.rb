@@ -32,7 +32,7 @@ resources :patients, only: [] do
 end
 
 namespace :transplants do
-  constraints(named_filter: /#{Renalware::Transplants::WAITLIST_FILTERS.join("|")}/) do
+  constraints(named_filter: /#{Renalware::Transplants::WAITLIST_FILTERS.join('|')}/) do
     get "wait_list/:named_filter", to: "wait_lists#show", as: :wait_list
   end
   resources :live_donors, only: :index
