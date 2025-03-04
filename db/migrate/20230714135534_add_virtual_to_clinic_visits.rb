@@ -16,7 +16,7 @@ class AddVirtualToClinicVisits < ActiveRecord::Migration[7.0]
           t.references :created_by, index: true, null: false, foreign_key: { to_table: :users }
           t.references :updated_by, index: true, null: false, foreign_key: { to_table: :users }
           t.datetime :deleted_at, index: true
-          t.timestamps null: false
+          t.timestamps null: false, default: -> { "CURRENT_TIMESTAMP" }
         end
         add_reference(
           :clinic_visits,
