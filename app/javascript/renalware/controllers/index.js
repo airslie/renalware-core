@@ -48,6 +48,7 @@ import ChartsRawController from "./charts_raw_controller"
 import PopoverController from "./popover_controller"
 import LettersBatchCompileController from "./letters/batch_compile_controller"
 import ClipboardController from "./clipboard_controller"
+import TableHighlightRowController from "./table_highlight_row_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -112,4 +113,5 @@ application.register("charts-raw", ChartsRawController)
 application.register("popover", PopoverController)
 application.register("letters-batch-compile", LettersBatchCompileController)
 application.register("clipboard", ClipboardController)
+application.register("table-row-highlight", TableHighlightRowController)
 

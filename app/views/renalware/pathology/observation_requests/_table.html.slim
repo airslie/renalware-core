@@ -1,4 +1,4 @@
-table data-behaviour="highlight"
+table data-controller="table-row-highlight"
   thead
     tr
       th.col-width-date-time Requested on
@@ -6,11 +6,12 @@ table data-behaviour="highlight"
       th Name
   tbody
     - observation_requests.each do |observation_request|
-      tr
+      tr(data-table-row-highlight-target="row")
         td= l observation_request.requested_at
         td= link_to observation_request.description.code,
                     patient_pathology_observation_request_path(patient, observation_request),
-                    remote: true
+                    remote: true,
+                    data: { action: "click->table-row-highlight#select" }
         td= observation_request.description.name
 
 == pagy_nav(pagy) if pagy.pages > 1
