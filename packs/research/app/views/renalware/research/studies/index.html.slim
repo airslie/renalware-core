@@ -25,7 +25,7 @@
             - studies.each do |study|
               tr
                 td.actions
-                  = link_to t("btn.view"), research.study_path(study)
+                  = link_to t("btn.view"), research.study_path(study), target: "_top"
                 td= study.code
                 td= study.description.truncate(60)
                 td= yes_no(study.private)
