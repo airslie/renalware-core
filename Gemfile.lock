@@ -692,7 +692,7 @@ GEM
       railties (>= 4.2)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.1.11)
+    rack (3.1.12)
     rack-attack (6.7.0)
       rack (>= 1.0, < 4)
     rack-mini-profiler (3.3.1)
