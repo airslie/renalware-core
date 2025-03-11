@@ -76,7 +76,7 @@ module Renalware
               admitted_on: pv1.admit_date&.to_date,
               discharged_on: pv1.discharge_date&.to_date,
               admission_type: "unknown",
-              reason_for_admission: "?",
+              reason_for_admission: "via HL7",
               consultant_code: attending_doctor.code,
               consultant: attending_doctor.name,
               visit_number: pv1.visit_number,

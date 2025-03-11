@@ -8,6 +8,8 @@
         .columns.medium-6.large-4.xlarge-3
           = render "renalware/patients/patients/show/patient_demographics", patient: patient
         .columns.medium-6.large-4.xlarge-3
+          = render "renalware/patients/patients/show/admin_notes", patient: patient
+        .columns.medium-6.large-4.xlarge-3
           article
             header
               h2 Current Address
@@ -26,3 +28,4 @@
           = render "renalware/patients/patients/show/referral", patient: patient
         .columns.medium-6.large-4.xlarge-3
           = render "renalware/patients/patients/show/psychosocial", patient: patient
+

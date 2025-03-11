@@ -7,8 +7,8 @@ module Renalware
       class CommandFactory
         def for(msg)
           case msg.action
-          when :add_person_information    then make_add_patient(msg)
-          when :update_person_information then make_update_patient(msg)
+          when :add_person_information, :update_person_information then make_update_patient(msg)
+          when :add_patient               then make_add_patient(msg)
           when :admit_patient             then make_admit_patient(msg)
           when :update_admission          then make_update_admission(msg)
           when :cancel_admission          then make_cancel_admission(msg)
@@ -21,7 +21,7 @@ module Renalware
 
         private
 
-        def make_add_patient(msg)       = Patients::Ingestion::Commands::UpdatePatient.new(msg)
+        def make_add_patient(msg)       = Patients::Ingestion::Commands::AddPatient.new(msg)
         def make_update_patient(msg)    = Patients::Ingestion::Commands::UpdatePatient.new(msg)
         def make_admit_patient(msg)     = Admissions::Ingestion::Commands::AdmitPatient.new(msg)
         def make_update_admission(msg)  = Admissions::Ingestion::Commands::AdmitPatient.new(msg)

@@ -1,0 +1,5 @@
+article
+  header
+    h2 Admin notes
+  - if patient.document.admin_notes.present?
+    = raw(patient.document.admin_notes.gsub("\n", "<br>"))
