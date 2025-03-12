@@ -14,10 +14,6 @@ plugins:
   - rubocop-rspec
   - rubocop-rake
   - rubocop-factory_bot
-
-require:
-  # Standard's config uses custom cops, so it must be loaded. Skip for now though.
-  # - standard
   - rubocop-rspec_rails
   - rubocop-capybara
 
