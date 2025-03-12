@@ -67,12 +67,13 @@ describe "HL7 ADT^A01 message handling: 'Inpatient admission'" do
     )
   end
 
-  def verify_admission(admission)
+  def verify_admission(admission) # rubocop:disable Metrics/MethodLength
     expect(admission).to have_attributes(
       updated_by: system_user,
       created_by: system_user,
       visit_number: visit_number,
       consultant_code: consultant_code,
+      reason_for_admission: "via HL7",
       consultant: [consultant_initial, consultant_family_name].join(" "),
       room: room,
       bed: bed,

@@ -23,7 +23,8 @@ module Renalware
         "ORU^R01" => :add_pathology_observations,
         "SIU^S12" => :schedule_new_appointment,
         "SIU^S13" => :schedule_new_appointment,
-        "SIU^S15" => :cancel_appointment
+        "SIU^S15" => :cancel_appointment,
+        "ORM^O01" => :add_patient
       }.freeze
 
       class ObservationRequest < SimpleDelegator
@@ -146,7 +147,7 @@ module Renalware
         parts.length == 2 && parts.last
       end
 
-      %i(ORU ADT SIU).each do |msg_type|
+      %i(ORU ADT SIU ORM).each do |msg_type|
         define_method(:"#{msg_type.to_s.downcase}?") do
           msg_type.to_s == message_type
         end
