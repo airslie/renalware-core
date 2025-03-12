@@ -107,13 +107,13 @@ jobs:
         with:
           submodules: "true"
 
-      # - name: Install a specific chromedriver
-      #   # Currently version 133 is broken (does not handle dialogs) so we we use 132
-      #   # This will hopefully take precedence over the default chromedriver in the GH ubuntu
-      #   # runner image (currently version 133 in ubuntu-latest)
-      #   uses: nanasess/setup-chromedriver@v2
-      #   with:
-      #     chromedriver-version: "132.0.6834.159"
+      - name: Install a specific chromedriver
+        # Currently version 133 is broken (does not handle dialogs) so we we use 132
+        # This will hopefully take precedence over the default chromedriver in the GH ubuntu
+        # runner image (currently version 133 in ubuntu-latest)
+        uses: nanasess/setup-chromedriver@v2
+        with:
+          chromedriver-version: "132.0.6834.159"
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
