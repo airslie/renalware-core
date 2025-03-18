@@ -107,19 +107,6 @@ jobs:
         with:
           submodules: "true"
 
-      # permission denied
-      # - name: Remove old chrome
-      #   run: rm /usr/bin/google-chrome
-
-      - name: Update PATH
-        run: |
-          sudo ln -sf /opt/hostedtoolcache/setup-chrome/chromium/stable/x64/chrome /usr/bin/google-chrome
-
-      - uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: 132
-          install-chromedriver: true
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -133,6 +120,21 @@ jobs:
 
       - name: Install js packages with yarn
         run: yarn install --frozen-lockfile # optional, --immutable
+
+      - name: Cache Playwright Chromium browser
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+
+      - name: Install Playwright Chromium browser (with deps)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: yarn run playwright install --with-deps chromium
+
+      - name: Install Playwright Chromium browser deps
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: yarn run playwright install-deps chromium
 
       - name: Restore asset cache
         uses: actions/cache@v4

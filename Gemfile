@@ -59,7 +59,7 @@ gem "matrix"
 group :test do
   gem "capybara" # , "~> 3.32"
   gem "capybara-screenshot" # , "~> 1.0"
-  gem "capybara-select-2"
+  gem "capybara-select-2", github: "airslie/capybara_select2", branch: "playwright"
   gem "cucumber", github: "cucumber/cucumber-ruby"
   gem "cucumber-rails", require: false # , "~> 2.6.1", require: false # must be loaded in env.rb
   gem "database_cleaner", require: false # for cucumber (now not needed for rspec)
@@ -69,7 +69,7 @@ group :test do
   gem "rspec-html-matchers", require: false
   gem "rspec_junit_formatter", "~> 0.4"
   gem "rspec-retry"
-  gem "selenium-webdriver", "4.28.0"
+  # gem "selenium-webdriver", "4.28.0"
   gem "shoulda-matchers", "~> 6.1"
   gem "simplecov", "~> 0.17", require: false # only loaded if required
   gem "test-prof"
@@ -124,4 +124,6 @@ group :development, :test do
   gem "rspec-rails"
   gem "rubocop", require: false
   gem "wkhtmltopdf-binary", "0.12.6.8"
+
+  gem "capybara-playwright-driver"
 end

@@ -77,9 +77,6 @@ module World
         def expect_appointments_to_match(appointments, expected_appointments)
           appointments.shift # Remove column headers row
 
-          # there are two tbody elements in each html row so remove odd rows (toggled content)
-          appointments = appointments.reject.each_with_index { |_item, index| index.odd? }
-
           appointments.zip(expected_appointments).each do |appointment, expected_appointment|
             expect(appointment[3]).to eq(l(DateTime.parse(expected_appointment["date"])))
             expect(appointment[4]).to eq(expected_appointment["patient"])

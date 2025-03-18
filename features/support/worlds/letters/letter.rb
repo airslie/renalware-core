@@ -367,9 +367,9 @@ module World
         visit patient_letters_letters_path(patient)
         click_on t("btn.edit")
 
-        select "Another topic", from: "Topic"
+        slim_select "Another topic", from: "Topic"
 
-        select user.to_s, from: "Author"
+        slim_select user.to_s, from: "Author"
 
         within ".bottom" do
           click_on t("btn.save")
@@ -382,7 +382,9 @@ module World
       def delete_simple_letter(patient:, user:)
         login_as user
         visit patient_letters_letters_path(patient)
-        click_on t("btn.delete")
+        accept_alert do
+          click_on t("btn.delete")
+        end
       end
 
       def expect_letter_to_be_immutable(patient:, user:)
@@ -397,7 +399,9 @@ module World
 
         visit patient_letters_letter_path(patient, existing_letter)
 
-        click_on "Submit for Review"
+        accept_alert do
+          click_on "Submit for Review"
+        end
       end
 
       def reject_letter(patient:, user:)
@@ -415,7 +419,9 @@ module World
 
         visit patient_letters_letter_path(patient, existing_letter)
 
-        click_on "Approve and archive"
+        accept_alert do
+          click_on "Approve and archive"
+        end
       end
 
       def mark_letter_as_printed(patient:, user:)
@@ -424,7 +430,9 @@ module World
 
         visit patient_letters_letter_path(patient, existing_letter)
 
-        click_on "Mark as printed"
+        accept_alert do
+          click_on "Mark as printed"
+        end
       end
 
       def view_letters(user:, q: nil)

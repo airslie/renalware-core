@@ -47,10 +47,10 @@ describe "Creating a mailshot", :js do
     # It makes this test less easy to read but worth it to have this end-to-end test.
     perform_enqueued_jobs do
       po.submit
-      expect(page).to have_current_path(letters_mailshots_path)
     end
 
     pending "Unable to find css \"table.mailshots\""
+    expect(page).to have_current_path(letters_mailshots_path)
     # pending "Resolve Delivery::Mesh::SendMessageJob::GPNotInRecipientsError: " \
     #         "'letter should not be sent' error"
 

@@ -3,18 +3,17 @@ Given("the patient is cc'ed on letters") do
 end
 
 When("I select death modality") do
-  within ".patient-content" do
-    within "#modality-description-select" do
-      select "Death"
-      # There maybe an alert if changing from another to modality to this Death
-      browser = page.driver.browser
-      browser.switch_to.alert.accept if browser.respond_to?(:switch_to)
-      wait_for_ajax
-    end
+  accept_alert do
+    within ".patient-content" do
+      within "#modality-description-select" do
+        select "Death"
+        wait_for_ajax
+      end
 
-    fill_in "Started on", with: l(Time.zone.today)
-    select "Change in modality", from: "Type of Change"
-    click_on t("btn.create")
+      fill_in "Started on", with: l(Time.zone.today)
+      select "Change in modality", from: "Type of Change"
+      click_on t("btn.create")
+    end
   end
 end
 

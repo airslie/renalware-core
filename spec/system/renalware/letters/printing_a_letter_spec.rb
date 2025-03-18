@@ -57,6 +57,7 @@ describe "Printing a letter", :js do
       end
 
       wait_for_turbo_frame "letter-lists-turbo-frame"
+      sleep 0.2
 
       within("table.letters") do
         expect(page).to have_content("RABBIT")
@@ -119,6 +120,7 @@ describe "Printing a letter", :js do
       end
 
       wait_for_turbo_frame "letter-lists-turbo-frame"
+      sleep 0.2
 
       within("table.letters") do
         expect(page).to have_content("RABBIT")

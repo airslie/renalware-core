@@ -49,5 +49,41 @@ Capybara.default_max_wait_time = 7 # in seconds
 # recommended as it will mask a lot of errors for you!
 #
 ActionController::Base.allow_rescue = false
+require "capybara-playwright-driver"
+
+Capybara.configure do |config|
+  config.default_max_wait_time = 15
+  config.default_driver = :playwright
+  config.javascript_driver = :playwright
+  config.save_path = "tmp/capybara"
+  # config.app_host = 'http://localhost:9887' # Update with your app host
+  # config.server = :puma, { Silent: true }
+  # config.server_port = 9887  # Custom port to avoid conflicts
+  # config.always_include_port = true
+end
+
+Capybara.register_driver(:playwright) do |app|
+  driver = Capybara::Playwright::Driver.new(
+    app,
+    browser_type: :chromium,
+    headless: true,
+    timeout: 15_000 # Add explicit timeout in ms
+    # recordTrace: true,
+    # tracesDir: "tmp/traces",
+    # base_url: 'http://localhost:9887', # Update with your app host
+    # debug: true # Enable debug logging
+  )
+
+  # Add console log monitoring
+  # driver.page.on("console") do |msg|
+  #   puts "BROWSER CONSOLE: #{msg.type}: #{msg.text}"
+  # end
+
+  driver
+end
+
+Capybara::Screenshot.register_driver(:playwright) do |driver, path|
+  driver.save_screenshot(path)
+end
 
 require_relative "world"
