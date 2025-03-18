@@ -13,6 +13,7 @@ describe "Creating a swab", :js do
 
     click_on t("btn.create")
 
+    expect(page).to have_current_path(patient_clinical_profile_path(patient))
     events = Renalware::Events::Event.for_patient(patient)
     expect(events.length).to eq(1)
     event = events.first
