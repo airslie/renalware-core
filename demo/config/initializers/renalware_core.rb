@@ -30,7 +30,6 @@ Renalware.configure do |config|
   config.process_hl7_via_raw_messages_table = true
   config.allow_modality_history_amendments = true
 
-  config.send_gp_letters_over_mesh = true
   config.mesh_organisation_ods_code = "RAJ01"
   config.mesh_organisation_uuid = "36944886-8c9b-4ada-b15d-500bff58e018"
   config.mesh_itk_organisation_uuid = "36944886-8c9b-4ada-b15d-500bff58e018"
