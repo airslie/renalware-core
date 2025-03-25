@@ -25,8 +25,9 @@ module Pages
           row_css = row_css_for(allergy)
           row = page.find(row_css)
           within row do
-            click_on t_allergies(".delete")
-            page.driver.browser.switch_to.alert.accept
+            accept_alert do
+              click_on t_allergies(".delete")
+            end
           end
         end
       end

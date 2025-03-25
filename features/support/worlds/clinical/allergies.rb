@@ -73,8 +73,9 @@ module World
           within ".clinical-allergies table" do
             row = page.find("tbody tr[data-allergy-id='#{allergy.id}']")
             within row do
-              click_on t_allergies(".delete")
-              page.driver.browser.switch_to.alert.accept
+              accept_alert do
+                click_on t_allergies(".delete")
+              end
             end
           end
         end

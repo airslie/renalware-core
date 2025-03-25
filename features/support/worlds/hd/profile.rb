@@ -88,7 +88,7 @@ module World
         end
 
         select "Mon Wed Fri AM", from: "Schedule"
-        select prescriber.to_s, from: "Prescriber" if prescriber
+        slim_select prescriber.to_s, from: "Prescriber" if prescriber
         select "300", from: "Flow Rate"
 
         within ".form-actions", match: :first do

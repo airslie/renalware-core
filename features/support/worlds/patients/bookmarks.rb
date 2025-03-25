@@ -67,8 +67,9 @@ module World
         def delete_bookmark(user:, patient_name:)
           login_as user
           visit_patient(patient_name)
-          find("a", text: "Remove bookmark").click
-          page.driver.browser.switch_to.alert.accept
+          accept_alert do
+            find("a", text: "Remove bookmark").click
+          end
         end
 
         private

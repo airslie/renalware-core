@@ -1,4 +1,5 @@
 # rubocop:disable Metrics/MethodLength
+
 module World
   module HD::Session
     module Domain
@@ -268,7 +269,7 @@ module World
         end
 
         fill_in "End time", with: "23:59"
-        select user.to_s, from: "Taken Off By"
+        slim_select user.to_s, from: "Taken Off By"
 
         within_fieldset "Session Info" do
           choose "HD"
@@ -391,9 +392,10 @@ module World
       def delete_session(session, user:)
         login_as user
         visit edit_patient_hd_session_path(session.patient, session)
-
-        within ".form-actions", match: :first do
-          click_on t("btn.delete")
+        accept_alert do
+          within ".form-actions", match: :first do
+            click_on t("btn.delete")
+          end
         end
       end
 

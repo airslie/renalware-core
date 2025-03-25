@@ -46,9 +46,9 @@ module Pages
         end
 
         def submit
-          accept_alert do
-            click_on "Create letters"
-          end
+          # accept_alert do # no required with playwright
+          click_on "Create letters"
+          # end
         end
       end
     end

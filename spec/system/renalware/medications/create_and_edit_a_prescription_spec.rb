@@ -121,13 +121,13 @@ describe "Prescriptions - create / edit / terminate", :js do
       expect(page).to have_link "Edit"
       # # There will be no Terminate button as it is a stat drug that already has a termination date
       # expect(page).not_to have_link "Terminate"
-      expect(page).to have_no_content("Blue Pill Capsule 1 Ampoule")
-      expect(page).to have_content("Blue Pill Capsule larger dose Ampoule")
+      expect(page).to have_no_content("Blue Pill\t\tCapsule\t1 Ampoule")
+      expect(page).to have_content("Blue Pill\t\tCapsule\tlarger dose Ampoule")
     end
 
     within "article", text: "Historical" do
-      expect(page).to have_content("Blue Pill Capsule 1 Ampoule")
-      expect(page).to have_content("Blue Pill Capsule larger dose Ampoule")
+      expect(page).to have_content("Blue Pill\t\tCapsule\t1 Ampoule")
+      expect(page).to have_content("Blue Pill\t\tCapsule\tlarger dose Ampoule")
     end
 
     #
@@ -208,7 +208,7 @@ describe "Prescriptions - create / edit / terminate", :js do
       end
 
       within "article", text: "Historical" do
-        expect(page).to have_content("Blue Pill (TradeFamily) Capsule 1 Ampoule")
+        expect(page).to have_content("Blue Pill (TradeFamily)\t\tCapsule\t1 Ampoule")
       end
     end
   end

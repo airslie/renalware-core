@@ -32,8 +32,8 @@ end
 # RSpec.configure { |c| c.add_setting :custom_setting }
 
 if ENV.key?("TURNIP_WEB")
-  Capybara.javascript_driver = :rw_headless_chrome
-  Capybara::Screenshot.register_driver(:rw_headless_chrome) do |driver, path|
+  Capybara.javascript_driver = :my_playwright
+  Capybara::Screenshot.register_driver(:my_playwright) do |driver, path|
     driver.browser.save_screenshot(path)
   end
   if RUBY_PLATFORM.include?("darwin")

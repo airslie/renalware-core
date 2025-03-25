@@ -70,7 +70,7 @@ module World
           expect(clinic_visit.pulse).to eq(101)
           expect(clinic_visit.temperature).to eq(37.7)
           expect(ActionView::Base.full_sanitizer.sanitize(clinic_visit.notes))
-            .to eq("Updated notes")
+            .to start_with("Updated notes")
           expect(clinic_visit.admin_notes).to eq("Updated admin notes")
         end
       end

@@ -52,19 +52,21 @@ module World
 
           fill_in "Sensitivity", with: sensitivity
           fill_in "Resistance", with: resistance
+        end
 
-          click_on t("btn.save")
+        click_on t("btn.save")
 
-          expect(page).to have_css("#infection-organisms tbody tr")
-          expect(find("tbody")).to have_content(sensitivity)
-          expect(find("tbody")).to have_content(resistance)
+        within "#infection-organisms table" do
+          expect(page).to have_content(sensitivity)
+          expect(page).to have_content(resistance)
         end
       end
 
       def terminate_organism_for(infectable:, user:)
         within "#infection-organisms" do
-          click_on t("btn.terminate")
-          page.driver.browser.switch_to.alert.accept
+          accept_alert do
+            click_on t("btn.terminate")
+          end
           expect(page).to have_no_css("tbody tr")
         end
 
