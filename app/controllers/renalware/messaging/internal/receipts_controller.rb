@@ -64,7 +64,7 @@ module Renalware
         end
 
         def search_term
-          params.fetch(:patient_search, {}).fetch(:term, nil)
+          params.dig(:patient_search, :term)
         end
 
         def unread_receipts
