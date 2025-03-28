@@ -107,6 +107,7 @@ module World
             id: clinic_visit.id
           )
           slim_select "AKI", from: "Clinic"
+
           fill_in "Height", with: "1.71"
           fill_in "Weight", with: "75"
           fill_in "Pulse", with: "101"
@@ -116,8 +117,12 @@ module World
           find("trix-editor").set("Updated notes")
           # find("textarea[name='clinic_visit[notes]']").set("Updated notes")
           find("textarea[name='clinic_visit[admin_notes]']").set("Updated admin notes")
+          # Sleep otherwise the previous textarea update does not have time to register for reason
+          sleep 0.2
 
           submit_form
+
+          expect(page).to have_current_path(patient_clinic_visits_path(patient_id: patient))
         end
       end
     end

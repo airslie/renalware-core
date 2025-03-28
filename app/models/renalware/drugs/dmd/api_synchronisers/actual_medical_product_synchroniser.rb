@@ -24,7 +24,7 @@ module Renalware
             break if entries.empty?
 
             now = Time.current
-            upserts = entries.select { _1.virtual_medical_product_code.present? }.map do |entry|
+            upserts = entries.select { it.virtual_medical_product_code.present? }.map do |entry|
               {
                 code: entry.code,
                 name: entry.name,
