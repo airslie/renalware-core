@@ -1,0 +1,10 @@
+---
+en:
+  renalware:
+    medications:
+      expiring_prescriptions_list_component:
+        title: HD Prescriptions due to expire
+        no_expiring_prescriptions: None
+        drug: Drug
+        patient: Patient
+        terminates_in: Terminates
