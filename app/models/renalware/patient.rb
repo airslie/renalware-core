@@ -26,13 +26,8 @@ module Renalware
     #  a12d9a8e-9cc9-4fbe-88dd-2d1c983ea04f
     # becomes
     #  a12d9a8e9cc94fbe88dd2d1c983ea04f
-    def secure_id
-      @secure_id_without_dashes ||= super&.gsub("-", "")
-    end
-
-    def secure_id_dashed
-      self[:secure_id]
-    end
+    def secure_id         = @secure_id_without_dashes ||= super&.gsub("-", "")
+    def secure_id_dashed  = self[:secure_id]
 
     enumerize :marital_status, in: %i(married single divorced widowed)
 
