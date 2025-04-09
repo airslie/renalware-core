@@ -111,6 +111,15 @@ module Renalware::Letters
         end
       end
 
+      describe "confidentiality" do
+        { normal: "N", restricted: "R" }.each do |confidentiality, value|
+          it "'#{value}' when confidentiality is #{confidentiality}" do
+            patient.confidentiality = confidentiality
+            expect(arguments.confidentiality).to eq(value)
+          end
+        end
+      end
+
       describe "mex_to" do
         it "concatenates nhs dob surname join with _" do
           expect(arguments.mex_to).to eq("GPPROVIDER_0123456789_19700131_Jones")

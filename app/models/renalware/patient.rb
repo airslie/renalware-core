@@ -30,6 +30,7 @@ module Renalware
     def secure_id_dashed  = self[:secure_id]
 
     enumerize :marital_status, in: %i(married single divorced widowed)
+    enum :confidentiality, { normal: "normal", restricted: "restricted" }, prefix: true
 
     has_paper_trail(
       versions: { class_name: "Renalware::Patients::Version" },

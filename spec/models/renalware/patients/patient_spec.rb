@@ -464,5 +464,19 @@ module Renalware
         )
       end
     end
+
+    describe "confidentiality" do
+      it "defaults to 'normal'" do
+        patient = build(:patient)
+
+        expect(patient.confidentiality_normal?).to be true
+      end
+
+      it "can be set to restricted" do
+        patient = create(:patient, confidentiality: :restricted)
+
+        expect(patient.confidentiality_restricted?).to be true
+      end
+    end
   end
 end

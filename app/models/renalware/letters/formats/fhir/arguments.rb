@@ -81,7 +81,7 @@ module Renalware
       def event_code              = WORKFLOWS[workflow].dig(:event, :code)
       def event_display           = WORKFLOWS[workflow].dig(:event, :display)
       def document_version        = 1
-      def confidentiality         = %w(N R).first
+      def confidentiality         = patient.confidentiality_normal? ? "N" : "R"
       def letter_datetime         = approved_at.utc.iso8601
       def composition_title       = "Consultation report"
       def mex_subject             = document_title

@@ -26,6 +26,7 @@ module Renalware
         recipients.concat(letter.cc_recipients)
         recipients.reject! { |recipient| recipient.emailed_at.present? }
         recipients.reject!(&:statement_to_indicate_letter_will_be_emailed)
+        # TODO: use letter.gp_send_status_success?
         recipients.reject!(&:primary_care_physician?) if letter.gp_send_status.to_sym == :success
         CollectionPresenter.new(recipients, RecipientPresenter::WithCurrentAddress)
       end
