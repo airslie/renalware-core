@@ -7,9 +7,9 @@ tbody(id="event_#{event.id}")
     td.noprint= row_toggler
     td.actions
       .flex.items-center
-        / If the event supports editing (most don't as they are immuatble once created, to ensure a
+        / If the event supports editing (most don't as they are immutable once created, to ensure a
         / consistent clinical record), then use the supplied proc if passed (which will render a
-        / custom edit link (e.g. the Investigations event subclass, has its own slug, controllwe and
+        / custom edit link (e.g. the Investigations event subclass, has its own slug, controller and
         / and form) otherwise render a standard Event edit link.
         - if policy(event).edit?
           = link_to t("btn.edit"),
@@ -22,7 +22,7 @@ tbody(id="event_#{event.id}")
                       data: { confirm: "Are you sure you want delete this event?\n" }) do
               = inline_icon(:trash, size: :md, class: "inline-block")
 
-    td.nowrap= l event.created_at.to_date
+    td.created_at= l(event.date_time)
     - unless local_assigns[:exclude_type_column] == true
       td= event.event_type
     - if local_assigns[:include_patient_column] == true
@@ -30,7 +30,7 @@ tbody(id="event_#{event.id}")
     td.col-width-medium-with-ellipsis
       = render partial: event.to_cell_partial_path,
                 locals: { event: event }
-    td.created_at= l(event.date_time)
+    td.nowrap= l event.created_at.to_date
     td.created_by= event.created_by.full_name
   tr
     td(colspan=7)

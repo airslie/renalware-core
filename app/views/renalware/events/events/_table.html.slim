@@ -10,13 +10,13 @@
           tr
             th.noprint.togglers.noprint= rows_toggler
             th.col-width-tiny
-            th.col-width-date=t("thead.created_at")
+            th.created_at.col-width-date-time= t("thead.date_time")
             - unless exclude_type_column
               th.col-width-large= t("thead.type")
             - if include_patient_column
               th.col-width-large= t(".patient")
             th= description_column_title
-            th.created_at.col-width-date-time= t("thead.date_time")
+            th.col-width-date=t("thead.created_at")
             th.created_by.col-width-medium= t("thead.created_by")
         tbody
           / Note we can't use cached: true yet when rendering the events collection, as each row is
