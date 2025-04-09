@@ -50,7 +50,7 @@ module Renalware
           patients = find_by_nhs_and_dob
           patient = patients.first
           raise(Error, "Possible duplicate matching NHS + DOB") if patients.length > 1
-          if relevant_identifiers_differ_for?(patient)
+          if mrns_differ_for?(patient)
             raise(Error, "Possible duplicate - matching NHS + DOB but MRN in RW differs ")
           end
 
@@ -68,7 +68,12 @@ module Renalware
         end
 
         # Omit where the patient has a blank identifier eg local_patient_id = nil or ""
-        def relevant_identifiers_differ_for?(patient)
+        # The local_patient_id_identifiers are the incoming HL7 identifiers (not inc nhs_number)
+        # eg local_patient_id, local_patient_id_2 etc
+        # Here we loop through the HL7 identifiers eg
+        # local_patient_id: "123", local_patient_id_2: ""
+        # and return true if we find any where eg hl7 local_patient_id != patient.local_patient_id.
+        def mrns_differ_for?(patient)
           local_patient_id_identifiers
             .any? do |key, val|
               patient.send(key).present? && patient.send(key) != val

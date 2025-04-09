@@ -70,12 +70,12 @@ module Renalware
             )
           end
 
-          def create_new_admission # rubocop:disable Metrics/MethodLength
+          def create_new_admission # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
             Admission.create!(
               patient: patient,
               admitted_on: pv1.admit_date&.to_date,
               discharged_on: pv1.discharge_date&.to_date,
-              admission_type: "unknown",
+              admission_type: admission_type,
               reason_for_admission: "via HL7",
               consultant_code: attending_doctor.code,
               consultant: attending_doctor.name,
@@ -87,6 +87,10 @@ module Renalware
               floor: assigned_location.floor,
               by: SystemUser.find
             )
+          end
+
+          def admission_type
+            message.event_type == "A04" ? "emergency" : "unknown"
           end
 
           # If we can't find the ward, create it using the ward name as both :code and :name
