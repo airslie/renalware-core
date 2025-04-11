@@ -1851,6 +1851,25 @@ begin
   -- only search the last 3 million (1 month?) of pathology
   select max(id) - 3000000 from renalware.pathology_observations into start_po_id;
 
+  -- First create a temp table of non-zero URE results
+  drop table if exists tmp_ure_only;
+create temp table tmp_ure_only as
+  select
+    po.id,
+    po.nresult,
+    po.observed_at,
+    pod.code,
+    por.patient_id,
+    por.id as request_id
+    from renalware.pathology_observations po
+    inner join renalware.pathology_observation_descriptions pod on pod.id = po.description_id
+    inner join renalware.pathology_observation_requests por on por.id = po.request_id
+    where po.id > start_po_id
+    and pod.code = 'URE'
+    and nresult > 0;
+
+   create index tmp_ure_only_idx on tmp_ure_only using btree (patient_id);
+
   return query
   with obrs_with_either_one_urr_or_one_post_urea as (
       select
@@ -1896,22 +1915,7 @@ begin
           ,pre.code               as pre_urea_code
           ,post.patient_id
       from post_urea_with_no_urr_sibling post
-      left outer join (
-          select
-              po.id,
-              po.nresult,
-              po.observed_at,
-              pod.code,
-              por.patient_id,
-              por.id as request_id
-          from renalware.pathology_observations po
-          inner join renalware.pathology_observation_descriptions pod on pod.id = po.description_id
-          inner join renalware.pathology_observation_requests por on por.id = po.request_id
-          where
-            po.id > start_po_id
-            and pod.code = 'URE'
-            and nresult > 0
-      ) pre on pre.patient_id = post.patient_id
+      left outer join tmp_ure_only pre on pre.patient_id = post.patient_id
       and tsrange(
           post.observed_at - '1 hour'::interval * $1,
           post.observed_at + '1 hour'::interval * $2
@@ -13372,7 +13376,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -13452,7 +13456,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
+  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
   GROUP BY e1.modality_desc;
 
 
@@ -31142,9 +31146,10 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware, renalware_demo, public, heroku_ext;
+SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250411085713'),
 ('20250228173152'),
 ('20250227115753'),
 ('20250219142848'),
