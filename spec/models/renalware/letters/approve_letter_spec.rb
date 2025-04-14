@@ -37,8 +37,21 @@ module Renalware
 
     it "sets gp send status to pending if there is a gp recipient" do
       expect(letter.gp_send_status).to eq("not_applicable")
+
       service.call(by: user)
+
       expect(letter.becomes(Renalware::Letters::Letter).reload.gp_send_status).to eq("pending")
+    end
+
+    it "sets gp send status to pending if patient confidentiality is restricted" do
+      patient.update_column(:confidentiality, :restricted)
+      expect(letter.gp_send_status).to eq("not_applicable")
+
+      service.call(by: user)
+
+      expect(
+        letter.becomes(Renalware::Letters::Letter).reload.gp_send_status
+      ).to eq("not_applicable")
     end
 
     it "sets gp send status to not_applicable if the gp is not among the recipients" do

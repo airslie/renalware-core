@@ -6,6 +6,7 @@ module Renalware
       include Broadcasting
       include AfterCommitEverywhere
       pattr_initialize :letter
+      delegate :patient, to: :letter
 
       class << self
         alias build new
@@ -70,8 +71,15 @@ module Renalware
       end
 
       def set_gp_send_status
-        letter.gp_send_status = letter.gp_is_a_recipient? ? :pending : :not_applicable
+        letter.gp_send_status = send_to_gp_using_mesh? ? :pending : :not_applicable
         letter.save!
+      end
+
+      def send_to_gp_using_mesh?
+        return false if patient.confidentiality_restricted?
+        return false unless letter.gp_is_a_recipient?
+
+        true
       end
     end
   end
