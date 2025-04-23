@@ -59,7 +59,7 @@ module Renalware::Feeds
         found: true
       },
       {
-        comment: "10. No NHS in HL& and RW bur MRN and DOB match",
+        comment: "10. No NHS in HL7 and RW but MRN and DOB match",
         nhs_number: { hl7: "", rw: "" },
         found: true
       },

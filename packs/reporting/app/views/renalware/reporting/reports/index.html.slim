@@ -2,50 +2,72 @@
   = simple_form_for search,
                   url: reporting.reports_path,
                   remote: false,
-                  html: { class: "" },
-                  data: { controller: "form", action: "input->form#submit" },
+                  data: { controller: "form",
+                          turbo: true,
+                          turbo_frame: "reports_frame",
+                          action: "input->form#submit" },
                   method: :get do |f|
 
-    .flex.flex-col.sm:flex-row.items-start.md:w-1/2.mb-6
-      = f.label :sub_category_eq, "Category", class: "mr-4 mt-1"
-      = f.select :sub_category_eq,
-                  Renalware::System::ViewMetadata.where(category: "report").order(:sub_category).pluck(:sub_category).uniq,
-                  { include_blank: "All" },
+    .flex.gap-1.flex-wrap
+      div.sm:w-72
+        = f.input :title_cont,
+                  class: "mr-4 mt-1",
+                  label: "Name contains",
+                  data: { action: "change->form#submit" },
+                  input_html: { autocomplete: "off" }
+      div.sm:w-72
+        = f.input :sub_category_eq,
+                  label: "Category",
+                  collection: Renalware::System::ViewMetadata.where(category: "report").order(:sub_category).pluck(:sub_category).compact_blank,
+                  include_blank: "All",
                   data: { controller: "slimselect", action: "change->form#submit" }
+      .basis-1/12
+        .mt-6
+          = link_to(reporting.reports_path,
+                   class: "btn btn-secondary text-gray-500 pl-2 font-normal leading-5 border-none shadow-none",
+                   target: "_top") do
+            .flex.items-center
+              .mr-1= inline_icon(:cross, size: :md)
+              | Reset
+          noscript
+            = filter_or_reset(form: f, reset_path: reporting.reports_path)
 
 = within_admin_layout(title: "Reports") do
-  table
-    thead
-      tr
-        th.col-width-tiny
-        th= sort_link([:reporting, search], :title)
-        th= sort_link([:reporting, search], :sub_category, "Category")
-        - if current_user_is_super_admin?
-          th= sort_link([:reporting, search], :view_name)
-          th= sort_link([:reporting, search], :display_type, "Type")
-          th.col-width-tiny= sort_link([:reporting, search], :calls_count, "Views")
-          th.col-width-date-time= sort_link([:reporting, search], :last_called_at, "Last viewed")
-        th.col-width-date-time= sort_link([:reporting, search], :updated_at, "Updated")
-        th.col-width-date-time= sort_link([:reporting, search], :materialized_view_refreshed_at, " Last refreshed")
-        th
-    tbody
-      - reports.each do |report|
-        tr
-          td= link_to "View", reporting.report_path(report)
-          td= report.title
-          td=report.sub_category
-          - if current_user_is_super_admin?
-            td.code= [report.schema_name, report.view_name].compact.join(".")
-            td= report.display_type&.humanize
-            td= report.calls_count
-            td= l(report.last_called_at)
-          td= l(report.updated_at)
-          td = l(report.materialized_view_refreshed_at)
-          td.text-right
-            - if report.materialized?
-              = button_to("Refresh Data",
-                          reporting.view_metadata_refreshments_path(view_metadata_id: report.id),
-                          class: "button compact warning")
+  = turbo_frame_tag "reports_frame" do
+    = render Renalware::SpinnerComponent.new do |spinner|
+      = spinner.with_main_content do
+        table
+          thead
+            tr
+              th.col-width-tiny
+              th= sort_link([:reporting, search], :title)
+              th= sort_link([:reporting, search], :sub_category, "Category")
+              - if current_user_is_super_admin?
+                th= sort_link([:reporting, search], :view_name)
+                th= sort_link([:reporting, search], :display_type, "Type")
+                th.col-width-tiny= sort_link([:reporting, search], :calls_count, "Views")
+                th.col-width-date-time= sort_link([:reporting, search], :last_called_at, "Last viewed")
+              th.col-width-date-time= sort_link([:reporting, search], :updated_at, "Updated")
+              th.col-width-date-time= sort_link([:reporting, search], :materialized_view_refreshed_at, " Last refreshed")
+              th
+          tbody
+            - reports.each do |report|
+              tr
+                td= link_to "View", reporting.report_path(report)
+                td= report.title
+                td=report.sub_category
+                - if current_user_is_super_admin?
+                  td.code= [report.schema_name, report.view_name].compact.join(".")
+                  td= report.display_type&.humanize
+                  td= report.calls_count
+                  td= l(report.last_called_at)
+                td= l(report.updated_at)
+                td = l(report.materialized_view_refreshed_at)
+                td.text-right
+                  - if report.materialized?
+                    = button_to("Refresh Data",
+                                reporting.view_metadata_refreshments_path(view_metadata_id: report.id),
+                                class: "button compact warning")
 
 
 
