@@ -23,7 +23,7 @@ module Renalware
 
         within "#igan_risk" do
           expect(page).to have_content("53.99")
-          expect(page).to have_content(("A" * 10))
+          expect(page).to have_content("A" * 10)
         end
       end
 
@@ -47,7 +47,7 @@ module Renalware
 
         within "#igan_risk" do
           expect(page).to have_content("53.99")
-          expect(page).to have_content(("A" * 10))
+          expect(page).to have_content("A" * 10)
         end
       end
     end
