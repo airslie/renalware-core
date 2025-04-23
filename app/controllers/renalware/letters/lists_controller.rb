@@ -2,6 +2,7 @@ module Renalware
   module Letters
     class ListsController < Letters::BaseController
       include Renalware::Concerns::Pageable
+      include Pagy::Backend
       layout -> { turbo_frame_request? ? "turbo_rails/frame" : "renalware/layouts/simple" }
 
       # TODO: Use a presenter here
@@ -11,6 +12,7 @@ module Renalware
         query = LetterQuery.new(q: form.attributes)
         letters = find_and_authorize_letters(query)
         letters = letters.only_deleted if form.include_deleted
+        pagy, letters = pagy(letters)
         letters = present_letters(letters)
 
         q = query.search
@@ -18,6 +20,7 @@ module Renalware
         locals = {
           letters: letters,
           q: q,
+          pagy: pagy,
           form: form_for(named_filter)
         }
 
@@ -39,9 +42,7 @@ module Renalware
       end
 
       def find_and_authorize_letters(query)
-        letters = call_query(query).page(page).per(per_page)
-        authorize letters
-        letters
+        call_query(query).tap { |letters| authorize letters }
       end
 
       def present_letters(letters)

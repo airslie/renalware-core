@@ -91,10 +91,10 @@ ruby:
 - if named_filter == :batch_printable
 
   ruby:
-    button_title = if letters.total_count > Renalware.config.max_batch_print_size
-                      "Batch print #{Renalware.config.max_batch_print_size} of #{letters.total_count} letters"
+    button_title = if letters.count > Renalware.config.max_batch_print_size
+                      "Batch print #{Renalware.config.max_batch_print_size} of #{letters.count} letters"
                     else
-                      "Batch print all #{letters.total_count} letters"
+                      "Batch print all #{letters.count} letters"
                     end
 
   / This form will all hidden fields and one button is otherwise a mirror of the above filter form.
@@ -120,7 +120,7 @@ ruby:
     = f.input :created_by_id_eq, as: :hidden
     = f.input :letterhead_id_eq, as: :hidden
     = f.input :page_count_in_array, as: :hidden
-    - if letters.total_count > 0
+    - if letters.count > 0
       = f.submit button_title, class: "button", disabled: letters.none?, formtarget: "_blank"
 
   #batch-print-modal.reveal-modal.small(data-reveal

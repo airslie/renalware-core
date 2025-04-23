@@ -6,7 +6,7 @@
   = render Renalware::SpinnerComponent.new do |spinner|
     = spinner.with_main_content do
       = render "filters", form: form, named_filter: named_filter, letters: letters
-      = render "table", letters: letters, q: q, named_filter: named_filter
+      = render "table", letters: letters, q: q, named_filter: named_filter, pagy: pagy
 
 / The modal dialog container for the dialog which will ask the user
 / if they want to mark the letter as printed. We load this dialog via ajax.

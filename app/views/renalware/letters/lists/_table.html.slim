@@ -1,4 +1,4 @@
-- # locals: (named_filter:, letters:, q: nil)
+- # locals: (named_filter:, letters:, pagy:, q: nil)
 
 .letters-table
   table.report.letters.toggleable(data-controller="toggle")
@@ -26,4 +26,4 @@
 
     = render partial: "letter", collection: letters, locals: { named_filter: named_filter }
 
-  = paginate letters
+  == pagy_nav(pagy) if pagy.pages > 1
