@@ -2260,8 +2260,8 @@ BEGIN
     ON CONFLICT DO NOTHING;
 
     -- We are going to compare the current and new observed_at dates
-    -- so need to cast them  to a timestamp
-    select cast(New.observed_at as timestamp) into new_observed_at;
+    -- so need to cast them to a timestamp
+    select (New.observed_at::timestamp at time zone 'UTC' at time zone 'Europe/London') into new_observed_at;
 
     -- Get the most recent date and value for this observation
     -- and store to variables.
@@ -10761,7 +10761,7 @@ ALTER SEQUENCE renalware.pathology_observation_requests_id_seq OWNED BY renalwar
 
 CREATE VIEW renalware.pathology_observations_grouped_by_date AS
  SELECT obr.patient_id,
-    (obs.observed_at)::date AS observed_at,
+    (((obs.observed_at AT TIME ZONE 'UTC'::text) AT TIME ZONE 'Europe/London'::text))::date AS observed_at,
     jsonb_object_agg(pod.code, ARRAY[obs.result, (obs.comment)::character varying] ORDER BY obs.observed_at) AS results,
     pcg2.name AS "group"
    FROM ((((renalware.pathology_observations obs
@@ -10769,8 +10769,8 @@ CREATE VIEW renalware.pathology_observations_grouped_by_date AS
      JOIN renalware.pathology_observation_descriptions pod ON ((obs.description_id = pod.id)))
      JOIN renalware.pathology_code_group_memberships pcgm2 ON ((pcgm2.observation_description_id = pod.id)))
      JOIN renalware.pathology_code_groups pcg2 ON ((pcg2.id = pcgm2.code_group_id)))
-  GROUP BY pcg2.name, obr.patient_id, ((obs.observed_at)::date)
-  ORDER BY obr.patient_id, pcg2.name, ((obs.observed_at)::date) DESC;
+  GROUP BY pcg2.name, obr.patient_id, ((((obs.observed_at AT TIME ZONE 'UTC'::text) AT TIME ZONE 'Europe/London'::text))::date)
+  ORDER BY obr.patient_id, pcg2.name, ((((obs.observed_at AT TIME ZONE 'UTC'::text) AT TIME ZONE 'Europe/London'::text))::date) DESC;
 
 
 --
@@ -31164,9 +31164,11 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware, renalware_demo, public, heroku_ext;
+SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250425122256'),
+('20250424150155'),
 ('20250411085713'),
 ('20250409113239'),
 ('20250228173152'),

@@ -44,7 +44,7 @@ module Renalware
         pattr_initialize :row
 
         def observed_on
-          Date.parse(row[:observed_on])
+          Time.zone.parse(row[:observed_on]).to_date
         end
 
         def observed_at
