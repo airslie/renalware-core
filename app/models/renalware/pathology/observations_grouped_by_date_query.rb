@@ -76,15 +76,15 @@ module Renalware
       # ...
       def to_sql
         <<-SQL.squish
-          select obs_req.patient_id, cast(observed_at as date) as observed_on,
+          select obs_req.patient_id, (obs.observed_at AT TIME ZONE 'UTC' AT TIME ZONE 'Europe/London')::date AS observed_on,
           jsonb_object_agg(obs_desc.code, ARRAY[obs.result, obs.comment] order by observed_at asc) results
           from pathology_observations obs
           inner join pathology_observation_requests obs_req on obs.request_id = obs_req.id
           inner join pathology_observation_descriptions obs_desc on obs.description_id = obs_desc.id
           where patient_id = #{conn.quote(patient.id)}
           and obs.description_id in (#{observation_description_ids})
-          group by patient_id, observed_on
-          order by patient_id asc, observed_on desc
+          group by patient_id, (obs.observed_at AT TIME ZONE 'UTC' at time zone 'Europe/London')::date
+          order by patient_id asc, (obs.observed_at AT TIME ZONE 'UTC' at time zone 'Europe/London')::date DESC
         SQL
       end
 
