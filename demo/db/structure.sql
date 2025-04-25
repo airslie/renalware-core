@@ -2260,8 +2260,8 @@ BEGIN
     ON CONFLICT DO NOTHING;
 
     -- We are going to compare the current and new observed_at dates
-    -- so need to cast them  to a timestamp
-    select cast(New.observed_at as timestamp) into new_observed_at;
+    -- so need to cast them to a timestamp
+    select (New.observed_at::timestamp at time zone 'UTC' at time zone 'Europe/London') into new_observed_at;
 
     -- Get the most recent date and value for this observation
     -- and store to variables.
@@ -31164,9 +31164,10 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware, renalware_demo, public, heroku_ext;
+SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250425122256'),
 ('20250424150155'),
 ('20250411085713'),
 ('20250409113239'),
