@@ -2286,7 +2286,7 @@ BEGIN
       -- Update the values jsonb column with the new hash for this code, e.g.
       -- .. {"HGB": { "result": 123.1, "observed_at": '2017-12-12-01:01:01'}, ..
             -- Note the `set values` below actually reads in the jsonb, updates it,
-            -- and wites the whole thing back.
+            -- and writes the whole thing back.
       update pathology_current_observation_sets
         set updated_at = CURRENT_TIMESTAMP,
           values = jsonb_set(
@@ -31164,7 +31164,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware,renalware_demo,public,heroku_ext;
+SET search_path TO renalware, renalware_demo, public, heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20250425122256'),

@@ -88,7 +88,6 @@ module World
       def update_access_profile(patient:, user:)
         login_as user
         visit patient_accesses_dashboard_path(patient)
-        # Capybara::Screenshot.screenshot_and_save_page
 
         within_article "Access Profile History" do
           click_on t("btn.edit")
