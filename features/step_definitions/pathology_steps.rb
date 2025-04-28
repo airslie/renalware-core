@@ -21,11 +21,11 @@ Given(request_description_expiration_regex) do |request_code, expiration_days|
   )
 end
 
-Given(/a ([\d\w]+) test was requested for Patty $/) do |code|
+Given /a ([\d\w]+) test was requested for Patty $/ do |code|
   # noop
 end
 
-Given(/^a ([\d\w]+) test was requested for Patty (\d+) (days|day) ago$/) do |code, days, _|
+Given /^a ([\d\w]+) test was requested for Patty (\d+) (days|day) ago$/ do |code, days, _|
   if days.present?
     requested_at = (Time.current - days.days).to_date
 
@@ -37,11 +37,11 @@ Given(/^a ([\d\w]+) test was requested for Patty (\d+) (days|day) ago$/) do |cod
   end
 end
 
-Given(/^a ([\d\w]+) test was observed for Patty $/) do |code|
+Given /^a ([\d\w]+) test was observed for Patty $/ do |code|
   # noop
 end
 
-Given(/^a ([\d\w]+) test was observed for Patty (\d+) (days|day) ago$/) do |code, days, _|
+Given /^a ([\d\w]+) test was observed for Patty (\d+) (days|day) ago$/ do |code, days, _|
   if days.present?
     observed_at = (Time.current - days.days).to_date
 
@@ -53,11 +53,11 @@ Given(/^a ([\d\w]+) test was observed for Patty (\d+) (days|day) ago$/) do |code
   end
 end
 
-Given(/^the following observations were recorded$/) do |table|
+Given /^the following observations were recorded$/ do |table|
   record_observations(patient: @patty, observations_attributes: table.hashes)
 end
 
-Given(/^the drugs with the drug_category (\w+):$/) do |drug_category_name, table|
+Given /^the drugs with the drug_category (\w+):$/ do |drug_category_name, table|
   drugs = table.hashes.map do |params|
     Renalware::Pathology::Requests::Drug.create!(params)
   end
@@ -67,30 +67,30 @@ Given(/^the drugs with the drug_category (\w+):$/) do |drug_category_name, table
   category.update!(drugs: drugs)
 end
 
-Then(/^an observation request is created with the following attributes:$/) do |table|
+Then /^an observation request is created with the following attributes:$/ do |table|
   expect_observation_request_to_be_created(table.rows_hash)
 end
 
-Then(/^observations are created with the following attributes:$/) do |table|
+Then /^observations are created with the following attributes:$/ do |table|
   expect_observations_to_be_created(table.hashes)
 end
 
-Then("current observations are updated to be:") do |table|
+Then /current observations are updated to be:/ do |table|
   expect_current_observations_to_be(patient: @patty, rows: table.hashes)
 end
 
-Then(/^the doctor views the following archived pathology result report:$/) do |table|
+Then /^the doctor views the following archived pathology result report:$/ do |table|
   expect_pathology_result_report(user: @nathalie, patient: @patty, rows: table.raw)
 end
 
-Then(/^the doctor views the following recent observation results:$/) do |table|
+Then /^the doctor views the following recent observation results:$/ do |table|
   expect_pathology_recent_observations(user: @nathalie, patient: @patty, rows: table.raw)
 end
 
-Then(/^the doctor views the following historical observation results:$/) do |table|
+Then /^the doctor views the following historical observation results:$/ do |table|
   expect_pathology_historical_observations(user: @nathalie, patient: @patty, rows: table.raw)
 end
 
-Then(/^the doctor views the following current observation results:$/) do |table|
+Then /^the doctor views the following current observation results:$/ do |table|
   expect_pathology_current_observations(user: @nathalie, patient: @patty, rows: table.raw)
 end

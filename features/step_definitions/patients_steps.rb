@@ -1,4 +1,4 @@
-Given(/^Patty is a patient$/) do
+Given /^Patty is a patient$/ do
   @patty = Renalware::Patient.create!(
     nhs_number: FactoryBot.generate(:nhs_number),
     given_name: "Patty",
@@ -17,12 +17,12 @@ Given(/^Patty is a patient$/) do
   )
 end
 
-Given(/^Patty's sex is (\w+)$/) do |sex|
+Given /^Patty's sex is (\w+)$/ do |sex|
   @patty.sex = sex
   @patty.save!
 end
 
-Given(/^Don is a patient$/) do
+Given /^Don is a patient$/ do
   @don = Renalware::Patient.create!(
     nhs_number: FactoryBot.generate(:nhs_number),
     given_name: "Don",
@@ -40,7 +40,7 @@ Given(/^Don is a patient$/) do
   )
 end
 
-Given "Patty has a practice" do
+Given /Patty has a practice/ do
   @patty.create_practice!(
     name: "Practice A",
     code: Time.current.to_i,
@@ -49,7 +49,7 @@ Given "Patty has a practice" do
   @patty.save!
 end
 
-Given(/^Phylis is Patty's primary care physician$/) do
+Given /^Phylis is Patty's primary care physician$/ do
   @phylis = @patty.create_primary_care_physician!(
     name: "GOOD PJ",
     practitioner_type: "GP",
@@ -63,14 +63,14 @@ Given(/^Phylis is Patty's primary care physician$/) do
   @patty.save!
 end
 
-Given(/^Patty is a diabetic (yes|no)$/) do |diabetic|
+Given /^Patty is a diabetic (yes|no)$/ do |diabetic|
   if diabetic == "yes"
     @patty.document.diabetes.diagnosis = true
     @patty.save!
   end
 end
 
-Given(/^the following patients:$/) do |table|
+Given /^the following patients:$/ do |table|
   table.raw.flatten.each do |given_name|
     Renalware::Patient.create!(
       family_name: "ThePatient",
@@ -84,6 +84,6 @@ Given(/^the following patients:$/) do |table|
   end
 end
 
-Then(/^the patient is created with the following attributes:$/) do |table|
+Then /^the patient is created with the following attributes:$/ do |table|
   expect_patient_to_be_created(table.rows_hash)
 end

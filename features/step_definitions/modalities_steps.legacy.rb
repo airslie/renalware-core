@@ -1,8 +1,8 @@
-Given(/^I choose to add a modality$/) do
+Given /^I choose to add a modality$/ do
   visit new_patient_modality_path(@patty || @patient_1)
 end
 
-When(/^I complete the modality form$/) do
+When /^I complete the modality form$/ do
   within "#modality-description-select" do
     select "Other"
   end
@@ -15,6 +15,6 @@ When(/^I complete the modality form$/) do
   submit_form
 end
 
-Then(/^I should see a patient's modality on their clinical summary$/) do
+Then /^I should see a patient's modality on their clinical summary$/ do
   expect(page).to have_content("Other")
 end

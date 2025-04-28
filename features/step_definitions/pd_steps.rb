@@ -1,11 +1,11 @@
 #
 # New steps
 #
-Given(/^Patty has no PD regimes$/) do
+Given /^Patty has no PD regimes$/ do
   @patty.pd_regimes.destroy_all
 end
 
-Given(/^Patty has the PD modality$/) do
+Given /^Patty has the PD modality$/ do
   modality_description = Renalware::Modalities::Description.find_by(
     type: "Renalware::PD::ModalityDescription"
   )
@@ -14,64 +14,64 @@ Given(/^Patty has the PD modality$/) do
                     user: @clyde)
 end
 
-When(/^Clyde adds a CAPD regime$/) do
+When /^Clyde adds a CAPD regime$/ do
   @capd_regime = record_capd_regime_for(patient: @patty, user: @clyde)
 end
 
-When(/^Clyde creates the following APD Regime for Patty$/) do |table|
+When /^Clyde creates the following APD Regime for Patty$/ do |table|
   @regime = build_apd_regime_for(patient: @patty, user: @clyde, data: table.rows)
 end
 
-When(/^adds the following bags$/) do |table|
+When /^adds the following bags$/ do |table|
   add_bags_to_regime(regime: @regime, user: @clyde, data: table.hashes)
 end
 
-Then(/^the CAPD becomes the current one$/) do
+Then /^the CAPD becomes the current one$/ do
   regime_for_patient_is_current(patient: @patty, regime: @capd_regime)
 end
 
-Then(/^the calculated regime volumes are$/) do |table|
+Then /^the calculated regime volumes are$/ do |table|
   expect_calculated_regime_volumes_to_be(data: table.rows, regime: @regime)
 end
 
-Given(/^Patty has an existing CAPD regime$/) do
+Given /^Patty has an existing CAPD regime$/ do
   @regime1 = record_capd_regime_for(patient: @patty, user: @clyde)
 end
 
-When(/^Clyde create a new CAPD regime$/) do
+When /^Clyde create a new CAPD regime$/ do
   @regime2 = record_capd_regime_for(patient: @patty, user: @clyde)
 end
 
-When(/^the new CAPD regime is current$/) do
+When /^the new CAPD regime is current$/ do
   regime_for_patient_is_current(patient: @patty, regime: @regime2)
 end
 
-Then(/^Clyde cannot edit the old regime$/) do
+Then /^Clyde cannot edit the old regime$/ do
   regime_is_immutable(@regime1)
 end
 
-Given(/^a patient has PD$/) do
+Given /^a patient has PD$/ do
   description = Renalware::PD::ModalityDescription.first!
   FactoryBot.create(:modality, patient: @patient_1, description: description)
 
   visit patient_pd_dashboard_path(@patient_1)
 end
 
-Given(/^I choose to record a new CAPD regime$/) do
+Given /^I choose to record a new CAPD regime$/ do
   within ".page-actions" do
     click_on t("btn.add")
     click_on "CAPD Regime"
   end
 end
 
-Given(/^I choose to record a new APD regime$/) do
+Given /^I choose to record a new APD regime$/ do
   within ".page-actions" do
     click_on t("btn.add")
     click_on "APD Regime"
   end
 end
 
-Given(/^a patient has existing CAPD regimes$/) do
+Given /^a patient has existing CAPD regimes$/ do
   bag_type = Renalware::PD::BagType.find_by!(
     manufacturer: "Baxter", description: "Nutrineal PD4 (Blue)"
   )
@@ -124,7 +124,7 @@ Given(/^a patient has existing CAPD regimes$/) do
   )
 end
 
-Given(/^a patient has existing APD regimes$/) do
+Given /^a patient has existing APD regimes$/ do
   bag_type = Renalware::PD::BagType.find_by!(
     manufacturer: "Baxter", description: "Nutrineal PD4 (Blue)"
   )
@@ -192,7 +192,7 @@ Given(/^a patient has existing APD regimes$/) do
   )
 end
 
-When(/^I complete the form for a CAPD regime$/) do
+When /^I complete the form for a CAPD regime$/ do
   fill_in "Start date", with: "02/04/2015"
   fill_in "End date", with: "01/06/2015"
 
@@ -215,7 +215,7 @@ When(/^I complete the form for a CAPD regime$/) do
   submit_form
 end
 
-When(/^I complete the form for a APD regime$/) do
+When /^I complete the form for a APD regime$/ do
   fill_in "Start date", with: "15/05/2015"
   fill_in "End date", with: "16/07/2015"
   select "2 weeks", from: "Delivery interval"
@@ -264,7 +264,7 @@ When(/^I complete the form for a APD regime$/) do
   submit_form
 end
 
-When(/^I choose to edit and update the form for a CAPD regime$/) do
+When /^I choose to edit and update the form for a CAPD regime$/ do
   visit patient_pd_dashboard_path(@patient_1)
 
   within("table.capd-regimes tbody tr:first-child") do
@@ -278,7 +278,7 @@ When(/^I choose to edit and update the form for a CAPD regime$/) do
   expect(page).to have_current_path(patient_pd_dashboard_path(@patient_1))
 end
 
-When(/^I choose to edit and update the form for a APD regime$/) do
+When /^I choose to edit and update the form for a APD regime$/ do
   visit patient_pd_dashboard_path(@patient_1)
 
   within("table.apd-regimes tbody tr:first-child") do
@@ -293,7 +293,7 @@ When(/^I choose to edit and update the form for a APD regime$/) do
   submit_form
 end
 
-When(/^I choose to view a CAPD regime$/) do
+When /^I choose to view a CAPD regime$/ do
   visit patient_pd_dashboard_path(@patient_1)
 
   within("table.capd-regimes tbody tr:nth-child(1)") do
@@ -301,7 +301,7 @@ When(/^I choose to view a CAPD regime$/) do
   end
 end
 
-When(/^I choose to view a APD regime$/) do
+When /^I choose to view a APD regime$/ do
   visit patient_pd_dashboard_path(@patient_1)
 
   within("table.apd-regimes tbody tr:nth-child(1)") do
@@ -309,7 +309,7 @@ When(/^I choose to view a APD regime$/) do
   end
 end
 
-Then(/^I should see the new CAPD regime on the PD dashboard$/) do
+Then /^I should see the new CAPD regime on the PD dashboard$/ do
   within("table.capd-regimes tbody tr:first-child") do
     expect(page).to have_content(l(Date.parse("02-04-2015")))
     expect(page).to have_content(l(Date.parse("01-06-2015")))
@@ -330,7 +330,7 @@ Then(/^I should see the new CAPD regime on the PD dashboard$/) do
   end
 end
 
-Then(/^I should see the new APD regime on the PD dashboard$/) do
+Then /^I should see the new APD regime on the PD dashboard$/ do
   within("table.apd-regimes tbody tr:first-child") do
     expect(page).to have_content(l(Date.parse("15-05-2015")))
     expect(page).to have_content(l(Date.parse("16-07-2015")))
@@ -351,7 +351,7 @@ Then(/^I should see the new APD regime on the PD dashboard$/) do
   end
 end
 
-Then(/^the new CAPD regime should be current$/) do
+Then /^the new CAPD regime should be current$/ do
   within(".current-regime") do
     expect(page).to have_content(l(Date.parse("02-04-2015")))
     expect(page).to have_content(l(Date.parse("01-06-2015")))
@@ -361,7 +361,7 @@ Then(/^the new CAPD regime should be current$/) do
   end
 end
 
-Then(/^the new APD regime should be current$/) do
+Then /^the new APD regime should be current$/ do
   within(".current-regime") do
     expect(page).to have_content(l(Date.parse("15-05-2015")))
     expect(page).to have_content(l(Date.parse("16-07-2015")))
@@ -387,19 +387,19 @@ Then(/^the new APD regime should be current$/) do
   end
 end
 
-Then(/^I should see the updated CAPD regime on the PD dashboard$/) do
+Then /^I should see the updated CAPD regime on the PD dashboard$/ do
   within("table.capd-regimes tbody tr:first-child") do
     expect(page).to have_content(l(Date.parse("03-05-2015")))
   end
 end
 
-Then(/^I should see the updated APD regime on the PD dashboard$/) do
+Then /^I should see the updated APD regime on the PD dashboard$/ do
   within("table.apd-regimes tbody tr:first-child") do
     expect(page).to have_content(l(Date.parse("30-08-2015")))
   end
 end
 
-Then(/^I should see the chosen CAPD regime details$/) do
+Then /^I should see the chosen CAPD regime details$/ do
   expect(page).to have_content(l(Date.parse("02-04-2015")))
   expect(page).to have_content(l(Date.parse("21-May-2015")))
   expect(page).to have_content("Treatment:")
@@ -408,7 +408,7 @@ Then(/^I should see the chosen CAPD regime details$/) do
   expect(page).to have_content("No")
 end
 
-Then(/^I should see the chosen APD regime details$/) do
+Then /^I should see the chosen APD regime details$/ do
   expect(page).to have_content("Start")
   expect(page).to have_content(l(Date.parse("20-03-2015")))
   expect(page).to have_content("End")
