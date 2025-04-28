@@ -16,7 +16,6 @@ require "paper_trail/frameworks/rspec"
 require "wisper/rspec/matchers"
 require "view_component/test_helpers"
 require "capybara/rspec"
-require "capybara-screenshot/rspec"
 require "vcr"
 
 VCR.configure do |config|
@@ -57,36 +56,6 @@ RSpec.configure do |config|
   config.before(:each, type: :system) do
     driven_by :rack_test
   end
-
-  # Capybara::Screenshot.register_driver(:rw_headless_chrome) do |driver, path|
-  #   driver.browser.save_screenshot(path)
-  # end
-
-  # Capybara.register_driver(:rw_headless_chrome) do |app|
-  #   options = Selenium::WebDriver::Chrome::Options.new
-  #   options.add_preference(:download, prompt_for_download: false)
-  #   options.add_preference(:download, default_directory: Rails.root.join("tmp"))
-  #   options.add_argument("window-size=1366,1768")
-  #   options.add_argument("headless=new") unless ENV["HEADFULL"]
-  #   options.add_argument("disable-gpu")
-  #   options.add_argument("disable-extensions")
-  #   options.add_argument("no-sandbox")
-  #   options.add_argument("enable-features=NetworkService,NetworkServiceInProcess")
-
-  #   # If using `binding.b` or `binding.pry` in Capybara tests,
-  #   # it's a good idea to increase the timeout to avoid cut-outs
-  #   client = Selenium::WebDriver::Remote::Http::Default.new
-  #   unless ENV["CI"]
-  #     client.open_timeout = 30.minutes.to_i
-  #   end
-
-  #   Capybara::Selenium::Driver.new(
-  #     app,
-  #     browser: :chrome,
-  #     http_client: client,
-  #     options: options
-  #   )
-  # end
 
   Capybara.register_driver :my_playwright do |app|
     Capybara::Playwright::Driver.new(

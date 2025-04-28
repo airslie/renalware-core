@@ -100,8 +100,6 @@ group :development do
   gem "rubocop-rake", require: false
   gem "rubocop-rspec", require: false
   gem "rubocop-rspec_rails", require: false
-  gem "turnip", github: "airslie/turnip", require: false
-  # gem 'sql_tracker'
   gem "solargraph"
   gem "web-console"
 
@@ -111,6 +109,7 @@ group :development do
   gem "sentry-opentelemetry"
   gem "sentry-ruby"
   gem "sentry-rails"
+  gem "turnip", require: false
   # rubocop:enable Bundler/OrderedGems
 end
 

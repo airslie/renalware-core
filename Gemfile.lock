@@ -60,14 +60,6 @@ GIT
       virtus
 
 GIT
-  remote: https://github.com/airslie/turnip.git
-  revision: f4c00a641a68c3b36e6ed379c66f672eef59f98a
-  specs:
-    turnip (4.2.0)
-      cucumber-gherkin
-      rspec (>= 3.0, < 4.0)
-
-GIT
   remote: https://github.com/cucumber/cucumber-ruby.git
   revision: 328fd2b14cd5fefd9a8141eb25e6baba6f296998
   specs:
@@ -357,6 +349,8 @@ GEM
       cucumber (>= 5, < 10)
       railties (>= 5.2, < 9)
     cucumber-tag-expressions (6.1.1)
+    cuke_modeler (3.24.0)
+      cucumber-gherkin (< 33.0)
     daemons (1.4.1)
     database_cleaner (2.1.0)
       database_cleaner-active_record (>= 2, < 3)
@@ -976,6 +970,9 @@ GEM
     turbo-rails (2.0.13)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
+    turnip (4.4.1)
+      cuke_modeler (~> 3.15)
+      rspec (>= 3.0, < 4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode (0.4.4.5)
@@ -1114,7 +1111,7 @@ DEPENDENCIES
   terser
   test-prof
   thruster
-  turnip!
+  turnip
   vcr
   web-console
   webmock (~> 3.7)
