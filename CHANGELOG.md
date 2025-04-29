@@ -9,6 +9,44 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.4.5.4
+### Added
+- Handle A04 ED admission messages #5242
+- Do not send GP letter via MESH if patient.confidentiality = restricted #5241
+- Handle ORM^O01 HL7 order/referral messages #5215
+- Expire users inactive for a configured number of days #5211
+  - Run the job every day at 2:00 AM. This address a bug where we expect an indication in the Admin Users -> Expired tab, and the user Expired? column, that user is expired by interrogating users.expired_at, but this column never gets populated. Users are still prevented from logging in as the devise_security#expired? method also checks last_activity_at.
+- Add Requires BBV Slot (hep B+) to HD Slot request form #5190
+  - Add a new attribute and column 'requires_bbv_slot' labelled 'Requires BBV Slot (hep B+)' to the HD Slot Request form. Selecting Yes or No is mandatory.
+
+This fix is to add a daily job to set users.expired_at = now() where last activity was more than Renalware.config.users_expire_after days ago
+### Changed
+- Allow filtering reports by name #5248
+- Make pathology_missing_urrs faster by using a temp table rather than a CTE #5243
+- Switch date/time columns in event tables #5240
+  - Switch the position in events tables of the Created On and Date/Time columns, as the default sort order is event.date_time and so having created_on as the first date columns is a bit confusing. Also it makes more sense for the created_at to be adjacent to the created_by column
+- Allow devise user expiry to be configurable #5210
+  - Defaults to 90 days. MSE have requested this be 45 days so have made configurable using an env var eg USERS_EXPIRE_AFTER=45
+- Add activity warning next to recipient choosing for a message #5206
+  - When adding a recipient to a message, augment the user's name in the dropdown with warning text if the user has never signed in or if if the user has not logged in for n days
+- Filtering improvements #5186
+  - Add auto-filtering to research studies
+  - Add auto-filtering to research participants
+  - Add auto-filtering to users table
+### Fixed
+- Fix pathology date issues #5254
+  - Affects observations with BST timestamps between midnight and 1am
+- Letter housekeeping, fix pagination #5250
+  - fix pagination CSS formatting abd functionality on the Renal -> Letters lists
+- Fix clinic visiting filtering #5222
+  - On the Renal -> Clinic Visits and Patient -> Clinic Visits pages, the pagination was not working correctly if a filter was applied.
+- UKRDC and letter fixes#5221
+  - Allow nil hosp unit rendering UKRDC HD treatment XML
+  - Default to sending letters over MESH (overridable with ENV var)
+  - Refresh turboframe after printing a letter - reload turboframe.src rather than location.src to preserve filters.
+    Refreshing will update (or remove if now filtered-out) the table row for the letter that was printed.
+- Fix counts issue batch printing letters where there are pending GP Connect requests #5213
+
 ## 2.4.5.3
 ### Added
 - Create a Remote Monitoring Registration custom event #5080

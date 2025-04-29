@@ -1,3 +1,3 @@
 module Renalware
-  VERSION = "2.4.5.3".freeze
+  VERSION = "2.4.5.4".freeze
 end
