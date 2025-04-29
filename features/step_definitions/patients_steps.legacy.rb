@@ -1,8 +1,8 @@
-Given(/^I am on the patients list$/) do
+Given /^I am on the patients list$/ do
   visit patients_path
 end
 
-Given(/^some patients who need renal treatment$/) do
+Given /^some patients who need renal treatment$/ do
   @patient_1 = FactoryBot.create(
     :patient,
     nhs_number: FactoryBot.generate(:nhs_number),
@@ -43,6 +43,6 @@ Given(/^some patients who need renal treatment$/) do
   )
 end
 
-Given(/^they are on a patient's clinical summary$/) do
+Given /^they are on a patient's clinical summary$/ do
   visit patient_clinical_summary_path(@patient_1)
 end

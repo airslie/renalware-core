@@ -1,4 +1,4 @@
-Given(/^Patty has the following prescriptions:$/) do |table|
+Given /^Patty has the following prescriptions:$/ do |table|
   table.hashes.each_with_index do |row, index|
     dose_amount, unit_of_measure_name = row[:dose].split
     prescribed_on_default = Time.current.beginning_of_day - 1.month + index.days
@@ -29,7 +29,7 @@ Given(/^Patty has the following prescriptions:$/) do |table|
   end
 end
 
-Given(/^Patty is being prescribed (.+)$/) do |drug_name|
+Given /^Patty is being prescribed (.+)$/ do |drug_name|
   drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
   FactoryBot.create(:prescription, patient: @patty, drug: drug)
 end

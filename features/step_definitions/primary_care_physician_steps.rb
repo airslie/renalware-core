@@ -1,4 +1,4 @@
-Given(/^([A-Za-z]+) ([A-Za-z]+) is a primary care physician with telephone number: (\d+)$/) do |name, telephone|
+Given /^([A-Za-z]+) ([A-Za-z]+) is a primary care physician with telephone number: (\d+)$/ do |name, telephone|
   Renalware::Patients::PrimaryCarePhysician.create!(
     email: "john.merrill@nhs.net",
     name: name,

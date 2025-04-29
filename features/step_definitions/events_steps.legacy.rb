@@ -1,12 +1,12 @@
-Given("Clyde is on Patty's event index") do
+Given /Clyde is on Patty's event index/ do
   visit patient_events_path(@patty)
 end
 
-When("Clyde chooses to add an event") do
+When /Clyde chooses to add an event/ do
   click_on t("btn.add")
 end
 
-When("records Patty's event") do
+When /records Patty's event/ do
   within "#new_events_event" do
     slim_select "Email", from: "Event type"
     fill_in_date_time "Date time", with: fake_date_time
@@ -26,7 +26,7 @@ When("records Patty's event") do
   end
 end
 
-Then("Clyde should see Patty's new event on the events page") do
+Then /Clyde should see Patty's new event on the events page/ do
   expect(page).to have_current_path(patient_events_path(@patty))
   expect(page).to have_content(l(fake_date))
   expect(page).to have_content(fake_time)
@@ -36,7 +36,7 @@ Then("Clyde should see Patty's new event on the events page") do
   expect(page).to have_content("Patty to speak to family before meeting set up.")
 end
 
-Then("see Patty's new event in her event index") do
+Then /see Patty's new event in her event index/ do
   visit patient_events_path(@patty)
 
   expect(page).to have_content(l(fake_date))
