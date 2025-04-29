@@ -1,4 +1,4 @@
-class UpdateUpdateCurrentObservationSetFromTriggerV06 < ActiveRecord::Migration[8.0]
+class UpdateUpdateCurrentObservationSetFromTriggerV06 < ActiveRecord::Migration[7.0]
   def up
     within_renalware_schema do
       load_function("update_current_observation_set_from_trigger_v06.sql")
