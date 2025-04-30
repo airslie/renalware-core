@@ -455,8 +455,11 @@ module Renalware
 
     describe "telecoms fields containing double quotes from HL7" do
       it "nullifies the field as per HL7 spec" do
-        patient = build(:patient, email: '""', telephone1: '""', telephone2: '""')
-        patient.save!
+        patient = create(:patient, email: "x@y.com", telephone1: "123", telephone2: "456")
+        patient.email = '""'
+        patient.telephone1 = '""'
+        patient.telephone2 = '""'
+        patient.save_by!(user)
         expect(patient.reload).to have_attributes(
           email: nil,
           telephone1: nil,

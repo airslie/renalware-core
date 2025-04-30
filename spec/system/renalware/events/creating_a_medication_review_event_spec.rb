@@ -16,6 +16,7 @@ describe "Creating an medication review event", :js do
 
     click_on t("btn.create")
 
+    expect(page).to have_current_path(patient_events_path(patient))
     events = Renalware::Events::Event.for_patient(patient)
     expect(events.length).to eq(1)
     expect(events.first.event_type_id).to eq(event_type.id)

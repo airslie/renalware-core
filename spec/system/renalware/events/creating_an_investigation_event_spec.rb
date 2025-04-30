@@ -25,6 +25,7 @@ describe "Creating a investigation event", :js do
         expect(page).to have_content("Events", exact: true)
       end
 
+      expect(page).to have_current_path(patient_events_path(patient))
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)
       event = events.first
@@ -47,8 +48,10 @@ describe "Creating a investigation event", :js do
     select "Dental Check", from: "Type"
     fill_in "Result", with: "result"
     fill_trix_editor with: "some notes"
+
     click_on t("btn.create")
 
+    expect(page).to have_current_path(patient_transplants_recipient_dashboard_path(patient))
     events = Renalware::Events::Event.for_patient(patient)
     expect(events.length).to eq(1)
     event = events.first
