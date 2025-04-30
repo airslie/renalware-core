@@ -1,11 +1,14 @@
 - url = patient_attachments_path(patient)
 .filters
   .filters__form
-    = search_form_for search, url: url, class: "fn-form" do |f|
+    = search_form_for search,
+                      url: url,
+                      class: "fn-form",
+                      html: { autocomplete: "off" } do |f|
       .row
         .small-5.large-3.columns
           = f.label "Name or description contains"
-          = f.search_field :name_or_description_cont
+          = f.search_field :name_or_description_cont, input_html: { autocomplete: "off" }
         .small-4.large-3.columns
           = f.label "Attachment type"
           = f.collection_select :attachment_type_id_eq,

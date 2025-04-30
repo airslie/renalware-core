@@ -2,7 +2,7 @@
   .filters__form
     = search_form_for user_search,
       url: admin_users_path,
-      html: { class: "fn-form" },
+      html: { class: "fn-form", autocomplete: "off" },
       method: :get,
       data: { turbo_frame: "admin-users-turbo-frame",
               turbo: true,
@@ -12,7 +12,8 @@
       .flex.gap-2
         .basis-1/4
           = f.label "Name or username contains"
-          = f.search_field :family_name_or_given_name_or_username_or_email_cont
+          = f.search_field :family_name_or_given_name_or_username_or_email_cont,
+                           input_html: { autocomplete: "off" }
         .basis-1/4
           = f.label "Site"
           = f.select(:hospital_centre_id_eq,

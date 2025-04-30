@@ -4,6 +4,7 @@
       = search_form_for the_patient_search,
                         url: renalware.patients_path,
                         as: :patient_search,
+                        html: { autocomplete: "off" },
                         class: "fn-form patient-search-form" do |f|
         .row.collapse
           .columns.small-12
@@ -12,7 +13,8 @@
                 = label_tag :identity_match, t(".accessible_label_title") do
                   = f.search_field :identity_match,
                                    placeholder: t(".verbose_search_placeholder"),
-                                   class: "radius rounded-r-none"
+                                   class: "radius rounded-r-none",
+                                   input_html: { autocomplete: "off" }
               .small-2.columns
                 = f.button class: "button tiny postfix radius radius-right" do
                   i.fas.fa-search
