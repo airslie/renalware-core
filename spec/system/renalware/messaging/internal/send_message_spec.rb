@@ -10,12 +10,10 @@ describe "Sending a private message" do
 
     click_on "Send message"
 
-    wait_for_ajax
-
     fill_in "Body", with: "Test"
 
     # Problem here: select2 not initialised at this point.
-    select2 "X, Y", from: "Recipients"
+    slim_select "X, Y", from: "Recipients"
     click_on "Send"
 
     expect(page).to have_content("Message was successfully sent")
