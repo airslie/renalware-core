@@ -4,6 +4,7 @@
                       url: users_path,
                       class: "fn-form",
                       method: :get,
+                      html: { autocomplete: "off" },
                       data: { turbo_frame: "users-turbo-frame",
                               turbo: true,
                               turbo_advance: true,
@@ -12,7 +13,8 @@
       .flex.flex-row.gap-2
         .basis-1/4
           = f.label "Name or username contains"
-          = f.search_field :family_name_or_given_name_or_username_or_email_cont
+          = f.search_field :family_name_or_given_name_or_username_or_email_cont,
+                           input_html: { autocomplete: "off" }
 
         div.w-1/4.pt-6
           = link_to(renalware.users_path, class: "btn btn-secondary text-gray-500 pl-2 font-normal leading-5 border-none shadow-none", target: "_top") do
