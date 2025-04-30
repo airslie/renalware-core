@@ -20,7 +20,7 @@ end
 # Some modules e.g. UserRoleSteps are included in other modules on demand to
 # make composition clearer. Might be useful to document the inheritance tree here.
 # A problem we have is that for @web tagged features we need to include once for domain-level
-# specs and once @web - ie our original cucumber features had Domain and Web worlds and
+# specs and once for @web - ie our original cucumber features had Domain and Web worlds and
 # we used to run both separately.
 #
 # In the RSpec docs this is how you can run rspec multiple times in the same process
@@ -44,7 +44,7 @@ RSpec.configure do |config|
   config.raise_error_for_unimplemented_steps = true
   config.include Renalware::UserRoleSteps
   config.include Renalware::PatientSteps
-  config.include Renalware::PatientSteps
+  config.include Renalware::DirectorySteps
   config.include Renalware::Accesses::AccessSteps
   config.include Renalware::Accesses::AccessAssessmentSteps
   config.include Renalware::Accesses::AccessProcedureSteps

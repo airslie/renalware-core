@@ -53,7 +53,7 @@ module Renalware
           po.performed_by = user.to_s
           po.procedure_type = access_type.to_s
           po.side = "Right"
-          po.catetheter_insertion_technique = insertion_technique.description
+          po.catheter_insertion_technique = insertion_technique.description
           po.save
         end
 
