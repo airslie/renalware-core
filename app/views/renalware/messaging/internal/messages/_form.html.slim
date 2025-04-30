@@ -9,20 +9,20 @@
       | Messages are viewable by all users in the patient's clinical summary
     = f.input :replying_to_message_id, as: :hidden
 
-    / NB the inline styling here prevents an initial flash and re-jiggle of dropdown content which
-    / is subsequently hidden by select2 after 100 ms or so.
-    = f.input :recipient_ids,
-             label: t(".recipient_ids"),
-             collection: recipient_options,
-             as: :grouped_select,
-             group_method: :users,
-             group_label_method: :name,
-             label_method: :option_text,
-             value_method: :id,
-             input_html: { class: "searchable_select",
-                           id: "message_recipient_ids",
-                           multiple: "multiple",
-                           style: "visibility: hidden; height: 2.5rem" }
+    .pb-2
+      = f.input :recipient_ids,
+                label: t(".recipient_ids"),
+                collection: recipient_options,
+                as: :grouped_select,
+                group_method: :users,
+                group_label_method: :name,
+                label_method: :option_text,
+                value_method: :id,
+                input_html: { class: "content-center",
+                              id: "message_recipient_ids",
+                              multiple: "multiple",
+                              data: { controller: "slimselect" } }
+
     = f.input :subject
     = f.input :urgent, as: :boolean, boolean_style: :inline
     = f.input :body, as: :text, input_html: { rows: 7 }
