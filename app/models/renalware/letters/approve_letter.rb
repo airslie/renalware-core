@@ -76,6 +76,7 @@ module Renalware
       end
 
       def send_to_gp_using_mesh?
+        return false unless Renalware.config.send_gp_letters_over_mesh
         return false if patient.confidentiality_restricted?
         return false unless letter.gp_is_a_recipient?
 
