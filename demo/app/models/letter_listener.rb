@@ -46,9 +46,7 @@ class LetterListener
   # Txn has been committed here, so its suited to non-transactional tasks (not involving the db)
   def letter_approved(letter)
     # TODO: might need to switch this to the pre-commit #before_letter_approved ?
-    if Renalware.config.send_gp_letters_over_mesh
-      enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter)
-    end
+    enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter) if letter.gp_send_status_pending?
   end
 
   def rollback_letter_approved; end
