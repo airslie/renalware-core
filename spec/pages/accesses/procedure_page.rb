@@ -38,7 +38,7 @@ module Pages
         select value, from: "Access Side"
       end
 
-      def catetheter_insertion_technique=(value)
+      def catheter_insertion_technique=(value)
         select value, from: "PD Catheter Insertion Technique"
       end
 

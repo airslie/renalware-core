@@ -6,6 +6,7 @@ module Renalware
     module AccessAssessmentSteps
       include AccessSteps
       extend WebSteps
+
       step :create_assessment, ":user records an access assessment for :patient"
       step :assert_assessment_exists, ":patient has a new access assessment"
 
