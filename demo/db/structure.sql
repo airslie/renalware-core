@@ -15934,6 +15934,11 @@ CREATE VIEW renalware.ukrdc_daily_summaries AS
         CASE
             WHEN (status = 3) THEN 1
             ELSE NULL::integer
+        END) AS queued,
+    count(
+        CASE
+            WHEN (status = 99) THEN 1
+            ELSE NULL::integer
         END) AS sent,
     count(
         CASE
@@ -31167,6 +31172,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware, renalware_demo, public, heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250501125231'),
 ('20250425122256'),
 ('20250424150155'),
 ('20250411085713'),

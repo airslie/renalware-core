@@ -9,6 +9,7 @@
       thead
         th Date
         th Total
+        td Waiting to Send
         td Sent
         td Error
         td Unsent (no change)
@@ -17,6 +18,7 @@
           tr
             td= l(summary.date)
             td= summary.total
+            td= summary.queued
             td= summary.sent
             td= summary.error
             td= summary.unsent_no_change
