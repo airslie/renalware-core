@@ -8346,6 +8346,74 @@ ALTER SEQUENCE renalware.hd_vnd_risk_assessments_id_seq OWNED BY renalware.hd_vn
 
 
 --
+-- Name: help_tour_annotations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.help_tour_annotations (
+    id bigint NOT NULL,
+    page_id bigint NOT NULL,
+    "position" integer DEFAULT 1 NOT NULL,
+    title character varying,
+    text character varying NOT NULL,
+    attached_to_selector character varying NOT NULL,
+    attached_to_position character varying DEFAULT 'bottom'::character varying NOT NULL,
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: help_tour_annotations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.help_tour_annotations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: help_tour_annotations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.help_tour_annotations_id_seq OWNED BY renalware.help_tour_annotations.id;
+
+
+--
+-- Name: help_tour_pages; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.help_tour_pages (
+    id bigint NOT NULL,
+    name character varying,
+    route character varying NOT NULL,
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+--
+-- Name: help_tour_pages_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.help_tour_pages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: help_tour_pages_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.help_tour_pages_id_seq OWNED BY renalware.help_tour_pages.id;
+
+
+--
 -- Name: hospital_centres_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -17134,6 +17202,20 @@ ALTER TABLE ONLY renalware.hd_vnd_risk_assessments ALTER COLUMN id SET DEFAULT n
 
 
 --
+-- Name: help_tour_annotations id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.help_tour_annotations ALTER COLUMN id SET DEFAULT nextval('renalware.help_tour_annotations_id_seq'::regclass);
+
+
+--
+-- Name: help_tour_pages id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.help_tour_pages ALTER COLUMN id SET DEFAULT nextval('renalware.help_tour_pages_id_seq'::regclass);
+
+
+--
 -- Name: hospital_centres id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -19315,6 +19397,22 @@ ALTER TABLE ONLY renalware.hd_vnd_risk_assessments
 
 
 --
+-- Name: help_tour_annotations help_tour_annotations_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.help_tour_annotations
+    ADD CONSTRAINT help_tour_annotations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: help_tour_pages help_tour_pages_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.help_tour_pages
+    ADD CONSTRAINT help_tour_pages_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: hospital_centres hospital_centres_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20905,6 +21003,13 @@ CREATE INDEX idx_on_local_authority_district_id_103e1854df ON renalware.geograph
 --
 
 CREATE INDEX idx_on_middle_super_output_area_id_b9987db7f1 ON renalware.geography_lower_super_output_areas USING btree (middle_super_output_area_id);
+
+
+--
+-- Name: idx_on_page_id_attached_to_selector_1d87c582e9; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_on_page_id_attached_to_selector_1d87c582e9 ON renalware.help_tour_annotations USING btree (page_id, attached_to_selector);
 
 
 --
@@ -23474,6 +23579,20 @@ CREATE INDEX index_hd_vnd_risk_assessments_on_patient_id ON renalware.hd_vnd_ris
 --
 
 CREATE INDEX index_hd_vnd_risk_assessments_on_updated_by_id ON renalware.hd_vnd_risk_assessments USING btree (updated_by_id);
+
+
+--
+-- Name: index_help_tour_annotations_on_page_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_help_tour_annotations_on_page_id ON renalware.help_tour_annotations USING btree (page_id);
+
+
+--
+-- Name: index_help_tour_pages_on_lower_route; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_help_tour_pages_on_lower_route ON renalware.help_tour_pages USING btree (lower((route)::text));
 
 
 --
@@ -27678,6 +27797,14 @@ ALTER TABLE ONLY renalware.virology_profiles
 
 
 --
+-- Name: help_tour_annotations fk_rails_064d8c296b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.help_tour_annotations
+    ADD CONSTRAINT fk_rails_064d8c296b FOREIGN KEY (page_id) REFERENCES renalware.help_tour_pages(id);
+
+
+--
 -- Name: pathology_requests_patient_rules_requests fk_rails_06517764c3; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -31177,6 +31304,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20250424150155'),
 ('20250411085713'),
 ('20250409113239'),
+('20250331120907'),
 ('20250228173152'),
 ('20250227115753'),
 ('20250219142848'),

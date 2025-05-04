@@ -34,6 +34,9 @@ module Renalware
 
     config_accessor(:disable_dmd_synchroniser_job) { ENV["DISABLE_DMD_SYNCHRONISER_JOB"].to_i > 0 }
 
+    config_accessor(:help_tours_page_cache_expiry_seconds) {
+      ENV.fetch("HELP_TOURS_PAGE_CACHE_EXPIRY_SECONDS", "3600").to_i
+    }
     config_accessor(:report_filter_cache_expiry_seconds) {
       ENV.fetch("REPORT_FILTER_CACHE_EXPIRY_SECONDS", "60").to_i
     }

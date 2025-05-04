@@ -4,5 +4,6 @@
       = external_link_to(title, url, gap: 2, class: "btn btn-tertiary btn-compact")
 
 = within_admin_layout(title: composed_dashboard_title(current_user.full_name), page_title: t(".title")) do
-  = render Renalware::Users::LastSigninComponent.new(current_user: current_user)
-  = render "content", dashboard: dashboard
+  div
+    = render Renalware::Users::LastSigninComponent.new(current_user: current_user)
+    = render "content", dashboard: dashboard
