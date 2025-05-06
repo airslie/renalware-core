@@ -107,23 +107,25 @@ module Renalware
 
       # eg "HOSP1_111_HOSP2_222_HOSP3_333_surname_dob_letter_id.pdf"
       def filename
-        [
-          patient.hospital_identifiers.all.map { |k, v| "#{k}_#{v}" }.join("_"),
-          patient.family_name&.upcase,
-          patient.born_on&.strftime("%Y%m%d"),
-          external_document_type_code,
-          renderable.id
-        ].compact.join("_")
+        # A host Rails app might have overwritten these custom filename class
+        # but we do not care about that here.
+        if renderable_type.letter?
+          Feeds::LetterFilename.new(renderable).to_s
+        elsif renderable_type.event?
+          Feeds::EventFilename.new(renderable).to_s
+        else
+          raise ArgumentError, "cannot render #{renderable_type}"
+        end
       end
 
       # OBX|1|ED|||^TODO^PDF^Base64^BERi0xLjMKJeTjz9IKNSI (more bytes...)||||||
       def obx
-        base64 = base64_encoded_pdf_content
+        base64 = base64_encoded_content
 
         seg = HL7::Message::Segment::OBX.new
         seg.set_id = "1"
         seg.value_type = "ED"
-        seg.observation_value = "^TEXT^PDF^Base64^#{base64}"
+        seg.observation_value = "^TEXT^#{file_format.to_s.upcase}^Base64^#{base64}"
         seg
       end
 
@@ -133,13 +135,20 @@ module Renalware
         ["RW", message_id.to_s.rjust(10, "0")].join
       end
 
-      def base64_encoded_pdf_content
+      def base64_encoded_content
         if renderable_type.letter?
-          renderer = Letters::RendererFactory.renderer_for(renderable, :pdf)
+          renderer = Letters::RendererFactory.renderer_for(renderable, file_format)
           Base64.strict_encode64(renderer.call)
         elsif renderable_type.event?
           Base64.strict_encode64(Renalware::Events::EventPdf.call(renderable))
         end
+      end
+
+      # :pdf or :rtf
+      # Events are always :pdf
+      # Letters can be :pdf or :rtf depending on the config
+      def file_format
+        renderable_type.letter? ? Renalware.config.feeds_outgoing_documents_letter_format : :pdf
       end
 
       # def pdf_renderer_class

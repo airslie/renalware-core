@@ -234,6 +234,11 @@ module Renalware
       ENV.fetch("PROCESS_HL7_VIA_RAW_MESSAGES_TABLE", "false") == "true"
     }
 
+    config_accessor(:feeds_outgoing_documents_letter_format) {
+      fmt = ENV.fetch("FEEDS_OUTGOING_DOCUMENTS_LETTER_FORMAT", "pdf").to_sym
+      [:pdf, :rtf].find { |x| x == fmt } || :pdf
+    }
+
     # A host application can override the strategy for finding/creating (JIT) the clinic
     # referenced in an appointment HL7 message by defining a lambda here that takes a PV1::Clinic
     # object as an argument and returns nil or a Clinics::Clinic, eg

@@ -4,6 +4,8 @@ module Renalware
       # Use pandoc to convert the html letter to RTF
       # rubocop:disable Style/RedundantRegexpEscape
       class RTFRenderer
+        include Callable
+
         pattr_initialize :letter
         REGEX_TO_STRIP_IMAGES = %r{(?m)<img\s*.*?"\s*\/>}
         REGEX_TO_STRIP_SVG = %r{(?m)<svg\s*.*?"\s*\/>}
