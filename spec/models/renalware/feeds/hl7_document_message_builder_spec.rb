@@ -5,11 +5,15 @@ module Renalware
       include LettersSpecHelper
 
       before do
-        allow(Renalware.config).to receive(:patient_hospital_identifiers).and_return(
-          HOSP1: :local_patient_id,
-          HOSP2: :local_patient_id_2,
-          HOSP3: :local_patient_id_3
+        allow(Renalware.config).to receive_messages(
+          feeds_outgoing_documents_letter_format: :pdf,
+          patient_hospital_identifiers: {
+            HOSP1: :local_patient_id,
+            HOSP2: :local_patient_id_2,
+            HOSP3: :local_patient_id_3
+          }
         )
+
         Hospitals::Centre.create!(code: "CODE1", abbrev: "HOSP1", name: "HOSP1")
         Hospitals::Centre.create!(code: "CODE2", abbrev: "HOSP2", name: "HOSP2")
         Hospitals::Centre.create!(code: "CODE3", abbrev: "HOSP3", name: "HOSP3")
@@ -34,6 +38,18 @@ module Renalware
         create(:user, family_name: "Smith", given_name: "Jo", gmc_code: "MyGmcCode")
       end
 
+      def stub_rendering(format, content)
+        if format == :pdf
+          renderer = Letters::Rendering::PdfRenderer.new(nil)
+          allow(renderer).to receive(:call).and_return("A")
+          allow(Letters::RendererFactory).to receive(:renderer_for).and_return(renderer)
+        elsif format == :rtf
+          allow(PandocRuby)
+            .to receive(:html)
+            .and_return(instance_double(PandocRuby, to_rtf: content))
+        end
+      end
+
       describe "MSH, PID, TXA, OBX segment" do
         context "when rendering a letter" do
           context "when PDFs rendered via WickedPdf" do
@@ -46,9 +62,7 @@ module Renalware
                 # As we are relying on JIT wicked pdf rednering, stub out renderer to return a
                 # known value - normally its '%PDF..' etc but we will return 'A' because we know it
                 # is 'QQ==' in base64
-                renderer = Letters::Rendering::PdfRenderer.new(nil)
-                allow(renderer).to receive(:call).and_return("A")
-                allow(Letters::RendererFactory).to receive(:renderer_for).and_return(renderer)
+                stub_rendering(:pdf, "A")
 
                 letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
                   patient: patient,
@@ -57,6 +71,7 @@ module Renalware
                 )
 
                 msg = described_class.call(renderable: letter, message_id: 123)
+
                 expected_filename = "HOSP1_111_HOSP2_222_HOSP3_333_JONES_19700101_CL_#{letter.id}"
 
                 expect(msg[:MSH].to_s).to eq(
@@ -76,6 +91,51 @@ module Renalware
                   "OBX|1|ED|||^TEXT^PDF^Base64^QQ=="
                 )
               end
+            end
+          end
+
+          context "when letter format is RTF" do
+            before do
+              allow(Renalware.config).to receive_messages(
+                feeds_outgoing_documents_letter_format: :rtf
+              )
+            end
+
+            it "rendered letters as RTF" do
+              letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
+                patient: patient,
+                clinical: true,
+                author: user
+              )
+
+              rtf_content = "ABC"
+              stub_rendering(:rtf, rtf_content)
+              base64_encoded_rtf = Base64.strict_encode64(rtf_content)
+
+              msg = described_class.call(renderable: letter, message_id: 123)
+              expect(msg[:OBX].to_s).to include("^TEXT^RTF^Base64^#{base64_encoded_rtf}")
+            end
+          end
+
+          context "when a custom LetterFilename class is defined" do
+            it "supports a custom filename" do
+              letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
+                patient: patient,
+                clinical: true,
+                author: user
+              )
+
+              stub_const(
+                "::Renalware::Feeds::LetterFilename",
+                Class.new do
+                  def initialize(*); end
+                  def to_s = "some_custom_filename"
+                end
+              )
+
+              msg = described_class.call(renderable: letter, message_id: 123)
+
+              expect(msg[:TXA].to_s).to include("some_custom_filename")
             end
           end
 

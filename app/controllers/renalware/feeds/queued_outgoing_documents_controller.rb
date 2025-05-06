@@ -45,6 +45,7 @@ module Renalware
         }
       end
 
+      # document.renderable is polymorphic and can be a Letter, Event, etc.
       def renderable(document)
         renderable = document.renderable
 

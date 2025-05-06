@@ -45,8 +45,22 @@ class LetterListener
 
   # Txn has been committed here, so its suited to non-transactional tasks (not involving the db)
   def letter_approved(letter)
-    # TODO: might need to switch this to the pre-commit #before_letter_approved ?
-    enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter) if letter.gp_send_status_pending?
+    # Create a row in outgoing documents. Mirth will poll the renalware-core api
+    # at feeds/outgoing_documents.json to get a list of waiting documents and will then
+    # iterate through these and call another api endpoint to render each to an HL7 message with a
+    # base64-encoded PDF, and send this HL7 message to the MSE TIE before making a PUT call to
+    # update RW to say the message was sent successfully.
+    Renalware::Feeds::OutgoingDocument.create!(renderable: letter, by: letter.approved_by)
+
+    # letter.gp_send_status will have been set to :pending by Letters::ApproveLetter if the
+    # - config.send_gp_letters_over_mesh = true
+    # - patient.confidentiality != restricted
+    # - GP is a recipient
+    # so we could just check the pending status here, but send_gp_letters_over_mesh also just for
+    # safety
+    if Renalware.config.send_gp_letters_over_mesh && letter.gp_send_status_pending?
+      enqueue_a_scheduled_job_to_deliver_to_gp_over_mesh(letter)
+    end
   end
 
   def rollback_letter_approved; end
