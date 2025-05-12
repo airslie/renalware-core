@@ -63,7 +63,7 @@ module Renalware::Messaging::Internal
         # The first 2 groups should reflect recent message activity.
         #
         # The first group of users should users recently messaged about this patient:
-        # - recipient_for_message_re_patient_a was recently messagesd about the patient_a so will be
+        # - recipient_for_message_re_patient_a was recently messaged about the patient_a so will be
         #   present in the list.
         # - recipient_for_message_re_patient_b has not been previously been messaged about patient_a
         #   so they will not be in the list
@@ -75,7 +75,7 @@ module Renalware::Messaging::Internal
         expect(users).not_to include(recipient_for_message_re_patient_b)
         expect(users).to include(Renalware::Messaging::Internal.cast_recipient(author))
 
-        # The second group contains recipients recently messaged by the the current author,
+        # The second group contains recipients recently messaged by the current author,
         # where not not in the first group already. recipient_for_message_re_patient_b was recently
         # messaged (about a different patient) so will be in this group.
         recent_recipients_sent_by_author = groups[1].users
