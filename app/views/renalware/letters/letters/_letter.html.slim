@@ -1,37 +1,36 @@
 - columns = local_assigns[:columns] || []
-- cache([letter, columns.join("-")]) do
-  tr(class=letter.state.dasherize data-controller="toggle")
-    td.noprint= toggler("#letter-quick-preview-#{letter.id}")
-    td.noprint.actions
-      = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)
-      - if policy(letter).update?
-        = link_to t("btn.edit"), edit_patient_letters_letter_path(letter.patient, letter)
-      - if policy(letter).destroy?
-        = link_to t("btn.delete"),
-                  patient_letters_letter_path(letter.patient, letter),
-                  method: :delete,
-                  data: { confirm: I18n.t("prompts.confirm_delete") }
+tr(class=letter.state.dasherize data-controller="toggle")
+  td.noprint= toggler("#letter-quick-preview-#{letter.id}")
+  td.noprint.actions
+    = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)
+    - if policy(letter).update?
+      = link_to t("btn.edit"), edit_patient_letters_letter_path(letter.patient, letter)
+    - if policy(letter).destroy?
+      = link_to t("btn.delete"),
+                patient_letters_letter_path(letter.patient, letter),
+                method: :delete,
+                data: { confirm: I18n.t("prompts.confirm_delete") }
 
-    td.text-center
-      - if letter.notes.present?
-        i.fas.fa-comment.text-yellow-500.hover:text-yellow-600(title=letter.notes)
-    td.text-center
-      - if letter.enclosures.present?
-        i.fas.fa-paperclip.text-green-500.pr-1(title=letter.enclosures)
-    td.state
-      span= letter.state_description
-    - if Renalware.config.send_gp_letters_over_mesh
-      td= t(letter.gp_send_status, scope: "letters.gp_send_status")
-    td= l(letter.effective_date)
-    - if columns.include?(:author)
-      td.col-width-medium-with-ellipsis= letter.author
-    - if columns.include?(:patient)
-      td.col-width-medium-with-ellipsis= default_patient_link(letter.patient)
-    td.recipient= letter.main_recipient.address
-    td.col-width-medium-with-ellipsis= letter.description
+  td.text-center
+    - if letter.notes.present?
+      i.fas.fa-comment.text-yellow-500.hover:text-yellow-600(title=letter.notes)
+  td.text-center
+    - if letter.enclosures.present?
+      i.fas.fa-paperclip.text-green-500.pr-1(title=letter.enclosures)
+  td.state
+    span= letter.state_description
+  - if Renalware.config.send_gp_letters_over_mesh
+    td= t(letter.gp_send_status, scope: "letters.gp_send_status")
+  td= l(letter.effective_date)
+  - if columns.include?(:author)
+    td.col-width-medium-with-ellipsis= letter.author
+  - if columns.include?(:patient)
+    td.col-width-medium-with-ellipsis= default_patient_link(letter.patient)
+  td.recipient= letter.main_recipient.address
+  td.col-width-medium-with-ellipsis= letter.description
 
-  = content_tag(:tr, id: "letter-quick-preview-#{letter.id}", style: "display: none")
-    td
-    td(colspan=9)
-      .quick-preview
-        = render "renalware/letters/letters/toggled_body", letter: letter
+= content_tag(:tr, id: "letter-quick-preview-#{letter.id}", style: "display: none")
+  td
+  td(colspan=9)
+    .quick-preview
+      = render "renalware/letters/letters/toggled_body", letter: letter
