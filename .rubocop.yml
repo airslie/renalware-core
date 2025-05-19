@@ -29,7 +29,7 @@ AllCops:
   NewCops: enable
   UseCache: true
   SuggestExtensions: true
-  TargetRubyVersion: 3.4.3
+  TargetRubyVersion: 3.4.4
   TargetRailsVersion: 7.1
   # Defining the Exclude or Include keys here overwrites the settings in styleguide/rubocop.yml
   # so we have to redefine the entire set.
