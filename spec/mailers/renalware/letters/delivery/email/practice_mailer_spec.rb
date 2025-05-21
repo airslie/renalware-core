@@ -2,6 +2,8 @@ module Renalware
   module Letters
     module Delivery::Email
       describe PracticeMailer do
+        include ConfigHelper
+
         subject(:mail) do
           described_class.patient_letter(letter: letter, to: recipient_email)
         end
@@ -10,6 +12,7 @@ module Renalware
         let(:recipient) { instance_double(Letters::Recipient) }
 
         before do
+          configure_patient_hospital_identifiers
           allow(PdfLetterCache).to receive(:fetch).and_return(fake_pdf)
         end
 
@@ -21,7 +24,7 @@ module Renalware
               :letter_patient,
               primary_care_physician: gp,
               practice: practice,
-              local_patient_id: 123123 # KCH
+              local_patient_id: 123123 # HOSP1
             )
           end
           let(:user) { create(:user, email: "user@renalware.com") }
@@ -77,7 +80,7 @@ module Renalware
             Renalware.configure do |config|
               config.renal_unit_on_letters = "RenalUnit"
             end
-            expect(mail.subject).to eq("LetterDescription from RenalUnit KCH: 123123")
+            expect(mail.subject).to eq("LetterDescription from RenalUnit HOSP1: 123123")
           end
 
           it "renders the headers" do

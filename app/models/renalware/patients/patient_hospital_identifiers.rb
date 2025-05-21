@@ -46,7 +46,7 @@ module Renalware
       end
 
       # Renders all patients hospital numbers in the format e.g.
-      # "KCH: X12344 QEH: 12123123 XXX: Xxxxx ..."
+      # "Dover: X12344 White: 12123123 XXX: Xxxxx ..."
       def to_s
         all.map { |name, hosp_no| "#{name}: #{hosp_no}" }.join(" ")
       end
