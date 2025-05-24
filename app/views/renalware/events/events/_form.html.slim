@@ -24,7 +24,7 @@ div(data-controller="conditional-display" data-conditional-display-attribute-to-
                     required: :required,
                     tabindex: 2001,
                     data: { controller: "slimselect select",
-                            action: "change->select#refresh change->conditional-display#showhide"}}
+                            action: "change->select#refresh change->conditional-display#showhide" } }
 
     = f.input :date_time,
               as: :flatpickr_with_time,
@@ -37,7 +37,7 @@ div(data-controller="conditional-display" data-conditional-display-attribute-to-
       = render partial: event.to_input_partial_path, locals: { event: event, f: f }
     = f.label :notes
 
-    div#snippets-controller(data-controller="snippets")
+    #snippets-controller(data-controller="snippets")
       / Clicking will launch the Insert Snippet modal dialog.
       / When the user clicks on an Insert button in the modal, the snippet text is put into the
       / snippets controller destination target which currently must be a Trix editor instance.
@@ -54,7 +54,7 @@ div(data-controller="conditional-display" data-conditional-display-attribute-to-
     = f.error :notes
     br
 
-    div.hidden(data-conditional-display-target="displayable")
+    .hidden(data-conditional-display-target="displayable")
       .mb-6.px-2.py-1.sm:w-auto.md:w-2/3.lg:w-1/2.rounded.border.border-gray-100.bg-yellow-100.shadow
         .flex.items-start
           = inline_icon("exclamation-circle", class: "h-5 w-5 inline-block pt-1 mr-2 fill-gray-600")

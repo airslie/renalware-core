@@ -11,8 +11,8 @@ article
               patient_prescriptions_path(patient),
               class: "button secondary"
 
-  = render Renalware::Medications::TabGroupPrescriptionsComponent.new(\
-    patient: patient, 
+  = render Renalware::Medications::TabGroupPrescriptionsComponent.new( \
+    patient: patient,
     drug_type_names: ["bone/Ca/PO4"],
     show_terminated_on: true,
     show_administer_on_hd: true)

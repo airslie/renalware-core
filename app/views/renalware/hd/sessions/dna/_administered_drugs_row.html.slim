@@ -8,4 +8,4 @@ tbody(class=[session.state, stripe_class])
     td(colspan=10)
       .quick-preview
         = definition_list_for(session, size: :large) do |list|
-          = list.definition(:notes){ |value| simple_format(value) }
+          = list.definition(:notes) { |value| simple_format(value) }

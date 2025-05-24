@@ -7,7 +7,6 @@
                     method: :put,
                     wrapper: "horizontal_form" do |f|
 
-
     = f.simple_fields_for :document, profile.document do |flc|
       = flc.input :first_seen_on, as: :flatpickr, wrapper: :horizontal_datepicker
       = flc.input :dialysis_plan, wrapper: :horizontal_medium

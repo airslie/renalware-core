@@ -3,7 +3,7 @@
 
   / Use a separate form for updating the route, unit of measure, etc.. after selecting a drug
   = form_with model: false, url: search_url, id: "drug_search_form",
-    data: {  turbo: true, turbo_frame: "drug_search_form_frame" },
+    data: { turbo: true, turbo_frame: "drug_search_form_frame" },
     input_html: { autocomplete: "off" },
     method: :get do |select_form|
 
@@ -25,15 +25,13 @@
             include_blank: false,
             collection: prescription&.drug.present? ? presenter.drugs_collection : [["Please select", nil, "data-placeholder": "true"]],
             disabled: prescription.drug&.inactive?,
-            hint: prescription.drug&.inactive? ? "No longer available": nil,
+            hint: prescription.drug&.inactive? ? "No longer available" : nil,
             input_html: { \
               data: { \
                 controller: "slimselect-ajax",
                 options_url: renalware.prescribable_drugs_drugs_path(term: "REPLACEME", format: :json),
                 action: "change->alternative-form-submitter#submit",
-                "alternative-form": "drug_search_form",
-              } \
-            },
+                "alternative-form": "drug_search_form" } },
             wrapper: :horizontal_medium
 
         = turbo_frame_tag "drug_search_form_frame" do

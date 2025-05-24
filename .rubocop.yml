@@ -228,3 +228,9 @@ Metrics/CollectionLiteralLength:
   Exclude:
     - 'db/migrate/**/*'
     - 'demo/db/migrate/**/*'
+
+Style/RedundantLineContinuation:
+    Enabled: true
+    Exclude:
+      - 'app/views/**/*'
+      - 'app/components/**/*'

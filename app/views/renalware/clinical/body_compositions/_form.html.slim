@@ -7,7 +7,7 @@
             collection: Renalware::User.ordered,
             wrapper: :horizontal_medium
   = f.input :pre_post_hd,
-            collection: Renalware::Clinical::BodyComposition.pre_post_hds.collect{ |c| [c[0].titleize, c[0]] },
+            collection: Renalware::Clinical::BodyComposition.pre_post_hds.collect { |c| [c[0].titleize, c[0]] },
             include_blank: "Not Applicable",
             wrapper: :horizontal_small
   = f.input :weight,
@@ -41,4 +41,4 @@
             wrapper: :horizontal_large,
             input_html: { rows: 5 }
 
-  = save_or_cancel(form: f, back_path:  patient_clinical_profile_path(patient))
+  = save_or_cancel(form: f, back_path: patient_clinical_profile_path(patient))

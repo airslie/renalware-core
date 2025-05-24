@@ -1,5 +1,5 @@
-/ Note we can't do vioew.versions.order(...) here
-- versions = view.versions.to_a.sort{ |a, b| b.created_at <=> a.created_at }
+/ Note we can't do view.versions.order(...) here
+- versions = view.versions.to_a.sort { |a, b| b.created_at <=> a.created_at }
 = help_panel do
   | Restore column and filter configuration to a point in time.
   | Unsaved column/filter changes will be lost.

@@ -62,11 +62,11 @@
               td(colspan=13)
                 .quick-preview
                   = definition_list_for(prescription, size: :large) do |list|
-                    = list.definition(:notes){ |value| simple_format(value) }
+                    = list.definition(:notes) { |value| simple_format(value) }
                     = list.definition(:code)
                   - if prescription.termination.present?
                     = definition_list_for(prescription.termination, size: :large) do |list|
-                      = list.definition(:notes){ |value| simple_format(value) }
+                      = list.definition(:notes) { |value| simple_format(value) }
 
 - else
   p There are no prescriptions in this list.

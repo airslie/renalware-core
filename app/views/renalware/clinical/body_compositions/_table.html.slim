@@ -50,4 +50,4 @@ table
         td(colspan=16)
           .quick-preview
             = definition_list_for(body_composition, size: :large) do |list|
-              = list.definition(:notes){ |value| simple_format(value) }
+              = list.definition(:notes) { |value| simple_format(value) }

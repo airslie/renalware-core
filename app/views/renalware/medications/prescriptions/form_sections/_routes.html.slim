@@ -12,9 +12,7 @@
     .mb-4= f.association :medication_route,
                           collection: presenter.medication_routes_collection,
                           include_blank: false,
-                          input_html: { \
-                            data: { controller: "slimselect" },
-                          },
+                          input_html: { data: { controller: "slimselect" } },
                           wrapper: :horizontal_medium
   - else
     = f.association :medication_route,

@@ -1,4 +1,3 @@
-
 / To remember
 / We have klass.columns which are the actual SQL view columns
 / We view (view metadata) columns, which is an array of hashes, each representing a column
@@ -20,7 +19,7 @@ ruby:
   attribute_names = klass.columns.map(&:name) - %w(id secure_id document)
   attribute_names = (view.columns.map(&:code) + attribute_names).uniq
   view.columns = attribute_names.map do |attr|
-    view.columns.detect{ |col| col.code == attr } || Renalware::System::ColumnDefinition.new(code: attr)
+    view.columns.detect { |col| col.code == attr } || Renalware::System::ColumnDefinition.new(code: attr)
   end
 
 = simple_form_for(view, as: "view_metadata", method: :patch) do |f|

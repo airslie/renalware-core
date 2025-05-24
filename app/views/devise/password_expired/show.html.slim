@@ -3,7 +3,7 @@
     = f.error_notification
     = custom_devise_error_messages!
     p
-      = f.label :current_password, 'Current password'
+      = f.label :current_password, "Current password"
       br
       = f.password_field :current_password
 
@@ -11,13 +11,13 @@
     p= Renalware.config.password_policy_description
 
     p
-      = f.label :password, 'New password'
+      = f.label :password, "New password"
       br
       = f.password_field :password
 
     p
-      = f.label :password_confirmation, 'Confirm new password'
+      = f.label :password_confirmation, "Confirm new password"
       br
       = f.password_field :password_confirmation
 
-    p = f.button :submit, 'Change my password'
+    p = f.button :submit, "Change my password"

@@ -24,7 +24,7 @@ div class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y mb-12"
 
     = f.fields_for(:document, document) do |fdoc|
 
-      div.clear style="clear: both"
+      .clear style="clear: both"
 
       .grid.grid-cols-12.sm:gap-4
         .col-span-12.sm:col-span-4.lg:col-span-3 Dry Weight
@@ -40,7 +40,6 @@ div class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y mb-12"
           .text-sm.mb-4
             = link_to "Edit in clinical profile", patient_clinical_profile_path(clinic_visit.patient), target: :_blank
 
-
       = fdoc.input :weight_notes,
                   wrapper: :horizontal_medium
       = fdoc.input :previous_weight,
@@ -51,15 +50,11 @@ div class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y mb-12"
                       max: 300,
                       data: { \
                       "clinics--weight-change-calculator-target": "previousWeight",
-                      action: "input->clinics--weight-change-calculator#calculate" \
-                    } \
-                  },
+                      action: "input->clinics--weight-change-calculator#calculate" } },
                   wrapper: :horizontal_small
 
       = fdoc.input :previous_weight_date,
-                  input_html: { \
-                    data: { flatpickr_max_date: "today" },
-                  },
+                  input_html: { data: { flatpickr_max_date: "today" } },
                   as: :flatpickr,
                   wrapper: :horizontal_small
 
@@ -131,8 +126,7 @@ div class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y mb-12"
                   input_html: { \
                     step: 100,
                     min: 500,
-                    max: 4000,
-                  }
+                    max: 4000 }
 
       = fdoc.input :energy_intake,
                   as: :integer,
@@ -140,8 +134,7 @@ div class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y mb-12"
                   input_html: { \
                     step: 100,
                     min: 500,
-                    max: 4000,
-                  }
+                    max: 4000 }
   section.pt-8
     header
       h2.font-medium.mb-6 Handgrip
@@ -155,8 +148,7 @@ div class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y mb-12"
                     input_html: { \
                       step: 1,
                       min: 1,
-                      max: 150,
-                    }
+                      max: 150 }
 
         = fdoc.input :handgrip_right,
                     as: :integer,
@@ -164,8 +156,7 @@ div class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y mb-12"
                     input_html: { \
                       step: 1,
                       min: 1,
-                      max: 150,
-                    }
+                      max: 150 }
 
       = fdoc.input :dominant_hand,
                   as: :inline_radio_buttons,
@@ -205,8 +196,7 @@ div class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y mb-12"
                   input_html: { \
                     step: 1,
                     min: 1,
-                    max: 1000,
-                  },
+                    max: 1000 },
                   wrapper: :horizontal_small
 
       = fdoc.input :time_for_documentation,
@@ -214,10 +204,8 @@ div class="divide-y-blue-gray-200 mt-6 space-y-8 divide-y mb-12"
                   input_html: { \
                     step: 1,
                     min: 1,
-                    max: 1000,
-                  },
+                    max: 1000 },
                   wrapper: :horizontal_small
-
 
       = fdoc.input :next_review_in,
                   as: :inline_radio_buttons,

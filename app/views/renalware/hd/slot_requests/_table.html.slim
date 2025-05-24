@@ -43,19 +43,19 @@
                               class: "btn-compact btn btn-secondary",
                               data: { turbo: true, turbo_frame: "modal" }
 
-                  div.inline.relative(data-controller="dropdown")
+                  .inline.relative(data-controller="dropdown")
                     button(class="btn-compact btn-dropdown btn btn-secondary" type="button" data-action="dropdown#toggle click@window->dropdown#hide") Resolve&hellip;
 
-                    div.hidden.dropdown-drawer(data-dropdown-target="menu"
+                    .hidden.dropdown-drawer(data-dropdown-target="menu"
                       data-transition-enter-from="opacity-0 scale-95"
                       data-transition-enter-to="opacity-100 scale-100"
                       data-transition-leave-from="opacity-100 scale-100"
                       data-transition-leave-to="opacity-0 scale-95"
                       style="z-index: 100")
                       .py-1
-                        = link_to(renalware.hd_slot_request_path(slot_request, hd_slot_request: { allocated: true}),
+                        = link_to(renalware.hd_slot_request_path(slot_request, hd_slot_request: { allocated: true }),
                                   method: :put,
-                                  data: { action: "dropdown#toggle" } ) do
+                                  data: { action: "dropdown#toggle" }) do
                           .flex.items-center
                             .w-4= inline_icon(:check)
                             .ml-3 Allocated
@@ -67,7 +67,7 @@
                         - deletion_reasons.each do |reason|
                           = link_to(renalware.hd_slot_request_path(slot_request, hd_slot_request: { deletion_reason_id: reason.id }),
                                     method: :put,
-                                    data: { action: "dropdown#toggle" } ) do
+                                    data: { action: "dropdown#toggle" }) do
                             span.ml-7= reason.reason
 
               td= l(slot_request.created_at&.to_date)

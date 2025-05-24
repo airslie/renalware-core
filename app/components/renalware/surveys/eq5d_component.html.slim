@@ -14,11 +14,11 @@
         thead
           tr
             th.col-width-date Date
-            - question_labels.each do |code, label|
+            - question_labels.each do |_code, label|
               th= label
         tbody
           - rows.each do |row|
             tr
               td= row.answered_on
-              - question_labels.each do |code, label|
+              - question_labels.each do |code, _label|
                 td= row.send(code.to_sym)

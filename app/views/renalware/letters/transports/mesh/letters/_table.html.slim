@@ -37,10 +37,8 @@
               td= letter.typist_name
               td= [letter.send_operation_mesh_response_error_code, letter.send_operation_mesh_response_error_description].join(" ")
               td
-                - unless [0,20013].include?(letter.inf_download_operation_itk3_operation_outcome_code.to_i)
+                - unless [0, 20013].include?(letter.inf_download_operation_itk3_operation_outcome_code.to_i)
                   = [letter.inf_download_operation_itk3_operation_outcome_code, letter.inf_download_operation_itk3_operation_outcome_description].join(" ")
               td
-                - unless [0,30001].include?(letter.bus_download_operation_itk3_operation_outcome_code.to_i)
+                - unless [0, 30001].include?(letter.bus_download_operation_itk3_operation_outcome_code.to_i)
                   = [letter.bus_download_operation_itk3_operation_outcome_code, letter.bus_download_operation_itk3_operation_outcome_description].join(" ")
-
-

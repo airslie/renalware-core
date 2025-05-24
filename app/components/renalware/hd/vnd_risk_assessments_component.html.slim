@@ -44,5 +44,3 @@ article#vnd_risk_assessments
                 dt.m-1.text-gray-700(style="grid-column: 1;")= assessment.class.human_attribute_name(risk)
                 dd.m-1(style="grid-column: 2;")
                   .flex= render Renalware::HD::VNDRiskLozengeComponent.new(risk: assessment[risk])
-
-

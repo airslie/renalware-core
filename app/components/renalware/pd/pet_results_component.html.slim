@@ -20,7 +20,7 @@
         = link_to t("btn.show_all"), renalware.patient_pd_pet_results_path(patient), remote: true, class: "float-none button flex-initial secondary"
         = link_to t("btn.add"), renalware.new_patient_pd_pet_result_path(patient), class: "float-none button flex-initial"
 
-    div#pet-results-table data-tabs-target="panel"
+    #pet-results-table data-tabs-target="panel"
 
       = render "renalware/pd/pet_results/table",
                patient: patient,

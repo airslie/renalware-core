@@ -25,7 +25,7 @@ ruby:
                         collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
                         label_method: :to_s,
                         wrapper: :horizontal_medium,
-                        input_html: { data: { "dependent-select-target" => "source", action: "dependent-select#handleSelectChange" }}
+                        input_html: { data: { "dependent-select-target" => "source", action: "dependent-select#handleSelectChange" } }
 
         / When the user changes the unit, the stations list is refreshed using a stimulus controller
         / TODO: Need to also load in the initial list of stations for the current unit, and allow a blank option
@@ -34,7 +34,6 @@ ruby:
                         label_method: :name,
                         wrapper: :horizontal_medium,
                         input_html: { "data-dependent-select-target" => "target" }
-
 
       = f.fields_for :duration_form, f.object.duration_form do |fdur|
         - previous_sessions_component = Renalware::HD::Sessions::PreviousSessionDatesComponent.new(patient: patient)
@@ -192,7 +191,7 @@ ruby:
         = fcm.input :multiple_cannulation_attempts, as: :inline_radio_buttons, wrapper: :horizontal_small
         = fcm.input :prolonged_bleeding, as: :inline_radio_buttons, wrapper: :horizontal_small
 
-        div#snippets-controller(data-controller="snippets")
+        #snippets-controller(data-controller="snippets")
           / clicking will launch insert snippet modal
           / when the user clicks on the Insert button in the modal, the content is put into the target
           / (eg trix editor)
@@ -213,7 +212,7 @@ ruby:
           = f.association :patient_group_directions,
                           label: false,
                           wrapper: :zilch,
-                          input_html: { data: { controller: "slimselect" }}
+                          input_html: { data: { controller: "slimselect" } }
 .row
   .large-12.columns
     = render "form_actions", f: f, back_path: back_path, session: session, patient: @patient

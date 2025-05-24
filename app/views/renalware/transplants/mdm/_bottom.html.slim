@@ -1,5 +1,5 @@
 .row
   .columns.medium-12.large-4
-    = render Renalware::Events::EventListComponent.new(\
+    = render Renalware::Events::EventListComponent.new( \
         patient: current_patient,
         event_class: Renalware::Events::Biopsy)

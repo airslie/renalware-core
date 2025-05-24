@@ -17,7 +17,7 @@
             td= inline_icon(:exclamation, class: "text-red-600")
             td= link_to("View", letters_transports_mesh_transmissions_path(q: { letter_id_eq: txn.letter_id }))
             td= l(txn.updated_at)
-            td= txn.operations.map{ |op| [op.itk3_operation_outcome_code, op.itk3_operation_outcome_description].join(" ")}.reject(&:blank?).join(", ")
+            td= txn.operations.map { |op| [op.itk3_operation_outcome_code, op.itk3_operation_outcome_description].join(" ") }.reject(&:blank?).join(", ")
 
     / table
     /   thead

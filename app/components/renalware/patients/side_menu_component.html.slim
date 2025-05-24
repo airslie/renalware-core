@@ -1,5 +1,5 @@
 ul.side-nav(data-controller="navbar"
-            data-navbar-rails-controller-value="#{params[:controller].gsub("renalware/","")}"
+            data-navbar-rails-controller-value="#{params[:controller].gsub("renalware/", "")}"
             data-navbar-active-class="active")
 
   = render "renalware/patients/side_menu/general", patient: patient

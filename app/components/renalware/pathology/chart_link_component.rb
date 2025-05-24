@@ -9,10 +9,7 @@ module Renalware
         link_to(
           chartable.code,
           renalware.polymorphic_path([patient, chartable], format: :html),
-          data: {
-            "reveal-id" => "pathology-chart-modal",
-            "reveal-ajax" => "true"
-          },
+          data: { "reveal-id" => "pathology-chart-modal", "reveal-ajax" => "true" },
           class: "path-chart-link"
         )
       end

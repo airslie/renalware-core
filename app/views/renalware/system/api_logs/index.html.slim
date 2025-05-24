@@ -26,7 +26,7 @@
           td.col-width-medium
             - if log.values.present?
               - if log.values.length > 100
-                div.italic= "(first 100 of #{log.values.length})"
+                .italic= "(first 100 of #{log.values.length})"
               = log.values.take(100).join(", ")
           td= log.pages
           td= log.error&.truncate(3000)

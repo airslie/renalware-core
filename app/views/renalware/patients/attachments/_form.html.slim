@@ -27,7 +27,7 @@ ruby:
               wrapper: :horizontal_medium,
               input_html: { \
                 disabled: !attachment.new_record?,
-                data: { action: "change->patient-attachments#toggleFileInputs" }}
+                data: { action: "change->patient-attachments#toggleFileInputs" } }
 
     span(data-patient-attachments-target="externalLocation")
       = f.input(:external_location,

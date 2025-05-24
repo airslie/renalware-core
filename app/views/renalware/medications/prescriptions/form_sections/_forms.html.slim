@@ -15,9 +15,7 @@
                       data: { \
                         controller: "slimselect",
                         action: "change->alternative-form-submitter#submit",
-                        "alternative-form": "drug_search_form",
-                      },
-                    },
+                        "alternative-form": "drug_search_form" } },
                     wrapper: :horizontal_medium
 - else
   = f.association :form,
@@ -26,7 +24,5 @@
                   input_html: { \
                     data: { \
                       action: "change->alternative-form-submitter#submit",
-                      "alternative-form": "drug_search_form",
-                    },
-                  },
+                      "alternative-form": "drug_search_form" } },
                   wrapper: :horizontal_medium

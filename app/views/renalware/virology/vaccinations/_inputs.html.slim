@@ -11,7 +11,7 @@
               include_blank: false,
               input_html: { data: { controller: "slim-select select-update-frame",
                                     "select-update-frame-frame-id-value": "vaccination_drugs",
-                                    "action": "change->select-update-frame#change" }}
+                                    "action": "change->select-update-frame#change" } }
   = turbo_frame_tag :vaccination_drugs do
     - vaccination_type = Renalware::Virology::VaccinationType.find_by(id: params[:vaccination_type_id]) || Renalware::Virology::VaccinationType.find_by(code: vaccination.document.type) || Renalware::Virology::VaccinationType.find_by(code: types[0][1])
     = fd.input :drug,

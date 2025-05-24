@@ -1,5 +1,5 @@
 / Fields for cocoon gem
-.rejection-episode.nested-fields(data={rejection_episode_id: f.object.id} )
+.rejection-episode.nested-fields(data={ rejection_episode_id: f.object.id } )
   - if policy(f.object).destroy?
     = link_to_remove_association "Remove", f
   = f.input :recorded_on, as: :flatpickr, wrapper: :horizontal_datepicker

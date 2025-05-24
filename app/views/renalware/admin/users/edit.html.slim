@@ -26,7 +26,6 @@
           = check_box_tag "user[unexpire]", true, false, class: "align-middle mr-2"
           = label_tag :user_unexpire, "Reactivate account", class: "align-middle"
 
-
       .my-2
         p.p-0.m-0.mt-4.font-bold Role
         - Renalware::Role.all.order(id: :asc).each_with_index do |role, index|
@@ -83,7 +82,7 @@
                     wrapper: :horizontal_small
 
       = f.input :nursing_experience_level,
-                collection: Renalware::User::nursing_experience_levels.collect{ |c| [c[0].titleize, c[0]] },
+                collection: Renalware::User::nursing_experience_levels.collect { |c| [c[0].titleize, c[0]] },
                 wrapper: :horizontal_tiny
 
       = f.input :notes,
@@ -107,5 +106,3 @@
           = link_to(t("btn.cancel"), admin_users_path, class: "btn btn-secondary")
           = f.submit("Save (approve later)", class: "btn btn-tertiary")
           = f.submit("Approve", class: "btn btn-primary", name: "approve", data: { confirm: "Approve this user?" })
-
-

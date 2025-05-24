@@ -29,15 +29,15 @@
               td
                 = fc.input :recognised,
                            label: false,
-                           collection: [["Unknown", "unknown"],["Yes", "yes"] ,["No", "no"]],
+                           collection: [["Unknown", "unknown"], ["Yes", "yes"], ["No", "no"]],
                            include_blank: false,
-                           input_html: { style: "margin: 0"}
+                           input_html: { style: "margin: 0" }
               td
                 = fc.input :recognised_at,
                           label: false,
                           as: :flatpickr,
                           wrapper: :bare,
-                          input_html: { style: "margin: 0"}
+                          input_html: { style: "margin: 0" }
               td
                 - if fc.object.description.has_malignancy_site?
                   .flex.items-center.gap-2

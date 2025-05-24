@@ -10,7 +10,6 @@ ruby:
   }
 = content_for(:title) { generate_page_title(local_assigns: title_opts) }
 
-
 / - if operation.action.to_sym == :send_message
 /   = link_to "Preview Letter as it will appear to the GP",
 /             preview_reconstituted_letter_letters_transports_mesh_operation_path(operation),
@@ -85,4 +84,3 @@ table
         pre= Nokogiri::XML(operation.response_body)
       - else
         pre= operation.response_body
-

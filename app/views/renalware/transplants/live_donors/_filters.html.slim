@@ -17,7 +17,7 @@
       = f.input(:hospital_centre_id_eq,
                 collection: Renalware::Hospitals::Centre.order(host_site: :desc, name: :asc).pluck(:name, :id),
                 include_blank: "Any",
-                input_html: { data: { controller: "slimselect", action: "change->form#submit" }},
+                input_html: { data: { controller: "slimselect", action: "change->form#submit" } },
                 label: "Hospital")
 
     .columns.small-2.medium-2.end

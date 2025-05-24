@@ -1,6 +1,6 @@
 ruby:
   patient = request.patient
-  editing_history = "Created #{l(request.created_at)} by #{request.created_by}\n"\
+  editing_history = "Created #{l(request.created_at)} by #{request.created_by}\n" \
                     "Updated #{l(request.updated_at)} by #{request.updated_by}"
 
 tr.admissions_request(id=dom_id(request) class="sortable priority-#{request.priority}")
