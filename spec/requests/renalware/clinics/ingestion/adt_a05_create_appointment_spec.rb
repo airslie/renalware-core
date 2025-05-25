@@ -64,7 +64,7 @@ describe "HL7 ADT^A05 create appointment" do
       msg = hl7_message_from_file("clinics/ADT_A05_create_appointment", data)
 
       expect(msg.patient_identification.nhs_number).to eq(nhs_number)
-      expect(msg.patient_identification.hospital_identifiers[:KCH]).to eq(local_patient_id)
+      expect(msg.patient_identification.hospital_identifiers[:Dover]).to eq(local_patient_id)
       expect(msg.pv1.visit_number).to eq(visit_number)
       expect(msg.pv1.clinic.code).to eq(clinic_code)
       expect(msg.pv1.consulting_doctor.code).to eq(consultant_code)

@@ -32,7 +32,7 @@ describe "HL7 ADT^A28 message handling: 'Add person information'" do
     hl7 = <<-HL7
       MSH|^~\&|iPM|iIE|TIE|TIE|20110415094635||ADT^A28|558267|P|2.4|||AL|NE
       EVN|A28|20110415094635
-      PID|1|#{nhs_number}^^^NHS|#{local_patient_id}^^^KCH||#{family_name}^#{given_name}^#{middle_name}^^#{title}||#{dob}|#{sex}^Female||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||9999999999|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP|#{died_on}|Y
+      PID|1|#{nhs_number}^^^NHS|#{local_patient_id}^^^Dover||#{family_name}^#{given_name}^#{middle_name}^^#{title}||#{dob}|#{sex}^Female||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||9999999999|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP|#{died_on}|Y
       PD1|||DR WHM SUMISU PRACTICE, Nowhere Surgery, 22 Raccoon Road, Erewhon, Erewhonshire^GPPRC^#{practice_code}|#{gp_code}^Deeley^DP^^^DR
       NK1|1|NOKONE^TESTING^^^MRS|NSP|EREWHON HOSPITAL N H S TR^LEWSEY ROAD^EREWHON^^ER9 0DZ^ZZ993CZ^HOME|01582 111111|01582 333333|NOK^Next of Kin|20110415|||||||F|19600406000000
       PV1|1|R

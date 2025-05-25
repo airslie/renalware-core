@@ -61,7 +61,7 @@ describe "HL7 ADT^A38 cancel appointment" do
       msg = hl7_message_from_file("clinics/ADT_A38_cancel_appointment", data)
 
       expect(msg.patient_identification.nhs_number).to eq(nhs_number)
-      expect(msg.patient_identification.hospital_identifiers[:KCH]).to eq(local_patient_id)
+      expect(msg.patient_identification.hospital_identifiers[:Dover]).to eq(local_patient_id)
       expect(msg.pv1.visit_number).to eq(visit_number)
     end
 

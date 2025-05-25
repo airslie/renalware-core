@@ -4,8 +4,8 @@ FactoryBot.define do
       Renalware::Hospitals::Centre.find_or_create_by!(code: code, name: name)
     end
 
-    name { "King's College Hospital" }
-    code { "RJZ" }
+    name { "Dover Hospital" }
+    code { "DOV" }
     host_site { true }
   end
 end

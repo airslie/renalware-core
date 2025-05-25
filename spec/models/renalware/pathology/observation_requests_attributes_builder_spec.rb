@@ -165,7 +165,7 @@ module Renalware::Pathology
         let(:raw_message) do
           <<~RAW
             MSH|^~\&|BLB|LIVE|SCM||1111111||ORU^R01|1111111|P|2.3.1|||AL
-            PID|||V1111111^^^KCH||SSS^SS^^^Mr||20010101|M|||s^s^^^x
+            PID|||V1111111^^^Dover||SSS^SS^^^Mr||20010101|M|||s^s^^^x
             PV1||Inpatient|DMU|||||xxx^xx, xxxx||||||||||NHS|V1111111^^^Visit Number
             ORC|RE|0031111111^PCS|18T1111111^LA||CM||||201801221418|||xxx^xx, xxxx
             OBR|1|0031111111^PCS|181111111^LA|GS^UNKNOWN G\T\S^BLB||201801221418|201801221418||||||haematology + 1 extra sample|201801221418|B^Blood|xxx^xx, xxxx||18T000000001||||201801251706||BLB|F

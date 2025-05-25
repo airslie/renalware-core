@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :hospital_unit, class: "Renalware::Hospitals::Unit" do
     hospital_centre
-    name { "King's College Hospital" }
+    name { "Dover Hospital" }
     unit_code { "UJZ" }
-    renal_registry_code { "RJZ" }
+    renal_registry_code { "DOV" }
     unit_type { :hospital }
 
     factory :hd_hospital_unit do

@@ -1,5 +1,5 @@
 describe "Transplant Recipient Operation" do
-  let(:patient) { create(:transplant_patient, family_name: "Rabbit", local_patient_id: "KCH12345") }
+  let(:patient) { create(:transplant_patient, family_name: "Rabbit", local_patient_id: "12345") }
 
   describe "GET show" do
     it "responds successfully" do

@@ -119,7 +119,7 @@ describe "Patient Dietetics MDM" do
       expect(page).to have_content("14.3%") # weight change
       expect(page).to have_content("80") # current weight
       expect(page).to have_content("overdue") # outstanding dietetic visit
-      expect(page).to have_content("King's College Hospital")
+      expect(page).to have_content("Dover Hospital")
     end
   end
 

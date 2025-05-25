@@ -39,7 +39,7 @@ describe "HL7 ADT^A04 message handling: 'Emergency Department Registration'" do
     hl7 = <<-HL7
       MSH|^~\&|BLT_TIE|BLT|RENALWARE|MSE|20241104145144||ADT^A04|Q1663236|P|2.4
       EVN|A04|20241104144000
-      PID|1||#{mrn}^^^KCH^MRN||#{family_name}^#{given_name}^^^^^CURRENT||#{dob}|2|||The Royal London Hospital^PO Box 59^^LONDON^E1 1BB^^HOME^^||""^MOBILE~""^HOME~""^EMAIL|""^BUSINESS||S||913401060||||L||||||||N
+      PID|1||#{mrn}^^^Dover^MRN||#{family_name}^#{given_name}^^^^^CURRENT||#{dob}|2|||The Royal London Hospital^PO Box 59^^LONDON^E1 1BB^^HOME^^||""^MOBILE~""^HOME~""^EMAIL|""^BUSINESS||S||913401060||||L||||||||N
       PD1|||ST. STEPHENS HEALTH CENTRE^^F84034|G8901343^BOOMLA^S^^^^^^EXTID
       PV1|1|I|#{ward}^#{room}^#{bed}^#{facility}^loc.stat^BED^#{building}^#{floor}^loc.desc|||""^""^""^""^^^""|#{consultant_code}^#{consultant_family_name}^#{consultant_initial}|||424||||79||||NEWBORN|#{visit_number}^^""^^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON|||||#{admitted_at}|#{discharged_at}
     HL7

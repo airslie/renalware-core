@@ -1,5 +1,5 @@
 describe "Patient HD MDM" do
-  let(:patient) { create(:hd_patient, family_name: "Rabbit", local_patient_id: "KCH12345") }
+  let(:patient) { create(:hd_patient, family_name: "Rabbit", local_patient_id: "12345") }
 
   describe "GET show" do
     it "responds successfully" do

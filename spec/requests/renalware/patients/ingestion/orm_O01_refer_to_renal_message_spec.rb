@@ -35,7 +35,7 @@ describe "HL7 ORM^O01 message handling: 'Refer to Renal'" do
   let(:message) do
     hl7 = <<-HL7
       MSH|^~\&|BLT_TIE|BLT|RENALWARE|RENALWARE|20250307142935||ORM^O01|Q1779262221T1783390016A1044|P|2.4
-      PID|1|#{nhs_number}^^^NHS|#{local_patient_id}^^^KCH||#{family_name}^#{given_name}^^^#{title}||#{dob}|#{sex}^Female||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||9999999999|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP||Y
+      PID|1|#{nhs_number}^^^NHS|#{local_patient_id}^^^Dover||#{family_name}^#{given_name}^^^#{title}||#{dob}|#{sex}^Female||Not Specified|34 Florence Road^SOUTH CROYDON^Surrey^^CR2 0PP^ZZ993CZ^HOME^QAD||9999999999|5554443333|NSP||NSP|||||Not Specified|.|DNU||8||NSP||Y
       PD1|||DR WHM SUMISU PRACTICE, Nowhere Surgery, 22 Raccoon Road, Erewhon, Erewhonshire^GPPRC^#{practice_code}|#{gp_code}^Deeley^DP^^^DR
       PV1|1|O|R1H Clinic^^^R1H WHIPPSCROSS^^AMB^R1H XXXX|""|||C123123123^Jones^Ccc^Ddd^^^^^NHSCONSULTANTNUMBER^PRSNL^^^NONGP^""|G9401882^SMITH^AM^^^^^^^EXTID^PRSNL^^^EXTID^""||502||||""||||OUTPATIENT|123^^^RNJATTNUM^VISITID|||||||||||||||||""|""||R1H WHIPPSCROSS|||||20241218104725|
       ORC|F|5541473217^XX_ORDERID|||CM||||20250307142934|^Jones^Ccc^^^^^^^PRSNL|||||20250307142934||||^Jones^Ccc^^^^^^^PRSNL

@@ -25,7 +25,7 @@ describe "HD MDM Patients" do
     it "responds successfully" do
       patient = create(:hd_patient,
                        family_name: "Rabbit",
-                       local_patient_id: "KCH12345",
+                       local_patient_id: "12345",
                        by: user)
 
       set_modality(patient: patient,

@@ -46,7 +46,7 @@ module World
 
         Renalware::Pathology::ObservationRequest.create!(
           patient: patient,
-          requestor_name: "KCH",
+          requestor_name: "Dover",
           requested_at: Time.zone.now,
           description: Renalware::Pathology::RequestDescription.first!,
           observations_attributes: observations_attributes
