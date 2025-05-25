@@ -16,7 +16,7 @@ tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
   td.w-0.xl:hidden
   td.hidden.xl:table-cell.col-width-large-with-ellipsis
     - receipt_presenter.also_sent_to.each do |recip|
-      div.whitespace-nowrap= recip.to_s
+      .whitespace-nowrap= recip.to_s
   td
     = link_to t("btn.toggle"),
               "##{message.html_preview_identifier}",
@@ -25,7 +25,7 @@ tr(class="#{ "urgent" if message.urgent?}" id=message.html_identifier)
 = content_tag(:tr,
               id: "#{message.html_preview_identifier}",
               style: "display: none",
-              class: "message-toggleable-row #{ 'urgent' if message.urgent?}")
+              class: "message-toggleable-row #{'urgent' if message.urgent?}")
   td.p-0(colspan=8)
     .message-preview
       .subject= message.subject

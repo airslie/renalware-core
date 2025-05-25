@@ -2,9 +2,9 @@
   = render "page_actions", unit: unit, diary: diary
 
 = within_admin_layout(title: diary,
-                      breadcrumbs: [\
+                      breadcrumbs: [ \
                         breadcrumb_for(unit.name, hospitals.edit_unit_path(unit)),
-                        breadcrumb_for("HD Diaries", hd_scheduling_unit_diaries_path(unit))\
+                        breadcrumb_for("HD Diaries", hd_scheduling_unit_diaries_path(unit)) \
                       ]) do
 
   .diary__navigation

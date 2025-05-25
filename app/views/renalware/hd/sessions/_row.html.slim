@@ -6,7 +6,7 @@ tbody.hd-session-row(class=[session.state, stripe_class])
     td
       - if session.hospital_unit_unit_type == "home"
         .flex.p-0
-          .mr-1.p-0= inline_icon(:home, size: :md, class: "stroke-neutral-500 stroke-1 fill-orange-100" )
+          .mr-1.p-0= inline_icon(:home, size: :md, class: "stroke-neutral-500 stroke-1 fill-orange-100")
           .mt-px= session.hospital_unit_unit_code
       - else
         = session.hospital_unit_unit_code
@@ -48,4 +48,4 @@ tbody.hd-session-row(class=[session.state, stripe_class])
     td(colspan=21)
       .quick-preview
         = definition_list_for(session, size: :large) do |list|
-          = list.definition(:notes){ |value| simple_format(value) }
+          = list.definition(:notes) { |value| simple_format(value) }

@@ -13,8 +13,7 @@
     .small-3.columns
       = f.input :provider_eq,
                 include_blank: true,
-                collection: Renalware::Medications::Provider.codes.each_with_index.map{ |x, i| [x.to_s.humanize, i] },
+                collection: Renalware::Medications::Provider.codes.each_with_index.map { |x, i| [x.to_s.humanize, i] },
                 label: "Provider"
     .small-3.columns.actions.end
       .mt-px= filter_or_reset(form: f, reset_path: medications_esa_prescriptions_path)
-

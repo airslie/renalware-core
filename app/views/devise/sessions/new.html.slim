@@ -23,8 +23,8 @@ div class="bg-gray-50 w-full overflow-y-auto"
       div
         = render Renalware::FlashMessagesComponent.new(flash_messages: flash_messages, toast: false)
 
-      = f.input :username, input_html: { autofocus: true, autocomplete: "email" }, label_html: {class: "!hidden"}, required: true
-      = f.input :password, input_html: { autocomplete: "current-password" }, label_html: {class: "!hidden"}, required: true, placeholder: true
+      = f.input :username, input_html: { autofocus: true, autocomplete: "email" }, label_html: { class: "!hidden" }, required: true
+      = f.input :password, input_html: { autocomplete: "current-password" }, label_html: { class: "!hidden" }, required: true, placeholder: true
 
       / = f.input(:remember_me, as: :boolean, boolean_style: :inline) if devise_mapping.rememberable?
 

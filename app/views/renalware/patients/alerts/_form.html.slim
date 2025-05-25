@@ -6,7 +6,7 @@
     h2= t(".title")
     = f.input :urgency,
               as: :radio_buttons,
-              collection: [[" URGENT","urgent"], [" COVID-19 (CONFIRMED)", "covid_19"]],
+              collection: [[" URGENT", "urgent"], [" COVID-19 (CONFIRMED)", "covid_19"]],
               label: false
     = f.input :notes, autofocus: true
     = f.submit "Create alert", class: :button

@@ -8,13 +8,12 @@
                       html: { autocomplete: "off" },
                       wrapper: "horizontal_form" do |f|
 
-
       = f.input :difficulty,
                 collection: Renalware::Accesses::NeedlingAssessment.difficulty_type_collection_options,
                 include_blank: true,
                 wrapper: :horizontal_medium,
                 autofocus: true,
                 input_html: { class: "needling-assessment-difficulty",
-                  data: { controller: "slimselect" }}
+                  data: { controller: "slimselect" } }
 
       .mt-8= save_or_cancel(form: f, back_path: patient_accesses_dashboard_path(difficulty.patient))

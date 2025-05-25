@@ -21,7 +21,6 @@
         dd
           b= pet.calculated_d_pcr
 
-
     / The same fields as used in #new
     article(style="max-width: 600px; display: block; float: none; clear: both")
       header
@@ -31,4 +30,3 @@
     = render "pathology_results", form: f
 
     = save_or_cancel(form: f, back_path: renalware.patient_pd_dashboard_path(pet.patient))
- 

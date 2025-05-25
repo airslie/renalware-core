@@ -1,7 +1,6 @@
 = content_for(:actions) do
   = link_to t("btn.add"), renalware.new_worry_category_path, class: "button"
 
-
 = within_new_admin_layout(title: "Worry Categories") do
   = help_panel do
     ' Deleting a category sets the 'deleted at' date, preventing the category from

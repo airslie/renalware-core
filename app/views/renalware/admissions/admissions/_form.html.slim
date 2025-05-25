@@ -46,7 +46,7 @@
                     wrapper: :horizontal_medium
     = f.input :summarised_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
-    div#snippets-controller(data-controller="snippets")
+    #snippets-controller(data-controller="snippets")
       / clicking will launch insert snippet modal
       / when the user clicks on the Insert button in the modal, the content is put into the target
       / (eg trix editor)
@@ -59,6 +59,5 @@
                 as: :trix_editor,
                 wrapper: :zilch,
                 data: { "snippets-target": "destination" }
-
 
   = save_or_cancel(form: f, back_path: admissions_admissions_path)

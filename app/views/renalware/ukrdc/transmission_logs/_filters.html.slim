@@ -1,4 +1,3 @@
-
 .search-form.filters.filters--flex.max-w-screen-md
   = simple_form_for query, as: :q, url: renalware.ukrdc_transmission_logs_path, method: :get do |f|
     .flex.flex-col.sm:flex-row.items-end.pb-4
@@ -9,4 +8,3 @@
 
       .flex-shrink-0.pt-4
         .mb-px= filter_or_reset(form: f, reset_path: renalware.ukrdc_transmission_logs_path)
-

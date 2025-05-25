@@ -32,9 +32,7 @@
                   input_html: { \
                     data: { \
                       action: "change->home-delivery-modal#refreshForm", \
-                      "home-delivery-modal-target" => "drugtype" \
-                    } \
-                  },
+                      "home-delivery-modal-target" => "drugtype" } },
                   wrapper: :horizontal_medium
 
         = f.input :prescription_duration,
@@ -42,7 +40,7 @@
                   include_blank: false,
                   label_method: lambda { |dur| \
                     "#{dur} #{event.homecare_form.prescription_duration_unit.pluralize(dur)}" \
-                  },\
+                  }, \
                   wrapper: :horizontal_medium,
                   input_html: { data: { action: "change->home-delivery-modal#refreshForm" } }
 

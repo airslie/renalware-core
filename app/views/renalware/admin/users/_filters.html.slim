@@ -17,7 +17,7 @@
         .basis-1/4
           = f.label "Site"
           = f.select(:hospital_centre_id_eq,
-                     options_from_collection_for_select(\
+                     options_from_collection_for_select( \
                      Renalware::Hospitals::Centre.all, "id", "name", user_search.hospital_centre_id_eq),
                      { include_blank: "Any" },
                      data: { controller: "slimselect", action: "change->form#submit" })

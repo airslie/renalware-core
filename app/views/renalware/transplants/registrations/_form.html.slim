@@ -79,8 +79,6 @@ ruby:
                       hint: "To be updated by feed",
                       input_html: { "data-controlled-by-tissue-typing-feed": true }
 
-
-
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Admin", name: "admin" } do
       = f.input :referred_on, as: :flatpickr, wrapper: :horizontal_datepicker

@@ -27,7 +27,7 @@
                       Renalware::Modalities::Description.pluck(:name, :id),
                       include_blank: true)
 
-          - boolean_options = [["Any",nil], ["True", true], ["False", false]]
+          - boolean_options = [["Any", nil], ["True", true], ["False", false]]
 
           div
             = label_tag :location_id_eq, "Location"

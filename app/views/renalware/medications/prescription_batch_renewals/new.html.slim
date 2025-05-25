@@ -14,19 +14,19 @@
         = f.collection_check_boxes(:prescription_ids, form.prescriptions, :id, :to_s) do |presc|
           li.flex.gap-6(id="renew_#{dom_id(presc.object)}")
             div= presc.check_box
-            div.pt-px = presc.label
+            .pt-px = presc.label
 
     .mt-4
-      div.form-actions
+      .form-actions
         - if form.prescriptions.any?
           = link_to I18n.t("btn.cancel"),
                     "#",
                     class: "btn btn-secondary mr-3",
-                    data: { action: "turbo-modal#close"}
+                    data: { action: "turbo-modal#close" }
           = f.submit("Renew", class: "btn btn-primary", autofocus: true)
         - else
           = link_to "Close",
                     "#",
                     autofocus: true,
                     class: "btn btn-secondary mr-3",
-                    data: { action: "turbo-modal#close"}
+                    data: { action: "turbo-modal#close" }

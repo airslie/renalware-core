@@ -13,7 +13,7 @@
             th.togglers= rows_toggler
             th.col-width-date.valign-bottom Date
             th.col-width-tiny.valign-bottom Total
-            - question_labels.each do |code, label|
+            - question_labels.each do |_code, label|
               th.rotate
                 div
                   span= label
@@ -25,7 +25,7 @@
               td= row_toggler
               td= row.answered_on
               td= row.total_score
-              - question_labels.each do |code, label|
+              - question_labels.each do |code, _label|
                 - value = row.send(code.to_sym)
                 - patient_question_text = row.try(:"#{code}_patient_question_text")
                 td(class="pos-s--#{value}")
@@ -40,7 +40,7 @@
                 | &nbsp;
               td
               td
-              td(class="summary-part--pos_s-patient-question-text" colspan=(question_labels.count ))
+              td(class="summary-part--pos_s-patient-question-text" colspan=(question_labels.count))
                 - superscript_char = 97
                 - question_labels.each do |code, label|
                   - patient_question_text = row.try(:"#{code}_patient_question_text")

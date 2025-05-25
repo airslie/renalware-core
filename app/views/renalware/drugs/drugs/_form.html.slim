@@ -10,7 +10,7 @@
       h5= f.label :drug_type_ids, "Drug Types"
 
       = f.collection_check_boxes(:drug_type_ids, Renalware::Drugs::Type.all, :id, :name) do |b|
-        div.p-0.m-0
+        .p-0.m-0
           = b.check_box(class: "!m-0 p-0")
           = b.label(class: "inline !p-0")
 
@@ -20,10 +20,9 @@
         = f.label :enabled_trade_family_ids, "Trade families"
 
       = f.collection_check_boxes(:enabled_trade_family_ids, @drug.trade_families, :id, :name) do |b|
-        div.p-0.m-0
+        .p-0.m-0
           = b.check_box(class: "!m-0 p-0")
           = b.label(class: "inline !p-0")
-
 
       br
 

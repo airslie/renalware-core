@@ -41,13 +41,11 @@
                       input_html: { \
                         data: { \
                           "hd-prescription-administration-target" => "radio",
-                          action: "change->hd-prescription-administration#toggleAdministered",
-                        } \
-                      }
+                          action: "change->hd-prescription-administration#toggleAdministered" } }
 
         .recorded-on.mt-2
           - not_recommended_values = Renalware::HD::PrescriptionAdministrationsQuery.new(prescription: prescription).call(limit: 10) \
-            .map {|prescription| l(prescription.recorded_on.to_date) }
+            .map { |prescription| l(prescription.recorded_on.to_date) }
 
           = render Renalware::InputValueAlerterComponent.new( \
             not_recommended_values: not_recommended_values, \

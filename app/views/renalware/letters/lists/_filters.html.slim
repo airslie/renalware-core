@@ -25,37 +25,37 @@ ruby:
                     method: :get do |f|
 
     .flex.gap-1.flex-wrap
-      div.min-w-24.w-24
+      .min-w-24.w-24
         = f.input :enclosures_present,
                   as: :select,
                   label: "Enclosure",
                   input_html: { disabled: form.disabled_inputs.include?(:enclosures_present) }
 
-      div.min-w-16
+      .min-w-16
         = f.input :notes_present,
                   as: :select,
                   label: "Notes",
                   input_html: { disabled: form.disabled_inputs.include?(:notes_present) }
-      div.min-w-52
+      .min-w-52
         = f.input :state_eq,
                   collection: form.letter_state_options,
                   label: "State",
                   include_blank: form.allow_blank_inputs.include?(:state_eq),
                   input_html: { disabled: form.disabled_inputs.include?(:state_eq) }
-      div.w-72
+      .w-72
         = f.input :author_id_eq,
                   as: :user_picker,
                   collection: form.author_options,
                   label: "Author",
                   input_html: { disabled: form.disabled_inputs.include?(:author_id_eq),
-                  data: { controller: "slimselect", action: "change->form#submit" }}
-      div.w-72
+                  data: { controller: "slimselect", action: "change->form#submit" } }
+      .w-72
         = f.input :created_by_id_eq,
                   as: :user_picker,
                   collection: form.typist_options,
                   label: "Typist",
-                  input_html: { data: { controller: "slimselect", action: "change->form#submit" }}
-      div.w-56
+                  input_html: { data: { controller: "slimselect", action: "change->form#submit" } }
+      .w-56
         = f.input :letterhead_id_eq,
                   collection: form.letterhead_options,
                   label: "Letterhead"
@@ -63,7 +63,7 @@ ruby:
         = f.input :clinic_visit_clinic_id_eq,
                   collection: form.clinic_visit_clinic_options,
                   label: "Clinic Visit Clinic"
-      div.min-w-24
+      .min-w-24
         = f.input :page_count_in_array,
                   collection: form.page_count_options,
                   label: "Pages",

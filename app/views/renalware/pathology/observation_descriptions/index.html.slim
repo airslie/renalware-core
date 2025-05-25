@@ -36,7 +36,6 @@
         th.bg-gray-100.text-center= sort_link(query, :suggested_measurement_unit, "Suggested")
         th.bg-gray-100.text-center UKRDC unit
 
-
     tbody
       - descriptions.each do |description|
 
@@ -85,12 +84,10 @@
               td.bg-gray-50.hover:bg-gray-100(rowspan=mappings_count  title=unit.description)
                 = unit.name
 
-
             - else
               td.bg-green-50.hover:bg-green-100
                 b= description.obx_mappings[index]&.code_alias
               td.bg-green-50.hover:bg-green-100
                 = description.obx_mappings[index]&.sender
-
 
   == pagy_nav(pagy) if pagy.pages > 1

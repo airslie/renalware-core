@@ -1,8 +1,6 @@
 - patient = Renalware::Clinical.cast_patient(patient)
 = patient.allergy_status&.text
 
-
-
 .allergies
   ul.allergy_descriptions
     - patient.allergies.each do |allergy|

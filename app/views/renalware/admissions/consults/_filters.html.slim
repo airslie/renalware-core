@@ -27,7 +27,7 @@
       .columns.medium-1.large-1
         = f.input :aki_risk_eq,
                   include_blank: true,
-                  collection: Renalware::Admissions::Consult.aki_risk.values.map{ |value| [value.text, value] },
+                  collection: Renalware::Admissions::Consult.aki_risk.values.map { |value| [value.text, value] },
                   label: "AKI Risk"
       .columns.medium-1.large-1
         = f.input :ended_on_null,

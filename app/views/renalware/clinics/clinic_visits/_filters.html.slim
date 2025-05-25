@@ -1,5 +1,5 @@
 - clinic_ids = patient.clinic_visits.pluck(:clinic_id).uniq
-- clinics_for_filtering = Renalware::Clinics::Clinic.where(id: clinic_ids).map{ |cl| [cl.description, cl.id] }
+- clinics_for_filtering = Renalware::Clinics::Clinic.where(id: clinic_ids).map { |cl| [cl.description, cl.id] }
 
 .search-form.filters.mt-4
   = simple_form_for query,

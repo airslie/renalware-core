@@ -18,7 +18,7 @@
           .mt-1.ml-2
             = f.check_box :superadmin_can_always_change
         .mb-1
-          - windows = [["Never", "0"], ["Forever", "-1"], ["6 hours", "6"], ["24 hours", "24"], ["1 week", "168"], ["1 month", "720"], ["6 months", "4380"], ["1 year","8760"]]
+          - windows = [["Never", "0"], ["Forever", "-1"], ["6 hours", "6"], ["24 hours", "24"], ["1 week", "168"], ["1 month", "720"], ["6 months", "4380"], ["1 year", "8760"]]
           = f.input :admin_change_window_hours,
                     collection: windows,
                     include_blank: false,
@@ -62,6 +62,5 @@
           = f.input :external_document_type_description,
                     label: "Description",
                     hint: "Can be anything helpful. Included in HL7 mesasges but not used by external systems."
-
 
       = save_or_cancel(form: f, back_path: events_types_path)

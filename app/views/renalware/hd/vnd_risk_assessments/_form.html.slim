@@ -8,8 +8,7 @@
   = render "renalware/shared/errors", model: assessment
   - questions = t(".questions")
 
-
-  div.mt-4
+  .mt-4
     - questions.each do |input_name, question|
       .mb-6.rounded.border.p-3
         div(data-controller="simple-toggle")
@@ -43,7 +42,7 @@
   = save_or_cancel(form: f, back_path: patient_hd_dashboard_path(assessment.patient))
 
   .px-3.py-2.border.rounded-md.w-1/2.bg-blue-50
-    div.ml-2
+    .ml-2
       .font-bold.mb-2 Key
       - t(".key").each do |level, help|
         .flex.my-1

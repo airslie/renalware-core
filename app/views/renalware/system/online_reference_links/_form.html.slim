@@ -1,4 +1,3 @@
-
 ruby:
   qr_url = params[:qr_url] || reference.url
   svg = qr_url.present? && Renalware::Letters::GenerateQRCodeFromUrl.new(qr_url).call

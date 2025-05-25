@@ -14,14 +14,14 @@
     .basis-4/12
       = f.input :event_type_id_eq,
                 collection: form.event_type_options,
-                input_html: { data: { controller: "slimselect", action: "change->form#submit" }},
+                input_html: { data: { controller: "slimselect", action: "change->form#submit" } },
                 label: "Event type"
     .basis-1/4
       = f.input :created_by_id_eq,
               as: :user_picker,
               collection: form.created_by_options,
               label: "Created by",
-              input_html: { data: { action: "change->form#submit" }}
+              input_html: { data: { action: "change->form#submit" } }
     div
       = f.input :created_at_gteq,
                 as: :flatpickr,

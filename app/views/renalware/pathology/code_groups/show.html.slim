@@ -23,7 +23,7 @@
       th Name
 
     tbody
-      - group.memberships.order(:subgroup, :position_within_subgroup ).each do |membership|
+      - group.memberships.order(:subgroup, :position_within_subgroup).each do |membership|
         tr.sortable
           td= membership.subgroup
           td= membership.position_within_subgroup

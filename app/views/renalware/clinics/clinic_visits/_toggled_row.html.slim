@@ -1,4 +1,4 @@
 = definition_list_for(clinic_visit, size: :large) do |list|
-  = list.definition(:location){ |value| value }
-  = list.definition(:notes){ |value| simple_format(value) }
-  = list.definition(:admin_notes){ |value| simple_format(value) }
+  = list.definition(:location) { |value| value }
+  = list.definition(:notes) { |value| simple_format(value) }
+  = list.definition(:admin_notes) { |value| simple_format(value) }

@@ -14,9 +14,9 @@ ruby:
       = f.input :pathology_timestamp, as: :hidden
     - else
       = f.input :pathology_timestamp,
-                collection: [\
+                collection: [ \
                   ["Yes", Time.zone.now],
-                  ["No", letter.pathology_timestamp], \
+                  ["No", letter.pathology_timestamp] \
                 ], \
                 as: :inline_radio_buttons,
                 label: "Include pathology updates below"

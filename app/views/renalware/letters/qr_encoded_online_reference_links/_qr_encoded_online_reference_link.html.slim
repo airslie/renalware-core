@@ -9,6 +9,6 @@ tr.qr-code(style="page-break-inside: avoid !important;")
   td.qr-code_image
     img(src="data:image/png;base64,#{Base64.encode64(png.to_s)}")
   td.qr-code_text
-    div.qr-code_text_title= online_reference_link.title
-    div.qr-code_text_description= online_reference_link.description
-    div.qr-code_text_url= url
+    .qr-code_text_title= online_reference_link.title
+    .qr-code_text_description= online_reference_link.description
+    .qr-code_text_url= url

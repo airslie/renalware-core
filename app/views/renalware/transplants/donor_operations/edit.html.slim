@@ -1,8 +1,8 @@
-= within_patient_layout(\
+= within_patient_layout( \
     title: "Edit",
-    breadcrumbs: [\
+    breadcrumbs: [ \
       donor_summary_breadcrumb(patient),
-      donor_operation_breadcrumb(patient, operation)\
+      donor_operation_breadcrumb(patient, operation) \
   ]) do
 
   .edit_timestamp= render "renalware/shared/last_update", record: operation

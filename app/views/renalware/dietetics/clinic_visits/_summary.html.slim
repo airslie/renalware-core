@@ -3,7 +3,7 @@
 = definition_list_for(clinic_visit.document, size: :xlarge) do |list|
   = list.definition(:assessment_type) { |value| value&.text }
   = list.definition(:visit_type) { |value| value&.text }
-  = list.definition(:attendance){ |value| value&.text }
+  = list.definition(:attendance) { |value| value&.text }
 
   = list.sub_heading "Weight"
   = list.definition(:weight_notes)
@@ -15,7 +15,7 @@
   = list.definition(:waist_circumference)
 
   = list.sub_heading "Dietary"
-  = list.definition(:dietary_protein_requirement)  { |value| Renalware::Dietetics::ProteinValuePresenter.new(value).to_s }
+  = list.definition(:dietary_protein_requirement) { |value| Renalware::Dietetics::ProteinValuePresenter.new(value).to_s }
   = list.definition(:dietary_protein_intake) { |value| Renalware::Dietetics::ProteinValuePresenter.new(value).to_s }
   = list.definition(:high_biological_value)
   = list.definition(:energy_requirement) { |value| Renalware::Dietetics::EnergyValuePresenter.new(value).to_s }
@@ -39,6 +39,6 @@
   = list.definition(:next_review_in) { |value| value&.text }
 
   = definition_list_for(clinic_visit, size: :xlarge) do |list|
-    = list.definition(:location){ |value| value }
-    = list.definition(:notes){ |value| render Renalware::ReadMoreComponent.new(value) }
+    = list.definition(:location) { |value| value }
+    = list.definition(:notes) { |value| render Renalware::ReadMoreComponent.new(value) }
     = list.definition(:admin_notes) { |value| render Renalware::ReadMoreComponent.new(value) }

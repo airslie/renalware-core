@@ -24,7 +24,7 @@ ruby:
                     controller: "slimselect select-update-frame",
                     "select-update-frame-frame-id-value": "letter_sections",
                     "action": "change->select-update-frame#change" \
-                  },
+                  } \
                 }
 
     = f.input :clinical, as: :hidden
@@ -57,7 +57,6 @@ ruby:
 
     = f.input :salutation
 
-
     - if event&.respond_to?(:notes)
 
       = link_to "Insert #{event.class.name.demodulize.underscore.humanize.downcase} notes",
@@ -66,9 +65,8 @@ ruby:
                         notes: event.notes || "" },
                 class: "insert-data-notes button alternative right editor-toolbar-button"
 
-
-    div#snippets-controller(data-controller="snippets"
-                            data-snippets-invocations-url-value=authoring.snippet_invocations_path(snippet_id: "REPLACEME"))
+    #snippets-controller(data-controller="snippets"
+                         data-snippets-invocations-url-value=authoring.snippet_invocations_path(snippet_id: "REPLACEME"))
       / clicking will launch insert snippet modal
       / when the user clicks on the Insert button in the modal, the content is put into the target
       / (eg trix editor)
@@ -90,7 +88,7 @@ ruby:
       = f.association :online_reference_links,
                       label: false,
                       wrapper: :zilch,
-                      input_html: { data: { controller: "slimselect" }}
+                      input_html: { data: { controller: "slimselect" } }
   article
     header
       h2 Admin

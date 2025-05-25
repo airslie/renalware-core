@@ -8,7 +8,7 @@
   - if scheduled_only
     = f.input :patient_id,
              collection: patients,
-             label_method: ->(item){ item.to_s(:long) },
+             label_method: ->(item) { item.to_s(:long) },
              value_method: :id,
              input_html: { class: "searchable_select" }
   - else
@@ -16,7 +16,7 @@
               collection: [],
               input_html: { \
                 id: "patient-ajax-search",
-                data: { "ajax--url" => search_patients_path(format: :json) }\
+                data: { "ajax--url" => search_patients_path(format: :json) } \
               }
 
   = f.submit "Select", class: :button

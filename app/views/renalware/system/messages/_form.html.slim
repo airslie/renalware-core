@@ -1,4 +1,4 @@
-- severities = Renalware::System::Message.severity.values.map{ |val| [val&.humanize, val] }
+- severities = Renalware::System::Message.severity.values.map { |val| [val&.humanize, val] }
 = simple_form_for(message,
                   as: :message,
                   html: { autocomplete: "off" }) do |f|
@@ -8,8 +8,8 @@
   = f.input :title, placeholder: "An optional title"
   = f.label :body
   = f.input :body, as: :trix_editor, wrapper: :zilch
-  
-  .mt-2 
+
+  .mt-2
     = f.input :severity,
               collection: severities,
               input_html: { style: "width:100px" },

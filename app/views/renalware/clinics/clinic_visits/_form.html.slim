@@ -20,7 +20,7 @@
                               controller: "slimselect select-update-frame",
                               "select-update-frame-frame-id-value": "clinic-visit-specific-inputs",
                               "action": "change->select-update-frame#change" \
-                            },
+                            } \
                           }
         = f.input :date, as: :flatpickr, wrapper: :horizontal_datepicker
         = f.input :time, as: :clock_picker, wrapper: :horizontal_clockpicker
@@ -69,7 +69,7 @@
         header
           h2 Notes
 
-        div#snippets-controller(data-controller="snippets")
+        #snippets-controller(data-controller="snippets")
           / clicking will launch insert snippet modal
           / when the user clicks on the Insert button in the modal, the content is put into the target
           / (eg trix editor)

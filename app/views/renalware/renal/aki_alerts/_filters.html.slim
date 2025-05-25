@@ -30,13 +30,13 @@ scss:
                       collection: form.date_range_options,
                       label: "Date range",
                       include_blank: false,
-                      input_html: { data: { controller:"select", action: "change->select#showhide"}}
+                      input_html: { data: { controller: "select", action: "change->select#showhide" } }
 
-          // This div shows the datpicker when the user has selected the Specific Date option
+          // This div shows the datepicker when the user has selected the Specific Date option
           // in the date range select above
           #specific-date.w-auto.relative(class="#{form.show_specific_date_input? ? '' : 'hidden'}")
             = f.input :date, as: :flatpickr
-            div.link_to_right_of_input_label
+            .link_to_right_of_input_label
               a.set_filter_date_to_today(href="") Today
               | &nbsp;|&nbsp;
               a.set_filter_date_to_any_date(href="") Clear
