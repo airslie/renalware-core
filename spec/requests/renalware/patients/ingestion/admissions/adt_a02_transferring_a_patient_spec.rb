@@ -28,7 +28,7 @@ describe "HL7 ADT^A02 message handling: 'Patient Transfer'" do
     hl7 = <<-HL7
       MSH|^~\&|BLT_TIE|BLT|RENALWARE|MSE|20241104145144||ADT^A02|Q1663235337T1667362004X221286A1117|P|2.4
       EVN|A02|20241104144000
-      PID|1||10769857^^^KCH^MRN||RENALOP2^MOLLY^^^^^CURRENT||19870101|2|||The Royal London Hospital^PO Box 59^^LONDON^E1 1BB^^HOME^^||""^MOBILE~""^HOME~x@y.com^EMAIL|""^BUSINESS||S||913401060||||L||||||||N
+      PID|1||10769857^^^Dover^MRN||RENALOP2^MOLLY^^^^^CURRENT||19870101|2|||The Royal London Hospital^PO Box 59^^LONDON^E1 1BB^^HOME^^||""^MOBILE~""^HOME~x@y.com^EMAIL|""^BUSINESS||S||913401060||||L||||||||N
       PD1|||ST. STEPHENS HEALTH CENTRE^^F84034|G8901343^BOOMLA^S^^^^^^EXTID
       PV1|1|I|#{ward}^#{room}^#{bed}^#{facility}^loc.stat^BED^#{building}^#{floor}^loc.desc|||""^""^""^""^^^""|#{consultant_code}^#{consultant_family_name}^#{consultant_initial}|||#{hospital_service}||||79||||NEWBORN|#{visit_number}^^""^^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON|||||20241104144000|
     HL7

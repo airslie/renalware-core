@@ -1,5 +1,5 @@
 describe "Renew HD prescription" do
-  let(:patient) { create(:hd_patient, family_name: "Rabbit", local_patient_id: "KCH12345") }
+  let(:patient) { create(:hd_patient, family_name: "Rabbit", local_patient_id: "12345") }
 
   def create_prescription(patient, drug_name, hd:)
     create(

@@ -77,7 +77,7 @@ module Renalware
               </EnteredBy>
               <EnteredAt>
                 <CodingStandard>LOCAL</CodingStandard>
-                <Code>RJZ</Code>
+                <Code>DOV</Code>
               </EnteredAt>
               <ExternalId>UUID</ExternalId>
               <Attributes>

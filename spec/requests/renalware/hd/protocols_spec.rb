@@ -3,7 +3,7 @@ describe "Patient's Protocol PDF" do
   let(:password) { "(&*G986111" }
   let(:user) { create(:user, password: password) }
   let(:patient) do
-    create(:hd_patient, family_name: "Rabbit", local_patient_id: "KCH12345", by: user)
+    create(:hd_patient, family_name: "Rabbit", local_patient_id: "12345", by: user)
   end
 
   def create_recent_pathology_code_group
@@ -26,7 +26,7 @@ describe "Patient's Protocol PDF" do
       expect(response).to be_successful
       expect(response["Content-Type"]).to eq("application/pdf")
       expect(response["Content-Disposition"]).to include("inline")
-      filename = "RABBIT-KCH12345-PROTOCOL.pdf"
+      filename = "RABBIT-12345-PROTOCOL.pdf"
       expect(response["Content-Disposition"]).to include(filename)
     end
 

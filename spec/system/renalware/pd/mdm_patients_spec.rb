@@ -7,7 +7,7 @@ describe "PD MDM Patients" do
     it "responds successfully" do
       patient = create(:pd_patient,
                        family_name: "Rabbit",
-                       local_patient_id: "KCH12345")
+                       local_patient_id: "12345")
 
       set_modality(patient: patient,
                    modality_description: create(:pd_modality_description),

@@ -29,7 +29,7 @@ describe "HL7 SIU^S14 - Notification of Appointment Modification" do
     hl7 = <<-HL7
       MSH|^~\&|BLT_TIE|BLT|RENALWARE|MSE|20241107154347||SIU^S14|Q1663236015T1667362682A1117|P|2.4
       SCH|#{visit_number}|||||Undo Cancel|clinic_name_copied_into_PV3||30|MINUTES|^^30^#{starts_at}^#{ends_at}||||||||||||||Confirmed
-      PID|1||10769861^^^KCH^MRN||MOLLY^RENALEIGHT^^^^^CURRENT||19870101|2|||166 Rush Home Road^^^ROMFORD^AN7 0JR^^HOME^^||0789898989^MOBILE~0209999999^HOME~testrenal@co.in^EMAIL|""^BUSINESS||M||13401076||||P||||||||N
+      PID|1||10769861^^^Dover^MRN||MOLLY^RENALEIGHT^^^^^CURRENT||19870101|2|||166 Rush Home Road^^^ROMFORD^AN7 0JR^^HOME^^||0789898989^MOBILE~0209999999^HOME~testrenal@co.in^EMAIL|""^BUSINESS||M||13401076||||P||||||||N
       PD1|||THE CHRISP STREET HTH CTR^^F84062|G999^SMALL^AM^^^^^^EXTID
       PV1|1|O|#{clinic_code}^#{clinic_name}^^RNJ ROYALLONDON^^AMB^RNJ MainBld RLH|""|||CONSULTANT2^Smith^John^^^Dr^NHSCONSULTANTNUMBER^PRSNL^^^NONGP|G999||361||||""||||OPREFERRAL|924301153^^^RNJATTNUM^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON||||||
       RGS|1

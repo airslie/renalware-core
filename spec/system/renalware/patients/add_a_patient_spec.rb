@@ -3,19 +3,10 @@
 # to patients/new and this test will need updating.
 describe "A user adds a patient" do
   describe "add patient flow" do
-    it "adds a patient successfully" do
-      allow(Renalware.config)
-        .to receive(:patient_hospital_identifiers)
-        .and_return(
-          {
-            KCH: :local_patient_id,
-            QEH: :local_patient_id_2,
-            DVH: :local_patient_id_3,
-            PRUH: :local_patient_id_4,
-            GUYS: :local_patient_id_5
-          }
-        )
+    include ConfigHelper
+    before { configure_patient_hospital_identifiers }
 
+    it "adds a patient successfully" do
       login_as_clinical
       visit patients_path
 
@@ -34,14 +25,14 @@ describe "A user adds a patient" do
       expect(page).to have_content("Date of Birth is not a valid date")
       expect(page).to have_content("Sex is required")
       expect(page).to have_content("The patient must have at least one of these numbers: " \
-                                   "KCH, QEH, DVH, PRUH, GUYS, Other Hospital Number")
+                                   "HOSP1, HOSP2, HOSP3, HOSP4, HOSP5, Other Hospital Number")
 
-      fill_in "KCH No", with: "12345"
+      fill_in "HOSP1 No", with: "12345"
       fill_in "Family name", with: "FamilyName"
       fill_in "Given name", with: "GivenName"
       fill_in "DoB", with: "2022-12-09"
       select "Not Specified", from: "Sex"
-      select "King's", from: "Hospital centre"
+      select "Dover", from: "Hospital centre"
 
       # The save successfully, and go to the patient demographics page
       click_button "Create", match: :first
@@ -50,8 +41,8 @@ describe "A user adds a patient" do
       expect(page).to have_content("First Name:GivenName")
       expect(page).to have_content("Sex:NS")
       expect(page).to have_content("Date of Birth:09-Dec-2022")
-      expect(page).to have_content("KCH No:12345")
-      expect(page).to have_content("Hospital centre:King's College Hospital")
+      expect(page).to have_content("HOSP1 No:12345")
+      expect(page).to have_content("Hospital centre:Dover Hospital")
     end
   end
 
@@ -61,7 +52,7 @@ describe "A user adds a patient" do
         login_as_clinical
         create(
           :abridged_patient,
-          hospital_number: "KCH123",
+          hospital_number: "123",
           given_name: "John",
           family_name: "SMITH",
           born_on: "1967-01-01"
@@ -69,7 +60,7 @@ describe "A user adds a patient" do
 
         visit patients_abridgements_path
 
-        fill_in "Search by hospital number or name", with: "KCH123"
+        fill_in "Search by hospital number or name", with: "123"
         click_on "Search"
 
         expect(page).to have_content("SMITH, John")
@@ -82,14 +73,14 @@ describe "A user adds a patient" do
           login_as_clinical
           create(
             :abridged_patient,
-            hospital_number: "KCH123",
+            hospital_number: "123",
             given_name: "John",
             family_name: "SMITH",
             born_on: dob
           )
           create(
             :abridged_patient,
-            hospital_number: "KCH456",
+            hospital_number: "456",
             given_name: "Jake",
             family_name: "OTHER",
             born_on: dob
@@ -98,7 +89,7 @@ describe "A user adds a patient" do
 
           visit patients_abridgements_path
 
-          fill_in "Search by hospital number or name", with: "KCH123"
+          fill_in "Search by hospital number or name", with: "123"
           click_on "Search"
 
           within(".search-results") do

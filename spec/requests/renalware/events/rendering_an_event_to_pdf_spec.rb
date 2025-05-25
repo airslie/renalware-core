@@ -7,7 +7,7 @@ describe "Rendering an event to a PDF" do
 
     expect(response).to be_successful
     expect(response["Content-Type"]).to eq("application/pdf")
-    # filename = "RABBIT-KCH57837-#{letter.id}-DRAFT".upcase
+    # filename = "RABBIT-K7837-#{letter.id}-DRAFT".upcase
     # expect(response["Content-Disposition"]).to include("attachment")
     # expect(response["Content-Disposition"]).to include(filename)
   end

@@ -4,7 +4,7 @@ describe "Viewing the Recipient Summary (Dashboard)" do
   context "when the patient has the tx recipient modality" do
     it "user follows the MDM link" do
       user = login_as_clinical
-      patient = create(:transplant_patient, family_name: "Rabbit", local_patient_id: "KCH12345")
+      patient = create(:transplant_patient, family_name: "Rabbit", local_patient_id: "12345")
       hgb = create(:pathology_observation_description, code: "HGB")
       cmvd = create(:pathology_observation_description, code: "CMVD")
       default_cg = create(:pathology_code_group, :default)

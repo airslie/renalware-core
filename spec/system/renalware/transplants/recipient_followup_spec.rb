@@ -1,6 +1,6 @@
 describe "RecipientFollowup", :js do
   include AjaxHelpers
-  let(:patient) { create(:transplant_patient, family_name: "Rabbit", local_patient_id: "KCH12345") }
+  let(:patient) { create(:transplant_patient, family_name: "Rabbit", local_patient_id: "12345") }
   let(:operation) { create(:transplant_recipient_operation, patient: patient) }
 
   describe "creating a new followup for an operation" do

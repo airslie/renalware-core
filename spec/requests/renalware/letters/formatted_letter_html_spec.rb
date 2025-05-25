@@ -12,7 +12,7 @@ describe "Get formatted letter HTML content" do
           :letter_patient,
           primary_care_physician: primary_care_physician,
           family_name: "RABBIT",
-          local_patient_id: "KCH57837"
+          local_patient_id: "57837"
         )
       }
 
@@ -29,7 +29,7 @@ describe "Get formatted letter HTML content" do
 
         expect(response).to be_successful
         expect(response["Content-Type"]).to eq("application/pdf")
-        filename = "RABBIT-KCH57837-#{letter.id}-DRAFT".upcase
+        filename = "RABBIT-57837-#{letter.id}-DRAFT".upcase
         expect(response["Content-Disposition"]).to include("attachment")
         expect(response["Content-Disposition"]).to include(filename)
       end
@@ -51,7 +51,7 @@ describe "Get formatted letter HTML content" do
 
         expect(response).to be_successful
         expect(response["Content-Type"]).to eq("text/richtext")
-        filename = "RABBIT-KCH57837-#{letter.id}-DRAFT".upcase
+        filename = "RABBIT-57837-#{letter.id}-DRAFT".upcase
         expect(response["Content-Disposition"]).to include("attachment")
         expect(response["Content-Disposition"]).to include(filename)
         expect(response.body).to match(/\{\\rtf/)
@@ -80,7 +80,7 @@ describe "Get formatted letter HTML content" do
         primary_care_physician: primary_care_physician,
         practice: create(:practice, email: "test@example.com"),
         family_name: "RABBIT",
-        local_patient_id: "KCH57837"
+        local_patient_id: "7837"
       )
     }
 
