@@ -16,23 +16,18 @@ module Renalware
         # rubocop:disable Metrics/MethodLength
         def download_message(message_id)
           download_operation = nil
-          send_message_operation = nil
+          parent_send_operation = nil
+
           API::LogOperation.call(:download_message, mesh_message_id: message_id) do |operation|
             download_operation = operation
             API::Client.download_message(message_id).tap do |response|
-              # Load response xml and get the uuid of our send_message request
-              # from Bundle/entry/resource/MessageHeader/response/identifier/@value
-              send_operation_operation_uuid =
-                Letters::Transports::Mesh::API::ITK3Response.new(response).request_uuid
-              if send_operation_operation_uuid.present?
-                send_message_operation = Mesh::Operation.find_by!(
-                  uuid: send_operation_operation_uuid
-                )
-                operation.update!(
-                  parent_id: send_message_operation&.id,
-                  transmission_id: send_message_operation&.transmission_id
-                )
+              parent_send_operation = find_parent_send_operation(response)
 
+              operation.update!(
+                parent_id: parent_send_operation.id,
+                transmission_id: parent_send_operation.transmission_id
+              )
+              if response.headers["mex-from-ods"].present?
                 operation.transmission.update!(
                   sent_to_practice_ods_code: response.headers["mex-from-ods"]
                 )
@@ -40,7 +35,7 @@ module Renalware
             end
           end
 
-          [download_operation, send_message_operation]
+          [download_operation, parent_send_operation]
         end
         # rubocop:enable Metrics/MethodLength
 
@@ -64,6 +59,24 @@ module Renalware
         # rubocop:enable Metrics/MethodLength
 
         private
+
+        def find_parent_send_operation(response)
+          send_operation_uuid = nil
+          response_headers = API::ResponseHeaders.new(response.headers)
+
+          if response_headers.error_report?
+            # If this is an error report then there is no body to parse
+            # so get the send_operation_uuid from the Mex-LocalID header
+            # Note MESH id from Mex-LinkedMsgID is also available if we need it.
+            send_operation_uuid = response_headers.local_id
+          else
+            # Load response xml and get the uuid of our send_message request
+            # from Bundle/entry/resource/MessageHeader/response/identifier/@value
+            send_operation_uuid = API::ITK3Response.new(response).request_uuid
+          end
+
+          Mesh::Operation.find_by!(uuid: send_operation_uuid)
+        end
 
         def sent_to_practice_ods_code(operation)
           return unless operation&.response_headers
