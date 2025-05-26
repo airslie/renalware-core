@@ -238,6 +238,7 @@ module Renalware
       self.email = nil if email == '""'
       self.telephone1 = nil if telephone1 == '""'
       self.telephone2 = nil if telephone2 == '""'
+      self.died_on = nil if died_on == '""'
     end
 
     def has_title?

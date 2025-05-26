@@ -26,6 +26,9 @@ Renalware.configure do |config|
     "Renalware::Patients::BroadcastPatientAddedEvent" => [
       "Renalware::Feeds::PatientListener"
     ],
+    "Renalware::Patients::BroadcastPatientUndeceasedEvent" => [
+      "Renalware::Patients::PatientListener"
+    ],
     "Renalware::Modalities::ChangePatientModality" => [
       "Renalware::Medications::PatientListener",
       "Renalware::Letters::PatientListener",
