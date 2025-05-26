@@ -37,7 +37,7 @@ module Renalware
 
           private
 
-          def update_patient_if_exists
+          def update_patient_if_exists # rubocop:disable Metrics/MethodLength
             return if ENV.key?("ADT_SKIP_UPDATE_PATIENT")
 
             patient = find_patient
@@ -52,6 +52,8 @@ module Renalware
 
             if patient.died_on.present? && initial_died_on.blank?
               change_patient_modality_to_death(patient)
+            elsif patient.died_on.blank? && initial_died_on.present?
+              notify_subscribers_of_undeceasing(patient)
             end
 
             patient
@@ -80,6 +82,13 @@ module Renalware
                 started_on: Time.zone.now
               )
             raise(ActiveModel::ValidationError, result.object) if result.failure?
+          end
+
+          def notify_subscribers_of_undeceasing(patient, reason = "")
+            BroadcastPatientUndeceasedEvent
+              .new
+              .broadcasting_to_configured_subscribers
+              .call(patient, reason)
           end
         end
       end

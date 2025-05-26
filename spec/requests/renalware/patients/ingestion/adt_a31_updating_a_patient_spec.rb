@@ -184,6 +184,24 @@ describe "HL7 ADT^A31 message handling: 'Update person information'" do
         end
       end
     end
+
+    context "when un-deceasing a patient after accidentally marking them as deceased" do
+      let(:died_on) { '""' }
+
+      # ie the patient has a died_on date set, but the incoming message does not
+      it "clears the died_on date and informs superadmins vie eMsg that action mst be taken" do
+        patient = create(
+          :patient,
+          local_patient_id: local_patient_id,
+          born_on: Date.parse(dob),
+          died_on: 1.day.ago.to_date
+        )
+
+        FeedJob.new(message).perform
+
+        expect(patient.reload.died_on).to be_nil
+      end
+    end
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
