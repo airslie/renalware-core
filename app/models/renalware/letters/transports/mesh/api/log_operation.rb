@@ -58,12 +58,29 @@ module Renalware
         def mesh_operation_attributes(response)
           return {} unless response.headers["Content-Type"] == "application/json"
 
-          body = response.body
+          if response.body.present?
+            mesh_operation_attributes_from_body(response.body)
+          else
+            # its an error report with no body so pull from response headers
+            mesh_operation_attributes_from_headers(response.headers)
+          end
+        end
+
+        def mesh_operation_attributes_from_body(body)
           {
             mesh_error: body["errorDescription"].present?,
             mesh_response_error_event: body["errorEvent"],
             mesh_response_error_code: body["errorCode"],
             mesh_response_error_description: body["errorDescription"]
+          }
+        end
+
+        def mesh_operation_attributes_from_headers(headers)
+          {
+            mesh_error: headers["Mex-MessageType"] == "REPORT",
+            mesh_response_error_event: nil,
+            mesh_response_error_code: headers["Mex-StatusCode"],
+            mesh_response_error_description: headers["Mex-StatusDescription"]
           }
         end
 
