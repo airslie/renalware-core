@@ -7,7 +7,6 @@
 @import "components/popovers.css";
 
 @import "tailwindcss/utilities";
-@import "shepherd.js/dist/css/shepherd.css";
 
 [type='text'],
 [type='email'],
