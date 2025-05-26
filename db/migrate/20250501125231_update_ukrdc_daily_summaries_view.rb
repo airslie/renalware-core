@@ -1,4 +1,4 @@
-class UpdateUKRDCDailySummariesView < ActiveRecord::Migration[8.0]
+class UpdateUKRDCDailySummariesView < ActiveRecord::Migration[7.2]
   def change
     within_renalware_schema do
       update_view :ukrdc_daily_summaries,
