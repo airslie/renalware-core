@@ -30,7 +30,7 @@ module Renalware::Letters::Transports::Mesh
           "Mex-WorkflowID" => "GPCONNECT_SEND_DOCUMENT",
           "Mex-From" => "SendingMailbox1", # GPCM-SD-062
           "Mex-To" => "NHSNumber_DOB_Surname",
-          "Mex-LocalID" => "ODS123", # GPCM-SD-146
+          "Mex-LocalID" => "operation_uuid", # GPCM-SD-146
           "X-OperationID" => "operation_uuid",
           "Mex-Subject" => "document-title-and-patient-details-etc",
           "Content-Type" => "application/xml"
