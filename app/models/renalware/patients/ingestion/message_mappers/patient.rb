@@ -33,7 +33,6 @@ module Renalware
               suffix: patient_identification.suffix,
               title: patient_identification.title,
               born_on: Time.zone.parse(patient_identification.dob)&.to_date,
-              died_on: parse_death_date(patient_identification.death_date),
               sex: patient_identification.sex,
               ethnicity: find_ethnicity,
               marital_status: patient_identification.marital_status,
@@ -44,6 +43,8 @@ module Renalware
               telephone2: patient_identification.telephone[1],
               **patient_identification.identifiers
             }.compact_blank
+
+            patient.died_on = parse_death_date(patient_identification.death_date)
 
             patient.build_current_address if patient.current_address.blank?
             patient.current_address.attributes = {
@@ -74,12 +75,12 @@ module Renalware
           end
 
           # We need to bear in mind the situation where the patient may have accidentally been
-          # marked as deceased in a previous message, but the current message has '""' for the
+          # marked as deceased in a previous message, but the current message has '""' or '' for the
           # died_on date, to indicate we should set it nil, un-deceasing them.
           # Note the conversion from '""' to nil is handled in a patient validation callback
           # so here we just check that the date a sensible length to avoid parsing '""' as a date.
           def parse_death_date(death_date_string)
-            return death_date_string if death_date_string.blank? || death_date_string == '""'
+            return nil if death_date_string.blank? || death_date_string == '""'
 
             Time.zone.parse(death_date_string)&.to_date
           end
