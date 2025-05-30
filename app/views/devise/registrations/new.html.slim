@@ -20,8 +20,13 @@
               as: :password,
               input_html: { autocomplete: "off" },
               wrapper: :horizontal_small
-    = f.input :professional_position, wrapper: :horizontal_small, placeholder: "e.g. Consultant Nephrologist"
-    = f.input :signature, wrapper: :horizontal_medium, placeholder: "e.g. Dr Jane Smith, MRCP", label: "Signature (appears in letters)"
+    = f.input :signature,
+              wrapper: :horizontal_medium,
+              placeholder: "e.g. Dr Jane Smith, MRCP",
+              label: "Signature (appears in letters)"
+    = f.input :professional_position,
+              wrapper: :horizontal_small,
+              placeholder: "e.g. Consultant Nephrologist (appears in letters under your signature)"
 
     .panel
       b
