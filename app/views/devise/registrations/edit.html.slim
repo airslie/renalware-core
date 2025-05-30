@@ -35,13 +35,14 @@
         = f.password_field :current_password, autocomplete: "off"
 
       .field.large-8.small-6
-        = f.label :professional_position
-        = f.text_field :professional_position
-
-      .field.large-8.small-6
         = f.label :signature
         <i>(appears in letters, e.g. "Dr Jane Smith, MRCP")</i>
         = f.text_field :signature
+
+      .field.large-8.small-6
+        = f.label :professional_position
+        <i>(appears under your signature in a letter)</i>
+        = f.text_field :professional_position
 
       .field.large-8.small-6
         = f.label :gmc_code
