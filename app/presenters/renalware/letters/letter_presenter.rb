@@ -54,7 +54,15 @@ module Renalware
       end
 
       def pdf_content
-        archive&.pdf_content || RendererFactory.renderer_for(self, :pdf).call
+        if ::ENV["MESH_BULK_TEST"] == "1"
+          # rubocop:disable Style/SymbolProc
+          ::Renalware::Engine.root.join("app/assets/pdf/blank_page.pdf").open("rb") do |f|
+            f.read
+          end
+          # rubocop:enable Style/SymbolProc
+        else
+          archive&.pdf_content || RendererFactory.renderer_for(self, :pdf).call
+        end
       end
 
       def content

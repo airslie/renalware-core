@@ -13,6 +13,13 @@ Rails.application.configure do
   # number of seconds between polls for jobs when execution_mode is set to :async
   config.good_job.poll_interval = 30
 
+  # Configure custom logger for Good Job
+  log_file = Rails.root.join("log", "good_job_#{Rails.env}.log")
+  custom_logger = ActiveSupport::Logger.new(log_file)
+  custom_logger.formatter = Rails.logger.formatter
+  custom_logger.level = Rails.logger.level
+  config.good_job.logger = custom_logger
+
   # Note that cron jobs are not invoked in development/test as they are only relevant when using
   # execution_mode = :async ie an external process. No harm in setting them globally here though.
   config.good_job.enable_cron = true

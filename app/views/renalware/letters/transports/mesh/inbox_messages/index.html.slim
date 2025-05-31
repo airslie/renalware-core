@@ -11,15 +11,18 @@
   .flex.flex-col.justify-center.text-gray-400.mt-12.items-center
     = inline_icon(:inbox, size: "", style: "width: 5rem")
 - else
+  h2 = "#{message_ids.length} messages"
   table
     thead
       tr
+        th.col-width-small No.
         th.col-width-large MESH Message ID
         th
         th
     tbody
-      - message_ids.each do |message_id|
+      - message_ids.each.with_index do |message_id, idx|
         tr
+          td= idx + 1
           td= message_id
           td.actions
             = link_to("Peek", letters_transports_mesh_inbox_message_path(message_id))

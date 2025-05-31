@@ -65,6 +65,7 @@ namespace :letters do
   namespace :transports do
     namespace :mesh do
       resources :testcase_invocations
+      resources :bulk_tests, only: :create
       get "help", to: "help#show"
       resource :settings
       resources :transmissions
