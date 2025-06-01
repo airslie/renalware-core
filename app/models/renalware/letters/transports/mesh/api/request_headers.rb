@@ -16,9 +16,9 @@ module Renalware
     class API::RequestHeaders
       pattr_initialize [
         :auth_header,
-        to: "", # patient details (for auto-routing, see above) or target mailbox?
-        subject: "",
-        operation_uuid: ""
+        :to, # patient details (for auto-routing, see above) or target mailbox?
+        operation_uuid: "", # UUID of the operation, used to track the request
+        subject: ""
       ]
 
       # rubocop:disable Metrics/MethodLength
@@ -37,7 +37,7 @@ module Renalware
           "Mex-To" => to,
           "Mex-Subject" => subject.to_s,
           "Content-Type" => "application/xml",
-          "Mex-LocalID" => Renalware.config.mesh_organisation_ods_code
+          "Mex-LocalID" => operation_uuid
         }
       end
       # rubocop:enable Metrics/MethodLength

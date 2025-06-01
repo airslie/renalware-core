@@ -5,4 +5,5 @@ table
       - if response.headers["content-type"] != "application/octet-stream"
         b Non-XML content!
       - else
+        pre= JSON.pretty_generate(response.headers)
         pre= Nokogiri::XML(response.body)

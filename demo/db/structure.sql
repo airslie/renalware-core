@@ -1706,110 +1706,6 @@ $$;
 
 
 --
--- Name: match_patient(date, text, text, text, text, text, text, text, text); Type: FUNCTION; Schema: renalware; Owner: -
---
-
-CREATE FUNCTION renalware.match_patient(in_born_on date, in_given_name text, in_family_name text, in_nhs_number text DEFAULT NULL::text, in_local_patient_id text DEFAULT NULL::text, in_local_patient_id_2 text DEFAULT NULL::text, in_local_patient_id_3 text DEFAULT NULL::text, in_local_patient_id_4 text DEFAULT NULL::text, in_local_patient_id_5 text DEFAULT NULL::text) RETURNS TABLE(match_rank integer, id integer, debug text)
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-    born_on_day TEXT    := TO_CHAR(in_born_on, 'DD');
-    born_on_month TEXT  := TO_CHAR(in_born_on, 'MM');
-    born_on_year TEXT   := TO_CHAR(in_born_on, 'YYYY');
-    swapped_day TEXT    := REVERSE(born_on_day);
-    swapped_year TEXT   := LEFT(born_on_year, 2) || SUBSTRING(born_on_year FROM 4 FOR 1) || SUBSTRING(born_on_year FROM 3 FOR 1);
-BEGIN
-
-    -- 1. Exact match on NHS number any MRN and full DOB
-    RETURN QUERY
-    SELECT 1, p.id, 'Exact match on NHS number any MRN and full DOB (rank 1)'
-    FROM patients p
-    WHERE p.nhs_number = in_nhs_number
-      AND (
-        p.local_patient_id    = NULLIF(in_local_patient_id, '') OR
-        p.local_patient_id_2  = NULLIF(in_local_patient_id_2, '') OR
-        p.local_patient_id_3  = NULLIF(in_local_patient_id_3, '') OR
-        p.local_patient_id_4  = NULLIF(in_local_patient_id_4, '') OR
-        p.local_patient_id_5  = NULLIF(in_local_patient_id_5, '')
-      )
-      AND p.born_on = in_born_on
-    LIMIT 2;
-    IF FOUND THEN RETURN; END IF;
-
-    -- 2. Exact match on NHS number and full DOB
-    RETURN QUERY
-    SELECT 2, p.id, 'Exact match on NHS number and full DOB (rank 2)'
-    FROM patients p
-    WHERE p.nhs_number = in_nhs_number AND p.born_on = in_born_on
-    LIMIT 2;
-    IF FOUND THEN RETURN; END IF;
-
-    -- 3. Exact match on any MRN and full DOB
-    RETURN QUERY
-    SELECT 3, p.id, 'Exact match on any MRN and full DOB (rank 3)'
-    FROM patients p
-    WHERE (
-      p.local_patient_id    = NULLIF(in_local_patient_id, '') OR
-      p.local_patient_id_2  = NULLIF(in_local_patient_id_2, '') OR
-      p.local_patient_id_3  = NULLIF(in_local_patient_id_3, '') OR
-      p.local_patient_id_4  = NULLIF(in_local_patient_id_4, '') OR
-      p.local_patient_id_5  = NULLIF(in_local_patient_id_5, '')
-     ) AND p.born_on = in_born_on
-    LIMIT 2;
-    IF FOUND THEN RETURN; END IF;
-
-    -- 3. nhs_number + partial born_on + name match
-    RETURN QUERY
-    SELECT 4, p.id, 'Matched on nhs_number + partial born_on + name (rank 4)'
-    FROM patients p
-    WHERE p.nhs_number = in_nhs_number
-      AND (
-        ((TO_CHAR(p.born_on, 'DD')    = born_on_day)::int +
-         (TO_CHAR(p.born_on, 'MM')    = born_on_month)::int +
-         (TO_CHAR(p.born_on, 'YYYY')  = born_on_year)::int +
-         (TO_CHAR(p.born_on, 'DD')    = born_on_month AND TO_CHAR(p.born_on, 'MM') = born_on_day)::int +
-         (TO_CHAR(p.born_on, 'DD')    = swapped_day)::int + +
-         (TO_CHAR(p.born_on, 'YYYY')  = swapped_year)::int
-        ) >= 2
-      )
-      AND LEFT(LOWER(p.given_name), 1) = LEFT(LOWER(in_given_name), 1)
-      AND LEFT(LOWER(p.family_name), 3) = LEFT(LOWER(in_family_name), 3)
-    LIMIT 2;
-    IF FOUND THEN RETURN; END IF;
-
-    -- 5. Any local_patient_id + partial born_on + name match
-    RETURN QUERY
-    SELECT 5, p.id, 'Matched on local_patient_id* + partial born_on + name (rank 5)'
-    FROM patients p
-    WHERE (
-      p.local_patient_id    = NULLIF(in_local_patient_id, '') OR
-      p.local_patient_id_2  = NULLIF(in_local_patient_id_2, '') OR
-      p.local_patient_id_3  = NULLIF(in_local_patient_id_3, '') OR
-      p.local_patient_id_4  = NULLIF(in_local_patient_id_4, '') OR
-      p.local_patient_id_5  = NULLIF(in_local_patient_id_5, '')
-      )
-      AND (
-        ((TO_CHAR(p.born_on, 'DD')    = born_on_day)::int +
-         (TO_CHAR(p.born_on, 'MM')    = born_on_month)::int +
-         (TO_CHAR(p.born_on, 'YYYY')  = born_on_year)::int +
-         (TO_CHAR(p.born_on, 'DD')    = born_on_month AND TO_CHAR(p.born_on, 'MM') = born_on_day)::int +
-         (TO_CHAR(p.born_on, 'DD')    = swapped_day)::int +
-         (TO_CHAR(p.born_on, 'YYYY')  = swapped_year)::int
-        ) >= 2
-      )
-      AND LEFT(LOWER(p.given_name), 1) = LEFT(LOWER(in_given_name), 1)
-      AND LEFT(LOWER(p.family_name), 3) = LEFT(LOWER(in_family_name), 3)
-    LIMIT 2;
-    IF FOUND THEN RETURN; END IF;
-
-    -- No match
-    RETURN QUERY
-    SELECT NULL::integer, NULL::integer, 'No match found';
-END;
-$$;
-
-
---
 -- Name: months_between(timestamp without time zone, timestamp without time zone); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -9121,16 +9017,6 @@ ALTER SEQUENCE renalware.letter_mailshot_mailshots_id_seq OWNED BY renalware.let
 
 
 --
--- Name: letter_mailshot_patients_where_surname_starts_with_r; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.letter_mailshot_patients_where_surname_starts_with_r AS
- SELECT id AS patient_id
-   FROM renalware.patients
-  WHERE ((family_name)::text ~~ 'R%'::text);
-
-
---
 -- Name: letter_mesh_operations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -13584,7 +13470,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
           WHERE (e2.hgb >= (13)::numeric)) e6 ON (true))
      LEFT JOIN LATERAL ( SELECT e3.fer AS fer_gt_eq_150
           WHERE (e3.fer >= (150)::numeric)) e7 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text, ('nephrology'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying, 'nephrology'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -13664,7 +13550,7 @@ CREATE VIEW renalware.reporting_bone_audit AS
           WHERE (e2.pth > (300)::numeric)) e7 ON (true))
      LEFT JOIN LATERAL ( SELECT e4.cca AS cca_2_1_to_2_4
           WHERE ((e4.cca >= 2.1) AND (e4.cca <= 2.4))) e8 ON (true))
-  WHERE ((e1.modality_code)::text = ANY (ARRAY[('hd'::character varying)::text, ('pd'::character varying)::text, ('transplant'::character varying)::text, ('low_clearance'::character varying)::text]))
+  WHERE ((e1.modality_code)::text = ANY ((ARRAY['hd'::character varying, 'pd'::character varying, 'transplant'::character varying, 'low_clearance'::character varying])::text[]))
   GROUP BY e1.modality_desc;
 
 
@@ -31425,11 +31311,10 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware,renalware_demo,public,heroku_ext;
+SET search_path TO renalware, renalware_demo, public, heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20250521162707'),
-('20250506183342'),
 ('20250501125231'),
 ('20250425122256'),
 ('20250424150155'),
