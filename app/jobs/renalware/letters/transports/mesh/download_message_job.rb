@@ -23,10 +23,18 @@ module Renalware
             API::Client.download_message(message_id).tap do |response|
               parent_send_operation = find_parent_send_operation(response)
 
-              operation.update!(
-                parent_id: parent_send_operation.id,
-                transmission_id: parent_send_operation.transmission_id
-              )
+              if parent_send_operation.present?
+                operation.update!(
+                  parent_id: parent_send_operation.id,
+                  transmission_id: parent_send_operation.transmission_id
+                )
+              else
+                operation.update!(
+                  reconciliation_error: true,
+                  reconciliation_error_description: "No corresponding send_message operation " \
+                                                    "found for downloaded message #{message_id}"
+                )
+              end
               if response.headers["mex-from-ods"].present?
                 operation.transmission.update!(
                   sent_to_practice_ods_code: response.headers["mex-from-ods"]
@@ -61,21 +69,24 @@ module Renalware
         private
 
         def find_parent_send_operation(response)
-          send_operation_uuid = nil
-          response_headers = API::ResponseHeaders.new(response.headers)
+          uuid = uuid_of_parent_send_operation(response)
+          return if uuid.blank?
 
+          Mesh::Operation.select(:id, :transmission_id).find_by(uuid: uuid)
+        end
+
+        def uuid_of_parent_send_operation(response)
+          response_headers = API::ResponseHeaders.new(response.headers)
           if response_headers.error_report?
             # If this is an error report then there is no body to parse
             # so get the send_operation_uuid from the Mex-LocalID header
             # Note MESH id from Mex-LinkedMsgID is also available if we need it.
-            send_operation_uuid = response_headers.local_id
+            response_headers.local_id
           else
             # Load response xml and get the uuid of our send_message request
             # from Bundle/entry/resource/MessageHeader/response/identifier/@value
-            send_operation_uuid = API::ITK3Response.new(response).request_uuid
+            API::ITK3Response.new(response).request_uuid
           end
-
-          Mesh::Operation.find_by!(uuid: send_operation_uuid)
         end
 
         def sent_to_practice_ods_code(operation)

@@ -106,6 +106,48 @@ module Renalware::Letters::Transports
             mesh_response_error_description: "Undelivered message"
           )
         end
+
+        it "removes the msg from the inbox even if there is no parent transmission " \
+           "ie this message was perhaps sent to our mailbox accidentally" do
+          message_id = "123"
+          unrecognised_uuid = SecureRandom.uuid
+          response = mock_faraday_response(
+            headers: {
+              "Content-Type" => "application/json",
+              "Mex-LocalID" => unrecognised_uuid,
+              "Mex-MessageType" => "REPORT",
+              "Mex-StatusSuccess" => "ERROR",
+              "Mex-StatusCode" => "14",
+              "Mex-StatusDescription" => "Undelivered message",
+              "LinkedMsgID" => unrecognised_uuid
+            }
+          )
+
+          allow(API::Client).to receive_messages(
+            download_message: response,
+            acknowledge_message: response
+          )
+
+          expect {
+            described_class.new.perform(message_id)
+          }.to change(Operation, :count).by(2) # download_message, acknowledge_message
+
+          operations = Operation.order(created_at: :asc)
+          expect(operations.map(&:action)).to eq(%w(download_message acknowledge_message))
+          expect(operations.map(&:transmission_id).uniq).to eq([nil])
+          download_operation = operations[0]
+          expect(download_operation).to have_attributes(
+            parent_id: nil,
+            transmission_id: nil,
+            mesh_error: true,
+            mesh_response_error_event: nil,
+            mesh_response_error_code: "14",
+            mesh_response_error_description: "Undelivered message",
+            reconciliation_error: true,
+            reconciliation_error_description: "No corresponding send_message operation found " \
+                                              "for downloaded message #{message_id}"
+          )
+        end
       end
     end
   end

@@ -156,11 +156,11 @@ module Renalware
             description: "Lets ToC know to keep the inbox connection alive"
           },
 
-          mesh_check_inbox_for_outstanding_responses: {
-            cron: "every 2 minute",
-            class: "Renalware::Letters::Transports::Mesh::CheckInboxJob",
-            description: "Check our MESH inbox for incoming ToC messages"
-          },
+          # mesh_check_inbox_for_outstanding_responses: {
+          #   cron: "every 1 minute",
+          #   class: "Renalware::Letters::Transports::Mesh::CheckInboxJob",
+          #   description: "Check our MESH inbox for incoming ToC messages"
+          # },
 
           reconcile_mesh_transmissions_job: {
             cron: "every 2 minutes",

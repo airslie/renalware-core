@@ -6,6 +6,7 @@ module Renalware::Letters::Transports::Mesh
     it { is_expected.to belong_to(:transmission) }
     it { is_expected.to have_db_index(:transmission_id) }
     it { is_expected.to have_db_index(:direction) }
+    it { is_expected.to have_db_index(:reconciliation_error) }
     it { is_expected.to have_db_index(:action) }
   end
 end

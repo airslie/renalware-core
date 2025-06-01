@@ -73,7 +73,7 @@ namespace :letters do
 
       resources :inbox_messages
       resources :jobs, only: :index
-
+      resources :unreconciled_messages
       resources :operations do
         collection do
           get :check_inbox
