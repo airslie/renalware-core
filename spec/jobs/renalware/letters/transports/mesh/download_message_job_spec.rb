@@ -17,6 +17,8 @@ module Renalware::Letters::Transports
         Mesh::Operation.create!(transmission: transmission, action: :send_message)
       }
 
+      def cassette(path) = File.join("letters/transports/mesh/api", path)
+
       it "downloads a FHIR XML document via the api" do
         message_id = "123"
         send_operation.reload
@@ -66,28 +68,35 @@ module Renalware::Letters::Transports
 
       context "when a REPORT message is downloaded (no body, only headers), indicating an " \
               "async error eg undeliverable after 5 days" do
-        it "stores the error info in the operation" do
+        it "identifies the corresponding parent send_message operation, and stores its id, " \
+           "the id of the transmission, and the error info in the REPORT, in a new download " \
+           "operation" do
           message_id = "123"
-          response = mock_faraday_response(
-            headers: {
-              "Content-Type" => "application/json",
-              "Mex-LocalID" => send_operation.reload.uuid,
-              "Mex-MessageType" => "REPORT",
-              "Mex-StatusSuccess" => "ERROR",
-              "Mex-StatusCode" => "14",
-              "Mex-StatusDescription" => "Undelivered message",
-              "LinkedMsgID" => message_id
-            }
+          send_operation
+
+          # We are going to use a VCR cassette to return the REPORT message waiting in the inbox.
+          # However, because we also need to mock the response to the acknowledge_message call,
+          # and we can't use VCR for that (can you have two VCR cassettes in one test?),
+          # we will mock the response to acknowledge_message here.
+          allow(API::Client)
+            .to receive(:acknowledge_message)
+            .and_return(
+              mock_faraday_response(
+                body: "",
+                headers: { "Content-Type" => "application/json" }
+              )
+            )
+
+          # Make sure the MESH API base URL is set to the one we use in VCR.
+          allow(Renalware.config).to receive_messages(
+            mesh_api_base_url: "http://localhost:8700/messageexchange"
           )
 
-          allow(API::Client).to receive_messages(
-            download_message: response,
-            acknowledge_message: response
-          )
-
-          expect {
-            described_class.new.perform(message_id)
-          }.to change(Operation, :count).by(2) # download_message, acknowledge_message
+          VCR.use_cassette(cassette("download_message/report/undelivered")) do
+            expect {
+              described_class.new.perform(message_id)
+            }.to change(Operation, :count).by(2) # download_message, acknowledge_message
+          end
 
           operations = Operation.order(created_at: :asc)
           expect(operations.map(&:action))

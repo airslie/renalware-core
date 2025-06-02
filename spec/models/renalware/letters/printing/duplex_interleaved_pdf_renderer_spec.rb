@@ -7,7 +7,7 @@ module Renalware
         include LettersSpecHelper
 
         def open_pdf_in_preview(pdf_file)
-          debug = false
+          debug = true
           if debug
             FileUtils.cp pdf_file.path, "/Users/tim/Desktop/x.pdf"
             `open /Users/tim/Desktop/x.pdf`
