@@ -4,8 +4,9 @@ processes:
   web:
     command: |
       bundle check || bundle install
+      rails app:yarn:install
       rails db:migrate
-      bin/web -p 3000
+      cd demo && rails server -p 3000
     depends_on:
       postgresql:
         condition: process_healthy
@@ -14,10 +15,11 @@ processes:
     command: bin/good_job
 
   js:
-    command: bin/yarn build --watch
+    command: yarn build --watch
 
   css:
-    command: bin/yarn build:css --watch
+    command: yarn build:css --watch
+    # --watch not working here
 
   # Make this a service you can start manually
   #docs: cd documentation && yarn run start -p 3001
