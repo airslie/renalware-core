@@ -1,13 +1,23 @@
 version: "0.5"
 
 processes:
-  app:
+  web:
     command: |
       bundle check || bundle install
       rails db:migrate
-      rails server -p 3000 -b 0.0.0.0
+      bin/web -p 3000
     depends_on:
       postgresql:
         condition: process_healthy
 
+  worker:
+    command: bin/good_job
 
+  js:
+    command: bin/yarn build --watch
+
+  css:
+    command: bin/yarn build:css --watch
+
+  # Make this a service you can start manually
+  #docs: cd documentation && yarn run start -p 3001
