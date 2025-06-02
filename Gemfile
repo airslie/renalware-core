@@ -1,8 +1,6 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.4.4"
-
 gemspec
 
 gem "activesupport_cache_database", github: "airslie/activesupport-cache-database"
@@ -122,7 +120,6 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails"
   gem "rubocop", require: false
-  gem "wkhtmltopdf-binary", "0.12.6.8"
 
   gem "capybara-playwright-driver"
 end

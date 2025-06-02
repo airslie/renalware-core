@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+PORT=$1
+TIMEOUT=$2
+
+NEXT_WAIT_TIME=0
+until (( NEXT_WAIT_TIME == $TIMEOUT )) || lsof -i -P -n | grep :$PORT > /dev/null; do
+  sleep "$(( NEXT_WAIT_TIME++ ))"
+done
+
+if (( NEXT_WAIT_TIME < TIMEOUT )); then
+  echo App exists on port $PORT
+  exit 0
+else
+  echo App does not exist on port $PORT
+  exit 1
+fi

@@ -1,0 +1,13 @@
+version: "0.5"
+
+processes:
+  app:
+    command: |
+      bundle check || bundle install
+      rails db:migrate
+      rails server -p 3000 -b 0.0.0.0
+    depends_on:
+      postgresql:
+        condition: process_healthy
+
+
