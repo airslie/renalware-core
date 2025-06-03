@@ -28,7 +28,6 @@
       "version": "latest",
       "outputs": ["fonts", "out"],
     },
-    "corefonts": "latest",
   },
   "env": {
     "SETUP_COMPLETE":                      "$DEVBOX_PROJECT_ROOT/.devbox/.setup-complete",
