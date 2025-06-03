@@ -1,6 +1,54 @@
 {
   "lockfile_version": "1",
   "packages": {
+    "corefonts@latest": {
+      "last_modified": "2025-05-16T20:19:48Z",
+      "resolved": "github:NixOS/nixpkgs/12a55407652e04dcf2309436eb06fef0d3713ef3#corefonts",
+      "source": "devbox-search",
+      "version": "1",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/v467krgn75nnl85iiq4j5b12wv284svi-corefonts-1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/v467krgn75nnl85iiq4j5b12wv284svi-corefonts-1"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/rxdmcx8kj2rd31rrxc6xn788g75x7bbg-corefonts-1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/rxdmcx8kj2rd31rrxc6xn788g75x7bbg-corefonts-1"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/5bznf9mhzzhzpm3kigqz8lw4fq1h9q84-corefonts-1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/5bznf9mhzzhzpm3kigqz8lw4fq1h9q84-corefonts-1"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/z5n0y4vblqxp2pphrsl40z57avvnj233-corefonts-1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/z5n0y4vblqxp2pphrsl40z57avvnj233-corefonts-1"
+        }
+      }
+    },
     "gcc@latest": {
       "last_modified": "2025-05-28T23:33:38Z",
       "resolved": "github:NixOS/nixpkgs/e80506de785dc48dcfbb636c443c5e2b0b5b2d7d#gcc15",
@@ -82,6 +130,106 @@
             }
           ],
           "store_path": "/nix/store/alpcp7ch64wbfy20vp6zlr0pamacya61-gcc-wrapper-15.1.0"
+        }
+      }
+    },
+    "ghostscript@latest": {
+      "last_modified": "2025-05-24T21:46:02Z",
+      "resolved": "github:NixOS/nixpkgs/edb3633f9100d9277d1c9af245a4e9337a980c07#ghostscript",
+      "source": "devbox-search",
+      "version": "10.05.1",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/7fbz6rdx5p427s2ajqnfy08h2yiqa7px-ghostscript-10.05.1",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/kiyqk7nrb2dqv16ja66w29gzhb2vpjyz-ghostscript-10.05.1-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/hnyc96ijs8q64in69qj4jvgkcif8965y-ghostscript-10.05.1-doc"
+            },
+            {
+              "name": "fonts",
+              "path": "/nix/store/5dghkf1pla3x35qdnipg5p001lrqncry-ghostscript-10.05.1-fonts"
+            }
+          ],
+          "store_path": "/nix/store/7fbz6rdx5p427s2ajqnfy08h2yiqa7px-ghostscript-10.05.1"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/81r300db129gd479ldgqrlvp3v9s4fkz-ghostscript-with-X-10.05.1",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/20g8fhb6c5yk5l15a4w56kl2ikz5w3zf-ghostscript-with-X-10.05.1-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/z1hhpsq5pvs2x1dj6npvsrvv296wl7bd-ghostscript-with-X-10.05.1-doc"
+            },
+            {
+              "name": "fonts",
+              "path": "/nix/store/qflyvhwqy9bsdx5j2v1iw230wbdjqbb8-ghostscript-with-X-10.05.1-fonts"
+            }
+          ],
+          "store_path": "/nix/store/81r300db129gd479ldgqrlvp3v9s4fkz-ghostscript-with-X-10.05.1"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/wrmxhl6zsg3l27359mywd8qn0612igyy-ghostscript-10.05.1",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/s61iyh3kyx7nxip9rqg3zpysxbgcsz6b-ghostscript-10.05.1-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/zmi6l3n2ajnfwbmf3i73f9bpdzssiqgf-ghostscript-10.05.1-doc"
+            },
+            {
+              "name": "fonts",
+              "path": "/nix/store/3kd5rxns392pw4zlx1zzqkf2cq72rrc5-ghostscript-10.05.1-fonts"
+            }
+          ],
+          "store_path": "/nix/store/wrmxhl6zsg3l27359mywd8qn0612igyy-ghostscript-10.05.1"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/j8j200mb40z4zi9s01qavq4mk22sg0hc-ghostscript-with-X-10.05.1",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/vh1710jxvj6pa7sr1fmi4kx0qsvcv12r-ghostscript-with-X-10.05.1-man",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/76p82qmlpqi7wr0pa45x5x4xkqlcbask-ghostscript-with-X-10.05.1-doc"
+            },
+            {
+              "name": "fonts",
+              "path": "/nix/store/mvfms9pdby4rvqn7ab902g99h3js9il9-ghostscript-with-X-10.05.1-fonts"
+            }
+          ],
+          "store_path": "/nix/store/j8j200mb40z4zi9s01qavq4mk22sg0hc-ghostscript-with-X-10.05.1"
         }
       }
     },
@@ -206,6 +354,86 @@
             }
           ],
           "store_path": "/nix/store/p7z72c2s722pbw31jmm3y0nwypksb5fj-gnumake-4.4.1"
+        }
+      }
+    },
+    "imagemagickBig@latest": {
+      "last_modified": "2025-05-28T23:33:38Z",
+      "resolved": "github:NixOS/nixpkgs/e80506de785dc48dcfbb636c443c5e2b0b5b2d7d#imagemagickBig",
+      "source": "devbox-search",
+      "version": "7.1.1-47",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/cqm7ncjml12cr561dd6b18wpq214g7rk-imagemagick-7.1.1-47",
+              "default": true
+            },
+            {
+              "name": "dev",
+              "path": "/nix/store/nipidvpc9alm4pqw3b1ijg8pmdyrd3n7-imagemagick-7.1.1-47-dev"
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/p1vbqwxcjycdqf5z6zb7ws8gk80c1fvs-imagemagick-7.1.1-47-doc"
+            }
+          ],
+          "store_path": "/nix/store/cqm7ncjml12cr561dd6b18wpq214g7rk-imagemagick-7.1.1-47"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/2hiszak4fw4nq2li6fg7gg04zqm5vwn9-imagemagick-7.1.1-47",
+              "default": true
+            },
+            {
+              "name": "dev",
+              "path": "/nix/store/cpixqz5w3d78806msm826q5s8swaw1y4-imagemagick-7.1.1-47-dev"
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/dxx8fq6y6b3w658v6p1bqm992ra28b44-imagemagick-7.1.1-47-doc"
+            }
+          ],
+          "store_path": "/nix/store/2hiszak4fw4nq2li6fg7gg04zqm5vwn9-imagemagick-7.1.1-47"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/0jk8703x3lka6dsri9ds8sjwqxdfz2ja-imagemagick-7.1.1-47",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/zjwa0y11cj7d655ri0k45qlbjgiwf5vy-imagemagick-7.1.1-47-doc"
+            },
+            {
+              "name": "dev",
+              "path": "/nix/store/vbhws39m6vpmfd941xqyywisgsy24fyg-imagemagick-7.1.1-47-dev"
+            }
+          ],
+          "store_path": "/nix/store/0jk8703x3lka6dsri9ds8sjwqxdfz2ja-imagemagick-7.1.1-47"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/qx0v6j2yhyfcww3qgjljlpbia7qskzm6-imagemagick-7.1.1-47",
+              "default": true
+            },
+            {
+              "name": "dev",
+              "path": "/nix/store/305601byph14zgi8whdbymcyk2cpvz4a-imagemagick-7.1.1-47-dev"
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/sybfdwh4lzisnlnkfw0xr0w85zj9ms32-imagemagick-7.1.1-47-doc"
+            }
+          ],
+          "store_path": "/nix/store/qx0v6j2yhyfcww3qgjljlpbia7qskzm6-imagemagick-7.1.1-47"
         }
       }
     },
@@ -729,6 +957,150 @@
             }
           ],
           "store_path": "/nix/store/5yi7qbrqbwqw8h9xjz56rx9904kykjlj-ruby-3.4.3"
+        }
+      }
+    },
+    "ungoogled-chromium@latest": {
+      "last_modified": "2025-05-29T08:12:58Z",
+      "resolved": "github:NixOS/nixpkgs/3866ad91cfc172f08a6839def503d8fc2923c603#ungoogled-chromium",
+      "source": "devbox-search",
+      "version": "137.0.7151.55",
+      "systems": {
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/1gh7c4ma6p66mrqwxgxqz39aj74k7vdb-ungoogled-chromium-137.0.7151.55",
+              "default": true
+            },
+            {
+              "name": "sandbox",
+              "path": "/nix/store/vhycyhalirc6fzjfww6as9igmmsaykgq-ungoogled-chromium-137.0.7151.55-sandbox"
+            }
+          ],
+          "store_path": "/nix/store/1gh7c4ma6p66mrqwxgxqz39aj74k7vdb-ungoogled-chromium-137.0.7151.55"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/ql79azw9pm5d71kjj801a4n1lbw4mdhv-ungoogled-chromium-137.0.7151.55",
+              "default": true
+            },
+            {
+              "name": "sandbox",
+              "path": "/nix/store/4m02ca1fnvk0pl0ryw0lsghc6m1xdbjc-ungoogled-chromium-137.0.7151.55-sandbox"
+            }
+          ],
+          "store_path": "/nix/store/ql79azw9pm5d71kjj801a4n1lbw4mdhv-ungoogled-chromium-137.0.7151.55"
+        }
+      }
+    },
+    "vips@latest": {
+      "last_modified": "2025-05-29T08:12:58Z",
+      "resolved": "github:NixOS/nixpkgs/3866ad91cfc172f08a6839def503d8fc2923c603#vips",
+      "source": "devbox-search",
+      "version": "8.16.1",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "bin",
+              "path": "/nix/store/2gaj6r7lhv6ihnnb7c62qhlp0r3z286i-vips-8.16.1-bin",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/lb0l62pidpkagh2i96nj3cnnzkss2c2d-vips-8.16.1-man",
+              "default": true
+            },
+            {
+              "name": "dev",
+              "path": "/nix/store/b4bg9gg4ba982d911qk8qbhkfm90xcdp-vips-8.16.1-dev"
+            },
+            {
+              "name": "out",
+              "path": "/nix/store/m6a3k21k3p99p9ja7kbmpr02mxmff41h-vips-8.16.1"
+            }
+          ],
+          "store_path": "/nix/store/2gaj6r7lhv6ihnnb7c62qhlp0r3z286i-vips-8.16.1-bin"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "bin",
+              "path": "/nix/store/q8i9vq0m2dy1ikz2j8px70yv5pjf89fs-vips-8.16.1-bin",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/9rnr8s9hjz0rs327cbd9qrknqjm7c07k-vips-8.16.1-man",
+              "default": true
+            },
+            {
+              "name": "dev",
+              "path": "/nix/store/4525fidi246jdpfjn24r552kg3f42m4l-vips-8.16.1-dev"
+            },
+            {
+              "name": "devdoc",
+              "path": "/nix/store/fcfz5kiysy5zlcnl80s298y45yfdz1fh-vips-8.16.1-devdoc"
+            },
+            {
+              "name": "out",
+              "path": "/nix/store/a0naqanw3mbjdwbwaqknicpmksk1hiv2-vips-8.16.1"
+            }
+          ],
+          "store_path": "/nix/store/q8i9vq0m2dy1ikz2j8px70yv5pjf89fs-vips-8.16.1-bin"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "bin",
+              "path": "/nix/store/xr6bnkpkg993in10rm2im3sbv664l5cv-vips-8.16.1-bin",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/nm3mzwjxsqc8by1q9ld6cz78dndq2r0s-vips-8.16.1-man",
+              "default": true
+            },
+            {
+              "name": "dev",
+              "path": "/nix/store/b13snwqznqjv4qvssqpcy22p2rpkg6b7-vips-8.16.1-dev"
+            },
+            {
+              "name": "out",
+              "path": "/nix/store/v2ifkasxrqknvvvds8pvnd10zxf72gib-vips-8.16.1"
+            }
+          ],
+          "store_path": "/nix/store/xr6bnkpkg993in10rm2im3sbv664l5cv-vips-8.16.1-bin"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "bin",
+              "path": "/nix/store/pavwknfvn800cn0nlsfkxafiv3dg5qyy-vips-8.16.1-bin",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/w2f497qr07zp47brjakq9s52b2jlqz0x-vips-8.16.1-man",
+              "default": true
+            },
+            {
+              "name": "dev",
+              "path": "/nix/store/cx5qcs7sjnkjw1zw601fg0c2jzyh8x9x-vips-8.16.1-dev"
+            },
+            {
+              "name": "devdoc",
+              "path": "/nix/store/jxlf3bfj6z62fj2k1dvqxq663gxfjzdl-vips-8.16.1-devdoc"
+            },
+            {
+              "name": "out",
+              "path": "/nix/store/8vlnq336lk4z1py7a45c9a06yk03fmdr-vips-8.16.1"
+            }
+          ],
+          "store_path": "/nix/store/pavwknfvn800cn0nlsfkxafiv3dg5qyy-vips-8.16.1-bin"
         }
       }
     },
