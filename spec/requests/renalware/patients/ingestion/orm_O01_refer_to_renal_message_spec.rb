@@ -39,12 +39,24 @@ describe "HL7 ORM^O01 message handling: 'Refer to Renal'" do
       PD1|||DR WHM SUMISU PRACTICE, Nowhere Surgery, 22 Raccoon Road, Erewhon, Erewhonshire^GPPRC^#{practice_code}|#{gp_code}^Deeley^DP^^^DR
       PV1|1|O|R1H Clinic^^^R1H WHIPPSCROSS^^AMB^R1H XXXX|""|||C123123123^Jones^Ccc^Ddd^^^^^NHSCONSULTANTNUMBER^PRSNL^^^NONGP^""|G9401882^SMITH^AM^^^^^^^EXTID^PRSNL^^^EXTID^""||502||||""||||OUTPATIENT|123^^^RNJATTNUM^VISITID|||||||||||||||||""|""||R1H WHIPPSCROSS|||||20241218104725|
       ORC|F|5541473217^XX_ORDERID|||CM||||20250307142934|^Jones^Ccc^^^^^^^PRSNL|||||20250307142934||||^Jones^Ccc^^^^^^^PRSNL
-      OBR|1|5541473217^XX_ORDERID||Refer to Renal (OP)^Refer to Renal (OP)||||||||||||||||||20250307142934||C|||1^^0^20250307142500^^""
-      OBX|1|TS|TEXT1^TEXT1||20250307142500
-      OBX|2|ST|TEXT2^TEXT2||VALUE2
-      OBX|3|ST|TEXT3^TEXT3||VALUE3
-      OBX|4|ST|TEXT4^TEXT4||VALUE4
-      OBX|5|ST|TEXT5^TEXT5||VALUE5
+      OBR|1|5541024131^HNAM_ORDERID||340003701^Refer to Renal - Inpatients referrals||||||||||||||||||20250116103423||C|||1^^0^20250116103000^^""
+      OBX|1|TS|Requested Start Date/Time^Requested Start Date/Time||20250116103000
+      OBX|2|XCN|Attending Physician^Attending Physician||C123^Jones^Tom^^^Dr^^^NHSCONSULTANTNUMBER^PRSNL^^^NONGP^""~123^Jones^Tom^^^Dr^^^DRNBR^PRSNL^^^ORGDR^""
+      OBX|3|ST|Bleep/Telephone Number^Bleep/Telephone Number||12345
+      OBX|4|ST|Comment Text 1^Comment Text 1||test for renal referral
+      OBX|6|DT|Date of Admission^Date of Admission||20250116
+      OBX|7|NM|Baseline creatinine (umol/L)^Baseline creatinine (umol/L)||11
+      OBX|8|IS|US^US||Not done
+      OBX|9|IS|Comorbidities - Renal^Comorbidities - Renal||HD
+      OBX|10|IS|Nephrotoxic Medications^Nephrotoxic Medications||Diuretics
+      OBX|11|ST|Renal Reason for Referral^Renal Reason for Referral||Dialysis
+      OBX|12|ST|Location (Ward)^Location (Ward)||R1H HDU
+      OBX|13|ST|Provisional diagnosis^Provisional diagnosis||Acute Kidney Failure
+      OBX|14|ID|Known CKD  Y/N select field^Known CKD  Y/N select field||N
+      OBX|15|ID|Transplant^Transplant||N
+      OBX|16|ID|Dialysis^Dialysis||Y
+      OBX|17|ST|Urine Dip^Urine Dip||dip tested
+
     HL7
     hl7.gsub(/^ */, "")
   end
@@ -103,14 +115,25 @@ describe "HL7 ORM^O01 message handling: 'Refer to Renal'" do
     expect(patient.document.admin_notes).to eq(expected_notes)
   end
 
-  def expected_notes
+  def expected_notes # rubocop:disable Metrics/MethodLength
     <<~NOTES.chomp
-      Refer to Renal (OP)
-      TEXT1: 20250307142500
-      TEXT2: VALUE2
-      TEXT3: VALUE3
-      TEXT4: VALUE4
-      TEXT5: VALUE5
+      Refer to Renal - Inpatients referrals
+      Requested Start Date/Time: 16-Jan-2025 10:30
+      Attending Physician: Jones, Tom (C123)
+      Bleep/Telephone Number: 12345
+      Comment Text 1: test for renal referral
+      Date of Admission: 16-Jan-2025
+      Baseline creatinine (umol/L): 11
+      US: Not done
+      Comorbidities - Renal: HD
+      Nephrotoxic Medications: Diuretics
+      Renal Reason for Referral: Dialysis
+      Location (Ward): R1H HDU
+      Provisional diagnosis: Acute Kidney Failure
+      Known CKD  Y/N select field: N
+      Transplant: N
+      Dialysis: Y
+      Urine Dip: dip tested
     NOTES
   end
 end

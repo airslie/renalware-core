@@ -36,17 +36,32 @@ module Renalware
           return if patient.blank?
           return if patient.document.admin_notes.present?
 
-          title = hl7_message[:OBR].universal_service_id.split("^").first
+          title = hl7_message[:OBR].universal_service_id.split("^")[1]
           elements = [title]
           Array(hl7_message[:OBX]).each_with_object(elements) do |obx, arr|
             arr << [
               obx.observation_id.split("^").first,
-              obx.observation_value
+              format_order_message_obx_segment(obx)
             ].join(": ")
           end
 
           patient.document.admin_notes = elements.join("\n")
           patient.save_by!(Renalware::SystemUser.find, validate: false)
+        end
+
+        def format_order_message_obx_segment(obx)
+          case obx.value_type
+          when "DT" then I18n.l(obx.observation_value.to_date)
+          when "TS" then I18n.l(obx.observation_value.to_datetime)
+          when "XCN" then physician_from_xcn_obx_segment(obx)
+          else obx.observation_value.to_s
+          end
+        end
+
+        def physician_from_xcn_obx_segment(obx)
+          parts = obx.observation_value.split("^")
+          gmc = (parts[0].presence && " (#{parts[0]})") || ""
+          [parts[1], parts[2]].compact.join(", ") + gmc
         end
       end
     end
