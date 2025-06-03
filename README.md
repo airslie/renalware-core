@@ -25,14 +25,11 @@ Renalware is built using using open source projects including:
 
 ## Running Renalware locally on Mac, Windows or Linux
 
-Install `git` if not already installed on your system.
-Install the [Docker Engine](https://docs.docker.com/engine/install/) and ensure it is running.
-
 ```
 git clone git@github.com:airslie/renalware-core.git
 cd ./renalware-core
-docker-compose run web bundle exec rake db:setup
-docker-compose up -d
+devbox run setup
+devbox services up # CTRL+C to shut it down
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) and login in one of the demo users
@@ -42,13 +39,5 @@ Visit [http://localhost:3000](http://localhost:3000) and login in one of the dem
 - kchnurse
 - kchguest
 
-They all share the password `renalware`
+They all share the password `renalware`.
 
-## Development
-
-### Initial setup
-
-
-`devbox run setup`
-Will:
-*  
