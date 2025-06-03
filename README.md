@@ -25,6 +25,11 @@ Renalware is built using using open source projects including:
 
 ## Running Renalware locally on Mac, Windows or Linux
 
+### Install Microsoft corefonts
+
+* On Ubuntu: `sudo apt install ttf-mscorefonts-installer`
+* On NixOS: Add the package `corefonts` to your `configuration.nix`
+
 ```
 git clone git@github.com:airslie/renalware-core.git
 cd ./renalware-core

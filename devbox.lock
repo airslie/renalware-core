@@ -722,6 +722,10 @@
         }
       }
     },
+    "playwright-driver.browsers": {
+      "resolved": "github:NixOS/nixpkgs/5929de975bcf4c7c8d8b5ca65c8cd9ef9e44523e?narHash=sha256-BHmgfHlCJVNisJShVaEmfDIr%2FIp58i%2F4oFGlD1iK6lk%3D#playwright-driver.browsers",
+      "source": "nixpkg"
+    },
     "postgresql@16": {
       "last_modified": "2024-12-22T08:27:48Z",
       "plugin_version": "0.0.2",

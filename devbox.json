@@ -28,12 +28,11 @@
       "version": "latest",
       "outputs": ["fonts", "out"],
     },
+    "playwright-driver.browsers": "",
   },
   "env": {
     "SETUP_COMPLETE":                      "$DEVBOX_PROJECT_ROOT/.devbox/.setup-complete",
-    "PLAYWRIGHT_BROWSERS_PATH":            "0",
-    "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD":    "1",
-    "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH": "$DEVBOX_PROJECT_ROOT/.devbox/nix/profile/default/bin/chromium",
+    "PLAYWRIGHT_BROWSERS_PATH":            "$DEVBOX_PACKAGES_DIR",
   },
   "shell": {
     "init_hook": [],
