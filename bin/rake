@@ -1,11 +1,5 @@
 #!/usr/bin/env ruby
 
-begin
-  load File.expand_path("../spring", __FILE__)
-rescue LoadError => e
-  raise unless e.message.include?("spring")
-end
-
 # This require_relative was changed from "../config/boot" in order to satisfy Heroku
 # PR review apps which started to fail without it in Aug 2020.
 require_relative "../demo/config/boot"

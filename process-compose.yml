@@ -1,0 +1,25 @@
+version: "0.5"
+
+processes:
+  web:
+    command: |
+      bundle check || bundle install
+      rails app:yarn:install
+      rails db:migrate
+      cd demo && rails server -p 3000
+    depends_on:
+      postgresql:
+        condition: process_healthy
+
+  worker:
+    command: bin/good_job
+
+  js:
+    command: yarn build --watch
+
+  css:
+    command: yarn build:css --watch
+    # --watch not working here
+
+  # Make this a service you can start manually
+  #docs: cd documentation && yarn run start -p 3001

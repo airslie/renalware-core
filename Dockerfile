@@ -8,7 +8,7 @@
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=3.4
+ARG RUBY_VERSION=3.4.3
 FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
@@ -30,7 +30,18 @@ FROM base AS build
 
 # Install packages needed to build gems and node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev node-gyp pkg-config python-is-python3 imagemagick libvips libvips-dev libvips-tools && \
+    apt-get install --no-install-recommends -y \
+      build-essential \
+      git \
+      libpq-dev \
+      node-gyp \
+      pkg-config \
+      libyaml-dev \
+      python-is-python3 \
+      imagemagick \
+      libvips \
+      libvips-dev \
+      libvips-tools && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install JavaScript dependencies
@@ -70,9 +81,9 @@ COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
 
 # Run and own only the runtime files as a non-root user for security
-RUN groupadd --system --gid 1000 rails && \
-    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails demo/db demo/log demo/storage demo/tmp
+RUN groupadd --system --gid 1000 rails
+RUN useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash
+RUN chown -R rails:rails demo/db demo/log demo/storage demo/tmp
 USER 1000:1000
 
 # Entrypoint prepares the database.

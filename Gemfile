@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.4.4"
-
 gemspec
+
+ruby file: ".ruby-version"
 
 gem "activesupport_cache_database", github: "airslie/activesupport-cache-database"
 gem "sprockets-rails"
