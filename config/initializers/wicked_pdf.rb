@@ -8,16 +8,22 @@
 #
 # https://github.com/mileszs/wicked_pdf/blob/master/README.md
 
-WickedPdf.configure {
+WickedPdf.configure do |config|
   # Path to the wkhtmltopdf executable: This usually isn't needed if using
   # one of the wkhtmltopdf-binary family of gems.
-  # exe_path: '/usr/local/bin/wkhtmltopdf',
+
+  # 2025-06-04
+  # Use devbox wkhtmltopdf on NixOS
+  # Hacky workaround until out-of-support wkhtmltopdf is replaced.
+  if File.exist?("/etc/os-release") && File.read("/etc/os-release").include?("NAME=NixOS")
+    config.exe_path = Rails.root.join(ENV.fetch("DEVBOX_PACKAGES_DIR"), "bin", "wkhtmltopdf").to_s
+  end
+
   #   or
-  # exe_path: Gem.bin_path('wkhtmltopdf-binary', 'wkhtmltopdf')
   # Layout file to be used for all PDFs
   # (but can be overridden in `render :pdf` calls)
-  # layout: 'pdf.html',
-}
+  # config.layout = 'pdf.html'
+end
 
 # This is a hack to get ViewComponent and WickedPDF to work together.
 # See https://github.com/github/view_component/issues/288

@@ -19,7 +19,7 @@ While `renalware-core` is intended to be deployed inside a host application in
 production, it can be run stand-alone in a local development environment using 
 the _demo_ host application (`./demo`) that ships inside the engine.
 
-Renalware is built using using open source projects including:
+Renalware is built using open source projects including:
 - Ruby on Rails framework
 - PostgreSQL database
 
@@ -33,6 +33,7 @@ Renalware is built using using open source projects including:
 ```
 git clone git@github.com:airslie/renalware-core.git
 cd ./renalware-core
+direnv allow
 devbox run setup
 devbox services up # CTRL+C to shut it down
 ```
@@ -45,4 +46,23 @@ Visit [http://localhost:3000](http://localhost:3000) and login in one of the dem
 - kchguest
 
 They all share the password `renalware`.
+
+## Devbox
+
+Devbox, Direnv & process-compose are a suite of tools designed to make local
+development easier. It manages package dependencies, aids in initial setup and 
+spins up related services. Under the hood it uses Nix which is a declarative, 
+immutable package manager.
+
+Devbox is a cross-platform project scoped package manager. Think npm + brew.
+See devbox.json for the configuration and devbox.lock for the versions. Docs at
+https://www.jetify.com/docs/devbox/.
+
+Direnv sets up your local environment when entering a directory. Think 
+chruby/dotenv. It's integrated with Devbox. Docs at https://direnv.net/.
+
+process-compose spins up multiple possibly dependent services or processes. Like
+a local docker-compose. process-compose is integrated with Devbox. Docs at 
+https://f1bonacc1.github.io/process-compose/launcher/.
+
 

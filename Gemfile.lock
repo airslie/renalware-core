@@ -1022,6 +1022,7 @@ GEM
       activejob (>= 4.0.0)
       wisper
     wisper-rspec (1.1.0)
+    wkhtmltopdf-binary (0.12.6.8)
     wkhtmltopdf-heroku (3.0.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
@@ -1119,6 +1120,7 @@ DEPENDENCIES
   web-console
   webmock (~> 3.7)
   wisper-rspec (~> 1.1.0)
+  wkhtmltopdf-binary (= 0.12.6.8)
   wkhtmltopdf-heroku (~> 3.0.0)
 
 BUNDLED WITH
