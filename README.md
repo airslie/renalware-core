@@ -38,6 +38,11 @@ devbox run setup
 devbox services up # CTRL+C to shut it down
 ```
 
+Additionally, you can run `devbox run reset` which will delete the PostgreSQL
+database files for this project and then runs setup again. For a complete reset
+(including removing gems) you can simply `rm -rf .devbox`. See `devbox run` for
+all available scripts and `devbox.json` to see what they do.
+
 Visit [http://localhost:3000](http://localhost:3000) and login in one of the demo users
 (in order of role permissiveness):
 - superkch
@@ -62,7 +67,9 @@ Direnv sets up your local environment when entering a directory. Think
 chruby/dotenv. It's integrated with Devbox. Docs at https://direnv.net/.
 
 process-compose spins up multiple possibly dependent services or processes. Like
-a local docker-compose. process-compose is integrated with Devbox. Docs at 
-https://f1bonacc1.github.io/process-compose/launcher/.
+a local docker-compose. process-compose is integrated with Devbox. See 
+`./process-compose.yml` for the configuration. Packages may also install
+additional configuration in `.devbox/virtenv/<package>/process-compose.yml`. Docs
+at https://f1bonacc1.github.io/process-compose/launcher/.
 
 
