@@ -3,6 +3,17 @@ module Renalware
     let(:user) { create(:user, :clinical) }
     let(:unapproved_user) { create(:user, :unapproved) }
 
+    it "successfully logins a user" do
+      visit root_path
+
+      fill_in "Username", with: user.username
+      fill_in "Password", with: user.password
+      click_on "Log in"
+
+      expect(page).to have_current_path root_path
+      expect(page).to have_content "Signed in successfully"
+    end
+
     it "A user attempts to authenticate with invalid credentials" do
       visit root_path
 
@@ -14,6 +25,16 @@ module Renalware
 
       expect(page).to have_current_path(new_user_session_path)
       expect(page).to have_text(/Invalid username or password/i)
+
+      visit root_path
+
+      fill_in "Username", with: user.username
+      fill_in "Password", with: user.password
+      click_on "Log in"
+
+      expect(page).to have_current_path root_path
+      expect(page).to have_content "Signed in successfully"
+      expect(page).to have_content "You failed to sign in at"
     end
 
     it "An unapproved user authenticates with valid credentials" do

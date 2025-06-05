@@ -1,6 +1,0 @@
----
-pt:
-  renalware:
-    users:
-      last_signin_component:
-        title: Seu último login foi às %{time} em %{date}

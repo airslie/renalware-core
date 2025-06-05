@@ -3,4 +3,5 @@ en:
   renalware:
     users:
       last_signin_component:
-        title: You last signed in at %{time} on %{date}
+        last_sign_in: You last signed in at %{time} on %{date}
+        failed_sign_in: You failed to sign in at %{time} on %{date}

@@ -2,6 +2,13 @@ module Renalware
   class Devise::SessionsController < ::Devise::SessionsController
     include Concerns::DeviseControllerMethods
 
+    def create
+      user = Renalware::User.find_by(username: user_params[:username])
+      user.touch :last_failed_sign_in_at unless user_valid?(user)
+
+      super
+    end
+
     # Define the path to go to after logging in:
     # - if the user has never before logged-in, devise will take them to the root path (dashboard)
     # - if the user's session timed-out less that 30 minutes ago, we take them back to the
@@ -19,6 +26,14 @@ module Renalware
     end
 
     private
+
+    def user_valid?(user)
+      user&.valid_password?(user_params[:password])
+    end
+
+    def user_params
+      @user_params ||= params.require("user").permit(:username, :password)
+    end
 
     def last_sign_in_at
       current_user.last_sign_in_at || epoch_start
