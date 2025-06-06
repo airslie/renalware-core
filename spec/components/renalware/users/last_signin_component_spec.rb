@@ -1,5 +1,5 @@
 describe Renalware::Users::LastSigninComponent, type: :component do
-  context "when the user has never logged in" do
+  context "when the user has never signed in" do
     it "renders nothing" do
       user = build_stubbed(:user, last_sign_in_at: nil, current_sign_in_at: nil)
       component = described_class.new(current_user: user)
@@ -10,7 +10,7 @@ describe Renalware::Users::LastSigninComponent, type: :component do
     end
   end
 
-  context "when the user logs in the first time and last_sign_in_at == current_sign_in_at" do
+  context "when the user signs in the first time and last time matches current" do
     it "renders nothing" do
       user = build_stubbed(
         :user,

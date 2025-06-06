@@ -4,7 +4,7 @@ module Renalware
 
     def create
       user = Renalware::User.find_by(username: user_params[:username])
-      user.touch :last_failed_sign_in_at unless user_valid?(user)
+      user_valid?(user) && user.touch(:last_failed_sign_in_at)
 
       super
     end

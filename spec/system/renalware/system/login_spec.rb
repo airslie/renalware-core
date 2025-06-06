@@ -3,7 +3,7 @@ module Renalware
     let(:user) { create(:user, :clinical) }
     let(:unapproved_user) { create(:user, :unapproved) }
 
-    it "successfully logins a user" do
+    it "successfully signs in a user" do
       visit root_path
 
       fill_in "Username", with: user.username
@@ -14,30 +14,41 @@ module Renalware
       expect(page).to have_content "Signed in successfully"
     end
 
-    it "A user attempts to authenticate with invalid credentials" do
+    it "attempts to sign in with no credentials", :js do
       visit root_path
 
-      expect(page).to have_current_path(new_user_session_path)
-
-      fill_in "Username", with: user.username
-      fill_in "Password", with: "wuhfweilubfwlf"
       click_on "Log in"
 
       expect(page).to have_current_path(new_user_session_path)
       expect(page).to have_text(/Invalid username or password/i)
-
-      visit root_path
-
-      fill_in "Username", with: user.username
-      fill_in "Password", with: user.password
-      click_on "Log in"
-
-      expect(page).to have_current_path root_path
-      expect(page).to have_content "Signed in successfully"
-      expect(page).to have_content "You failed to sign in at"
     end
 
-    it "An unapproved user authenticates with valid credentials" do
+    context "when attempting to sign in with invalid credentials" do
+      it "shows the failed attempt on a subsequent login" do
+        visit root_path
+
+        expect(page).to have_current_path(new_user_session_path)
+
+        fill_in "Username", with: user.username
+        fill_in "Password", with: "wuhfweilubfwlf"
+        click_on "Log in"
+
+        expect(page).to have_current_path(new_user_session_path)
+        expect(page).to have_text(/Invalid username or password/i)
+
+        visit root_path
+
+        fill_in "Username", with: user.username
+        fill_in "Password", with: user.password
+        click_on "Log in"
+
+        expect(page).to have_current_path root_path
+        expect(page).to have_content "Signed in successfully"
+        expect(page).to have_content "You failed to sign in at"
+      end
+    end
+
+    it "An unapproved user signs in with valid credentials" do
       visit root_path
 
       expect(page).to have_current_path(new_user_session_path)
@@ -50,11 +61,10 @@ module Renalware
       expect(page).to have_text(/Your account needs approval before you can access the system/)
     end
 
-    context "when the user has a complete 'profile' eg signature, professional_position etc " \
-            "meaning user.valid? is true" do
-      let(:user) { create(:user, :clinical) } # will be valid? once created
+    context "when an approved user is valid" do
+      let(:user) { create(:user, :clinical) }
 
-      it "An approved user authenticates with valid credentials" do
+      it "signs in with valid credentials" do
         visit root_path
 
         expect(page).to have_current_path(new_user_session_path)
@@ -76,11 +86,10 @@ module Renalware
       end
     end
 
-    context "when the user has an incomplete 'profile' eg signature, professional_position etc " \
-            "meaning user.valid? is false" do
-      let(:user) { create(:user, :clinical, signature: nil) } # will not be valid? once created
+    context "when an approved user is invalid" do
+      let(:user) { create(:user, :clinical, signature: nil) }
 
-      it "An approved user should still be able to login" do
+      it "still logs them in" do
         visit root_path
 
         expect(page).to have_current_path(new_user_session_path)
@@ -99,40 +108,46 @@ module Renalware
       end
     end
 
-    it "An authenticated user signs out" do
-      login_as_clinical
-      visit root_path
+    context "when user is signed in" do
+      it "signs them out" do
+        login_as_clinical
+        visit root_path
 
-      click_on "Log out"
+        click_on "Log out"
 
-      expect(page).to have_current_path(new_user_session_path)
+        expect(page).to have_current_path(new_user_session_path)
+      end
     end
 
-    it "An inactive user attempts to authenticate" do
-      inactive = create(:user, last_activity_at: 90.days.ago)
+    context "when an inactive user attempts to sign in" do
+      it "does not sign them in" do
+        inactive = create(:user, last_activity_at: 90.days.ago)
 
-      visit new_user_session_path
+        visit new_user_session_path
 
-      fill_in "Username", with: inactive.username
-      fill_in "Password", with: inactive.password
-      click_on "Log in"
+        fill_in "Username", with: inactive.username
+        fill_in "Password", with: inactive.password
+        click_on "Log in"
 
-      expect(page).to have_current_path(new_user_session_path)
-      expect(page).to have_text(
-        /Your account has expired due to inactivity\. Please contact the site administrator/
-      )
+        expect(page).to have_current_path(new_user_session_path)
+        expect(page).to have_text(
+          "Your account has expired due to inactivity. Please contact the site administrator"
+        )
+      end
     end
 
-    it "A fairly inactive user attempts to authenticate" do
-      inactive = create(:user, :clinical, last_activity_at: 89.days.ago)
+    context "when a not quite inactive user attempts to sign in" do
+      it "signs them in" do
+        inactive = create(:user, :clinical, last_activity_at: 89.days.ago)
 
-      visit new_user_session_path
+        visit new_user_session_path
 
-      fill_in "Username", with: inactive.username
-      fill_in "Password", with: inactive.password
-      click_on "Log in"
+        fill_in "Username", with: inactive.username
+        fill_in "Password", with: inactive.password
+        click_on "Log in"
 
-      expect(page).to have_current_path(root_path)
+        expect(page).to have_current_path(root_path)
+      end
     end
   end
 end
