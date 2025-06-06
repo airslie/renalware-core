@@ -1,8 +1,8 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://localhost:8700/messageexchange/RAJ01OT001/inbox/123
+    method: put
+    uri: http://localhost:8700/messageexchange/RAJ01OT001/inbox/<%= (defined?(mesh_message_id) && mesh_message_id.presence?) || "123" %>/status/acknowledged
     body:
       encoding: US-ASCII
       string: ''
@@ -36,20 +36,8 @@ http_interactions:
     headers:
       Date:
       - Mon, 06 Mar 2023 13:00:08 GMT
-      Content-Length:
-      - '0'
       Content-Type:
       - application/json
-      Mex-LocalID:
-      - <%= (defined?(local_id) && local_id.presence) || "75155665-d300-4319-a7a4-3b6f3f38e739" %>
-      Mex-MessageType:
-      - REPORT
-      Mex-StatusCode:
-      - 14
-      Mex-StatusDescription:
-      - Undelivered message
-      Mex-LinkedMsgID:
-      - <%= (defined?(linked_msg_id) && linked_msg_id.presence) || "ABC" %>
     body:
       encoding: UTF-8
       string: ''
