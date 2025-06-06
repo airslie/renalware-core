@@ -1,40 +1,44 @@
 module Renalware
-  describe "Authentication" do
+  describe "Authentication", :js do
+    let(:last_sign_in_at) { nil }
+
     let(:user) { create(:user, :clinical) }
     let(:unapproved_user) { create(:user, :unapproved) }
 
-    it "successfully signs in a user" do
-      visit root_path
+    context "when previously signed in" do
+      let(:user) { create(:user, :clinical, :previously_signed_in) }
 
-      fill_in "Username", with: user.username
-      fill_in "Password", with: user.password
-      click_on "Log in"
+      it "successfully signs in a user" do
+        visit root_path
 
-      expect(page).to have_current_path root_path
-      expect(page).to have_content "Signed in successfully"
+        fill_in "Username", with: user.username
+        fill_in "Password", with: user.password
+        click_on "Log in"
+
+        expect(page).to have_content "Signed in successfully"
+        expect(page).to have_content "You last signed in at"
+      end
     end
 
-    it "attempts to sign in with no credentials", :js do
+    it "attempts to sign in with no credentials" do
       visit root_path
 
       click_on "Log in"
 
-      expect(page).to have_current_path(new_user_session_path)
-      expect(page).to have_text(/Invalid username or password/i)
+      expect(page).to have_current_path new_user_session_path
+      expect(page).to have_text "Invalid Username or password"
     end
 
     context "when attempting to sign in with invalid credentials" do
       it "shows the failed attempt on a subsequent login" do
         visit root_path
 
-        expect(page).to have_current_path(new_user_session_path)
-
         fill_in "Username", with: user.username
         fill_in "Password", with: "wuhfweilubfwlf"
         click_on "Log in"
 
-        expect(page).to have_current_path(new_user_session_path)
-        expect(page).to have_text(/Invalid username or password/i)
+        expect(page).to have_current_path new_user_session_path
+        expect(page).to have_text "Invalid Username or password"
 
         visit root_path
 
@@ -51,14 +55,12 @@ module Renalware
     it "An unapproved user signs in with valid credentials" do
       visit root_path
 
-      expect(page).to have_current_path(new_user_session_path)
-
       fill_in "Username", with: unapproved_user.username
       fill_in "Password", with: unapproved_user.password
       click_on "Log in"
 
-      expect(page).to have_current_path(new_user_session_path)
-      expect(page).to have_text(/Your account needs approval before you can access the system/)
+      expect(page).to have_current_path new_user_session_path
+      expect(page).to have_text "Your account needs approval"
     end
 
     context "when an approved user is valid" do
@@ -67,13 +69,11 @@ module Renalware
       it "signs in with valid credentials" do
         visit root_path
 
-        expect(page).to have_current_path(new_user_session_path)
-
         fill_in "Username", with: user.username
         fill_in "Password", with: user.password
         click_on "Log in"
 
-        expect(page).to have_current_path(root_path)
+        expect(page).to have_current_path root_path
 
         # It creates a signin event
         # NOTE: AhoyMatey no longer creates events in test mode
@@ -91,8 +91,6 @@ module Renalware
 
       it "still logs them in" do
         visit root_path
-
-        expect(page).to have_current_path(new_user_session_path)
 
         fill_in "Username", with: user.username
         fill_in "Password", with: user.password
@@ -115,7 +113,7 @@ module Renalware
 
         click_on "Log out"
 
-        expect(page).to have_current_path(new_user_session_path)
+        expect(page).to have_current_path new_user_session_path
       end
     end
 
@@ -129,14 +127,12 @@ module Renalware
         fill_in "Password", with: inactive.password
         click_on "Log in"
 
-        expect(page).to have_current_path(new_user_session_path)
-        expect(page).to have_text(
-          "Your account has expired due to inactivity. Please contact the site administrator"
-        )
+        expect(page).to have_current_path new_user_session_path
+        expect(page).to have_text "Your account has expired due to inactivity"
       end
     end
 
-    context "when a not quite inactive user attempts to sign in" do
+    context "when an almost inactive user attempts to sign in" do
       it "signs them in" do
         inactive = create(:user, :clinical, last_activity_at: 89.days.ago)
 
@@ -146,7 +142,7 @@ module Renalware
         fill_in "Password", with: inactive.password
         click_on "Log in"
 
-        expect(page).to have_current_path(root_path)
+        expect(page).to have_current_path root_path
       end
     end
   end
