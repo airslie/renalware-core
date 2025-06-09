@@ -51,6 +51,7 @@
         "yarn",
         "bin/wait-for-port 5432 30",
         "rails db:setup",
+        "overcommit --force",
         "touch \"$SETUP_COMPLETE\"",
         "devbox services down",
         "echo \"Setup complete!\"",
