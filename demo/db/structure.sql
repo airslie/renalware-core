@@ -4227,7 +4227,8 @@ CREATE TABLE renalware.users (
     notes text,
     gmc_code character varying,
     nursing_experience_level renalware.nursing_experience_level_enum,
-    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL
+    uuid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    last_failed_sign_in_at timestamp(6) without time zone
 );
 
 
@@ -31317,6 +31318,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250604125449'),
 ('20250521162707'),
 ('20250501125231'),
 ('20250425122256'),

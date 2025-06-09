@@ -37,6 +37,11 @@ FactoryBot.define do
       Array(obj.additional_roles).each { |role| user.roles << create(:role, role) }
     end
 
+    trait :previously_signed_in do
+      last_sign_in_at { 1.day.ago }
+      current_sign_in_at { 1.day.ago }
+    end
+
     trait :access_locked do
       locked_at { Time.current }
       failed_attempts { 20 }
