@@ -75,7 +75,7 @@ module Renalware
                 expected_filename = "HOSP1_111_HOSP2_222_HOSP3_333_JONES_19700101_CL_#{letter.id}"
 
                 expect(msg[:MSH].to_s).to eq(
-                  "MSH|^~\\&|Renalware|MSE|||20211117152417||MDM^T02||RW0000000123|U|9.9.9"
+                  "MSH|^~\\&|Renalware|MSE|||20211117152417||MDM^T02|RW0000000123|RW0000000123|U|9.9.9"
                 )
                 expect(msg[:PID].to_s).to eq(
                   "PID||9999999999^^^NHS|111^^^CODE1~222^^^CODE2~333^^^CODE3||Jones^^Patricia^^Ms||19700101"
@@ -84,7 +84,7 @@ module Renalware
 
                 expect(msg[:TXA].to_s).to eq(
                   "TXA||CL^Clinic Letter|ED^Electronic Document|" \
-                  "#{letter.approved_at.strftime('%Y%m%d%H%M')}|Smith^Jo^MyGmcCode|" \
+                  "#{letter.approved_at.strftime('%Y%m%d%H%M')}|MyGmcCode^Smith^Jo|" \
                   "#{letter.approved_at.strftime('%Y%m%d%H%M')}||||||#{letter.id}||||#{expected_filename}|AU"
                 )
                 expect(msg[:OBX].to_s).to eq(
@@ -168,7 +168,10 @@ module Renalware
                 expected_filename = "HOSP1_111_HOSP2_222_HOSP3_333_JONES_19700101_CL_#{letter.id}"
 
                 expect(msg[:MSH].to_s).to eq(
-                  "MSH|^~\\&|Renalware|MSE|||20211117152417||MDM^T02||RW0000000123|U|9.9.9"
+                  "MSH|^~\\&|Renalware|MSE|||20211117152417||MDM^T02|RW0000000123|RW0000000123|U|9.9.9"
+                )
+                expect(msg[:EVN].to_s).to eq(
+                  "EVN|T02|20211117152417"
                 )
                 expect(msg[:PID].to_s).to eq(
                   "PID||9999999999^^^NHS|111^^^CODE1~222^^^CODE2~333^^^CODE3||Jones^^Patricia^^Ms||19700101"
@@ -177,7 +180,7 @@ module Renalware
 
                 expect(msg[:TXA].to_s).to eq(
                   "TXA||CL^Clinic Letter|ED^Electronic Document|" \
-                  "#{letter.approved_at.strftime('%Y%m%d%H%M')}|Smith^Jo^MyGmcCode|" \
+                  "#{letter.approved_at.strftime('%Y%m%d%H%M')}|MyGmcCode^Smith^Jo|" \
                   "#{letter.approved_at.strftime('%Y%m%d%H%M')}||||||#{letter.id}||||#{expected_filename}|AU"
                 )
                 expect(msg[:OBX].to_s).to eq(
@@ -249,14 +252,14 @@ module Renalware
               expected_filename = "HOSP1_111_HOSP2_222_HOSP3_333_JONES_19700101_XX_#{event.id}"
 
               expect(msg[:MSH].to_s).to eq(
-                "MSH|^~\\&|Renalware|MSE|||20211117152417||MDM^T02||RW0000000123|U|9.9.9"
+                "MSH|^~\\&|Renalware|MSE|||20211117152417||MDM^T02|RW0000000123|RW0000000123|U|9.9.9"
               )
               expect(msg[:PID].to_s).to eq(
                 "PID||9999999999^^^NHS|111^^^CODE1~222^^^CODE2~333^^^CODE3||Jones^^Patricia^^Ms||19700101"
               )
               expect(msg[:TXA].to_s).to eq(
                 "TXA||XX^YY|ED^Electronic Document|" \
-                "#{event.approved_at.strftime('%Y%m%d%H%M')}|Smith^Jo^MyGmcCode|" \
+                "#{event.approved_at.strftime('%Y%m%d%H%M')}|MyGmcCode^Smith^Jo|" \
                 "#{event.approved_at.strftime('%Y%m%d%H%M')}||||||#{event.id}||||#{expected_filename}|AU"
               )
               expect(msg[:OBX].to_s).to eq(
