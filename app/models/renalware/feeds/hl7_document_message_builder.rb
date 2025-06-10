@@ -5,7 +5,8 @@ module Renalware
   module Feeds
     # Given a Letters:::Letter, generates an HL7 MDMT T02 message
     # Example
-    # MSH|^~\&|Renalware|MSE|||20210920180000||MDM^T02|RW0000000001|P|2.3.1
+    # MSH|^~\&|Renalware|MSE|||20210920180000||MDM^T02|RW0000000001|RW0000000001|P|2.3.1
+    # EVN|T02|20210920180000
     # PID||9999999999^^^NHS|12345^^^RAJ01||Jones^C^Patricia^^Ms||19700101|F|
     # TXA|1|CL|ED|201508010900|^Foster^John^Harry^^Dr||201508010920|201508010930 \
     #   ||||123||||RAJ01_12345_JONES_202109020_123.pdf|AU
@@ -27,6 +28,7 @@ module Renalware
       def call
         @msg = HL7::Message.new
         msg << msh
+        msg << evn
         msg << pid
         msg << pv1
         msg << txa
@@ -44,11 +46,21 @@ module Renalware
         seg.enc_chars = "^~\\&"
         seg.sending_app = "Renalware"
         seg.sending_facility = "MSE"
+        # message_control_id is the correct place for our external_id - however, we accidentally
+        # used the processing_id field for this in the past, so we populate both now.
+        seg.message_control_id = external_id
         seg.processing_id = external_id
         seg.message_type = "MDM^T02"
         seg.time = Time.zone.now
         seg.version_id = Rails.env.production? ? "P" : "U"
         seg.seq = Renalware::VERSION
+        seg
+      end
+
+      def evn
+        seg = HL7::Message::Segment::EVN.new
+        seg.type_code = "T02"
+        seg.recorded_date = renderable.approved_at
         seg
       end
 
@@ -93,7 +105,7 @@ module Renalware
         seg.activity_date_time = approved_at
         # primary_activity_provider_code is the author
         seg.primary_activity_provider_code = <<-AUTHOR.squish
-          #{author.family_name}^#{author.given_name}^#{author.gmc_code}
+          #{author.gmc_code}^#{author.family_name}^#{author.given_name}
         AUTHOR
 
         # TXA.6 Origination timestamp - the date the letter was Approved ie became effectively
