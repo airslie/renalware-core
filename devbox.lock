@@ -638,6 +638,54 @@
         }
       }
     },
+    "pandoc@latest": {
+      "last_modified": "2025-05-16T20:19:48Z",
+      "resolved": "github:NixOS/nixpkgs/12a55407652e04dcf2309436eb06fef0d3713ef3#pandoc",
+      "source": "devbox-search",
+      "version": "3.6",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/yjsgvx95rxs8z7kq8k64ihrjjcwhxxgv-pandoc-cli-3.6",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/yjsgvx95rxs8z7kq8k64ihrjjcwhxxgv-pandoc-cli-3.6"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/768w741p84mdgmawcbsr5n2iyg9c5hri-pandoc-cli-3.6",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/768w741p84mdgmawcbsr5n2iyg9c5hri-pandoc-cli-3.6"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/4hrj87syc1pnslin4ydq3452z0cx9djg-pandoc-cli-3.6",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/4hrj87syc1pnslin4ydq3452z0cx9djg-pandoc-cli-3.6"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/hxzw27zvh1fxcym7wzwldz6y2b5whi22-pandoc-cli-3.6",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/hxzw27zvh1fxcym7wzwldz6y2b5whi22-pandoc-cli-3.6"
+        }
+      }
+    },
     "pkg-config@latest": {
       "last_modified": "2025-05-16T20:19:48Z",
       "resolved": "github:NixOS/nixpkgs/12a55407652e04dcf2309436eb06fef0d3713ef3#pkg-config",
