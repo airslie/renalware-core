@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+--
 -- Name: renalware; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -6352,7 +6359,8 @@ CREATE TABLE renalware.feed_outgoing_documents (
     updated_at timestamp without time zone NOT NULL,
     error_code character varying,
     errored_at timestamp without time zone,
-    retried_at timestamp without time zone
+    retried_at timestamp without time zone,
+    comments text
 );
 
 
@@ -31318,6 +31326,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250611141102'),
 ('20250604125449'),
 ('20250521162707'),
 ('20250501125231'),

@@ -46,6 +46,7 @@ Renalware.configure do |config|
     "Renalware::Pathology::CreateObservationRequests" => [],
     "Renalware::Events::CreateEvent" => [],
     "Renalware::Events::UpdateEvent" => [],
+    "Renalware::Events::DeleteEvent" => [],
     "Renalware::Feeds::ReplayHistoricalHL7PathologyMessages" => [
       "Renalware::Pathology::Ingestion::MessageListener"
     ],
