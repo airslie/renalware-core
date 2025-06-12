@@ -1,5 +1,6 @@
 describe "Prescriptions - create / edit / terminate", :js do
   include DrugsSpecHelper
+  include NewSlimSelectHelper
 
   let(:user) { create(:user, :clinical, additional_roles: :hd_prescriber) }
   let(:patient) { create(:patient, by: user) }
@@ -41,7 +42,7 @@ describe "Prescriptions - create / edit / terminate", :js do
     #
     # Create a prescription
     expect(page).to have_field "Prescribed on", with: l(Date.current)
-    slim_select_ajax "Blue Pill", from: "Drug"
+    slim_select "Blue Pill", from: "Drug", wait_for: "Search term must be"
     # ".medications_prescription_drug_id_and_trade_family_id"
 
     # Should automatically pre-populate as only 1 option available
@@ -186,10 +187,8 @@ describe "Prescriptions - create / edit / terminate", :js do
         treatable_id: patient
       )
 
-      slim_select_ajax "Blue Pill (TradeFamily)", from: "Drug"
-      sleep 0.5
+      slim_select "Blue Pill (TradeFamily)", from: "Drug", wait_for: "Search term must be"
       # most dropdowns are automatically selected to the first option
-      # sleep 1
       # expect(page).to have_select "Unit of measure", selected: "Ampoule", visible: :hidden
       # expect(page).to have_select "Route", selected: "Oral", visible: :hidden
       # expect(page).to have_select "Form", selected: "Capsule", visible: :hidden
@@ -283,7 +282,7 @@ describe "Prescriptions - create / edit / terminate", :js do
         treatable_id: patient
       )
 
-      slim_select_ajax "Blue Pill", from: "Drug"
+      slim_select "Blue Pill", from: "Drug", wait_for: "Search term must be"
 
       # First entry should be automatically pre-selected
       expect(page).to have_select "Frequency", selected: "Often"

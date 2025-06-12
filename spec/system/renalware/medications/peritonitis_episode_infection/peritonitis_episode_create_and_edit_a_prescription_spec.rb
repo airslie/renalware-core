@@ -1,5 +1,7 @@
 describe "Prescriptions from a peritonitis episode, matches exit site infection 1-to-1", :js do
   include DrugsSpecHelper
+  include NewSlimSelectHelper
+
   let(:user) { create(:user, :clinical, additional_roles: :prescriber) }
   let(:patient) { create(:pd_patient, by: user) }
   let(:drug) { create(:drug, name: "Blue Pill") }
@@ -37,7 +39,7 @@ describe "Prescriptions from a peritonitis episode, matches exit site infection 
 
     # Create a prescription
     click_link "Add Prescription"
-    slim_select_ajax "Blue Pill", from: "Drug"
+    slim_select "Blue Pill", from: "Drug", wait_for: "Search term must be"
 
     # Should automatically pre-populate as only 1 option available
     # `visible: :hidden` -> due to slim select
@@ -45,7 +47,6 @@ describe "Prescriptions from a peritonitis episode, matches exit site infection 
     # expect(page).to have_select "Route", selected: "Oral", visible: :hidden
 
     # Complete all required fields
-    sleep 0.5
     fill_in "Dose amount", with: 1
     fill_in "Other frequency", with: "abc"
     choose "GP"
