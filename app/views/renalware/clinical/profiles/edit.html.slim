@@ -26,7 +26,7 @@
           = f.association :hospital_centre,
                       collection: Renalware::Hospitals::Centre.where(host_site: true).ordered,
                       wrapper: :horizontal_medium,
-                      input_html: { class: "searchable_select" }
+                      input_html: { data: { controller: "slimselect" } }
 
           = f.association :preferred_death_location,
                           collection: Renalware::Deaths::Location.ordered,

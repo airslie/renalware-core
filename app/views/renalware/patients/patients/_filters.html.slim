@@ -9,7 +9,7 @@
                                                 :to_s,
                                                 search.named_nurse_id_eq),
               { include_blank: "" },
-              { class: "searchable_select" })
+              { data: { controller: "slimselect" }})
 
         .small-6.large-4.columns.end
           = filter_or_reset(form: f, reset_path: renalware.patients_path)

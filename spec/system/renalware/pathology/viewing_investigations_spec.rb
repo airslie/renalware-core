@@ -67,8 +67,8 @@ module Renalware::Pathology
           expect(page).to have_content(obr_desc2.name)
 
           # Exercise the options
-          select "OBR1 - MyOBR1", from: "Filter by Code"
-          select "OBR2 - MyOBR2", from: "Filter by Code"
+          slim_select "OBR1 - MyOBR1", from: "Filter by Code"
+          slim_select "OBR2 - MyOBR2", from: "Filter by Code"
 
           # Choose an option and click Filter
           click_on t("btn.filter")

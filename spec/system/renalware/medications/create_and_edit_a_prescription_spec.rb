@@ -281,16 +281,20 @@ describe "Prescriptions - create / edit / terminate", :js do
         treatable_id: patient
       )
 
+      # Moved population of the 'Dose amount' field to the top of this test to fix a timing issue;
+      # populating it after selecting the drug caused it to be cleared on save (though adding a
+      # sleep before it fixed it).
+      fill_in "Dose amount", with: "1"
+
       slim_select "Blue Pill", from: "Drug", wait_for: "Search term must be"
 
       # First entry should be automatically pre-selected
-      expect(page).to have_select "Frequency", selected: "Often"
+      expect(page).to have_select "Frequency", options: %w(Often Other), selected: "Often"
 
       # Choose "Other" as Frequency instead
       select "Other", from: "Frequency"
       fill_in "Frequency", with: "More Often", match: :prefer_exact
 
-      fill_in "Dose amount", with: 1
       choose "GP"
 
       click_button "Create"
