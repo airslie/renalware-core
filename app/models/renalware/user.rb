@@ -39,7 +39,7 @@ module Renalware
     }
     scope :excludable, -> { unapproved.or(inactive).or(expired).or(hidden) }
     scope :author, -> { where.not(signature: nil) }
-    scope :ordered, -> { order(:family_name, :given_name) }
+    scope :ordered, -> { visible.order(:family_name, :given_name) }
     scope :excluding_system_user, -> { where.not(username: SystemUser.username) }
     scope :consultants, -> { where(consultant: true).excluding_system_user.ordered }
     scope :visible, -> { where(hidden: false) }
