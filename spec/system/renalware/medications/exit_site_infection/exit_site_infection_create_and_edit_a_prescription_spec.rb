@@ -1,5 +1,6 @@
 describe "Prescriptions - from an exit site infection", :js do
   include DrugsSpecHelper
+  include NewSlimSelectHelper
 
   let(:user) { create(:user, :clinical, additional_roles: :prescriber) }
   let(:patient) { create(:pd_patient, by: user) }
@@ -38,7 +39,7 @@ describe "Prescriptions - from an exit site infection", :js do
 
     # Create a prescription
     click_link "Add Prescription"
-    slim_select_ajax "Blue Pill", from: "Drug"
+    slim_select "Blue Pill", from: "Drug", wait_for: "Search term must be"
 
     # Should automatically pre-populate as only 1 option available
     # `visible: :hidden` -> due to slim select
@@ -47,7 +48,6 @@ describe "Prescriptions - from an exit site infection", :js do
     # expect(page).to have_select "Route", selected: "Oral", visible: :hidden
 
     # Complete all required fields
-    sleep 0.5
     fill_in "Dose amount", with: 1
     fill_in "Other frequency", with: "abc"
     choose "GP"

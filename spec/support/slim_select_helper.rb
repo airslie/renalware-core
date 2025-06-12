@@ -24,17 +24,4 @@ module SlimSelectHelper
     # !!Since slim-select 2.10.0 we need to select the option TWICE!
     2.times { select item_text, from: options[:from] }
   end
-
-  def slim_select_ajax(item_text, options)
-    expect(page).to have_field(options[:from], visible: :all)
-    select_box = find_field(options[:from], visible: :all)
-    data_id = select_box["data-id"]
-
-    # Open the search panel. This creates an element at the bottom of the DOM with
-    # the same data-id
-    page.find(".ss-main[data-id='#{data_id}'] .ss-placeholder").click
-    sleep 1 # TODO: replace with a capybara wait
-    page.find("[data-id='#{data_id}'] .ss-search input").set(item_text)
-    page.first("[data-id='#{data_id}'] .ss-list .ss-option", visible: true).click
-  end
 end
