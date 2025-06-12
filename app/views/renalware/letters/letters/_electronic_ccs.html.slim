@@ -10,7 +10,5 @@ article.electonic_ccs
            group_label_method: :name,
            label_method: :to_s,
            value_method: :id,
-           input_html: { \
-              class: "searchable_select",
-              multiple: "multiple" \
-            }
+           input_html: { multiple: "multiple",
+                         data: { controller: "slimselect" } }
