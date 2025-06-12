@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :hd_session, class: "Renalware::HD::Session::Open" do
     accountable
-    patient factory: %i(hd_patient)
-    hospital_unit
-    dialysate factory: %i(hd_dialysate)
+    patient factory: :hd_patient
+    hospital_unit factory: :hd_hospital_unit
+    dialysate factory: :hd_dialysate
 
     signed_on_by { accountable_actor }
 

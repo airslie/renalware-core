@@ -100,6 +100,17 @@ module Renalware
     end
 
     describe "scopes" do
+      describe "ordered" do
+        let!(:visibleB) { create(:user, family_name: "B", given_name: "aa") }
+        let!(:visibleA) { create(:user, family_name: "A", given_name: "bb") }
+
+        before { create(:user, hidden: true) }
+
+        it "retrieves only visible users in the correct order" do
+          expect(described_class.ordered).to eq [visibleA, visibleB]
+        end
+      end
+
       describe "unapproved" do
         it "retrieves unapproved users" do
           approved = create(:user)
