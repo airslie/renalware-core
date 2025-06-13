@@ -1,5 +1,4 @@
-describe "RecipientFollowup", :js do
-  include AjaxHelpers
+RSpec.describe "RecipientFollowup", :js do
   let(:patient) { create(:transplant_patient, family_name: "Rabbit", local_patient_id: "12345") }
   let(:operation) { create(:transplant_recipient_operation, patient: patient) }
 
@@ -22,13 +21,13 @@ describe "RecipientFollowup", :js do
         # Add an episode, remove it, then add again, to test the Remove button
         expect(page).to have_css(".rejection-episode", count: 0)
         click_on t("btn.add")
-        wait_for_ajax
+
         expect(page).to have_css(".rejection-episode", count: 1)
         click_on "Remove"
-        wait_for_ajax
+
         expect(page).to have_css(".rejection_episode", count: 0)
         click_on t("btn.add")
-        wait_for_ajax
+
         expect(page).to have_css(".rejection-episode", count: 1)
 
         fill_in "Recorded on", with: "01-03-2018"

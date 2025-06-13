@@ -32,7 +32,6 @@ module World
       #
       def record_organism_for(infectable:, organism_name:)
         click_link "Add Infection Organism"
-        wait_for_ajax
 
         within "#new_pd_infection_organism" do
           select(organism_name, from: "Organism")

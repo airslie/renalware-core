@@ -86,7 +86,6 @@ module World
           click_on t("btn.edit")
           fill_in "Diagnosed on", with: diagnosed_on
           click_on t("btn.save")
-          wait_for_ajax
         end
       end
 

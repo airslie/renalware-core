@@ -1,6 +1,5 @@
-describe "Batch printing HD Session form PDFs from the HD MDM list", :js do
+RSpec.describe "Batch printing HD Session form PDFs from the HD MDM list", :js do
   include PatientsSpecHelper
-  include AjaxHelpers
 
   let(:patient) { create(:hd_patient) }
   let(:hd_modality_description) { create(:hd_modality_description) }

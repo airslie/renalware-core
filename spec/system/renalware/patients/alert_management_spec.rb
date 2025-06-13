@@ -1,6 +1,4 @@
-describe "Alert management" do
-  include AjaxHelpers
-
+RSpec.describe "Alert management" do
   it "A clinician adds an alert to a patient", :js do
     user = login_as_clinical
     patient = create(:patient, by: user)
@@ -15,7 +13,6 @@ describe "Alert management" do
       click_on "Create alert"
     end
 
-    wait_for_ajax
     within ".patient-alerts" do
       expect(page).to have_content("Some note")
       expect(page).to have_css(".patient-alert", count: 1)
@@ -41,7 +38,7 @@ describe "Alert management" do
       # Prevent alert from popping up i.e. auto accept it.
       page.execute_script("window.confirm = function(){ return true; }")
       find(".actions a").click
-      wait_for_ajax
+
       expect(page).to have_css(".patient-alert", count: 0)
     end
   end

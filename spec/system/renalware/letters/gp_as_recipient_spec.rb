@@ -1,6 +1,4 @@
-describe("Persisting the correct recipients when a letter is saved", :js) do
-  include AjaxHelpers
-
+RSpec.describe("Persisting the correct recipients when a letter is saved", :js) do
   let(:practice) { create(:practice) }
   let(:primary_care_physician) { create(:letter_primary_care_physician) }
   let(:patient) do
@@ -87,7 +85,6 @@ describe("Persisting the correct recipients when a letter is saved", :js) do
         # Alert: Are you sure?
         click_on "Submit for Review"
       end
-      wait_for_ajax
       accept_alert do
         # Alert: Are you sure? You will not be able to modify the letter afterwards.
         click_on "Approve and archive"

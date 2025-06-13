@@ -129,7 +129,6 @@ module World
         page.execute_script(
           %"$('#transplants_donation_recipient_id').html('<option value=\"#{recipient.id}\">Patty</option>')"
         )
-        wait_for_ajax
 
         # within ".form-actions", match: :first do
         #   click_on t("btn.update")

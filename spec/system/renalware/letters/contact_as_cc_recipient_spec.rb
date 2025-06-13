@@ -1,6 +1,4 @@
-describe "Assign a person as a CC recipient", :js do
-  include AjaxHelpers
-
+RSpec.describe "Assign a person as a CC recipient", :js do
   before do
     login_as_clinical
   end
@@ -65,8 +63,6 @@ describe "Assign a person as a CC recipient", :js do
         submit_form
       end
 
-      wait_for_ajax
-
       expect(page).to have_text(person.family_name)
 
       expect(page).to have_no_text("is already a contact for the patient")
@@ -79,7 +75,6 @@ describe "Assign a person as a CC recipient", :js do
         slim_select "::description::", from: "Topic"
         choose("Primary Care Physician")
       end
-      wait_for_ajax
     end
 
     def expect_letter_with_person_as_cc_recipient

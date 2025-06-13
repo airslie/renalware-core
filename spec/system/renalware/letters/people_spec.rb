@@ -1,6 +1,4 @@
-describe "Add person to directory and assign as a contact for a patient", :js do
-  include AjaxHelpers
-
+RSpec.describe "Add person to directory and assign as a contact for a patient", :js do
   describe "creating a person and assign as a contact" do
     context "with valid attributes" do
       it "responds successfully" do

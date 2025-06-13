@@ -1,6 +1,4 @@
-describe "Sending a private message" do
-  include AjaxHelpers
-
+RSpec.describe "Sending a private message" do
   it "A clinician sends a private message about a patient", :js do
     user = login_as_clinical
     patient = create(:messaging_patient, by: user)

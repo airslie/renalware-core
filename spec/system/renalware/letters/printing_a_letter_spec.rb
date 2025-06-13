@@ -1,6 +1,5 @@
-describe "Printing a letter", :js do
+RSpec.describe "Printing a letter", :js do
   include LettersSpecHelper
-  include AjaxHelpers
 
   def stub_out_pdf_generation
     unless Renalware.config.letters_render_pdfs_with_prawn
@@ -56,14 +55,11 @@ describe "Printing a letter", :js do
         select "Approved (Ready to Print)", from: "State"
       end
 
-      wait_for_turbo_frame "letter-lists-turbo-frame"
-      sleep 0.2
-
       within("table.letters") do
         expect(page).to have_content("RABBIT")
         # TODO: Approved select above should trigger form submit! but does not
         # so filter not applied and still two rows here
-        # expect(page).to have_css("tbody tr", count: 1)
+        expect(page).to have_css("tbody tr", count: 1)
 
         # Print the letter
         click_on t("btn.print")
@@ -85,12 +81,10 @@ describe "Printing a letter", :js do
         click_on "Yes - remove from the Print Queue"
       end
 
-      wait_for_turbo_frame "letter-lists-turbo-frame"
-
       within("table.letters") do
         # TODO: Approved select above should trigger form submit! but does not
         # so filter not applied and still two rows here
-        # expect(page).to have_css("tbody tr", count: 0)
+        expect(page).to have_css("tbody tr", count: 0)
       end
 
       letter = Renalware::Letters::Letter.find(approved_letter.id)
@@ -118,9 +112,6 @@ describe "Printing a letter", :js do
       within(".search-form.filters") do
         select "Approved (Ready to Print)", from: "State"
       end
-
-      wait_for_turbo_frame "letter-lists-turbo-frame"
-      sleep 0.2
 
       within("table.letters") do
         expect(page).to have_content("RABBIT")

@@ -33,8 +33,8 @@ def add_class_to_world(klass_name)
 end
 add_class_to_world("World")
 
-require_relative "../../spec/support/ajax_helpers"
-World(AjaxHelpers)
+require_relative "../../spec/support/turbo_helper"
+World(TurboHelper)
 
 require_relative "../../spec/support/slim_select_helper"
 World(SlimSelectHelper)

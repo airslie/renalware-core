@@ -1,6 +1,7 @@
-describe "Creating an vaccination", :js do
-  include AjaxHelpers
+RSpec.describe "Creating an vaccination", :js do
   include DrugsSpecHelper
+  include NewSlimSelectHelper
+  include TurboHelper
 
   let(:event_date_time) { Time.zone.now }
   let(:vaccination_drug_type) { create(:drug_type, code: :vaccine, name: "Vaccine") }
@@ -20,13 +21,15 @@ describe "Creating an vaccination", :js do
       visit new_patient_event_path(patient)
 
       slim_select "Vaccination", from: "Event type"
-      wait_for_ajax
-      select "Vac Type A", from: "Type"
-      wait_for_turbo_frame :vaccination_drugs
-      select "ABC", from: "Drug"
 
-      # Now change vaccination type to make drugs dropdown reload
+      expect(page).to have_select "Drug", options: ["", "ABC"]
+
       select "Vac Type B", from: "Type"
+
+      # wait_for_turbo_frame is only needed here because the drug dropdown
+      # items are the same even though it's reloaded when the type is changed
+      # I'm guessing for Vaccinations the drugs are all the same but this isn't
+      # necessarily the case for all event types.
       wait_for_turbo_frame :vaccination_drugs
       select "ABC", from: "Drug"
 
@@ -55,12 +58,6 @@ describe "Creating an vaccination", :js do
       refresh_prescribable_drugs_materialized_view
 
       visit new_patient_virology_vaccination_path(patient)
-
-      wait_for_ajax
-      # fill_in "Date time", with: event_date_time
-      select "Vac Type A", from: "Type"
-      wait_for_turbo_frame :vaccination_drugs
-      select "ABC", from: "Drug"
 
       # Now change vaccination type to make drugs dropdown reload
       select "HBV Booster", from: "Type"

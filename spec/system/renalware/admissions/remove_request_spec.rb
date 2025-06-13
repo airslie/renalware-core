@@ -1,6 +1,4 @@
-describe "Remove Admission Request", :js do
-  include AjaxHelpers
-
+RSpec.describe "Remove Admission Request", :js do
   it "Clicking remove soft delete the request and removes it from the list" do
     user = login_as_clinical
     request = create(:admissions_request, by: user)

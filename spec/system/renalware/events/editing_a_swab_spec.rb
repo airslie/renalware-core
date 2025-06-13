@@ -1,6 +1,4 @@
-describe "Editing a swab", :js do
-  include AjaxHelpers
-
+RSpec.describe "Editing a swab", :js do
   it "allows a swab to be updated" do
     user = login_as_clinical
     patient = create(:patient, by: user)
