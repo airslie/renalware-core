@@ -1,4 +1,6 @@
 describe "Creating a investigation event", :js do
+  include NewSlimSelectHelper
+
   context "when adding a investigation event through the Events screen" do
     it "captures extra data" do
       user = login_as_clinical
@@ -12,7 +14,7 @@ describe "Creating a investigation event", :js do
       within("#event-type-specific-inputs") do
         expect(page).to have_content("Transplant recipient")
       end
-      sleep 0.2
+
       choose "Transplant recipient"
       select "Dental Check", from: "Type"
       fill_in "Result", with: "result"

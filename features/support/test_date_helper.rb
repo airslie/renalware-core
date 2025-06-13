@@ -3,10 +3,6 @@
 # a different Calendar widget.
 #
 module TestDateHelper
-  def fill_in_date_time(label, with:)
-    fill_in(label, with: with)
-  end
-
   def fake_date
     Date.parse("20-07-#{Date.current.year}")
   end

@@ -1,4 +1,6 @@
 describe "Creating an event", :js do
+  include NewSlimSelectHelper
+
   it "successfully adds a simple event" do
     user = login_as_clinical
     patient = create(:patient, by: user)
@@ -7,7 +9,7 @@ describe "Creating an event", :js do
     visit new_patient_event_path(patient)
 
     slim_select "Access--Clinic", from: "Event type"
-    sleep 0.1
+
     expect(page).to have_content("Description")
 
     fill_in "Description", with: "Test"

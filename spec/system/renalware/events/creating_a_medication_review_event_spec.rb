@@ -10,9 +10,8 @@ describe "Creating an medication review event", :js do
 
     # Do a dance to catch any errors switching event type
     slim_select "Renal biopsy", from: "Event type"
-    sleep 0.1
+
     slim_select "Medication Review", from: "Event type"
-    sleep 0.1
 
     click_on t("btn.create")
 

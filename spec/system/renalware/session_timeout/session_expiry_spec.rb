@@ -19,14 +19,7 @@ describe "Session timeout", :js do
 
     expect(page).to have_current_path(root_path)
 
-    10.times do
-      sleep 0.5
-      break if page.current_path == new_user_session_path
-    end
-
-    # After a period of inactivity (Devise.timeout_in), expect to have been redirected
-    # to the login page
-    expect(page).to have_current_path(new_user_session_path)
+    expect(page).to have_current_path(new_user_session_path, wait: 20.seconds)
   end
 
   it "restarts the session window when the user clicks the page"

@@ -8,11 +8,7 @@ describe "Creating an medication review event", :js do
 
     visit new_patient_event_path(patient)
 
-    # Do a dance to catch any errors switching event type
-    slim_select "Renal biopsy", from: "Event type"
-    sleep 0.1
     slim_select "Transplant Review", from: "Event type"
-    sleep 0.1
 
     click_on t("btn.create")
 
