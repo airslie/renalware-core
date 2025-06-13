@@ -78,6 +78,17 @@ module World
     module Web
       include Domain
 
+      # Couldn't remove wait_for_ajax from here but 2 things could change that.
+      # 1. Replacing use of select2 with slim_select (In progress)
+      # 2. Moving feature to a spec. Not directly related but should make it easier
+      def wait_for_ajax(timeout = Capybara.default_max_wait_time)
+        Timeout.timeout(timeout) do
+          loop until
+            page.driver.is_a?(Capybara::RackTest::Driver) ||
+            page.evaluate_script("jQuery.active").zero?
+        end
+      end
+
       # @section commands
       #
       def assign_contact(patient:, person:, user:, default_cc: false, description_name: "Sibling")

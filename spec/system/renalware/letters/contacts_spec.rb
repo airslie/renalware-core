@@ -1,6 +1,4 @@
-describe "Assign a contact to a patient", :js do
-  include AjaxHelpers
-
+RSpec.describe "Assign a contact to a patient", :js do
   describe "creating a contact" do
     context "with valid attributes" do
       it "responds successfully" do
@@ -40,8 +38,6 @@ describe "Assign a contact to a patient", :js do
         select contact_description.to_s, from: "Description"
         submit_form
       end
-
-      wait_for_ajax
     end
 
     def try_create_contact_with_invalid_params

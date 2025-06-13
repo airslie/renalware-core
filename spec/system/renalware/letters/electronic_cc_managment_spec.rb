@@ -1,6 +1,5 @@
-describe "Manage electronic CCs" do
+RSpec.describe "Manage electronic CCs" do
   include LettersSpecHelper
-  include AjaxHelpers
 
   it "Marks an Electronic CC as `read` for an approved letter", :js do
     user = login_as_clinical

@@ -1,12 +1,5 @@
-
-
 # rubocop:disable all
-describe(
-  "Administering drugs from HD Dashboard, independent of HD Session",
-  type: :system,
-  js: true
-) do
-  include AjaxHelpers
+RSpec.describe "Administering drugs from HD Dashboard, independent of HD Session", :js do
   let(:patient) { create(:hd_patient) }
 
   def create_prescription_for(patient, drug_name: "Drug1")
@@ -18,10 +11,11 @@ describe(
     )
   end
 
-  context "when the patient has a drug to be given on HD", js: true do
+  context "when the patient has a drug to be given on HD", :js do
     context "when I click on the HD Drugs button and choose the drug" do
       let(:patient) { create(:hd_patient) }
       let(:prescription) { create_prescription_for patient }
+
       NO_WITNESS = false
       WITNESS = true
       ADMINISTERED = true
@@ -114,7 +108,7 @@ describe(
     end
   end
 
-  context "when the patient has a drug to be given on HD", js: true do
+  context "when the patient has a drug to be given on HD", :js do
     context "when I click on the HD Drugs button and choose the drug" do
       it "displays a modal dialog asking for input, which I can cancel" do
         prescription = create_prescription_for patient
@@ -128,7 +122,7 @@ describe(
         expect(dialog).not_to be_visible
       end
 
-      context "when I indicate the drug was not given, and supply a reason", js: true do
+      context "when I indicate the drug was not given, and supply a reason", :js do
         it "saves the prescription administration and updates the drugs table" do
           prescription = create_prescription_for patient
           reason = Renalware::HD::PrescriptionAdministrationReason.find_or_create_by!(name: "Cos")
@@ -167,7 +161,7 @@ describe(
         end
       end
 
-      context "when drug WAS given, but user elects to witness later", js: true do
+      context "when drug WAS given, but user elects to witness later", :js do
         it "saves the prescription administration and updates the drugs table" do
           password = "renalware"
           nurse = create(:user, password: password)
@@ -206,7 +200,7 @@ describe(
         end
       end
 
-      context "when drug WAS given, AND witness is present to enter their credentials", js: true do
+      context "when drug WAS given, AND witness is present to enter their credentials", :js do
         it "saves the prescription administration and updates the drugs table" do
           password = "renalware"
           nurse = create(:user, password: password)

@@ -1,6 +1,4 @@
-describe "Assign a person as a main recipient" do
-  include AjaxHelpers
-
+RSpec.describe "Assign a person as a main recipient" do
   before do
     login_as_clinical
   end
@@ -53,8 +51,6 @@ describe "Assign a person as a main recipient" do
         click_on "Create"
       end
 
-      wait_for_ajax
-
       expect(page).to have_no_text("is already a contact for the patient")
     end
 
@@ -65,7 +61,6 @@ describe "Assign a person as a main recipient" do
         slim_select Renalware::User.first.to_s, from: "Author"
         choose("Patient's Contact")
       end
-      wait_for_ajax
     end
 
     def expect_letter_with_person_as_main_recipient

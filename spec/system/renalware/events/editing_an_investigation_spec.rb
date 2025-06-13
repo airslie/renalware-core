@@ -1,5 +1,4 @@
-describe "Editing an investigation", :js do
-  include AjaxHelpers
+RSpec.describe "Editing an investigation", :js do
   include PatientsSpecHelper
 
   it "allows an investigation to be updated" do

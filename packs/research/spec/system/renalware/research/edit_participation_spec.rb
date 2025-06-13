@@ -1,6 +1,4 @@
-describe "Edit a patient's participation in a study" do
-  include AjaxHelpers
-
+RSpec.describe "Edit a patient's participation in a study" do
   context "when the user is an investigator in the study" do
     it "Updating a participation" do
       user = login_as_admin

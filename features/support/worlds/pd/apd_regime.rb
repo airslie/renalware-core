@@ -69,11 +69,11 @@ module World
       # WIP
       # def add_bags_to_regime(regime:, user:, data:)
       #   data.each do |attrs|
-      #     find("a.add-bag").click && wait_for_ajax
-      #      within(".fields:last-child") do
-      #        select attrs["volume"], from: "Volume (ml)"
-      #        select attrs["name"], from: "* Bag type"
-      #      end
+      #     find("a.add-bag").click
+      #     within(".fields:last-child") do
+      #       select attrs["volume"], from: "Volume (ml)"
+      #       select attrs["name"], from: "* Bag type"
+      #     end
       #   end
       # end
     end

@@ -1,5 +1,4 @@
-describe "Print a patient's ESA drug list", :js do
-  include AjaxHelpers
+RSpec.describe "Print a patient's ESA drug list", :js do
   let(:esa_drug_type) { create(:drug_type, :esa) }
   let(:immuno_drug_type) { create(:drug_type, :immunosuppressant) }
   let(:esa_drug) do

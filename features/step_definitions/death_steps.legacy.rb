@@ -7,7 +7,6 @@ When /I select death modality/ do
     within ".patient-content" do
       within "#modality-description-select" do
         select "Death"
-        wait_for_ajax
       end
 
       fill_in "Started on", with: l(Time.zone.today)

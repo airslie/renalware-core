@@ -1,6 +1,4 @@
-describe "Managing an existing letter contact", :js do
-  include AjaxHelpers
-
+RSpec.describe "Managing an existing letter contact", :js do
   context "with valid parameters" do
     let(:user) { create(:user, :clinical) }
 
@@ -76,8 +74,6 @@ describe "Managing an existing letter contact", :js do
       within "#contacts table tbody tr:first-child" do
         click_on t("btn.edit")
       end
-
-      wait_for_ajax
 
       # Specify neither a description or other description
       select "", from: "Description"
