@@ -1,4 +1,6 @@
 describe "Create remote monitoring registration event", :js do
+  include NewSlimSelectHelper
+
   it "creates successfully" do
     user = login_as_clinical
     patient = create(:patient, family_name: "XXX", given_name: "Jon", by: user)
@@ -10,9 +12,6 @@ describe "Create remote monitoring registration event", :js do
     visit renalware.new_patient_event_path(patient)
 
     slim_select "Remote Monitoring Registration", from: "Event type"
-
-    # Custom inputs load via js
-    sleep 0.5
 
     #
     # First use invalid inputs to test re-display of form and routing etc

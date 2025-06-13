@@ -1,3 +1,5 @@
+require_relative "../../../../spec/support/new_slim_select_helper"
+
 module World
   module Clinics
     module ClinicVisits
@@ -77,6 +79,7 @@ module World
 
       module Web
         include Domain
+        include NewSlimSelectHelper
 
         def record_clinic_visit(patient, user)
           login_as user
@@ -117,8 +120,6 @@ module World
           find("trix-editor").set("Updated notes")
           # find("textarea[name='clinic_visit[notes]']").set("Updated notes")
           find("textarea[name='clinic_visit[admin_notes]']").set("Updated admin notes")
-          # Sleep otherwise the previous textarea update does not have time to register for reason
-          sleep 0.2
 
           submit_form
 

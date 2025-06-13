@@ -40,7 +40,7 @@ describe "Managing system messages that are displayed on the login page" do
     click_on t("btn.create")
 
     expect(page).to have_current_path(system_messages_path)
-    sleep 0.1
+
     within ".system-messages" do
       expect(page).to have_content("Test title")
       expect(page).to have_content("Test body")

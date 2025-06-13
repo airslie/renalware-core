@@ -109,10 +109,7 @@ describe "Managing a list of HD Slot Requests" do
         click_on "Create"
       end
 
-      expect(page).to have_current_path(renalware.patient_path(patient))
-
-      sleep 0.5
-      # TODO: Check the nag is displayed here on the page refresh!
+      expect(page).to have_content "HD slot requested"
 
       expect(Renalware::HD::SlotRequest.last).to have_attributes(
         location_id: location.id,

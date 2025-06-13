@@ -57,8 +57,6 @@ RSpec.describe "Printing a letter", :js do
 
       within("table.letters") do
         expect(page).to have_content("RABBIT")
-        # TODO: Approved select above should trigger form submit! but does not
-        # so filter not applied and still two rows here
         expect(page).to have_css("tbody tr", count: 1)
 
         # Print the letter
@@ -82,8 +80,6 @@ RSpec.describe "Printing a letter", :js do
       end
 
       within("table.letters") do
-        # TODO: Approved select above should trigger form submit! but does not
-        # so filter not applied and still two rows here
         expect(page).to have_css("tbody tr", count: 0)
       end
 
@@ -115,11 +111,8 @@ RSpec.describe "Printing a letter", :js do
 
       within("table.letters") do
         expect(page).to have_content("RABBIT")
-        # TODO: select above should trigger form submit! but does not
-        # so filter not applied and still two rows here
-        # expect(page).to have_css("tbody tr", count: 1)
+        expect(page).to have_css("tbody tr", count: 1)
 
-        # Print the letter
         click_on t("btn.print")
       end
 
@@ -135,9 +128,7 @@ RSpec.describe "Printing a letter", :js do
 
       expect(page).to have_no_content("Was printing successful?")
       within("table.letters") do
-        # TODO: select above should trigger form submit! but does not
-        # so filter not applied and still two rows here
-        # expect(page).to have_css("tbody tr", count: 1)
+        expect(page).to have_css("tbody tr", count: 1)
       end
 
       # Letter remains approved

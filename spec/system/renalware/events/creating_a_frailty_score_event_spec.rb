@@ -1,4 +1,9 @@
 describe "Creating an clinical frailty score event", :js do
+  let(:score_options) do
+    [""] +
+      Renalware::Events::ClinicalFrailtyScore::Document.score.options.map(&:first)
+  end
+
   context "when adding the event" do
     it "allows a user to also select the score from an event-specific dropdown" do
       user = login_as_clinical
@@ -10,10 +15,8 @@ describe "Creating an clinical frailty score event", :js do
 
       slim_select "Clinical Frailty Score", from: "Event type"
 
-      # something funky is happeining with the ajax, so wait a bit
-      sleep 0.2
-
-      select "9", from: "Score"
+      expect(page).to have_select "Score", options: score_options
+      select "9. Terminally Ill", from: "Score"
 
       click_on t("btn.create")
 

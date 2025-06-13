@@ -1,4 +1,6 @@
 describe "Creating an Advanced Care Plan event", :js do
+  include NewSlimSelectHelper
+
   context "when adding the event" do
     it "allows a user to also select the state from an event-specfic dropdown" do
       user = login_as_clinical
@@ -8,10 +10,8 @@ describe "Creating an Advanced Care Plan event", :js do
 
       visit new_patient_event_path(patient)
 
-      slim_select event_type.name, from: "* Event type"
+      slim_select event_type.name, from: "Event type"
 
-      # something funky is happeining with the ajax, so wait a bit
-      sleep 0.1
       select "ACP required but not started", from: "State"
 
       click_on t("btn.create")
