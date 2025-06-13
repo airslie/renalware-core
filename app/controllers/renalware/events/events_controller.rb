@@ -69,7 +69,8 @@ module Renalware
       end
 
       def destroy
-        load_and_authorize_event_for_edit_or_update.destroy!
+        event = load_and_authorize_event_for_edit_or_update
+        DeleteEvent.call(event: event)
         flash[:notice] = success_msg_for("event")
         redirect_to request.referer
       end

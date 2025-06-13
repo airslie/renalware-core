@@ -18,6 +18,7 @@ module Renalware
                :external_document_type_code,
                :external_document_type_description,
                :author,
+               :deleted_at,
                to: :renderable
 
       def initialize(renderable:, message_id:)
@@ -40,6 +41,8 @@ module Renalware
 
       attr_reader :renderable, :message_id, :msg
 
+      def deleted? = deleted_at.present?
+
       # E.g. MSH|^~\&|Renalware|MSE|||20210920180000||MDM^T02|RW0000000001|P|2.3.1
       def msh
         seg = HL7::Message::Segment::MSH.new
@@ -60,7 +63,7 @@ module Renalware
       def evn
         seg = HL7::Message::Segment::EVN.new
         seg.type_code = "T02"
-        seg.recorded_date = renderable.approved_at
+        seg.recorded_date = renderable.try(:approved_at) || renderable.created_at
         seg
       end
 
@@ -90,7 +93,6 @@ module Renalware
         end.join("~")
         seg.patient_name = "#{patient.family_name}^^#{patient.given_name}^^#{patient.title}"
         seg.patient_dob = patient.born_on&.strftime("%Y%m%d")
-        # seg.admin_sex = patient.sex
         seg
       end
 
@@ -113,7 +115,7 @@ module Renalware
         seg.origination_date_time = approved_at
         seg.unique_document_number = renderable.id
         seg.unique_document_file_name = filename
-        seg.document_completion_status = "AU"
+        seg.document_completion_status = deleted? ? "CA" : "AU"
         seg
       end
 

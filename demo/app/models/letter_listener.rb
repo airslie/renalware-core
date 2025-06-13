@@ -78,7 +78,13 @@ class LetterListener
   end
 
   # Outside txn, after letter deleted
-  def letter_deleted(letter); end
+  def letter_deleted(letter)
+    Renalware::Feeds::MarkOutgoingDocumentAsDeletedAndRequeue.call(
+      renderable: letter,
+      by: letter.deleted_by
+    )
+  end
+
   def rollback_letter_deleted; end
 
   private

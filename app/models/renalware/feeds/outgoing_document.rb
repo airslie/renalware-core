@@ -4,7 +4,7 @@ module Renalware
       include Accountable
       include RansackAll
 
-      belongs_to :renderable, polymorphic: true
+      belongs_to :renderable, -> { with_deleted }, polymorphic: true
       validates :state, presence: true
       enum :state, {
         queued: "queued",

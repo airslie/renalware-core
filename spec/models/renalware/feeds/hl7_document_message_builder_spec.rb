@@ -193,20 +193,20 @@ module Renalware
           context "when the letter has an associated clinic visit" do
             it "includes a PV1 segment with clinic cod and visit number from the A05 HL7 message" do
               allow(Renalware::Letters::Rendering::PdfRenderer).to receive(:call).and_return("A") # base64='QQ=='
-              clin = create(
+              clinic = create(
                 :clinic,
                 code: "C1"
               )
               cv = create(
                 :clinic_visit,
-                clinic: clin,
+                clinic: clinic,
                 patient_id: patient.id,
                 date: "2021-12-01",
                 time: "09:01:01"
               )
               create(
                 :appointment,
-                clinic: clin,
+                clinic: clinic,
                 patient_id: patient.id,
                 becomes_visit_id: cv.id,
                 visit_number: "V1"
@@ -266,6 +266,25 @@ module Renalware
                 "OBX|1|ED|||^TEXT^PDF^Base64^QQ=="
               )
             end
+          end
+        end
+
+        context "when the outgoing_document is marked as deleted" do
+          it "Sets TXA.19 = 'CA' (deleted)" do
+            stub_rendering(:pdf, "A")
+            letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
+              patient: patient,
+              clinical: true,
+              author: user
+            )
+            letter.update_column(:deleted_at, Time.zone.now)
+            letter.reload
+
+            msg = described_class.call(renderable: letter, message_id: 123)
+
+            txa = msg[:TXA]
+            expect(txa.document_completion_status).to eq("CA") # deleted
+            expect(txa.unique_document_number).to eq(letter.id.to_s)
           end
         end
       end
