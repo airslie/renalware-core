@@ -1,6 +1,5 @@
 describe "Prescriptions - from an exit site infection", :js do
   include DrugsSpecHelper
-  include NewSlimSelectHelper
 
   let(:user) { create(:user, :clinical, additional_roles: :prescriber) }
   let(:patient) { create(:pd_patient, by: user) }
@@ -41,11 +40,9 @@ describe "Prescriptions - from an exit site infection", :js do
     click_link "Add Prescription"
     slim_select "Blue Pill", from: "Drug", wait_for: "Search term must be"
 
-    # Should automatically pre-populate as only 1 option available
-    # `visible: :hidden` -> due to slim select
-    # TODO: detect correct readonly ame and hidden field are present
-    # expect(page).to have_select "Unit of measure", selected: "Ampoule", visible: :hidden
-    # expect(page).to have_select "Route", selected: "Oral", visible: :hidden
+    # Automatically pre-populates as only 1 option available
+    expect(page).to have_content "Unit of measure\nAmpoule"
+    expect(page).to have_content "Route\nOral"
 
     # Complete all required fields
     fill_in "Dose amount", with: 1

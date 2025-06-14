@@ -57,9 +57,7 @@ module Pages
       end
 
       def administered_by=(user)
-        within ".user-and-password--administrator" do
-          slim_select user.given_name, from: "hd_prescription_administration_administered_by_id"
-        end
+        slim_select user.given_name, from: "hd_prescription_administration_administered_by_id"
       end
 
       def administered_by_password=(password)
@@ -75,9 +73,7 @@ module Pages
       def witnessed_by=(user)
         return if user.blank?
 
-        within ".user-and-password--witness" do
-          slim_select user.given_name, from: "hd_prescription_administration_witnessed_by_id"
-        end
+        slim_select user.given_name, from: "hd_prescription_administration_witnessed_by_id"
       end
 
       def witnessed_by_password=(password)

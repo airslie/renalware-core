@@ -1,6 +1,5 @@
 describe "Prescriptions - create / edit / terminate", :js do
   include DrugsSpecHelper
-  include NewSlimSelectHelper
 
   let(:user) { create(:user, :clinical, additional_roles: :hd_prescriber) }
   let(:patient) { create(:patient, by: user) }
@@ -189,11 +188,11 @@ describe "Prescriptions - create / edit / terminate", :js do
 
       slim_select "Blue Pill (TradeFamily)", from: "Drug", wait_for: "Search term must be"
       # most dropdowns are automatically selected to the first option
-      # expect(page).to have_select "Unit of measure", selected: "Ampoule", visible: :hidden
-      # expect(page).to have_select "Route", selected: "Oral", visible: :hidden
-      # expect(page).to have_select "Form", selected: "Capsule", visible: :hidden
+      expect(page).to have_content "Unit of measure\nAmpoule"
+      expect(page).to have_content "Route\nOral"
+      expect(page).to have_content "Form\nCapsule"
 
-      fill_in "Dose amount", with: 1
+      fill_in "Dose amount", with: "1"
 
       click_button "Create"
 

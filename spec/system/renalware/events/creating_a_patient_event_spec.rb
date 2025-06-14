@@ -1,5 +1,4 @@
 RSpec.describe "Creating a patient event", :js do
-  include NewSlimSelectHelper
   include DateHelpers
 
   let(:patient) { create(:patient) }

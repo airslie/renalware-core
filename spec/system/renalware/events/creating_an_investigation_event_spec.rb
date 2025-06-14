@@ -1,6 +1,4 @@
 describe "Creating a investigation event", :js do
-  include NewSlimSelectHelper
-
   context "when adding a investigation event through the Events screen" do
     it "captures extra data" do
       user = login_as_clinical

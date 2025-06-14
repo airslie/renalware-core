@@ -1,5 +1,3 @@
-require_relative "../../../../spec/support/new_slim_select_helper"
-
 module World
   module Clinics
     module ClinicVisits
@@ -79,16 +77,16 @@ module World
 
       module Web
         include Domain
-        include NewSlimSelectHelper
 
         def record_clinic_visit(patient, user)
           login_as user
 
           visit new_patient_clinic_visit_path(patient_id: patient)
 
+          within(".document") { fill_in "Date", with: "20-07-2015" }
+          slim_select "Access", from: "Clinic"
+
           within ".document" do
-            fill_in "Date", with: "20-07-2015"
-            slim_select "Access", from: "Clinic"
             fill_in "Height", with: "1.78"
             fill_in "Weight", with: "82.5"
             fill_in "Pulse", with: "100"

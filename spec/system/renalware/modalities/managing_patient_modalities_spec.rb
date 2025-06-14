@@ -18,7 +18,80 @@ describe "Managing a patient's modalities", js: false do
     allow(Renalware.config).to receive(:allow_modality_history_amendments).and_return(true)
   end
 
-  pending "adding a modality"
+  describe "Doctor", :js do
+    # NB: Although its not best practice, the death scenario below cuts across
+    # other modules to test the impact changing the modality to Death on for
+    # example Letters and Prescriptions.
+    it "adds a modality for a patient" do
+      hd_mod_desc
+      login_as_super_admin
+      visit new_patient_modality_path(patient)
+
+      select "HD", from: "Description"
+      select "Other", from: "Type of Change"
+      fill_in "Started on", with: "01-12-2014"
+      fill_in "Notes", with: "Needs wheel chair access"
+      click_on "Create"
+
+      expect(page).to have_content("Other")
+    end
+
+    it "adds a death modality for a patient" do
+      create(:modality_description, :death)
+      create(:cause_of_death, :dementia)
+      create(:cause_of_death, :cachexia)
+      patient.update_columns(cc_on_all_letters: true, cc_decision_on: "01-01-2013")
+      login_as_super_admin
+      visit new_patient_modality_path(patient)
+
+      accept_alert do
+        within ".patient-content" do
+          select "Death", from: "Description"
+
+          fill_in "Started on", with: l(Time.zone.today)
+          find_by_id("modality_started_on").send_keys(:escape)
+          select "Other", from: "Type of Change"
+          click_on t("btn.create")
+        end
+      end
+
+      expect(page).to have_content "Cause of Death"
+
+      within ".edit_patient" do
+        fill_in "Date of Death", with: l(Time.zone.today)
+        find_by_id("patient_died_on").send_keys(:escape)
+
+        select "Dementia", from: "Cause of Death (1)"
+        select "Cachexia", from: "Cause of Death (2)"
+
+        fill_in "Notes", with: "Heart stopped"
+
+        click_on t("btn.save")
+      end
+
+      visit patient_modalities_path(patient)
+
+      expect(page).to have_content "Death"
+      expect(page).to have_content(l(Time.zone.today))
+
+      visit patient_clinical_profile_path(patient)
+
+      expect(page).to have_content(l(Time.zone.today))
+      expect(page).to have_content("Dementia")
+      expect(page).to have_content("Cachexia")
+
+      visit patient_deaths_path
+      within("#patients-deceased") do
+        expect(page).to have_content(patient.nhs_number_formatted)
+        expect(page).to have_content("M")
+      end
+
+      patient.reload
+      expect(patient.cc_on_all_letters).to be_falsey
+      expect(patient.cc_decision_on).to eq(Time.zone.today)
+      expect(Renalware::HD.cast_patient(patient).hd_profile).to be_nil
+    end
+  end
 
   describe "listing modalities" do
     context "when two modalities overlap" do
