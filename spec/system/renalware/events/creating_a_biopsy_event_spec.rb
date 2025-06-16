@@ -1,6 +1,4 @@
 describe "Creating an biopsy", :js do
-  include NewSlimSelectHelper
-
   context "when adding a biopsy event" do
     it "captures extra data" do
       user = login_as_clinical

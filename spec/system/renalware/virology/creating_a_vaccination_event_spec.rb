@@ -1,6 +1,5 @@
 RSpec.describe "Creating an vaccination", :js do
   include DrugsSpecHelper
-  include NewSlimSelectHelper
   include TurboHelper
 
   let(:event_date_time) { Time.zone.now }

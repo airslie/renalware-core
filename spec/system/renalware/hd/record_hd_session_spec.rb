@@ -1,6 +1,4 @@
 RSpec.describe "Recording an HD session", :js do
-  include NewSlimSelectHelper
-
   let(:prescriber) { create(:user, role: "clinical") }
   let(:other_nurse) { create(:user, role: "clinical") }
   let(:nurse) { create(:user, role: "clinical") }

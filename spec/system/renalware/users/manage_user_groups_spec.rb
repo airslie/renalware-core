@@ -36,7 +36,7 @@ describe "A superadmin lists groups", :js do
 
     fill_in "Name", with: "Group1"
     fill_in "Description", with: "abc"
-    slim_select another_user.to_s, from: "Users"
+    slim_select another_user.to_s, from: "Users", multi: true
     click_on "Create"
 
     expect(page).to have_current_path(renalware.user_groups_path)
@@ -57,7 +57,7 @@ describe "A superadmin lists groups", :js do
     end
     fill_in "Name", with: "GroupX"
     fill_in "Description", with: "abc"
-    slim_select another_user.to_s, from: "Users"
+    slim_select another_user.to_s, from: "Users", multi: true
     click_on "Save"
 
     expect(page).to have_current_path(renalware.user_groups_path)

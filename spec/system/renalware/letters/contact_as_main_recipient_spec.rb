@@ -55,10 +55,14 @@ RSpec.describe "Assign a person as a main recipient" do
     end
 
     def fill_out_letter
+      slim_select "::description::", from: "Topic"
       within "#letter-form" do
-        slim_select "::description::", from: "Topic"
         select Renalware::Letters::Letterhead.first.name, from: "Letterhead"
-        slim_select Renalware::User.first.to_s, from: "Author"
+      end
+
+      slim_select Renalware::User.first.to_s, from: "Author"
+
+      within "#letter-form" do
         choose("Patient's Contact")
       end
     end

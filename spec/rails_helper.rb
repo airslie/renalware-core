@@ -65,9 +65,19 @@ RSpec.configure do |config|
     )
   end
 
+  # Nicer looking HTML pages when calling save_page in System specs
+  # This works in conjunction with the assets process in process-compose. If
+  # the page doesn't look right try running the precompile process specified there.
+  Capybara.asset_host = "http://localhost:3000"
+
   config.before(:each, :js, type: :system) do
-    # driven_by :rw_headless_chrome
     driven_by :my_playwright
+  end
+
+  config.after(:each, type: :system) do |example|
+    if example.exception
+      save_page # rubocop:disable Lint/Debugger
+    end
   end
 
   # Make I18n t() and l() helpers available

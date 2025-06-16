@@ -7,5 +7,15 @@ FactoryBot.define do
     }
     code { "12" }
     description { "Hyperkalaemia" }
+
+    trait :dementia do
+      code { "69" }
+      description { "Dementia" }
+    end
+
+    trait :cachexia do
+      code { "64" }
+      description { "Cachexia" }
+    end
   end
 end

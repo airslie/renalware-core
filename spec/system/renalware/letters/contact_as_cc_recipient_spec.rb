@@ -71,8 +71,12 @@ RSpec.describe "Assign a person as a CC recipient", :js do
     def fill_out_letter
       within "#letter-form" do
         select Renalware::Letters::Letterhead.first.name, from: "Letterhead"
-        slim_select Renalware::User.first.to_s, from: "Author"
-        slim_select "::description::", from: "Topic"
+      end
+
+      slim_select "::description::", from: "Topic"
+      slim_select Renalware::User.first.to_s, from: "Author"
+
+      within "#letter-form" do
         choose("Primary Care Physician")
       end
     end

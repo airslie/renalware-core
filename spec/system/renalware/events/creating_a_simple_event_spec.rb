@@ -1,6 +1,4 @@
 describe "Creating an event", :js do
-  include NewSlimSelectHelper
-
   it "successfully adds a simple event" do
     user = login_as_clinical
     patient = create(:patient, by: user)
