@@ -29,7 +29,7 @@ ruby:
               wrapper: :horizontal_large
     = f.association :signed_on_by,
                     as: :user_picker,
-                    collection: Renalware::User.ordered,
+                    collection: Renalware::User.active,
                     wrapper: :horizontal_medium
 
 .row.top

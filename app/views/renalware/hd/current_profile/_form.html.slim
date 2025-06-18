@@ -27,7 +27,7 @@ ruby:
                 wrapper: :horizontal_small
       = f.input :named_nurse_id,
                 as: :user_picker,
-                collection: Renalware::User.ordered,
+                collection: Renalware::User.active,
                 wrapper: :horizontal_medium
       = f.input :home_machine_identifier,
                 wrapper: :horizontal_medium,
@@ -43,7 +43,7 @@ ruby:
                 wrapper: :horizontal_datepicker
       = f.association :prescriber,
                       as: :user_picker,
-                      collection: Renalware::User.ordered,
+                      collection: Renalware::User.active,
                       wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
@@ -122,7 +122,7 @@ ruby:
           = fcm.input :decided_on, as: :flatpickr, wrapper: :horizontal_datepicker
         = f.association :transport_decider,
                         as: :user_picker,
-                        collection: Renalware::User.ordered,
+                        collection: Renalware::User.active,
                         wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",

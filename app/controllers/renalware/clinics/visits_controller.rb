@@ -13,7 +13,7 @@ module Renalware
           visits: CollectionPresenter.new(visits, ClinicVisitPresenter),
           query: visits_query.search,
           clinics: Clinic.ordered,
-          users: User.ordered,
+          users: User.active,
           pagy: pagy
         }
       end

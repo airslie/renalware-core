@@ -20,7 +20,7 @@
                           include_blank: "None"
           = f.association :named_nurse,
                       as: :user_picker,
-                      collection: Renalware::User.ordered,
+                      collection: Renalware::User.active,
                       wrapper: :horizontal_medium,
                       include_blank: "None"
           = f.association :hospital_centre,

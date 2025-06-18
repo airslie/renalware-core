@@ -28,7 +28,7 @@
       .w-72
         = f.input :author_id_eq,
                   as: :user_picker,
-                  collection: Renalware::User.ordered.select(:id, :family_name, :given_name),
+                  collection: Renalware::User.active.select(:id, :family_name, :given_name),
                   label: "Author",
                   include_blank: true,
                   input_html: { data: { controller: "slimselect", action: "change->form#submit" } }
@@ -36,7 +36,7 @@
       .w-72
         = f.input :typist_id_eq,
                   as: :user_picker,
-                  collection: Renalware::User.ordered.select(:id, :family_name, :given_name),
+                  collection: Renalware::User.active.select(:id, :family_name, :given_name),
                   label: "Typist",
                   include_blank: true,
                   input_html: { data: { controller: "slimselect", action: "change->form#submit" } }

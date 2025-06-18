@@ -111,6 +111,22 @@ module Renalware
         end
       end
 
+      describe "active" do
+        let!(:activeB) { create(:user, family_name: "B", given_name: "aa") }
+        let!(:activeA) { create(:user, family_name: "A", given_name: "bb") }
+
+        before do
+          create(:user, hidden: true)
+          create(:user, banned: true)
+          create(:user, last_activity_at: 90.days.ago)
+          create(:user, last_activity_at: nil)
+        end
+
+        it "retreives users that are not hidden, inactive or banned" do
+          expect(described_class.active).to eq [activeA, activeB]
+        end
+      end
+
       describe "unapproved" do
         it "retrieves unapproved users" do
           approved = create(:user)
@@ -125,13 +141,11 @@ module Renalware
 
       describe "inactive" do
         it "retrieves inactive users" do
-          active = create(:user, last_activity_at: 1.minute.ago)
+          create(:user, last_activity_at: 1.minute.ago)
           inactive = create(:user, last_activity_at: 90.days.ago)
+          never_used = create(:user, last_activity_at: nil, created_at: 90.days.ago)
 
-          actual = described_class.inactive
-          expect(actual.size).to eq(1)
-          expect(actual).to include(inactive)
-          expect(actual).not_to include(active)
+          expect(described_class.inactive).to eq [inactive, never_used]
         end
       end
 
