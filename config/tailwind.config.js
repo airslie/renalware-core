@@ -38,6 +38,10 @@ module.exports = {
       `${process.cwd()}/app/presenters/*.rb`,
       "../**/app/javascript/**/*",
       `${process.cwd()}/app/javascript/**/*`,
+
+      // Exclude node_modules
+      "!../**/node_modules/**/*",
+      `!${process.cwd()}/node_modules/**/*`,
     ],
   },
   safelist: [

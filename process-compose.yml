@@ -18,8 +18,8 @@ processes:
     command: yarn build --watch
 
   css:
+    is_tty: true
     command: yarn build:css --watch
-    # --watch not working here
 
   # Precompile assets in test for nicer Capybara page snapshots
   assets:
