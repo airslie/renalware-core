@@ -13,7 +13,7 @@
 
 = f.association :assessor,
                 as: :user_picker,
-                collection: Renalware::User.ordered,
+                collection: Renalware::User.active,
                 wrapper_html: { class: "w-1/2 mb-4" }
 
 = save_or_cancel(form: f, back_path: return_url)

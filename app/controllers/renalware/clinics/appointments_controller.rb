@@ -15,7 +15,7 @@ module Renalware
           form: search_form,
           search: query.search,
           clinics: Clinic.ordered,
-          users: User.ordered,
+          users: User.active,
           request_html_form_params: build_params_for_html_form(appointments),
           pagy: pagy
         }

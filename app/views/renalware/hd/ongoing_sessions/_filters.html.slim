@@ -14,7 +14,7 @@
       .small-4.medium-3.large-2.columns
         = f.label "Named nurse"
         = f.collection_select :patient_named_nurse_id_eq,
-            Renalware::User.ordered,
+            Renalware::User.active,
             :id,
             :to_s,
             include_blank: true

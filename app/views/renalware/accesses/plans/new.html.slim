@@ -17,7 +17,7 @@
 
       = f.association :decided_by,
                       as: :user_picker,
-                      collection: Renalware::User.ordered,
+                      collection: Renalware::User.active,
                       wrapper: :horizontal_medium
 
       = save_or_cancel(form: f, back_path: patient_accesses_dashboard_path(patient))

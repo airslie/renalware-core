@@ -76,7 +76,7 @@
               = fpa.label :"#{prefix}_by"
               = fpa.association :"#{prefix}_by",
                                 as: :user_picker,
-                                collection: Renalware::User.ordered,
+                                collection: Renalware::User.active,
                                 wrapper: :zilch,
                                 label: false,
                                 input_html: { class: "authentication-user-id" }

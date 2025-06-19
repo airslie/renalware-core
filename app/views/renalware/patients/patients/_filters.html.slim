@@ -4,7 +4,7 @@
       .row
         .columns.small-12.medium-6
           = f.select(:named_nurse_id_eq,
-              options_from_collection_for_select(Renalware::User.ordered,
+              options_from_collection_for_select(Renalware::User.active,
                                                 :id,
                                                 :to_s,
                                                 search.named_nurse_id_eq),

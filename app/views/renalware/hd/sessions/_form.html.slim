@@ -51,7 +51,7 @@ ruby:
 
       = f.association :signed_on_by,
                       as: :user_picker,
-                      collection: Renalware::User.ordered,
+                      collection: Renalware::User.active,
                       wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
@@ -63,7 +63,7 @@ ruby:
 
       = f.association :signed_off_by,
                       as: :user_picker,
-                      collection: Renalware::User.ordered,
+                      collection: Renalware::User.active,
                       wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",

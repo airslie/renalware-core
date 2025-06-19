@@ -46,7 +46,7 @@
   = f.input :transferred_on, as: :flatpickr, wrapper: :horizontal_datepicker
   = f.association :seen_by,
                   as: :user_picker,
-                  collection: Renalware::User.ordered,
+                  collection: Renalware::User.active,
                   wrapper: :hz_md
   = f.input :contact_number, wrapper: :hz_md
 

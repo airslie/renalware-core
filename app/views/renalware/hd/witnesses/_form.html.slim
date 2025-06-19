@@ -33,7 +33,7 @@
 
       = f.input :user_id,
                 as: :user_picker,
-                collection: Renalware::User.ordered,
+                collection: Renalware::User.active,
                 wrapper: :hz_sm
       = f.input :password,
                 as: :password,

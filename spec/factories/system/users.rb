@@ -18,6 +18,7 @@ FactoryBot.define do
     signature { Faker::Name.name }
     prescriber { true }
     hospital_centre
+    last_activity_at { 1.minute.ago }
 
     # By default a user has no roles.
     # If you want a use with a role, use a trait, e.g. create(:user, :clinical)

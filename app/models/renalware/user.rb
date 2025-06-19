@@ -34,9 +34,13 @@ module Renalware
 
     scope :unapproved, -> { where(approved: [nil, false]) }
     scope :expired, -> { where.not(expired_at: nil) }
-    scope :inactive, lambda {
-      where("last_activity_at IS NOT NULL AND last_activity_at < ?", expire_after.ago)
-    }
+    scope :never_used, -> { where(last_activity_at: nil).where(created_at: ...expire_after.ago) }
+    scope :inactive, -> do
+      where
+        .not(last_activity_at: nil)
+        .where(last_activity_at: ...expire_after.ago)
+        .or(never_used)
+    end
     scope :excludable, -> { unapproved.or(inactive).or(expired).or(hidden) }
     scope :author, -> { where.not(signature: nil) }
     scope :ordered, -> { visible.order(:family_name, :given_name) }
@@ -45,6 +49,12 @@ module Renalware
     scope :visible, -> { where(hidden: false) }
     scope :hidden, -> { where(hidden: true) }
     scope :picklist, -> { visible.ordered }
+    scope :active, -> do
+      visible
+        .where(last_activity_at: expire_after.ago...)
+        .where.not(banned: true)
+        .ordered
+    end
 
     store_accessor :preferences, :experimental_features
 
