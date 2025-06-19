@@ -8,7 +8,7 @@
                   collection: obr_filter_options,
                   label: "Filter by Code",
                   label_method: ->(arr) { "#{arr[0]} - #{arr[2]}" },
-                  input_html: { class: "searchable_select" }
+                  input_html: { data: { controller: "slimselect" } }
 
       .columns.medium-2.large-2.actions.end
         .mt-px= filter_or_reset(form: f, reset_path: renalware.patient_pathology_observation_requests_path(patient))

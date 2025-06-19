@@ -51,10 +51,7 @@ module World
         login_as user
 
         visit new_patient_pd_peritonitis_episode_path(patient)
-        select2(
-          "Recurrent",
-          css: "#peritonitis_episode_types"
-        )
+        slim_select("Recurrent", from: "Episode types", multi: true)
 
         fill_in "Diagnosed on", with: diagnosed_on
 
@@ -70,12 +67,11 @@ module World
         within "##{dom_id(episode)}" do
           click_on t("btn.edit")
 
-          expect(page).to have_css(".select2-container")
-          select2("Relapsing", css: "#peritonitis_episode_types")
+          slim_select("Relapsing", from: "Episode types", multi: true)
           fill_in "Diagnosed on", with: diagnosed_on
           click_on t("btn.save")
-          expect(page).to have_content "Peritonitis Episode Notes"
         end
+        expect(page).to have_content "Peritonitis Episode Notes"
       end
     end
   end

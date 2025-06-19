@@ -1,9 +1,5 @@
 module SlimSelectHelper
-  # This helper must be used outside of any within blocks due to Slim Select
-  # inserting it's content at the bottom of the HTML page. It's possbile to
-  # tell Capybara to find elements globally but it would further complicate
-  # this code.
-  def slim_select(item_text, options)
+  def slim_select(item_text, options) # rubocop:disable Metrics/AbcSize
     # Find the correct dropdown at the bottom of the page
     expect(page).to have_field(options[:from], visible: :all)
     select_box = find_field(options[:from], visible: :all)
@@ -12,8 +8,9 @@ module SlimSelectHelper
     # Click on the dropdown to show it
     find(".ss-main[data-id='#{data_id}'] .ss-arrow").click
 
-    # Click on the appropriate item in the list
-    within(".ss-content[data-id='#{data_id}']") do
+    # Click on the appropriate item in the list, which is at the bottom of the DOM.
+    # Using page.document here to search globally, in case the caller is inside a within block.
+    within(page.document.find(".ss-content[data-id='#{data_id}']")) do
       wait_for_list item_text, options[:wait_for]
       find(".ss-search input").set(search_term(item_text))
       wait_and_click_on item_text

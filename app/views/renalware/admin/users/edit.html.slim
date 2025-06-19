@@ -94,7 +94,7 @@
                       collection: Renalware::Hospitals::Centre.ordered.pluck(:name, :id),
                       wrapper: :horizontal_medium,
                       include_blank: "None",
-                      input_html: { class: "searchable_select" }
+                      input_html: { data: { controller: "slimselect" } }
 
       .flex.flex-row-reverse.gap-2.mt-4
 
