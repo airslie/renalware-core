@@ -35,7 +35,9 @@
     "PLAYWRIGHT_BROWSERS_PATH": "$DEVBOX_PACKAGES_DIR",
   },
   "shell": {
-    "init_hook": [],
+    "init_hook": [
+      "[ -f \"$SETUP_COMPLETE\" ] || bundle check || bundle"
+    ],
     "scripts": {
       "purge": [
         "rm -rf $PGDATA && mkdir -p $PGDATA",
