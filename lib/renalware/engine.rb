@@ -200,7 +200,8 @@ module Renalware
     # config.view_component.test_controller = "Renalware::BaseController"
 
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
-    config.autoload_paths += %W(#{config.root}/app/validators/concerns)
+    config.autoload_paths << config.root.join("app/validators/concerns")
+    config.autoload_paths << config.root.join("app/view_components")
 
     config.generators do |gens|
       gens.test_framework :rspec
@@ -210,7 +211,7 @@ module Renalware
     # rubocop:disable Layout/ClassStructure
     initializer :add_locales do |app|
       app.config.i18n.load_path += Dir[config.root.join("config/locales/**/*.yml")]
-      app.config.i18n.load_path += Dir[config.root.join("app/components/**/*.yml")]
+      app.config.i18n.load_path += Dir[config.root.join("app/view_components/**/*.yml")]
       app.config.available_locales = [:en] # [:en, :pt]
       app.config.i18n.default_locale = :"en-GB"
       app.config.i18n.fallbacks = [:en]

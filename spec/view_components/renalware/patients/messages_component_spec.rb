@@ -36,9 +36,7 @@ describe Renalware::Patients::MessagesComponent, type: :component do
       expect(page).to have_content(l(Date.current))
       expect(page).to have_content(user.to_s)
     end
-  end
 
-  context "when a patient has messages about them" do
     it "displays a 'no messages' message!" do
       user = create(:patients_user)
       patient = create(:patient, by: user)

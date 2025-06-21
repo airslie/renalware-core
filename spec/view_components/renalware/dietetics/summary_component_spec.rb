@@ -61,8 +61,6 @@ module Renalware
           expect(page).to have_content("Dietetic Profile")
           expect(page).to have_content("Date")
           expect(page).to have_content("Ideal body weight")
-          expect(page).to have_content("Estimated energy intake")
-          expect(page).to have_content("Estimated energy requirement")
           expect(page).to have_content("Sga")
           expect(page).to have_content("Estimated energy intake")
           expect(page).to have_content("Estimated energy requirement")

@@ -88,6 +88,7 @@ describe Renalware::Problems::Comorbidities::SummaryComponent, type: :component 
         )
 
         render_inline(component)
+        expect(page).to have_content "Yes01-Jan-2010"
       end
     end
   end

@@ -42,7 +42,7 @@ module Renalware
             # but rather messy.
             # Both the above approaches cause a double render of the of the target page unfort.
             # Awaiting a better, perhaps built-in, solution in a future Turbo version.
-            # Note our modal setup works in tandem with app/components/modal_component
+            # Note our modal setup works in tandem with app/view_components/modal_component
             # and app/javascript/turbo_modal_component. Its an evolving approach because, as I say,
             # Turbo is still working out the best approach. There are suggestions on how to handle
             # breaking out without a double render here https://github.com/hotwired/turbo/issues/257
