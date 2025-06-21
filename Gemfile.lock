@@ -278,7 +278,6 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    backport (1.2.0)
     base64 (0.2.0)
     bcp47 (0.3.3)
       i18n
@@ -481,7 +480,6 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jaro_winkler (1.6.1)
     jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -507,10 +505,6 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    kramdown (2.5.1)
-      rexml (>= 3.3.9)
-    kramdown-parser-gfm (1.1.0)
-      kramdown (~> 2.0)
     language_server-protocol (3.17.0.5)
     launchy (3.1.1)
       addressable (~> 2.8)
@@ -572,7 +566,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-gnu)
       racc (~> 1.4)
-    observer (0.1.2)
     octokit (4.25.1)
       faraday (>= 1, < 3)
       sawyer (~> 0.9)
@@ -784,8 +777,6 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    reverse_markdown (3.0.0)
-      nokogiri
     rexml (3.4.1)
     rqrcode (2.2.0)
       chunky_png (~> 1.0)
@@ -861,6 +852,11 @@ GEM
       rubocop-rspec (~> 3.5)
     ruby-hl7 (1.4.0)
       rake (>= 12.3.3)
+    ruby-lsp (0.24.2)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 1.2, < 2.0)
+      rbs (>= 3, < 5)
+      sorbet-runtime (>= 0.5.10782)
     ruby-prof (1.7.2)
       base64
     ruby-progressbar (1.13.0)
@@ -916,29 +912,11 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (>= 3.0, < 6.0, != 5.0.0)
-    solargraph (0.54.5)
-      backport (~> 1.2)
-      benchmark (~> 0.4)
-      bundler (~> 2.0)
-      diff-lcs (~> 1.4)
-      jaro_winkler (~> 1.6, >= 1.6.1)
-      kramdown (~> 2.3)
-      kramdown-parser-gfm (~> 1.1)
-      logger (~> 1.6)
-      observer (~> 0.1)
-      ostruct (~> 0.6)
-      parser (~> 3.0)
-      rbs (~> 3.3)
-      reverse_markdown (~> 3.0)
-      rubocop (~> 1.38)
-      thor (~> 1.0)
-      tilt (~> 2.0)
-      yard (~> 0.9, >= 0.9.24)
-      yard-solargraph (~> 0.1)
     solid_cache (1.0.7)
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
+    sorbet-runtime (0.5.12196)
     sprockets (4.2.2)
       concurrent-ruby (~> 1.0)
       logger
@@ -1034,8 +1012,6 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.37)
-    yard-solargraph (0.1.0)
-      yard (~> 0.9)
     zeitwerk (2.7.3)
 
 PLATFORMS
@@ -1108,13 +1084,13 @@ DEPENDENCIES
   rubocop-rake
   rubocop-rspec
   rubocop-rspec_rails
+  ruby-lsp (~> 0.24.2)
   ruby-prof
   sentry-opentelemetry
   sentry-rails
   sentry-ruby
   shoulda-matchers (~> 6.1)
   simplecov (~> 0.17)
-  solargraph
   solid_cache
   sprockets-rails
   stackprof
