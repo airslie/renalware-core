@@ -100,7 +100,7 @@ group :development do
   gem "rubocop-rake", require: false
   gem "rubocop-rspec", require: false
   gem "rubocop-rspec_rails", require: false
-  gem "solargraph"
+  gem "ruby-lsp", "~> 0.24.2", require: false
   gem "web-console"
 
   # For sentry error reporting and metrics - load stackprof first
@@ -116,6 +116,7 @@ end
 group :development, :test do
   gem "brakeman"
   gem "bundler-audit", require: false
+  gem "capybara-playwright-driver"
   # Start debugger with binding.b [https://github.com/ruby/debug]
   gem "debug", ">= 1.0.0", platforms: %i(mri mingw x64_mingw)
   gem "factory_bot_rails", "~> 6.2"
@@ -125,6 +126,4 @@ group :development, :test do
   gem "rspec-rails"
   gem "rubocop", require: false
   gem "wkhtmltopdf-binary", "0.12.6.8"
-
-  gem "capybara-playwright-driver"
 end

@@ -1,7 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.2/.schema/devbox.schema.json",
   "packages": {
-    "ruby":       "3.4",
     "postgresql": "16",
     "libyaml": {
       "version": "latest",
@@ -29,6 +28,7 @@
     },
     "playwright-driver.browsers": "",
     "pandoc":                     "latest",
+    "ruby":                       "3.4.3",
   },
   "env": {
     "SETUP_COMPLETE":           "$DEVBOX_PROJECT_ROOT/.devbox/.setup-complete",
@@ -36,7 +36,7 @@
   },
   "shell": {
     "init_hook": [
-      "[ -f \"$SETUP_COMPLETE\" ] || bundle check || bundle"
+      "[ -f \"$SETUP_COMPLETE\" ] || bundle check || bundle",
     ],
     "scripts": {
       "purge": [
