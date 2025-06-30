@@ -1,4 +1,4 @@
-describe Renalware::Letters::UnreadElectronicCCsComponent, type: :component do
+describe Renalware::Letters::UnreadElectronicCCsComponent, type: :component do # rubocop:disable RSpec/SpecFilePathFormat
   include LettersSpecHelper
 
   def send_letter_ecc_to(user)

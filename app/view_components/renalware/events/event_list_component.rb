@@ -70,7 +70,7 @@ module Renalware
 
       private
 
-      def relation
+      def relation # rubocop:disable Metrics/MethodLength
         @relation ||= begin
           if event_type_slug.present?
             event_type = Renalware::Events::Type.find_by(slug: event_type_slug)

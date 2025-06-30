@@ -42,7 +42,7 @@ module Renalware
       # in codepen outside of the app so we can experiment - at the moment
       # the x axis is built from the data series (pcr), which is not linear.
       # So we need to specify the x axis and the series data separately.
-      def graph_options
+      def graph_options # rubocop:disable Metrics/MethodLength
         {
           xtitle: "D/Pcr",
           ytitle: "net UF",

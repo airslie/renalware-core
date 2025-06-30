@@ -8,7 +8,7 @@ module Renalware
       isolate_namespace Reporting
 
       initializer :add_locales do |app|
-        app.config.i18n.load_path += Dir[config.root.join("app/components/**/*.yml")]
+        app.config.i18n.load_path += Dir[config.root.join("app/view_components/**/*.yml")]
       end
     end
   end

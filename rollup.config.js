@@ -7,7 +7,7 @@ import pkg from "./package.json"
 const watchDirectories = [
   pkg.main,
   "app/views",
-  "app/components",
+  "app/view_components",
   "demo/app/assets/builds", // Output from Tailwindcss and JS
 ]
 
