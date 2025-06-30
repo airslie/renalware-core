@@ -18,7 +18,7 @@
       div.sm:w-72
         = f.input :sub_category_eq,
                   label: "Category",
-                  collection: Renalware::System::ViewMetadata.where(category: "report").order(:sub_category).pluck(:sub_category).compact_blank,
+                  collection: Renalware::System::ViewMetadata.where(category: "report").order(:sub_category).pluck(:sub_category).compact_blank.uniq,
                   include_blank: "All",
                   data: { controller: "slimselect", action: "change->form#submit" }
       .basis-1/12

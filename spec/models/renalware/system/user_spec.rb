@@ -145,7 +145,7 @@ module Renalware
           inactive = create(:user, last_activity_at: 90.days.ago)
           never_used = create(:user, last_activity_at: nil, created_at: 90.days.ago)
 
-          expect(described_class.inactive).to eq [inactive, never_used]
+          expect(described_class.inactive).to contain_exactly(inactive, never_used)
         end
       end
 
