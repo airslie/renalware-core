@@ -4,6 +4,9 @@ module Renalware
       include Accountable
       include PatientScope
       include RansackAll
+      include OrderedScope
+
+      ORDER_FIELDS = [:ended_on, :updated_at].freeze
 
       belongs_to :description
       belongs_to :patient, touch: true
@@ -12,7 +15,6 @@ module Renalware
       belongs_to :source_hospital_centre, class_name: "Hospitals::Centre"
       belongs_to :destination_hospital_centre, class_name: "Hospitals::Centre"
 
-      scope :ordered, -> { order(ended_on: :desc, updated_at: :desc) }
       scope :started_on_reversed, -> { order(started_on: :desc, updated_at: :desc) }
       scope :last_started_on, -> { started_on_reversed.where(ended_on: nil) }
 

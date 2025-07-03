@@ -4,6 +4,7 @@ module Renalware
       include OrderedScope
       include PatientScope
 
+      ORDER_FIELDS = [:created_at].freeze
       BAG_VOLUMES = [2000, 2500, 5000].freeze
 
       enumerize :assistance_type, in: %i(

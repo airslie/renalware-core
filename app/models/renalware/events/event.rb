@@ -4,7 +4,10 @@ module Renalware
       include RansackAll
       include Accountable
       include PatientScope
+      include OrderedScope
       acts_as_paranoid
+
+      ORDER_FIELDS = [:date_time].freeze
 
       has_paper_trail(
         versions: { class_name: "Renalware::Events::Version" },
@@ -28,8 +31,6 @@ module Renalware
       validates :date_time, timeliness: { type: :datetime }
       validates :notes, "renalware/pdf_friendly": true
       validates :description, "renalware/pdf_friendly": true
-
-      scope :ordered, -> { order(date_time: :desc, updated_at: :desc) }
 
       def self.subtypes?
         false

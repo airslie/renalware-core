@@ -1,13 +1,16 @@
 module Renalware
   module Clinics
     class ClinicVisit < ApplicationRecord
+      extend Enumerize
       include Accountable
+      include Document::Base
+      include OrderedScope
       include PatientScope
       include RansackAll
-      extend Enumerize
-      include Document::Base
 
       self.table_name = :clinic_visits
+
+      ORDER_FIELDS = [:date, :time, :created_at].freeze
 
       has_paper_trail(
         versions: { class_name: "Renalware::Clinics::Version" },
@@ -32,7 +35,6 @@ module Renalware
       enumerize :urine_protein, in: %i(neg trace very_low low medium high)
       enumerize :urine_glucose, in: %i(neg low medium high)
 
-      scope :ordered, -> { order(date: :desc, created_at: :desc) }
       scope :most_recent_for_patient, ->(patient) { for_patient(patient).ordered.limit(1) }
       scope :most_recent, -> { ordered.limit(1) }
       scope :recent, ->(max = 5) { ordered.limit(max) }
