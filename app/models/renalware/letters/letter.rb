@@ -2,9 +2,18 @@ module Renalware
   module Letters
     class Letter < ApplicationRecord
       include Accountable
+      include ExplicitStateModel
+      include RansackAll
       include TransactionRetry
       extend Enumerize
-      include RansackAll
+
+      # Don't include OrderedScope as Letter needs coalesced ordering
+      ORDER_FIELDS = %i(
+        completed_at
+        approved_at
+        submitted_for_approval_at
+        letter_letters.created_at
+      ).freeze
 
       acts_as_paranoid
 
@@ -53,7 +62,6 @@ module Renalware
 
       validates :main_recipient, presence: true
 
-      include ExplicitStateModel
       has_states :draft, :pending_review, :approved, :completed
       state_scope :reviewable, :pending_review
 
@@ -102,14 +110,7 @@ module Renalware
       attribute :effective_date_sort
 
       def self.effective_date_sort
-        Arel.sql(<<~SQL.squish)
-          coalesce(
-            completed_at,
-            approved_at,
-            submitted_for_approval_at,
-            letter_letters.created_at
-          )
-        SQL
+        Arel.sql("coalesce(#{ORDER_FIELDS.join(',')})")
       end
 
       def effective_date_sort = self.class.effective_date_sort # rubocop:disable Rails/Delegate

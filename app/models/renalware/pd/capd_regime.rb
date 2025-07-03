@@ -4,6 +4,8 @@ module Renalware
       include OrderedScope
       include PatientScope
 
+      ORDER_FIELDS = [:created_at].freeze
+
       enumerize :assistance_type, in: %i(
         none
         1_visit_per_day

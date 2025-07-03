@@ -15,6 +15,18 @@ describe Renalware::Clinics::ClinicVisit do
     is_expected.to belong_to(:location)
   end
 
+  describe "ordered" do
+    let!(:early_visit) { create(:clinic_visit, date: Time.zone.today, time: "10:00") }
+    let!(:earlier_visit) { create(:clinic_visit, date: Time.zone.today, time: "09:00") }
+    let!(:no_time_visit) do
+      create(:clinic_visit, date: Time.zone.today, time: nil, created_at: 10.minutes.ago)
+    end
+
+    it "returns visits in the correct order" do
+      expect(described_class.ordered).to eq [no_time_visit, early_visit, earlier_visit]
+    end
+  end
+
   describe "bmi" do
     subject(:visit) { create(:clinic_visit, height: 1.7, weight: 82.5, patient: patient) }
 

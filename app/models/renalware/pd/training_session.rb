@@ -7,6 +7,8 @@ module Renalware
       include Document::Base
       extend Enumerize
 
+      ORDER_FIELDS = [:created_at].freeze
+
       belongs_to :patient, class_name: "Renalware::PD::Patient", touch: true
       belongs_to :training_site, class_name: "Renalware::PD::TrainingSite"
       belongs_to :training_type, class_name: "Renalware::PD::TrainingType"

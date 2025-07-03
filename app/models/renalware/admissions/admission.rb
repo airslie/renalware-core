@@ -8,9 +8,11 @@ module Renalware
       # to enable searching for a patient. *Note* you must join onto the patients table first
       # if calling this scope or using it with ransack, e.g.
       #   Admission.joins(:patient).identity_match("rab rog")
-
       include PatientsRansackHelper
+      include OrderedScope
       extend Enumerize
+
+      ORDER_FIELDS = [:admitted_on].freeze
 
       has_paper_trail(
         versions: { class_name: "Renalware::Admissions::Version" },

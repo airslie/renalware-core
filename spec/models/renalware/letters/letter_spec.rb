@@ -57,8 +57,8 @@ module Renalware
           expect(
             described_class.effective_date_sort
           ).to eq(
-            "coalesce( completed_at, approved_at, submitted_for_approval_at, " \
-            "letter_letters.created_at )"
+            "coalesce(completed_at,approved_at,submitted_for_approval_at," \
+            "letter_letters.created_at)"
           )
         end
       end

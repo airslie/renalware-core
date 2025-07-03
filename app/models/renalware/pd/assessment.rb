@@ -7,6 +7,8 @@ module Renalware
       include Document::Base
       extend Enumerize
 
+      ORDER_FIELDS = [:created_at].freeze
+
       belongs_to :patient, class_name: "Renalware::PD::Patient", touch: true
 
       attr_reader :ignore_me # see html form for explanation of this non-persistent attribute

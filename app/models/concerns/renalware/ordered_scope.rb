@@ -5,7 +5,9 @@ module Renalware
     extend ActiveSupport::Concern
 
     included do
-      scope :ordered, -> { order(created_at: :desc) }
+      def self.ordered
+        order(self::ORDER_FIELDS.map { |key| { key => :desc } })
+      end
     end
   end
 end
