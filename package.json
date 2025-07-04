@@ -50,6 +50,9 @@
   },
   "devDependencies": {
     "playwright": "1.52.0",
-    "prettier": "^3.4"
+    "prettier": "^3.4",
+    "stylelint": "^16.21.1",
+    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-scss": "^6.12.1"
   }
 }
