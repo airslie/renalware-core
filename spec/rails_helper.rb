@@ -132,6 +132,10 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
+  config.define_derived_metadata(file_path: %r{/spec/components/}) do |metadata|
+    metadata[:type] = :component
+  end
+
   config.include Renalware::Engine.routes.url_helpers
   config.include Wisper::RSpec::BroadcastMatcher
   config.include CapybaraHelper, type: :system
@@ -142,6 +146,7 @@ RSpec.configure do |config|
   config.include Shoulda::Matchers::ActiveModel, type: :model
   config.include Shoulda::Matchers::ActiveRecord, type: :model
   config.include ViewComponent::TestHelpers, type: :component
+  config.include ComponentHelper, type: :component
   config.include ActionView::RecordIdentifier, type: :system
   config.include SlimSelectHelper, type: :system
   config.include CapybaraAccessibleSelectors::Session, type: :system
