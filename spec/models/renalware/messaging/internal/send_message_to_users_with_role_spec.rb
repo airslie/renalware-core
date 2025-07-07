@@ -33,7 +33,7 @@ module Renalware
               subject: msg_subject,
               body: body
             )
-            expect(msg.recipient_ids).to match([super_admin1.id, super_admin2.id])
+            expect(msg.recipient_ids).to contain_exactly(super_admin1.id, super_admin2.id)
           end
         end
       end
