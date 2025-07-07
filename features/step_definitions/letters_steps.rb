@@ -28,26 +28,11 @@ Given /^Patty has completed pathology investigations relevant to the clinic lett
   seed_observations_relevant_to_clinic_letter(patient: @patty)
 end
 
-Given /^Patty has a letter pending review authored by Doug$/ do
-  @doctor = find_or_create_user(given_name: "a_doctor", role: "clinical")
-
-  seed_simple_letter_for(@patty, user: @doctor, author: @doug)
-  submit_for_review(patient: @patty, user: @doctor)
-end
-
 Given /^Patty has a letter pending review$/ do
   @doctor = find_or_create_user(given_name: "a_doctor", role: "clinical")
 
   seed_simple_letter_for(@patty, user: @doctor)
   submit_for_review(patient: @patty, user: @doctor)
-end
-
-Given /^Patty has an approved letter$/ do
-  @doctor = find_or_create_user(given_name: "a_doctor", role: "clinical")
-
-  seed_simple_letter_for(@patty, user: @doctor)
-  submit_for_review(patient: @patty, user: @doctor)
-  approve_letter(patient: @patty, user: @doctor)
 end
 
 Given /^Nathalie submitted the letter for review$/ do
@@ -127,14 +112,6 @@ end
 
 Then /^Doug can reject the letter$/ do
   reject_letter(patient: @patty, user: @doug)
-end
-
-When /^Doug approves the letter$/ do
-  approve_letter(patient: @patty, user: @doug)
-end
-
-When /^Nathalie approves the letter$/ do
-  approve_letter(patient: @patty, user: @nathalie)
 end
 
 When /^Nathalie marks the letter as printed$/ do
@@ -267,18 +244,6 @@ end
 
 Then /^Doug can approve letter$/ do
   expect_letter_can_be_approved(patient: @patty, user: @doctor)
-end
-
-Then /^an archived copy of the letter is available$/ do
-  expect_archived_letter(patient: @patty)
-end
-
-Then /^nobody can modify the letter$/ do
-  expect_letter_to_not_be_modified(patient: @patty, user: @doctor)
-end
-
-Then /^the letter is signed by Nathalie$/ do
-  expect_letter_to_be_signed(patient: @patty, user: @nathalie)
 end
 
 Then /^the letter is completed$/ do

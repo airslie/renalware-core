@@ -15,6 +15,11 @@ FactoryBot.define do
     letterhead factory: %i(letter_letterhead)
 
     author { accountable_actor }
+    patient factory: :letter_patient
+
+    after(:build) do |record|
+      record.main_recipient ||= build(:letter_recipient, :main, letter: record)
+    end
 
     factory :draft_letter, class: "Renalware::Letters::Letter::Draft"
     factory :pending_review_letter, class: "Renalware::Letters::Letter::PendingReview"
