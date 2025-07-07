@@ -327,6 +327,7 @@ module Renalware
         clinical_summary: %w(
           Renalware::Problems::SummaryComponent
           Renalware::Medications::SummaryPart
+          Renalware::Patients::TimelineComponent
           Renalware::Letters::SummaryPart
           Renalware::Events::SummaryPart
           Renalware::Admissions::SummaryPart

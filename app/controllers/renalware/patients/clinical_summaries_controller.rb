@@ -6,7 +6,7 @@ module Renalware
 
       def show
         clinical_summary = Renal::ClinicalSummaryPresenter.new(patient)
-        render :show, locals: { clinical_summary: clinical_summary, patient: patient }
+        render :show, locals: { clinical_summary:, patient: }
       end
     end
   end
