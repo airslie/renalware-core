@@ -84,13 +84,19 @@ th.togglers {
     }
   }
 
-  tbody {
-    tr:last-child {
-      display: none;
-    }
+  &:not(.plx) > tbody > tr:last-child {
+    display: none;
+  }
 
-    &.toggleable--open tr:last-child {
-      display: table-row;
+  // For Phlex components we'll do it a different way
+  // and hide the row in the component. This along with
+  // not render notes/detail row if it's empty will simplify this.
+  tbody {
+    &.toggleable--open {
+      tr:last-child,
+      tr.hidden {
+        display: table-row;
+      }
     }
 
     // Add this class to a toggleable tbody if there is nothing to toggle open to see.

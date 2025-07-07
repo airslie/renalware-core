@@ -35,5 +35,4 @@ tbody(id="event_#{event.id}")
   tr
     td(colspan=7)
       .quick-preview
-        = render partial: event.to_toggled_cell_partial_path,
-                locals: { event: event }
+        = render_toggled_cell(event)
