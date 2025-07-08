@@ -5,7 +5,7 @@ require "tailwind_merge"
 module Shared
   class Base < Phlex::HTML
     include Phlex::Rails::Helpers::Routes
-    include ::Renalware::Engine.routes.url_helpers # paths without renalware. prefix
+    include ::Renalware::Engine.routes.url_helpers # paths without `renalware.` prefix
 
     TAILWIND_MERGER = ::TailwindMerge::Merger.new.freeze
 
