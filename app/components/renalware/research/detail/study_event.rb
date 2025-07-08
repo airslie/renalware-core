@@ -2,22 +2,26 @@
 
 module Renalware
   class Research::Detail::StudyEvent < Detail
-    def initialize(record)
-      super(record:, fields: [])
-    end
+    include ActionView::Helpers::TextHelper
 
     def view_template
       super do
-        if @layout&.definition.present?
-          @layout.definition.each do |hash|
+        if layout&.definition.present?
+          layout.definition.each do |hash|
             attr = hash.keys.first
             label = hash.values.first["label"]
-            DefinitionListItem(label, @document.send(attr.to_sym), title: label)
+            DescriptionListItem(label, document.send(attr.to_sym), title: label)
           end
         end
 
-        DefinitionListItem("Notes", simple_format(event.notes))
+        DescriptionListItem("Notes", simple_format(record.notes))
       end
+    end
+
+    private
+
+    def layout
+      @layout ||= Renalware::Events::Subtype.with_deleted.find_by(id: record.subtype_id)
     end
   end
 end

@@ -4,5 +4,6 @@ FactoryBot.define do
     patient
     event_type factory: :research_study_event_type
     date_time { Time.current }
+    notes { "Some notes" }
   end
 end

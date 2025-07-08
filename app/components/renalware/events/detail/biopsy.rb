@@ -4,8 +4,8 @@ module Renalware
   class Events::Detail::Biopsy < Detail
     def view_template
       super do
-        DetailItem(document, :result1, dig: :text)
-        DetailItem(document, :result2, dig: :text)
+        DetailItem(document, :result1)
+        DetailItem(document, :result2)
         DetailItem(record, :notes)
       end
     end

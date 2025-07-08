@@ -52,6 +52,7 @@ FactoryBot.define do
 
     factory :biopsy, class: "Renalware::Events::Biopsy" do
       event_type factory: :clinical_frailty_score_event_type
+      document { { result1: :acute_amr, result2: :gt_50 } }
     end
 
     factory :advanced_care_plan, class: "Renalware::Events::AdvancedCarePlan" do

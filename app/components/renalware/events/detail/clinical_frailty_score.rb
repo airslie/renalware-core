@@ -4,7 +4,7 @@ module Renalware
   class Events::Detail::ClinicalFrailtyScore < Detail
     def view_template
       super do
-        DetailItem(document, :score, dig: :text)
+        DetailItem(document, :score)
         DetailItem(record, :notes)
       end
     end
