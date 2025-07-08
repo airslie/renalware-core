@@ -61,10 +61,6 @@ module Renalware
         partial_for "cell"
       end
 
-      def to_toggled_cell_partial_path
-        partial_for "toggled_cell"
-      end
-
       def partial_for(partial_type)
         File.join(
           "renalware/events/events",
