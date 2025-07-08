@@ -84,6 +84,8 @@ th.togglers {
     }
   }
 
+  // .plx class helps to select between Phlex and non-Phlex components while
+  // transitioning.
   &:not(.plx) > tbody > tr:last-child {
     display: none;
   }
