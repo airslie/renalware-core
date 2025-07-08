@@ -15,12 +15,29 @@ FactoryBot.define do
       hidden { false }
     end
 
+    factory :simple_event_type do
+      name { "Simple Event" }
+      event_class_name { "Renalware::Events::Simple" }
+    end
+
     factory :swab_event_type do
       name { "Swab" }
       event_class_name { "Renalware::Events::Swab" }
       slug { "swabs" }
       author_change_window_hours { -1 }
       admin_change_window_hours { -1 }
+    end
+
+    factory :investigation_event_type do
+      name { "Investigation" }
+      slug { "investigations" }
+      event_class_name { "Renalware::Events::Investigation" }
+    end
+
+    factory :clinical_frailty_score_event_type do
+      name { "Clinical Frailty Score" }
+      slug { "clinical_frailty_score" }
+      event_class_name { "Renalware::Events::ClinicalFrailtyScore" }
     end
 
     factory :biopsy_event_type do
@@ -33,19 +50,13 @@ FactoryBot.define do
       slug { "pd_line_changes" }
     end
 
-    factory :investigation_event_type do
-      name { "Investigation" }
-      slug { "investigations" }
-      event_class_name { "Renalware::Events::Investigation" }
-    end
-
     factory :vaccination_event_type do
       name { "Vaccination" }
       slug { "vaccinations" }
       event_class_name { "Renalware::Virology::Vaccination" }
     end
 
-    factory :remote_monitoring_registration do
+    factory :remote_monitoring_registration_event_type do
       name { "Remote Monitoring Registration" }
       slug { "remote_monitoring_registration" }
       event_class_name { "Renalware::RemoteMonitoring::Registration" }
@@ -55,12 +66,6 @@ FactoryBot.define do
       name { "AdvancedCarePlan" }
       slug { "advanced_care_plans" }
       event_class_name { "Renalware::Events::AdvancedCarePlan" }
-    end
-
-    factory :clinical_frailty_score_event_type do
-      name { "Clinical Frailty Score" }
-      slug { "clinical_frailty_score" }
-      event_class_name { "Renalware::Events::ClinicalFrailtyScore" }
     end
 
     factory :medication_review_event_type do
