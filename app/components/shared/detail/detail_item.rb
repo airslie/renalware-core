@@ -1,20 +1,18 @@
 # frozen_string_literal: true
 
-module Shared
-  class DetailItem < DescriptionListItem
-    def initialize(record, field, **attrs)
-      label = attr_name(record, attrs.delete(:label) || field)
-      value = t_enum record.public_send(field)
+class Shared::DetailItem < Shared::DescriptionListItem
+  def initialize(record, field, **attrs)
+    label = attr_name(record, attrs.delete(:label) || field)
+    value = t_enum record.public_send(field)
 
-      super(label, value, **attrs)
-    end
+    super(label, value, **attrs)
+  end
 
-    private
+  private
 
-    def t_enum(value)
-      return value unless value.is_a?(Enumerize::Value)
+  def t_enum(value)
+    return value unless value.is_a?(Enumerize::Value)
 
-      value.text
-    end
+    value.text
   end
 end
