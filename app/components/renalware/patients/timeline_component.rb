@@ -18,10 +18,7 @@ module Renalware
           article_header
           Table(class: %w(toggleable), data: { controller: "toggle" }) do
             table_header
-            items.each do
-              klass = NameService.from_model(it.record, to: "TimelineRow")
-              render klass.new(sort_date: it.sort_date, record: it.record)
-            end
+            items.each { render from_model(it) }
           end
         end
       end
@@ -69,6 +66,12 @@ module Renalware
           TableHead(class: %w(col-width-medium font-bold)) { "Created by" }
         end
       end
+    end
+
+    def from_model(item)
+      render NameService
+        .from_model(item.record, to: "TimelineRow")
+        .new(sort_date: item.sort_date, record: item.record)
     end
   end
 end

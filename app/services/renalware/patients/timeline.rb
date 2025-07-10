@@ -20,9 +20,10 @@ module Renalware
           .ordered
           .pluck(FIELDS + model_class::ORDER_FIELDS)
           .map do |fields|
-            id = fields.shift
-            sort_date = Renalware::DateTimeHelper.merge(fields)
-            timeline_item(model_class, id, sort_date).fetch
+            NameService
+              .from_model(model_class, to: "TimelineItem")
+              .new(id: fields.shift, sort_date: DateTimeHelper.merge(fields))
+              .fetch
           end
       end)
     end
@@ -37,10 +38,6 @@ module Renalware
       finish = (limit * number)
       start = finish - limit
       @items[start..finish - 1]
-    end
-
-    private_class_method def self.timeline_item(model_class, id, sort_date)
-      NameService.from_model(model_class, to: "TimelineItem").new(id:, sort_date:)
     end
   end
 end
