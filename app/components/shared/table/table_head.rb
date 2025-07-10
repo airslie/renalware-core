@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-module Shared
-  class TableHead < Base
-    def view_template(&)
-      th(**attrs, &)
-    end
+class Shared::TableHead < Shared::Base
+  def view_template(&)
+    th(**attrs, &)
   end
 end

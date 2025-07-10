@@ -21,8 +21,8 @@ module Renalware
           .pluck(FIELDS + model_class::ORDER_FIELDS)
           .map do |fields|
             id = fields.shift
-            date = Renalware::DateTimeHelper.merge(fields)
-            timeline_item_class_from(model_class).new(id, date)
+            sort_date = Renalware::DateTimeHelper.merge(fields)
+            timeline_item(model_class, id, sort_date).fetch
           end
       end)
     end
@@ -30,7 +30,7 @@ module Renalware
     delegate :count, to: :@items
 
     def initialize(items)
-      @items = items.sort_by(&:date).reverse
+      @items = items.sort_by(&:sort_date).reverse
     end
 
     def page(number, limit: 20)
@@ -39,9 +39,8 @@ module Renalware
       @items[start..finish - 1]
     end
 
-    private_class_method def self.timeline_item_class_from(model_class)
-      parts = model_class.name.split("::")[0..-2].join("::")
-      "#{parts}::TimelineItem".constantize
+    private_class_method def self.timeline_item(model_class, id, sort_date)
+      NameService.from_model(model_class, to: "TimelineItem").new(id:, sort_date:)
     end
   end
 end

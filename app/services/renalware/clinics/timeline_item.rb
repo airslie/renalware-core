@@ -1,21 +1,10 @@
 # frozen_string_literal: true
 
 module Renalware
-  # NOTE: Do we need to display Dietetic Clinic Visit?
-  class Clinics::TimelineItem < Patients::TimelineItem
-    def type = "Clinic Visit"
-
-    def description
-      record.clinic.name
-    end
-
-    def detail
-      ""
-    end
-
+  class Clinics::TimelineItem < TimelineItem
     private
 
-    def fetch
+    def scope
       Clinics::ClinicVisit.joins(:clinic)
     end
   end

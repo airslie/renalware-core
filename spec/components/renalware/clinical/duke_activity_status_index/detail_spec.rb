@@ -7,8 +7,8 @@ module Renalware
     let(:record) { build(:duke_activity_status_index) }
 
     it "renders component" do
-      expect(fragment.text).to include "Score:1.0"
-      expect(fragment.text).to include "Notes:Not specified"
+      expect(fragment.text).to include("Score:1.0")
+      expect(fragment.text).to include("Notes:Not specified")
     end
 
     context "when notes are included" do

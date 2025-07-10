@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module Renalware
-  class Letters::TimelineItem < TimelineItem
+  class Messaging::Internal::TimelineItem < TimelineItem
     private
 
     def scope
-      Letters::Letter.joins(:topic, :author)
+      Messaging::Message
     end
   end
 end
