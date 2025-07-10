@@ -14,5 +14,18 @@ module Renalware
       expect(table_fragment.text).to include("09-Jul-2025Clinic Visit#{clinic}#{created_by}")
       expect(table_fragment.css(".hidden").text).to be_empty
     end
+
+    context "when dietetic clinic visit" do
+      let(:record) { build(:dietetic_clinic_visit) }
+
+      it "render component" do
+        expect(table_fragment.text).to include(
+          "09-Jul-2025Dietetic Clinic Visit#{clinic}#{created_by}"
+        )
+        expect(table_fragment.css(".hidden").text).to include(
+          "Adjusted BMI for amputations/significant oedema"
+        )
+      end
+    end
   end
 end

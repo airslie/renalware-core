@@ -9,8 +9,9 @@ module Renalware
 
     def detail
       TableDetailRow(COLUMNS) do
-        klass = NameService.from_model(@record, to: "Detail", keep_class: true)
-        render klass.new(@record)
+        render NameService
+          .from_model(@record, to: "Detail", keep_class: true)
+          .new(@record)
       end
     end
   end

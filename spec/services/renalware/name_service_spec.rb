@@ -52,14 +52,15 @@ module Renalware
       expect(klass).to eq Letters::TimelineRow
     end
 
-    it "maps an event class" do
+    it "maps an STI class" do
       model = RemoteMonitoring::Registration.new
 
       klass = described_class.from_model(model, to: "TimelineItem")
       expect(klass).to eq Events::TimelineItem
 
+      model = Dietetics::ClinicVisit.new
       klass = described_class.from_model(model, to: "TimelineRow")
-      expect(klass).to eq Events::TimelineRow
+      expect(klass).to eq Clinics::TimelineRow
     end
 
     it "maps an event class detail component" do

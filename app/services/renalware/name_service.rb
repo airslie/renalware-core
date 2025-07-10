@@ -8,7 +8,8 @@ module Renalware
     ].freeze
 
     STI_CLASSES = [
-      Renalware::Events::Event
+      Renalware::Events::Event,
+      Renalware::Clinics::ClinicVisit
     ].freeze
 
     def self.from_model(from, to:, keep_class: false)

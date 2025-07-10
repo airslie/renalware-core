@@ -22,9 +22,22 @@ module ComponentHelper
   # Grab a TestController so that the component can be rendered using the Rails
   # view context which is needed to be able to render URLs.
   # This method is also handy if you want to check the actual HTML string
-  # returned without going through Nokogiri.
+  # returned without goi@ng through Nokogiri.
   def response
-    @response ||= controller.view_context.render subject
+    return @response if @response
+
+    @response = view_context.render subject
+  end
+
+  def view_context
+    context = controller.view_context
+
+    # Temporary workaround to allow helpers to be tests in Phlex components
+    # These can also be converted to components and removed from here.
+    context.class_eval do
+      include Renalware::DefinitionListHelper
+    end
+    context
   end
 
   def controller
