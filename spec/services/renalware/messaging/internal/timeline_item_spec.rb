@@ -1,8 +1,8 @@
-RSpec.describe Renalware::Admissions::TimelineItem do
+RSpec.describe Renalware::Messaging::Internal::TimelineItem do
   subject(:item) { described_class.new(id: model.id, sort_date:).fetch }
 
   let(:sort_date) { Time.zone.now }
-  let(:model) { create(:admissions_admission) }
+  let(:model) { create(:internal_message) }
 
   it "returns correct data for timeline" do
     expect(item.id).to eq model.id
