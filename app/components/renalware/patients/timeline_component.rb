@@ -1,6 +1,6 @@
 module Renalware
   class Patients::TimelineComponent < Base
-    PER_PAGE = 100
+    PER_PAGE = 6
 
     def initialize(patient:, current_user:, **attrs)
       @patient = patient
