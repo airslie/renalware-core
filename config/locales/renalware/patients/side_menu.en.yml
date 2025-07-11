@@ -32,6 +32,7 @@ en:
           prescriptions: Prescriptions (%{count})
           problems: Problems (%{count})
           proms: PROMS
+          timeline: Timeline
           virology: Virology
         modalities:
           hd: HD

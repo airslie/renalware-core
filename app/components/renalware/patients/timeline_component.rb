@@ -1,13 +1,13 @@
 module Renalware
   class Patients::TimelineComponent < Base
-    PER_PAGE = 6
+    SUMMARY_LIMIT = 6
 
-    def initialize(patient:, current_user:, **attrs)
+    def initialize(patient:, **attrs)
       @patient = patient
-      @current_user = current_user
-      @total = ::Renalware::Patients::Timeline.all(patient)
-      @items = @total.page(1, limit: PER_PAGE)
-      super(**attrs)
+      @page = attrs[:page]
+      @full_view = attrs[:full_view]
+      @pagy, @items = items
+      super
     end
 
     def render? = true
@@ -15,18 +15,29 @@ module Renalware
     def view_template
       div(class: "summary-part--timeline") do
         article do
-          article_header
+          article_header unless @full_view
           Table(class: %w(toggleable), data: { controller: "toggle" }) do
             table_header
-            items.each { render from_model(it) }
+            @items.each { render from_model(it) }
           end
+          raw safe helpers.pagy_nav(@pagy) if @full_view # rubocop:disable Rails/OutputSafety
         end
       end
     end
 
     private
 
-    attr_reader :items
+    def items
+      pagy_custom Renalware::Patients::Timeline.all(@patient)
+    end
+
+    def pagy_custom(collection, vars = {})
+      limit = @full_view ? nil : SUMMARY_LIMIT
+
+      # FIXME: Need to pass in the correct limit here
+      pagy = Pagy.new(count: collection.count, page: @page, limit:, **vars)
+      [pagy, collection.offset(pagy.offset, limit: pagy.limit)]
+    end
 
     # TODO: Consider moving out as a separate component
     def rows_toggler
@@ -38,12 +49,11 @@ module Renalware
       ) { i }
     end
 
-    def title_friendly_collection_count(actual, total)
-      total > actual ? "#{actual} of #{total}" : actual
-    end
-
+    # TODO: Component?
     def count
-      title_friendly_collection_count(@items.count, @total.count)
+      actual = @items.count
+      total = @pagy.count
+      total > actual ? "#{actual} of #{total}" : actual
     end
 
     def article_header

@@ -23,7 +23,6 @@ module Renalware
             NameService
               .from_model(model_class, to: "TimelineItem")
               .new(id: fields.shift, sort_date: DateTimeHelper.merge(fields))
-              .fetch
           end
       end)
     end
@@ -34,10 +33,9 @@ module Renalware
       @items = items.sort_by(&:sort_date).reverse
     end
 
-    def page(number, limit: 20)
-      finish = (limit * number)
-      start = finish - limit
-      @items[start..finish - 1]
+    def offset(start, limit: 20)
+      finish = start + limit - 1
+      @items[start..finish].map(&:fetch)
     end
   end
 end
