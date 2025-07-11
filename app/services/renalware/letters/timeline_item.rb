@@ -5,7 +5,7 @@ module Renalware
     private
 
     def scope
-      Letters::Letter.joins(:topic, :author)
+      Letters::Letter.eager_load(:topic, :author)
     end
   end
 end

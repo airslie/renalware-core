@@ -5,7 +5,7 @@ module Renalware
     private
 
     def scope
-      Admissions::Admission.joins(:hospital_ward)
+      Admissions::Admission.eager_load(:hospital_ward)
     end
   end
 end

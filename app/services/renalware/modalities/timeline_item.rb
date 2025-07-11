@@ -5,7 +5,7 @@ module Renalware
     private
 
     def scope
-      Modalities::Modality.joins(:description)
+      Modalities::Modality.eager_load(:description)
     end
   end
 end

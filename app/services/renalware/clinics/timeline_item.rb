@@ -5,7 +5,7 @@ module Renalware
     private
 
     def scope
-      Clinics::ClinicVisit.joins(:clinic)
+      Clinics::ClinicVisit.eager_load(:clinic)
     end
   end
 end
