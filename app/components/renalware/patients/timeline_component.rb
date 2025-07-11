@@ -1,5 +1,6 @@
 module Renalware
   class Patients::TimelineComponent < Base
+    register_output_helper :pagy_nav, mark_safe: true
     SUMMARY_LIMIT = 6
 
     def initialize(patient:, **attrs)
@@ -20,7 +21,7 @@ module Renalware
             table_header
             @items.each { render from_model(it) }
           end
-          raw safe helpers.pagy_nav(@pagy) if @full_view # rubocop:disable Rails/OutputSafety
+          pagy_nav(@pagy) if @full_view
         end
       end
     end
@@ -34,7 +35,6 @@ module Renalware
     def pagy_custom(collection, vars = {})
       limit = @full_view ? nil : SUMMARY_LIMIT
 
-      # FIXME: Need to pass in the correct limit here
       pagy = Pagy.new(count: collection.count, page: @page, limit:, **vars)
       [pagy, collection.offset(pagy.offset, limit: pagy.limit)]
     end
