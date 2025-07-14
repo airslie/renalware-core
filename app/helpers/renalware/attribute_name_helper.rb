@@ -1,5 +1,6 @@
 module Renalware
   module AttributeNameHelper
+    # FIXME: Copied to Shared::Components::Base
     # disables :reek:FeatureEnvy
     def attr_name(model, attr, suffix: nil)
       klass = model.is_a?(Class) ? model : model.class

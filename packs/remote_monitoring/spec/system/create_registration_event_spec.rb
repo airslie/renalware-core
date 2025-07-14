@@ -3,7 +3,7 @@ describe "Create remote monitoring registration event", :js do
     user = login_as_clinical
     patient = create(:patient, family_name: "XXX", given_name: "Jon", by: user)
 
-    create(:remote_monitoring_registration)
+    create(:remote_monitoring_registration_event_type)
     create(:remote_monitoring_frequency, :"4M")
     create(:remote_monitoring_referral_reason, description: "ABC")
 
