@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 describe Renalware::Clinical::DukeActivityStatusIndex do # an event
-  subject(:model) { build(:duke_activity_status_index, document:) }
+  describe "#document" do
+    subject { described_class.new.document }
 
-  let(:document) { { score: 1 } }
+    it { is_expected.to validate_presence_of(:score) }
 
-  it { is_expected.to be_valid }
-
-  context "when missing score" do
-    let(:document) { {} }
-
-    it { is_expected.not_to be_valid }
+    it do
+      is_expected.to validate_numericality_of(:score)
+        .is_greater_than_or_equal_to(0)
+        .is_less_than_or_equal_to(60)
+    end
   end
 end
