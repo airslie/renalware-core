@@ -42,7 +42,7 @@ module Renalware
       end
     end
 
-    it "maps a letter state class" do
+    it "maps an STI class" do
       model = Letters::Letter::Draft.new
 
       klass = described_class.from_model(model, to: "TimelineItem")
@@ -50,9 +50,7 @@ module Renalware
 
       klass = described_class.from_model(model, to: "TimelineRow")
       expect(klass).to eq Letters::TimelineRow
-    end
 
-    it "maps an STI class" do
       model = RemoteMonitoring::Registration.new
 
       klass = described_class.from_model(model, to: "TimelineItem")

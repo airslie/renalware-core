@@ -14,5 +14,5 @@ class Shared::RowTogglerCell < Shared::TableCell
 
   private
 
-  def default_attrs = super.merge(class: "noprint")
+  def default_attrs = mix(super, class: "noprint")
 end

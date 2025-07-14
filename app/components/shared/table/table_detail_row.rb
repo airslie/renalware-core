@@ -17,5 +17,5 @@ class Shared::TableDetailRow < Shared::TableRow
 
   private
 
-  def default_attrs = super.merge(class: "hidden")
+  def default_attrs = mix(super, class: "hidden")
 end
