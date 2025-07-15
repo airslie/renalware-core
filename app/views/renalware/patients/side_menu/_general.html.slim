@@ -11,6 +11,10 @@
                       path: patient_clinical_summary_path(patient),
                       active_when_controller_matches: "patients/clinical_summaries"
 
+  = patient_menu_item title: t(".timeline"),
+                      path: patient_timeline_path(patient),
+                      active_when_controller_matches: "patients/timeline"
+
   = patient_menu_item title: t(".demographics"),
                       path: patient_path(patient),
                       active_when_controller_matches: "patients/patients"

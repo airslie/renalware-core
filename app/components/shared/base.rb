@@ -25,9 +25,7 @@ class Shared::Base < Phlex::HTML
 
   private
 
-  def default_attrs
-    {}
-  end
+  def default_attrs = {}
 
   # FIXME: Copied from AttributeNameHelper
   def attr_name(model, attr, suffix: ":")

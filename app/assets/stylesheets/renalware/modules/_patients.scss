@@ -342,6 +342,7 @@ form {
     @include grid-column(12);
   }
 
+  .summary-part--timeline,
   .summary-part--letters {
     @include grid-column(12);
   }

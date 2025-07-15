@@ -32,6 +32,7 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
       id: :anaemia,
       as: :anaemia_perspective
 
+  resource :timeline, only: :show, controller: "patients/timeline"
   resource :clinical_summary, only: :show, controller: "patients/clinical_summaries"
   resource :death, only: %i(edit update), controller: "patients/deaths"
   resource :primary_care_physician,
