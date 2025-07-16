@@ -10,7 +10,7 @@ FactoryBot.define do
     created_at { Time.zone.today }
     topic factory: :letter_topic
 
-    body { "I am pleased to report a marked improvement in her condition." }
+    body { "<div>I am pleased to report a marked improvement in her condition.</div>" }
 
     letterhead factory: %i(letter_letterhead)
 
