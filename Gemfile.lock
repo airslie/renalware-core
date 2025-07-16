@@ -77,9 +77,9 @@ GIT
       sys-uname (~> 1.3)
 
 GIT
-  remote: https://github.com/yippee-fun/phlex-rails.git
+  remote: https://github.com/yippee-fun/phlex-rails
   revision: 8dd6d5a32cd26cb557d77c3a22ad94a9bd786acd
-  branch: main
+  ref: 8dd6d5a32cd26cb557d77c3a22ad94a9bd786acd
   specs:
     phlex-rails (2.3.1)
       phlex (~> 2.3.0)
