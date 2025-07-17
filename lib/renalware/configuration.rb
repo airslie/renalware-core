@@ -432,6 +432,18 @@ module Renalware
     config_accessor(:mail_oauth_email_address) { ENV.fetch("MAIL_OAUTH_EMAIL_ADDRESS", nil) }
 
     #
+    # SendGrid API config
+    #
+    config_accessor(:sendgrid_api_key) do
+      ENV.fetch("SENDGRID_API_KEY", Rails.application.credentials[:sendgrid_api_key])
+    end
+    config_accessor(:sendgrid_email_address) do
+      ENV["SENDGRID_EMAIL_ADDRESS"] ||
+        ENV["MAIL_OAUTH_EMAIL_ADDRESS"] ||
+        ENV.fetch("DEFAULT_FROM_EMAIL_ADDRESS", nil)
+    end
+
+    #
     # Monitoring::Mirth
     # Default to out-of-the-box development settings
     #

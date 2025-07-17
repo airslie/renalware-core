@@ -36,6 +36,7 @@ gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "rails", "~> 8.0.1"
 gem "renalware-forms", ">=0.1", github: "airslie/renalware-forms", branch: "main"
 gem "ruby-prof", require: false
+gem "sendgrid-ruby", "~> 6.7"
 gem "solid_cache"
 gem "tailwindcss-rails", "~> 3.0"
 gem "tailwindcss-ruby"
