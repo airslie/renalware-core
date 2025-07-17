@@ -26,6 +26,12 @@ class Forms::Generic::Homecare::Document < Forms::Base
       DeliveryFrequencies
       Signoff
       Footer
-    ).each { |klass| "Forms::Generic::Homecare::#{klass}".constantize.new(document, args).build }
+    ).each { |klass| to_class(klass).new(document, args).build }
+  end
+
+  private
+
+  def to_class(name)
+    "Forms::Generic::Homecare::#{name}".constantize
   end
 end

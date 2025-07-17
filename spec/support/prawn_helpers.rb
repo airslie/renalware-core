@@ -18,6 +18,32 @@ module PrawnHelpers
     )
   end
 
+  def default_homecare_args
+    {
+      provider: :x,
+      version: 1,
+      title: "m",
+      given_name: "J",
+      family_name: "J",
+      born_on: "01-01-2001",
+      prescription_date: Date.today,
+      no_known_allergies: true,
+      telephone: "01877777777",
+      hospital_number: "X12345678",
+      postcode: "TW18 7AR",
+      modality: "HD",
+      nhs_number: "123456789",
+      prescriber_name: "JJ",
+      hospital_department: "Dep",
+      allergies: [],
+      hospital_telephone: "099123123",
+      consultant: "Dr A B C",
+      administration_device: nil,
+      po_number: "789",
+      drug_type: :esa
+    }
+  end
+
   def default_test_arg_values # rubocop:disable Metrics/MethodLength
     {
       provider: :generic,
