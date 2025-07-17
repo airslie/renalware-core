@@ -136,6 +136,10 @@ RSpec.configure do |config|
     metadata[:type] = :component
   end
 
+  config.define_derived_metadata(file_path: %r{/spec/forms/}) do |metadata|
+    metadata[:type] = :form
+  end
+
   config.include Renalware::Engine.routes.url_helpers
   config.include Wisper::RSpec::BroadcastMatcher
   config.include CapybaraHelper, type: :system
@@ -151,6 +155,7 @@ RSpec.configure do |config|
   config.include SlimSelectHelper, type: :system
   config.include CapybaraAccessibleSelectors::Session, type: :system
   config.include FormHelpers, type: :system
+  config.include PrawnHelpers, type: :form
 
   config.fuubar_progress_bar_options = { progress_mark: "≈" }
 

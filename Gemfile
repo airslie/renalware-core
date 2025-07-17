@@ -22,6 +22,7 @@ group :opentelemetry do
 end
 
 # These are visible to demo app only
+gem "attr_extras"
 gem "autoprefixer-rails"
 gem "aws-sdk-s3", require: false # for active storage when using Heroku for test environments
 gem "bootsnap", require: false # speeds up rspec and rails server boot time in development
@@ -34,7 +35,6 @@ gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "rails", "~> 8.0.1"
-gem "renalware-forms", ">=0.1", github: "airslie/renalware-forms", branch: "main"
 gem "ruby-prof", require: false
 gem "solid_cache"
 gem "tailwindcss-rails", "~> 3.0"

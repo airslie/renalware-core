@@ -46,20 +46,6 @@ GIT
       rack
 
 GIT
-  remote: https://github.com/airslie/renalware-forms.git
-  revision: 4cede594291f40a27cfa4bb0423c6ba69f95b297
-  branch: main
-  specs:
-    renalware-forms (0.1.17)
-      activemodel
-      attr_extras
-      matrix
-      prawn (~> 2.2)
-      prawn-table (~> 0.2)
-      rake
-      virtus
-
-GIT
   remote: https://github.com/cucumber/cucumber-ruby.git
   revision: 328fd2b14cd5fefd9a8141eb25e6baba6f296998
   specs:
@@ -142,6 +128,7 @@ PATH
       pdf-reader (~> 2.9)
       pg (~> 1.1)
       prawn (~> 2.5.0)
+      prawn-table (~> 0.2)
       psych (~> 5.1.2)
       puma (>= 4.3)
       pundit (~> 2.5.0)
@@ -1038,6 +1025,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport_cache_database!
+  attr_extras
   autoprefixer-rails
   awesome_print
   aws-sdk-s3
@@ -1087,7 +1075,6 @@ DEPENDENCIES
   rails-controller-testing (~> 1.0.4)
   rake
   renalware-core!
-  renalware-forms (>= 0.1)!
   rspec-html-matchers
   rspec-rails
   rspec-retry
