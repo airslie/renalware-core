@@ -1,5 +1,6 @@
 require "rubygems"
 require "dotenv-rails"
+require "attr_extras"
 require "view_component"
 require "activerecord-import"
 require "ahoy"

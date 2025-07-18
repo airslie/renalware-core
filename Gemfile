@@ -22,7 +22,6 @@ group :opentelemetry do
 end
 
 # These are visible to demo app only
-gem "attr_extras"
 gem "autoprefixer-rails"
 gem "aws-sdk-s3", require: false # for active storage when using Heroku for test environments
 gem "bootsnap", require: false # speeds up rspec and rails server boot time in development

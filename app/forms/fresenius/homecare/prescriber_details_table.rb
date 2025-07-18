@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Forms::Fresenius::Homecare::PrescriberDetailsTable < Forms::Fresenius::Homecare::Base
-  def build
+  def build # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     move_down 5
     table(
       [

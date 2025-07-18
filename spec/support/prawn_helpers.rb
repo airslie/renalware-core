@@ -18,7 +18,7 @@ module PrawnHelpers
     )
   end
 
-  def default_homecare_args
+  def default_homecare_args # rubocop:disable Metrics/MethodLength
     {
       provider: :x,
       version: 1,
@@ -26,7 +26,7 @@ module PrawnHelpers
       given_name: "J",
       family_name: "J",
       born_on: "01-01-2001",
-      prescription_date: Date.today,
+      prescription_date: Date.current,
       no_known_allergies: true,
       telephone: "01877777777",
       hospital_number: "X12345678",

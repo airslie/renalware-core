@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Forms::Fresenius::Homecare::ModalityTable < Forms::Fresenius::Homecare::Base
-  def build
+  def build # rubocop:disable Metrics/MethodLength
     move_down 5
     table(
       [
@@ -13,7 +13,7 @@ class Forms::Fresenius::Homecare::ModalityTable < Forms::Fresenius::Homecare::Ba
           args.modality,
           {
             content: "When treatment is <b>withheld</b> or <b>stopped</b> do not complete " \
-            "prescription section",
+                     "prescription section",
             inline_format: true
           }
         ]

@@ -1025,7 +1025,6 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport_cache_database!
-  attr_extras
   autoprefixer-rails
   awesome_print
   aws-sdk-s3

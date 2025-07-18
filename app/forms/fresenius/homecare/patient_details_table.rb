@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Forms::Fresenius::Homecare::PatientDetailsTable < Forms::Fresenius::Homecare::Base
-  # rubocop:disable Metrics/MethodLength
-  def build
+  def build # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     font_size 9
     table(
       [
@@ -56,7 +55,6 @@ class Forms::Fresenius::Homecare::PatientDetailsTable < Forms::Fresenius::Homeca
       **table_styles
     )
   end
-  # rubocop:enable Metrics/MethodLength
 
   private
 
@@ -64,7 +62,7 @@ class Forms::Fresenius::Homecare::PatientDetailsTable < Forms::Fresenius::Homeca
     allergies = Array(args.allergies).compact.uniq.join("<br>")
     {
       content: "<b><font name='ZapfDingbats'>#{CHECKBOX}</font>Yes please specify</b>" \
-      "<br>#{allergies}",
+               "<br>#{allergies}",
       inline_format: true,
       rowspan: 3
     }

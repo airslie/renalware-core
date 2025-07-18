@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Forms::Fresenius::Homecare::DeliveryDetailsTable < Forms::Fresenius::Homecare::Base
-  def build
+  def build # rubocop:disable Metrics/MethodLength
     move_down 5
     table(
       [

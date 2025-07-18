@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Forms::Fresenius::Homecare::ReturnAddress < Forms::Fresenius::Homecare::Base
-  def build
+  def build # rubocop:disable Metrics/MethodLength
     font_size 8
     bounding_box([430, 810], width: 135, height: 100) do
       pad(5) do

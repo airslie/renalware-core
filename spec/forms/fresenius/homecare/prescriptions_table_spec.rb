@@ -8,7 +8,7 @@ RSpec.describe Forms::Fresenius::Homecare::PrescriptionsTable do
       administration_device: "device1"
     )
     args.medications << Forms::Homecare::Args::Medication.new(
-      date: Date.today,
+      date: Date.current,
       drug: "Example drug",
       dose: "1 unit",
       route: "Per Oral",

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Forms::Fresenius::Homecare::PrescriptionsTable < Forms::Fresenius::Homecare::Base
-  def build
+  def build # rubocop:disable Metrics/MethodLength
     move_down 5
     med = args.medications.first || Forms::Homecare::Args::Medication.new
 

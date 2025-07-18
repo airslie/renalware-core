@@ -22,7 +22,7 @@ class Forms::Fresenius::Homecare::Document < Forms::Fresenius::Homecare::Base
       DeliveryDetailsTable
       PrescriberDetailsTable
       Footer
-   ).each { |klass| to_class(klass).new(document, args).build }
+    ).each { |klass| to_class(klass).new(document, args).build }
   end
 
   private
