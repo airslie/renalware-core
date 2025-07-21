@@ -12,7 +12,7 @@ module Renalware
     it "renders component" do
       expect(table_fragment.css(".toggler i")).not_to be_empty
       expect(table_fragment.text).to include("09-Jul-2025Letter (Draft)#{description}#{created_by}")
-      expect(table_fragment.css(".hidden").text).to include(
+      expect(table_fragment.css(".hidden").text).to eq(
         "I am pleased to report a marked improvement in her condition."
       )
     end

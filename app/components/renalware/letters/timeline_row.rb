@@ -2,6 +2,8 @@
 
 module Renalware
   class Letters::TimelineRow < TimelineRow
+    register_output_helper :sanitize
+
     private
 
     def type
@@ -13,7 +15,7 @@ module Renalware
     end
 
     def detail
-      TableDetailRow(COLUMNS) { @record.body }
+      TableDetailRow(COLUMNS) { sanitize @record.body }
     end
 
     def state
