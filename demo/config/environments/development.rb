@@ -74,24 +74,15 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
-
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # Run mailcatcher in development to see emails https://mailcatcher.me/
-  #   $ gem install mailcatcher
-  #   $ mailcatcher
-  #   Go to http://localhost:1080/
-  #   Send mail through smtp://localhost:1025
-
   # Deliver email via Microsoft Graph API using client credentials OAuth flow.
-  config.action_mailer.delivery_method = :microsoft_graph_api
-
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
-  Rails.application.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.delivery_method =
+    ENV.fetch("MAIL_DELIVERY_METHOD", :microsoft_graph_api).to_sym
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 } # For URLs in emails
+  Rails.application.default_url_options = { host: "localhost", port: 3000 }    # For URLs in jobs
 
   config.active_job.queue_adapter = :good_job
 end

@@ -25,16 +25,7 @@ Rails.application.configure do
   # the Gemfile and no config.assets.css_compressor option is set.
   config.assets.css_compressor = nil
 
-  # ActionMailer::Base.smtp_settings = {
-  #   address: "smtp.sendgrid.net",
-  #   port: "587",
-  #   authentication: :plain,
-  #   user_name: ENV["SENDGRID_USERNAME"],
-  #   password: ENV["SENDGRID_PASSWORD"],
-  #   domain: "heroku.com",
-  #   enable_starttls_auto: true
-  # }
-  ActionMailer::Base.smtp_settings = {
+  config.action_mailer.smtp_settings = {
     port: ENV.fetch("MAILGUN_SMTP_PORT", nil),
     address: ENV.fetch("MAILGUN_SMTP_SERVER", nil),
     user_name: ENV.fetch("MAILGUN_SMTP_LOGIN", nil),
@@ -42,7 +33,7 @@ Rails.application.configure do
     domain: ENV.fetch("HEROKU_CUSTOM_DOMAIN", nil),
     authentication: :plain
   }
-  ActionMailer::Base.delivery_method = :smtp
+  config.action_mailer.delivery_method = ENV.fetch("MAIL_DELIVERY_METHOD", :smtp).to_sym
 
   # .
   # Important for Devise redirects to and from login page.
