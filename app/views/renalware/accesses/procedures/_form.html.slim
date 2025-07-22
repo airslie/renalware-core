@@ -24,7 +24,7 @@ ruby:
       / when the user clicks on the Insert button in the modal, the content is put into the target
       / (eg trix editor)
       = link_to t("snippets.insert"),
-                authoring.snippets_path,
+                authoring.snippets_path(in_dialog: true),
                 class: "float-right insert-snippet-button button alternative",
                 data: { turbo: true, turbo_frame: "modal" }
       = f.label :notes

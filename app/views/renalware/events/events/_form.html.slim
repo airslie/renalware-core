@@ -42,7 +42,7 @@ div(data-controller="conditional-display" data-conditional-display-attribute-to-
       / When the user clicks on an Insert button in the modal, the snippet text is put into the
       / snippets controller destination target which currently must be a Trix editor instance.
       = link_to t("snippets.insert"),
-                authoring.snippets_path,
+                authoring.snippets_path(in_dialog: true),
                 class: "float-right insert-snippet-button button alternative",
                 data: { turbo: true, turbo_frame: "modal" }
       = f.input :notes,
