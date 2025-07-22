@@ -3,14 +3,16 @@ module Renalware
     class SnippetsController < BaseController
       include Pagy::Backend
 
+      LIMIT = 10
+
       # rubocop:disable Metrics/MethodLength
       def index
         authorize Snippet, :index?
         snippets = snippets_for_author(author)
         search = snippets.ransack(params[:q])
         search.sorts = ["times_used desc", "last_used_on desc"] if search.sorts.empty?
-        pagy, snippets = pagy(search.result, limit: 10)
-        in_dialog = ActiveModel::Type::Boolean.new.cast(params.fetch(:in_dialog, true))
+        pagy, snippets = pagy(search.result, limit: LIMIT)
+        in_dialog = ActiveModel::Type::Boolean.new.cast(params.fetch(:in_dialog, false))
         locals = {
           snippets: snippets,
           search: search,
@@ -19,7 +21,7 @@ module Renalware
           in_dialog: in_dialog
         }
 
-        template = turbo_frame_request? ? "dialog" : "index"
+        template = in_dialog ? "dialog" : "index"
 
         render template, locals: locals, layout: !turbo_frame_request?
       end
