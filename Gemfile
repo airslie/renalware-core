@@ -34,7 +34,6 @@ gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 gem "paper_trail"
 gem "party_foul", "~> 1.5.5", github: "airslie/party_foul"
 gem "rails", "~> 8.0.1"
-gem "renalware-forms", ">=0.1", github: "airslie/renalware-forms", branch: "main"
 gem "ruby-prof", require: false
 gem "sendgrid-ruby", "~> 6.7"
 gem "solid_cache"

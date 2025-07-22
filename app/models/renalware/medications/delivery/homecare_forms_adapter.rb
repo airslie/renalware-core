@@ -4,7 +4,7 @@ module Renalware
       # Takes
       # - a patient
       # - a homecare delivery_event
-      # and build Args used to pass to Renalware::Forms::Homecare::Pdf.generate
+      # and build Args used to pass to Forms::Homecare::Pdf.generate
       class HomecareFormsAdapter
         pattr_initialize [:delivery_event!]
         delegate :homecare_form, :patient, to: :delivery_event
