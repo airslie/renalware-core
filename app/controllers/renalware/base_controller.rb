@@ -76,6 +76,8 @@ module Renalware
 
     private
 
+    def page = params[:page]
+
     # TODO: remove load_patient before_action once refactored out of other controllers.
     # Individual patient-level controllers can authorise using the PolicyPatient if they like,
     # but I believe it will be more extensible and intention revealing if authorisation is done

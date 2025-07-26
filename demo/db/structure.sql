@@ -380,6 +380,18 @@ CREATE TYPE renalware.feed_outgoing_document_state AS ENUM (
 
 
 --
+-- Name: hd_acuity_assessment_ratios; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.hd_acuity_assessment_ratios AS ENUM (
+    '1:4',
+    '1:3',
+    '1:2',
+    '1:1'
+);
+
+
+--
 -- Name: hd_vnd_risk_level_itemised; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -6917,6 +6929,40 @@ CREATE TABLE renalware.good_jobs (
     locked_by_id uuid,
     locked_at timestamp(6) without time zone
 );
+
+
+--
+-- Name: hd_acuity_assessments; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.hd_acuity_assessments (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    created_by_id bigint NOT NULL,
+    updated_by_id bigint NOT NULL,
+    ratio renalware.hd_acuity_assessment_ratios NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_acuity_assessments_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.hd_acuity_assessments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_acuity_assessments_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.hd_acuity_assessments_id_seq OWNED BY renalware.hd_acuity_assessments.id;
 
 
 --
@@ -17016,6 +17062,13 @@ ALTER TABLE ONLY renalware.geography_postcodes ALTER COLUMN id SET DEFAULT nextv
 
 
 --
+-- Name: hd_acuity_assessments id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_acuity_assessments ALTER COLUMN id SET DEFAULT nextval('renalware.hd_acuity_assessments_id_seq'::regclass);
+
+
+--
 -- Name: hd_cannulation_types id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -19181,6 +19234,14 @@ ALTER TABLE ONLY renalware.good_job_settings
 
 ALTER TABLE ONLY renalware.good_jobs
     ADD CONSTRAINT good_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_acuity_assessments hd_acuity_assessments_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_acuity_assessments
+    ADD CONSTRAINT hd_acuity_assessments_pkey PRIMARY KEY (id);
 
 
 --
@@ -22812,6 +22873,27 @@ CREATE INDEX index_good_jobs_on_queue_name_and_scheduled_at ON renalware.good_jo
 --
 
 CREATE INDEX index_good_jobs_on_scheduled_at ON renalware.good_jobs USING btree (scheduled_at) WHERE (finished_at IS NULL);
+
+
+--
+-- Name: index_hd_acuity_assessments_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_acuity_assessments_on_created_by_id ON renalware.hd_acuity_assessments USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_acuity_assessments_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_acuity_assessments_on_patient_id ON renalware.hd_acuity_assessments USING btree (patient_id);
+
+
+--
+-- Name: index_hd_acuity_assessments_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_acuity_assessments_on_updated_by_id ON renalware.hd_acuity_assessments USING btree (updated_by_id);
 
 
 --
@@ -27991,6 +28073,14 @@ ALTER TABLE ONLY renalware.pathology_requests_patient_rules
 
 
 --
+-- Name: hd_acuity_assessments fk_rails_169794a59e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_acuity_assessments
+    ADD CONSTRAINT fk_rails_169794a59e FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: pd_adequacy_results fk_rails_16cf8add93; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -28308,6 +28398,14 @@ ALTER TABLE ONLY renalware.clinical_dry_weights
 
 ALTER TABLE ONLY renalware.feed_files
     ADD CONSTRAINT fk_rails_3196424d66 FOREIGN KEY (file_type_id) REFERENCES renalware.feed_file_types(id);
+
+
+--
+-- Name: hd_acuity_assessments fk_rails_31a621b7df; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_acuity_assessments
+    ADD CONSTRAINT fk_rails_31a621b7df FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -30039,6 +30137,14 @@ ALTER TABLE ONLY renalware.hd_prescription_administrations
 
 
 --
+-- Name: hd_acuity_assessments fk_rails_b5bd06f6a2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_acuity_assessments
+    ADD CONSTRAINT fk_rails_b5bd06f6a2 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: transplant_donor_operations fk_rails_b6ee03185c; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -31306,12 +31412,13 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware, renalware_demo, public, heroku_ext;
+SET search_path TO renalware,renalware_demo,public,heroku_ext;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20250611141102'),
 ('20250604125449'),
 ('20250521162707'),
+('20250509082707'),
 ('20250501125231'),
 ('20250425122256'),
 ('20250424150155'),

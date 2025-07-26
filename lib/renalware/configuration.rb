@@ -266,6 +266,16 @@ module Renalware
       ENV.fetch("DAYS_BEHIND_TO_WARN_NAMED_CONSULTANT_ABOUT_EXPIRED_HD_PRESCRIPTIONS", "14").to_i
     end
 
+    config_accessor(:hd_acuity_assessment_deletion_window) do
+      ActiveSupport::Duration.parse(
+        ENV.fetch("HD_ACUITY_ASSESSMENT_DELETION_WINDOW", "PT12H")
+      )
+    end
+    config_accessor(:hd_acuity_assessment_edit_window) do
+      ActiveSupport::Duration.parse(
+        ENV.fetch("HD_ACUITY_ASSESSMENT_EDIT_WINDOW", "PT12H")
+      )
+    end
     config_accessor(:hd_session_prescriptions_require_signoff) { true }
     config_accessor(:hd_session_require_patient_group_directions) {
       ActiveModel::Type::Boolean.new.cast(

@@ -2,8 +2,8 @@ class AddColourToPathologyCodeGroupsSubgroups < ActiveRecord::Migration[6.0]
   def change
     within_renalware_schema do
       # This enum comprises tailwindcss colour names. The idea is that in several tables
-      # (eg pathology_code_groups.subgroup_colourts and pathology_descriptios.color) a color
-      # configuration can be that will affect the UI. The chosen colour will be interpolataed into
+      # (eg pathology_code_groups.subgroup_colours and pathology_descriptions.colour) a color
+      # configuration can be that will affect the UI. The chosen colour will be interpolated into
       # a tailwindcss class name eg bg-emerald-100. This allows more control than the more open
       # alternative of allowing any html #colorref from being entered, which could lead to elements
       # of the UI becoming unreadable in the worst case.
