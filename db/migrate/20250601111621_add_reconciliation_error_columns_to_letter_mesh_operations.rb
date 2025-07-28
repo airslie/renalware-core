@@ -1,4 +1,4 @@
-class AddReconciliationErrorColumnsToLetterMeshOperations < ActiveRecord::Migration[8.0]
+class AddReconciliationErrorColumnsToLetterMeshOperations < ActiveRecord::Migration[7.2]
   def change
     safety_assured do
       within_renalware_schema do
