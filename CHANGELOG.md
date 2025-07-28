@@ -9,6 +9,60 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.4.5.5
+### Added
+- Add a patient Timeline page and add to Clinical Summary #5379
+- Add support for sending outgoing documents as RTF (Barts) #5278
+- Support SIU^S14 HL7 messages #5300
+- Add a unique ehr_person_identifier column to patients #5300
+  - This is a future-proofing step as eg Millennium has a person id that _could_ be send in HL7 and stored by us.
+- Display user's name and roles at top of dashboard #5303
+  - This change is to satisfy the MESH API assurance requirements that when logged, the user's name and role/s are displayed, in addition to last login/failed login date times.
+- Show failed login attempt when more recent than last login #5328
+- Handle async REPORT messages from MESH API #5304
+  E.g. undeliverable after 5 days. These have no body, just headers.
+- If a patient is undeceased via HL7, notify superadmins via message #5305
+  - So they can reinstate prescriptions etc
+- Show unreconciled MESH messages on a new tab #5321
+  - these are messages that we do not recognise (perhaps sent to us in error)
+- Allow a document deletion to trigger an HL7 message #5334
+  If an event or letter is soft deleted, a hosp might choose to send an HL7 message to the TIE (via Mirth) to signal that the document should be flagged as deleted in downstream document repositories. Enabled only at BLT currently
+
+### Changed
+- Switch to using slimselect for message recipient ids multi dropdown when sending a message #5268
+- Disable 'edge' autocomplete on various inputs #5271
+  - Prevent the Edge autocomplete popup from appearing when
+    - searching for a patient in the top left search box
+    - searching admin users
+    - searching users
+    - searching downloads
+- Display daily queued and sent counts in UKRDC Activity widget #5273
+- Move professional position under signature in user profile #5320
+- HL7 MDM^T02 changes #5330
+  - Add EVN segment
+  - Correct order of segments in TXA.5 (backwards compatible)
+  - Copy MSH processing_id into control_id for BLT (backwards compatible)
+- Change Electronic CCs dropdown on letters form to use slimselect #5336
+- Switch to using slim_select for dropdowns in
+  - access procedures
+  - admin/users
+  - clinical profiles
+  - All Patients list
+  - pathology investigations filter
+- Only show active users in drop downs #5363
+  - Filters out banned and inactive users from all but the System->Users list.
+- Merge renalware-forms-* into core #5387 (to test just check creating a Home Delivery Form pdf works)
+
+### Fixed
+- Messaging dropdown changes #5286
+  - Fix javascript error during load of New Message form
+  - Correct the order messaging recipients in dropdown
+- Stop caching letter html table rows #5288
+  - as this was also caching the the appearance/hiding of eg Edit button in the row without respecting the permissions of the current user
+- Remove hidden users from dropdowns #5339
+- Fix: Bug in report category dropdown, preventing duplicates #5374
+- Fix: snippet actions not available on second page #5393
+
 ## 2.4.5.4
 ### Added
 - Handle A04 ED admission messages #5242
@@ -18,8 +72,8 @@ This project adheres to Semantic Versioning.
   - Run the job every day at 2:00 AM. This address a bug where we expect an indication in the Admin Users -> Expired tab, and the user Expired? column, that user is expired by interrogating users.expired_at, but this column never gets populated. Users are still prevented from logging in as the devise_security#expired? method also checks last_activity_at.
 - Add Requires BBV Slot (hep B+) to HD Slot request form #5190
   - Add a new attribute and column 'requires_bbv_slot' labelled 'Requires BBV Slot (hep B+)' to the HD Slot Request form. Selecting Yes or No is mandatory.
+- add a daily job to set users.expired_at = now() where last activity was more than Renalware.config.users_expire_after days ago
 
-This fix is to add a daily job to set users.expired_at = now() where last activity was more than Renalware.config.users_expire_after days ago
 ### Changed
 - Allow filtering reports by name #5248
 - Make pathology_missing_urrs faster by using a temp table rather than a CTE #5243
