@@ -18,7 +18,6 @@ module Demo
     config.eager_load_paths << Renalware::Engine.root.join("app/view_components")
     config.eager_load_paths << Renalware::Engine.root.join("app/validators/concerns")
     config.eager_load_paths << Renalware::Engine.root.join("app/services")
-    config.view_component.view_component_path = "app/view_components"
     config.view_component.preview_paths <<
       Renalware::Engine.root.join("spec/view_components/previews")
 
