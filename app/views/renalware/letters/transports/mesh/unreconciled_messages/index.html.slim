@@ -1,0 +1,18 @@
+= content_for(:tabs)    { render "renalware/letters/transports/mesh/tabs" }
+= content_for(:actions) { render "renalware/letters/transports/mesh/actions" }
+= content_for(:filters) { render "filters", search: search }
+= content_for(:title)   { "GP Connect / Unreconciled Messages" }
+
+table.text-sm.stripeless.mt-4
+  thead.text-sm
+    th.col-width-small MESH Id
+    th.col-width-date-time Downloaded
+    th Error
+  tbody
+    - operations.each do |operation|
+      tr
+        td= operation.mesh_message_id
+        td= l(operation.created_at)
+        td= operation.reconciliation_error_description
+
+== pagy_nav pagy

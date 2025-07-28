@@ -5,9 +5,7 @@ module Renalware::Letters::Transports::Mesh
     let(:mesh_mailbox_id) { "RAJ01OT001" }
     let(:base_url) { "http://localhost:8700/messageexchange" } # the MESH sandbox running in docker
 
-    def cassette(path)
-      File.join("letters/transports/mesh/api", path)
-    end
+    def cassette(path) = File.join("letters/transports/mesh/api", path)
 
     before do
       # Note you can run a meshapi sandbox on localhost:8700 using docker
@@ -65,6 +63,20 @@ module Renalware::Letters::Transports::Mesh
 
           expect(response.status).to eq(404)
           expect(response.body).to include("errorDescription" => "Message does not exist")
+        end
+      end
+
+      context "when REPORT message with no body" do
+        it do
+          response = VCR.use_cassette(cassette("download_message/report/undelivered")) do
+            described_class.new.download_message("123")
+          end
+
+          expect(response.status).to eq(200)
+          expect(response.body).to be_blank
+          expect(response.headers["Mex-MessageType"]).to eq("REPORT")
+          expect(response.headers["Mex-StatusCode"]).to eq("14")
+          expect(response.headers["Mex-StatusDescription"]).to eq("Undelivered message")
         end
       end
 

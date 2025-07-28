@@ -16,7 +16,7 @@ module Renalware
           # blocks of 500 and will keep polling until the inbox is empty.
           # 260 will generate 520 responses which is more than the 500 limit - an INF and BUS
           # response for each send.
-          100.times do |index|
+          10.times do |index|
             letter = create_letter_for(patient)
             transmission = Transmission.create!(letter: letter, comment: "#{comment} #{index}")
             transmission.reload

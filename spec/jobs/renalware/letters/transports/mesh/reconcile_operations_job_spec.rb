@@ -126,7 +126,7 @@ module Renalware::Letters::Transports::Mesh
         }.not_to change { transmission.reload.status }
         expect(letter.reload.gp_send_status).to eq("pending")
 
-        travel_to 25.hours.from_now do
+        travel_to 25.days.from_now do
           # After the period has elapsed, new status will be failure as no corresponding
           # inf and bus responses to our send_message operation have been received.
           expect {

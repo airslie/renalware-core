@@ -55,14 +55,16 @@ module Renalware
           }
         end
 
-        def mesh_operation_attributes(response)
-          return {} unless response.headers["Content-Type"] == "application/json"
+        def downcased_response_headers(response) = response.headers.transform_keys(&:downcase)
 
-          if response.body.present?
+        def mesh_operation_attributes(response)
+          response_headers = downcased_response_headers(response)
+
+          if response_headers["content-type"] == "application/json" && response.body.present?
             mesh_operation_attributes_from_body(response.body)
           else
             # its an error report with no body so pull from response headers
-            mesh_operation_attributes_from_headers(response.headers)
+            mesh_operation_attributes_from_headers(response_headers)
           end
         end
 
@@ -77,10 +79,10 @@ module Renalware
 
         def mesh_operation_attributes_from_headers(headers)
           {
-            mesh_error: headers["Mex-MessageType"] == "REPORT",
+            mesh_error: headers["mex-messagetype"] == "REPORT",
             mesh_response_error_event: nil,
-            mesh_response_error_code: headers["Mex-StatusCode"],
-            mesh_response_error_description: headers["Mex-StatusDescription"]
+            mesh_response_error_code: headers["mex-statuscode"],
+            mesh_response_error_description: headers["mex-statusdescription"]
           }
         end
 

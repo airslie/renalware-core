@@ -153,12 +153,12 @@ module Renalware
     config_accessor(:mesh_timeout_transmissions_with_no_response_after) do
       # Duration#parse uses the ISO8601 duration format
       ActiveSupport::Duration.parse(
-        ENV.fetch("MESH_TIMEOUT_TRANSMISSIONS_WITH_NO_RESPONSE_AFTER", "PT24H")
+        ENV.fetch("MESH_TIMEOUT_TRANSMISSIONS_WITH_NO_RESPONSE_AFTER", "P20D")
       )
     end
     config_accessor(:mesh_delay_seconds_between_letter_approval_and_mesh_send) do
       ActiveModel::Type::Integer.new.cast(
-        ENV.fetch("MESH_DELAY_SECONDS_BETWEEN_LETTER_APPROVAL_AND_MESH_SEND", "15")
+        ENV.fetch("MESH_DELAY_SECONDS_BETWEEN_LETTER_APPROVAL_AND_MESH_SEND", "5")
       ).seconds
     end
     config_accessor(:mesh_mailbox_id) { ENV.fetch("MESH_MAILBOX_ID", "?") }

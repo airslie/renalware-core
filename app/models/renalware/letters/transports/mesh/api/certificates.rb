@@ -13,7 +13,7 @@ module Renalware
         # On Heroku certs will be stored as ENV vars.
         def mesh_certificate(cert_type)
           path = Renalware.config.public_send(:"mesh_path_to_#{cert_type}")
-          if path && File.exist?(path)
+          if path.present? && File.exist?(path)
             File.read(path)
           else
             config_method_name = :"mesh_#{cert_type}"
