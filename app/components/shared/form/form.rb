@@ -1,23 +1,21 @@
 # frozen_string_literal: true
 
 # This is basic implementation of a Rails form as a Phlex component.
-# It's pretty rudimentary and doesn't handle nested forms,
-# but it's a good starting point. It could be subclassed to override the cancel
-# or submit buttons for further customization.
+# Consider this an experiment. We'll look into other solutions such Flexi::Form.
 
 class Shared::Form < Shared::Base
   register_value_helper :form_authenticity_token
 
   def initialize(model, **attrs)
     @model = model
-    @back_to = attrs.delete(:back_to)
+    @return_to = attrs.delete(:return_to)
     super(**attrs)
   end
 
   def view_template
     form(**mix({ class: "fn-form", action:, method: }, attrs)) do
       input(type: "hidden", name: "authenticity_token", value: form_authenticity_token)
-      input(type: "hidden", name: "back_to", value: back_to)
+      input(type: "hidden", name: "return_to", value: return_to)
       yield
       div(class: "form-actions") do
         cancel_button
@@ -27,7 +25,7 @@ class Shared::Form < Shared::Base
   end
 
   def cancel_button
-    Button(type: :link, href: back_to, class: "mr-3") { "Cancel" }
+    Button(type: :link, href: return_to, class: "mr-3") { "Cancel" }
   end
 
   def submit_button
@@ -44,7 +42,7 @@ class Shared::Form < Shared::Base
 
   private
 
-  attr_reader :model, :url, :back_to
+  attr_reader :model, :url, :return_to
 
   def default_attrs
     {

@@ -4,9 +4,9 @@ class Views::HD::AcuityAssessments::New < Views::Base
   register_output_helper :within_patient_layout
   register_value_helper :hd_summary_breadcrumb
 
-  def initialize(assessment:, referer: nil)
+  def initialize(assessment:, return_to: nil)
     @assessment = assessment
-    @referer = referer || patient_hd_dashboard_path(assessment.patient)
+    @return_to = return_to || patient_hd_dashboard_path(assessment.patient)
     super()
   end
 
@@ -15,11 +15,11 @@ class Views::HD::AcuityAssessments::New < Views::Base
       title: "New HD Acuity Assessment",
       breadcrumbs: [hd_summary_breadcrumb(assessment.patient)]
     ) do
-      render Renalware::HD::AcuityAssessments::Form.new(assessment, back_to: referer)
+      render Renalware::HD::AcuityAssessments::Form.new(assessment, return_to:)
     end
   end
 
   private
 
-  attr_reader :assessment, :referer
+  attr_reader :assessment, :return_to
 end

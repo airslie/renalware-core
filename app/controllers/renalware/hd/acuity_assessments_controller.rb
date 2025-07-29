@@ -30,7 +30,7 @@ module Renalware
             notice: success_msg_for("Acuity assessment")
           )
         else
-          render_new(assessment, referer: return_to)
+          render_new(assessment, return_to:)
         end
       end
 
@@ -50,10 +50,10 @@ module Renalware
         AcuityAssessment.for_patient(hd_patient).find(params[:id])
       end
 
-      def render_new(assessment, referer: request.referer)
+      def render_new(assessment, return_to: request.referer)
         render Views::HD::AcuityAssessments::New.new(
           assessment:,
-          referer:
+          return_to:
         )
       end
 

@@ -2,8 +2,8 @@
 
 module Renalware
   class HD::AcuityAssessments::Form < Shared::Form
-    def initialize(model, back_to: nil)
-      attrs = { back_to:, class: "large-9 columns" }
+    def initialize(model, return_to: nil)
+      attrs = { return_to:, class: "large-9 columns" }
       super(model, **attrs)
     end
 
@@ -14,11 +14,9 @@ module Renalware
       end
     end
 
-    # TODO: Factor this out into a shared component
     def ratio_radios
       ErrorMessage(model, :ratio)
       input(type: "hidden", name: "hd_acuity_assessment[ratio]", value: "")
-      input(type: "hidden", name: "return_to", value: back_to)
       ratios.each { |value, attrs| render_radio(value, attrs) }
     end
 
