@@ -1,16 +1,17 @@
 RSpec.describe "Acuity Assessment", :js do
   let(:clinician) { create(:user, :clinical) }
-  let(:patient) { assessment.patient }
-  let(:assessment) { create(:hd_acuity_assessment) }
+  let(:patient) { create(:hd_patient) }
   let(:patient_assessments) { Renalware::HD::AcuityAssessment.for_patient(patient) }
 
   before { login_as clinician }
 
   describe "viewing a patients assessments" do
+    let!(:assessment) { create(:hd_acuity_assessment, patient:) }
+
     it "responds with a list" do
       visit patient_hd_acuity_assessments_path(patient)
 
-      expect(page).to have_content(assessment.ratio)
+      expect(page).to have_content("1:4")
       expect(page).to have_content(assessment.created_by.to_s)
       expect(page).to have_content(I18n.l(assessment.created_at.to_date))
     end
@@ -26,7 +27,8 @@ RSpec.describe "Acuity Assessment", :js do
         click_on "Create"
 
         expect(page).to have_content("Acuity assessment added")
-        expect(patient_assessments.count).to eq(2)
+        expect(patient_assessments.count).to eq(1)
+        expect(page).to have_content("1:4")
       end
     end
 
@@ -41,13 +43,13 @@ RSpec.describe "Acuity Assessment", :js do
         click_on "Create"
 
         expect(page).to have_content("Ratio can't be blank")
-        expect(patient_assessments.count).to eq(1)
+        expect(patient_assessments.count).to eq(0)
       end
     end
   end
 
   describe "deleting an assessment" do
-    let(:assessment) { create(:hd_acuity_assessment, by: clinician) }
+    before { create(:hd_acuity_assessment, by: clinician, patient:) }
 
     it "deletes the record" do
       visit patient_hd_acuity_assessments_path(patient)

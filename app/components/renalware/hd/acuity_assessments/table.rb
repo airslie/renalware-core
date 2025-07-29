@@ -4,17 +4,18 @@ module Renalware
   class HD::AcuityAssessments::Table < Shared::Table
     register_output_helper :pagy_nav, mark_safe: true
 
-    COLORS = {
-      "1:4" => "bg-green-300",
-      "1:3" => "bg-lime-900",
-      "1:2" => "bg-orange-500",
-      "1:1" => "bg-red-600"
+    RATIOS = {
+      0.25 => { label: "1:4", color: "bg-green-300" },
+      0.33 => { label: "1:3", color: "bg-lime-900" },
+      0.50 => { label: "1:2", color: "bg-orange-500" },
+      1.00 => { label: "1:1", color: "bg-red-600" }
     }.freeze
 
-    def initialize(assessments:, pagy:, back_to:, current_user:)
+    COLORS = RATIOS.transform_values { |_label, color| color }.freeze
+
+    def initialize(assessments:, pagy:, current_user:)
       @assessments = assessments
       @pagy = pagy
-      @back_to = back_to
       @current_user = current_user
       super()
     end
@@ -31,12 +32,13 @@ module Renalware
 
     private
 
-    attr_reader :assessments, :pagy, :back_to, :current_user
+    attr_reader :assessments, :pagy, :current_user
 
     def row(assessment)
+      ratio = RATIOS[assessment.ratio.to_f]
       TableRow do
-        TableCell { DeleteIcon(path: assessment_path(assessment), policy: policy(assessment)) }
-        TableCell { Badge(assessment.ratio, colors: COLORS, class: "text-center") }
+        TableCell { DeleteLink(path: assessment_path(assessment), policy: policy(assessment)) }
+        TableCell { Badge(**ratio, class: "text-center") }
         DateCell(assessment.created_at)
         TableCell { assessment.created_by.to_s }
       end
@@ -54,7 +56,7 @@ module Renalware
     end
 
     def assessment_path(assessment)
-      patient_hd_acuity_assessment_path(assessment.patient, assessment, redirect_to: back_to)
+      patient_hd_acuity_assessment_path(assessment.patient, assessment)
     end
 
     def policy(assessment)

@@ -2,7 +2,7 @@
 
 module Renalware
   RSpec.describe HD::AcuityAssessments::Table do
-    subject { described_class.new(assessments: first_page, pagy:, back_to: nil, current_user:) }
+    subject { described_class.new(assessments: first_page, pagy:, current_user:) }
 
     let(:current_user) { build(:user, :clinical) }
     let(:pagy) { Pagy.new(count: assessments.count, page: 1, limit: 1) }

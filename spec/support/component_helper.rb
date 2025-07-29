@@ -30,15 +30,18 @@ module ComponentHelper
   end
 
   def view_context
-    context = controller.view_context
+    return @view_context if @view_context
+
+    @view_context = controller.view_context
 
     # Temporary workaround to allow helpers to be tests in Phlex components
     # These can also be converted to components and removed from here.
-    context.class_eval do
+    @view_context.class_eval do
       include Renalware::DefinitionListHelper
       include Pagy::Frontend
     end
-    context
+
+    @view_context
   end
 
   def controller

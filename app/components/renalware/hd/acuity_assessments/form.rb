@@ -18,14 +18,25 @@ module Renalware
     def ratio_radios
       ErrorMessage(model, :ratio)
       input(type: "hidden", name: "hd_acuity_assessment[ratio]", value: "")
-      model.class.ratios.each_key do |ratio|
-        div(class: "flex items-center gap-2") do
-          RadioButton(value: ratio, id: "ratio_#{ratio}", name: "hd_acuity_assessment[ratio]")
-          label(for: "ratio_#{ratio}", class: "inline-block w-40") do
-            Badge(ratio, colors: HD::AcuityAssessments::Table::COLORS, class: "w-full")
-          end
+      input(type: "hidden", name: "return_to", value: back_to)
+      ratios.each { |value, attrs| render_radio(value, attrs) }
+    end
+
+    private
+
+    def render_radio(value, attrs)
+      label, color = attrs.values_at(:label, :color)
+      id = "ratio_#{value.to_f}"
+      div(class: "flex items-center gap-2") do
+        RadioButton(value:, id:, name: "hd_acuity_assessment[ratio]")
+        label(for: id, class: "inline-block w-40") do
+          Badge(label:, color:, class: "w-full")
         end
       end
+    end
+
+    def ratios
+      HD::AcuityAssessments::Table::RATIOS
     end
   end
 end

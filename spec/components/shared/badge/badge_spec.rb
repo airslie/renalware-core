@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe Shared::Badge do
-  subject { described_class.new(value, colors:) }
+  subject { described_class.new(label:, color:) }
 
-  let(:value) { "medium" }
-  let(:colors) { { value => color } }
+  let(:label) { "medium" }
   let(:color) { "bg-yellow-100" }
 
   it "renders component" do
-    expect(fragment.css("div.bg-yellow-100").text).to eq(value)
+    expect(fragment.css("div.bg-yellow-100").text).to eq(label)
   end
 
   context "when color is dark" do

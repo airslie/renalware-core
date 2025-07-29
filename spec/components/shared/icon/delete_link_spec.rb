@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Shared::DeleteIcon do
+RSpec.describe Shared::DeleteLink do
   subject { described_class.new(path:, policy:) }
 
   let(:user) { create(:user, :super_admin) }
@@ -22,5 +22,13 @@ RSpec.describe Shared::DeleteIcon do
     expect(policy.destroy?).to be(true)
     expect(fragment.css("a").attr("href").text).to eq(path)
     expect(response).to include(delete_svg)
+  end
+
+  context "when policy is nil" do
+    let(:policy) { nil }
+
+    it "renders component" do
+      expect(fragment.css("a").attr("href").text).to eq(path)
+    end
   end
 end

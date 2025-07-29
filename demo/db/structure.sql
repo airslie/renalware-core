@@ -6940,9 +6940,10 @@ CREATE TABLE renalware.hd_acuity_assessments (
     patient_id bigint NOT NULL,
     created_by_id bigint NOT NULL,
     updated_by_id bigint NOT NULL,
-    ratio renalware.hd_acuity_assessment_ratios NOT NULL,
+    ratio numeric(10,2) NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    CONSTRAINT check_ratio_valid_values CHECK ((ratio = ANY (ARRAY[0.25, 0.33, 0.5, 1.0])))
 );
 
 

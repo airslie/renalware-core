@@ -5,7 +5,7 @@ module Renalware
       include Pagy::Backend
 
       def index
-        pagy, assessments = pagy AcuityAssessment.for_patient(hd_patient).ordered
+        pagy, assessments = pagy(AcuityAssessment.for_patient(hd_patient).ordered)
         authorize assessments
         render Views::HD::AcuityAssessments::Index.new(
           assessments:,
@@ -25,10 +25,12 @@ module Renalware
         assessment = hd_patient.acuity_assessments.new(assessment_params)
         authorize assessment
         if assessment.save_by(current_user)
-          redirect_to back_to || renalware.patient_hd_acuity_assessments_path(patient),
-                      notice: success_msg_for("Acuity assessment")
+          redirect_to(
+            return_to || patient_hd_dashboard_path(hd_patient),
+            notice: success_msg_for("Acuity assessment")
+          )
         else
-          render_new(assessment)
+          render_new(assessment, referer: return_to)
         end
       end
 
@@ -36,7 +38,10 @@ module Renalware
         assessment = find_assessment
         authorize assessment
         assessment.destroy!
-        redirect_to params[:redirect_to], notice: success_msg_for("HD Acuity Assessment")
+        redirect_back(
+          fallback_location: patient_hd_dashboard_path(hd_patient),
+          notice: success_msg_for("HD Acuity Assessment")
+        )
       end
 
       private
@@ -45,10 +50,10 @@ module Renalware
         AcuityAssessment.for_patient(hd_patient).find(params[:id])
       end
 
-      def render_new(assessment)
+      def render_new(assessment, referer: request.referer)
         render Views::HD::AcuityAssessments::New.new(
           assessment:,
-          referer: request.referer
+          referer:
         )
       end
 
@@ -59,7 +64,7 @@ module Renalware
           .merge(by: current_user)
       end
 
-      def back_to = params[:back_to]
+      def return_to = params[:return_to]
     end
   end
 end

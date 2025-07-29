@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-class Shared::DeleteIcon < Shared::Base
-  def initialize(path:, policy:)
+class Shared::DeleteLink < Shared::Base
+  def initialize(path:, policy: nil)
     @path = path
     @policy = policy
     super()
   end
 
   def render?
-    policy.destroy?
+    policy.nil? || policy.destroy?
   end
 
   def view_template
