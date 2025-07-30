@@ -177,6 +177,7 @@ en:
           add_preferences: HD Preferences
           add_session: HD Session
           add_vnd_assessment: VND Assessment
+          add_acuity_assessment: Acuity Assessment
       sessions:
         administered_drugs_thead:
           date: Date

@@ -43,6 +43,10 @@
                         title: t(".add_vnd_assessment"),
                         url: new_patient_hd_vnd_risk_assessment_path(@patient)
 
+    = dropdown_btn_item enabled: policy(Renalware::HD::AcuityAssessment).new?,
+                        title: t(".add_acuity_assessment"),
+                        url: new_patient_hd_acuity_assessment_path(@patient)
+
   = render Renalware::HD::AdministerPrescriptionDropdownComponent.new(patient: patient)
 
   - unless patient.has_ever_been_on_hd?

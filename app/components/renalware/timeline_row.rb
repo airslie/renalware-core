@@ -26,7 +26,7 @@ module Renalware
     private
 
     def row_toggler = RowTogglerCell()
-    def date = TableCell { I18n.l(@sort_date) }
+    def date = DateCell(@sort_date)
     def type = raise NotImplementedError
     def description = raise NotImplementedError
     def created_by = TableCell { @record.created_by.full_name }

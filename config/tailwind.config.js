@@ -39,6 +39,11 @@ module.exports = {
       "../**/app/javascript/**/*",
       `${process.cwd()}/app/javascript/**/*`,
 
+      "../**/app/views/**/*.rb",
+      "../**/app/components/**/*.rb",
+      `${process.cwd()}/app/views/**/*.rb`,
+      `${process.cwd()}/app/components/**/*.rb`,
+
       // Exclude node_modules
       "!../**/node_modules/**/*",
       `!${process.cwd()}/node_modules/**/*`,

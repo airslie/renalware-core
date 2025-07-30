@@ -7,7 +7,8 @@ module Renalware
       def show
         authorize hd_patient
         render locals: {
-          dashboard: DashboardPresenter.new(hd_patient, view_context, current_user)
+          dashboard: DashboardPresenter.new(hd_patient, view_context, current_user),
+          assessments: hd_patient.acuity_assessments.ordered.take(3)
         }
       end
     end

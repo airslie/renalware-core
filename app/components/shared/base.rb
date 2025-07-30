@@ -1,10 +1,21 @@
 # frozen_string_literal: true
 
+# All components should inherit from this class or one of its subclasses
+# (e.g. Shared::Form).
+# It provides a few helpers and a default set of attributes.
+# When initializing a component, if the content to be passed in is obvious for
+# that component, you can pass it in directly. Otherwise, use keyword arguments.
+# It's also better to yield content to allow for more flexibility, unless the
+# component needs to manipulate the content itself.
+# Pass unhandled attributes via the super initializer and they will be available
+# in the attrs reader.
+
 require "tailwind_merge"
 
 class Shared::Base < Phlex::HTML
   include Phlex::Rails::Helpers::Routes
-  include ::Renalware::Engine.routes.url_helpers # paths without `renalware.` prefix
+  include Renalware::Engine.routes.url_helpers # paths without `renalware.` prefix
+  include Phlex::Rails::Helpers::AssetPath
 
   TAILWIND_MERGER = ::TailwindMerge::Merger.new.freeze
 

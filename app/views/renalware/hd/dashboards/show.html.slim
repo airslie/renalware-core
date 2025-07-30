@@ -20,6 +20,8 @@
       = render Renalware::Accesses::NeedlingAssessmentsComponent.new(patient: dashboard.patient, current_user: current_user)
       = render Renalware::HD::VNDRiskAssessmentsComponent.new(patient: dashboard.patient, current_user: current_user)
 
+      = render Renalware::HD::AcuityAssessments::Summary.new(assessments:, patient: dashboard.patient, current_user:)
+
     - if dashboard.access.present?
       .medium-6.large-4.xlarge-3.columns
         = render "renalware/hd/accesses/summary",

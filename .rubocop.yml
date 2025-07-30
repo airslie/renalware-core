@@ -60,11 +60,6 @@ Rails/EnumSyntax:
 Style/CommentAnnotation:
   Enabled: false
 
-RSpec/VerifiedDoubleReference:
-  Enabled: true
-  Exclude:
-    - "spec/models/renalware/pathology/observation_requests_attributes_builder_spec.rb"
-
 Rails/WhereRange:
   Enabled: true
 
@@ -73,9 +68,6 @@ Naming/PredicateName:
 
 Style/Lambda:
   Enabled: false
-
-RSpec/MultipleMemoizedHelpers:
-  Max: 30
 
 Metrics/BlockNesting:
   Enabled: false
@@ -103,18 +95,38 @@ Rails/ActionOrder:
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: true
 
+RSpec/VerifiedDoubleReference:
+  Enabled: true
+  Exclude:
+    - "spec/models/renalware/pathology/observation_requests_attributes_builder_spec.rb"
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 30
+
+RSpec/SpecFilePathFormat:
+  Exclude:
+    - 'spec/components/shared/**/*'
+
 RSpec/ReceiveMessages:
   Enabled: true
 
 RSpec/MetadataStyle:
   Enabled: true
 
+RSpec/ExampleLength:
+  Max: 40
+  Exclude:
+    - "spec/system/**/*"
+RSpec/NestedGroups:
+  Max: 5
+
+RSpec/MultipleExpectations:
+  Max: 10
+  Exclude:
+    - "spec/system/**/*"
+
 Capybara/ClickLinkOrButtonStyle:
   Enabled: false
-
-RSpec/SpecFilePathFormat:
-  Exclude:
-    - "spec/components/renalware/letters/unread_electronic_ccs_component_spec.rb"
 
 Metrics/MethodLength:
   Exclude:
@@ -144,16 +156,7 @@ Metrics/AbcSize:
     - "demo/db/**/*"
     - app/models/renalware/letters/formats/fhir/**/resources/**/*
   Max: 25
-RSpec/ExampleLength:
-  Max: 40
-  Exclude:
-    - "spec/system/**/*"
-RSpec/NestedGroups:
-  Max: 5
-RSpec/MultipleExpectations:
-  Max: 10
-  Exclude:
-    - "spec/system/**/*"
+
 Lint/RedundantSafeNavigation:
   Enabled: true
 RSpec/DescribeClass:
