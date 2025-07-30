@@ -9,7 +9,10 @@ module Renalware
 
     def view_template
       super do
-        Lead(class: "text-lg font-bold text-gray-900") { "Select the HD acuity ratio" }
+        header(class: "flex justify-between") do
+          Lead(class: "text-lg font-bold text-gray-900") { "Select the HD acuity ratio" }
+          render Renalware::HD::AcuityAssessments::PdfLink
+        end
         ratio_radios
       end
     end

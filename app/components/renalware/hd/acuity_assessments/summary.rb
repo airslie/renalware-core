@@ -32,24 +32,13 @@ class Renalware::HD::AcuityAssessments::Summary < Shared::Base
     header do
       h2 { a(href: list_path) { "Acuity Assessments" } } unless current_page?(list_path)
       ul(class: "flex justify-end") do
-        li { pdf_button }
-        li { add_button }
+        li { render Renalware::HD::AcuityAssessments::PdfLink }
+        li { add_link }
       end
     end
   end
 
-  def pdf_button
-    span do
-      a(href: pdf_path, class: "button secondary", target: "_blank") do
-        div(class: "flex mr-2") do
-          div(class: "mt-px mr-2") { Icon(:pdf) }
-          render "Guide"
-        end
-      end
-    end
-  end
-
-  def add_button
+  def add_link
     span do
       a(href: add_path, class: "button") do
         render "Add"
@@ -61,7 +50,6 @@ class Renalware::HD::AcuityAssessments::Summary < Shared::Base
 
   attr_reader :assessments, :current_user, :patient, :pagy
 
-  def pdf_path = asset_path("renalware/hd_acuity_score_guide.pdf")
   def add_path = new_patient_hd_acuity_assessment_path(patient)
   def list_path = patient_hd_acuity_assessments_path(patient)
   def dashboard_path = patient_hd_dashboard_path(patient)
