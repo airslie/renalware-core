@@ -19,6 +19,7 @@ module Renalware
 
         locals = {
           letters: letters,
+          letters_count: pagy.count,
           q: q,
           pagy: pagy,
           form: form_for(named_filter)
