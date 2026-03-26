@@ -1,0 +1,4 @@
+const modal = document.getElementById("outpatient-prescription-administration-modal")
+if (modal) {
+  modal.innerHTML = "<%= j(render 'form', form: form, administration: administration) %>"
+}

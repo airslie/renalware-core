@@ -1,0 +1,100 @@
+= simple_form_for(outpatient_prescription_administration,
+                 remote: true,
+                 html: { autocomplete: "off" },
+                 url: url) do |fpa|
+  .modal(data-controller="hd-prescription-administration")
+    .modal__header
+      h2 Record Outpatient Drug
+      = render "renalware/shared/modal_close_link"
+
+    .modal__body
+      - prescription = Renalware::Medications::PrescriptionPresenter.new(outpatient_prescription_administration.prescription)
+      - administration = outpatient_prescription_administration
+      - last_administration_component = Renalware::Medications::OutpatientPrescriptionLastAdministrationComponent.new(prescription: prescription)
+
+      = render last_administration_component
+
+      = fpa.input :prescription_id, as: :hidden
+
+      .hd-drug-administration(data-hd-prescription-administration-target="container")
+        .summary
+          .hd-drug
+            .hd-drug--name= prescription.drug_name
+            .hd-drug--dose= prescription.dose
+            .hd-drug--route= prescription.route_code
+            .hd-drug--frequency= prescription.frequency
+            .hd-drug--prescribed-on= l(prescription.prescribed_on)
+            .hd-drug--prescriber-name= prescription.updated_by
+            - position = prescription.updated_by&.professional_position
+            .hd-drug--prescriber-position= position && "(#{position})"
+
+            - if prescription.terminated_on.present?
+              .hd-drug--termination
+                | Terminates
+                .hd-drug--termination-date= l(prescription.terminated_on)
+
+        .hd-drug-administered
+          label(for="medications_outpatient_prescription_administration_administered") Administered
+          = fpa.input :administered,
+                      as: :inline_radio_buttons,
+                      label: false,
+                      input_html: { \
+                        data: { \
+                          "hd-prescription-administration-target" => "radio",
+                          action: "change->hd-prescription-administration#toggleAdministered" } }
+
+        .recorded-on.mt-2
+          - not_recommended_values = Renalware::Medications::OutpatientPrescriptionAdministrationsQuery.new(prescription: prescription).call(limit: 10) \
+            .map { |item| l(item.recorded_on.to_date) }
+
+          = render Renalware::InputValueAlerterComponent.new( \
+            not_recommended_values: not_recommended_values, \
+            message: "Drug already recorded as administered on this date") do |component|
+            - component.with_input do
+              = fpa.input :recorded_on,
+                          as: :flatpickr, wrapper: :horizontal_datepicker, \
+                          input_html: { data: component.input_date_attributes, autocomplete: "off" }
+
+        .notes(style="display: block")
+          = fpa.label :notes
+          = fpa.input :notes, label: false, wrapper: :zilch, input_html: { rows: 2 }
+
+        .reason-why-not-administered.hidden(
+          style=("display: block" if administration.administered == false)
+        )
+          = fpa.label :reason_id
+          = fpa.association :reason, wrapper: :zilch, label: "x"
+
+        .authentication(class="#{'disabled-with-faded-overlay hidden' unless administration.administered?}"
+                        style=("display: none" unless administration.administered?))
+          - { administrator: :administered, witness: :witnessed }.each do |user_role, prefix|
+            - authorised = administration.public_send(:"#{user_role}_authorised?")
+            .user-and-password(class="user-and-password--#{user_role} #{'authorised' if authorised} #{'error' if fpa.object.errors[:password].any?}")
+              = fpa.label :"#{prefix}_by"
+              = fpa.association :"#{prefix}_by",
+                                as: :user_picker,
+                                collection: Renalware::User.active,
+                                wrapper: :zilch,
+                                label: false,
+                                input_html: { class: "authentication-user-id", autocomplete: "off" }
+
+              = fpa.input :"#{prefix}_by_password",
+                          as: :password,
+                          placeholder: "Password",
+                          class: "user-password",
+                          autocomplete: "new-password"
+
+    .modal__footer
+      .right
+        = fpa.submit "Sign-off", class: "button"
+        | &nbsp;&nbsp;
+        = fpa.submit "Save and Witness Later",
+                     name: "medications_outpatient_prescription_administration[skip_witness_validation]",
+                     id: "btn_save_and_witness_later",
+                     class: "button secondary #{'hidden' unless administration.administered?}",
+                     style: ("display: none" unless administration.administered?)
+        '  or
+        = link_to t("btn.cancel"),
+                  "#",
+                  "aria-label" => "Close",
+                  class: "reveal-modal-close"

@@ -144,6 +144,31 @@ module Renalware
             end
           end
         end
+
+        describe ".to_be_administered_as_outpatient" do
+          it "returns only current but non-future prescriptions flagged as give_as_outpatient" do
+            freeze_time do
+              tomorrow = Date.current + 1.day
+              yesterday = Date.current - 1.day
+              create_prescription(give_as_outpatient: false,
+                                  terminated_on: tomorrow,
+                                  prescribed_on: 2.months.ago)
+              target = create_prescription(give_as_outpatient: true,
+                                           terminated_on: tomorrow,
+                                           prescribed_on: 2.months.ago)
+              create_prescription(give_as_outpatient: true,
+                                  terminated_on: yesterday,
+                                  prescribed_on: 2.months.ago)
+              create_prescription(give_as_outpatient: true,
+                                  prescribed_on: tomorrow,
+                                  terminated_on: 2.weeks.since)
+
+              prescriptions = described_class.to_be_administered_as_outpatient
+
+              expect(prescriptions).to eq([target])
+            end
+          end
+        end
       end
 
       describe "state predicates" do
@@ -223,6 +248,7 @@ module Renalware
         terminated_on:,
         notes: nil,
         administer_on_hd: false,
+        give_as_outpatient: false,
         prescribed_on: "2024-01-01"
       )
         create(
@@ -230,6 +256,7 @@ module Renalware
           prescribed_on:,
           notes:,
           administer_on_hd:,
+          give_as_outpatient:,
           termination: build(:prescription_termination, terminated_on:)
         )
       end

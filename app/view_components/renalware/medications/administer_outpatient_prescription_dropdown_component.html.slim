@@ -1,0 +1,18 @@
+a.button.dropdown.with-icon(href="#"
+                            data-dropdown="outpatient-prescription-options"
+                            aria-controls="outpatient-prescription-options"
+                            aria-expanded="false")
+  = text_with_icon_prefix("Record Outpatient Drugs", :capsules, size: :md, class: "fill-white")
+
+ul.f-dropdown#outpatient-prescription-options(data-dropdown-content aria-hidden="true")
+  - if prescriptions_to_give_as_outpatient.empty?
+    = dropdown_btn_item enabled: false,
+                        title: "Patient has no drugs to be given as an outpatient",
+                        url: nil
+  - else
+    - prescriptions_to_give_as_outpatient.each do |prescription|
+      = dropdown_btn_item title: prescription.drug_name,
+                          url: administration_url(prescription),
+                          data: administration_link_data
+
+= render "renalware/medications/outpatient_prescription_administrations/dialog_placeholder"

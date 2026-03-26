@@ -77,6 +77,11 @@ module Renalware
           .where(administer_on_hd: true)
           .where(prescribed_on: ..Time.zone.today)
       }
+      scope :to_be_administered_as_outpatient, lambda {
+        current
+          .where(give_as_outpatient: true)
+          .where(prescribed_on: ..Time.zone.today)
+      }
       scope :having_drug_of_type, lambda { |drug_type_name|
         where("lower(drug_types.code) = lower(?)", drug_type_name)
       }

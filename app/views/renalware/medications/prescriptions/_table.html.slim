@@ -19,8 +19,10 @@
             th.col-width-small Dose
             th.col-width-small Frequency
             th.col-width-tiny Route
-            th.col-width-tinyish Give on HD
-            th.col-width-tiny HD Doses
+            - if current_scope
+              th.col-width-tinyish Give on HD
+              th.col-width-tinyish Give as outpatient
+              th.col-width-tiny HD Doses
             th.col-width-tiny Provider
             th.col-width-small Notes
             th.col-width-date.wide
@@ -48,10 +50,12 @@
                 - if prescription.frequency_comment.present?
                   .mt-1.text-xs = prescription.frequency_comment
               td= prescription.route_code
-              td= inline_check_icon(prescription.administer_on_hd)
-              td
-                - if prescription.fixed_dose_progress.present?
-                  = prescription.fixed_dose_progress
+              - if current_scope
+                td= inline_check_icon(prescription.administer_on_hd)
+                td= inline_check_icon(prescription.give_as_outpatient)
+                td
+                  - if prescription.fixed_dose_progress.present?
+                    = prescription.fixed_dose_progress
               td= prescription.provider
               td.text-center
                 - if prescription.notes.present?
@@ -62,7 +66,7 @@
               - if display_termination_date
                 td= prescription.terminated_by&.full_name
             tr
-              td(colspan=quick_preview_colspan)
+              td(colspan=20)
                 .quick-preview
                   = definition_list_for(prescription, size: :large) do |list|
                     = list.definition(:notes) { |value| simple_format(value) }

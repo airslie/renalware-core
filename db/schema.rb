@@ -3982,6 +3982,40 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_120100) do
     t.index ["updated_by_id"], name: "index_medication_delivery_events_on_updated_by_id"
   end
 
+  create_table "renalware.medication_outpatient_prescription_administration_reasons", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_outpatient_prescription_administration_reasons_on_name", unique: true
+  end
+
+  create_table "renalware.medication_outpatient_prescription_administrations", force: :cascade do |t|
+    t.boolean "administered"
+    t.bigint "administered_by_id"
+    t.boolean "administrator_authorised", default: false, null: false
+    t.datetime "created_at", null: false
+    t.integer "created_by_id", null: false
+    t.datetime "deleted_at"
+    t.text "notes"
+    t.bigint "patient_id", null: false
+    t.integer "prescription_id", null: false
+    t.bigint "reason_id"
+    t.date "recorded_on"
+    t.datetime "signed_off_at"
+    t.datetime "updated_at", null: false
+    t.integer "updated_by_id", null: false
+    t.boolean "witness_authorised", default: false, null: false
+    t.bigint "witnessed_by_id"
+    t.index ["administered_by_id"], name: "idx_on_administered_by_id_4930155dbc"
+    t.index ["created_by_id"], name: "idx_on_created_by_id_9325186305"
+    t.index ["deleted_at"], name: "index_outpatient_prescription_administrations_on_deleted_at"
+    t.index ["patient_id"], name: "idx_on_patient_id_075dd8322f"
+    t.index ["prescription_id"], name: "idx_on_prescription_id_ff7cc788ff"
+    t.index ["reason_id"], name: "idx_on_reason_id_431e081f81"
+    t.index ["updated_by_id"], name: "idx_on_updated_by_id_a8991fe8ea"
+    t.index ["witnessed_by_id"], name: "idx_on_witnessed_by_id_e9846a9471"
+  end
+
   create_table "renalware.medication_prescription_terminations", id: :serial, force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.integer "created_by_id", null: false
@@ -4018,6 +4052,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_120100) do
     t.bigint "form_id"
     t.string "frequency", null: false
     t.string "frequency_comment"
+    t.boolean "give_as_outpatient", default: false, null: false
     t.date "last_delivery_date"
     t.integer "legacy_drug_id", comment: "Keep the previous drug id as a reference in case of issues with DMD migration"
     t.integer "legacy_medication_route_id", comment: "Keep the previous route id as a reference in case of issues with DMD migration"
@@ -6631,6 +6666,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_120100) do
   add_foreign_key "renalware.medication_delivery_events", "renalware.drug_types"
   add_foreign_key "renalware.medication_delivery_events", "renalware.users", column: "created_by_id"
   add_foreign_key "renalware.medication_delivery_events", "renalware.users", column: "updated_by_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.medication_outpatient_prescription_administration_reasons", column: "reason_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.medication_prescriptions", column: "prescription_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.patients"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.users", column: "administered_by_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.users", column: "created_by_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.users", column: "updated_by_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.users", column: "witnessed_by_id"
   add_foreign_key "renalware.medication_prescription_terminations", "renalware.medication_prescriptions", column: "prescription_id"
   add_foreign_key "renalware.medication_prescription_terminations", "renalware.users", column: "created_by_id"
   add_foreign_key "renalware.medication_prescription_terminations", "renalware.users", column: "updated_by_id"

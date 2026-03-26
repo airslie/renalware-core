@@ -2735,6 +2735,7 @@ CREATE TABLE renalware.medication_prescriptions (
     legacy_medication_route_id integer,
     frequency_comment character varying,
     stat boolean,
+    give_as_outpatient boolean DEFAULT false NOT NULL,
     fixed_number_of_doses integer,
     CONSTRAINT medication_prescriptions_fixed_number_of_doses_check CHECK (((fixed_number_of_doses IS NULL) OR ((fixed_number_of_doses >= 1) AND (fixed_number_of_doses <= 10))))
 );
@@ -10387,6 +10388,81 @@ CREATE SEQUENCE renalware.medication_delivery_purchase_order_number_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
+
+
+--
+-- Name: medication_outpatient_prescription_administration_reasons; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.medication_outpatient_prescription_administration_reasons (
+    id bigint CONSTRAINT medication_outpatient_prescription_administration_r_id_not_null NOT NULL,
+    name character varying CONSTRAINT medication_outpatient_prescription_administration_name_not_null NOT NULL,
+    created_at timestamp(6) without time zone CONSTRAINT medication_outpatient_prescription_administ_created_at_not_null NOT NULL,
+    updated_at timestamp(6) without time zone CONSTRAINT medication_outpatient_prescription_administ_updated_at_not_null NOT NULL
+);
+
+
+--
+-- Name: medication_outpatient_prescription_administration_reason_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.medication_outpatient_prescription_administration_reason_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: medication_outpatient_prescription_administration_reason_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.medication_outpatient_prescription_administration_reason_id_seq OWNED BY renalware.medication_outpatient_prescription_administration_reasons.id;
+
+
+--
+-- Name: medication_outpatient_prescription_administrations; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.medication_outpatient_prescription_administrations (
+    id bigint NOT NULL,
+    administered boolean,
+    administered_by_id bigint,
+    administrator_authorised boolean DEFAULT false CONSTRAINT medication_outpatient_prescri_administrator_authorised_not_null NOT NULL,
+    created_by_id integer CONSTRAINT medication_outpatient_prescription_admin_created_by_id_not_null NOT NULL,
+    deleted_at timestamp(6) without time zone,
+    patient_id bigint CONSTRAINT medication_outpatient_prescription_administ_patient_id_not_null NOT NULL,
+    prescription_id integer CONSTRAINT medication_outpatient_prescription_adm_prescription_id_not_null NOT NULL,
+    reason_id bigint,
+    recorded_on date,
+    signed_off_at timestamp(6) without time zone,
+    notes text,
+    updated_by_id integer CONSTRAINT medication_outpatient_prescription_admin_updated_by_id_not_null NOT NULL,
+    witness_authorised boolean DEFAULT false CONSTRAINT medication_outpatient_prescription__witness_authorised_not_null NOT NULL,
+    witnessed_by_id bigint,
+    created_at timestamp(6) without time zone CONSTRAINT medication_outpatient_prescription_adminis_created_at_not_null1 NOT NULL,
+    updated_at timestamp(6) without time zone CONSTRAINT medication_outpatient_prescription_adminis_updated_at_not_null1 NOT NULL
+);
+
+
+--
+-- Name: medication_outpatient_prescription_administrations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.medication_outpatient_prescription_administrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: medication_outpatient_prescription_administrations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.medication_outpatient_prescription_administrations_id_seq OWNED BY renalware.medication_outpatient_prescription_administrations.id;
 
 
 --
@@ -18356,6 +18432,20 @@ ALTER TABLE ONLY renalware.medication_delivery_events ALTER COLUMN id SET DEFAUL
 
 
 --
+-- Name: medication_outpatient_prescription_administration_reasons id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_outpatient_prescription_administration_reasons ALTER COLUMN id SET DEFAULT nextval('renalware.medication_outpatient_prescription_administration_reason_id_seq'::regclass);
+
+
+--
+-- Name: medication_outpatient_prescription_administrations id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations ALTER COLUMN id SET DEFAULT nextval('renalware.medication_outpatient_prescription_administrations_id_seq'::regclass);
+
+
+--
 -- Name: medication_prescription_terminations id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -20675,6 +20765,22 @@ ALTER TABLE ONLY renalware.medication_delivery_events
 
 
 --
+-- Name: medication_outpatient_prescription_administration_reasons medication_outpatient_prescription_administration_reasons_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_outpatient_prescription_administration_reasons
+    ADD CONSTRAINT medication_outpatient_prescription_administration_reasons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: medication_outpatient_prescription_administrations medication_outpatient_prescription_administrations_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
+    ADD CONSTRAINT medication_outpatient_prescription_administrations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: medication_prescription_terminations medication_prescription_terminations_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -22103,10 +22209,24 @@ CREATE INDEX idx_mp_patient_id_medication_route_id ON renalware.medication_presc
 
 
 --
+-- Name: idx_on_administered_by_id_4930155dbc; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_on_administered_by_id_4930155dbc ON renalware.medication_outpatient_prescription_administrations USING btree (administered_by_id);
+
+
+--
 -- Name: idx_on_code_local_authority_district_id_fe2b0c7d98; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE UNIQUE INDEX idx_on_code_local_authority_district_id_fe2b0c7d98 ON renalware.geography_middle_super_output_areas USING btree (code, local_authority_district_id);
+
+
+--
+-- Name: idx_on_created_by_id_9325186305; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_on_created_by_id_9325186305 ON renalware.medication_outpatient_prescription_administrations USING btree (created_by_id);
 
 
 --
@@ -22131,10 +22251,45 @@ CREATE UNIQUE INDEX idx_on_page_id_attached_to_selector_1d87c582e9 ON renalware.
 
 
 --
+-- Name: idx_on_patient_id_075dd8322f; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_on_patient_id_075dd8322f ON renalware.medication_outpatient_prescription_administrations USING btree (patient_id);
+
+
+--
+-- Name: idx_on_prescription_id_ff7cc788ff; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_on_prescription_id_ff7cc788ff ON renalware.medication_outpatient_prescription_administrations USING btree (prescription_id);
+
+
+--
+-- Name: idx_on_reason_id_431e081f81; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_on_reason_id_431e081f81 ON renalware.medication_outpatient_prescription_administrations USING btree (reason_id);
+
+
+--
 -- Name: idx_on_study_id_external_reference_a07278c0eb; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE UNIQUE INDEX idx_on_study_id_external_reference_a07278c0eb ON renalware.research_participations USING btree (study_id, external_reference) WHERE ((deleted_at IS NULL) AND ((COALESCE(external_reference, ''::character varying))::text <> ''::text));
+
+
+--
+-- Name: idx_on_updated_by_id_a8991fe8ea; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_on_updated_by_id_a8991fe8ea ON renalware.medication_outpatient_prescription_administrations USING btree (updated_by_id);
+
+
+--
+-- Name: idx_on_witnessed_by_id_e9846a9471; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_on_witnessed_by_id_e9846a9471 ON renalware.medication_outpatient_prescription_administrations USING btree (witnessed_by_id);
 
 
 --
@@ -25908,6 +26063,20 @@ CREATE INDEX index_monitoring_mirth_channels_on_channel_group_id ON renalware.mo
 --
 
 CREATE UNIQUE INDEX index_monitoring_mirth_channels_on_uuid ON renalware.monitoring_mirth_channels USING btree (uuid);
+
+
+--
+-- Name: index_outpatient_prescription_administration_reasons_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_outpatient_prescription_administration_reasons_on_name ON renalware.medication_outpatient_prescription_administration_reasons USING btree (name);
+
+
+--
+-- Name: index_outpatient_prescription_administrations_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_outpatient_prescription_administrations_on_deleted_at ON renalware.medication_outpatient_prescription_administrations USING btree (deleted_at);
 
 
 --
@@ -29957,6 +30126,14 @@ ALTER TABLE ONLY renalware.clinical_body_compositions
 
 
 --
+-- Name: medication_outpatient_prescription_administrations fk_rails_3cff3aca9b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
+    ADD CONSTRAINT fk_rails_3cff3aca9b FOREIGN KEY (administered_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: letter_mailshot_mailshots fk_rails_3db22bcf9b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -30845,6 +31022,14 @@ ALTER TABLE ONLY renalware.hd_profiles
 
 
 --
+-- Name: medication_outpatient_prescription_administrations fk_rails_8a666647a2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
+    ADD CONSTRAINT fk_rails_8a666647a2 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: monitoring_mirth_channel_stats fk_rails_8a89933de1; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -30938,6 +31123,14 @@ ALTER TABLE ONLY renalware.renal_safety_alert_rule_executions
 
 ALTER TABLE ONLY renalware.hospital_units
     ADD CONSTRAINT fk_rails_8f3a7fc1c7 FOREIGN KEY (hospital_centre_id) REFERENCES renalware.hospital_centres(id);
+
+
+--
+-- Name: medication_outpatient_prescription_administrations fk_rails_8f50f758ea; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
+    ADD CONSTRAINT fk_rails_8f50f758ea FOREIGN KEY (witnessed_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -31869,6 +32062,14 @@ ALTER TABLE ONLY renalware.events
 
 
 --
+-- Name: medication_outpatient_prescription_administrations fk_rails_d216611367; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
+    ADD CONSTRAINT fk_rails_d216611367 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: medication_prescriptions fk_rails_d2518aa67f; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -32293,6 +32494,14 @@ ALTER TABLE ONLY renalware.problem_problems
 
 
 --
+-- Name: medication_outpatient_prescription_administrations fk_rails_ee1f6872a4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
+    ADD CONSTRAINT fk_rails_ee1f6872a4 FOREIGN KEY (prescription_id) REFERENCES renalware.medication_prescriptions(id);
+
+
+--
 -- Name: clinical_igan_risks fk_rails_ef1fbb24e2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -32378,6 +32587,14 @@ ALTER TABLE ONLY renalware.research_studies
 
 ALTER TABLE ONLY renalware.drug_vmp_classifications
     ADD CONSTRAINT fk_rails_f1111cc6ef FOREIGN KEY (route_id) REFERENCES renalware.medication_routes(id);
+
+
+--
+-- Name: medication_outpatient_prescription_administrations fk_rails_f1d065175d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
+    ADD CONSTRAINT fk_rails_f1d065175d FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
 
 
 --
@@ -32602,6 +32819,14 @@ ALTER TABLE ONLY renalware.modality_change_types
 
 ALTER TABLE ONLY renalware.clinical_dry_weights
     ADD CONSTRAINT fk_rails_fdc1dbcc6d FOREIGN KEY (assessor_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: medication_outpatient_prescription_administrations fk_rails_fe02b90c42; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
+    ADD CONSTRAINT fk_rails_fe02b90c42 FOREIGN KEY (reason_id) REFERENCES renalware.medication_outpatient_prescription_administration_reasons(id);
 
 
 --
@@ -32884,6 +33109,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260420112012'),
 ('20260415165113'),
 ('20260408120000'),
+('20260326100000'),
 ('20260325113000'),
 ('20260324112837'),
 ('20260216170537'),

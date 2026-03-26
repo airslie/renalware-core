@@ -82,6 +82,8 @@ module Renalware
     has_many :problems, -> { ordered }, class_name: "Problems::Problem"
     has_many :comorbidities, -> { ordered }, class_name: "Problems::Comorbidity"
     has_many :prescriptions, class_name: "Medications::Prescription"
+    has_many :outpatient_prescription_administrations,
+             class_name: "Medications::OutpatientPrescriptionAdministration"
     has_many :medication_reviews, class_name: "Medications::Review"
     has_many :drugs, through: :prescriptions
     has_many :medication_routes, through: :prescriptions, class_name: "Medications::MedicationRoute"

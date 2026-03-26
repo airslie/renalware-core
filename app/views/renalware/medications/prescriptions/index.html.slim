@@ -19,6 +19,12 @@
                                                       data-controller="home-delivery-modal"
                                                       data-options="close_on_background_click:false")
 
+  = render Renalware::Medications::AdministerOutpatientPrescriptionDropdownComponent.new(patient: presenter.patient)
+  |&nbsp;
+  = link_to "Outpatient Administrations",
+            patient_medications_outpatient_prescription_administrations_path(presenter.patient),
+            class: "button secondary"
+
 = within_patient_layout(title: "Prescriptions") do
   = render "filter_form", presenter: presenter
   = render "index",

@@ -13,6 +13,7 @@ FactoryBot.define do
     notes { "with food" }
     provider { 0 }
     prescribed_on { 2.weeks.ago }
+    give_as_outpatient { false }
 
     after(:build) { |prescription| prescription.treatable ||= prescription.patient }
   end

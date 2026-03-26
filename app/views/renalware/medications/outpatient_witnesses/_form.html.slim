@@ -1,0 +1,53 @@
+= simple_form_for(form,
+                 remote: true,
+                 as: :form,
+                 html: { autocomplete: "off" },
+                 method: :patch,
+                 url: medications_outpatient_prescription_administration_witness_path(
+                   form.outpatient_prescription_administration_id
+                 )) do |f|
+  .modal
+    .modal__header
+      h2 Witness Outpatient Drug
+      = render "renalware/shared/modal_close_link"
+
+    .modal__body
+      - prescription = Renalware::Medications::PrescriptionPresenter.new(administration.prescription)
+      .hd-drug-administration.panel
+        .summary
+          .hd-drug
+            .hd-drug--name= prescription.drug_name
+            .hd-drug--dose= prescription.dose
+            .hd-drug--route= prescription.route_code
+            .hd-drug--frequency= prescription.frequency
+            .hd-drug--prescribed-on= l(prescription.prescribed_on)
+            .hd-drug--prescriber-name= prescription.updated_by
+            - position = prescription.updated_by&.professional_position
+            .hd-drug--prescriber-position= position && "(#{position})"
+
+            - if prescription.terminated_on.present?
+              .hd-drug--termination
+                | Terminates
+                .hd-drug--termination-date= l(prescription.terminated_on)
+        br
+        span= "Recorded #{l(administration.recorded_on)} by #{administration.administered_by}"
+
+      .pb-2
+        = f.input :user_id,
+                  as: :user_picker,
+                  collection: Renalware::User.active,
+                  wrapper: :hz_sm
+      = f.input :password,
+                as: :password,
+                wrapper: :hz_sm
+
+    .modal__footer
+      .right
+        = f.submit "Witness", class: "button"
+        | &nbsp;&nbsp;
+        = f.submit "Update User Only", name: "form[update_user_only]", class: "button secondary"
+        '  or
+        = link_to t("btn.cancel"),
+                  "#",
+                  "aria-label" => "Close",
+                  class: "reveal-modal-close"
