@@ -13,6 +13,9 @@ export default class extends Controller {
     if (this.hasProvidersTarget) {
       const checkedProvider = this.providersTarget.querySelector("input:checked")
       if (checkedProvider) this.toggleDeliveryDatesVisibility(checkedProvider.value)
+
+      const radioValue = this.providersTarget.querySelector("input:checked")?.value
+      if (radioValue) this.toggleDeliveryDatesVisibility(radioValue)
     }
   }
 
@@ -21,8 +24,9 @@ export default class extends Controller {
   }
 
   selectHdDefaultProvider(event) {
-    if (!event.target.checked) return
-
+    if (event && event.target.value !== "hd") return
+    if (event && !event.target.checked) return
+    if (!this.hasProvidersTarget) return
     const defaultProviderForHd = this.providersTarget.querySelector("input[data-default-for='hd']")
     if (!defaultProviderForHd || defaultProviderForHd.checked) return
 

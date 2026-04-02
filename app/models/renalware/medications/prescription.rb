@@ -48,6 +48,7 @@ module Renalware
       validates :fixed_number_of_doses,
                 numericality: { only_integer: true, in: 1..10 },
                 allow_nil: true
+      validate :administration_context_is_mutually_exclusive
       validate :deprecated_dose_unit_is_not_populated
       validate :fixed_number_of_doses_requires_hd
 
@@ -156,6 +157,27 @@ module Renalware
         trade_family.present? ? "#{drug.name} (#{trade_family.name})" : drug.name
       end
 
+      def administration_context
+        return "hd" if administer_on_hd?
+        return "outpatient" if give_as_outpatient?
+
+        "normal"
+      end
+
+      def administration_context=(value)
+        case value
+        when "hd"
+          self.administer_on_hd = true
+          self.give_as_outpatient = false
+        when "outpatient"
+          self.administer_on_hd = false
+          self.give_as_outpatient = true
+        else
+          self.administer_on_hd = false
+          self.give_as_outpatient = false
+        end
+      end
+
       # dose_unit was a string description of the unit of measure eg 'milligram' that was
       # deprecated when we moved to dm+d. We now have a unit_of_measure association on
       # prescription. Do if some is setting dose_unit .. its an error! Except if the virtual
@@ -178,6 +200,12 @@ module Renalware
 
         self.fixed_number_of_doses ||= 1
         self.stat = false
+      end
+
+      def administration_context_is_mutually_exclusive
+        return unless administer_on_hd? && give_as_outpatient?
+
+        errors.add(:base, "Prescription cannot be both HD and outpatient administered")
       end
     end
   end

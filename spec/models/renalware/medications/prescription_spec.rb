@@ -215,6 +215,61 @@ module Renalware
         end
       end
 
+      describe "#administration_context" do
+        it "returns normal when no special administration is set" do
+          prescription = build(:prescription, administer_on_hd: false, give_as_outpatient: false)
+
+          expect(prescription.administration_context).to eq("normal")
+        end
+
+        it "returns hd when the prescription is to be administered on hd" do
+          prescription = build(:prescription, administer_on_hd: true, give_as_outpatient: false)
+
+          expect(prescription.administration_context).to eq("hd")
+        end
+
+        it "returns outpatient when the prescription is to be administered as outpatient" do
+          prescription = build(:prescription, administer_on_hd: false, give_as_outpatient: true)
+
+          expect(prescription.administration_context).to eq("outpatient")
+        end
+      end
+
+      describe "#administration_context=" do
+        it "maps normal to both flags being false" do
+          prescription.administration_context = "normal"
+
+          expect(prescription.administer_on_hd).to be(false)
+          expect(prescription.give_as_outpatient).to be(false)
+        end
+
+        it "maps hd to administer_on_hd only" do
+          prescription.administration_context = "hd"
+
+          expect(prescription.administer_on_hd).to be(true)
+          expect(prescription.give_as_outpatient).to be(false)
+        end
+
+        it "maps outpatient to give_as_outpatient only" do
+          prescription.administration_context = "outpatient"
+
+          expect(prescription.administer_on_hd).to be(false)
+          expect(prescription.give_as_outpatient).to be(true)
+        end
+      end
+
+      describe "administration validation" do
+        it "does not allow hd and outpatient flags to both be true" do
+          prescription = build(:prescription, administer_on_hd: true, give_as_outpatient: true)
+
+          prescription.validate
+
+          expect(prescription.errors[:base]).to include(
+            "Prescription cannot be both HD and outpatient administered"
+          )
+        end
+      end
+
       describe "entity services" do
         describe "#terminate" do
           context "with an active prescription" do

@@ -1,0 +1,23 @@
+- administration_options = [["Give normally", "normal"], ["Give on HD", "hd"], ["Give as outpatient", "outpatient"]]
+- hd_allowed = policy(f.object).new_hd_prescription?
+
+div(data-controller="show-on-selected" class="#{'disabled-input' unless hd_allowed} row radio_buttons required ")
+  .small-12.medium-4.large-3.columns
+    label.string Administration
+    /p.hint Choose where this prescription should be administered
+  .small-12.medium-8.large-9.columns.horizontal_medium
+    .flex.flex-col.sm:flex-row.sm:items-center.gap-x-8.gap-y-2
+      = f.collection_radio_buttons :administration_context, administration_options, :second, :first do |builder|
+        .radio.flex.items-center
+          = builder.radio_button(disabled: !hd_allowed,
+                                  data: { action: "change->show-on-selected#select change->prescriptions#selectHdDefaultProvider" })
+          = builder.label(class: "ml-3 block font-medium text-gray-700 cursor-pointer")
+
+  div[ \
+    data-show-on-selected-target="item"
+    data-show-on-selected-option="hd"
+    class=class_names(hidden: !f.object.administer_on_hd?)
+  ]
+    = f.input :stat,
+              wrapper: :horizontal_small,
+              hint: "If checked, the prescription will be automatically terminated once given"
