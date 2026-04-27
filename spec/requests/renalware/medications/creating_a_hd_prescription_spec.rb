@@ -5,7 +5,7 @@ describe "Create an HD prescription" do
   let(:prescribed_on_date) { Date.parse(prescribed_on) }
   let(:prescribed_on_next_date) { Date.parse(prescribed_on_next) }
 
-  def prescription_params(administer_on_hd:, stat: false)
+  def prescription_params(administer_on_hd:, stat: false, fixed_number_of_doses: nil)
     {
       drug_id: create(:drug).id,
       treatable_id: patient.id,
@@ -17,7 +17,8 @@ describe "Create an HD prescription" do
       unit_of_measure_id: create(:drug_unit_of_measure).id,
       frequency: :once_only,
       administer_on_hd:,
-      stat:
+      stat:,
+      fixed_number_of_doses:
     }
   end
 
@@ -182,6 +183,32 @@ describe "Create an HD prescription" do
             terminated_on: prescribed_on_date + period,
             notes: "HD prescription scheduled to terminate #{period.in_days.to_i} days from start"
           )
+        end
+
+        it "saves a fixed number of doses" do
+          allow(Renalware.config)
+            .to receive(:auto_terminate_hd_prescriptions_after_period)
+            .and_return(nil)
+
+          params = prescription_params(
+            administer_on_hd: true,
+            fixed_number_of_doses: 3
+          )
+          post(
+            patient_prescriptions_path(patient),
+            params: { medications_prescription: params }
+          )
+          follow_redirect!
+
+          expect(response).to be_successful
+
+          prescription = Renalware::Medications::Prescription.last
+          expect(prescription).to have_attributes(
+            administer_on_hd: true,
+            stat: false,
+            fixed_number_of_doses: 3
+          )
+          expect(response.body).to include("0/3")
         end
 
         it "does not create a termination if the configured period is nil" do

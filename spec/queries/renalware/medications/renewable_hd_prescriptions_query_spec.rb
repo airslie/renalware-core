@@ -6,13 +6,14 @@ module Renalware::Medications
     let(:today) { 1.day.ago.end_of_day + 1.minute }
 
     # rubocop:disable Metrics/MethodLength
-    def create_prescription(hd:, from:, to: nil, stat: false)
+    def create_prescription(hd:, from:, to: nil, stat: false, fixed_number_of_doses: nil)
       prescription = create(
         :prescription,
         patient:,
         administer_on_hd: hd,
         prescribed_on: from,
         stat:,
+        fixed_number_of_doses:,
         by: user
       )
       if to.present?
@@ -59,6 +60,13 @@ module Renalware::Medications
         # rubocop:disable RSpec/MatchArray
         expect(described_class.new(patient:).call).to match_array([pres, pres1])
         # rubocop:enable RSpec/MatchArray
+      end
+
+      it "ignores prescriptions with a fixed number of doses" do
+        create_prescription(hd: true, from: yesterday, to: nil, fixed_number_of_doses: 2)
+        pres = create_prescription(hd: true, from: yesterday, to: nil)
+
+        expect(described_class.new(patient:).call).to eq [pres]
       end
 
       it "finds HD prescriptions with a future termination, prescribed before today" do

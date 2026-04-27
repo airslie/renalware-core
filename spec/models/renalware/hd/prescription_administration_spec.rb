@@ -404,6 +404,126 @@ module Renalware
           )
         end
       end
+
+      context "when the HD prescription has a fixed number of doses" do
+        let(:pwd) { "password" }
+        let(:user1) { create(:user, password: pwd) }
+        let(:prescription) do
+          create(
+            :prescription,
+            administer_on_hd: true,
+            stat: false,
+            fixed_number_of_doses: 2
+          )
+        end
+
+        before { create(:user, :system) }
+
+        it "terminates once the fixed number of administered doses is reached" do
+          PrescriptionAdministration.create!(
+            prescription:,
+            administered: true,
+            administered_by: user1,
+            administered_by_password: pwd,
+            skip_witness_validation: true,
+            recorded_on: Time.zone.today,
+            by: user1
+          )
+
+          expect(prescription.reload.termination).to be_nil
+
+          expect {
+            PrescriptionAdministration.create!(
+              prescription:,
+              administered: true,
+              administered_by: user1,
+              administered_by_password: pwd,
+              skip_witness_validation: true,
+              recorded_on: Time.zone.today,
+              by: user1
+            )
+          }.to change(Medications::PrescriptionTermination, :count).by(1)
+            .and change(prescription, :updated_at)
+
+          expect(prescription.reload.termination).to have_attributes(
+            terminated_on: Time.zone.today,
+            notes: "HD prescription automatically terminated after 2 administered doses",
+            created_by: SystemUser.find
+          )
+        end
+
+        it "does not count administrations where the drug was not administered" do
+          PrescriptionAdministration.create!(
+            prescription:,
+            administered: false,
+            recorded_on: Time.zone.today,
+            by: user1
+          )
+
+          PrescriptionAdministration.create!(
+            prescription:,
+            administered: true,
+            administered_by: user1,
+            administered_by_password: pwd,
+            skip_witness_validation: true,
+            recorded_on: Time.zone.today,
+            by: user1
+          )
+
+          expect(prescription.reload.termination).to be_nil
+        end
+
+        it "does not count soft-deleted administrations" do
+          deleted_administration = PrescriptionAdministration.create!(
+            prescription:,
+            administered: true,
+            administered_by: user1,
+            administered_by_password: pwd,
+            skip_witness_validation: true,
+            recorded_on: Time.zone.today,
+            by: user1
+          )
+          deleted_administration.destroy!
+
+          PrescriptionAdministration.create!(
+            prescription:,
+            administered: true,
+            administered_by: user1,
+            administered_by_password: pwd,
+            skip_witness_validation: true,
+            recorded_on: Time.zone.today,
+            by: user1
+          )
+
+          expect(prescription.reload.termination).to be_nil
+        end
+
+        it "updates an existing future termination to terminate immediately" do
+          future_termination_date = 14.days.since
+          prescription.build_termination(
+            terminated_on: future_termination_date,
+            by: user1
+          ).save!
+
+          2.times do
+            PrescriptionAdministration.create!(
+              prescription:,
+              administered: true,
+              administered_by: user1,
+              administered_by_password: pwd,
+              skip_witness_validation: true,
+              recorded_on: Time.zone.today,
+              by: user1
+            )
+          end
+
+          expect(prescription.reload.termination).to have_attributes(
+            terminated_on: Time.zone.today,
+            updated_by: SystemUser.find,
+            created_by: SystemUser.find
+          )
+        end
+      end
     end
     # rubocop:enable RSpec/DescribedClass
   end

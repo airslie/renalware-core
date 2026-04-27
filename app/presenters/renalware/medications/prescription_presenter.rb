@@ -4,6 +4,11 @@ module Renalware
       delegate :drug_types, :code, to: :drug
       delegate :local_patient_id, :age, :sex, :current_modality, to: :patient, prefix: true
 
+      def initialize(prescription, administered_doses_count: nil)
+        @administered_doses_count = administered_doses_count
+        super(prescription)
+      end
+
       def patient_name
         patient.to_s
       end
@@ -49,6 +54,19 @@ module Renalware
 
       def stat?
         stat ? "Yes" : "No"
+      end
+
+      def fixed_dose_progress
+        return if fixed_number_of_doses.blank?
+
+        "#{administered_doses_count}/#{fixed_number_of_doses}"
+      end
+
+      def administered_doses_count
+        return @administered_doses_count unless @administered_doses_count.nil?
+
+        @administered_doses_count =
+          HD::PrescriptionAdministration.where(prescription: __getobj__, administered: true).count
       end
 
       def to_s

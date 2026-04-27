@@ -20,6 +20,69 @@ module Renalware
           is_expected.to respond_to(:last_delivery_date)
           is_expected.to be_versioned
         end
+
+        it "allows a fixed number of doses from 2 to 10 on HD prescriptions" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 2
+          )
+
+          expect(prescription).to be_valid
+        end
+
+        it "does not allow a fixed number of doses below 2" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 1
+          )
+
+          expect(prescription).not_to be_valid
+          expect(prescription.errors[:fixed_number_of_doses]).to include(
+            "must be in 2..10"
+          )
+        end
+
+        it "does not allow a fixed number of doses above 10" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 11
+          )
+
+          expect(prescription).not_to be_valid
+          expect(prescription.errors[:fixed_number_of_doses]).to include(
+            "must be in 2..10"
+          )
+        end
+
+        it "does not allow a fixed number of doses unless the prescription is given on HD" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: false,
+            fixed_number_of_doses: 2
+          )
+
+          expect(prescription).not_to be_valid
+          expect(prescription.errors[:fixed_number_of_doses]).to include(
+            "can only be set when Give on HD is selected"
+          )
+        end
+
+        it "does not allow stat and fixed number of doses to both be set" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: true,
+            stat: true,
+            fixed_number_of_doses: 2
+          )
+
+          expect(prescription).not_to be_valid
+          expect(prescription.errors[:fixed_number_of_doses]).to include(
+            "cannot be set when Stat is selected"
+          )
+        end
       end
 
       describe "scopes" do

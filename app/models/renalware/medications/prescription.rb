@@ -45,7 +45,12 @@ module Renalware
       validates :frequency, presence: true
       validates :prescribed_on, presence: true
       validates :provider, presence: true
+      validates :fixed_number_of_doses,
+                numericality: { only_integer: true, in: 2..10 },
+                allow_nil: true
       validate :deprecated_dose_unit_is_not_populated
+      validate :fixed_number_of_doses_requires_hd
+      validate :fixed_number_of_doses_and_stat_are_mutually_exclusive
 
       enum :provider, Provider.codes
 
@@ -154,6 +159,18 @@ module Renalware
         if dose_unit.present? && dose_unit_changed? && allow_deprecated_dose_unit_to_be_set != true
           errors.add(:dose_unit, "Deprecated dose_unit attribute should not be populated!")
         end
+      end
+
+      def fixed_number_of_doses_requires_hd
+        return if fixed_number_of_doses.blank? || administer_on_hd?
+
+        errors.add(:fixed_number_of_doses, "can only be set when Give on HD is selected")
+      end
+
+      def fixed_number_of_doses_and_stat_are_mutually_exclusive
+        return if fixed_number_of_doses.blank? || !stat?
+
+        errors.add(:fixed_number_of_doses, "cannot be set when Stat is selected")
       end
     end
   end

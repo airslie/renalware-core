@@ -93,6 +93,54 @@ module Renalware
           end
         end
       end
+
+      describe "#fixed_dose_progress" do
+        it "uses an injected administered doses count when supplied" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 5
+          )
+          allow(HD::PrescriptionAdministration).to receive(:where)
+
+          expect(
+            described_class.new(
+              prescription,
+              administered_doses_count: 3
+            ).fixed_dose_progress
+          ).to eq("3/5")
+          expect(HD::PrescriptionAdministration).not_to have_received(:where)
+        end
+
+        it "returns administered doses over fixed number of doses" do
+          prescription = create(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 5
+          )
+          create_list(:hd_prescription_administration, 3, prescription:)
+
+          expect(described_class.new(prescription).fixed_dose_progress).to eq("3/5")
+        end
+
+        it "does not count soft-deleted administrations" do
+          prescription = create(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 5
+          )
+          create(:hd_prescription_administration, prescription:).destroy!
+          create_list(:hd_prescription_administration, 2, prescription:)
+
+          expect(described_class.new(prescription).fixed_dose_progress).to eq("2/5")
+        end
+
+        it "returns nil when no fixed number of doses is set" do
+          prescription = build(:prescription, fixed_number_of_doses: nil)
+
+          expect(described_class.new(prescription).fixed_dose_progress).to be_nil
+        end
+      end
     end
   end
 end

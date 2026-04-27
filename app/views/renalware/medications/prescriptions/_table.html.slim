@@ -1,5 +1,8 @@
 - if prescriptions.any?
   - display_termination_date = !current_scope || local_assigns.fetch(:display_termination_date, false)
+  - quick_preview_colspan = 14
+  - quick_preview_colspan += 2 if current_scope
+  - quick_preview_colspan += 1 if display_termination_date
   .row
     .large-12.columns
       table.toggleable(class="auto-layout" id="#{id}" data-controller="toggle")
@@ -16,9 +19,8 @@
             th.col-width-small Dose
             th.col-width-small Frequency
             th.col-width-tiny Route
-            - if current_scope
-              th.col-width-tinyish Give on HD
-              th.col-width-tiny Stat
+            th.col-width-tinyish Give on HD
+            th.col-width-tiny Stat/Dose No.
             th.col-width-tiny Provider
             th.col-width-small Notes
             th.col-width-date.wide
@@ -46,9 +48,12 @@
                 - if prescription.frequency_comment.present?
                   .mt-1.text-xs = prescription.frequency_comment
               td= prescription.route_code
-              - if current_scope
-                td= inline_check_icon(prescription.administer_on_hd)
-                td= inline_check_icon(prescription.stat)
+              td= inline_check_icon(prescription.administer_on_hd)
+              td
+                - if prescription.fixed_dose_progress.present?
+                  = prescription.fixed_dose_progress
+                - else
+                  = inline_check_icon(prescription.stat)
               td= prescription.provider
               td.text-center
                 - if prescription.notes.present?
@@ -59,7 +64,7 @@
               - if display_termination_date
                 td= prescription.terminated_by&.full_name
             tr
-              td(colspan=13)
+              td(colspan=quick_preview_colspan)
                 .quick-preview
                   = definition_list_for(prescription, size: :large) do |list|
                     = list.definition(:notes) { |value| simple_format(value) }

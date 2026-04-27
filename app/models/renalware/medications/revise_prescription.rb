@@ -14,6 +14,7 @@ module Renalware
         frequency
         administer_on_hd
         stat
+        fixed_number_of_doses
       ).freeze
 
       def call(params)

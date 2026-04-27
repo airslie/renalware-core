@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_11_120000) do
   create_schema "renalware"
+  create_schema "tximport"
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -2763,6 +2764,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
     t.index ["orc_filler_order_number"], name: "index_feed_messages_on_orc_filler_order_number"
     t.index ["patient_identifiers"], name: "index_feed_messages_on_patient_identifiers", using: :gin
     t.index ["result_thread_key"], name: "index_feed_messages_on_result_thread_key"
+    t.index ["sent_at", "id"], name: "index_feed_messages_on_old_adt_housekeeping_candidates", where: "((message_type = 'ADT'::hl7_message_type) AND (sent_at IS NOT NULL))"
     t.index ["sent_at"], name: "index_feed_messages_on_sent_at"
   end
 
@@ -3527,6 +3529,34 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
     t.index ["updated_by_id"], name: "index_hd_vnd_risk_assessments_on_updated_by_id"
   end
 
+  create_table "renalware.heidi_sessions", force: :cascade do |t|
+    t.jsonb "clinical_codes_response", default: {}, null: false
+    t.text "consult_note"
+    t.string "consult_note_status"
+    t.datetime "created_at", null: false
+    t.text "document_content"
+    t.string "document_content_type"
+    t.jsonb "document_response", default: {}, null: false
+    t.string "document_template_id"
+    t.string "heidi_patient_profile_id", null: false
+    t.string "heidi_session_id", null: false
+    t.datetime "last_synced_at"
+    t.text "outputs_error"
+    t.datetime "outputs_generated_at"
+    t.bigint "patient_id", null: false
+    t.jsonb "raw_response", default: {}, null: false
+    t.string "status", default: "launched", null: false
+    t.jsonb "structured_response", default: {}, null: false
+    t.text "sync_error"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["heidi_session_id"], name: "index_heidi_sessions_on_heidi_session_id", unique: true
+    t.index ["patient_id", "created_at"], name: "index_heidi_sessions_on_patient_id_and_created_at"
+    t.index ["patient_id"], name: "index_heidi_sessions_on_patient_id"
+    t.index ["status"], name: "index_heidi_sessions_on_status"
+    t.index ["user_id"], name: "index_heidi_sessions_on_user_id"
+  end
+
   create_table "renalware.help_tour_annotations", force: :cascade do |t|
     t.string "attached_to_position", default: "bottom", null: false
     t.string "attached_to_selector", null: false
@@ -3982,6 +4012,40 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
     t.index ["updated_by_id"], name: "index_medication_delivery_events_on_updated_by_id"
   end
 
+  create_table "renalware.medication_outpatient_prescription_administration_reasons", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_outpatient_prescription_administration_reasons_on_name", unique: true
+  end
+
+  create_table "renalware.medication_outpatient_prescription_administrations", force: :cascade do |t|
+    t.boolean "administered"
+    t.bigint "administered_by_id"
+    t.boolean "administrator_authorised", default: false, null: false
+    t.datetime "created_at", null: false
+    t.integer "created_by_id", null: false
+    t.datetime "deleted_at"
+    t.text "notes"
+    t.bigint "patient_id", null: false
+    t.integer "prescription_id", null: false
+    t.bigint "reason_id"
+    t.date "recorded_on"
+    t.datetime "signed_off_at"
+    t.datetime "updated_at", null: false
+    t.integer "updated_by_id", null: false
+    t.boolean "witness_authorised", default: false, null: false
+    t.bigint "witnessed_by_id"
+    t.index ["administered_by_id"], name: "idx_on_administered_by_id_4930155dbc"
+    t.index ["created_by_id"], name: "idx_on_created_by_id_9325186305"
+    t.index ["deleted_at"], name: "index_outpatient_prescription_administrations_on_deleted_at"
+    t.index ["patient_id"], name: "idx_on_patient_id_075dd8322f"
+    t.index ["prescription_id"], name: "idx_on_prescription_id_ff7cc788ff"
+    t.index ["reason_id"], name: "idx_on_reason_id_431e081f81"
+    t.index ["updated_by_id"], name: "idx_on_updated_by_id_a8991fe8ea"
+    t.index ["witnessed_by_id"], name: "idx_on_witnessed_by_id_e9846a9471"
+  end
+
   create_table "renalware.medication_prescription_terminations", id: :serial, force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.integer "created_by_id", null: false
@@ -4014,9 +4078,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
     t.string "dose_amount", null: false
     t.string "dose_unit"
     t.integer "drug_id", null: false
+    t.integer "fixed_number_of_doses", comment: "Can be chosen when administer_on_hd is true. Prescriptions with a fixed number of doses will be marked as terminated automatically once that many HD administrations have been recorded."
     t.bigint "form_id"
     t.string "frequency", null: false
     t.string "frequency_comment"
+    t.boolean "give_as_outpatient", default: false, null: false
     t.date "last_delivery_date"
     t.integer "legacy_drug_id", comment: "Keep the previous drug id as a reference in case of issues with DMD migration"
     t.integer "legacy_medication_route_id", comment: "Keep the previous route id as a reference in case of issues with DMD migration"
@@ -4045,6 +4111,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
     t.index ["treatable_id", "treatable_type"], name: "idx_medication_prescriptions_type"
     t.index ["unit_of_measure_id"], name: "index_medication_prescriptions_on_unit_of_measure_id"
     t.index ["updated_by_id"], name: "index_medication_prescriptions_on_updated_by_id"
+    t.check_constraint "fixed_number_of_doses IS NULL OR fixed_number_of_doses >= 2 AND fixed_number_of_doses <= 10", name: "medication_prescriptions_fixed_number_of_doses_check"
   end
 
   create_table "renalware.medication_routes", id: :serial, force: :cascade do |t|
@@ -6575,6 +6642,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
   add_foreign_key "renalware.hd_vnd_risk_assessments", "renalware.patients"
   add_foreign_key "renalware.hd_vnd_risk_assessments", "renalware.users", column: "created_by_id"
   add_foreign_key "renalware.hd_vnd_risk_assessments", "renalware.users", column: "updated_by_id"
+  add_foreign_key "renalware.heidi_sessions", "renalware.patients"
+  add_foreign_key "renalware.heidi_sessions", "renalware.users"
   add_foreign_key "renalware.help_tour_annotations", "renalware.help_tour_pages", column: "page_id"
   add_foreign_key "renalware.hospital_departments", "renalware.hospital_centres"
   add_foreign_key "renalware.hospital_units", "renalware.hospital_centres"
@@ -6629,6 +6698,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
   add_foreign_key "renalware.medication_delivery_events", "renalware.drug_types"
   add_foreign_key "renalware.medication_delivery_events", "renalware.users", column: "created_by_id"
   add_foreign_key "renalware.medication_delivery_events", "renalware.users", column: "updated_by_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.medication_outpatient_prescription_administration_reasons", column: "reason_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.medication_prescriptions", column: "prescription_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.patients"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.users", column: "administered_by_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.users", column: "created_by_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.users", column: "updated_by_id"
+  add_foreign_key "renalware.medication_outpatient_prescription_administrations", "renalware.users", column: "witnessed_by_id"
   add_foreign_key "renalware.medication_prescription_terminations", "renalware.medication_prescriptions", column: "prescription_id"
   add_foreign_key "renalware.medication_prescription_terminations", "renalware.users", column: "created_by_id"
   add_foreign_key "renalware.medication_prescription_terminations", "renalware.users", column: "updated_by_id"
@@ -6876,6 +6952,208 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
   add_foreign_key "renalware.virology_profiles", "renalware.patients"
   add_foreign_key "renalware.virology_profiles", "renalware.users", column: "created_by_id"
   add_foreign_key "renalware.virology_profiles", "renalware.users", column: "updated_by_id"
+
+  create_view "medication_current_prescriptions", sql_definition: <<-SQL
+      SELECT mp.id,
+      mp.patient_id,
+      mp.drug_id,
+      mp.treatable_type,
+      mp.treatable_id,
+      mp.dose_amount,
+      mp.dose_unit,
+      mp.medication_route_id,
+      mp.route_description,
+      mp.frequency,
+      mp.notes,
+      mp.prescribed_on,
+      mp.provider,
+      mp.created_at,
+      mp.updated_at,
+      mp.created_by_id,
+      mp.updated_by_id,
+      mp.administer_on_hd,
+      mp.last_delivery_date,
+      drugs.name AS drug_name,
+      drug_types.code AS drug_type_code,
+      drug_types.name AS drug_type_name
+     FROM ((((renalware.medication_prescriptions mp
+       FULL JOIN renalware.medication_prescription_terminations mpt ON ((mpt.prescription_id = mp.id)))
+       JOIN renalware.drugs ON ((drugs.id = mp.drug_id)))
+       FULL JOIN renalware.drug_types_drugs ON ((drug_types_drugs.drug_id = drugs.id)))
+       FULL JOIN renalware.drug_types ON (((drug_types_drugs.drug_type_id = drug_types.id) AND ((mpt.terminated_on IS NULL) OR (mpt.terminated_on > now())))));
+  SQL
+  create_view "pathology_current_observations", sql_definition: <<-SQL
+      SELECT DISTINCT ON (pathology_observation_requests.patient_id, pathology_observation_descriptions.id) pathology_observations.id,
+      pathology_observations.result,
+      pathology_observations.comment,
+      pathology_observations.observed_at,
+      pathology_observations.description_id,
+      pathology_observations.request_id,
+      pathology_observation_descriptions.code AS description_code,
+      pathology_observation_descriptions.name AS description_name,
+      pathology_observation_requests.patient_id
+     FROM ((renalware.pathology_observations
+       LEFT JOIN renalware.pathology_observation_requests ON ((pathology_observations.request_id = pathology_observation_requests.id)))
+       LEFT JOIN renalware.pathology_observation_descriptions ON ((pathology_observations.description_id = pathology_observation_descriptions.id)))
+    ORDER BY pathology_observation_requests.patient_id, pathology_observation_descriptions.id, pathology_observations.observed_at DESC;
+  SQL
+  create_view "reporting_pd_audit", sql_definition: <<-SQL
+      WITH pd_patients AS (
+           SELECT patients.id
+             FROM ((renalware.patients
+               JOIN renalware.modality_modalities current_modality ON ((current_modality.patient_id = patients.id)))
+               JOIN renalware.modality_descriptions current_modality_description ON ((current_modality_description.id = current_modality.description_id)))
+            WHERE ((current_modality.ended_on IS NULL) AND (current_modality.started_on <= CURRENT_DATE) AND ((current_modality_description.name)::text = 'PD'::text))
+          ), current_regimes AS (
+           SELECT pd_regimes.id,
+              pd_regimes.patient_id,
+              pd_regimes.start_date,
+              pd_regimes.end_date,
+              pd_regimes.treatment,
+              pd_regimes.type,
+              pd_regimes.glucose_volume_low_strength,
+              pd_regimes.glucose_volume_medium_strength,
+              pd_regimes.glucose_volume_high_strength,
+              pd_regimes.amino_acid_volume,
+              pd_regimes.icodextrin_volume,
+              pd_regimes.add_hd,
+              pd_regimes.last_fill_volume,
+              pd_regimes.tidal_indicator,
+              pd_regimes.tidal_percentage,
+              pd_regimes.no_cycles_per_apd,
+              pd_regimes.overnight_volume,
+              pd_regimes.apd_machine_pac,
+              pd_regimes.created_at,
+              pd_regimes.updated_at,
+              pd_regimes.therapy_time,
+              pd_regimes.fill_volume,
+              pd_regimes.delivery_interval,
+              pd_regimes.system_id,
+              pd_regimes.additional_manual_exchange_volume,
+              pd_regimes.tidal_full_drain_every_three_cycles,
+              pd_regimes.daily_volume,
+              pd_regimes.assistance_type
+             FROM renalware.pd_regimes
+            WHERE ((pd_regimes.start_date >= CURRENT_DATE) AND (pd_regimes.end_date IS NULL))
+          ), current_apd_regimes AS (
+           SELECT current_regimes.id,
+              current_regimes.patient_id,
+              current_regimes.start_date,
+              current_regimes.end_date,
+              current_regimes.treatment,
+              current_regimes.type,
+              current_regimes.glucose_volume_low_strength,
+              current_regimes.glucose_volume_medium_strength,
+              current_regimes.glucose_volume_high_strength,
+              current_regimes.amino_acid_volume,
+              current_regimes.icodextrin_volume,
+              current_regimes.add_hd,
+              current_regimes.last_fill_volume,
+              current_regimes.tidal_indicator,
+              current_regimes.tidal_percentage,
+              current_regimes.no_cycles_per_apd,
+              current_regimes.overnight_volume,
+              current_regimes.apd_machine_pac,
+              current_regimes.created_at,
+              current_regimes.updated_at,
+              current_regimes.therapy_time,
+              current_regimes.fill_volume,
+              current_regimes.delivery_interval,
+              current_regimes.system_id,
+              current_regimes.additional_manual_exchange_volume,
+              current_regimes.tidal_full_drain_every_three_cycles,
+              current_regimes.daily_volume,
+              current_regimes.assistance_type
+             FROM current_regimes
+            WHERE ((current_regimes.type)::text ~~ '%::APD%'::text)
+          ), current_capd_regimes AS (
+           SELECT current_regimes.id,
+              current_regimes.patient_id,
+              current_regimes.start_date,
+              current_regimes.end_date,
+              current_regimes.treatment,
+              current_regimes.type,
+              current_regimes.glucose_volume_low_strength,
+              current_regimes.glucose_volume_medium_strength,
+              current_regimes.glucose_volume_high_strength,
+              current_regimes.amino_acid_volume,
+              current_regimes.icodextrin_volume,
+              current_regimes.add_hd,
+              current_regimes.last_fill_volume,
+              current_regimes.tidal_indicator,
+              current_regimes.tidal_percentage,
+              current_regimes.no_cycles_per_apd,
+              current_regimes.overnight_volume,
+              current_regimes.apd_machine_pac,
+              current_regimes.created_at,
+              current_regimes.updated_at,
+              current_regimes.therapy_time,
+              current_regimes.fill_volume,
+              current_regimes.delivery_interval,
+              current_regimes.system_id,
+              current_regimes.additional_manual_exchange_volume,
+              current_regimes.tidal_full_drain_every_three_cycles,
+              current_regimes.daily_volume,
+              current_regimes.assistance_type
+             FROM current_regimes
+            WHERE ((current_regimes.type)::text ~~ '%::CAPD%'::text)
+          )
+   SELECT 'APD'::text AS pd_type,
+      count(current_apd_regimes.patient_id) AS patient_count,
+      0 AS avg_hgb,
+      0 AS pct_hgb_gt_100,
+      0 AS pct_on_epo,
+      0 AS pct_pth_gt_500,
+      0 AS pct_phosphate_gt_1_8,
+      0 AS pct_strong_medium_bag_gt_1l
+     FROM current_apd_regimes
+  UNION ALL
+   SELECT 'CAPD'::text AS pd_type,
+      count(current_capd_regimes.patient_id) AS patient_count,
+      0 AS avg_hgb,
+      0 AS pct_hgb_gt_100,
+      0 AS pct_on_epo,
+      0 AS pct_pth_gt_500,
+      0 AS pct_phosphate_gt_1_8,
+      0 AS pct_strong_medium_bag_gt_1l
+     FROM current_capd_regimes
+  UNION ALL
+   SELECT 'PD'::text AS pd_type,
+      count(pd_patients.id) AS patient_count,
+      0 AS avg_hgb,
+      0 AS pct_hgb_gt_100,
+      0 AS pct_on_epo,
+      0 AS pct_pth_gt_500,
+      0 AS pct_phosphate_gt_1_8,
+      0 AS pct_strong_medium_bag_gt_1l
+     FROM pd_patients;
+  SQL
+
+  create_table "tximport.import_rows", force: :cascade do |t|
+    t.timestamptz "created_at", default: -> { "now()" }, null: false
+    t.bigint "import_run_id", null: false
+    t.jsonb "normalised_data", null: false
+    t.bigint "patient_id"
+    t.jsonb "patient_match_details", default: {}, null: false
+    t.text "patient_match_status", default: "pending", null: false
+    t.timestamptz "patient_matched_at"
+    t.jsonb "raw_data", null: false
+    t.integer "row_number", null: false
+    t.text "row_sha256", null: false
+    t.jsonb "validation_errors", default: [], null: false
+    t.index ["patient_id"], name: "index_tximport_import_rows_on_patient_id"
+    t.index ["patient_match_status"], name: "index_tximport_import_rows_on_patient_match_status"
+    t.unique_constraint ["import_run_id", "row_number"], name: "import_rows_import_run_id_row_number_key"
+  end
+
+  create_table "tximport.import_runs", force: :cascade do |t|
+    t.text "source_filename", null: false
+    t.text "source_sha256", null: false
+    t.timestamptz "started_at", default: -> { "now()" }, null: false
+    t.text "worksheet_name"
+  end
+
+  add_foreign_key "tximport.import_rows", "tximport.import_runs", name: "import_rows_import_run_id_fkey"
 
   create_view "medication_current_prescriptions", sql_definition: <<-SQL
       SELECT mp.id,
