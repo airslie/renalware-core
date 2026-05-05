@@ -22,6 +22,7 @@ import DependentSelectController from "./dependent_select_controller"
 import PatientAttachmentsController from "./patients/attachments_controller"
 import PatientSearchController from "./patients/search_controller"
 import PrimaryCarePhysicianSearchController from "./patients/primary_care_physician_search_controller"
+import PrimaryCarePhysicianAddressController from "./patients/primary_care_physician_address_controller"
 import SortableController from "./sortable_controller"
 import SelectController from "./select_controller"
 import SelectResetController from "./select_reset_controller"
@@ -72,6 +73,10 @@ application.register("dependent-select", DependentSelectController)
 application.register("patient-attachments", PatientAttachmentsController)
 application.register("patient-search", PatientSearchController)
 application.register("primary-care-physician-search", PrimaryCarePhysicianSearchController)
+application.register(
+  "primary-care-physician-address",
+  PrimaryCarePhysicianAddressController
+)
 application.register("sortable", SortableController)
 application.register("select", SelectController)
 application.register("select-reset", SelectResetController)
