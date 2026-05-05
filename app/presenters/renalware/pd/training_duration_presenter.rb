@@ -13,7 +13,7 @@ module Renalware
       # Note use Duration#to_formatted_s when rendering out a duration anywhere in the app.
       def self.dropdown_options
         PD.config.training_durations.map do |duration|
-          [duration.to_fs, duration.iso8601]
+          [duration.to_formatted_s, duration.iso8601]
         end
       end
 
@@ -22,7 +22,7 @@ module Renalware
       end
 
       def to_s
-        interval.to_fs
+        interval.to_formatted_s
       end
 
       private

@@ -43,8 +43,10 @@ AllCops:
     - "features/support/env.xaction_view.rb"
     - "db/schema.rb"
 
-# Keep this disabled via .rubocop_todo.yml baseline for incremental cleanup.
-# When ready, remove the todo entry and re-enable with your preferred settings.
+Rails/ToFormattedS:
+  Exclude:
+    - 'app/presenters/renalware/pd/delivery_interval_presenter.rb'
+    - 'app/presenters/renalware/pd/training_duration_presenter.rb'
 
 RSpec/LetSetup:
   Enabled: false

@@ -431,6 +431,7 @@ Rails/TimeZone:
 Rails/ToFormattedS:
   Exclude:
     - 'app/presenters/renalware/pd/delivery_interval_presenter.rb'
+    - 'app/presenters/renalware/pd/training_duration_presenter.rb'
 
 # Offense count: 3
 # Configuration parameters: TransactionMethods.
