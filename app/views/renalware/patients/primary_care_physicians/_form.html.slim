@@ -1,6 +1,6 @@
 = render "renalware/shared/errors", model: @primary_care_physician
 
-.large-6.columns
+.large-6.columns(data-controller="primary-care-physician-address")
   = simple_form_for @primary_care_physician, html: { autocomplete: "off" } do |f|
     = f.input :name, placeholder: "e.g. SMITH J"
     = f.input :telephone
@@ -13,11 +13,18 @@
 
     hr
 
-    a#address-form-toggle href="#address-form" class="button tiny" Alternative address
+    a#address-form-toggle(
+      href="#address-form"
+      class="button tiny"
+      data-action="primary-care-physician-address#toggle"
+    ) Alternative address
 
     .row
       .large-12.columns
-        fieldset#address-form style="display:none"
+        fieldset#address-form(
+          hidden
+          data-primary-care-physician-address-target="form"
+        )
           = f.simple_fields_for @alternative_address do |a|
             = a.input :id, as: :hidden
             = render "renalware/addresses/form", a: a
