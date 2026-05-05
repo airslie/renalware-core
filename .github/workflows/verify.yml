@@ -211,14 +211,14 @@ jobs:
 
       - name: Store test failure screenshots
         if: failure()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: test-failure-screenshots
           path: tmp/capybara
           if-no-files-found: ignore
 
       - name: Upload coverage artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-${{ strategy.job-index }}
           path: coverage/.resultset.json
