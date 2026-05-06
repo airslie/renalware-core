@@ -1023,7 +1023,8 @@ CREATE TYPE renalware.system_nag_severity AS ENUM (
 
 CREATE TYPE renalware.system_view_category AS ENUM (
     'mdm',
-    'report'
+    'report',
+    'widget'
 );
 
 
@@ -15901,7 +15902,8 @@ CREATE TABLE renalware.system_view_metadata (
     calls_count integer DEFAULT 0,
     last_called_at timestamp(6) without time zone,
     chart jsonb DEFAULT '{}'::jsonb NOT NULL,
-    chart_raw jsonb DEFAULT '{}'::jsonb NOT NULL
+    chart_raw jsonb DEFAULT '{}'::jsonb NOT NULL,
+    widget_options jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -32802,11 +32804,13 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware, public, renalware_mse, renalware_blt, renalware_ich;
+SET search_path TO renalware,public,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260513120002'),
 ('20260513120000'),
 ('20260507100000'),
+('20260506145022'),
 ('20260506120000'),
 ('20260430120100'),
 ('20260430120000'),
@@ -33727,3 +33731,4 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20141020170329'),
 ('20141010170329'),
 ('20141004150240');
+

@@ -25,12 +25,19 @@ module Renalware
       attribute :chart, ChartDefinition.to_type
       validates :chart, store_model: true
 
+      attribute :widget_options, ViewWidgetOptions.to_type
+      validates :widget_options, store_model: true, if: :widget?
+
       # This maps to a PG enum
       enum :display_type, { tabular: "tabular" }
-      enum :category, { mdm: "mdm", report: "report" }
+      enum :category, { mdm: "mdm", report: "report", widget: "widget" }
 
       scope :refreshable_materialised_views, lambda {
         where(materialized: true).where.not(refresh_schedule: [nil, ""])
+      }
+      scope :widgets, -> { where(category: :widget) }
+      scope :for_widget_slot, lambda { |slot|
+        widgets.where("widget_options -> 'slots' ? :slot", slot: slot)
       }
 
       def fully_qualified_view_name
