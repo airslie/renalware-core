@@ -68,6 +68,32 @@ describe Renalware::Renal::SafetyAlerts::Runner do
     )
   end
 
+  it "skips concurrent duplicate active alerts without failing the execution" do
+    duplicate_alert = instance_double(
+      Renalware::Renal::SafetyAlert,
+      persisted?: false,
+      assign_attributes: true
+    )
+    allow(duplicate_alert)
+      .to receive(:save!)
+      .and_raise(ActiveRecord::RecordNotUnique.new("duplicate alert"))
+    active_alerts = instance_double(ActiveRecord::Relation)
+    allow(Renalware::Renal::SafetyAlert)
+      .to receive(:active)
+      .and_return(active_alerts)
+    allow(active_alerts)
+      .to receive(:find_or_initialize_by)
+      .and_return(duplicate_alert)
+
+    execution = described_class.new(rules: rules_scope).call.first
+
+    expect(execution).to have_attributes(
+      status: "succeeded",
+      matched_count: 2,
+      created_count: 0
+    )
+  end
+
   it "creates a new alert after a previous one for the same rule was resolved" do
     create(
       :renal_safety_alert,
@@ -84,15 +110,54 @@ describe Renalware::Renal::SafetyAlerts::Runner do
     expect(execution.created_count).to eq(2)
   end
 
-  it "records failed executions and reraises the error" do
+  it "records failed executions" do
     rule.update!(function_name: "renalware.missing_safety_alert_rule")
 
-    expect {
-      described_class.new(rules: rules_scope).call
-    }.to raise_error(ActiveRecord::StatementInvalid)
+    executions = described_class.new(rules: rules_scope).call
 
-    execution = rule.executions.last
+    execution = executions.first
     expect(execution.status).to eq("failed")
     expect(execution.error_message).to be_present
+  end
+
+  it "rolls back alerts created by a failed rule execution" do
+    connection.execute(<<~SQL.squish)
+      CREATE OR REPLACE FUNCTION renalware.test_safety_alert_rule()
+      RETURNS TABLE(
+        patient_id integer,
+        alert_type text,
+        patient_name text,
+        mrn text,
+        metadata jsonb
+      )
+      LANGUAGE sql
+      STABLE
+      AS $$
+        VALUES
+          (#{patient1.id}, 'MSSA screen positive'::text, 'Patient One'::text, 'MRN1'::text, '{}'::jsonb),
+          (-1, 'MSSA screen positive'::text, 'Missing Patient'::text, 'MRN2'::text, '{}'::jsonb)
+      $$;
+    SQL
+
+    execution = described_class.new(rules: rules_scope).call.first
+
+    expect(execution.status).to eq("failed")
+    expect(Renalware::Renal::SafetyAlert.where(safety_alert_rule: rule)).to be_empty
+  end
+
+  it "continues executing later rules after a rule fails" do
+    failing_rule = create(
+      :renal_safety_alert_rule,
+      name: "Broken rule",
+      function_name: "renalware.missing_safety_alert_rule"
+    )
+
+    executions = described_class.new(
+      rules: Renalware::Renal::SafetyAlertRule.where(id: [failing_rule.id, rule.id]).order(:name)
+    ).call
+
+    expect(executions.map(&:safety_alert_rule)).to eq([failing_rule, rule])
+    expect(executions.map(&:status)).to eq(%w(failed succeeded))
+    expect(Renalware::Renal::SafetyAlert.where(safety_alert_rule: rule).count).to eq(2)
   end
 end

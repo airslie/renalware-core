@@ -3,6 +3,7 @@ describe Renalware::Renal::SafetyAlert do
     is_expected.to belong_to(:patient)
     is_expected.to belong_to(:safety_alert_rule)
     is_expected.to belong_to(:safety_alert_rule_execution).optional
+    is_expected.to belong_to(:deleted_by).optional
     is_expected.to validate_presence_of(:patient)
     is_expected.to validate_presence_of(:safety_alert_rule)
     is_expected.to validate_presence_of(:rule_name)
@@ -28,5 +29,16 @@ describe Renalware::Renal::SafetyAlert do
     )
 
     expect(duplicate).to be_valid
+  end
+
+  it "resolves an alert with the resolving user" do
+    user = create(:user)
+    alert = create(:renal_safety_alert)
+
+    alert.resolve!(by: user, notes: "Reviewed and resolved")
+
+    expect(alert.deleted_at).to be_present
+    expect(alert.deleted_by).to eq(user)
+    expect(alert.notes).to eq("Reviewed and resolved")
   end
 end

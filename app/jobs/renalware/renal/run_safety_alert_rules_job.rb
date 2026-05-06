@@ -3,8 +3,15 @@ module Renalware
     class RunSafetyAlertRulesJob < ApplicationJob
       queue_as :default
 
-      def perform
-        SafetyAlerts::Runner.new.call
+      def perform(safety_alert_rule_id = nil)
+        rules =
+          if safety_alert_rule_id
+            SafetyAlertRule.where(id: safety_alert_rule_id)
+          else
+            SafetyAlertRule.enabled.ordered
+          end
+
+        SafetyAlerts::Runner.new(rules: rules).call
       end
     end
   end

@@ -16,14 +16,18 @@ module Renalware
 
         def execute_rule(rule)
           execution = rule.executions.create!(started_at: Time.zone.now)
-          rows = safely_execute_function(rule)
-          created_count = create_alerts(rule, execution, rows)
 
-          execution.finish!(
-            status: "succeeded",
-            matched_count: rows.length,
-            created_count: created_count
-          )
+          SafetyAlertRule.transaction(requires_new: true) do
+            rows = execute_function(rule)
+            created_count = create_alerts(rule, execution, rows)
+
+            execution.finish!(
+              status: "succeeded",
+              matched_count: rows.length,
+              created_count: created_count
+            )
+          end
+
           execution
         rescue StandardError => e
           execution&.finish!(
@@ -32,15 +36,7 @@ module Renalware
             created_count: 0,
             error_message: e.message
           )
-          raise
-        end
-
-        def safely_execute_function(rule)
-          rows = nil
-          SafetyAlertRule.transaction(requires_new: true) do
-            rows = execute_function(rule)
-          end
-          rows
+          execution
         end
 
         def execute_function(rule)
@@ -56,22 +52,24 @@ module Renalware
         end
 
         def create_alert(rule, execution, row)
-          patient_id = row.fetch("patient_id")
+          SafetyAlert.transaction(requires_new: true) do
+            patient_id = row.fetch("patient_id")
 
-          alert = SafetyAlert.active.find_or_initialize_by(
-            patient_id: patient_id,
-            safety_alert_rule: rule
-          )
-          return 0 if alert.persisted?
+            alert = SafetyAlert.active.find_or_initialize_by(
+              patient_id: patient_id,
+              safety_alert_rule: rule
+            )
+            next 0 if alert.persisted?
 
-          alert.assign_attributes(
-            safety_alert_rule_execution: execution,
-            rule_name: rule.name,
-            alert_type: row["alert_type"],
-            metadata: metadata_from(row)
-          )
-          alert.save!
-          1
+            alert.assign_attributes(
+              safety_alert_rule_execution: execution,
+              rule_name: rule.name,
+              alert_type: row["alert_type"],
+              metadata: metadata_from(row)
+            )
+            alert.save!
+            1
+          end
         rescue ActiveRecord::RecordNotUnique
           0
         end

@@ -26,6 +26,43 @@ module Renalware
           .map { |identifier| self.class.connection.quote_table_name(identifier) }
           .join(".")
       end
+
+      def function_definition
+        row = self.class.connection.select_one(
+          self.class.sanitize_sql_array(
+            [
+              <<~SQL.squish,
+                SELECT pg_get_functiondef(pg_proc.oid) AS definition
+                FROM pg_proc
+                JOIN pg_namespace ON pg_namespace.oid = pg_proc.pronamespace
+                WHERE pg_namespace.nspname = ?
+                AND pg_proc.proname = ?
+                AND pg_proc.pronargs = 0
+                ORDER BY pg_proc.oid
+                LIMIT 1
+              SQL
+              function_schema,
+              function_basename
+            ]
+          )
+        )
+
+        row&.fetch("definition", nil)
+      end
+
+      def function_definition_available?
+        function_definition.present?
+      end
+
+      private
+
+      def function_schema
+        function_name.split(".").length == 2 ? function_name.split(".").first : "renalware"
+      end
+
+      def function_basename
+        function_name.split(".").last
+      end
     end
   end
 end

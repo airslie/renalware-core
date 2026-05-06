@@ -14136,7 +14136,9 @@ CREATE TABLE renalware.renal_safety_alerts (
     metadata jsonb DEFAULT '{}'::jsonb NOT NULL,
     deleted_at timestamp(6) without time zone,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    deleted_by_id bigint,
+    notes text
 );
 
 
@@ -27300,6 +27302,13 @@ CREATE INDEX index_renal_safety_alerts_on_deleted_at ON renalware.renal_safety_a
 
 
 --
+-- Name: index_renal_safety_alerts_on_deleted_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_renal_safety_alerts_on_deleted_by_id ON renalware.renal_safety_alerts USING btree (deleted_by_id);
+
+
+--
 -- Name: index_renal_safety_alerts_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -32210,6 +32219,14 @@ ALTER TABLE ONLY renalware.hd_stations
 
 
 --
+-- Name: renal_safety_alerts fk_rails_f4f2eb6fc2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_safety_alerts
+    ADD CONSTRAINT fk_rails_f4f2eb6fc2 FOREIGN KEY (deleted_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: hd_prescription_administrations fk_rails_f51a425d72; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -32645,9 +32662,10 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware, public, renalware_mse, renalware_blt, renalware_ich;
+SET search_path TO renalware,public,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260507100000'),
 ('20260506120000'),
 ('20260430120100'),
 ('20260430120000'),
@@ -33568,4 +33586,3 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20141020170329'),
 ('20141010170329'),
 ('20141004150240');
-

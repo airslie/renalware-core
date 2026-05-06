@@ -47,6 +47,7 @@ class CreateRenalSafetyAlerts < ActiveRecord::Migration[7.1]
         t.string :alert_type
         t.jsonb :metadata, null: false, default: {}
         t.datetime :deleted_at
+        t.references :deleted_by, foreign_key: { to_table: :users }, index: true
 
         t.timestamps null: false
       end

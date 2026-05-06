@@ -1,0 +1,48 @@
+= within_new_admin_layout(title: "Safety Alert Rules") do
+  table.toggleable(data-controller="toggle")
+    thead
+      tr
+        th.togglers= rows_toggler
+        th Name
+        th Function
+        th Enabled
+        th.col-width-date-time Created at
+        th.col-width-date-time Updated at
+        th.col-width-small
+    - rules.each do |rule|
+      tbody
+        tr
+          td= row_toggler(link_title: "View SQL")
+          td= rule.name
+          td= rule.function_name
+          td= inline_check_icon(rule.enabled?)
+          td= l(rule.created_at)
+          td= l(rule.updated_at)
+          td
+            = link_to "Run now",
+                      run_admin_safety_alert_rule_path(rule),
+                      method: :post,
+                      data: { confirm: "Are you sure you want to run this rule now?" },
+                      class: "btn btn-compact btn-secondary"
+            - if rule.enabled?
+              = link_to "Disable",
+                        disable_admin_safety_alert_rule_path(rule),
+                        method: :patch,
+                        data: { confirm: "Are you sure?" },
+                        class: "btn btn-compact btn-secondary"
+            - else
+              = link_to "Enable",
+                        enable_admin_safety_alert_rule_path(rule),
+                        method: :patch,
+                        data: { confirm: "Are you sure?" },
+                        class: "btn btn-compact btn-primary"
+        tr.quick-preview.remove-borders-on-toggle
+          td(colspan=7)
+            - function_definition = rule.function_definition
+            - if function_definition.present?
+              pre
+                code= function_definition
+            - else
+              .text-gray-500 Function definition unavailable
+
+  == pagy.series_nav if pagy.pages > 1

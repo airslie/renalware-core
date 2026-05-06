@@ -1,6 +1,7 @@
-table.safety-alerts
+table.safety-alerts.toggleable(data-controller="toggle")
   thead
     tr
+      th.togglers= rows_toggler(link_title: "Toggle notes")
       th.col-width-large Patient
       th.col-width-reference-no Hosp. No.
       th Rule
@@ -8,9 +9,9 @@ table.safety-alerts
       th.col-width-date-time Created at
       - if historical
         th.col-width-date-time Resolved at
+        th Resolved by
       - else
         th.col-width-small
-  tbody
-    = render partial: "safety_alert", collection: alerts, locals: { historical: historical }
+  = render partial: "safety_alert", collection: alerts, locals: { historical: historical }
 
 == pagy.series_nav if pagy.pages > 1

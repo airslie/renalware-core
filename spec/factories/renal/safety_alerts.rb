@@ -5,5 +5,6 @@ FactoryBot.define do
     rule_name { safety_alert_rule.name }
     alert_type { "Example safety alert" }
     metadata { {} }
+    notes { nil }
   end
 end

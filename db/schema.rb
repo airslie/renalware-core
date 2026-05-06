@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_06_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_07_100000) do
   create_schema "renalware"
 
   # These are extensions that must be enabled in order to support this database
@@ -5434,7 +5434,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_06_120000) do
     t.string "alert_type"
     t.datetime "created_at", null: false
     t.datetime "deleted_at"
+    t.bigint "deleted_by_id"
     t.jsonb "metadata", default: {}, null: false
+    t.text "notes"
     t.bigint "patient_id", null: false
     t.string "rule_name", null: false
     t.bigint "safety_alert_rule_execution_id"
@@ -5442,6 +5444,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_06_120000) do
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_renal_safety_alerts_on_created_at"
     t.index ["deleted_at"], name: "index_renal_safety_alerts_on_deleted_at"
+    t.index ["deleted_by_id"], name: "index_renal_safety_alerts_on_deleted_by_id"
     t.index ["patient_id", "safety_alert_rule_id"], name: "idx_renal_safety_alerts_active_unique", unique: true, where: "(deleted_at IS NULL)"
     t.index ["patient_id"], name: "index_renal_safety_alerts_on_patient_id"
     t.index ["safety_alert_rule_execution_id"], name: "idx_renal_safety_alerts_on_rule_execution_id"
@@ -6758,6 +6761,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_06_120000) do
   add_foreign_key "renalware.renal_safety_alerts", "renalware.patients"
   add_foreign_key "renalware.renal_safety_alerts", "renalware.renal_safety_alert_rule_executions", column: "safety_alert_rule_execution_id"
   add_foreign_key "renalware.renal_safety_alerts", "renalware.renal_safety_alert_rules", column: "safety_alert_rule_id"
+  add_foreign_key "renalware.renal_safety_alerts", "renalware.users", column: "deleted_by_id"
   add_foreign_key "renalware.research_investigatorships", "renalware.research_studies", column: "study_id"
   add_foreign_key "renalware.research_investigatorships", "renalware.users"
   add_foreign_key "renalware.research_investigatorships", "renalware.users", column: "created_by_id"

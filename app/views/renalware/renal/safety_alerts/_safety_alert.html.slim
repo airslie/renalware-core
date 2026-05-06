@@ -1,17 +1,22 @@
-tr
-  td= default_patient_link(safety_alert.patient)
-  td= safety_alert.patient.hospital_identifiers
-  td= safety_alert.rule_name
-  td= safety_alert.alert_type
-  td= l(safety_alert.created_at)
-  - if historical
-    td= l(safety_alert.deleted_at)
-  - else
-    td
-      = link_to renal_safety_alert_path(safety_alert),
-                method: :delete,
-                data: { confirm: "Are you sure?" },
-                class: "button tiny secondary" do
-        .flex.items-center.gap-2
-          = inline_icon(:check, size: :sm)
-          | Resolve
+tbody
+  tr
+    td= row_toggler(link_title: "View notes")
+    td= default_patient_link(safety_alert.patient)
+    td= safety_alert.patient.hospital_identifiers
+    td= safety_alert.rule_name
+    td= safety_alert.alert_type
+    td= l(safety_alert.created_at)
+    - if historical
+      td= l(safety_alert.deleted_at)
+      td= safety_alert.deleted_by
+    - else
+      td
+        .flex.gap-2
+          = render "edit_notes_dialog", safety_alert: safety_alert
+          = render "resolve_dialog", safety_alert: safety_alert
+  tr.quick-preview.remove-borders-on-toggle
+    - colspan = historical ? 8 : 7
+    td(colspan=colspan)
+      dl.dl-horizontal.xlarge
+        dt.text-right Notes
+        dd= safety_alert.notes.presence || "No notes recorded"
