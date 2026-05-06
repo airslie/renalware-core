@@ -9,7 +9,7 @@ module Renalware
           format.js do
             results = pd_patient.adequacy_results.ordered
             authorize results
-            render locals: { results: results }
+            render locals: { results: results, current_user: current_user }
           end
         end
       end

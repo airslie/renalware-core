@@ -2,6 +2,23 @@ describe "Managing PD PET Results" do
   let(:patient) { create(:pd_patient, by: user) }
   let(:user) { create(:user) }
 
+  describe "GET index" do
+    it "responds with all results for the remote summary link" do
+      create(:pd_pet_result, patient:)
+
+      get(
+        patient_pd_pet_results_path(patient, format: :js),
+        headers: {
+          "ACCEPT" => "text/javascript",
+          "X-Requested-With" => "XMLHttpRequest"
+        }
+      )
+
+      expect(response).to be_successful
+      expect(response.media_type).to eq("text/javascript")
+    end
+  end
+
   describe "GET new" do
     it "responds with a form" do
       get new_patient_pd_pet_result_path(patient)
