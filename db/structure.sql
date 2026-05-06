@@ -1157,6 +1157,15 @@ $$;
 
 
 --
+-- Name: example_safety_alert_rule(); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.example_safety_alert_rule() RETURNS TABLE(patient_id integer, alert_type text, metadata jsonb)
+    LANGUAGE sql STABLE
+    AS $$ SELECT patients.id AS patient_id, 'Example safety alert'::text AS alert_type, jsonb_build_object('source', 'example') AS metadata FROM renalware.patients ORDER BY patients.id LIMIT 1 $$;
+
+
+--
 -- Name: feed_msgs_upsert_from_mirth(timestamp without time zone, renalware.hl7_message_type, renalware.hl7_event_type, character varying, character varying, character varying, character varying, character varying, character varying, character varying, date, character varying, renalware.enum_hl7_orc_order_status, text); Type: FUNCTION; Schema: renalware; Owner: -
 --
 
@@ -14043,6 +14052,114 @@ ALTER SEQUENCE renalware.renal_profiles_id_seq OWNED BY renalware.renal_profiles
 
 
 --
+-- Name: renal_safety_alert_rule_executions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.renal_safety_alert_rule_executions (
+    id bigint NOT NULL,
+    safety_alert_rule_id bigint NOT NULL,
+    started_at timestamp(6) without time zone NOT NULL,
+    finished_at timestamp(6) without time zone,
+    status character varying DEFAULT 'running'::character varying NOT NULL,
+    matched_count integer DEFAULT 0 NOT NULL,
+    created_count integer DEFAULT 0 NOT NULL,
+    duration_ms integer,
+    error_message text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: renal_safety_alert_rule_executions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.renal_safety_alert_rule_executions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_safety_alert_rule_executions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.renal_safety_alert_rule_executions_id_seq OWNED BY renalware.renal_safety_alert_rule_executions.id;
+
+
+--
+-- Name: renal_safety_alert_rules; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.renal_safety_alert_rules (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    function_name character varying NOT NULL,
+    enabled boolean DEFAULT true NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: renal_safety_alert_rules_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.renal_safety_alert_rules_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_safety_alert_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.renal_safety_alert_rules_id_seq OWNED BY renalware.renal_safety_alert_rules.id;
+
+
+--
+-- Name: renal_safety_alerts; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.renal_safety_alerts (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    safety_alert_rule_id bigint NOT NULL,
+    safety_alert_rule_execution_id bigint,
+    rule_name character varying NOT NULL,
+    alert_type character varying,
+    metadata jsonb DEFAULT '{}'::jsonb NOT NULL,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: renal_safety_alerts_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.renal_safety_alerts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_safety_alerts_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.renal_safety_alerts_id_seq OWNED BY renalware.renal_safety_alerts.id;
+
+
+--
 -- Name: renal_versions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -18783,6 +18900,27 @@ ALTER TABLE ONLY renalware.renal_profiles ALTER COLUMN id SET DEFAULT nextval('r
 
 
 --
+-- Name: renal_safety_alert_rule_executions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_safety_alert_rule_executions ALTER COLUMN id SET DEFAULT nextval('renalware.renal_safety_alert_rule_executions_id_seq'::regclass);
+
+
+--
+-- Name: renal_safety_alert_rules id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_safety_alert_rules ALTER COLUMN id SET DEFAULT nextval('renalware.renal_safety_alert_rules_id_seq'::regclass);
+
+
+--
+-- Name: renal_safety_alerts id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_safety_alerts ALTER COLUMN id SET DEFAULT nextval('renalware.renal_safety_alerts_id_seq'::regclass);
+
+
+--
 -- Name: renal_versions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -21160,6 +21298,30 @@ ALTER TABLE ONLY renalware.renal_profiles
 
 
 --
+-- Name: renal_safety_alert_rule_executions renal_safety_alert_rule_executions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_safety_alert_rule_executions
+    ADD CONSTRAINT renal_safety_alert_rule_executions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: renal_safety_alert_rules renal_safety_alert_rules_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_safety_alert_rules
+    ADD CONSTRAINT renal_safety_alert_rules_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: renal_safety_alerts renal_safety_alerts_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_safety_alerts
+    ADD CONSTRAINT renal_safety_alerts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: renal_versions renal_versions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -21857,6 +22019,27 @@ CREATE INDEX idx_patients_on_lower_family_name ON renalware.patients USING btree
 --
 
 CREATE UNIQUE INDEX idx_practice_membership ON renalware.patient_practice_memberships USING btree (practice_id, primary_care_physician_id);
+
+
+--
+-- Name: idx_renal_safety_alert_rule_executions_on_rule_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_renal_safety_alert_rule_executions_on_rule_id ON renalware.renal_safety_alert_rule_executions USING btree (safety_alert_rule_id);
+
+
+--
+-- Name: idx_renal_safety_alerts_active_unique; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_renal_safety_alerts_active_unique ON renalware.renal_safety_alerts USING btree (patient_id, safety_alert_rule_id) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: idx_renal_safety_alerts_on_rule_execution_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_renal_safety_alerts_on_rule_execution_id ON renalware.renal_safety_alerts USING btree (safety_alert_rule_execution_id);
 
 
 --
@@ -27089,6 +27272,48 @@ CREATE INDEX index_renal_profiles_on_prd_description_id ON renalware.renal_profi
 
 
 --
+-- Name: index_renal_safety_alert_rules_on_function_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_renal_safety_alert_rules_on_function_name ON renalware.renal_safety_alert_rules USING btree (function_name);
+
+
+--
+-- Name: index_renal_safety_alert_rules_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_renal_safety_alert_rules_on_name ON renalware.renal_safety_alert_rules USING btree (name);
+
+
+--
+-- Name: index_renal_safety_alerts_on_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_renal_safety_alerts_on_created_at ON renalware.renal_safety_alerts USING btree (created_at);
+
+
+--
+-- Name: index_renal_safety_alerts_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_renal_safety_alerts_on_deleted_at ON renalware.renal_safety_alerts USING btree (deleted_at);
+
+
+--
+-- Name: index_renal_safety_alerts_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_renal_safety_alerts_on_patient_id ON renalware.renal_safety_alerts USING btree (patient_id);
+
+
+--
+-- Name: index_renal_safety_alerts_on_safety_alert_rule_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_renal_safety_alerts_on_safety_alert_rule_id ON renalware.renal_safety_alerts USING btree (safety_alert_rule_id);
+
+
+--
 -- Name: index_renal_versions_on_item_type_and_item_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -28817,6 +29042,14 @@ ALTER TABLE ONLY renalware.hd_diaries
 
 
 --
+-- Name: renal_safety_alerts fk_rails_08199d82f0; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_safety_alerts
+    ADD CONSTRAINT fk_rails_08199d82f0 FOREIGN KEY (safety_alert_rule_execution_id) REFERENCES renalware.renal_safety_alert_rule_executions(id);
+
+
+--
 -- Name: hd_schedule_definitions fk_rails_083e4d9774; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -28974,6 +29207,14 @@ ALTER TABLE ONLY renalware.transplant_donor_stages
 
 ALTER TABLE ONLY renalware.pathology_requests_patient_rules
     ADD CONSTRAINT fk_rails_15f58845a2 FOREIGN KEY (lab_id) REFERENCES renalware.pathology_labs(id);
+
+
+--
+-- Name: renal_safety_alerts fk_rails_16687316a8; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_safety_alerts
+    ADD CONSTRAINT fk_rails_16687316a8 FOREIGN KEY (safety_alert_rule_id) REFERENCES renalware.renal_safety_alert_rules(id);
 
 
 --
@@ -30502,6 +30743,14 @@ ALTER TABLE ONLY renalware.access_profiles
 
 ALTER TABLE ONLY renalware.low_clearance_profiles
     ADD CONSTRAINT fk_rails_8d84feb2ed FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: renal_safety_alert_rule_executions fk_rails_8ec184384a; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_safety_alert_rule_executions
+    ADD CONSTRAINT fk_rails_8ec184384a FOREIGN KEY (safety_alert_rule_id) REFERENCES renalware.renal_safety_alert_rules(id);
 
 
 --
@@ -32097,6 +32346,14 @@ ALTER TABLE ONLY renalware.problem_problems
 
 
 --
+-- Name: renal_safety_alerts fk_rails_fc104dd05d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.renal_safety_alerts
+    ADD CONSTRAINT fk_rails_fc104dd05d FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: pathology_requests_patient_rules_requests fk_rails_fc41021986; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -32391,6 +32648,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware, public, renalware_mse, renalware_blt, renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260506120000'),
 ('20260430120100'),
 ('20260430120000'),
 ('20260429120000'),

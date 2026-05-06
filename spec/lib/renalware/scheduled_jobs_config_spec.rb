@@ -44,6 +44,7 @@ module Renalware
           :ods_sync,
           :reconcile_mesh_transmissions_job,
           :reporting_send_daily_summary_email,
+          :run_renal_safety_alert_rules,
           :schedule_refresh_of_materialized_views,
           :terminate_given_but_unwitnessed_hd_stat_prescriptions,
           :ukrdc_export,

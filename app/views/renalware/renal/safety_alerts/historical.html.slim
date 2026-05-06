@@ -1,0 +1,4 @@
+= content_for(:tabs) { render "tabs" }
+
+= within_admin_layout(title: "Safety Alerts") do
+  = render "table", **local_assigns

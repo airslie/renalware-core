@@ -6,6 +6,9 @@ end
 
 namespace :renal do
   resources :aki_alerts, only: %i(edit update index)
+  resources :safety_alerts, only: %i(index destroy) do
+    get :historical, on: :collection
+  end
   resources :registry_preflight_checks, only: [] do
     collection do
       get :patients

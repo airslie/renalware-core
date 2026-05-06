@@ -4,6 +4,8 @@ module Renalware
       def self.ransackable_attributes(*) = super + %w(hd_profile_unit_id hd_profile_unit_name)
 
       has_one :profile
+      has_many :safety_alerts, class_name: "Renal::SafetyAlert", dependent: :restrict_with_exception
+
       scope :having_no_primary_renal_diagnosis, lambda {
         where(renal_profile: nil)
       }

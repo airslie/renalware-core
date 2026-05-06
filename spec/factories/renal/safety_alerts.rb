@@ -1,0 +1,9 @@
+FactoryBot.define do
+  factory :renal_safety_alert, class: "Renalware::Renal::SafetyAlert" do
+    patient factory: :renal_patient
+    safety_alert_rule factory: :renal_safety_alert_rule
+    rule_name { safety_alert_rule.name }
+    alert_type { "Example safety alert" }
+    metadata { {} }
+  end
+end

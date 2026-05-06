@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_30_120100) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_06_120000) do
   create_schema "renalware"
 
   # These are extensions that must be enabled in order to support this database
@@ -5406,6 +5406,48 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_30_120100) do
     t.index ["prd_description_id"], name: "index_renal_profiles_on_prd_description_id"
   end
 
+  create_table "renalware.renal_safety_alert_rule_executions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "created_count", default: 0, null: false
+    t.integer "duration_ms"
+    t.text "error_message"
+    t.datetime "finished_at"
+    t.integer "matched_count", default: 0, null: false
+    t.bigint "safety_alert_rule_id", null: false
+    t.datetime "started_at", null: false
+    t.string "status", default: "running", null: false
+    t.datetime "updated_at", null: false
+    t.index ["safety_alert_rule_id"], name: "idx_renal_safety_alert_rule_executions_on_rule_id"
+  end
+
+  create_table "renalware.renal_safety_alert_rules", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "enabled", default: true, null: false
+    t.string "function_name", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["function_name"], name: "index_renal_safety_alert_rules_on_function_name", unique: true
+    t.index ["name"], name: "index_renal_safety_alert_rules_on_name", unique: true
+  end
+
+  create_table "renalware.renal_safety_alerts", force: :cascade do |t|
+    t.string "alert_type"
+    t.datetime "created_at", null: false
+    t.datetime "deleted_at"
+    t.jsonb "metadata", default: {}, null: false
+    t.bigint "patient_id", null: false
+    t.string "rule_name", null: false
+    t.bigint "safety_alert_rule_execution_id"
+    t.bigint "safety_alert_rule_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_renal_safety_alerts_on_created_at"
+    t.index ["deleted_at"], name: "index_renal_safety_alerts_on_deleted_at"
+    t.index ["patient_id", "safety_alert_rule_id"], name: "idx_renal_safety_alerts_active_unique", unique: true, where: "(deleted_at IS NULL)"
+    t.index ["patient_id"], name: "index_renal_safety_alerts_on_patient_id"
+    t.index ["safety_alert_rule_execution_id"], name: "idx_renal_safety_alerts_on_rule_execution_id"
+    t.index ["safety_alert_rule_id"], name: "index_renal_safety_alerts_on_safety_alert_rule_id"
+  end
+
   create_table "renalware.renal_versions", force: :cascade do |t|
     t.datetime "created_at", precision: nil
     t.string "event", null: false
@@ -6712,6 +6754,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_30_120100) do
   add_foreign_key "renalware.renal_aki_alerts", "renalware.users", column: "updated_by_id"
   add_foreign_key "renalware.renal_profiles", "renalware.patients"
   add_foreign_key "renalware.renal_profiles", "renalware.renal_prd_descriptions", column: "prd_description_id"
+  add_foreign_key "renalware.renal_safety_alert_rule_executions", "renalware.renal_safety_alert_rules", column: "safety_alert_rule_id"
+  add_foreign_key "renalware.renal_safety_alerts", "renalware.patients"
+  add_foreign_key "renalware.renal_safety_alerts", "renalware.renal_safety_alert_rule_executions", column: "safety_alert_rule_execution_id"
+  add_foreign_key "renalware.renal_safety_alerts", "renalware.renal_safety_alert_rules", column: "safety_alert_rule_id"
   add_foreign_key "renalware.research_investigatorships", "renalware.research_studies", column: "study_id"
   add_foreign_key "renalware.research_investigatorships", "renalware.users"
   add_foreign_key "renalware.research_investigatorships", "renalware.users", column: "created_by_id"
