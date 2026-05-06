@@ -16,6 +16,7 @@ describe "Managing PD PET Results" do
 
       expect(response).to be_successful
       expect(response.media_type).to eq("text/javascript")
+      expect(response.body).to include('petResultsTitle.textContent = "PET Results (1)"')
     end
   end
 

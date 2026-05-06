@@ -16,6 +16,9 @@ describe "Managing PD Adequacy Results" do
 
       expect(response).to be_successful
       expect(response.media_type).to eq("text/javascript")
+      expect(response.body).to include(
+        'adequacyResultsTitle.textContent = "Adequacy Results (1)"'
+      )
     end
   end
 

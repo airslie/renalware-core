@@ -1,1 +1,7 @@
 <%= refresh("#adequacy-results-table", partial: "table", locals: local_assigns) %>
+
+(() => {
+  const adequacyResultsTable = document.querySelector("#adequacy-results-table");
+  const adequacyResultsTitle = adequacyResultsTable?.closest("article")?.querySelector("header h2");
+  if (adequacyResultsTitle) adequacyResultsTitle.textContent = "Adequacy Results (<%= results.size %>)";
+})();
