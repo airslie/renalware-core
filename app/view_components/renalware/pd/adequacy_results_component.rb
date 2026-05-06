@@ -17,10 +17,10 @@ module Renalware
       end
 
       def title
-        if pagination.limit < pagination.count
-          "#{TITLE} (#{pagination.limit} of #{pagination.count})"
+        if pagination.in < pagination.count
+          "#{TITLE} (#{pagination.in} of #{pagination.count})"
         else
-          "#{TITLE} (#{pagination.limit})"
+          "#{TITLE} (#{pagination.count})"
         end
       end
 
