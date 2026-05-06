@@ -1,1 +1,7 @@
 <%= refresh("#pet-results-table", partial: "table", locals: local_assigns) %>
+
+(() => {
+  const petResultsTable = document.querySelector("#pet-results-table");
+  const petResultsTitle = petResultsTable?.closest("article")?.querySelector("header h2");
+  if (petResultsTitle) petResultsTitle.textContent = "PET Results (<%= results.size %>)";
+})();
