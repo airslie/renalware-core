@@ -1,0 +1,40 @@
+table.bio-bank-aliquots
+  thead
+    tr
+      th(colspan=4 style="text-align:center; background-color: #ddd") Aliquot
+      th(colspan=5 style="text-align:center; background-color: #eee") Usage
+    tr
+      th.col-width-tiny
+      th.col-width-tiny No.
+      th.col-width-tiny ISBT
+      th.col-width-date-time Created
+      th.col-width-date-time Used at
+      th.col-width-date-time Used in study
+      th.col-width-large User
+      th Notes
+      th.col-width-small
+
+  tbody
+    - aliquots.each_with_index do |aliquot, idx|
+      tr
+        td= link_to_if policy(aliquot).destroy?,
+                       "Delete",
+                       heroic.bio_bank_sample_aliquot_path(aliquot.sample, aliquot),
+                       data: { confirm: "Are you sure you want to delete this aliquot?" },
+                       method: :delete
+        td= idx + 1
+        td= aliquot.isbt
+        td= l(aliquot.created_at)
+        td= l(aliquot.usage&.created_at)
+        td= aliquot.usage&.study_name
+        td= aliquot.usage&.updated_by
+        td= aliquot.usage&.notes
+        td.right
+          - if aliquot.usage.present?
+            = link_to_if_allowed policy(aliquot.usage).edit?,
+                         "Edit usage",
+                         heroic.edit_bio_bank_aliquot_usage_path(aliquot)
+          - else
+            = link_to_if_allowed policy(Renalware::Heroic::BioBank::Aliquot).create?,
+                         "Add usage",
+                         heroic.new_bio_bank_aliquot_usage_path(aliquot)

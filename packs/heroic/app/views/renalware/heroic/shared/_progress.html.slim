@@ -1,0 +1,10 @@
+ol.steps
+  - klass = upload.persisted? ? "steps__item--done" : "steps__item--active"
+  li.steps__item.steps__item--first(class=klass)
+    span.steps__link Choose a file
+  - klass = upload.persisted? && upload.previewing? ? "steps__item--active" : "steps__item--done"
+  li.steps__item(class=klass)
+    span.steps__link Preview
+  - klass = upload.changes_committed? ? "steps__item--active" : "steps__item--done"
+  li.steps__item.steps__item--last(class=klass)
+    span.steps__link Results

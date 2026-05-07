@@ -1,0 +1,67 @@
+- document = f.object.document
+
+#indicates-heroic-clinic-visit-to-js-handlers
+
+= f.fields_for(:document, document) do |fdoc|
+  = fdoc.input :visit_number, wrapper: :horizontal_small
+  = fdoc.input :cuff_size, wrapper: :horizontal_small
+  = fdoc.input :physical_activity,
+               wrapper: :horizontal_small,
+               hint: "How often do you engage in physical activity (of at least moderate intensity for at least 30 minutes)?"
+
+  article
+    header
+      h2 Blood pressure
+    = render_input fdoc, :blood_pressure1
+    = render_input fdoc, :blood_pressure2
+    = render_input fdoc, :blood_pressure3
+
+  article.smoking
+    header
+      h2 Smoking
+
+    = fdoc.fields_for(:smoking, document.smoking) do |fsmoking|
+      = fsmoking.input :history,
+                       wrapper: :horizontal_small,
+                       hint: "Which best describes your smoking habits?"
+      = fsmoking.input :number,
+                       wrapper: :horizontal_small,
+                       hint: "If you smoke regularly how many cigarretetes do you smoke each day on average?"
+      = fsmoking.input :ecigarettes,
+                       wrapper: :horizontal_small,
+                       hint: "Do you smoke e-cigarrettes?"
+
+  article.alcohol
+    header
+      h2 Alcohol
+
+    = fdoc.fields_for(:alcohol, document.alcohol) do |falcohol|
+      = falcohol.input :history,
+                       wrapper: :horizontal_small,
+                       hint: "Which best describes your alcohol drinking habits?"
+      = falcohol.input :units,
+                       wrapper: :horizontal_small,
+                       hint: "How many units of alcohol did you drink when you last did so? (only if in the last week)"
+
+  article.urinalysis
+    header
+      h2 Urinalysis
+
+    = f.input :urine_protein, wrapper: :horizontal_small
+    = f.input :urine_blood, wrapper: :horizontal_small
+    = fdoc.fields_for(:urinalysis, document.urinalysis) do |furinalysis|
+      = furinalysis.input :glucose, wrapper: :horizontal_small
+      = furinalysis.input :nitrate, wrapper: :horizontal_small
+      = furinalysis.input :leucocytes, wrapper: :horizontal_small
+      = furinalysis.input :specific_gravity, wrapper: :horizontal_small
+
+  article.health_status
+    header
+      h2 EQ-5D-5L
+    = fdoc.fields_for(:health_status, document.health_status) do |fhealth_status|
+      = fhealth_status.input :mobility, wrapper: :horizontal_medium
+      = fhealth_status.input :self_care, wrapper: :horizontal_medium
+      = fhealth_status.input :usual_activities, wrapper: :horizontal_medium
+      = fhealth_status.input :pain, wrapper: :horizontal_medium
+      = fhealth_status.input :anxiety, wrapper: :horizontal_medium
+      = fhealth_status.input :health_today_out_of_100, wrapper: :horizontal_small

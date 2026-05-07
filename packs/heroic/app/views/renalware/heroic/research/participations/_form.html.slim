@@ -1,0 +1,108 @@
+- patient = f.object.patient
+- participation = f.object
+- document = participation.document
+
+= f.simple_fields_for :document, f.object.document do | fd |
+
+  = fd.input :study_number, wrapper: :horizontal_medium
+  = fd.input :rfh_validation_code, wrapper: :horizontal_medium
+
+  article.article--consent
+    header
+      h2 Demographics
+      - if participation.persisted?
+        ul
+          li= link_to "Edit", patient_path(patient), class: :button
+
+    - if participation.persisted?
+      = definition_list_for(patient, size: :xlarge) do |list|
+        dt Year of birth
+        dd= patient.born_on&.year
+        = list.definition(:sex)
+        = list.definition(:language)
+        = list.definition(:marital_status) { |val| val.text }
+
+    = fd.simple_fields_for :demographics, fd.object.demographics do |fdemo|
+      = fdemo.input :work, wrapper: :horizontal_medium
+      = fdemo.input :education, wrapper: :horizontal_medium
+
+  article.article--withdrawal
+    header
+      h2 Withdrawal
+    = fd.simple_fields_for :withdrawal, fd.object.withdrawal do |withdrawal_form|
+      = withdrawal_form.input :status, wrapper: :horizontal_medium
+      = withdrawal_form.input :partial_withdrawal_date,
+                              as: :date_picker,
+                              wrapper: :horizontal_datepicker
+      = withdrawal_form.input :complete_withdrawal_date,
+                              as: :date_picker,
+                              wrapper: :horizontal_datepicker
+
+  article.article--consent
+    header
+      h2 Consent
+    = fd.simple_fields_for :consent, fd.object.consent do |consent_form|
+      = consent_form.input :type, wrapper: :horizontal_medium
+      = consent_form.input :date,
+                            as: :date_picker,
+                            wrapper: :horizontal_datepicker
+
+  article.article--clinical-history
+    header
+      h2 Clinical History
+    = fd.simple_fields_for :clinical_history, fd.object.clinical_history do |clinical_form|
+      = clinical_form.input :diabetes_type, wrapper: :horizontal_tiny
+
+      h3 Diagnosis dates
+      = clinical_form.simple_fields_for(:diagnosis_dates,
+                                        clinical_form.object.diagnosis_dates) do |diag_dates_form|
+
+        - clinical_form.object.diagnosis_dates.attributes.keys.each do |att|
+          = diag_dates_form.input att, as: :date_picker, wrapper: :horizontal_datepicker
+
+  article.article--mri-antaros
+    header
+      h2 MRI Antaros
+
+    - %i(0 2 5 other).each do |idx|
+      h3= idx.to_s.humanize
+      - att = "mri_antaros_#{idx}".to_sym
+      = fd.simple_fields_for att, document.public_send(att) do |mri_form|
+        = mri_form.input :booked_for,
+                         as: :datetime_picker,
+                         wrapper: :horizontal_datepicker
+        = mri_form.input :patient_informed, wrapper: :horizontal_large
+        = mri_form.input :transport_booked, wrapper: :horizontal_large
+        = mri_form.input :completed, as: :inline_radio_buttons, wrapper: :horizontal_medium
+      hr
+
+  article.article--blood-tracking
+    header
+      h2 Blood tracking
+
+    - (0..5).each do |idx|
+      = fd.input "blood_visit_#{idx}_date".to_sym, as: :date_picker, wrapper: :horizontal_datepicker
+
+  article.article--biopsy-histology
+    header
+      h2 Biopsy histology
+
+    = fd.simple_fields_for :biopsy_histology, fd.object.biopsy_histology do |biopsy_form|
+        = biopsy_form.input :no_biopsy, as: :boolean, input_html: { class: "biopsy-yes-no-toggle" }
+        .no-biopsy-inputs
+          = biopsy_form.input :no_biopsy_date,
+                              as: :date_picker,
+                              wrapper: :horizontal_datepicker,
+                              class: "no-biopsy"
+          = biopsy_form.input :no_biopsy_reason,
+                              as: :text,
+                              class: "no-biopsy"
+        .yes-biopsy-inputs
+          = biopsy_form.input :biopsy_date, as: :date_picker, wrapper: :horizontal_datepicker
+          = biopsy_form.input :glomerular_score, wrapper: :horizontal_small
+          = biopsy_form.input :interstitial_inflammation_score, wrapper: :horizontal_small
+          = biopsy_form.input :vascular_lesion_score, wrapper: :horizontal_small
+          = biopsy_form.input :large_vessel_present, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = biopsy_form.input :arteriosclerosis_score, wrapper: :horizontal_small
+          = biopsy_form.input :non_dm_pathology, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = biopsy_form.input :non_dm_pathology_description, wrapper: :horizontal_large

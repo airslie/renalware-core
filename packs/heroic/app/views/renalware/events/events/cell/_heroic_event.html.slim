@@ -1,0 +1,2 @@
+- if event.document.respond_to?(:visit_number)
+  = "Visit no: #{event.document.visit_number.presence || 'n/a'}"

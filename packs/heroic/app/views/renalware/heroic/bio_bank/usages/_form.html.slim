@@ -1,0 +1,7 @@
+= simple_form_for(usage, as: :usage, url: form_url) do |f|
+  = f.input :used_at, as: :datetime_picker, wrapper: :horizontal_datepicker
+  = f.input :study_name, wrapper: :horizontal_medium
+  = f.input :notes, wrapper: :horizontal_large, as: :text
+  = f.submit "Save", class: :button
+  = " or "
+  = link_to "Cancel", :back

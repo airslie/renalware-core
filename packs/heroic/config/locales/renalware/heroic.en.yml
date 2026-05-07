@@ -1,0 +1,227 @@
+en:
+  simple_form:
+    hints:
+      clinic_visit:
+        document:
+          health_status:
+            health_today_out_of_100: On a scale of 0 to 100. How good or bad your health is TODAY (100 means best health you can imagine, 0 means the worst health you can imagine)
+
+  activerecord:
+    errors:
+      messages:
+        attached: please select a file
+
+  activemodel:
+    attributes:
+      renalware/heroic/events/echo/document:
+        visit_number: Visit number
+        la_vol: LA vol
+        lvidd_2d: LVIDd 2D
+        ivsd_2d: IVSd 2D
+        pwd_2d: PWd 2D
+        lv_ed_vol: LV ED vol
+        ra_area: RA area
+        rv_diameter: RV diameter
+        tapse: TAPSE
+        estimated_lvf: Estimated LVF
+        estimated_rvsp: Estimated RVSP
+        valve_pathology: Valve Pathology
+      renalware/heroic/events/mgfr/document:
+        visit_number: Visit number
+        uncorrected_bsa: Uncorrected BSA
+      renalware/heroic/events/oct_a/document:
+        visit_number: Visit number
+        screen_type: Screen type
+        diabetic_retinopathy: Diabetic retinopathy
+        skeletonized_vessel_density_continuous: Skeletonized vessel density (continuous)
+        fractal_dimension_continuous: "Fractal dimension (continuous)"
+        vessel_diameter_index_continuous: Vessel diameter index (continuous)
+        average_vessel_calibre_continuous: Average vessel calibre (continuous)
+        foveal_avascular_zone_continuous: Foveal avascular zone (continuous)
+        perifoveal_interpapillary_area_continuous: Perifoveal interpapillary area (continuous)
+        number_of_microaneurysms: Number of microaneurysms
+      renalware/heroic/events/ecg/document:
+        visit_number: Visit number
+      renalware/heroic/events/mri/document:
+        visit_number: Visit number
+        r2_cortex: "R2* cortex "
+        r2_medulla: "R2* medulla"
+        diffusion_adc_cortex_continuous: "Diffusion: ADC cortex (continuous)"
+        diffusion_adc_medulla_continuous: "Diffusion: ADC medulla (continuous)"
+        diffusion_ivim_model_cortex_continuous: "Diffusion: IVIM model (bi-exponential), slow diffusion, cortex (continuous)"
+        diffusion_ivim_model_medulla_continuous: "Diffusion: IVIM model (bi-exponential), slow diffusion, medulla (continuous)"
+        r1_cortex_continuous: "R1 cortex (continuous)"
+        r1_medulla_continuous: "R1 medulla (continuous)"
+        t2_mapping_continuous: "T2 mapping (continuous)"
+        renal_artery_atherosclerosis_ordinal: "Renal artery atherosclerosis (ordinal)"
+        rari_continuous: "RARI (continuous)"
+        mean_arterial_flow_continuous: "Mean arterial flow (continuous)"
+        peak_velocity_min_continuous: "Peak velocity min (continuous)"
+        peak_velocity_max_continuous: "Peak velocity max (continuous)"
+        pc_perfusion_continuous: "PC perfusion (continuous)"
+        cortical_volume_continuous: "Cortical volume (continuous)"
+        kidney_volume_corrected_for_body_surface_area_continuous: "Kidney volume corrected for body surface area (continuous)"
+        lv_global_longitudinal_strain_continuous: "LV global longitudinal strain (continuous)"
+        lv_global_radial_strain_continuous: "LV global radial strain (continuous)"
+        lv_global_circumferential_strain_continuous: "LV global circumferential strain (continuous)"
+        lv_global_diastolic_longitudinal_strain_rate_continuous: "LV global diastolic longitudinal strain rate (continuous)"
+        lv_global_systolic_longitudinal_strain_rate_continuous: "LV global systolic longitudinal strain rate (continuous)"
+        lv_global_diastolic_radial_strain_rate_continuous: "LV global diastolic radial strain rate (continuous)"
+        lv_global_systolic_radial_strain_rate_continuous: "LV global systolic radial strain rate (continuous)"
+        lv_global_diastolic_circumferential_strain_rate_continuous: "LV global diastolic circumferential strain rate (continuous)"
+        lv_global_systolic_circumferential_strain_rate_continuous: "LV global systolic circumferential strain rate (continuous)"
+        lv_stroke_volume_continuous: "LV stroke volume (continuous)"
+        lv_end_diastolic_volume_continuous: "LV end-diastolic volume (continuous)"
+        lv_end_systolic_volume_continuous: "LV end-systolic volume (continuous)"
+        lv_mass_continuous: "LV mass (continuous)"
+        lv_mass_end_diastolic_volume_continuous: "LV mass/end-diastolic volume (continuous)"
+        lv_ejection_fraction_continuous: "LV ejection fraction (continuous"
+        pulse_wave_velocity_continuous: "Pulse wave velocity (continuous)"
+        lean_muscle_mass_continuous: "Lean muscle mass (continuous)"
+      renalware/heroic/clinics/visit/document/health_status:
+        health_today_out_of_100: How good or bad your health is TODAY
+      renalware/heroic/research/participation/document/biopsy_histology:
+        no_biopsy: "No biopsy"
+        no_biopsy_date: "No biopsy decision date"
+
+  enumerize:
+    renalware/heroic/research/investigatorship/document:
+      roles:
+        maintaining_database: Maintaining Database
+        obtaining_informed_consent: Obtaining informed consent
+        physical_examination_clinical_evaluation: Physical Examination / Clinical Evaluation
+        source_document_entry: Source document entry
+        crf_entry: CRF entry
+        resolving_data_queries: Resolving data queries
+        review_and_reporting_ae_and_sae: Review and reporting AE and SAE
+        maintaining_investigator_file: Maintaining Investigator file
+        other_duties: Other Duties (see below)
+        cra_auditors: CRA / Auditors
+
+    renalware/heroic/events/oct_a/document:
+      screen_type:
+        photography: Photography
+        octa: OCTA-A
+    renalware/heroic/research/participation/document/withdrawal:
+      status:
+        1_active: Active
+        2_partial_withdrawal: Partial Withdrawal
+        3_complete_withdrawal: Complete Withdrawal
+        4_inactive: Inactive (Reached End-point)
+    renalware/heroic/research/participation/document/consent:
+      type:
+        1_full: Full
+        2_registry_only: Registry Only
+    renalware/heroic/research/participation/document/demographics:
+      work:
+        1_government_employee: Government Employee
+        2_non_government_employee: Non-Government Employee
+        3_self_employed: Self-Employed
+        4_non_paid: Non-Paid
+        5_student: Student
+        6_homemaker: Homemaker
+        7_retired: Retired
+        8_unemployed_able: Unemployed (able to work)
+        9_unemployed_unable: Unemployed (unable to work)
+        10_unpaid_domesttic: Unpaid domestic
+        99_refused: Refused
+    renalware/heroic/research/participation/document/biopsy_histology:
+      glomerular_score:
+        1_i_gbm_thickening_on_em: "I: GBM thickening on EM"
+        2_iia_mild_mesangial_expansion: "IIa: mild mesangial expansion"
+        3_iib_severe_mesangial_expansion: "IIb: severe mesangial expansion"
+        4_iii_noduar_sclerosis: "III: noduar sclerosis"
+        5_iv_advanced_glomerulosclerosis: "IV: advanced glomerulosclerosis"
+        0_no_abnormality: "No abnormality"
+
+    renalware/heroic/clinics/visit/document:
+      cuff_size:
+        1_small: Small
+        2_medium: Medium
+        3_large: Large
+      physical_activity:
+        1_gt_3_times_a_wk: ">3 times a week"
+        2_twice_a_week: "Twice a week"
+        3_once_a_week: "Once a week"
+        4_lt_once_a_week: "Less than once a week"
+        5_never: "Never"
+        99_refused: "Refused"
+    renalware/heroic/clinics/visit/document/smoking:
+      history:
+        1_never: "I have never smoked cigarettes regularly"
+        2_previous_smoker: "I used to smoke cigarettes regualrly but no longer do"
+        3_smoke_regularly: "I smoke cigarettes regularly"
+        99_refused: "Refused"
+      ecigarettes:
+        1_never: "I have never smoked e-cigarrettes regularly"
+        2_previous_smoker: "I used to smoke e-cigarettes regualrly but no longer do"
+        3_smoke_regularly: "I smoke e-cigarettes regularly"
+        99_refused: "Refused"
+    renalware/heroic/clinics/visit/document/alcohol:
+      history:
+        1_never: "I never drink alcohol"
+        2_not_drunk_alcohol_in_last_week: "I have not drunk alcohol in the last week"
+        3_drunk_alcohol_in_last_week: "I have drunk alcohol in the last week"
+        4_drunk_alcohol_on_at_least_5days_in_last_week: "I drank alcohol on at least 5 days in the last week"
+        99_refused: Refused
+    renalware/heroic/clinics/visit/document/urinalysis:
+      glucose:
+        1_negative: "Negative"
+        2_100_mg_dL: "100 mg/dL"
+        3_250_mg_dL: "250 mg/dL"
+        4_500 mg_dL: "500 mg/dL"
+        5_1000 mg_dL: "1000 mg/dL"
+        6_gt_2000mg_dL: ">2000mg/dL"
+      nitrate:
+        1_negative: Negative
+        2_positive: Positive
+      leucocytes:
+        1_negative: "Negative"
+        2_trace: "Trace"
+        3_small: "Small (+)"
+        4_moderate: "Moderate (++)"
+        5_large: "Large (+++)"
+      specific_gravity:
+        1_1-000: "1.000"
+        2_1-005: "1.005"
+        3_1-010: "1.010"
+        4_1-015: "1.015"
+        5_1-020: "1.020"
+        6_1-025: "1.025"
+        7_1-030: "1.030"
+    renalware/heroic/clinics/visit/document/health_status:
+      mobility:
+        1_none: I have no problems in walking about
+        2_slight: I have slight problems in walking about
+        3_moderate: I have moderate problems in walking about
+        4_severe: I have severe problems in walking about
+        5_unable: I am unable to walk about
+        99_refused: Refused
+      self_care:
+        1_none: I have no problems washing or dressing myself
+        2_slight: I have slight problems washing or dressing myself
+        3_moderate: I have moderate problems washing or dressing myself
+        4_severe: I have severe problems washing or dressing myself
+        5_unable: I am unable to wash or dress myself
+        99_refused: Refused
+      usual_activities:
+        1_none: I have no problems doing my usual activities
+        2_slight: I have slight problems doing my usual activities
+        3_moderate: I have moderate problems doing my usual activities
+        4_severe: I have severe problems doing my usual activities
+        5_unable: I am unable to do my usual activities
+        99_refused: Refused
+      pain:
+        1_none: I have no pain or discomfort
+        2_slight: I have slight pain or discomfort
+        3_moderate: I have moderate pain or discomfort
+        4_severe: I have severe pain or discomfort
+        5_extreme: I have extreme pain or discomfort
+        99_refused: Refused
+      anxiety:
+        1_none: I am not anxious or depressed
+        2_slight: I am slightly anxious or depressed
+        3_moderate: I am moderately anxious or depressed
+        4_severe: I am severely anxious or depressed
+        5_extreme: I am extremely anxious or depressed
+        99_refused: Refused

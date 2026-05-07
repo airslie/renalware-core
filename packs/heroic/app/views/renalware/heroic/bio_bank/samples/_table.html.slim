@@ -1,0 +1,13 @@
+table.bio-bank-samples
+  thead
+    tr
+      th.actions.col-width-tiny
+      th Type
+      th ISBT
+      th.col-width-date-time Collected
+      th.col-width-date-time Received
+      th.col-width-date-time Processed
+      th Processed location
+      th Aliquots
+  tbody
+    = render partial: "sample", collection: samples, locals: { patient: patient }

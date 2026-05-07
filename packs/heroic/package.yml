@@ -1,0 +1,7 @@
+# Root metadata for this optional pack. Checks stay off until we have established
+# boundaries and captured a baseline.
+enforce_dependencies: true
+optional: true
+extension_name: heroic
+dependencies:
+  - "."

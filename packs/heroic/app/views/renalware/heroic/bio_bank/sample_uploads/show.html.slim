@@ -1,0 +1,4 @@
+= within_admin_layout(title: "BioBank sample upload results",
+                      breadcrumbs: research_study_breadcrumb(Renalware::Heroic::Research::Study.find!)) do
+  = render "renalware/heroic/shared/progress", upload: upload
+  = render "results", upload: upload

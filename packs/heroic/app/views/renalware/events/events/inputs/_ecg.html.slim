@@ -1,0 +1,5 @@
+
+= f.simple_fields_for :document, event.document do |fd|
+  = fd.input :visit_number,
+             collection: 0..event.document.class::MAX_VISIT_NUMBER,
+             wrapper: :horizontal_tiny

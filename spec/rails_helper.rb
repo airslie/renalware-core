@@ -50,6 +50,9 @@ end
 Rails.root.glob("spec/support/**/*.rb").each { require it }
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { require it }
 Rails.root.glob("spec/pages/**/*.rb").each { require it }
+if Renalware::Extensions.enabled?(:heroic)
+  Rails.root.glob("packs/heroic/spec/support/**/*.rb").each { require it }
+end
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

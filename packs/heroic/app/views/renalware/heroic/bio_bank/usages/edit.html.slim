@@ -1,0 +1,5 @@
+= content_for(:header) do
+  = render "renalware/patients/header", patient: patient
+
+= within_admin_layout(title: "New Usage") do
+  = render "form", usage: usage, form_url: form_url

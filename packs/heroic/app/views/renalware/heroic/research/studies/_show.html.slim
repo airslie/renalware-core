@@ -1,0 +1,40 @@
+article.biobank
+  header
+    h2 BioBank
+
+  = link_to heroic.new_bio_bank_sample_upload_path, class: "button secondary" do
+    i.fas.fa-upload
+    | Upload samples
+  | &nbsp;
+  = link_to heroic.new_bio_bank_usage_upload_path, class: "button secondary" do
+    i.fas.fa-upload
+    | Upload aliquot usage
+
+
+article.uploads
+  header
+    h2 MRI ANTAROS
+  = link_to "#", class: "button secondary" do
+    i.fas.fa-upload
+    | Upload MRI events
+
+article.reports
+  header
+    h2 Reports
+
+  table
+    thead
+      tr
+        th.col-width-medium Name
+        th Description
+        th.col-width-medium.actions
+    tbody
+      - Renalware::Heroic::Reports::Definition.order(:position).each do |report|
+        tr
+          td.col-width-xlarge= report.name
+          td.col-width-large= report.description
+          td.right
+            = link_to(heroic.reports_download_path(report, format: :csv),
+                      class: "button secondary compact") do
+                i.fas.fa-download
+                | DOWNLOAD CSV

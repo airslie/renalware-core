@@ -1,0 +1,10 @@
+= content_for(:header) do
+  = render "renalware/patients/header", patient: patient
+
+- samples_path = heroic.bio_bank_patient_samples_path(patient)
+- sample_path = heroic.bio_bank_patient_sample_path(patient, sample)
+
+= within_admin_layout(\
+    title: "Edit",
+    breadcrumbs: breadcrumb_for("Samples", samples_path)) do
+  = render "form", sample: sample, url: heroic.bio_bank_patient_sample_path(patient)

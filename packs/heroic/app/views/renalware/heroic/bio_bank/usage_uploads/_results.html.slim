@@ -1,0 +1,28 @@
+
+.panel.info
+  dl.dl-horizontal.large
+    dt Uploaded at
+    dd= l(upload.updated_at)
+    dt Filename
+    dd= upload.file.filename
+    dt Usages created
+    dd= upload.usages.count
+
+table
+  thead
+    tr
+      th Patient
+      th Sample ISBT
+      th Sample type
+      th Aliquot ISBT
+      th Used in study
+      th Used on
+  tbody
+    - upload.usages.each do |usage|
+      tr
+        td= link_to(usage.patient, heroic.bio_bank_patient_samples_path(usage.patient))
+        td= link_to(usage.sample_isbt, heroic.bio_bank_sample_aliquots_path(usage.sample, usage.aliquot))
+        td= usage.sample_type_abbreviation
+        td= link_to(usage.aliquot_isbt, heroic.bio_bank_sample_aliquots_path(usage.sample, usage.aliquot))
+        td= usage.study_name
+        td= l(usage.used_at)

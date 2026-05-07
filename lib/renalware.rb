@@ -2,6 +2,7 @@ require "rubygems"
 require "active_support/string_inquirer"
 require "tailwindcss-rails" if Rails.env.local?
 require "debug" if ENV.fetch("RAILS_ENV", nil) == "development"
+require "renalware/extensions"
 require "renalware/pack_engines"
 Renalware::PackEngines.load!
 

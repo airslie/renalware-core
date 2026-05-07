@@ -1,0 +1,8 @@
+/ this is the html displayed in the toggled row
+- document = event.document
+= definition_list_for(event.document, size: :xxlarge) do |list|
+  - document.attributes.keys.each do |attr_name|
+    = list.definition(attr_name)
+dl.dl-horizontal.xxlarge
+  dt= attr_name(event, :notes)
+  dd= event.notes&.html_safe

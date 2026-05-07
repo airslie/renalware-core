@@ -1,0 +1,15 @@
+= f.simple_fields_for :document, event.document do |fd|
+  = fd.input :visit_number,
+             collection: 0..event.document.class::MAX_VISIT_NUMBER,
+             wrapper: :horizontal_tiny
+  = fd.input :la_vol, wrapper: :horizontal_small
+  = fd.input :lvidd_2d, wrapper: :horizontal_small
+  = fd.input :ivsd_2d, wrapper: :horizontal_small
+  = fd.input :pwd_2d, wrapper: :horizontal_small
+  = fd.input :lv_ed_vol, wrapper: :horizontal_small
+  = fd.input :ra_area, wrapper: :horizontal_small
+  = fd.input :rv_diameter, wrapper: :horizontal_small
+  = fd.input :tapse, wrapper: :horizontal_small
+  = fd.input :estimated_lvf, wrapper: :horizontal_small
+  = fd.input :estimated_rvsp, wrapper: :horizontal_small
+  = fd.input :valve_pathology, wrapper: :horizontal_medium
