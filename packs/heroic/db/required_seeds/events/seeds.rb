@@ -1,2 +1,2 @@
-require_relative "./categories"
-require_relative "./types"
+require_relative "categories"
+require_relative "types"

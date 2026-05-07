@@ -36,7 +36,7 @@ module Renalware
           missing_headings = required_headings - headings
           return true if missing_headings.empty?
 
-          errors << <<-ERR.squish
+          errors << <<~ERR.squish
             Sheet2 column headings not found: #{missing_headings.join(', ')}.
             Sheet2 should contain these column headings: #{required_headings.join(', ')}.
           ERR
@@ -65,13 +65,13 @@ module Renalware
 
         def patient_exists?(identifier)
           Patient
-          .where(<<-SQL.squish, identifier, identifier, identifier, identifier, identifier).exists?
-          local_patient_id = ? OR
-          local_patient_id_2 = ? OR
-          local_patient_id_3 = ? OR
-          local_patient_id_4 = ? OR
-          local_patient_id_5 = ?
-          SQL
+            .where(<<~SQL.squish, identifier, identifier, identifier, identifier, identifier).exists?
+              local_patient_id = ? OR
+              local_patient_id_2 = ? OR
+              local_patient_id_3 = ? OR
+              local_patient_id_4 = ? OR
+              local_patient_id_5 = ?
+            SQL
         end
       end
     end

@@ -38,7 +38,7 @@ module Renalware
           missing_headings = required_headings - sheet_1_headings
           return true if missing_headings.empty?
 
-          errors << <<-ERR.squish
+          errors << <<~ERR.squish
             Sheet1 column headings not found: #{missing_headings.join(', ')}.
             Sheet1 should contain these column headings: #{required_headings.join(', ')}.
           ERR

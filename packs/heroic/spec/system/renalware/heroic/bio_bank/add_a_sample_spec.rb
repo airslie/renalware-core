@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Manually adding a sample to a patient" do
-  include ::HeroicHelpers
+  include HeroicHelpers
 
   let(:study) { create(:heroic_research_study) }
 

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Delete a sample" do
-  include ::HeroicHelpers
+  include HeroicHelpers
 
   let(:study) { create(:heroic_research_study) }
   let(:patient) { create(:patient) }

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 module Renalware
   module Heroic
     module Clinics

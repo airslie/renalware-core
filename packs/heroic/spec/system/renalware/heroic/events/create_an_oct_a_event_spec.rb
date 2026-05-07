@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Creating an OctA event", js: true do
+RSpec.describe "Creating an OctA event", :js do
   include DocumentTranslations
   include SlimSelectHelper
 

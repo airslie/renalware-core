@@ -100,8 +100,8 @@ module Renalware::Heroic
 
         it do
           expect(sub_document).to validate_numericality_of(:ifta_score)
-              .is_greater_than_or_equal_to(0)
-              .is_less_than_or_equal_to(3)
+            .is_greater_than_or_equal_to(0)
+            .is_less_than_or_equal_to(3)
         end
 
         it do

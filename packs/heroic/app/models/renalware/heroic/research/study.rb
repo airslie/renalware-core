@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "./investigatorship"
-require_relative "./participation"
+require_relative "investigatorship"
+require_relative "participation"
 
 module Renalware
   module Heroic

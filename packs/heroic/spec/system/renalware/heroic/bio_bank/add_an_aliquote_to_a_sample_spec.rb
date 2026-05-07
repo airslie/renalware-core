@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Adding an aliquot to a Serum sample" do
-  include ::HeroicHelpers
+  include HeroicHelpers
 
   let(:study) { create(:heroic_research_study) }
 
@@ -16,7 +16,7 @@ RSpec.describe "Adding an aliquot to a Serum sample" do
       visit heroic.bio_bank_patient_samples_path(serum.patient)
 
       within "table.bio-bank-samples tbody" do
-        expect(page).to have_content("Serum")
+        expect(page).to have_text("Serum")
         # click_on "Aliquots"
       end
 

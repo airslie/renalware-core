@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "View a patient's BioBank samples" do
-  include ::HeroicHelpers
+  include HeroicHelpers
 
   let(:study) { create(:heroic_research_study) }
 
@@ -11,7 +11,7 @@ RSpec.describe "View a patient's BioBank samples" do
     it "displays the sample in a table" do
       user = login_as_clinical
       make_user_an_investigator(user: user)
-      received_at = Time.zone.now - 1.day
+      received_at = 1.day.ago
       processed_at = Time.zone.now
       patient = create(:patient, by: user)
       sample = create(
@@ -26,14 +26,14 @@ RSpec.describe "View a patient's BioBank samples" do
 
       visit heroic.bio_bank_patient_samples_path(patient)
 
-      expect(page).to have_content("Samples")
+      expect(page).to have_text("Samples")
 
       within "table.bio-bank-samples tbody" do
-        expect(page).to have_content("DNA")
-        expect(page).to have_content(I18n.l(received_at))
-        expect(page).to have_content(I18n.l(processed_at))
-        expect(page).to have_content(sample.storage_location)
-        expect(page).not_to have_content("Aliquots")
+        expect(page).to have_text("DNA")
+        expect(page).to have_text(I18n.l(received_at))
+        expect(page).to have_text(I18n.l(processed_at))
+        expect(page).to have_text(sample.storage_location)
+        expect(page).to have_no_text("Aliquots")
       end
     end
   end

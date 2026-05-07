@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-
 module Renalware
   module Heroic
     module Reports
       class DownloadsController < Renalware::BaseController
         include Renalware::Concerns::PatientVisibility
+
         skip_verify_policy_scoped
 
         def show

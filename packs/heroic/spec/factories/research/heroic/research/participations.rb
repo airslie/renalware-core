@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :heroic_participation, class: "Renalware::Heroic::Research::Participation" do
-    association :by, factory: :user
-    association :patient, factory: :patient
-    association :study, factory: :heroic_research_study
+    by factory: %i(user)
+    patient factory: %i(patient)
+    study factory: %i(heroic_research_study)
     joined_on { "01-01-2018" }
 
     trait :active do

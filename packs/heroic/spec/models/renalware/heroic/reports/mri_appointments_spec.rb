@@ -51,7 +51,7 @@ module Renalware::Heroic
         before do
           reset_mri_data(participant)
           doc = participant.document
-          doc.mri_antaros_0.booked_for = Time.zone.now - 1.month
+          doc.mri_antaros_0.booked_for = 1.month.ago
           doc.mri_antaros_0.completed = nil
           participant.save!
         end
@@ -82,7 +82,7 @@ module Renalware::Heroic
         before do
           reset_mri_data(participant)
           doc = participant.document
-          doc.mri_antaros_0.booked_for = Time.zone.now - 1.week
+          doc.mri_antaros_0.booked_for = 1.week.ago
           doc.mri_antaros_0.completed = nil
           participant.save!
         end
@@ -94,7 +94,7 @@ module Renalware::Heroic
           result = results[0]
           expect(result["Status"]).to eq("1_active")
           expect(result["Date of missed or next due scan"].to_date)
-            .to eq((Time.zone.now - 1.week).to_date)
+            .to eq(1.week.ago.to_date)
           expect(result["MRI scan number"]).to eq(0)
         end
 
@@ -102,7 +102,7 @@ module Renalware::Heroic
           before do
             reset_mri_data(participant)
             doc = participant.document
-            doc.mri_antaros_2.booked_for = Time.zone.now + 1.week
+            doc.mri_antaros_2.booked_for = 1.week.from_now
             doc.mri_antaros_2.completed = nil
             participant.save!
           end
@@ -113,7 +113,7 @@ module Renalware::Heroic
             expect(results.size).to eq(1)
             result = results[0]
             expect(result["Date of missed or next due scan"].to_date)
-              .to eq((Time.zone.now + 1.week).to_date)
+              .to eq(1.week.from_now.to_date)
             expect(result["MRI scan number"]).to eq(2)
           end
         end
@@ -122,7 +122,7 @@ module Renalware::Heroic
           before do
             reset_mri_data(participant)
             doc = participant.document
-            doc.mri_antaros_2.booked_for = Time.zone.now - 1.week
+            doc.mri_antaros_2.booked_for = 1.week.ago
             doc.mri_antaros_2.completed = :yes
             participant.save!
           end
@@ -138,7 +138,7 @@ module Renalware::Heroic
           before do
             reset_mri_data(participant)
             doc = participant.document
-            doc.mri_antaros_2.booked_for = Time.zone.now - 1.week
+            doc.mri_antaros_2.booked_for = 1.week.ago
             doc.mri_antaros_2.completed = :no
             participant.save!
           end

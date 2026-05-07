@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Manage HEROIC participants", js: true do
+RSpec.describe "Manage HEROIC participants", :js do
   describe "Viewing the particpants" do
     it do
       user = login_as_admin
@@ -52,7 +52,7 @@ RSpec.describe "Manage HEROIC participants", js: true do
         fill_in "Education", with: "12"
         click_on "Save"
 
-        expect(page).not_to have_css("small.error")
+        expect(page).to have_no_css("small.error")
         expect(page).to have_current_path(renalware.research_study_participations_path(study))
         expect(study.participations.length).to eq(1)
         participation = study.participations.first

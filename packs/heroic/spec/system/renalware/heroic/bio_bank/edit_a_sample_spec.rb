@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Editing a sample" do
-  include ::HeroicHelpers
+  include HeroicHelpers
 
   let(:study) { create(:heroic_research_study) }
 
@@ -26,7 +26,7 @@ RSpec.describe "Editing a sample" do
     end
 
     # Sample type not editable
-    expect(page).not_to have_css("#sample_sample_type")
+    expect(page).to have_no_css("#sample_sample_type")
     fill_in "Received at", with: I18n.l(time)
     fill_in "Collected at", with: I18n.l(time)
     fill_in "Processed at", with: I18n.l(time)

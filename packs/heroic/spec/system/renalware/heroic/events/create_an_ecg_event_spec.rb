@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Creating an ECG event", js: true do
+RSpec.describe "Creating an ECG event", :js do
   include SlimSelectHelper
 
   context "with valid inputs" do

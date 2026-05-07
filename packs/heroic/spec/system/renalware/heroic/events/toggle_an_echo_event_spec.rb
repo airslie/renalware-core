@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Toggling Echo events", js: true do
+RSpec.describe "Toggling Echo events", :js do
   include DocumentTranslations
   include SlimSelectHelper
 
@@ -17,15 +17,15 @@ RSpec.describe "Toggling Echo events", js: true do
 
       within(".events-table") do
         # The untoggled row
-        expect(page).to have_content("Echo")
-        expect(page).to have_content(document.visit_number)
+        expect(page).to have_text("Echo")
+        expect(page).to have_text(document.visit_number)
 
         click_on "Toggle"
 
         # The toggled row
         document.attributes.each_key do |attr_name|
-          expect(page).to have_content(document_t(document, attr_name))
-          expect(page).to have_content(document.public_send(attr_name))
+          expect(page).to have_text(document_t(document, attr_name))
+          expect(page).to have_text(document.public_send(attr_name))
         end
       end
     end

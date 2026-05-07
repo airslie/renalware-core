@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 module Renalware
   module Heroic
     # We define an Document::Embedded subclass so we can re-include Virtus model

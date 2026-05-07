@@ -56,7 +56,7 @@ module Renalware::Heroic
 
       describe ".save" do
         context "when there are 3 Heroic blood pressure readings" do
-          it "stores the lowest heroic bp result to the top-level visit bp fields so that it will "\
+          it "stores the lowest heroic bp result to the top-level visit bp fields so that it will " \
              "be displayed in the clinic visit list" do
             visit = build(
               :heroic_clinic_visit,

@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-
 module Renalware
   module Heroic
     module BioBank
       class Upload < ApplicationRecord
         include Accountable
+
         attr_accessor :tmp
+
         enum status: [:previewing, :changes_committed, :error]
         enum file_type: [:samples, :usage]
         has_one_attached :file

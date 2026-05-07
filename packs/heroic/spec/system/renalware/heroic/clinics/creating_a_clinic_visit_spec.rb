@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Creating a HEROIC Clinic Visit", js: true do
+RSpec.describe "Creating a HEROIC Clinic Visit", :js do
   include SlimSelectHelper
 
   context "with valid inputs" do

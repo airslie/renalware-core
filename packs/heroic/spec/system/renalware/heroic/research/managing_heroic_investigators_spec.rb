@@ -12,7 +12,7 @@ RSpec.describe "Manage HEROIC investigators" do
       click_on "Investigators"
 
       expect(page).to have_current_path(renalware.research_study_investigatorships_path(study))
-      expect(page).to have_content(investigatorship.user.to_s)
+      expect(page).to have_text(investigatorship.user.to_s)
     end
   end
 
@@ -35,7 +35,7 @@ RSpec.describe "Manage HEROIC investigators" do
       end
     end
 
-    context "with valid inputs", js: true  do
+    context "with valid inputs", :js do
       it "saves successfully including the custom document attributes" do
         user = login_as_super_admin
         study = create(:heroic_research_study, by: user)
@@ -49,7 +49,7 @@ RSpec.describe "Manage HEROIC investigators" do
 
         click_on "Save"
 
-        expect(page).not_to have_css("small.error")
+        expect(page).to have_no_css("small.error")
         expect(page).to have_current_path(renalware.research_study_investigatorships_path(study))
         expect(study.investigatorships.length).to eq(1)
       end

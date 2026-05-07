@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-
 module Renalware
   module Heroic
     module BioBank
       class Sample < ApplicationRecord
         include Accountable
         extend Enumerize
+
         acts_as_paranoid
         has_paper_trail(
           versions: { class_name: "Renalware::Heroic::BioBank::Version" },

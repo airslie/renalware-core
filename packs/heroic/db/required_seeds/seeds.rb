@@ -7,8 +7,8 @@ module Renalware::Heroic
 
   log_section "Seeding default required renalware-heroic data"
 
-  require_relative "./events/seeds.rb"
-  require_relative "./clinics/clinics.rb"
-  require_relative "./bio_bank/sample_types.rb"
-  require_relative "./reports/definitions.rb"
+  require_relative "events/seeds"
+  require_relative "clinics/clinics"
+  require_relative "bio_bank/sample_types"
+  require_relative "reports/definitions"
 end

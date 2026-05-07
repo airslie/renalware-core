@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Lint/SymbolConversion
 module Renalware::Heroic
   log "Adding Heroic BioBank Sample Types" do
     {
@@ -19,3 +20,4 @@ module Renalware::Heroic
     end
   end
 end
+# rubocop:enable Lint/SymbolConversion

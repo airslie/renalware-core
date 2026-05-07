@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Creating an Echo event", js: true do
+RSpec.describe "Creating an Echo event", :js do
   include SlimSelectHelper
 
   context "with valid inputs" do

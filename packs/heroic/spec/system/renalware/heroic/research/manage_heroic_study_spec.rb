@@ -10,7 +10,7 @@ RSpec.describe "Manage HEROIC study" do
       page = Pages::Heroic::Research::Participations.new(study)
       page.go
 
-      expect(page).to have_content("HEROIC")
+      expect(page).to have_text("HEROIC")
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe "Manage HEROIC study" do
         study = create(:heroic_research_study, by: user)
         visit renalware.edit_research_study_path(study)
 
-        expect(page).to have_content("HEROIC")
+        expect(page).to have_text("HEROIC")
 
         fill_in "Description", with: "" # required
         click_on "Save"
@@ -36,13 +36,13 @@ RSpec.describe "Manage HEROIC study" do
         study = create(:heroic_research_study, by: user)
         visit renalware.edit_research_study_path(study)
 
-        expect(page).to have_content("HEROIC")
+        expect(page).to have_text("HEROIC")
         fill_in "Description", with: "something"
         click_on "Save"
 
-        expect(page).not_to have_css("small.error")
+        expect(page).to have_no_css("small.error")
         expect(page).to have_current_path(renalware.research_study_path(study))
-        expect(page).to have_content("something")
+        expect(page).to have_text("something")
       end
     end
   end
