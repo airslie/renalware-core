@@ -12,11 +12,35 @@
 #   Renalware.config.x
 #
 require_relative "configuration/hl7_patient_locator_strategy"
+require_relative "configuration/clinical"
+require_relative "configuration/clinics"
+require_relative "configuration/feeds"
+require_relative "configuration/hd"
+require_relative "configuration/help"
+require_relative "configuration/letters"
+require_relative "configuration/mail"
+require_relative "configuration/medications"
+require_relative "configuration/messaging"
+require_relative "configuration/pathology"
+require_relative "configuration/ukrdc"
+require_relative "configuration/users"
 
 # rubocop:disable Layout/LineLength
 module Renalware
   class Configuration # rubocop:disable Metrics/ClassLength
     include Renalware::ConfigAccessors
+    include Clinical
+    include Clinics
+    include Feeds
+    include HD
+    include Help
+    include Letters
+    include Mail
+    include Medications
+    include Messaging
+    include Pathology
+    include UKRDC
+    include Users
 
     # Force dotenv to load the .env file at this stage so we can read in the config defaults.
     # Dotenv 3.x no longer provides Dotenv::Rails, so support both APIs.
@@ -24,11 +48,6 @@ module Renalware
       Dotenv::Rails.load
     elsif defined?(Dotenv)
       Dotenv.load
-    end
-
-    # Hospital-specific devise modules to load (comma-separated list, e.g., "module1,module2")
-    config_accessor(:devise_extra_modules) do
-      ENV.fetch("DEVISE_EXTRA_MODULES", "").split(",").map { it.strip.to_sym }
     end
 
     # Links to eg Power BI or Qlick Sense that you might like to display on the login page
@@ -46,49 +65,9 @@ module Renalware
     config_accessor(:disable_dmd_synchroniser_job) { ENV["DISABLE_DMD_SYNCHRONISER_JOB"].to_i > 0 }
     config_accessor(:enable_dmd_match) { ENV.fetch("ENABLE_DMD_MATCH", "false") == "true" }
 
-    # URL of an externally-hosted HTML or PDF Renalware user guide.
-    config_accessor(:help_user_guide_link)                  { ENV.fetch("HELP_USER_GUIDE_LINK", "https://airslie.com/rw_user_guide/") }
-    config_accessor(:help_training_videos_link)             { ENV.fetch("HELP_TRAINING_VIDEOS_LINK", "https://airslie.com/rw_onboarding/") }
-    config_accessor(:help_tours_page_cache_expiry_seconds)  { ENV.fetch("HELP_TOURS_PAGE_CACHE_EXPIRY_SECONDS", "3600").to_i }
     config_accessor(:report_filter_cache_expiry_seconds)    { ENV.fetch("REPORT_FILTER_CACHE_EXPIRY_SECONDS", "60").to_i }
-    config_accessor(:letters_render_pdfs_with_prawn)        { ActiveModel::Type::Boolean.new.cast(ENV.fetch("LETTERS_RENDER_PDFS_WITH_PRAWN", "false")) }
-    config_accessor(:letters_mesh_workflow)                 { :gp_connect } # or :transfer_of_care
     config_accessor(:allow_qr_codes_in_letters)             { ENV.fetch("ALLOW_QR_CODES_IN_LETTERS", "false") == "true" }
     config_accessor(:enable_allergies)                      { ENV.fetch("ENABLE_ALLERGIES", "true") == "true" }
-
-    # Authentication settings
-    config_accessor(:authentication_providers) do
-      ENV.fetch("AUTHENTICATION_PROVIDERS", "database")
-        .split(",")
-        .filter_map do |provider|
-          provider.strip.presence&.to_sym
-        end
-        .uniq
-    end
-    # if true, LDAP queries will be logged (may expose sensitive info, use only for debugging)
-    config_accessor(:ldap_logger) { ENV.fetch("LDAP_LOGGER", "false") == "true" }
-    config_accessor(:ldap_auto_approve_users) { ENV.fetch("LDAP_AUTO_APPROVE_USERS", "true") == "true" }
-    config_accessor(:ldap_clinical_group) { ENV.fetch("LDAP_CLINICAL_GROUP", "cn=renalware (clinical),ou=groups,dc=renalware,dc=app") }
-    config_accessor(:ldap_readonly_group) { ENV.fetch("LDAP_READONLY_GROUP", "cn=renalware (readonly),ou=groups,dc=renalware,dc=app") }
-    # LDAP connection settings
-    config_accessor(:ldap_host) { ENV.fetch("LDAP_HOST", "localhost") }
-    config_accessor(:ldap_port) { ENV.fetch("LDAP_PORT", 389).to_i }
-    config_accessor(:ldap_admin_password) { ENV.fetch("LDAP_ADMIN_PASSWORD", nil) }
-    config_accessor(:ldap_admin_user) { ENV.fetch("LDAP_ADMIN_USER", "treacle@ad.test") }
-    config_accessor(:ldap_base) { ENV.fetch("LDAP_BASE", "dc=renalware,dc=app") }
-    config_accessor(:ldap_user_upn_suffix) { ENV.fetch("LDAP_USER_UPN_SUFFIX", "ad.test") }
-    config_accessor(:ldap_verify_mode) { OpenSSL::SSL::VERIFY_NONE }
-    config_accessor(:ldap_attribute_mappings) do
-      default_mappings = {
-        "username" => "uid",
-        "email" => "mail",
-        "given_name" => "givenName",
-        "family_name" => "sn"
-      }
-      mappings_string = ENV.fetch("LDAP_ATTRIBUTE_MAPPINGS", nil)
-      custom_mappings = mappings_string ? JSON.parse(mappings_string) : {}
-      default_mappings.merge(custom_mappings)
-    end
 
     config_accessor(:site_name)             { "Renalware" }
     config_accessor(:hospital_department)   { ENV.fetch("HOSPITAL_DEPARTMENT", "Renal") }
@@ -102,8 +81,6 @@ module Renalware
         ENV.fetch("DELAY_AFTER_WHICH_A_FINISHED_SESSION_BECOMES_IMMUTABLE_HOURS", 6)
       ).hours
     }
-    config_accessor(:new_clinic_visit_deletion_window) { 24.hours }
-    config_accessor(:new_clinic_visit_edit_window) { 7.days }
     config_accessor(:salutation_prefix) { "Dear" }
     config_accessor(:page_title_spearator) { " : " }
     # The mapping of hospital identifiers to local_patient_id columns/fields
@@ -141,11 +118,6 @@ module Renalware
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("AKI_ALERTS_ENABLED", "true"))
     end
     config_accessor(:include_sunday_on_hd_diaries) { false }
-    config_accessor(:clinical_duke_activity_status_index_url) {
-      "https://www.mdcalc.com/calc/3910/duke-activity-status-index-dasi#next-steps"
-    }
-    config_accessor(:clinical_summary_max_events_to_display) { 10 }
-    config_accessor(:clinical_summary_max_letters_to_display) { 10 }
     config_accessor(:research_anyone_can_manage_participations) do
       ActiveModel::Type::Boolean.new.cast(
         ENV.fetch("RESEARCH_ANYONE_CAN_MANAGE_PARTICIPATIONS", "false")
@@ -155,69 +127,12 @@ module Renalware
     # These settings are used in the construction of the IDENT metadata in letters
     config_accessor(:letter_system_name) { "Renalware" }
     config_accessor(:letter_default_care_group_name) { "RenalCareGroup" }
-    config_accessor(:clinic_name_code_separator) { ENV.fetch("CLINIC_NAME_CODE_SEPARATOR", " ") }
     config_accessor(:default_from_email) { "dev@airslie.com" }
     config_accessor(:display_feedback_banner) { ENV.key?("DISPLAY_FEEDBACK_BANNER") }
     config_accessor(:display_feedback_button_in_navbar) { ENV.key?("DISPLAY_FEEDBACK_BUTTON_IN_NAVBAR") }
     config_accessor(:default_from_email_address) { ENV.fetch("DEFAULT_FROM_EMAIL_ADDRESS", nil) }
     config_accessor(:phone_number_on_letters) { ENV.fetch("PHONE_NUMBER_ON_LETTERS", nil) }
     config_accessor(:renal_unit_on_letters) { ENV.fetch("RENAL_UNIT_ON_LETTERS", nil) }
-    # Unless an ALLOW_EXTERNAL_MAIL key is present in .env or .env.production, mail (other than
-    # password reset emails etc) will be redirected to e.g. the user who approved the letter.
-    config_accessor(:allow_external_mail) { ENV.key?("ALLOW_EXTERNAL_MAIL") }
-    config_accessor(:fallback_email_address_for_test_messages) do
-      ENV.fetch("FALLBACK_EMAIL_ADDRESS_FOR_TEST_MESSAGES", nil)
-    end
-    config_accessor(:ukrdc_enabled) do
-      ActiveModel::Type::Boolean.new.cast(ENV.fetch("UKRDC_ENABLED", "true"))
-    end
-    config_accessor(:ukrdc_include_letters) do
-      ActiveModel::Type::Boolean.new.cast(ENV.fetch("UKRDC_INCLUDE_LETTERS", "true"))
-    end
-    config_accessor(:ukrdc_sending_facility_name) { ENV.fetch("UKRDC_SENDING_FACILITY_NAME", nil) }
-    config_accessor(:ukrdc_schema_version) { ENV.fetch("UKRDC_SCHEMA_VERSION", "3.3.1") }
-    config_accessor(:ukrdc_default_changes_since_date) {
-      Date.parse(ENV.fetch("UKRDC_DEFAULT_CHANGES_SINCE_DATE", "2018-01-01"))
-    }
-    config_accessor(:ukrdc_gpg_recipient) do
-      ENV.fetch("UKRDC_GPG_RECIPIENT", "Patient View (Renal)") # or "UKRDC"
-    end
-    config_accessor(:ukrdc_public_key_name) do
-      ENV.fetch("UKRDC_PUBLIC_KEY_NAME", "patientview.asc") # might become ukrdc.asc
-    end
-    config_accessor(:ukrdc_working_path) do
-      ENV.fetch("UKRDC_WORKING_PATH", File.join("/var", "ukrdc"))
-    end
-    config_accessor(:ukrdc_site_code) { ENV.fetch("UKRDC_PREFIX", "RJZ") }
-    config_accessor(:ukrdc_number_of_archived_folders_to_keep) do
-      ENV.fetch("UKRDC_NUMBER_OF_ARCHIVED_FOLDERS_TO_KEEP", "7")
-    end
-    config_accessor(:ukrdc_remove_stale_outgoing_files) do
-      ENV.fetch("UKRDC_REMOVE_STALE_OUTGOING_FILES", "true") == "true"
-    end
-    config_accessor(:ukrdc_sftp_host)         { ENV.fetch("UKRDC_SFTP_HOST", nil) }
-    config_accessor(:ukrdc_sftp_user)         { ENV.fetch("UKRDC_SFTP_USER", nil) }
-    config_accessor(:ukrdc_sftp_password)     { ENV.fetch("UKRDC_SFTP_PASSWORD", nil) }
-    config_accessor(:ukrdc_sftp_port)         { ENV.fetch("UKRDC_SFTP_PORT", 22) }
-    config_accessor(:ukrdc_sftp_remote_path)  { ENV.fetch("UKRDC_SFTP_REMOTE_PATH", "") }
-
-    # To use a date other than the default changes_since date when
-    # compiling pathology to send to UKRDC, you can set an ENV var as follows:
-    #   UKRDC_PATHOLOGY_START_DATE=01-01-2011
-    # in the .env file (or e.g. .env.production) and we will always fetch pathology
-    # from this date on. It only affects pathology and not medications, letters etc.
-    # It is not intended to keep this date set, but its useful if UKRDC ask for
-    # a dump of historical pathology.
-    config_accessor(:ukrdc_pathology_start_date) { ENV.fetch("UKRDC_PATHOLOGY_START_DATE", nil) }
-
-    config_accessor(:ukrdc_send_rpv_patients) {
-      ENV.fetch("UKRDC_SEND_RPV_PATIENTS", "true") == "true"
-    }
-
-    config_accessor(:ukrdc_send_rreg_patients) {
-      ENV.fetch("UKRDC_SEND_RREG_PATIENTS", "true") == "true"
-    }
-
     config_accessor(:nhs_client_id)     { ENV.fetch("NHS_CLIENT_ID", "") }
     config_accessor(:nhs_client_secret) { ENV.fetch("NHS_CLIENT_SECRET", "") }
     config_accessor(:nhs_trud_api_key)  { ENV.fetch("NHS_TRUD_API_KEY", "") }
@@ -229,50 +144,6 @@ module Renalware
     config_accessor(:send_gp_letters_over_mesh) do
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("SEND_GP_LETTERS_OVER_MESH", "false"))
     end
-    config_accessor(:mesh_timeout_transmissions_with_no_response_after) do
-      # Duration#parse uses the ISO8601 duration format
-      ActiveSupport::Duration.parse(
-        ENV.fetch("MESH_TIMEOUT_TRANSMISSIONS_WITH_NO_RESPONSE_AFTER", "P20D")
-      )
-    end
-    config_accessor(:mesh_delay_seconds_between_letter_approval_and_mesh_send) do
-      ActiveModel::Type::Integer.new.cast(
-        ENV.fetch("MESH_DELAY_SECONDS_BETWEEN_LETTER_APPROVAL_AND_MESH_SEND", "5")
-      ).seconds
-    end
-    config_accessor(:mesh_mailbox_id) { ENV.fetch("MESH_MAILBOX_ID", "?") }
-    config_accessor(:mesh_mailbox_password) { ENV.fetch("MESH_MAILBOX_PASSWORD", "?") }
-    config_accessor(:mesh_api_base_url) {
-      # This default is the Integration environment
-      ENV.fetch("MESH_API_BASE_URL", "https://msg.intspineservices.nhs.uk/messageexchange")
-    }
-    config_accessor(:mesh_api_secret) { ENV.fetch("MESH_API_SECRET", "?") }
-    config_accessor(:mesh_use_endpoint_lookup) {
-      ActiveModel::Type::Boolean.new.cast(
-        ENV.fetch("MESH_USE_ENDPOINT_LOOKUP", "false")
-      )
-    }
-    config_accessor(:mesh_recipient_mailbox_id) {
-      ENV.fetch("MESH_RECIPIENT_MAILBOX", "X26OT112") # X26OT112 is in the NHS INT env
-    }
-    config_accessor(:mesh_workflow_id) {
-      ENV.fetch("MESH_WORKFLOW_ID", "GPCONNECT_SEND_DOCUMENT")
-      # transfer_of_care: "TOC_FHIR_OP_ATTEN"
-    }
-    config_accessor(:mesh_path_to_nhs_ca_file)    { ENV.fetch("MESH_PATH_TO_NHS_CA_FILE", "MESH_NHS_CA_FILE") }
-    config_accessor(:mesh_nhs_ca_cert)            { ENV.fetch("MESH_NHS_CA_CERT", "MESH_NHS_CA_CERT") }
-    config_accessor(:mesh_path_to_client_cert)    { ENV.fetch("MESH_PATH_TO_CLIENT_CERT", "MESH_CLIENT_CERT") }
-    config_accessor(:mesh_client_cert)            { ENV.fetch("MESH_CLIENT_CERT", "") }
-    config_accessor(:mesh_path_to_client_key)     { ENV.fetch("MESH_PATH_TO_CLIENT_KEY", "MESH_CLIENT_KEY") }
-    config_accessor(:mesh_client_key)             { ENV.fetch("MESH_CLIENT_KEY", "") }
-    config_accessor(:mesh_organisation_uuid)      { ENV.fetch("MESH_ORGANISATION_UUID", "??") }
-    config_accessor(:mesh_itk_organisation_uuid)  { ENV.fetch("MESH_ORGANISATION_UUID", "??") }
-    config_accessor(:mesh_organisation_ods_code)  { ENV.fetch("MESH_ORGANISATION_ODS_CODE", "??") }
-    config_accessor(:mesh_practitioner_phone)     { ENV.fetch("MESH_PRACTITIONER_PHONE", "??") }
-    config_accessor(:mesh_organisation_phone)     { ENV.fetch("MESH_ORGANISATION_PHONE", "??") }
-    config_accessor(:mesh_organisation_email)     { ENV.fetch("MESH_ORGANISATION_EMAIL", "??") }
-    config_accessor(:mesh_organisation_name)      { ENV.fetch("MESH_ORGANISATION_NAME", "??") }
-
     # On Azure we use a mapped path otherwise we will use Rails.root.join("tmp")
     # However Rails.root is not yet defined so we need we use a proc to load the config
     # setting JIT when accessed, and rely on the code calling #base_working_folder
@@ -298,47 +169,6 @@ module Renalware
     # the assigning authority code for the NHS number so we can extract it.
     config_accessor(:nhs_number_assigning_authority) { :NHSNBR }
 
-    config_accessor(:process_hl7_via_raw_messages_table) {
-      ENV.fetch("PROCESS_HL7_VIA_RAW_MESSAGES_TABLE", "false") == "true"
-    }
-
-    # See ResolveClinic for details of the strategies
-    config_accessor(:feeds_outpatient_clinic_resolution_strategy) {
-      ENV.fetch("FEEDS_OUTPATIENT_CLINIC_RESOLUTION_STRATEGY", "by_code").to_sym
-    }
-    config_accessor(:feeds_outgoing_documents_enabled) {
-      ActiveModel::Type::Boolean.new.cast(
-        ENV.fetch("FEEDS_OUTGOING_DOCUMENTS_ENABLED", "true")
-      )
-    }
-    config_accessor(:feeds_outgoing_documents_hospital_service) {
-      ENV.fetch("FEEDS_OUTGOING_DOCUMENTS_HOSPITAL_SERVICE", "") # eg. "361^Nephrology"
-    }
-    config_accessor(:feeds_outgoing_documents_use_guids) {
-      ActiveModel::Type::Boolean.new.cast(
-        ENV.fetch("FEEDS_OUTGOING_DOCUMENTS_USE_GUIDS", "false")
-      )
-    }
-    config_accessor(:feeds_outgoing_documents_letter_format) {
-      fmt = ENV.fetch("FEEDS_OUTGOING_DOCUMENTS_LETTER_FORMAT", "pdf").to_sym
-      [:pdf, :rtf].find { |x| x == fmt } || :pdf
-    }
-
-    config_accessor(:feeds_always_create_patient_on_a31_a28_as_tie_is_filtering_by_renal) {
-      ActiveModel::Type::Boolean.new.cast(
-        ENV.fetch(
-          "FEEDS_ALWAYS_CREATE_PATIENT_ON_A31_A28_AS_TIE_IS_FILTERING_BY_RENAL",
-          "false"
-        )
-      )
-    }
-
-    config_accessor(:replay_historical_pathology_when_new_patient_added) {
-      ActiveModel::Type::Boolean.new.cast(
-        ENV.fetch("REPLAY_HISTORICAL_PATHOLOGY_WHEN_NEW_PATIENT_ADDED", "true")
-      )
-    }
-
     config_accessor(:days_ahead_to_warn_named_consultant_about_expiring_hd_prescriptions) do
       ENV.fetch("DAYS_AHEAD_TO_WARN_NAMED_CONSULTANT_ABOUT_EXPIRING_HD_PRESCRIPTIONS", "14").to_i
     end
@@ -347,37 +177,6 @@ module Renalware
       ENV.fetch("DAYS_BEHIND_TO_WARN_NAMED_CONSULTANT_ABOUT_EXPIRED_HD_PRESCRIPTIONS", "14").to_i
     end
 
-    config_accessor(:hd_acuity_assessment_deletion_window) do
-      ActiveSupport::Duration.parse(
-        ENV.fetch("HD_ACUITY_ASSESSMENT_DELETION_WINDOW", "PT12H")
-      )
-    end
-    config_accessor(:hd_acuity_assessment_edit_window) do
-      ActiveSupport::Duration.parse(
-        ENV.fetch("HD_ACUITY_ASSESSMENT_EDIT_WINDOW", "PT12H")
-      )
-    end
-    config_accessor(:hd_session_prescriptions_require_signoff) {
-      ActiveModel::Type::Boolean.new.cast(
-        ENV.fetch("HD_SESSION_PRESCRIPTIONS_REQUIRE_SIGNOFF", "true")
-      )
-    }
-    config_accessor(:hd_session_require_patient_group_directions) {
-      ActiveModel::Type::Boolean.new.cast(
-        ENV.fetch("HD_SESSION_REQUIRE_PATIENT_GROUP_DIRECTIONS", "false")
-      )
-    }
-
-    # How many days ahead to look for prescriptions having a future prescribed_on date when
-    # determining which 'give on hd' prescriptions to show on the HD session form. Could be eg 10
-    # if session forms are printed on a Friday for the following week, in which case 10 days
-    # would find future HD prescriptions due to be given and time until a week Sunday.
-    # However if printing HD session forms each day, then a value of eg 3 would be better.
-    config_accessor(:hd_session_form_prescription_days_lookahead) {
-      ActiveModel::Type::Integer.new.cast(
-        ENV.fetch("HD_SESSION_FORM_PRESCRIPTION_DAYS_LOOKAHEAD", 10)
-      ) || 10
-    }
     config_accessor(:batch_printing_enabled) {
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("BATCH_PRINTING_ENABLED", "true"))
     }
@@ -388,9 +187,6 @@ module Renalware
       ActiveModel::Type::Boolean.new.cast(
         ENV.fetch("GENERATE_PATHOLOGY_REQUEST_FORMS_FROM_HD_MDM_LISTING", "true")
       )
-    }
-    config_accessor(:hd_max_session_forms_to_print_in_a_batch) {
-      ActiveModel::Type::Integer.new.cast(ENV.fetch("HD_MAX_SESSION_FORMS_TO_PRINT_IN_A_BATCH", 50))
     }
     config_accessor(:disable_inputs_controlled_by_tissue_typing_feed) {
       ActiveModel::Type::Boolean.new.cast(
@@ -419,17 +215,6 @@ module Renalware
         ENV.fetch("ENABLE_EXPIRING_PRESCRIPTIONS_LIST_COMPONENT", "true")
       )
     }
-    config_accessor(:medication_delivery_purchase_order_prefix) { "R" }
-    config_accessor(:medication_homecare_pdf_forms) do
-      # esa: { provider: :generic, version: 1 },
-      {
-        immunosuppressant: { provider: :generic, version: 1 }
-      }
-    end
-
-    config_accessor(:mail_delivery_method) do
-      ENV.fetch("MAIL_DELIVERY_METHOD", "microsoft_graph_api").to_sym
-    end
     config_accessor(:good_job_execution_mode) do
       ENV.fetch("GOOD_JOB_EXECUTION_MODE", "external").to_sym
     end
@@ -438,8 +223,6 @@ module Renalware
     config_accessor(:users_expire_after) {
       ActiveModel::Type::Integer.new.cast(ENV.fetch("USERS_EXPIRE_AFTER", 90))
     }
-    config_accessor(:medication_review_max_age_in_months) { 24 }
-
     config_accessor(:aki_alerts_daily_period_start_time) {
       ENV.fetch("AKI_ALERTS_DAILY_PERIOD_START_TIME", "09:45")
     }
@@ -528,23 +311,6 @@ module Renalware
       )
     }
 
-    config_accessor(:pathology_hep_b_antibody_status_obx_code) {
-      ENV.fetch("PATHOLOGY_HEP_B_ANTIBODY_STATUS_OBX_CODE", "BHBS")
-    }
-    config_accessor(:pathology_post_hd_urea_code) { "P_URE" }
-    config_accessor(:pathology_hours_to_search_behind_for_pre_ure_result) {
-      ENV.fetch("PATHOLOGY_HOURS_TO_SEARCH_BEHIND_FOR_PRE_URE_RESULT", "6").to_i
-    }
-    config_accessor(:pathology_hours_to_search_ahead_for_pre_ure_result) {
-      ENV.fetch("PATHOLOGY_HOURS_TO_SEARCH_AHEAD_FOR_PRE_URE_RESULT", "4").to_i
-    }
-    config_accessor(:pathology_acr_obx_code_for_kfre_calculation) {
-      ENV.fetch("PATHOLOGY_ACR_OBX_CODE_FOR_KFRE_CALCULATION", "ACR")
-    }
-    config_accessor(:pathology_kfre_2y_obx_code) { "KFRE2" }
-    config_accessor(:pathology_kfre_5y_obx_code) { "KFRE5" }
-    config_accessor(:pathology_kfre_obr_code) { "KFRE" }
-
     config_accessor(:igan_prediction_tool_title) {
       ENV.fetch("IGAN_PREDICTION_TOOL_TITLE", "IgAN Prediction Tool")
     }
@@ -556,24 +322,6 @@ module Renalware
     }
 
     config_accessor(:patient_visibility_restrictions) { :none }
-
-    #
-    # Microsoft OAuth email authentication config
-    #
-    config_accessor(:mail_oauth_client_id) { ENV.fetch("MAIL_OAUTH_CLIENT_ID", nil) }
-    config_accessor(:mail_oauth_client_secret) { ENV.fetch("MAIL_OAUTH_CLIENT_SECRET", nil) }
-    config_accessor(:mail_oauth_tenant_id) { ENV.fetch("MAIL_OAUTH_TENANT_ID", nil) }
-    config_accessor(:mail_oauth_email_address) { ENV.fetch("MAIL_OAUTH_EMAIL_ADDRESS", nil) }
-
-    #
-    # SendGrid API config
-    #
-    config_accessor(:sendgrid_api_key) { ENV.fetch("SENDGRID_API_KEY", nil) }
-    config_accessor(:sendgrid_email_address) do
-      ENV["SENDGRID_EMAIL_ADDRESS"] ||
-        ENV["MAIL_OAUTH_EMAIL_ADDRESS"] ||
-        ENV.fetch("DEFAULT_FROM_EMAIL_ADDRESS", nil)
-    end
 
     config_accessor(:urr_generation_enabled) do
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("URR_GENERATION_ENABLED", "false"))
@@ -596,12 +344,6 @@ module Renalware
       ENV.fetch("MONITORING_MIRTH_API_PASSWORD", "admin")
     }
 
-    config_accessor(:messaging_recipient_warn_if_not_signed_in_for_days) {
-      ActiveModel::Type::Integer.new.cast(
-        ENV.fetch("MESSAGING_RECIPIENT_WARN_IF_NOT_SIGNED_IN_FOR_DAYS", 5)
-      )
-    }
-
     config_accessor(:housekeeping_jobs_enabled) {
       ActiveModel::Type::Boolean.new.cast(
         ENV.fetch("HOUSEKEEPING_JOBS_ENABLED", "true")
@@ -614,22 +356,6 @@ module Renalware
 
     def restrict_patient_visibility_by_research_study?
       patient_visibility_restrictions == :by_site_and_research_study
-    end
-
-    def authentication_provider_enabled?(provider)
-      authentication_providers.include?(provider.to_sym)
-    end
-
-    def database_authentication_enabled?
-      authentication_provider_enabled?(:database)
-    end
-
-    def ldap_authentication_enabled?
-      authentication_provider_enabled?(:ldap)
-    end
-
-    def entra_authentication_enabled?
-      authentication_provider_enabled?(:entra_id)
     end
 
     private

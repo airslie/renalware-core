@@ -29,6 +29,35 @@ describe Renalware::Configuration do
     expect { config.missing_value }.to raise_error(NoMethodError)
   end
 
+  describe ".config_defaults" do
+    it "includes accessors registered by split configuration modules" do
+      expect(described_class.config_defaults.keys).to include(
+        :authentication_providers,
+        :clinical_duke_activity_status_index_url,
+        :clinical_summary_max_events_to_display,
+        :clinic_name_code_separator,
+        :devise_extra_modules,
+        :feeds_outgoing_documents_enabled,
+        :hd_session_form_prescription_days_lookahead,
+        :hd_session_prescriptions_require_signoff,
+        :help_user_guide_link,
+        :letters_render_pdfs_with_prawn,
+        :mail_delivery_method,
+        :medication_delivery_purchase_order_prefix,
+        :medication_review_max_age_in_months,
+        :messaging_recipient_warn_if_not_signed_in_for_days,
+        :mesh_mailbox_id,
+        :new_clinic_visit_deletion_window,
+        :new_clinic_visit_edit_window,
+        :pathology_post_hd_urea_code,
+        :process_hl7_via_raw_messages_table,
+        :replay_historical_pathology_when_new_patient_added,
+        :sendgrid_api_key,
+        :ukrdc_enabled
+      )
+    end
+  end
+
   describe "#defaults" do
     it do
       expect(config).to have_attributes(
