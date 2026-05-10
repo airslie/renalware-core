@@ -56,7 +56,7 @@ module Renalware
             def comments
               comments = [
                 prescription.dose_amount,
-                prescription.dose_unit&.text,
+                prescription.dose_unit,
                 prescription.frequency
               ].compact.join(" ")
               create_node("Comments", comments)
