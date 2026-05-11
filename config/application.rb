@@ -2,7 +2,9 @@ require_relative "boot"
 require "rails/all"
 require "rack/attack"
 
-Bundler.require(*Rails.groups)
+bundler_groups = Rails.groups
+bundler_groups << :opentelemetry if ENV.fetch("ENABLE_OPENTELEMETRY", 0).to_i == 1
+Bundler.require(*bundler_groups)
 require "renalware"
 require "renalware/config_accessors"
 require "renalware/configuration"
