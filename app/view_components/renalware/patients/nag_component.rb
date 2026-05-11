@@ -14,7 +14,7 @@ module Renalware
         @patient = patient
         @definition = definition
         @nag = definition.execute_sql_function_for(patient) || NullObject.instance
-        super
+        super()
       end
 
       def formatted_relative_link

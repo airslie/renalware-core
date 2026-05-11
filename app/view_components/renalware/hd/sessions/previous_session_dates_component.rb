@@ -6,7 +6,7 @@ module Renalware
 
         def initialize(patient:)
           @patient = patient
-          super
+          super()
         end
 
         def previous_sessions

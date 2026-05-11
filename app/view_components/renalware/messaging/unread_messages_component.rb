@@ -5,7 +5,7 @@ module Renalware
 
       def initialize(current_user:)
         @current_user = Messaging::Internal.cast_recipient(current_user)
-        super
+        super()
       end
 
       def unread_message_receipts
