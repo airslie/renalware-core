@@ -1,6 +1,10 @@
 module Renalware
   module Renal
     class SafetyAlert < ApplicationRecord
+      include OrderedScope
+
+      ORDER_FIELDS = [:created_at].freeze
+
       belongs_to :patient, class_name: "Renal::Patient", touch: true
       belongs_to :safety_alert_rule
       belongs_to :safety_alert_rule_execution, optional: true
