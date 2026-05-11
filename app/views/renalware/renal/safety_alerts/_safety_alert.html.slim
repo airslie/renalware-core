@@ -4,7 +4,7 @@ tbody
     td= default_patient_link(safety_alert.patient)
     td= safety_alert.patient.hospital_identifiers
     td= safety_alert.rule_name
-    td= safety_alert.alert_type
+    td= safety_alert.label
     td= l(safety_alert.created_at)
     - if historical
       td= l(safety_alert.deleted_at)

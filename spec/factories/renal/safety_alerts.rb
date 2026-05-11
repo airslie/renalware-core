@@ -3,7 +3,7 @@ FactoryBot.define do
     patient factory: :renal_patient
     safety_alert_rule factory: :renal_safety_alert_rule
     rule_name { safety_alert_rule.name }
-    alert_type { "Example safety alert" }
+    label { "Example safety alert" }
     metadata { {} }
     notes { nil }
   end

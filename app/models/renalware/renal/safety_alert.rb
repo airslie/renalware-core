@@ -17,7 +17,9 @@ module Renalware
       scope :active, -> { where(deleted_at: nil) }
       scope :resolved, -> { where.not(deleted_at: nil) }
       scope :ordered, -> { order(created_at: :desc) }
-      scope :with_patient_and_rule, -> { includes(:deleted_by, :patient, :safety_alert_rule) }
+      scope :with_patient_and_rule, lambda {
+        includes(:deleted_by, :patient, safety_alert_rule: :safety_alert_rule_category)
+      }
 
       def resolved? = deleted_at.present?
 

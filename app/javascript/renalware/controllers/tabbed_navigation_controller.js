@@ -6,7 +6,7 @@ export default class extends Controller {
 
     this.element.querySelectorAll("dd").forEach((tab) => {
       const href = tab.querySelector("a")?.getAttribute("href")
-      if (href === window.location.pathname) {
+      if (href && new URL(href, window.location.origin).pathname === window.location.pathname) {
         tab.classList.add("active")
       }
     })

@@ -7,9 +7,11 @@ module Renalware
 
         pagy, executions = pagy(executions)
         render locals: {
+          categories: Renal::SafetyAlertRuleCategory.ordered,
           executions: executions,
+          grouped_rule_options: Renal::SafetyAlertRule.grouped_options_for_select,
           pagy: pagy,
-          rules: Renal::SafetyAlertRule.ordered,
+          selected_category_id: selected_category_id,
           selected_rule_id: selected_rule_id
         }
       end
@@ -18,15 +20,32 @@ module Renalware
 
       def filtered_executions
         Renal::SafetyAlertRuleExecution
-          .includes(:safety_alert_rule)
+          .includes(safety_alert_rule: :safety_alert_rule_category)
           .ordered
+          .then { |scope| filter_by_category(scope) }
           .then { |scope| filter_by_rule(scope) }
+      end
+
+      def filter_by_category(scope)
+        return scope if selected_category_id.blank?
+
+        scope
+          .joins(:safety_alert_rule)
+          .where(
+            renal_safety_alert_rules: {
+              safety_alert_rule_category_id: selected_category_id
+            }
+          )
       end
 
       def filter_by_rule(scope)
         return scope if selected_rule_id.blank?
 
         scope.where(safety_alert_rule_id: selected_rule_id)
+      end
+
+      def selected_category_id
+        params[:safety_alert_rule_category_id].presence
       end
 
       def selected_rule_id

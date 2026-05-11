@@ -1,4 +1,11 @@
 = content_for(:tabs) { render "tabs" }
+= content_for(:filters) do
+  = render "filters",
+           categories: categories,
+           grouped_rule_options: grouped_rule_options,
+           selected_category_id: selected_category_id,
+           selected_rule_id: selected_rule_id,
+           url: renal_safety_alerts_path
 
 = within_admin_layout(title: "Safety Alerts") do
   = render "table", **local_assigns

@@ -1,7 +1,10 @@
 describe "Admin safety alert rule executions" do
+  let(:infection_category) { create(:renal_safety_alert_rule_category, name: "Infection") }
+  let(:general_category) { create(:renal_safety_alert_rule_category, name: "General") }
   let(:mssa_rule) do
     create(
       :renal_safety_alert_rule,
+      safety_alert_rule_category: infection_category,
       name: "Positive MSSA screen",
       function_name: "renalware.positive_mssa_screen"
     )
@@ -9,6 +12,7 @@ describe "Admin safety alert rule executions" do
   let(:hb_rule) do
     create(
       :renal_safety_alert_rule,
+      safety_alert_rule_category: general_category,
       name: "Low haemoglobin",
       function_name: "renalware.low_haemoglobin"
     )
@@ -44,7 +48,10 @@ describe "Admin safety alert rule executions" do
       expect(response.body).to include("Positive MSSA screen")
       expect(response.body).to include("Low haemoglobin")
       expect(response.body).to include("Function failed")
+      expect(response.body).to include("All categories")
       expect(response.body).to include("All safety rules")
+      expect(response.body).to include("<optgroup label=\"General\">")
+      expect(response.body).to include("<optgroup label=\"Infection\">")
 
       row_ids = Nokogiri::HTML5(response.body)
         .css("tbody tr")
@@ -59,6 +66,18 @@ describe "Admin safety alert rule executions" do
       table_body = Nokogiri::HTML5(response.body).css("tbody").text
 
       expect(response).to be_successful
+      expect(table_body).to include("Positive MSSA screen")
+      expect(table_body).not_to include("Low haemoglobin")
+    end
+
+    it "filters by safety alert rule category" do
+      get admin_safety_alert_rule_executions_path,
+          params: { safety_alert_rule_category_id: infection_category.id }
+
+      table_body = Nokogiri::HTML5(response.body).css("tbody").text
+
+      expect(response).to be_successful
+      expect(table_body).to include("Infection")
       expect(table_body).to include("Positive MSSA screen")
       expect(table_body).not_to include("Low haemoglobin")
     end

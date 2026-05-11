@@ -8,9 +8,12 @@ describe "Admin safety alert rules" do
     clear_enqueued_jobs
   end
 
+  let(:infection_category) { create(:renal_safety_alert_rule_category, name: "Infection") }
+  let(:general_category) { create(:renal_safety_alert_rule_category, name: "General") }
   let!(:enabled_rule) do
     create(
       :renal_safety_alert_rule,
+      safety_alert_rule_category: infection_category,
       name: "Positive MSSA screen",
       function_name: "renalware.positive_mssa_screen",
       enabled: true
@@ -19,6 +22,7 @@ describe "Admin safety alert rules" do
   let!(:disabled_rule) do
     create(
       :renal_safety_alert_rule,
+      safety_alert_rule_category: general_category,
       name: "Low haemoglobin",
       function_name: "renalware.low_haemoglobin",
       enabled: false
@@ -31,12 +35,27 @@ describe "Admin safety alert rules" do
 
       expect(response).to be_successful
       expect(response.body).to include("Positive MSSA screen")
+      expect(response.body).to include("Infection")
       expect(response.body).to include("renalware.positive_mssa_screen")
       expect(response.body).to include("Low haemoglobin")
+      expect(response.body).to include("General")
       expect(response.body).to include("renalware.low_haemoglobin")
       expect(response.body).to include("Disable")
       expect(response.body).to include("Enable")
       expect(response.body).to include('data-confirm="Are you sure?"')
+    end
+
+    it "filters by category" do
+      get admin_safety_alert_rules_path,
+          params: { safety_alert_rule_category_id: infection_category.id }
+
+      table_body = Nokogiri::HTML5(response.body).css("table").text
+
+      expect(response).to be_successful
+      expect(response.body).to include("All categories")
+      expect(table_body).to include("Infection")
+      expect(table_body).to include("Positive MSSA screen")
+      expect(table_body).not_to include("Low haemoglobin")
     end
 
     it "shows a confirmed command to queue rule execution" do
@@ -51,7 +70,7 @@ describe "Admin safety alert rules" do
     it "shows read-only SQL function definitions in expandable rows" do
       ActiveRecord::Base.connection.execute(<<~SQL.squish)
         CREATE OR REPLACE FUNCTION renalware.positive_mssa_screen()
-        RETURNS TABLE(patient_id integer, alert_type text, metadata jsonb)
+        RETURNS TABLE(patient_id integer, label text, metadata jsonb)
         LANGUAGE sql
         STABLE
         AS $$

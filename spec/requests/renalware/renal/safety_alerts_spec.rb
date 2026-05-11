@@ -1,13 +1,20 @@
 describe "Renal safety alerts" do
   let(:patient) { create(:renal_patient, :minimal, family_name: "Bloggs", given_name: "Jane") }
-  let(:rule) { create(:renal_safety_alert_rule, name: "Positive MSSA screen") }
+  let(:category) { create(:renal_safety_alert_rule_category, name: "Infection") }
+  let(:rule) do
+    create(
+      :renal_safety_alert_rule,
+      safety_alert_rule_category: category,
+      name: "Positive MSSA screen"
+    )
+  end
   let!(:alert) do
     create(
       :renal_safety_alert,
       patient: patient,
       safety_alert_rule: rule,
       rule_name: rule.name,
-      alert_type: "MSSA screen positive"
+      label: "MSSA screen positive"
     )
   end
 
@@ -24,6 +31,9 @@ describe "Renal safety alerts" do
       expect(response.body).to include("Positive MSSA screen")
       expect(response.body).to include("MSSA screen positive")
       expect(response.body).to include("Review dialysis access")
+      expect(response.body).to include("All categories")
+      expect(response.body).to include("All safety rules")
+      expect(response.body).to include("<optgroup label=\"Infection\">")
     end
 
     it "shows modal controls for editing notes and resolving alerts" do
@@ -69,8 +79,55 @@ describe "Renal safety alerts" do
 
       get renal_safety_alerts_path
 
+      table_body = Nokogiri::HTML5(response.body).css("table.safety-alerts").text
+
       expect(response).to be_successful
-      expect(response.body).not_to include("Positive MSSA screen")
+      expect(table_body).not_to include("Positive MSSA screen")
+    end
+
+    it "filters active alerts by rule category" do
+      general_category = create(:renal_safety_alert_rule_category, name: "General")
+      general_rule = create(
+        :renal_safety_alert_rule,
+        safety_alert_rule_category: general_category,
+        name: "Low haemoglobin"
+      )
+      create(
+        :renal_safety_alert,
+        patient: create(:renal_patient, :minimal),
+        safety_alert_rule: general_rule,
+        rule_name: general_rule.name,
+        label: "Hb below threshold"
+      )
+
+      get renal_safety_alerts_path, params: { safety_alert_rule_category_id: category.id }
+
+      table_body = Nokogiri::HTML5(response.body).css("table.safety-alerts").text
+
+      expect(response).to be_successful
+      expect(table_body).to include("Positive MSSA screen")
+      expect(table_body).not_to include("Low haemoglobin")
+      expect(active_tab_text).to eq("Active")
+    end
+
+    it "filters active alerts by rule" do
+      other_rule = create(:renal_safety_alert_rule, name: "Low haemoglobin")
+      create(
+        :renal_safety_alert,
+        patient: create(:renal_patient, :minimal),
+        safety_alert_rule: other_rule,
+        rule_name: other_rule.name,
+        label: "Hb below threshold"
+      )
+
+      get renal_safety_alerts_path, params: { safety_alert_rule_id: rule.id }
+
+      table_body = Nokogiri::HTML5(response.body).css("table.safety-alerts").text
+
+      expect(response).to be_successful
+      expect(table_body).to include("Positive MSSA screen")
+      expect(table_body).not_to include("Low haemoglobin")
+      expect(active_tab_text).to eq("Active")
     end
   end
 
@@ -90,6 +147,29 @@ describe "Renal safety alerts" do
       expect(response.body).to include("Resolved by")
       expect(response.body).to include("Admin, Annie")
       expect(response.body).to include("Reviewed with HD team")
+    end
+
+    it "filters resolved alerts by rule category" do
+      other_rule = create(:renal_safety_alert_rule, name: "Low haemoglobin")
+      create(
+        :renal_safety_alert,
+        patient: create(:renal_patient, :minimal),
+        safety_alert_rule: other_rule,
+        rule_name: other_rule.name,
+        label: "Hb below threshold",
+        deleted_at: Time.zone.now
+      )
+      alert.update!(deleted_at: Time.zone.now)
+
+      get historical_renal_safety_alerts_path,
+          params: { safety_alert_rule_category_id: category.id }
+
+      table_body = Nokogiri::HTML5(response.body).css("table.safety-alerts").text
+
+      expect(response).to be_successful
+      expect(table_body).to include("Positive MSSA screen")
+      expect(table_body).not_to include("Low haemoglobin")
+      expect(active_tab_text).to eq("Historical")
     end
   end
 
@@ -136,5 +216,9 @@ describe "Renal safety alerts" do
       expect(alert.deleted_by).to eq(user)
       expect(alert.notes).to eq("No further action needed")
     end
+  end
+
+  def active_tab_text
+    Nokogiri::HTML5(response.body).at_css("dl.sub-nav dd.active").text.strip
   end
 end

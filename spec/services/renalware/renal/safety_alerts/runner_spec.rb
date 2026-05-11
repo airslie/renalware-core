@@ -18,7 +18,7 @@ describe Renalware::Renal::SafetyAlerts::Runner do
       CREATE OR REPLACE FUNCTION renalware.test_safety_alert_rule()
       RETURNS TABLE(
         patient_id integer,
-        alert_type text,
+        label text,
         patient_name text,
         mrn text,
         metadata jsonb
@@ -46,7 +46,7 @@ describe Renalware::Renal::SafetyAlerts::Runner do
       safety_alert_rule: rule,
       safety_alert_rule_execution: execution,
       rule_name: "Positive MSSA screen",
-      alert_type: "MSSA screen positive"
+      label: "MSSA screen positive"
     )
     expect(alerts.first.metadata).to include("mrn" => "MRN1", "modality" => "HD")
     expect(execution).to have_attributes(
@@ -125,7 +125,7 @@ describe Renalware::Renal::SafetyAlerts::Runner do
       CREATE OR REPLACE FUNCTION renalware.test_safety_alert_rule()
       RETURNS TABLE(
         patient_id integer,
-        alert_type text,
+        label text,
         patient_name text,
         mrn text,
         metadata jsonb

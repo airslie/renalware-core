@@ -64,7 +64,7 @@ module Renalware
             alert.assign_attributes(
               safety_alert_rule_execution: execution,
               rule_name: rule.name,
-              alert_type: row["alert_type"],
+              label: row["label"],
               metadata: metadata_from(row)
             )
             alert.save!
@@ -79,7 +79,7 @@ module Renalware
           metadata = JSON.parse(metadata) if metadata.is_a?(String)
 
           row
-            .except("patient_id", "alert_type", "metadata")
+            .except("patient_id", "label", "metadata")
             .compact
             .merge(metadata)
         end

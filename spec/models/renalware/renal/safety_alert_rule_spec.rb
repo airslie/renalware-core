@@ -1,5 +1,6 @@
 describe Renalware::Renal::SafetyAlertRule do
   it :aggregate_failures do
+    is_expected.to belong_to(:safety_alert_rule_category)
     is_expected.to validate_presence_of(:name)
     is_expected.to validate_presence_of(:function_name)
   end
@@ -30,7 +31,7 @@ describe Renalware::Renal::SafetyAlertRule do
     it "returns the installed PostgreSQL function definition" do
       described_class.connection.execute(<<~SQL.squish)
         CREATE OR REPLACE FUNCTION renalware.test_safety_alert_rule_definition()
-        RETURNS TABLE(patient_id integer, alert_type text, metadata jsonb)
+        RETURNS TABLE(patient_id integer, label text, metadata jsonb)
         LANGUAGE sql
         STABLE
         AS $$
@@ -50,7 +51,7 @@ describe Renalware::Renal::SafetyAlertRule do
     it "returns the zero-argument function definition when overloaded functions exist" do
       described_class.connection.execute(<<~SQL.squish)
         CREATE OR REPLACE FUNCTION renalware.test_safety_alert_rule_definition()
-        RETURNS TABLE(patient_id integer, alert_type text, metadata jsonb)
+        RETURNS TABLE(patient_id integer, label text, metadata jsonb)
         LANGUAGE sql
         STABLE
         AS $$
@@ -59,7 +60,7 @@ describe Renalware::Renal::SafetyAlertRule do
       SQL
       described_class.connection.execute(<<~SQL.squish)
         CREATE OR REPLACE FUNCTION renalware.test_safety_alert_rule_definition(patient_id integer)
-        RETURNS TABLE(patient_id integer, alert_type text, metadata jsonb)
+        RETURNS TABLE(patient_id integer, label text, metadata jsonb)
         LANGUAGE sql
         STABLE
         AS $$

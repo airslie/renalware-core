@@ -3,6 +3,8 @@ module Renalware
     class SafetyAlertRule < ApplicationRecord
       FUNCTION_NAME_REGEX = /\A[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)?\z/i
 
+      belongs_to :safety_alert_rule_category
+
       has_many :safety_alerts, dependent: :restrict_with_exception
       has_many :executions,
                class_name: "SafetyAlertRuleExecution",
@@ -19,6 +21,23 @@ module Renalware
 
       scope :enabled, -> { where(enabled: true) }
       scope :ordered, -> { order(:name) }
+      scope :for_filter, lambda {
+        joins(:safety_alert_rule_category)
+          .merge(SafetyAlertRuleCategory.ordered)
+          .order(:name)
+      }
+
+      def self.grouped_options_for_select
+        for_filter
+          .includes(:safety_alert_rule_category)
+          .group_by(&:safety_alert_rule_category)
+          .map do |category, rules|
+            [
+              category.name,
+              rules.map { |rule| [rule.name, rule.id] }
+            ]
+          end
+      end
 
       def quoted_function_name
         function_name

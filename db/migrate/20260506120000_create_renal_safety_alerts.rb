@@ -1,7 +1,21 @@
 class CreateRenalSafetyAlerts < ActiveRecord::Migration[7.1]
   def change
     within_renalware_schema do
+      create_table :renal_safety_alert_rule_categories do |t|
+        t.string :name, null: false
+
+        t.timestamps null: false
+      end
+
+      add_index :renal_safety_alert_rule_categories, :name, unique: true
+
       create_table :renal_safety_alert_rules do |t|
+        t.references(
+          :safety_alert_rule_category,
+          null: false,
+          foreign_key: { to_table: :renal_safety_alert_rule_categories },
+          index: { name: "idx_renal_safety_alert_rules_on_category_id" }
+        )
         t.string :name, null: false
         t.string :function_name, null: false
         t.boolean :enabled, null: false, default: true
@@ -44,7 +58,7 @@ class CreateRenalSafetyAlerts < ActiveRecord::Migration[7.1]
           index: { name: "idx_renal_safety_alerts_on_rule_execution_id" }
         )
         t.string :rule_name, null: false
-        t.string :alert_type
+        t.string :label
         t.jsonb :metadata, null: false, default: {}
         t.datetime :deleted_at
         t.references :deleted_by, foreign_key: { to_table: :users }, index: true
@@ -69,7 +83,7 @@ class CreateRenalSafetyAlerts < ActiveRecord::Migration[7.1]
               CREATE OR REPLACE FUNCTION renalware.example_safety_alert_rule()
               RETURNS TABLE(
                 patient_id integer,
-                alert_type text,
+                label text,
                 metadata jsonb
               )
               LANGUAGE sql
@@ -77,7 +91,7 @@ class CreateRenalSafetyAlerts < ActiveRecord::Migration[7.1]
               AS $$
                 SELECT
                   patients.id AS patient_id,
-                  'Example safety alert'::text AS alert_type,
+                  'Example safety alert'::text AS label,
                   jsonb_build_object('source', 'example') AS metadata
                 FROM renalware.patients
                 ORDER BY patients.id
@@ -86,7 +100,22 @@ class CreateRenalSafetyAlerts < ActiveRecord::Migration[7.1]
             SQL
 
             execute(<<~SQL.squish)
+              INSERT INTO renalware.renal_safety_alert_rule_categories (
+                name,
+                created_at,
+                updated_at
+              )
+              VALUES (
+                'General',
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
+              )
+              ON CONFLICT (name) DO NOTHING
+            SQL
+
+            execute(<<~SQL.squish)
               INSERT INTO renalware.renal_safety_alert_rules (
+                safety_alert_rule_category_id,
                 name,
                 function_name,
                 enabled,
@@ -94,6 +123,11 @@ class CreateRenalSafetyAlerts < ActiveRecord::Migration[7.1]
                 updated_at
               )
               VALUES (
+                (
+                  SELECT id
+                  FROM renalware.renal_safety_alert_rule_categories
+                  WHERE name = 'General'
+                ),
                 'Example safety alert rule',
                 'renalware.example_safety_alert_rule',
                 false,

@@ -2,11 +2,16 @@ module Renalware
   module Admin
     class SafetyAlertRulesController < BaseController
       def index
-        rules = Renal::SafetyAlertRule.ordered
+        rules = filtered_rules
         authorize rules
 
         pagy, rules = pagy(rules)
-        render locals: { rules: rules, pagy: pagy }
+        render locals: {
+          categories: Renal::SafetyAlertRuleCategory.ordered,
+          pagy: pagy,
+          rules: rules,
+          selected_category_id: selected_category_id
+        }
       end
 
       def enable
@@ -30,6 +35,23 @@ module Renalware
         @safety_alert_rule ||= Renal::SafetyAlertRule.find(params[:id]).tap do |rule|
           authorize rule
         end
+      end
+
+      def filtered_rules
+        Renal::SafetyAlertRule
+          .includes(:safety_alert_rule_category)
+          .ordered
+          .then { |scope| filter_by_category(scope) }
+      end
+
+      def filter_by_category(scope)
+        return scope if selected_category_id.blank?
+
+        scope.where(safety_alert_rule_category_id: selected_category_id)
+      end
+
+      def selected_category_id
+        params[:safety_alert_rule_category_id].presence
       end
     end
   end
