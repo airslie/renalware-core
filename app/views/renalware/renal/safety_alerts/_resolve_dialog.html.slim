@@ -1,0 +1,23 @@
+.inline(data-controller="dialog")
+  button.btn.btn-compact.btn-secondary(type="button" data-action="dialog#open")
+    .flex.items-center.gap-2
+      = inline_icon(:check, size: :sm)
+      | Resolve
+  dialog.rounded-md.shadow-xl.p-0.w-full.max-w-xl(data-dialog-target="dialog" data-action="click->dialog#backdropClose")
+    = form_with model: safety_alert,
+                as: :renal_safety_alert,
+                url: resolve_renal_safety_alert_path(safety_alert),
+                method: :patch,
+                namespace: "resolve_safety_alert_#{safety_alert.id}",
+                builder: Renalware::FormBuilders::Horizontal,
+                html: { class: "rw-form px-6 pb-5" } do |f|
+      h2.text-lg.font-semibold.mb-4 Resolve Safety Alert
+      = f.error_summary
+      = f.text_area_row :notes,
+                        size: :full,
+                        rows: 5,
+                        data: { dialog_target: "initialFocus" },
+                        hint: "These notes will be retained with the historical alert."
+      = f.actions_row do
+        button.btn.btn-secondary(type="button" data-action="dialog#close") Cancel
+        = f.submit "Resolve", class: "btn btn-primary"

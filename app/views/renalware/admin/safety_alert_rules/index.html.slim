@@ -1,0 +1,68 @@
+= content_for(:filters) do
+  .search-form.filters
+    = form_with url: admin_safety_alert_rules_path, method: :get do
+      .flex.flex-wrap.-mx-3.mb-6
+        .w-full.md:w-1/3.px-3.mb-6.md:mb-0
+          label(for="safety_alert_rule_category_id") Category
+          = select_tag :safety_alert_rule_category_id,
+                       options_from_collection_for_select(categories, :id, :name, selected_category_id),
+                       include_blank: "All categories",
+                       data: { controller: "slimselect" }
+        .w-full.md:w-1/5.px-3.mb-6.md:mb-0
+          .mt-6
+            = submit_tag "Filter", class: "button"
+            = link_to "Reset",
+                      admin_safety_alert_rules_path,
+                      class: "button secondary"
+
+= within_new_admin_layout(title: "Safety Alert Rules") do
+  table.toggleable(data-controller="toggle")
+    thead
+      tr
+        th.togglers= rows_toggler
+        th Category
+        th Name
+        th Function
+        th Enabled
+        th.col-width-date-time Created at
+        th.col-width-date-time Updated at
+        th.col-width-small
+    - rules.each do |rule|
+      tbody
+        tr
+          td= row_toggler(link_title: "View SQL")
+          td= rule.safety_alert_rule_category.name
+          td= rule.name
+          td= rule.function_name
+          td= inline_check_icon(rule.enabled?)
+          td= l(rule.created_at)
+          td= l(rule.updated_at)
+          td
+            .flex.gap-2
+              = link_to "Run now",
+                        run_admin_safety_alert_rule_path(rule),
+                        method: :post,
+                        data: { confirm: "Are you sure you want to run this rule now?" },
+                        class: "btn btn-compact btn-secondary nowrap"
+              - if rule.enabled?
+                = link_to "Disable",
+                          disable_admin_safety_alert_rule_path(rule),
+                          method: :patch,
+                          data: { confirm: "Are you sure?" },
+                          class: "btn btn-compact btn-secondary"
+              - else
+                = link_to "Enable",
+                          enable_admin_safety_alert_rule_path(rule),
+                          method: :patch,
+                          data: { confirm: "Are you sure?" },
+                          class: "btn btn-compact btn-primary"
+        tr.quick-preview.remove-borders-on-toggle
+          td(colspan=8)
+            - function_definition = rule.function_definition
+            - if function_definition.present?
+              pre
+                code= function_definition
+            - else
+              .text-gray-500 Function definition unavailable
+
+  == pagy.series_nav if pagy.pages > 1

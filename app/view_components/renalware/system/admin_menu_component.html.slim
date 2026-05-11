@@ -13,6 +13,13 @@ ul.side-nav.side-nav--admin(data-controller="collapsible-DISABLED" data-collapsi
   = super_admin_menu_item "Drugs", drugs_drugs_path, %r{drugs/drugs}
   = super_admin_menu_item "Patient Group Directions", drugs_patient_group_directions_path, %r{drugs/patient_group_directions}
 
+  li= link_to "Safety Alerts", "#", data: { action: "collapsible#open", collapsible_target: "link" }
+  ul.collapsible.safety-alerts(data-collapsible-target="section")
+    = super_admin_menu_item "Rules", admin_safety_alert_rules_path, %r{admin/safety_alert_rules}
+    = super_admin_menu_item "Executions",
+                            admin_safety_alert_rule_executions_path,
+                            %r{admin/safety_alert_rule_executions}
+
   - if policy(Renalware::Drugs::DMDMatch).index?
     = super_admin_menu_item "DMD Matches", drugs_dmd_matches_path, %r{drugs/dmd_matches}
 

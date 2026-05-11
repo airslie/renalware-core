@@ -9,7 +9,8 @@ module Renalware
       Events::Event,
       Letters::Letter,
       Messaging::Internal::Message,
-      Modalities::Modality
+      Modalities::Modality,
+      Renal::SafetyAlert
     ].freeze
 
     FIELDS = [:id].freeze

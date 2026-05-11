@@ -1,0 +1,6 @@
+- filter_params = params.permit(:safety_alert_rule_category_id, :safety_alert_rule_id).to_h
+dl.sub-nav(data-controller="tabbed-navigation")
+  dd(class=("active" if request.path == renal_safety_alerts_path))
+    = link_to "Active", renal_safety_alerts_path(filter_params)
+  dd(class=("active" if request.path == historical_renal_safety_alerts_path))
+    = link_to "Historical", historical_renal_safety_alerts_path(filter_params)

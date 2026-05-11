@@ -73,6 +73,12 @@ module Renalware
           cron: "every day at 2am",
           class: "Renalware::HD::TerminateAdministeredUnwitnessedStatPrescriptionsJob",
           description: "Does what it says on the tin :)"
+        },
+
+        run_renal_safety_alert_rules: {
+          cron: "every day at 2am",
+          class: "Renalware::Renal::RunSafetyAlertRulesJob",
+          description: "Run renal safety alert SQL rules and create missing active alerts"
         }
       }
     end
