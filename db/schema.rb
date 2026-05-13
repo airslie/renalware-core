@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_07_100000) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_13_120000) do
   create_schema "renalware"
 
   # These are extensions that must be enabled in order to support this database
@@ -2059,6 +2059,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_07_100000) do
     t.integer "patient_id", null: false
     t.text "source_clinic_name", comment: "The name of the clinic in the source system"
     t.datetime "starts_at", precision: nil, null: false
+    t.text "status"
     t.datetime "updated_at", precision: nil
     t.bigint "updated_by_id"
     t.text "visit_number"
