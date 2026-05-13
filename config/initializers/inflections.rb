@@ -39,6 +39,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "MSE"
   inflect.acronym "MSOA"
   inflect.acronym "NHS"
+  inflect.acronym "NHSBT"
   inflect.acronym "NK1"
   inflect.acronym "OBX"
   inflect.acronym "ODS"

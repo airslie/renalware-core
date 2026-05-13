@@ -6,6 +6,11 @@ module Renalware
                  foreign_key: :ukrdc_assessment_outcome_code,
                  primary_key: :code,
                  optional: true
+      belongs_to :nhsbt_status_description,
+                 class_name: "Renalware::Transplants::RegistrationNHSBTStatusDescription",
+                 foreign_key: :nhsbt_status_code,
+                 primary_key: :code,
+                 optional: true
       scope :ordered, -> { order(position: :asc) }
 
       validates :name, presence: true

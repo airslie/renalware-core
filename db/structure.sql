@@ -4350,7 +4350,8 @@ CREATE TABLE renalware.transplant_registration_status_descriptions (
     updated_at timestamp without time zone NOT NULL,
     rr_code integer,
     rr_comment text,
-    ukrdc_assessment_outcome_code integer
+    ukrdc_assessment_outcome_code integer,
+    nhsbt_status_code character varying
 );
 
 
@@ -4359,6 +4360,13 @@ CREATE TABLE renalware.transplant_registration_status_descriptions (
 --
 
 COMMENT ON COLUMN renalware.transplant_registration_status_descriptions.ukrdc_assessment_outcome_code IS 'See UKRR Dataset 5+. Valid values are 1 through 3.';
+
+
+--
+-- Name: COLUMN transplant_registration_status_descriptions.nhsbt_status_code; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.transplant_registration_status_descriptions.nhsbt_status_code IS 'NHSBT transplant registration status code';
 
 
 --
@@ -16602,6 +16610,38 @@ ALTER SEQUENCE renalware.transplant_recipient_workups_id_seq OWNED BY renalware.
 
 
 --
+-- Name: transplant_registration_nhsbt_status_descriptions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.transplant_registration_nhsbt_status_descriptions (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: transplant_registration_nhsbt_status_descriptions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.transplant_registration_nhsbt_status_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplant_registration_nhsbt_status_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.transplant_registration_nhsbt_status_descriptions_id_seq OWNED BY renalware.transplant_registration_nhsbt_status_descriptions.id;
+
+
+--
 -- Name: transplant_registration_status_descriptions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
 --
 
@@ -19263,6 +19303,13 @@ ALTER TABLE ONLY renalware.transplant_recipient_workups ALTER COLUMN id SET DEFA
 
 
 --
+-- Name: transplant_registration_nhsbt_status_descriptions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_registration_nhsbt_status_descriptions ALTER COLUMN id SET DEFAULT nextval('renalware.transplant_registration_nhsbt_status_descriptions_id_seq'::regclass);
+
+
+--
 -- Name: transplant_registration_status_descriptions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -21715,6 +21762,14 @@ ALTER TABLE ONLY renalware.transplant_recipient_workups
 
 
 --
+-- Name: transplant_registration_nhsbt_status_descriptions transplant_registration_nhsbt_status_descriptions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_registration_nhsbt_status_descriptions
+    ADD CONSTRAINT transplant_registration_nhsbt_status_descriptions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: transplant_registration_status_descriptions transplant_registration_status_descriptions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -22103,6 +22158,13 @@ CREATE INDEX idx_renal_safety_alerts_on_rule_execution_id ON renalware.renal_saf
 --
 
 CREATE INDEX idx_system_view_calls_all ON renalware.system_view_calls USING btree (view_metadata_id, user_id, called_at);
+
+
+--
+-- Name: idx_transplant_registration_nhsbt_statuses_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_transplant_registration_nhsbt_statuses_on_code ON renalware.transplant_registration_nhsbt_status_descriptions USING btree (code);
 
 
 --
@@ -32096,6 +32158,14 @@ ALTER TABLE ONLY renalware.clinic_clinics
 
 
 --
+-- Name: transplant_registration_status_descriptions fk_rails_e6f6a5a894; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_registration_status_descriptions
+    ADD CONSTRAINT fk_rails_e6f6a5a894 FOREIGN KEY (nhsbt_status_code) REFERENCES renalware.transplant_registration_nhsbt_status_descriptions(code);
+
+
+--
 -- Name: pathology_code_groups fk_rails_e70dca7225; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -32734,6 +32804,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,public,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260513120000'),
 ('20260507100000'),
 ('20260506120000'),
 ('20260430120100'),
