@@ -37,7 +37,7 @@ module Renalware
       # interrogation easier in the html.
       def initialize(prescription_groups)
         @groups = Array(prescription_groups).map { |options| PrescriptionGroup.new(options) }
-        super
+        super()
       end
     end
   end

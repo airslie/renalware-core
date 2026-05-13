@@ -13,7 +13,7 @@ module Renalware
         @current_user = current_user
         @period_in_days = period_in_days.to_i
         @include_chrome = include_chrome
-        super
+        super()
       end
 
       # eg { queued: 3, sent: 300 }

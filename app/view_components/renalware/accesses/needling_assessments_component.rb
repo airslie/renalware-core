@@ -6,7 +6,7 @@ module Renalware
         @patient = Accesses.cast_patient(patient)
         @display_count = display_count
         @controls = controls
-        super
+        super()
       end
 
       def assessments

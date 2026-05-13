@@ -34,7 +34,7 @@ module Renalware
       @title = title
       @size_css_classes = size_css_classes || DEFAULT_SIZE_CSS_CLASSES
       @turbo_frame_id = turbo_frame_id || "modal"
-      super
+      super()
     end
 
     def trigger_attributes

@@ -7,7 +7,7 @@ module Renalware
         @field_id     = opts.fetch(:field_id, :patient_id)
         @collection   = opts.fetch(:collection, [])
         @options_url  = opts.delete(:options_url)
-        super
+        super()
       end
 
       def call

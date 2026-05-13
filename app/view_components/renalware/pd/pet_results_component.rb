@@ -11,7 +11,7 @@ module Renalware
       def initialize(patient:, current_user:)
         @patient = PD.cast_patient(patient)
         @current_user = current_user
-        super
+        super()
       end
 
       def results

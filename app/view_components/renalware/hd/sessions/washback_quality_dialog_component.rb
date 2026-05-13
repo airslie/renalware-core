@@ -13,7 +13,7 @@ module Renalware
 
         def initialize(html_id: "washback-dialog")
           @html_id = html_id
-          super
+          super()
         end
 
         # Because we are using enumerize to provide the enumerated options

@@ -26,7 +26,7 @@ module RenalwareApp
 
     if config.respond_to?(:view_component)
       config.view_component.view_component_path = "app/view_components"
-      config.view_component.preview_paths << Rails.root.join("spec/view_components/previews")
+      # config.view_component.preview_paths << Rails.root.join("spec/view_components/previews")
     end
 
     config.autoload_paths << Rails.root.join("lib")

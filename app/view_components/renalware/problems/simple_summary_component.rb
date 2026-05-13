@@ -5,7 +5,7 @@ module Renalware
 
       def initialize(problems:)
         @problems = problems
-        super
+        super()
       end
     end
   end

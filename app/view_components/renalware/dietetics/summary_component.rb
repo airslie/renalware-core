@@ -19,7 +19,7 @@ module Renalware
       )
         @patient = Clinical.cast_patient(patient)
         @last_dietetic_clinic_visit = last_dietetic_visit_loader.call(patient:)
-        super
+        super()
       end
 
       attr_reader :patient, :last_dietetic_clinic_visit
