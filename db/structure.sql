@@ -4556,7 +4556,8 @@ CREATE TABLE renalware.clinic_appointments (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     ends_at timestamp(6) without time zone,
-    source_clinic_name text
+    source_clinic_name text,
+    status text
 );
 
 
@@ -32734,6 +32735,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware, public, renalware_mse, renalware_blt, renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260513120000'),
 ('20260507100000'),
 ('20260506120000'),
 ('20260430120100'),
@@ -33655,4 +33657,3 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20141020170329'),
 ('20141010170329'),
 ('20141004150240');
-

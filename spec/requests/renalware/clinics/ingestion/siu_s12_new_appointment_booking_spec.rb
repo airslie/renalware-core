@@ -25,10 +25,11 @@ describe "HL7 SIU^S12 - Notification of New Appointment Booking" do
 
   let(:clinic_code) { "Clinic1Code" }
   let(:clinic_name) { "Clinic1Name" }
+  let(:appointment_status) { "Checked In" }
   let(:raw_hl7) do
     hl7 = <<-HL7
       MSH|^~\&|BLT_TIE|BLT|RENALWARE|MSE|20241106150701||SIU^S12|Q166323123117|P|2.4
-      SCH|149549015||||||clinic_name_copied_into_PV3.1||30|MINUTES|^^30^20241106120000^20241106123000||||||||||||||Confirmed
+      SCH|149549015||||||clinic_name_copied_into_PV3.1||30|MINUTES|^^30^20241106120000^20241106123000||||||||||||||#{appointment_status}
       PID|1||10769857^^^Dover||MOLLY^RENALOP2^^^^^CURRENT||19870101|2|||21 Rush Home Road^^^ROMFORD^RG7 0JB^^HOME^^||0766655652^MOBILE~02011110111^HOME~testrenal@test.co^EMAIL|""^BUSINESS||""||13401071||||H||||||||N
       PD1|||THE CHRISP STREET HTH CTR^^F84062|G999^SMAILL^AM^^^^^^EXTID
       PV1|1|O|#{clinic_code}^#{clinic_name}^^RNJ ROYALLONDON^^AMB^RNJ MainBld RLH|""|||C3590850^Smith^John^^^Dr^NHSCONSULTANTNUMBER^PRSNL^^^NONGP|G9123^Jones^JP||361||||""||||OPREFERRAL|924301148^^^RNJATTNUM^VISITID|||||||||||||||||""|""||RNJ ROYALLONDON||||||
@@ -86,6 +87,7 @@ describe "HL7 SIU^S12 - Notification of New Appointment Booking" do
           clinic_id: clinic.id,
           starts_at: Time.zone.parse("20241106120000"),
           ends_at: Time.zone.parse("20241106123000"),
+          status: appointment_status,
           source_clinic_name: clinic_name
         )
       end

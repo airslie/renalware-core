@@ -9,6 +9,7 @@ module Renalware
         def starts_at     = Time.zone.parse(timing_parts[3])
         def ends_at       = Time.zone.parse(timing_parts[4])
         def duration = [appointment_duration, appointment_duration_units].compact_blank.join(" ")
+        def status = filler_status_code&.strip.presence
 
         private
 
