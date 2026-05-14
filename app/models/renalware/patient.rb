@@ -194,14 +194,6 @@ module Renalware
       @hospital_identifiers ||= Patients::PatientHospitalIdentifiers.new(self)
     end
 
-    # This should perhaps be in a presenter?
-    def full_renal_registry_id
-      [
-        Renalware.config.ukrdc_sending_facility_name,
-        renal_registry_id
-      ].join("-")
-    end
-
     private
 
     def strip_spaces_from_nhs_number

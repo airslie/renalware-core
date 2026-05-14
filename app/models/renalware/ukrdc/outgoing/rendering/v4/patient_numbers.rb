@@ -16,9 +16,20 @@ module Renalware
 
             def patient_numbers_element
               create_node("PatientNumbers") do |patient_numbers|
+                if patient.renal_registry_id.present?
+                  patient_numbers << renal_registry_number_element
+                end
                 patient_numbers << nhs_number_element if patient.nhs_number.present?
                 patient_numbers << hospital_number_element if first_hospital_number.present?
               end
+            end
+
+            def renal_registry_number_element
+              PatientNumber.new(
+                number: Renalware::UKRDC::RenalRegistryId.new(patient:).to_s,
+                organisation: "UKRR_UID",
+                type: "MRN"
+              ).xml
             end
 
             def nhs_number_element

@@ -4,6 +4,24 @@ module Renalware
       describe Rendering::V4::PatientNumbers do
         include XmlSpecHelper
 
+        it "renders the full renal registry id if present" do
+          allow(Renalware.config).to receive(:ukrdc_sending_facility_name).and_return("RAJ")
+          patient = Patient.new(renal_registry_id: "ABC123")
+          expected_xml = <<~XML.squish.gsub("> <", "><")
+            <PatientNumbers>
+              <PatientNumber>
+                <Number>RAJ-ABC123</Number>
+                <Organization>UKRR_UID</Organization>
+                <NumberType>MRN</NumberType>
+              </PatientNumber>
+            </PatientNumbers>
+          XML
+
+          actual_xml = format_xml(described_class.new(patient:).xml)
+
+          expect(actual_xml).to eq(expected_xml)
+        end
+
         it "renders the NHS number if present" do
           patient = Patient.new(nhs_number: "9999999999")
           expected_xml = <<~XML.squish.gsub("> <", "><")
