@@ -6066,10 +6066,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_120000) do
     t.index ["updated_by_id"], name: "index_transplant_recipient_workups_on_updated_by_id"
   end
 
+  create_table "renalware.transplant_registration_nhsbt_status_descriptions", force: :cascade do |t|
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "idx_transplant_registration_nhsbt_statuses_on_code", unique: true
+  end
+
   create_table "renalware.transplant_registration_status_descriptions", id: :serial, force: :cascade do |t|
     t.string "code", null: false
     t.datetime "created_at", precision: nil, null: false
     t.string "name"
+    t.string "nhsbt_status_code", comment: "NHSBT transplant registration status code"
     t.integer "position", default: 0
     t.integer "rr_code"
     t.text "rr_comment"
@@ -6817,6 +6826,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_120000) do
   add_foreign_key "renalware.transplant_recipient_operations", "renalware.patients"
   add_foreign_key "renalware.transplant_recipient_operations", "renalware.transplant_induction_agents", column: "induction_agent_id"
   add_foreign_key "renalware.transplant_recipient_workups", "renalware.patients"
+  add_foreign_key "renalware.transplant_registration_status_descriptions", "renalware.transplant_registration_nhsbt_status_descriptions", column: "nhsbt_status_code", primary_key: "code"
   add_foreign_key "renalware.transplant_registration_status_descriptions", "renalware.ukrdc_assessment_outcomes", column: "ukrdc_assessment_outcome_code", primary_key: "code"
   add_foreign_key "renalware.transplant_registration_statuses", "renalware.transplant_registration_status_descriptions", column: "description_id"
   add_foreign_key "renalware.transplant_registration_statuses", "renalware.transplant_registrations", column: "registration_id"
