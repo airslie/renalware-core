@@ -25,6 +25,25 @@ module Renalware
 
           expect(xml).to match_xml(expected_xml)
         end
+
+        it "renders consent-refused placeholders when anonymised" do
+          patient = Patient.new(
+            family_name: "Jones",
+            given_name: "Jack",
+            suffix: "S",
+            title: "T"
+          )
+          expected_xml = <<~XML.squish.gsub("> <", "><")
+            <Name use="L">
+              <Family>CONSENT</Family>
+              <Given>REFUSED</Given>
+            </Name>
+          XML
+
+          xml = format_xml(described_class.new(nameable: patient, anonymised: true).xml)
+
+          expect(xml).to match_xml(expected_xml)
+        end
       end
     end
   end

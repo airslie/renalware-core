@@ -58,6 +58,37 @@ module Renalware
 
           expect(xml).to match_xml(expected_xml)
         end
+
+        it "renders only outward postcode and country when anonymised" do
+          address = build(
+            :address,
+            street_1: "S1",
+            street_2: "S2",
+            street_3: "S3",
+            town: "T",
+            postcode: "BS10 5NB",
+            county: "C"
+          )
+          country = build(:united_kingdom)
+          allow(address).to receive(:country).and_return(country)
+          expected_xml = <<~XML.squish.gsub("> <", "><")
+            <Address use="H">
+              <Street/>
+              <Town/>
+              <County/>
+              <Postcode>BS10</Postcode>
+              <Country>
+                <CodingStandard>ISO3166-1</CodingStandard>
+                <Code>GBR</Code>
+                <Description>United Kingdom</Description>
+              </Country>
+            </Address>
+          XML
+
+          xml = Ox.dump(described_class.new(address:, anonymised: true).xml, indent: -1)
+
+          expect(xml).to match_xml(expected_xml)
+        end
       end
     end
   end

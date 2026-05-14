@@ -44,7 +44,7 @@ module Renalware
                   patient_elem << death_element
                   patient_elem << create_node("UpdatedOn", patient.updated_at&.to_datetime)
                   # patient_elem << create_node("ActionCode", "A")
-                  patient_elem << create_node("ExternalId", patient.ukrdc_external_id)
+                  patient_elem << external_id_element
                 end
                 ukrdc_patient_elem << lab_orders_element
                 ukrdc_patient_elem << observations_element
@@ -92,7 +92,7 @@ module Renalware
 
             def names_element
               create_node("Names") do |names|
-                names << Name.new(nameable: patient).xml
+                names << Name.new(nameable: patient, anonymised: local_ukrr_opt_out?).xml
               end
             end
 
@@ -101,12 +101,22 @@ module Renalware
               return if address.blank?
 
               create_node("Addresses") do |addresses|
-                addresses << Address.new(address:).xml
+                addresses << Address.new(address:, anonymised: local_ukrr_opt_out?).xml
               end
             end
 
-            def patient_numbers_element = PatientNumbers.new(patient:).xml
-            def born_on_element = create_node("BirthTime", patient.born_on.to_datetime)
+            def patient_numbers_element
+              PatientNumbers.new(patient:, anonymised: local_ukrr_opt_out?).xml
+            end
+
+            def born_on_element
+              if local_ukrr_opt_out?
+                create_node("BirthTime", Date.new(patient.born_on.year, 1, 1).to_datetime)
+              else
+                create_node("BirthTime", patient.born_on.to_datetime)
+              end
+            end
+
             def gender_element = create_node("Gender", patient.sex&.nhs_dictionary_number)
 
             def death_time_element
@@ -124,7 +134,10 @@ module Renalware
               end
             end
 
-            def family_doctor_element           = FamilyDoctor.new(patient:).xml
+            def family_doctor_element
+              FamilyDoctor.new(patient:).xml unless local_ukrr_opt_out?
+            end
+
             def primary_language_element        = PrimaryLanguage.new(patient:).xml
             def lab_orders_element              = LabOrders.new(patient:).xml
             def observations_element            = Observations.new(patient:).xml
@@ -146,7 +159,7 @@ module Renalware
             end
 
             def documents_element
-              return unless Renalware.config.ukrdc_include_letters
+              return if local_ukrr_opt_out? || !Renalware.config.ukrdc_include_letters
 
               create_node("Documents") do |documents_element|
                 patient.letters.each do |letter|
@@ -173,6 +186,14 @@ module Renalware
               Renalware::UKRDC::Outgoing::Rendering::V4.const_get("#{namespace}Treatment")
             rescue NameError
               Treatment
+            end
+
+            def external_id_element
+              create_node("ExternalId", patient.ukrdc_external_id) unless local_ukrr_opt_out?
+            end
+
+            def local_ukrr_opt_out?
+              patient.ukrdc_anonymise?
             end
           end
         end
