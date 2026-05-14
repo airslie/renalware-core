@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_13_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_13_120002) do
   create_schema "renalware"
 
   # These are extensions that must be enabled in order to support this database
@@ -764,6 +764,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_120000) do
   create_enum :system_view_category, [
     "mdm",
     "report",
+    "widget",
   ], force: :cascade
 
   create_enum :system_view_display_type, [
@@ -1517,6 +1518,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_120000) do
   create_enum :system_view_category, [
     "mdm",
     "report",
+    "widget",
   ], force: :cascade
 
   create_enum :system_view_display_type, [
@@ -5856,6 +5858,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_120000) do
     t.text "title", comment: "A label that may appear in the UI"
     t.datetime "updated_at", precision: nil, null: false
     t.text "view_name", null: false
+    t.jsonb "widget_options", default: {}, null: false
     t.index ["parent_id"], name: "index_system_view_metadata_on_parent_id"
   end
 

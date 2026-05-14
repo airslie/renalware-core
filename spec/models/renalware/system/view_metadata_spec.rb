@@ -36,5 +36,31 @@ module Renalware::System
         expect(described_class.refreshable_materialised_views).to eq([vmd])
       end
     end
+
+    describe "scope for_widget_slot" do
+      it "returns widget rows configured for a slot" do
+        widget = create(
+          :view_metadata,
+          category: :widget,
+          widget_options: { slots: ["hd_dashboard:right_column"] }
+        )
+        create(
+          :view_metadata,
+          category: :widget,
+          widget_options: { slots: ["patient_summary:left_column"] }
+        )
+        create(:view_metadata, category: :report)
+
+        expect(described_class.for_widget_slot("hd_dashboard:right_column")).to eq([widget])
+      end
+    end
+
+    describe "widget options validation" do
+      it "does not require widget options for report metadata" do
+        view_metadata = build(:view_metadata, category: :report, widget_options: nil)
+
+        expect(view_metadata).to be_valid
+      end
+    end
   end
 end

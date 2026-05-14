@@ -1,2 +1,3 @@
 .columns.small-12
   = render "renalware/hd/mdm/audits", mdm: mdm
+  = sql_view_widgets_for("hd_mdm:middle", patient: mdm.patient)

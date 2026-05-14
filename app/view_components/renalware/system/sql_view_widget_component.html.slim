@@ -1,0 +1,18 @@
+= render(Renalware::ArticleComponent.new(classes: "system-sql-view-widget simple simple-table")) do |article|
+  - article.with_title { title }
+
+  - if rows.any?
+    table
+      thead
+        tr
+          - columns.each do |col|
+            th= col.title
+      tbody
+        - rows.each do |row|
+          tr
+            - columns.each do |col|
+              - value = row.attributes[col.code]
+              - value = l(value) if value.respond_to?(:strftime)
+              td= value
+  - else
+    p.empty= empty_state

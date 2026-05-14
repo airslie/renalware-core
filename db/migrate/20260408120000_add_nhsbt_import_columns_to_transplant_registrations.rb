@@ -1,4 +1,4 @@
-class AddNhsbtImportColumnsToTransplantRegistrations < ActiveRecord::Migration[8.1]
+class AddNHSBTImportColumnsToTransplantRegistrations < ActiveRecord::Migration[8.1]
   def change
     within_renalware_schema do
       safety_assured do
