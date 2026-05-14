@@ -6,7 +6,7 @@ module Renalware
       module Rendering
         module V4
           class Address < Rendering::Base
-            pattr_initialize [:address!]
+            pattr_initialize [:address!, anonymised: false]
 
             def xml
               address_element
@@ -17,12 +17,26 @@ module Renalware
             def address_element
               create_node("Address") do |elem|
                 elem[:use] = "H"
-                elem << create_node("Street", address.street)
-                elem << create_node("Town", address.town)
-                elem << create_node("County", address.county)
-                elem << create_node("Postcode", address.postcode&.strip)
+                elem << create_node("Street", anonymised ? nil : address.street)
+                elem << create_node("Town", anonymised ? nil : address.town)
+                elem << create_node("County", anonymised ? nil : address.county)
+                elem << create_node("Postcode", postcode)
                 elem << country_element if county_code?
               end
+            end
+
+            def postcode
+              return address.postcode&.strip unless anonymised
+
+              outward_postcode
+            end
+
+            def outward_postcode
+              postcode = address.postcode&.strip
+              return if postcode.blank?
+              return postcode.split.first if postcode.include?(" ")
+
+              postcode.length > 3 ? postcode[0...-3] : postcode
             end
 
             def country_element

@@ -6,7 +6,7 @@ module Renalware
       module Rendering
         module V4
           class PatientNumbers < Rendering::Base
-            pattr_initialize [:patient!]
+            pattr_initialize [:patient!, anonymised: false]
 
             def xml
               patient_numbers_element
@@ -16,9 +16,12 @@ module Renalware
 
             def patient_numbers_element
               create_node("PatientNumbers") do |patient_numbers|
-                if patient.renal_registry_id.present?
-                  patient_numbers << renal_registry_number_element
+                patient_numbers << renal_registry_number_element
+                if anonymised
+                  patient_numbers << renal_registry_national_identifier_element
+                  next
                 end
+
                 patient_numbers << nhs_number_element if patient.nhs_number.present?
                 patient_numbers << hospital_number_element if first_hospital_number.present?
               end
@@ -29,6 +32,14 @@ module Renalware
                 number: Renalware::UKRDC::RenalRegistryId.new(patient:).to_s,
                 organisation: "UKRR_UID",
                 type: "MRN"
+              ).xml
+            end
+
+            def renal_registry_national_identifier_element
+              PatientNumber.new(
+                number: Renalware::UKRDC::RenalRegistryId.new(patient:).to_s,
+                organisation: "UKRR_UID",
+                type: "NI"
               ).xml
             end
 

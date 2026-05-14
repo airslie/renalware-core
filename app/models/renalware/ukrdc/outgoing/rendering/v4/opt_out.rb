@@ -28,11 +28,11 @@ module Renalware
             end
 
             def entered_by_element
-              return if patient.renalreg_recorded_by.blank?
+              return if patient.ukrdc_anonymise_recorded_by.blank?
 
               create_node("EnteredBy") do |elem|
                 elem << create_node("CodingStandard", "LOCAL")
-                elem << create_node("Code", patient.renalreg_recorded_by)
+                elem << create_node("Code", patient.ukrdc_anonymise_recorded_by)
               end
             end
 
@@ -47,8 +47,8 @@ module Renalware
             def program_description_element = nil
             def from_time_element           = create_node("FromTime", opted_out_at.iso8601)
             def to_time_element             = nil
-            def opted_out?                  = !patient.send_to_renalreg?
-            def opted_out_at = patient.renalreg_decision_on || Date.parse(MISSING_DATE)
+            def opted_out?                  = patient.ukrdc_anonymise?
+            def opted_out_at = patient.ukrdc_anonymise_decision_on || Date.parse(MISSING_DATE)
           end
         end
       end

@@ -11,7 +11,7 @@ module Renalware
     context "when the patient has a renal_registry_id" do
       let(:patient) { Patient.new(renal_registry_id: "aAB13bd456") }
 
-      it { is_expected.to eq("RAJ-aAB13bd456") }
+      it { is_expected.to eq("RAJ_aAB13bd456") }
     end
 
     context "when the patient does not have a renal_registry_id" do

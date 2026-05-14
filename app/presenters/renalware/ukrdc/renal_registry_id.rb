@@ -11,7 +11,7 @@ module Renalware
         [
           Renalware.config.ukrdc_sending_facility_name,
           patient.renal_registry_id
-        ].join("-")
+        ].join("_")
       end
     end
   end

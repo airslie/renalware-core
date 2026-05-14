@@ -10,7 +10,7 @@ module Renalware
           expected_xml = <<~XML.squish.gsub("> <", "><")
             <PatientNumbers>
               <PatientNumber>
-                <Number>RAJ-ABC123</Number>
+                <Number>RAJ_ABC123</Number>
                 <Organization>UKRR_UID</Organization>
                 <NumberType>MRN</NumberType>
               </PatientNumber>
@@ -22,10 +22,16 @@ module Renalware
           expect(actual_xml).to eq(expected_xml)
         end
 
-        it "renders the NHS number if present" do
-          patient = Patient.new(nhs_number: "9999999999")
+        it "renders the UKRR UID and NHS number if present" do
+          allow(Renalware.config).to receive(:ukrdc_sending_facility_name).and_return("RAJ")
+          patient = Patient.new(renal_registry_id: "ABC123", nhs_number: "9999999999")
           expected_xml = <<~XML.squish.gsub("> <", "><")
             <PatientNumbers>
+              <PatientNumber>
+                <Number>RAJ_ABC123</Number>
+                <Organization>UKRR_UID</Organization>
+                <NumberType>MRN</NumberType>
+              </PatientNumber>
               <PatientNumber>
                 <Number>9999999999</Number>
                 <Organization>NHS</Organization>
@@ -39,11 +45,21 @@ module Renalware
           expect(actual_xml).to eq(expected_xml)
         end
 
-        it "renders the first hospital number if present" do
-          patient = Patient.new(local_patient_id: "", local_patient_id_2: "123")
+        it "renders the UKRR UID and first hospital number if present" do
+          allow(Renalware.config).to receive(:ukrdc_sending_facility_name).and_return("RAJ")
+          patient = Patient.new(
+            renal_registry_id: "ABC123",
+            local_patient_id: "",
+            local_patient_id_2: "123"
+          )
 
           expected_xml = <<~XML.squish.gsub("> <", "><")
             <PatientNumbers>
+              <PatientNumber>
+                <Number>RAJ_ABC123</Number>
+                <Organization>UKRR_UID</Organization>
+                <NumberType>MRN</NumberType>
+              </PatientNumber>
               <PatientNumber>
                 <Number>123</Number>
                 <Organization>LOCALHOSP</Organization>
@@ -53,6 +69,33 @@ module Renalware
           XML
 
           actual_xml = format_xml(described_class.new(patient:).xml)
+
+          expect(actual_xml).to eq(expected_xml)
+        end
+
+        it "renders the UKRR UID as MRN and NI when anonymised" do
+          allow(Renalware.config).to receive(:ukrdc_sending_facility_name).and_return("RAJ")
+          patient = Patient.new(
+            renal_registry_id: "ABC123",
+            nhs_number: "9999999999",
+            local_patient_id: "123"
+          )
+          expected_xml = <<~XML.squish.gsub("> <", "><")
+            <PatientNumbers>
+              <PatientNumber>
+                <Number>RAJ_ABC123</Number>
+                <Organization>UKRR_UID</Organization>
+                <NumberType>MRN</NumberType>
+              </PatientNumber>
+              <PatientNumber>
+                <Number>RAJ_ABC123</Number>
+                <Organization>UKRR_UID</Organization>
+                <NumberType>NI</NumberType>
+              </PatientNumber>
+            </PatientNumbers>
+          XML
+
+          actual_xml = format_xml(described_class.new(patient:, anonymised: true).xml)
 
           expect(actual_xml).to eq(expected_xml)
         end
