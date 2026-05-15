@@ -200,7 +200,7 @@ module Renalware
                 expect(letter.archive.pdf_content).to be_present
                 document = OutgoingDocument.create!(renderable: letter, by:)
 
-                # User a known value for pdf_content - normally its '%PDF..' etc) but we will return
+                # Use a known value for pdf_content - normally its '%PDF..' etc) but we will return
                 # 'A' because we know it is 'QQ==' in base64
                 allow(letter.archive).to receive(:pdf_content).and_return("A")
 

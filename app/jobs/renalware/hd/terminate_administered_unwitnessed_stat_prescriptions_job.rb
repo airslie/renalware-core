@@ -2,8 +2,9 @@ module Renalware
   module HD
     # Periodically (probably overnight) this job runs to find any HD::PrescriptionAdministrations
     # (drugs given while on HD) for stat prescriptions (meaning give only once)
-    # that have been given but, because they not been witnessed yet, their associated prescription
-    # is not terminated. Its important stat drugs are terminated so hey are not given again.
+    # that have been given but, because they have not been witnessed yet, their associated
+    # prescription is not terminated. Its important stat drugs are terminated so they are not
+    # given again.
     class TerminateAdministeredUnwitnessedStatPrescriptionsJob < ApplicationJob
       def perform
         # Note the recorded_on condition is to prevent the circumstance where we might keep on

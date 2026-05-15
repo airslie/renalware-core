@@ -9,8 +9,6 @@ export default class extends Controller {
     btn.disabled = true
 
     try {
-      // console.log(`Fetching from ${this.urlValue}`)
-
       // Try modern ClipboardItem API with delayed promise (Chrome/Edge)
       if (navigator.clipboard && window.ClipboardItem) {
         try {

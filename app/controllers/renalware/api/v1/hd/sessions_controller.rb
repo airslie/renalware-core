@@ -43,8 +43,10 @@ module Renalware
           end
 
           def create_or_update_hd_session(form)
-            if hd_session.present?
-              UpdateSession.new(hd_session: hd_session, form: form).call
+            session = hd_session
+
+            if session.present?
+              UpdateSession.new(hd_session: session, form: form).call
             else
               CreateSession.new(form: form, patient: patient).call
             end
@@ -66,7 +68,7 @@ module Renalware
           def hd_session
             return if patient.blank?
 
-            @hd_session ||= patient.hd_sessions.find_by(started_at: params[:date])
+            patient.hd_sessions.find_by(started_at: params[:date])
           end
 
           class Result

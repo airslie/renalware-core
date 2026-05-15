@@ -47,7 +47,7 @@ module Pages
         "#print-home-delivery-drugs-modal #event_prescription_duration"
       end
 
-      def indicate_printing_was_succesful
+      def indicate_printing_was_successful
         within("#print-home-delivery-drugs-modal") do
           click_on "Yes - mark as printed"
         end

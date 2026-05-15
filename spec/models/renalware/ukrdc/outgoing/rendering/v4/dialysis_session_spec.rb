@@ -110,7 +110,7 @@ module Renalware
   end
 end
 
-# TODO: add thee tests from the old builder view spec
+# TODO: add these tests from the old builder view spec
 #
 # describe "#QHD19 (Symptomatic hypotension)" do
 #   context "when had_intradialytic_hypotension is yes" do

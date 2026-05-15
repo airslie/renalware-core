@@ -6,8 +6,10 @@ module Renalware
 
     def view_template
       super do
-        if layout&.definition.present?
-          layout.definition.each do |hash|
+        event_subtype = Renalware::Events::Subtype.with_deleted.find_by(id: record.subtype_id)
+
+        if event_subtype&.definition.present?
+          event_subtype.definition.each do |hash|
             attr = hash.keys.first
             label = hash.values.first["label"]
             DescriptionListItem(label, document.send(attr.to_sym), title: label)
@@ -16,12 +18,6 @@ module Renalware
 
         DescriptionListItem("Notes", simple_format(record.notes))
       end
-    end
-
-    private
-
-    def layout
-      @layout ||= Renalware::Events::Subtype.with_deleted.find_by(id: record.subtype_id)
     end
   end
 end

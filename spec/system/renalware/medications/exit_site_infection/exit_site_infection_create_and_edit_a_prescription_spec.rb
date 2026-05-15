@@ -69,7 +69,7 @@ describe "Prescriptions - from an exit site infection", :js do
     expect(page).to have_field "Dose amount", with: "1"
 
     expect(page).to have_select "Drug", selected: "Blue Pill", visible: :hidden
-    # TODO: detect correct readonly ame and hidden field are present
+    # TODO: detect correct readonly name and hidden field are present
     # expect(page).to have_select "Unit of measure", selected: "Ampoule", visible: :hidden
     # expect(page).to have_select "Route", selected: "Oral", visible: :hidden
 
