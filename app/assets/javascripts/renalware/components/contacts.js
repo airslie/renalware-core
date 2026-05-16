@@ -145,7 +145,6 @@ Renalware.Contacts = {
       event.preventDefault();
 
       var valuesToSubmit = this.form.serialize();
-      // console.log(valuesToSubmit);
       var self = this;
 
       self._clearErrors();

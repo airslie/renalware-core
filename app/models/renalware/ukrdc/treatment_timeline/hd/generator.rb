@@ -53,7 +53,6 @@ module Renalware
               # rubocop:disable Style/NegativeArrayIndex
               previous_treatment = treatments[treatments.length - 2]
               # rubocop:enable Style/NegativeArrayIndex
-              # p "updating end date from #{previous_treatment.ended_on} to #{start_date}"
               previous_treatment.update!(ended_on: start_date)
             end
           end

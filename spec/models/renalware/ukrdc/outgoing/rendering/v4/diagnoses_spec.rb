@@ -59,7 +59,7 @@ module Renalware
   end
 end
 
-# TODO: include these tests pulled frm the old build view spec
+# TODO: include these tests pulled from the old build view spec
 
 # describe "Diagnoses element" do
 #   helper(Renalware::ApplicationHelper)

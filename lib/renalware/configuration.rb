@@ -201,12 +201,12 @@ module Renalware
     config_accessor(:ukrdc_sftp_port)         { ENV.fetch("UKRDC_SFTP_PORT", 22) }
     config_accessor(:ukrdc_sftp_remote_path)  { ENV.fetch("UKRDC_SFTP_REMOTE_PATH", "") }
 
-    # To use a date other that the default changes_since date when
+    # To use a date other than the default changes_since date when
     # compiling pathology to send to UKRDC, you can set an ENV var as follows:
     #   UKRDC_PATHOLOGY_START_DATE=01-01-2011
     # in the .env file (or e.g. .env.production) and we will always fetch pathology
     # from this date on. It only affects pathology and not medications, letters etc.
-    # It is not indented to keep this date set, but its useful if UKRDC ask for
+    # It is not intended to keep this date set, but its useful if UKRDC ask for
     # a dump of historical pathology.
     config_accessor(:ukrdc_pathology_start_date) { ENV.fetch("UKRDC_PATHOLOGY_START_DATE", nil) }
 

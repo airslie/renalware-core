@@ -55,7 +55,7 @@ Rails/ResponseParsedBody:
   Enabled: false
 
 Rails/FindByOrAssignmentMemoization:
-  Enabled: false
+  Enabled: true
 
 Style/SafeNavigationChainLength:
   Enabled: true
@@ -65,7 +65,7 @@ Rails/EnumHash:
   Enabled: true
 
 Lint/LiteralAsCondition:
-  Enabled: false
+  Enabled: true
 
 # This cop is useful, but currently too noisy for the existing baseline.
 # Re-enable once redundant disable comments have been reduced.

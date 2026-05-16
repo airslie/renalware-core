@@ -1,8 +1,5 @@
 require_relative "rails_helper"
 
-# factory_names = FactoryBot.factories.map(&:name)
-# puts "Checking factories #{factory_names.first}"
-
 RSpec.describe "Factories" do
   pending "Skipping factories spec for now - some flakiness in CI, and not critical"
 
