@@ -1,6 +1,6 @@
 .toggler {
   position: relative; // required for safari otherwise user cannot click on :before content
-  display: inline-block; // required otherwise IE11 will not be able to click on it
+  display: inline-block;
 
   i {
     @extend %fa-icon;

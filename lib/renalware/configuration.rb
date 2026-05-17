@@ -516,12 +516,6 @@ module Renalware
       )
     }
 
-    # The warning to display to IE users, because we want to dissuade users from
-    # using IE11. If you set this to nil the warning will not be shown
-    config_accessor(:ie_deprecation_warning) {
-      "Internet Explorer is no longer fully supported. Please use Edge, Chrome or Firefox"
-    }
-
     config_accessor(:patients_must_have_at_least_one_hosp_number) {
       ActiveModel::Type::Boolean.new.cast(
         ENV.fetch("PATIENTS_MUST_HAVE_AT_LEAST_ONE_HOSP_NUMBER", "true")
