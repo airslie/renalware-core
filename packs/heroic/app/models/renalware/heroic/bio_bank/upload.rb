@@ -8,8 +8,8 @@ module Renalware
 
         attr_accessor :tmp
 
-        enum status: [:previewing, :changes_committed, :error]
-        enum file_type: [:samples, :usage]
+        enum :status, [:previewing, :changes_committed, :error]
+        enum :file_type, [:samples, :usage]
         has_one_attached :file
         has_many :samples, dependent: :nullify
         has_many :aliquots, dependent: :nullify

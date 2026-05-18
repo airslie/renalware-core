@@ -13,7 +13,7 @@ RSpec.describe "Toggling mGFR events", :js do
       event = create(:heroic_mgfr_event, patient: patient, by: user)
       document = event.document
 
-      visit renalware.patient_events_path(patient)
+      visit patient_events_path(patient)
 
       within(".events-table") do
         # The untoggled row

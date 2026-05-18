@@ -6,6 +6,8 @@ module Renalware
   module Heroic
     module BioBank
       class SampleUploadsController < Renalware::BaseController
+        helper Renalware::ResearchHelper
+
         def new
           upload = Upload.new
           authorize upload

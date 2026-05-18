@@ -8,7 +8,7 @@ RSpec.describe "Import a bio bank feed" do
     study = create(:heroic_research_study, by: user)
     create(:research_investigatorship, user: user, study: study, by: user)
 
-    visit renalware.research_study_path(study)
+    visit research.study_path(study)
 
     click_on "Upload samples"
 

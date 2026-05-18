@@ -8,7 +8,7 @@ RSpec.describe "Downloading a report" do
     # study = create(:heroic_research_study, by: user)
     # report = Renalware::Heroic::Reports::Definition.first
 
-    # visit renalware.research_study_path(study)
+    # visit research.study_path(study)
 
     # within "article.reports" do
     #   select report.name, from: "Report"

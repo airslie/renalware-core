@@ -6,7 +6,7 @@ module Renalware
   module Heroic
     module Reports
       def self.table_name_prefix
-        "report_"
+        "renalware_heroic.report_"
       end
     end
   end

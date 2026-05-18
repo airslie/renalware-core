@@ -8,10 +8,10 @@ RSpec.describe "Manage HEROIC participants", :js do
       user = login_as_admin
       study = create(:heroic_research_study, by: user)
       create(:research_investigatorship, user: user, study: study, by: user)
-      visit renalware.research_study_path(study)
+      visit research.study_path(study)
       click_on "Participants"
 
-      expect(page).to have_current_path(renalware.research_study_participations_path(study))
+      expect(page).to have_current_path(research.study_participations_path(study))
     end
   end
 
@@ -21,12 +21,12 @@ RSpec.describe "Manage HEROIC participants", :js do
         user = login_as_admin
         study = create(:heroic_research_study, by: user)
         create(:research_investigatorship, user: user, study: study, by: user)
-        visit renalware.research_study_participations_path(study)
+        visit research.study_participations_path(study)
         within ".filter-actions" do
           click_on "Add"
         end
 
-        expect(page).to have_current_path(renalware.new_research_study_participation_path(study))
+        expect(page).to have_current_path(research.new_study_participation_path(study))
 
         click_on "Save"
 
@@ -40,20 +40,24 @@ RSpec.describe "Manage HEROIC participants", :js do
         study = create(:heroic_research_study, by: user)
         create(:research_investigatorship, user: user, study: study, by: user)
         patient = create(:patient)
-        visit renalware.research_study_participations_path(study)
+        visit research.study_participations_path(study)
         within ".filter-actions" do
           click_on "Add"
         end
 
-        select2(patient.to_s(:long), css: "#patient-select2", search: true)
+        slim_select(
+          patient.to_s(:long),
+          from: "participation_patient_id",
+          wait_for: "Enter at least 3 characters"
+        )
         fill_in "Study number", with: "123"
         fill_in "Joined on", with: I18n.l(Time.zone.today)
-        fill_in "Left on", with: I18n.l(Time.zone.today + 1.day)
+        fill_in "Left on", with: I18n.l(Time.zone.today)
         fill_in "Education", with: "12"
         click_on "Save"
 
         expect(page).to have_no_css("small.error")
-        expect(page).to have_current_path(renalware.research_study_participations_path(study))
+        expect(page).to have_current_path(research.study_participations_path(study))
         expect(study.participations.length).to eq(1)
         participation = study.participations.first
         expect(participation.document.study_number).to eq("123")

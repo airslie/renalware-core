@@ -20,9 +20,9 @@ concurrency:
 
 env:
   BUNDLE_GITHUB__COM: ${{ secrets.CR_PAT }}
-  # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
+  RENALWARE_EXTENSIONS: ${{ secrets.RENALWARE_EXTENSIONS }}
   RAILS_ENV: test
   PGHOST: localhost
   COVERAGE: true

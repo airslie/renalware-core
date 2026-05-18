@@ -4,6 +4,7 @@ require "scenic"
 require "paper_trail"
 require "paranoia"
 require "renalware"
+require_relative "configuration"
 
 module Renalware
   module Heroic
@@ -27,7 +28,11 @@ module Renalware
           end
         end
 
-        add_path.call("db/migrate", root.join("db/migrate").to_s)
+        migration_path = root.join("db/migrate").to_s
+        add_path.call("db/migrate", migration_path)
+        ActiveRecord::Migrator.migrations_paths << migration_path unless
+          ActiveRecord::Migrator.migrations_paths.include?(migration_path)
+
         add_path.call("db/views", root.join("db/views").to_s)
       end
     end

@@ -12,7 +12,7 @@ RSpec.describe "Creating a HEROIC Clinic Visit", :js do
       create(:heroic_clinic)
       create(:clinic, name: "Other Clinic")
 
-      visit renalware.new_patient_clinic_visit_path(patient)
+      visit new_patient_clinic_visit_path(patient)
 
       slim_select "HEROIC", from: "Clinic"
 
@@ -64,7 +64,7 @@ RSpec.describe "Creating a HEROIC Clinic Visit", :js do
 
       click_on "Save"
 
-      expect(page).to have_current_path(renalware.patient_clinic_visits_path(patient))
+      expect(page).to have_current_path(patient_clinic_visits_path(patient))
 
       visit = Renalware::Clinics.cast_patient(patient.reload).clinic_visits.last
       expect(visit).to be_present

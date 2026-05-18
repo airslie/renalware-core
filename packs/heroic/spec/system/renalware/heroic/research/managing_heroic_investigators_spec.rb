@@ -8,10 +8,10 @@ RSpec.describe "Manage HEROIC investigators" do
       user = login_as_admin
       study = create(:heroic_research_study, by: user)
       investigatorship = create(:heroic_investigatorship, study: study, by: user)
-      visit renalware.research_study_path(study)
+      visit research.study_path(study)
       click_on "Investigators"
 
-      expect(page).to have_current_path(renalware.research_study_investigatorships_path(study))
+      expect(page).to have_current_path(research.study_investigatorships_path(study))
       expect(page).to have_text(investigatorship.user.to_s)
     end
   end
@@ -22,12 +22,12 @@ RSpec.describe "Manage HEROIC investigators" do
         user = login_as_super_admin
         study = create(:heroic_research_study, by: user)
 
-        visit renalware.research_study_investigatorships_path(study)
+        visit research.study_investigatorships_path(study)
         within ".filter-actions" do
           click_on "Add"
         end
 
-        expect(page).to have_current_path(renalware.new_research_study_investigatorship_path(study))
+        expect(page).to have_current_path(research.new_study_investigatorship_path(study))
 
         click_on "Save"
 
@@ -39,18 +39,18 @@ RSpec.describe "Manage HEROIC investigators" do
       it "saves successfully including the custom document attributes" do
         user = login_as_super_admin
         study = create(:heroic_research_study, by: user)
-        visit renalware.research_study_investigatorships_path(study)
+        visit research.study_investigatorships_path(study)
         within ".filter-actions" do
           click_on "Add"
         end
 
-        select2(user.to_s, css: "#select2-user")
+        slim_select(user.to_s, from: "User")
         fill_in("Started on", with: "01-Apr-2018")
 
         click_on "Save"
 
         expect(page).to have_no_css("small.error")
-        expect(page).to have_current_path(renalware.research_study_investigatorships_path(study))
+        expect(page).to have_current_path(research.study_investigatorships_path(study))
         expect(study.investigatorships.length).to eq(1)
       end
     end

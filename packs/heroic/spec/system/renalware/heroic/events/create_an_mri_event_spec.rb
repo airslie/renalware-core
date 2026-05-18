@@ -11,7 +11,7 @@ RSpec.describe "Creating an MRI event", :js do
       user = login_as_clinical
       patient = create(:patient, by: user)
       create(:heroic_mri_event_type)
-      visit renalware.new_patient_event_path(patient)
+      visit new_patient_event_path(patient)
 
       slim_select "MRI", from: "* Event type"
 
@@ -26,7 +26,7 @@ RSpec.describe "Creating an MRI event", :js do
 
       click_on "Save"
 
-      # expect(page).to have_current_path(renalware.patient_events_path(patient))
+      # expect(page).to have_current_path(patient_events_path(patient))
       event = Renalware::Events::Event.where(patient: patient).last
       expect(event.document).to have_attributes(
         visit_number: 1,

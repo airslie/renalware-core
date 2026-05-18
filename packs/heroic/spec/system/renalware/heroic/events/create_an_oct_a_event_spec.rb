@@ -12,7 +12,7 @@ RSpec.describe "Creating an OctA event", :js do
       patient = create(:patient, by: user)
       create(:heroic_oct_a_event_type)
 
-      visit renalware.new_patient_event_path(patient)
+      visit new_patient_event_path(patient)
 
       slim_select "Retinal screen", from: "* Event type"
 

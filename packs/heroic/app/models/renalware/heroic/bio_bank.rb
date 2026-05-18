@@ -6,7 +6,7 @@ module Renalware
   module Heroic
     module BioBank
       def self.table_name_prefix
-        "biobank_"
+        "renalware_heroic.biobank_"
       end
     end
   end

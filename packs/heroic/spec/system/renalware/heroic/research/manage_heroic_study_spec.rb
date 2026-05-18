@@ -19,7 +19,7 @@ RSpec.describe "Manage HEROIC study" do
       it "renders the errors and does not save" do
         user = login_as_admin
         study = create(:heroic_research_study, by: user)
-        visit renalware.edit_research_study_path(study)
+        visit research.edit_study_path(study)
 
         expect(page).to have_text("HEROIC")
 
@@ -34,14 +34,14 @@ RSpec.describe "Manage HEROIC study" do
       it "saves successfully" do
         user = login_as_admin
         study = create(:heroic_research_study, by: user)
-        visit renalware.edit_research_study_path(study)
+        visit research.edit_study_path(study)
 
         expect(page).to have_text("HEROIC")
         fill_in "Description", with: "something"
         click_on "Save"
 
         expect(page).to have_no_css("small.error")
-        expect(page).to have_current_path(renalware.research_study_path(study))
+        expect(page).to have_current_path(research.study_path(study))
         expect(page).to have_text("something")
       end
     end

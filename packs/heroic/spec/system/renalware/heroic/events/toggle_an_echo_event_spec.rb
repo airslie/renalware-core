@@ -13,7 +13,7 @@ RSpec.describe "Toggling Echo events", :js do
       event = create(:heroic_echo_event, patient: patient, by: user)
       document = event.document
 
-      visit renalware.patient_events_path(patient)
+      visit patient_events_path(patient)
 
       within(".events-table") do
         # The untoggled row

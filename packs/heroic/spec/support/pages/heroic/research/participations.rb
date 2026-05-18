@@ -10,7 +10,7 @@ module Pages
         pattr_initialize :study
 
         def go
-          visit research_study_participations_path(study)
+          visit research.study_participations_path(study)
           self
         end
       end

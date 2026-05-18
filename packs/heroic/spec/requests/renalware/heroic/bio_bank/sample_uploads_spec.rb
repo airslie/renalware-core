@@ -10,7 +10,7 @@ module Renalware::Heroic::BioBank
 
     def xls_fixture_file_upload(filename)
       fixture_file_upload(
-        file_fixture("biobank/uploads/#{filename}.xlsx"),
+        Rails.root.join("packs/heroic/spec/fixtures/files/biobank/uploads/#{filename}.xlsx"),
         "application/xls"
       )
     end
