@@ -6,7 +6,6 @@ Renalware::Heroic::Engine.routes.draw do
       resources :samples
     end
     resources :samples, only: [] do
-      resources :usages, controller: "sample_usages"
       resources :aliquots
     end
     resources :sample_uploads

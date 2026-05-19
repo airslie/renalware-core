@@ -18,8 +18,13 @@ module Renalware
     class Configuration
       include ActiveSupport::Configurable
 
-      # Force dotenv to load the .env file at this stage so we can read in the config defaults
-      Dotenv::Railtie.load
+      # Force dotenv to load the .env file at this stage so we can read in the config defaults.
+      # Dotenv 3.x no longer provides Dotenv::Rails, so support both APIs.
+      if defined?(Dotenv::Rails)
+        Dotenv::Rails.load
+      elsif defined?(Dotenv)
+        Dotenv.load
+      end
 
       config_accessor(:new_aliquot_deletion_window) { 24.hours }
       config_accessor(:new_aliquot_usage_edit_window) { 24.hours }

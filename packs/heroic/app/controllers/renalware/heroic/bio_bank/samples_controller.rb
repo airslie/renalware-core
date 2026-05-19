@@ -36,7 +36,7 @@ module Renalware
           if sample.update_by(current_user, sample_params)
             redirect_to bio_bank_patient_samples_path(patient)
           else
-            reder_edit(sample)
+            render_edit(sample)
           end
         end
 

@@ -1,8 +1,8 @@
 RSpec.configure do |config|
   FactoryBot.use_parent_strategy = false
-  factory_paths = [Rails.root.join("spec/factories")]
-  factory_paths << Rails.root.join("packs/heroic/spec/factories") if Renalware::Extensions.enabled?(:heroic)
-  FactoryBot.definition_file_paths = factory_paths
+  FactoryBot.definition_file_paths = (
+    FactoryBot.definition_file_paths + [Rails.root.join("spec/factories")]
+  ).uniq
   config.include FactoryBot::Syntax::Methods
 
   config.before(:all) do
