@@ -3,3 +3,4 @@
 enforce_dependencies: true
 dependencies:
   - "."
+  - "packs/research"

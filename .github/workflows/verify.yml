@@ -117,6 +117,8 @@ jobs:
     needs: assets
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    env:
+      RENALWARE_EXTENSIONS: heroic
     strategy:
       fail-fast: false
       matrix:
@@ -190,7 +192,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           RAILS_ENV: test
           PGHOST: localhost
-        run: bin/rails db:create db:schema:load
+        run: bin/rails db:create db:schema:load db:migrate
 
       - name: Update packages
         run: sudo apt update
