@@ -20,9 +20,9 @@ concurrency:
 
 env:
   BUNDLE_GITHUB__COM: ${{ secrets.CR_PAT }}
-  # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
+  RENALWARE_EXTENSIONS: ${{ secrets.RENALWARE_EXTENSIONS }}
   RAILS_ENV: test
   PGHOST: localhost
   COVERAGE: true
@@ -117,6 +117,8 @@ jobs:
     needs: assets
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    env:
+      RENALWARE_EXTENSIONS: heroic
     strategy:
       fail-fast: false
       matrix:
@@ -190,7 +192,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           RAILS_ENV: test
           PGHOST: localhost
-        run: bin/rails db:create db:schema:load
+        run: bin/rails db:create db:schema:load db:migrate
 
       - name: Update packages
         run: sudo apt update

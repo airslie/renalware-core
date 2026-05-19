@@ -1,6 +1,14 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= "test"
 
+if ARGV.any? { |arg| arg.delete_prefix("./").start_with?("packs/heroic") }
+  extensions = ENV.fetch("RENALWARE_EXTENSIONS", "").split(",").map(&:strip)
+  ENV["RENALWARE_EXTENSIONS"] = (extensions + ["heroic"]).reject(&:empty?).uniq.join(",")
+end
+
+spec_root = __dir__
+$LOAD_PATH.unshift(spec_root) unless $LOAD_PATH.include?(spec_root)
+
 if ENV.key?("COVERAGE")
   require "simplecov"
   # Ensure coverage is merged not overwritten
@@ -50,6 +58,9 @@ end
 Rails.root.glob("spec/support/**/*.rb").each { require it }
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { require it }
 Rails.root.glob("spec/pages/**/*.rb").each { require it }
+if Renalware::Extensions.enabled?(:heroic)
+  Rails.root.glob("packs/heroic/spec/support/**/*.rb").each { require it }
+end
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

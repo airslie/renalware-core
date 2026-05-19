@@ -1,0 +1,3 @@
+# Renalware-specific pack metadata. Keep Packwerk-only keys in package.yml.
+optional: true
+extension_name: heroic

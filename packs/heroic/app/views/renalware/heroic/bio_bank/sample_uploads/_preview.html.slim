@@ -1,0 +1,14 @@
+- if upload.staged_changes.any?
+  - headers = upload.staged_changes.first.keys
+  table
+    thead
+      tr
+        - headers.each do |header|
+          th= header
+    tbody
+      - upload.staged_changes.each do |row|
+        tr
+          - row.each_value do |value|
+            td= value
+- else
+  p None

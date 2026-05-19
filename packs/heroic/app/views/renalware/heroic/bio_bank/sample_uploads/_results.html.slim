@@ -1,0 +1,31 @@
+.panel.info
+  dl.dl-horizontal.large
+    dt Uploaded at
+    dd= l(upload.updated_at)
+    dt Filename
+    dd= upload.file.filename
+    dt Samples created
+    dd= upload.samples.count
+    dt Aliquots created
+    dd= upload.aliquots.count
+
+table
+  thead
+    tr
+      th Patient
+      th Sample ISBT
+      th Sample type
+      th Location
+      th Aliquot ISBT
+      th.col-width-date-time Collected at
+      th.col-width-date-time Processed at
+  tbody
+    - upload.aliquots.each do |aliquot|
+      tr
+        td= link_to(aliquot.patient, heroic.bio_bank_patient_samples_path(aliquot.patient))
+        td= link_to(aliquot.sample_isbt, heroic.bio_bank_sample_aliquots_path(aliquot.sample, aliquot))
+        td= aliquot.sample_type_abbreviation
+        td= aliquot.sample_storage_location
+        td= link_to(aliquot.isbt, heroic.bio_bank_sample_aliquots_path(aliquot.sample, aliquot))
+        td= l(aliquot.sample_collected_at)
+        td= l(aliquot.sample_processed_at)

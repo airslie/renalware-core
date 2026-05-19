@@ -1,0 +1,7 @@
+= within_admin_layout(title: "Usage upload") do
+  = render "renalware/heroic/shared/progress", upload: upload
+  = render "renalware/shared/errors", model: upload
+  = simple_form_for(upload, as: :upload, url: heroic.bio_bank_usage_uploads_path) do |f|
+    = f.input :file, as: :file, label: "Choose the spreadsheet to upload"
+    = f.input :tmp, as: :hidden
+    = f.submit "Upload", class: :button

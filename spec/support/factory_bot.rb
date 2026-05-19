@@ -1,6 +1,8 @@
 RSpec.configure do |config|
   FactoryBot.use_parent_strategy = false
-  FactoryBot.definition_file_paths = Array(Rails.root.join("spec/factories"))
+  FactoryBot.definition_file_paths = (
+    FactoryBot.definition_file_paths + [Rails.root.join("spec/factories")]
+  ).uniq
   config.include FactoryBot::Syntax::Methods
 
   config.before(:all) do

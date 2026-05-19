@@ -32804,7 +32804,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware,public,renalware_mse,renalware_blt,renalware_ich;
+SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20260513120002'),

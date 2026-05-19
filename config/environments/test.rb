@@ -66,5 +66,9 @@ Rails.application.configure do
   # Raises error for missing translations
   config.i18n.raise_on_missing_translations = true
 
+  if Renalware::Extensions.enabled?(:heroic)
+    config.factory_bot.definition_file_paths << "packs/heroic/spec/factories"
+  end
+
   Rails.application.default_url_options = { host: "localhost", port: 3000 }
 end

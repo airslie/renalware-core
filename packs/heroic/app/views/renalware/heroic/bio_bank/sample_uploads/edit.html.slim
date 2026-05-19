@@ -1,0 +1,13 @@
+= within_admin_layout(title: "BioBank feed changes") do
+  = render "renalware/heroic/shared/progress", upload: upload
+  / h2= "Status: #{Renalware::Heroic::BioBank::Upload.human_attribute_name(upload.status)}"
+
+  = simple_form_for(upload,
+      as: :upload,
+      url: heroic.bio_bank_sample_upload_path(upload),
+      method: :put) do |f|
+    = f.submit "Commit changes", class: :button
+
+  h4 Changes to be commited
+
+  = render "preview", upload: upload

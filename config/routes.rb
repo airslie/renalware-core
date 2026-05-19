@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   mount Renalware::Help::Engine => "help", as: :help
   mount Renalware::Geography::Engine => "geography", as: :geography
   mount Renalware::RemoteMonitoring::Engine => "remote_monitoring", as: :remote_monitoring
+  if Renalware::Extensions.enabled?(:heroic) && defined?(Renalware::Heroic::Engine)
+    mount Renalware::Heroic::Engine => "heroic", as: :heroic
+  end
 
   scope module: :renalware do
     root to: "dashboard/dashboards#show"

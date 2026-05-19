@@ -1,0 +1,13 @@
+= f.simple_fields_for :document, event.document do |fd|
+  = fd.input :visit_number,
+             collection: 0..event.document.class::MAX_VISIT_NUMBER,
+             wrapper: :horizontal_tiny
+  = fd.input :screen_type, wrapper: :horizontal_small
+  = fd.input :diabetic_retinopathy, as: :inline_radio_buttons, wrapper: :horizontal_small
+  = fd.input :skeletonized_vessel_density_continuous, wrapper: :horizontal_small
+  = fd.input :fractal_dimension_continuous, wrapper: :horizontal_small
+  = fd.input :vessel_diameter_index_continuous, wrapper: :horizontal_small
+  = fd.input :average_vessel_calibre_continuous, wrapper: :horizontal_small
+  = fd.input :foveal_avascular_zone_continuous, wrapper: :horizontal_small
+  = fd.input :perifoveal_interpapillary_area_continuous, wrapper: :horizontal_small
+  = fd.input :number_of_microaneurysms, wrapper: :horizontal_small

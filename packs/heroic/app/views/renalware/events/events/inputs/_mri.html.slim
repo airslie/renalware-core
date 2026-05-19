@@ -1,0 +1,7 @@
+= f.simple_fields_for :document, event.document do |fd|
+  / Inspect the document attributes defined by Virtus, amd write them out with
+  / markup to handle whether its a numeric or string type.
+  - event.document.class.numeric_attribute_names.each do |attr_name|
+    = fd.input attr_name, wrapper: :horizontal_small
+  - event.document.class.string_attribute_names.each do |attr_name|
+    = fd.input attr_name, wrapper: :horizontal_large

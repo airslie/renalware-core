@@ -1,0 +1,10 @@
+= content_for(:header) do
+  = render "renalware/patients/header", patient: patient
+
+= content_for(:actions) do
+  = link_to "Add",
+          heroic.new_bio_bank_patient_sample_path(patient),
+          class: "button"
+
+= within_admin_layout(title: "Samples") do
+  = render "table", samples: samples, patient: patient

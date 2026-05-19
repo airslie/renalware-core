@@ -47,6 +47,7 @@ gem "fhir_stu3_models", github: "airslie/fhir_stu3_models"
 gem "good_job", "~> 4.0"
 
 gem "matrix"
+gem "roo"
 
 group :test do
   gem "capybara" # , "~> 3.32"

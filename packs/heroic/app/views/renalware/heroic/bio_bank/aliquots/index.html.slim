@@ -1,0 +1,13 @@
+= content_for(:actions) do
+  = link_to "Add",
+          heroic.new_bio_bank_sample_aliquot_path(sample),
+          class: "button"
+
+= content_for(:header) do
+  = render "renalware/patients/header", patient: sample.patient
+
+- samples_path = heroic.bio_bank_patient_samples_path(sample.patient, sample)
+= within_admin_layout(title: "#{sample.id} / Aliquots",
+                      breadcrumbs: breadcrumb_for("Samples", samples_path)) do
+
+  = render "table", aliquots: aliquots

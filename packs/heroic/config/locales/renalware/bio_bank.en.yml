@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    attributes:
+      renalware/heroic/bio_bank/sample:
+        sample_type: Type
+      renalware/heroic/bio_bank/upload:
+        statuses:
+          previewing: "Previewing"
+          changes_committed: "Changes committed"
+          error: "Error"
