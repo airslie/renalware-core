@@ -1,4 +1,14 @@
 describe Renalware::ApplicationHelper do
+  describe ".patient_link" do
+    it "creates a link outside the current engine mount point" do
+      patient = build_stubbed(:patient)
+      allow(helper).to receive(:url_options).and_return(script_name: "/reporting")
+
+      expect(helper.patient_link(patient, landing_page: :demographics))
+        .to match(%r{href="/patients/#{patient.to_param}"})
+    end
+  end
+
   describe ".default_patient_link" do
     it "creates a link going to the patient's clinical summary" do
       patient = build_stubbed(:patient)

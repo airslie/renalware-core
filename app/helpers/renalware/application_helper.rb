@@ -17,7 +17,7 @@ module Renalware
       landing_page ||= :clinical_summary
       landing_page = "" if landing_page.to_sym == :demographics
       route_name = "patient_#{landing_page.downcase}_path".gsub("__", "_")
-      url = public_send(route_name, patient)
+      url = public_send(route_name, patient, script_name: nil)
       link_to(patient.to_s(:default), url, "data-turbo-frame": "_top")
     end
 
