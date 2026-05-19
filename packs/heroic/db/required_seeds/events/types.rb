@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware::Heroic
-  log "Adding Heroic Event Types" do
+  Rails.benchmark "Adding Heroic Event Types" do
     file_path = File.join(File.dirname(__FILE__), "types.csv")
 
     CSV.foreach(file_path, headers: true) do |row|

@@ -2,7 +2,7 @@
 
 # rubocop:disable Lint/SymbolConversion
 module Renalware::Heroic
-  log "Adding Heroic BioBank Sample Types" do
+  Rails.benchmark "Adding Heroic BioBank Sample Types" do
     {
       "Serum": "SER",
       "DNA": "WB-DNA",

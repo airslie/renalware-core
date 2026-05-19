@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Renalware::Heroic
-  log "Adding Heroic Report Definitions" do
+  Rails.benchmark "Adding Heroic Report Definitions" do
     Reports::Definition.find_or_create_by!(
       report_view_name: "report_activity"
     ) do |definition|

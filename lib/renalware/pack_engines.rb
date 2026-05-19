@@ -8,12 +8,21 @@ module Renalware
     module_function
 
     def load!
-      Dir[File.join(packs_root, "*")].each do |pack_root|
-        next unless File.directory?(pack_root)
-        next unless load_pack?(pack_root)
-
+      loadable_pack_roots.each do |pack_root|
         Dir[File.join(pack_root, "lib/**/engine.rb")].each { |file| require file }
       end
+    end
+
+    def loadable_pack_roots
+      Dir[File.join(packs_root, "*")]
+        .select { |pack_root| File.directory?(pack_root) }
+        .select { |pack_root| load_pack?(pack_root) }
+    end
+
+    def seed_file_paths
+      loadable_pack_roots
+        .map { |pack_root| File.join(pack_root, "db", "seeds.rb") }
+        .select { |seed_file| File.exist?(seed_file) }
     end
 
     def packs_root
@@ -21,17 +30,17 @@ module Renalware
     end
 
     def load_pack?(pack_root)
-      metadata = package_metadata(pack_root)
+      metadata = pack_metadata(pack_root)
       return true unless metadata["optional"]
 
       Renalware::Extensions.enabled?(metadata.fetch("extension_name", File.basename(pack_root)))
     end
 
-    def package_metadata(pack_root)
-      package_yml = File.join(pack_root, "package.yml")
-      return {} unless File.exist?(package_yml)
+    def pack_metadata(pack_root)
+      metadata_yml = File.join(pack_root, "renalware.yml")
+      return {} unless File.exist?(metadata_yml)
 
-      YAML.safe_load_file(package_yml) || {}
+      YAML.safe_load_file(metadata_yml) || {}
     end
   end
 end

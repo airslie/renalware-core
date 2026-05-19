@@ -17683,12 +17683,6 @@ CREATE VIEW renalware_heroic.heroic_clinic_visits AS
     standing_diastolic_bp,
     document,
     type,
-    body_surface_area,
-    total_body_water,
-    bmi,
-    uuid,
-    location_id,
-    urine_glucose,
     ((document ->> 'visit_number'::text))::integer AS visit_number
    FROM renalware.clinic_visits cv
   WHERE ((type)::text = 'Renalware::Heroic::Clinics::Visit'::text);
