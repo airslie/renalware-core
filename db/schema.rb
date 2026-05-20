@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_13_120002) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_20_082138) do
   create_schema "renalware"
 
   # These are extensions that must be enabled in order to support this database
@@ -6229,6 +6229,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_120002) do
   create_table "renalware.ukrdc_treatments", force: :cascade do |t|
     t.bigint "clinician_id"
     t.datetime "created_at", precision: nil, null: false
+    t.bigint "destination_hospital_centre_id", comment: "Destination hospital when modality is transferred out."
     t.integer "discharge_reason_code"
     t.string "discharge_reason_comment"
     t.date "ended_on"
@@ -6241,9 +6242,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_120002) do
     t.bigint "modality_id"
     t.bigint "patient_id", null: false
     t.bigint "pd_regime_id"
+    t.bigint "source_hospital_centre_id", comment: "Source hospital when modality is transferred in."
     t.date "started_on", null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["clinician_id"], name: "index_ukrdc_treatments_on_clinician_id"
+    t.index ["destination_hospital_centre_id"], name: "index_ukrdc_treatments_on_destination_hospital_centre_id"
     t.index ["hd_profile_id"], name: "index_ukrdc_treatments_on_hd_profile_id"
     t.index ["hospital_centre_id"], name: "index_ukrdc_treatments_on_hospital_centre_id"
     t.index ["hospital_unit_id"], name: "index_ukrdc_treatments_on_hospital_unit_id"
@@ -6252,6 +6255,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_120002) do
     t.index ["modality_id"], name: "index_ukrdc_treatments_on_modality_id"
     t.index ["patient_id"], name: "index_ukrdc_treatments_on_patient_id"
     t.index ["pd_regime_id"], name: "index_ukrdc_treatments_on_pd_regime_id"
+    t.index ["source_hospital_centre_id"], name: "index_ukrdc_treatments_on_source_hospital_centre_id"
   end
 
   create_table "renalware.user_group_memberships", force: :cascade do |t|
@@ -6845,6 +6849,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_120002) do
   add_foreign_key "renalware.ukrdc_transmission_logs", "renalware.ukrdc_batches", column: "batch_id"
   add_foreign_key "renalware.ukrdc_treatments", "renalware.hd_profiles"
   add_foreign_key "renalware.ukrdc_treatments", "renalware.hospital_centres"
+  add_foreign_key "renalware.ukrdc_treatments", "renalware.hospital_centres", column: "destination_hospital_centre_id"
+  add_foreign_key "renalware.ukrdc_treatments", "renalware.hospital_centres", column: "source_hospital_centre_id"
   add_foreign_key "renalware.ukrdc_treatments", "renalware.hospital_units"
   add_foreign_key "renalware.ukrdc_treatments", "renalware.modality_descriptions"
   add_foreign_key "renalware.ukrdc_treatments", "renalware.patients"

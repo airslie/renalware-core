@@ -76,7 +76,9 @@ module Renalware
               modality_id: modality.id,
               modality_description_id: modality.description_id,
               modality_code: treatment_for_pd_regime(regime),
-              pd_regime_id: regime&.id
+              pd_regime_id: regime&.id,
+              source_hospital_centre_id: modality.source_hospital_centre_id,
+              destination_hospital_centre_id: modality.destination_hospital_centre_id
             )
 
             # Update the end date on the previous treatment - ie the one we just added is
