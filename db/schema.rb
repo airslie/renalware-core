@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_20_082138) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
   create_schema "renalware"
 
   # These are extensions that must be enabled in order to support this database
@@ -705,6 +705,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_082138) do
   create_enum :pathology_chart_axis, [
     "y1",
     "y2",
+  ], force: :cascade
+
+  create_enum :pathology_hd_sample_type, [
+    "pre",
+    "post",
   ], force: :cascade
 
   create_enum :patient_merge_message_types, [
@@ -1459,6 +1464,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_082138) do
   create_enum :pathology_chart_axis, [
     "y1",
     "y2",
+  ], force: :cascade
+
+  create_enum :pathology_hd_sample_type, [
+    "pre",
+    "post",
   ], force: :cascade
 
   create_enum :patient_merge_message_types, [
@@ -4302,6 +4312,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_082138) do
     t.bigint "created_by_sender_id", comment: "The feed source that dynmically created this OBX"
     t.integer "display_group"
     t.integer "display_order"
+    t.enum "hd_sample_type", enum_type: "pathology_hd_sample_type"
     t.datetime "last_observed_at", precision: nil
     t.string "legacy_code"
     t.integer "letter_group"

@@ -50,14 +50,17 @@ module Renalware
               observation = Renalware::UKRDC::PathologyObservationPresenter.new(observation)
               create_node("ResultItem") do |item|
                 item << create_node("EnteredOn", observation.updated_at&.iso8601)
-                item << create_node(
-                  "PrePost",
-                  observation.pre_post(patient_is_on_hd: patient.current_modality_hd?)
-                )
+                pre_post_element = pre_post_element_for(observation)
+                item << pre_post_element if pre_post_element.present?
                 item << service_id_element_for(observation)
                 rr_type_value_elements_for(observation, append_to: item)
                 item << create_node("ObservationTime", observation.observed_at&.iso8601)
               end
+            end
+
+            def pre_post_element_for(observation)
+              pre_post = observation.pre_post
+              create_node("PrePost", pre_post) if pre_post.present?
             end
 
             def service_id_element_for(observation)

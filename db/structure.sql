@@ -919,6 +919,16 @@ CREATE TYPE renalware.pathology_chart_axis AS ENUM (
 
 
 --
+-- Name: pathology_hd_sample_type; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.pathology_hd_sample_type AS ENUM (
+    'pre',
+    'post'
+);
+
+
+--
 -- Name: patient_merge_message_types; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -2818,7 +2828,8 @@ CREATE TABLE renalware.pathology_observation_descriptions (
     created_by_sender_id bigint,
     observations_count integer DEFAULT 0,
     last_observed_at timestamp without time zone,
-    colour renalware.enum_colour_name
+    colour renalware.enum_colour_name,
+    hd_sample_type renalware.pathology_hd_sample_type
 );
 
 
@@ -32867,6 +32878,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260520090000'),
 ('20260520082138'),
 ('20260513120002'),
 ('20260513120000'),

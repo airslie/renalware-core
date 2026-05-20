@@ -31,7 +31,8 @@ module Renalware::Pathology
           pathology_observation_description: {
             name: "New name",
             lower_threshold: 1.1,
-            upper_threshold: 20.1
+            upper_threshold: 20.1,
+            hd_sample_type: "pre"
           }
         }
 

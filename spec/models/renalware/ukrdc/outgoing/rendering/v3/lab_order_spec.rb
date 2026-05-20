@@ -11,7 +11,7 @@ module Renalware
 
         let(:patient) { instance_double(UKRDC::PatientPresenter, current_modality_hd?: true) }
 
-        def build_pathology_request_with_an_hgb_observation # rubocop:disable Metrics/MethodLength
+        def build_pathology_request_with_an_hgb_observation(hd_sample_type: nil) # rubocop:disable Metrics/MethodLength
           request = build_stubbed(
             :pathology_observation_request,
             :full_blood_count_with_observations,
@@ -23,7 +23,8 @@ module Renalware
             :pathology_observation_description,
             measurement_unit: build_stubbed(:pathology_measurement_unit, name: "L"),
             code: "HGB",
-            name: "HGB desc"
+            name: "HGB desc",
+            hd_sample_type: hd_sample_type
           )
           observation = build_stubbed(
             :pathology_observation,
@@ -56,7 +57,6 @@ module Renalware
               <ResultItems>
                 <ResultItem>
                   <EnteredOn>2019-01-01T00:00:00+00:00</EnteredOn>
-                  <PrePost>PRE</PrePost>
                   <ServiceId>
                     <CodingStandard>UKRR</CodingStandard>
                     <Code>HGB</Code>
@@ -85,6 +85,14 @@ module Renalware
           actual_xml = format_xml(described_class.new(patient:, request:).xml)
 
           expect(actual_xml).to eq(expected_xml)
+        end
+
+        it "outputs PrePost when the observation description has an HD sample type" do
+          request = build_pathology_request_with_an_hgb_observation(hd_sample_type: "pre")
+
+          actual_xml = format_xml(described_class.new(patient:, request:).xml)
+
+          expect(actual_xml).to include("<PrePost>PRE</PrePost>")
         end
       end
     end
