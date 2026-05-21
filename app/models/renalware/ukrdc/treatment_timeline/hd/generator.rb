@@ -44,7 +44,8 @@ module Renalware
               ended_on: end_date,
               modality_code: ukrdc_modality_code_from_profile(profile),
               hd_profile: profile,
-              hd_type: profile&.document&.dialysis&.hd_type
+              hd_type: profile&.document&.dialysis&.hd_type,
+              **hospital_centre_attributes
             )
 
             # Update the end date on the previous treatment - ie the one we just added is
@@ -118,6 +119,13 @@ module Renalware
 
           def hd_patient
             Renalware::HD.cast_patient(patient)
+          end
+
+          def hospital_centre_attributes
+            {
+              source_hospital_centre_id: modality.source_hospital_centre_id,
+              destination_hospital_centre_id: modality.destination_hospital_centre_id
+            }
           end
 
           def ukrdc_modality_code_from_profile(profile)

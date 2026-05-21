@@ -17,6 +17,7 @@ module Renalware
 
       enum :rr_type, { rr_type_simple: 0, rr_type_interpretation: 1 }
       enum :rr_coding_standard, { ukrr: 0, pv: 1 }
+      enum :hd_sample_type, { pre: "pre", post: "post" }
 
       validates :lower_threshold, numericality: { allow_nil: true }
       validates :upper_threshold, numericality: { allow_nil: true }

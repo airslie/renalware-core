@@ -9,6 +9,8 @@ module Renalware
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
       belongs_to :hd_profile, class_name: "HD::Profile"
       belongs_to :pd_regime, class_name: "PD::Regime"
+      belongs_to :source_hospital_centre, class_name: "Hospitals::Centre"
+      belongs_to :destination_hospital_centre, class_name: "Hospitals::Centre"
       validates :patient, presence: true
       validates :modality_code, presence: true
 

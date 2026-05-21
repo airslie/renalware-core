@@ -11,6 +11,10 @@
                   collection: Renalware::Pathology::ObservationDescription.rr_coding_standards.keys,
                   label: "Coding standard",
                   include_blank: false
+        = f.input :hd_sample_type,
+                  collection: Renalware::Pathology::ObservationDescription.hd_sample_types.keys,
+                  label: "HD sample type",
+                  include_blank: "Not pre/post HD"
 
       h5 Measurement units
       .border.rounded.px-4.py-2.mb-2

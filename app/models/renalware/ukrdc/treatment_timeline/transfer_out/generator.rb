@@ -24,7 +24,9 @@ module Renalware
 
             most_recent_treatment.update!(
               discharge_reason_code: RR7_DISCHARGE_CODE_TRANSFER_OUT,
-              discharge_reason_comment: "transfer_out"
+              discharge_reason_comment: "transfer_out",
+              source_hospital_centre_id: modality.source_hospital_centre_id,
+              destination_hospital_centre_id: modality.destination_hospital_centre_id
             )
           end
         end

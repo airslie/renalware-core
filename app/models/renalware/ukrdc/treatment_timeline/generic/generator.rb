@@ -31,7 +31,9 @@ module Renalware
               modality_id: modality.id,
               modality_description_id: modality.description_id,
               ended_on: modality.ended_on,
-              modality_code: ukrdc_modality_code
+              modality_code: ukrdc_modality_code,
+              source_hospital_centre_id: modality.source_hospital_centre_id,
+              destination_hospital_centre_id: modality.destination_hospital_centre_id
             )
           end
         end

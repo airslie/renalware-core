@@ -24,7 +24,9 @@ module Renalware
 
       context "when the patient has one simple modality" do
         it "generates one Treatment with the relevant UKRDC modality code" do
-          set_modality(patient:, modality_description: hd_mod_desc, by: user)
+          source_hospital_centre = create(:hospital_centre)
+          modality = set_modality(patient:, modality_description: hd_mod_desc, by: user)
+          modality.update!(source_hospital_centre:)
           hd_ukrdc_modality_code
 
           service.call
@@ -35,7 +37,8 @@ module Renalware
             clinician: user,
             patient:,
             started_on: patient.current_modality.started_on,
-            ended_on: nil
+            ended_on: nil,
+            source_hospital_centre_id: source_hospital_centre.id
           )
         end
       end
@@ -81,6 +84,7 @@ module Renalware
 
         it "generates 1 Treatment and assigns it the appropriate DischargeReason" do
           options = { patient:, modality_description: hd_mod_desc, by: user }
+          destination_hospital_centre = create(:hospital_centre)
           set_modality(**options, started_on: 1.year.ago)
           hd_modality2 = set_modality(**options, started_on: 1.month.ago)
           transfer_out_mod = set_modality(
@@ -88,6 +92,7 @@ module Renalware
             modality_description: transfer_out_mod_desc,
             started_on: 1.week.ago
           )
+          transfer_out_mod.update!(destination_hospital_centre:)
           # Patient returns from from a transfer out!
           set_modality(**options, started_on: 1.day.ago)
 
@@ -105,7 +110,8 @@ module Renalware
             started_on: hd_modality2.started_on,
             ended_on: transfer_out_mod.started_on,
             discharge_reason_code: 38,
-            discharge_reason_comment: "transfer_out"
+            discharge_reason_comment: "transfer_out",
+            destination_hospital_centre_id: destination_hospital_centre.id
           )
         end
       end

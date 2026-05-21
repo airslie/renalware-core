@@ -73,6 +73,58 @@ module Renalware
           end
         end
 
+        context "when the treatment has a source hospital centre" do
+          it "renders an AdmissionSource element" do
+            treatment = UKRDC::Treatment.new(
+              discharge_reason_code: "38",
+              modality_code: UKRDC::ModalityCode.new(txt_code: "1"),
+              modality_id: 1,
+              source_hospital_centre: Hospitals::Centre.new(
+                code: "SNC01",
+                name: "Aberdeen Royal Infirmary"
+              ),
+              started_on: Time.zone.parse("2019-12-13")
+            )
+
+            xml = format_xml(
+              described_class.new(treatment:).xml
+            )
+
+            expect(xml).to match(
+              "<AdmitReason><CodingStandard>CF_RR7_TREATMENT</CodingStandard>" \
+              "<Code>1</Code></AdmitReason>" \
+              "<AdmissionSource><CodingStandard>ODS</CodingStandard><Code>SNC01</Code>" \
+              "<Description>Aberdeen Royal Infirmary</Description></AdmissionSource>" \
+              "<DischargeReason>"
+            )
+          end
+        end
+
+        context "when the treatment has a destination hospital centre" do
+          it "renders a DischargeLocation element" do
+            treatment = UKRDC::Treatment.new(
+              discharge_reason_code: "38",
+              destination_hospital_centre: Hospitals::Centre.new(
+                code: "RRK02",
+                name: "Queen Elizabeth Hospital"
+              ),
+              modality_id: 1,
+              started_on: Time.zone.parse("2019-12-13")
+            )
+
+            xml = format_xml(
+              described_class.new(treatment:).xml
+            )
+
+            expect(xml).to match(
+              "<DischargeReason><CodingStandard>CF_RR7_DISCHARGE</CodingStandard>" \
+              "<Code>38</Code></DischargeReason>" \
+              "<DischargeLocation><CodingStandard>ODS</CodingStandard><Code>RRK02</Code>" \
+              "<Description>Queen Elizabeth Hospital</Description></DischargeLocation>"
+            )
+          end
+        end
+
         context "when an attributes has is supplied" do
           it "renders them inside an Attributes element provided the hash value is present" do
             treatment = UKRDC::Treatment.new(

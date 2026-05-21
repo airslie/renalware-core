@@ -919,6 +919,16 @@ CREATE TYPE renalware.pathology_chart_axis AS ENUM (
 
 
 --
+-- Name: pathology_hd_sample_type; Type: TYPE; Schema: renalware; Owner: -
+--
+
+CREATE TYPE renalware.pathology_hd_sample_type AS ENUM (
+    'pre',
+    'post'
+);
+
+
+--
 -- Name: patient_merge_message_types; Type: TYPE; Schema: renalware; Owner: -
 --
 
@@ -2818,7 +2828,8 @@ CREATE TABLE renalware.pathology_observation_descriptions (
     created_by_sender_id bigint,
     observations_count integer DEFAULT 0,
     last_observed_at timestamp without time zone,
-    colour renalware.enum_colour_name
+    colour renalware.enum_colour_name,
+    hd_sample_type renalware.pathology_hd_sample_type
 );
 
 
@@ -17062,8 +17073,24 @@ CREATE TABLE renalware.ukrdc_treatments (
     pd_regime_id bigint,
     discharge_reason_code integer,
     discharge_reason_comment character varying,
-    hd_type character varying
+    hd_type character varying,
+    source_hospital_centre_id bigint,
+    destination_hospital_centre_id bigint
 );
+
+
+--
+-- Name: COLUMN ukrdc_treatments.source_hospital_centre_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.ukrdc_treatments.source_hospital_centre_id IS 'Source hospital when modality is transferred in.';
+
+
+--
+-- Name: COLUMN ukrdc_treatments.destination_hospital_centre_id; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.ukrdc_treatments.destination_hospital_centre_id IS 'Destination hospital when modality is transferred out.';
 
 
 --
@@ -17336,6 +17363,20 @@ CREATE SEQUENCE renalware.virology_versions_id_seq
 --
 
 ALTER SEQUENCE renalware.virology_versions_id_seq OWNED BY renalware.virology_versions.id;
+
+
+--
+-- Name: xxx; Type: VIEW; Schema: renalware; Owner: -
+--
+
+CREATE VIEW renalware.xxx AS
+ SELECT id,
+    secure_id,
+    family_name,
+    given_name,
+    family_name AS patient_name,
+    1 AS sss
+   FROM renalware.patients;
 
 
 --
@@ -28464,6 +28505,13 @@ CREATE INDEX index_ukrdc_treatments_on_clinician_id ON renalware.ukrdc_treatment
 
 
 --
+-- Name: index_ukrdc_treatments_on_destination_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_treatments_on_destination_hospital_centre_id ON renalware.ukrdc_treatments USING btree (destination_hospital_centre_id);
+
+
+--
 -- Name: index_ukrdc_treatments_on_hd_profile_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -28517,6 +28565,13 @@ CREATE INDEX index_ukrdc_treatments_on_patient_id ON renalware.ukrdc_treatments 
 --
 
 CREATE INDEX index_ukrdc_treatments_on_pd_regime_id ON renalware.ukrdc_treatments USING btree (pd_regime_id);
+
+
+--
+-- Name: index_ukrdc_treatments_on_source_hospital_centre_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_ukrdc_treatments_on_source_hospital_centre_id ON renalware.ukrdc_treatments USING btree (source_hospital_centre_id);
 
 
 --
@@ -31409,6 +31464,14 @@ ALTER TABLE ONLY renalware.hd_stations
 
 
 --
+-- Name: ukrdc_treatments fk_rails_afe0d54dfb; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.ukrdc_treatments
+    ADD CONSTRAINT fk_rails_afe0d54dfb FOREIGN KEY (destination_hospital_centre_id) REFERENCES renalware.hospital_centres(id);
+
+
+--
 -- Name: pathology_code_group_memberships fk_rails_aff8ecb964; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -32225,6 +32288,14 @@ ALTER TABLE ONLY renalware.users
 
 
 --
+-- Name: ukrdc_treatments fk_rails_ecf83b2207; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.ukrdc_treatments
+    ADD CONSTRAINT fk_rails_ecf83b2207 FOREIGN KEY (source_hospital_centre_id) REFERENCES renalware.hospital_centres(id);
+
+
+--
 -- Name: problem_problems fk_rails_edf3902cb0; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -32807,6 +32878,8 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260520090000'),
+('20260520082138'),
 ('20260513120002'),
 ('20260513120000'),
 ('20260507100000'),

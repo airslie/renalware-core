@@ -76,7 +76,8 @@ module Renalware
             :lower_threshold,
             :upper_threshold,
             :loinc_code,
-            :rr_coding_standard
+            :rr_coding_standard,
+            :hd_sample_type
           )
       end
     end

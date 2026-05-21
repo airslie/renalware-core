@@ -24,7 +24,9 @@ module Renalware
                 end
                 elem << healthcare_facility_element
                 elem << admin_reason_element
+                elem << admission_source_element
                 elem << discharge_reason_element
+                elem << discharge_location_element
                 elem << attributes_element
               end
             end
@@ -45,12 +47,30 @@ module Renalware
               end
             end
 
+            def admission_source_element
+              location_element("AdmissionSource", treatment.source_hospital_centre)
+            end
+
             def discharge_reason_element
               return if treatment&.discharge_reason_code.blank?
 
               create_node("DischargeReason") do |elem|
                 elem << create_node("CodingStandard", "CF_RR7_DISCHARGE")
                 elem << create_node("Code", treatment.discharge_reason_code)
+              end
+            end
+
+            def discharge_location_element
+              location_element("DischargeLocation", treatment.destination_hospital_centre)
+            end
+
+            def location_element(name, hospital_centre)
+              return if hospital_centre.blank?
+
+              create_node(name) do |elem|
+                elem << create_node("CodingStandard", "ODS")
+                elem << create_node("Code", hospital_centre.code)
+                elem << create_node("Description", hospital_centre.name)
               end
             end
 
