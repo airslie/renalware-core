@@ -89,6 +89,51 @@ module Renalware
         expect(page).to have_css("svg")
       end
 
+      context "with columns configuration action" do
+        let(:view_metadata) {
+          create(
+            :view_metadata,
+            category: :widget,
+            schema_name: "renalware",
+            view_name: "sql_view_widget_component_test_view",
+            title: "Test Results",
+            columns: [
+              ColumnDefinition.new(code: "patient_id", hidden: true),
+              ColumnDefinition.new(code: "performed_on", name: "Date"),
+              ColumnDefinition.new(code: "test_type", name: "Type")
+            ],
+            widget_options: widget_options
+          )
+        }
+
+        it "renders a configure columns action for a superadmin" do
+          user = create(:user, :super_admin)
+
+          render_inline(described_class.new(view_metadata: view_metadata, current_user: user))
+
+          expect(page).to have_link(
+            "Configure columns",
+            href: "/system/view_metadata/#{view_metadata.id}/edit.html"
+          )
+          expect(page).to have_css(
+            "#system-view-metadata-modal-#{view_metadata.id}.reveal-modal.medium",
+            visible: :all
+          )
+        end
+
+        it "does not render a configure columns action for a non-superadmin" do
+          user = create(:user)
+
+          render_inline(described_class.new(view_metadata: view_metadata, current_user: user))
+
+          expect(page).to have_no_link("Configure columns")
+          expect(page).to have_no_css(
+            "#system-view-metadata-modal-#{view_metadata.id}",
+            visible: :all
+          )
+        end
+      end
+
       context "when scoped to a patient" do
         let(:patient) { instance_double(Patient, id: 1) }
 

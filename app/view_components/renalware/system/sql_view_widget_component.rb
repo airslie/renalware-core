@@ -13,6 +13,20 @@ module Renalware
         view_metadata.title.presence || view_metadata.view_name.humanize
       end
 
+      def configure_columns?
+        return false unless view_metadata.persisted? && current_user.present?
+
+        Renalware::System::ViewMetadataPolicy.new(current_user, view_metadata).edit?
+      end
+
+      def configure_columns_modal_id
+        "system-view-metadata-modal-#{view_metadata.id}"
+      end
+
+      def configure_columns_path
+        helpers.main_app.edit_system_view_metadatum_path(view_metadata, format: :html)
+      end
+
       private
 
       def relation
