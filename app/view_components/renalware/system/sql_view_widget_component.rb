@@ -9,17 +9,6 @@ module Renalware
         @rows ||= SqlViewWidgetQuery.call(relation.limit(widget_options.max_rows))
       end
 
-      def columns
-        @columns ||= begin
-          attribute_names = sql_view_klass.columns.map(&:name) - %w(id secure_id document)
-          attribute_names = (view_metadata.columns.map(&:code) + attribute_names).uniq
-
-          attribute_names.filter_map do |attr|
-            column_definition_for(attr).then { |column| column unless column.hidden }
-          end
-        end
-      end
-
       def title
         view_metadata.title.presence || view_metadata.view_name.humanize
       end
@@ -68,11 +57,6 @@ module Renalware
           ArgumentError,
           "#{column_name} is not a column on #{view_metadata.fully_qualified_view_name}"
         )
-      end
-
-      def column_definition_for(attr)
-        view_metadata.columns.detect { |col| col.code == attr } ||
-          Renalware::System::ColumnDefinition.new(code: attr, hidden: false)
       end
 
       def sql_view_klass

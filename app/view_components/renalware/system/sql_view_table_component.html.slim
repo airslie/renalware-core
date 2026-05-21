@@ -1,0 +1,29 @@
+table(id=table_id)
+  thead
+    tr
+      - if row_action?
+        th.col-width-tiny
+      - columns.each do |column|
+        th(class=table_classes_for(column))
+          = render_header_for(column)
+      th
+        / empty to allow table to expand to the right
+  tbody
+    - rows.each do |row|
+      tr
+        - if row_action?
+          td.actions
+            = helpers.external_link_to row_action_label,
+                                      row_path_proc.call(row),
+                                      class: "btn btn-compact btn-primary py-0 font-normal"
+        - columns.each do |column|
+          - value = row.attributes[column.code]
+          td(class=cell_classes_for(column) title=cell_title_for(column, value))
+            = render_cell_for(row, column)
+        td
+          / empty to allow table to expand to the right
+
+- if pagination?
+  .flex.items-center.gap-x-8
+    == pagination.series_nav if pagination.pages > 1
+    .grow.text-right== pagination.info_tag

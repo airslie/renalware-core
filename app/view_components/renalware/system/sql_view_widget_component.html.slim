@@ -2,17 +2,6 @@
   - article.with_title { title }
 
   - if rows.any?
-    table
-      thead
-        tr
-          - columns.each do |col|
-            th= col.title
-      tbody
-        - rows.each do |row|
-          tr
-            - columns.each do |col|
-              - value = row.attributes[col.code]
-              - value = l(value) if value.respond_to?(:strftime)
-              td= value
+    = render Renalware::System::SqlViewTableComponent.new(view_metadata: view_metadata, rows: rows)
   - else
     p.empty= empty_state
