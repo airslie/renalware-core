@@ -92,6 +92,28 @@ module Renalware
           expect(page).to have_no_text("Kt/V")
           expect(page).to have_no_text("Other")
         end
+
+        it "only renders rows for the supplied patient scope when no patient is supplied" do
+          visible_patient = create(:patient, :minimal)
+          connection = ApplicationRecord.connection
+          connection.execute(<<~SQL.squish)
+            INSERT INTO renalware.sql_view_widget_component_test_rows
+              (patient_id, performed_on, test_type)
+            VALUES
+              (#{visible_patient.id}, '2026-05-04', 'Scoped')
+          SQL
+
+          render_inline(
+            described_class.new(
+              view_metadata: view_metadata,
+              patient_scope: Renalware::Patient.where(id: visible_patient.id)
+            )
+          )
+
+          expect(page).to have_text("Scoped")
+          expect(page).to have_no_text("Kt/V")
+          expect(page).to have_no_text("Other")
+        end
       end
     end
   end

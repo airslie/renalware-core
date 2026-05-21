@@ -17366,20 +17366,6 @@ ALTER SEQUENCE renalware.virology_versions_id_seq OWNED BY renalware.virology_ve
 
 
 --
--- Name: xxx; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.xxx AS
- SELECT id,
-    secure_id,
-    family_name,
-    given_name,
-    family_name AS patient_name,
-    1 AS sss
-   FROM renalware.patients;
-
-
---
 -- Name: access_assessments id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 

@@ -1,12 +1,12 @@
 module Renalware
   module System
     class SqlViewWidgetComponent < ApplicationComponent
-      rattr_initialize [:view_metadata!, patient: nil, current_user: nil]
+      rattr_initialize [:view_metadata!, patient: nil, patient_scope: nil, current_user: nil]
 
       delegate :empty_state, to: :widget_options
 
       def rows
-        @rows ||= relation.limit(widget_options.max_rows).to_a
+        @rows ||= SqlViewWidgetQuery.call(relation.limit(widget_options.max_rows))
       end
 
       def columns
@@ -37,11 +37,16 @@ module Renalware
 
       def patient_scoped_relation(rel)
         return rel unless widget_options.scoped_to_patient?
-        return rel.none if patient.blank?
 
         validate_column!(widget_options.patient_id_column)
 
-        rel.where(widget_options.patient_id_column => patient.id)
+        if patient.present?
+          rel.where(widget_options.patient_id_column => patient.id)
+        elsif patient_scope.present?
+          rel.where(widget_options.patient_id_column => patient_scope.select(:id))
+        else
+          rel.none
+        end
       end
 
       def ordered_relation(rel)

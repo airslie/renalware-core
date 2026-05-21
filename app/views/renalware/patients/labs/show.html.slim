@@ -1,0 +1,8 @@
+= within_patient_layout(title: "Lab") do
+  - slots.each do |slot|
+    .lab-slot
+      = sql_view_widgets_for(slot,
+                             patient: patient,
+                             lab: true,
+                             schema_name: "site",
+                             require_patient_scope: true)

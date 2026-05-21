@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   scope module: :renalware do
     root to: "dashboard/dashboards#show"
 
+    resource :lab, only: :show
+
     draw :accesses
     draw :admin
     draw :admissions
