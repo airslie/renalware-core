@@ -40,7 +40,7 @@ module Renalware
               started_on: start_date,
               modality_id: modality.id,
               modality_description_id: modality.description_id,
-              hospital_unit: profile&.hospital_unit,
+              hospital_unit: hospital_unit_for_treatment(profile, start_date),
               ended_on: end_date,
               modality_code: ukrdc_modality_code_from_profile(profile),
               hd_profile: profile,
@@ -119,6 +119,44 @@ module Renalware
 
           def hd_patient
             Renalware::HD.cast_patient(patient)
+          end
+
+          # Prefer the HD Profile unit, but fall back to a nearby HD Session when historical
+          # profile data is incomplete.
+          def hospital_unit_for_treatment(profile, start_date)
+            profile&.hospital_unit || nearest_hd_session_hospital_unit(start_date)
+          end
+
+          def nearest_hd_session_hospital_unit(start_date)
+            return if start_date.blank?
+
+            nearest_hd_session(start_date)&.hospital_unit
+          end
+
+          def nearest_hd_session(start_date)
+            sessions_near_treatment_start(start_date).min_by do |session|
+              [
+                (session.started_at - treatment_started_at(start_date)).abs,
+                session.started_at
+              ]
+            end
+          end
+
+          def sessions_near_treatment_start(start_date)
+            Renalware::HD::Session
+              .where(patient_id: patient.id)
+              .where(started_at: hd_session_search_period(start_date))
+              .includes(:hospital_unit)
+          end
+
+          def hd_session_search_period(start_date)
+            started_at = treatment_started_at(start_date)
+
+            (started_at - 1.month)..(started_at + 1.month)
+          end
+
+          def treatment_started_at(start_date)
+            start_date.in_time_zone
           end
 
           def hospital_centre_attributes
