@@ -11,10 +11,79 @@ module Renalware
       let(:transfer_out_mod_desc) { create(:modality_description, :transfer_out) }
       let(:hd_ukrdc_modality_code) { create(:ukrdc_modality_code, :hd) }
       let(:hdf_ukrdc_modality_code) { create(:ukrdc_modality_code, :hdf) }
+      let(:first_assessment_ukrdc_modality_code) do
+        create(:ukrdc_modality_code, :first_assessment)
+      end
 
       context "when the patient has no modality" do
         it "does not generate a timeline row" do
           expect(patient.modalities.count).to eq(0)
+
+          service.call
+
+          expect(UKRDC::Treatment.count).to eq(0)
+        end
+      end
+
+      context "when the patient has a first seen date in their renal profile" do
+        it "generates a first assessment Treatment" do
+          first_assessment_ukrdc_modality_code
+          renal_profile = create(
+            :renal_profile,
+            patient: Renal.cast_patient(patient),
+            first_seen_on: "2017-01-01"
+          )
+
+          service.call
+
+          expect(UKRDC::Treatment.count).to eq(1)
+          expect(UKRDC::Treatment.first).to have_attributes(
+            modality_code: first_assessment_ukrdc_modality_code,
+            patient:,
+            started_on: renal_profile.first_seen_on,
+            ended_on: nil,
+            modality_id: nil,
+            modality_description_id: nil
+          )
+        end
+
+        it "supports being called with a UKRDC patient presenter" do
+          first_assessment_ukrdc_modality_code
+          renal_profile = create(
+            :renal_profile,
+            patient: Renal.cast_patient(patient),
+            first_seen_on: "2017-01-01"
+          )
+
+          described_class.new(UKRDC::PatientPresenter.new(patient)).call
+
+          expect(UKRDC::Treatment.first).to have_attributes(
+            patient:,
+            started_on: renal_profile.first_seen_on
+          )
+        end
+
+        it "generates it alongside modality Treatments" do
+          first_assessment_ukrdc_modality_code
+          hd_ukrdc_modality_code
+          create(
+            :renal_profile,
+            patient: Renal.cast_patient(patient),
+            first_seen_on: 1.year.ago
+          )
+          set_modality(patient:, modality_description: hd_mod_desc, by: user)
+
+          service.call
+
+          treatments = UKRDC::Treatment.ordered
+          expect(treatments.size).to eq(2)
+          expect(treatments.first.modality_code).to eq(first_assessment_ukrdc_modality_code)
+          expect(treatments.last.modality_code).to eq(hd_ukrdc_modality_code)
+        end
+
+        it "does not generate one when the first seen date is blank" do
+          first_assessment_ukrdc_modality_code
+          create(:renal_profile, patient: Renal.cast_patient(patient), first_seen_on: nil)
 
           service.call
 

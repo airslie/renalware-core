@@ -9,6 +9,7 @@ module Renalware
 
         def call
           # RemapModelTableNamesToTheirPreparedEquivalents.new.call do
+          create_first_assessment_treatment
           Rails.logger.info "    Generating Treatment rows for modalities #{modality_names}"
           modalities.each do |modality|
             generator = GeneratorFactory.call(modality)
@@ -18,6 +19,28 @@ module Renalware
         end
 
         private
+
+        def create_first_assessment_treatment
+          return if renal_profile&.first_seen_on.blank?
+
+          Treatment.create!(
+            patient: patient_record,
+            modality_code: first_assessment_modality_code,
+            started_on: renal_profile.first_seen_on
+          )
+        end
+
+        def first_assessment_modality_code
+          @first_assessment_modality_code ||= UKRDC::ModalityCode.find_by!(txt_code: 101)
+        end
+
+        def renal_profile
+          @renal_profile ||= Renal.cast_patient(patient_record).profile
+        end
+
+        def patient_record
+          @patient_record ||= patient.respond_to?(:__getobj__) ? patient.__getobj__ : patient
+        end
 
         def modalities
           @modalities ||= begin

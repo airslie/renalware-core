@@ -182,6 +182,8 @@ module Renalware
             end
 
             def treatment_class_for(modality_description)
+              return Treatment if modality_description.blank?
+
               namespace = modality_description.namespace_raw # e.g. HD
               Renalware::UKRDC::Outgoing::Rendering::V4.const_get("#{namespace}Treatment")
             rescue NameError
