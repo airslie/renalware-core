@@ -1,0 +1,396 @@
+describe "Lab" do
+  let(:connection) { ApplicationRecord.connection }
+
+  before do
+    @original_stage = ENV.fetch("RENALWARE_STAGE", nil)
+  end
+
+  after do
+    @original_stage.nil? ? ENV.delete("RENALWARE_STAGE") : ENV["RENALWARE_STAGE"] = @original_stage
+    connection.execute("DROP VIEW IF EXISTS site.lab_global_widget_view")
+    connection.execute("DROP TABLE IF EXISTS site.lab_global_widget_rows")
+    connection.execute("DROP VIEW IF EXISTS site.lab_global_patient_widget_view")
+    connection.execute("DROP TABLE IF EXISTS site.lab_global_patient_widget_rows")
+    connection.execute("DROP VIEW IF EXISTS site.lab_patient_widget_view")
+    connection.execute("DROP TABLE IF EXISTS site.lab_patient_widget_rows")
+    connection.execute("DROP VIEW IF EXISTS renalware.lab_global_widget_view")
+    connection.execute("DROP TABLE IF EXISTS renalware.lab_global_widget_rows")
+    connection.execute("DROP VIEW IF EXISTS renalware.lab_patient_widget_view")
+    connection.execute("DROP TABLE IF EXISTS renalware.lab_patient_widget_rows")
+  end
+
+  describe "GET /lab" do
+    context "when the user has the lab feature flag" do
+      it "responds with the lab page" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+
+        get lab_path
+
+        expect(response).to be_successful
+      end
+
+      it "renders widgets configured for global lab slots" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_global_lab_widget
+        create_global_lab_widget(schema_name: "renalware", title: "Ignored Global Widget")
+
+        expect { get lab_path }
+          .to change(Renalware::System::ViewCall, :count).by(1)
+
+        expect(response.body).to include("Global Lab Widget")
+        expect(response.body).to include("Global widget row")
+        expect(response.body).not_to include("Ignored Global Widget")
+        expect(widget.calls.last.user).to eq(@current_user)
+      end
+
+      it "can defer global widget rendering to a turbo frame" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_global_lab_widget(async: true)
+
+        expect { get lab_path }
+          .not_to change(Renalware::System::ViewCall, :count)
+
+        expect(response.body).to include("Global Lab Widget")
+        expect(response.body).to include(%(id="sql-view-widget-#{widget.id}"))
+        expect(response.body).to include(system_sql_view_widget_path(widget))
+        expect(response.body).not_to include("Global widget row")
+
+        expect {
+          get system_sql_view_widget_path(
+            widget,
+            schema_name: "site",
+            slot: "lab:global:top"
+          )
+        }.to change(Renalware::System::ViewCall, :count).by(1)
+
+        expect(response.body).to include(%(id="sql-view-widget-#{widget.id}"))
+        expect(response.body).to include("Global widget row")
+        expect(widget.calls.last.user).to eq(@current_user)
+      end
+
+      it "does not render async widgets outside their configured lab context" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_global_lab_widget(async: true)
+
+        get system_sql_view_widget_path(
+          widget,
+          schema_name: "site",
+          slot: "lab:global:bottom"
+        )
+
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "filters global patient widgets through the current patient policy scope" do
+        visible_hospital = create(:hospital_centre, code: "VIS", name: "Visible Hospital")
+        hidden_hospital = create(:hospital_centre, code: "HID", name: "Hidden Hospital")
+        user = create(
+          :user,
+          :clinical,
+          feature_flags: Renalware::FeatureFlags::LAB,
+          hospital_centre: visible_hospital
+        )
+        visible_patient = create(:patient, :minimal, by: user, hospital_centre: visible_hospital)
+        hidden_patient = create(:patient, :minimal, by: user, hospital_centre: hidden_hospital)
+        widget = create_global_patient_lab_widget(
+          visible_patient_id: visible_patient.id,
+          hidden_patient_id: hidden_patient.id
+        )
+        allow(Renalware.config).to receive_messages(
+          restrict_patient_visibility_by_user_site?: true,
+          restrict_patient_visibility_by_research_study?: false
+        )
+
+        login_as_with_user(user)
+
+        get lab_path
+
+        expect(response.body).to include("Global Patient Lab Widget")
+        expect(response.body).to include("Visible patient row")
+        expect(response.body).not_to include("Hidden patient row")
+        expect(widget.calls.last.user).to eq(user)
+      end
+    end
+
+    context "when the user does not have the lab feature flag" do
+      it "redirects to the dashboard" do
+        @current_user.update!(feature_flags: 0)
+
+        get lab_path
+
+        expect(response).to redirect_to(dashboard_path)
+      end
+
+      it "does not render async widgets" do
+        @current_user.update!(feature_flags: 0)
+        widget = create_global_lab_widget(async: true)
+
+        get system_sql_view_widget_path(
+          widget,
+          schema_name: "site",
+          slot: "lab:global:top"
+        )
+
+        expect(response).to redirect_to(dashboard_path)
+      end
+    end
+  end
+
+  describe "GET /patients/:patient_id/lab" do
+    let(:patient) { create(:patient, :minimal, by: @current_user) }
+
+    context "when the user has the lab feature flag" do
+      it "responds with the patient lab page" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+
+        get patient_lab_path(patient)
+
+        expect(response).to be_successful
+      end
+
+      it "renders widgets configured for patient lab slots" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_patient_lab_widget(patient_id: patient.id)
+        create_patient_lab_widget(
+          patient_id: patient.id,
+          schema_name: "renalware",
+          title: "Ignored Patient Widget"
+        )
+
+        expect { get patient_lab_path(patient) }
+          .to change(Renalware::System::ViewCall, :count).by(1)
+
+        expect(response.body).to include("Patient Lab Widget")
+        expect(response.body).to include("Current patient row")
+        expect(response.body).not_to include("Other patient row")
+        expect(response.body).not_to include("Ignored Patient Widget")
+        expect(widget.calls.last.user).to eq(@current_user)
+      end
+
+      it "can defer patient widget rendering to a turbo frame" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_patient_lab_widget(patient_id: patient.id, async: true)
+
+        expect { get patient_lab_path(patient) }
+          .not_to change(Renalware::System::ViewCall, :count)
+
+        expect(response.body).to include("Patient Lab Widget")
+        expect(response.body).to include(%(id="sql-view-widget-#{widget.id}"))
+        expect(response.body).not_to include("Current patient row")
+
+        expect {
+          get system_sql_view_widget_path(
+            widget,
+            patient_id: patient.to_param,
+            schema_name: "site",
+            slot: "lab:patient:middle"
+          )
+        }.to change(Renalware::System::ViewCall, :count).by(1)
+
+        expect(response.body).to include(%(id="sql-view-widget-#{widget.id}"))
+        expect(response.body).to include("Current patient row")
+        expect(response.body).not_to include("Other patient row")
+        expect(widget.calls.last.user).to eq(@current_user)
+      end
+
+      it "does not render async patient widgets without a patient context" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_patient_lab_widget(patient_id: patient.id, async: true)
+
+        get system_sql_view_widget_path(
+          widget,
+          schema_name: "site",
+          slot: "lab:patient:middle"
+        )
+
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "treats any patient slot segment as requiring patient context" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_patient_lab_widget(
+          patient_id: patient.id,
+          async: true,
+          slots: ["dashboard:patient:middle"]
+        )
+
+        get system_sql_view_widget_path(
+          widget,
+          schema_name: "site",
+          slot: "dashboard:patient:middle"
+        )
+
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "does not render unscoped patient widgets" do
+        ENV.delete("RENALWARE_STAGE")
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_patient_lab_widget(patient_id: patient.id)
+        create_patient_lab_widget(
+          patient_id: patient.id,
+          title: "Unsafe Patient Lab Widget",
+          patient_id_column: nil
+        )
+
+        expect { get patient_lab_path(patient) }
+          .to change(Renalware::System::ViewCall, :count).by(1)
+
+        expect(response.body).to include("Patient Lab Widget")
+        expect(response.body).to include("Current patient row")
+        expect(response.body).to include("Unsafe Patient Lab Widget")
+        expect(response.body).to include("This Lab item could not be loaded.")
+        expect(response.body).not_to include("PatientScopeRequiredError")
+        expect(widget.calls.last.user).to eq(@current_user)
+      end
+
+      it "shows debugging details for unscoped patient widgets in uat" do
+        ENV["RENALWARE_STAGE"] = "uat"
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        create_patient_lab_widget(
+          patient_id: patient.id,
+          title: "Unsafe Patient Lab Widget",
+          patient_id_column: nil
+        )
+
+        get patient_lab_path(patient)
+
+        expect(response.body).to include("Unsafe Patient Lab Widget")
+        expect(response.body).to include(
+          "Patient lab widgets must define widget_options.patient_id_column"
+        )
+      end
+    end
+
+    context "when the user does not have the lab feature flag" do
+      it "redirects to the dashboard" do
+        @current_user.update!(feature_flags: 0)
+
+        get patient_lab_path(patient)
+
+        expect(response).to redirect_to(dashboard_path)
+      end
+    end
+  end
+
+  def create_global_lab_widget(schema_name: "site", title: "Global Lab Widget", async: false)
+    connection.execute("CREATE SCHEMA IF NOT EXISTS #{schema_name}")
+    connection.execute(<<~SQL.squish)
+      CREATE TABLE IF NOT EXISTS #{schema_name}.lab_global_widget_rows (
+        label text
+      )
+    SQL
+    connection.execute(<<~SQL.squish)
+      CREATE OR REPLACE VIEW #{schema_name}.lab_global_widget_view AS
+      SELECT label
+      FROM #{schema_name}.lab_global_widget_rows
+    SQL
+    connection.execute("DELETE FROM #{schema_name}.lab_global_widget_rows")
+    connection.execute(<<~SQL.squish)
+      INSERT INTO #{schema_name}.lab_global_widget_rows (label)
+      VALUES ('Global widget row')
+    SQL
+
+    create(
+      :view_metadata,
+      category: :widget,
+      schema_name: schema_name,
+      view_name: "lab_global_widget_view",
+      title: title,
+      columns: [
+        Renalware::System::ColumnDefinition.new(code: "label", name: "Label")
+      ],
+      widget_options: {
+        slots: ["lab:global:top"],
+        max_rows: 5,
+        async: async
+      }
+    )
+  end
+
+  def create_global_patient_lab_widget(visible_patient_id:, hidden_patient_id:)
+    connection.execute("CREATE SCHEMA IF NOT EXISTS site")
+    connection.execute(<<~SQL.squish)
+      CREATE TABLE IF NOT EXISTS site.lab_global_patient_widget_rows (
+        patient_id bigint,
+        label text
+      )
+    SQL
+    connection.execute(<<~SQL.squish)
+      CREATE OR REPLACE VIEW site.lab_global_patient_widget_view AS
+      SELECT patient_id, label
+      FROM site.lab_global_patient_widget_rows
+    SQL
+    connection.execute("DELETE FROM site.lab_global_patient_widget_rows")
+    connection.execute(<<~SQL.squish)
+      INSERT INTO site.lab_global_patient_widget_rows (patient_id, label)
+      VALUES
+        (#{visible_patient_id}, 'Visible patient row'),
+        (#{hidden_patient_id}, 'Hidden patient row')
+    SQL
+
+    create(
+      :view_metadata,
+      category: :widget,
+      schema_name: "site",
+      view_name: "lab_global_patient_widget_view",
+      title: "Global Patient Lab Widget",
+      columns: [
+        Renalware::System::ColumnDefinition.new(code: "patient_id", hidden: true),
+        Renalware::System::ColumnDefinition.new(code: "label", name: "Label")
+      ],
+      widget_options: {
+        slots: ["lab:global:middle"],
+        max_rows: 5,
+        patient_id_column: "patient_id"
+      }
+    )
+  end
+
+  def create_patient_lab_widget(
+    patient_id:,
+    schema_name: "site",
+    title: "Patient Lab Widget",
+    patient_id_column: "patient_id",
+    async: false,
+    slots: ["lab:patient:middle"]
+  )
+    connection.execute("CREATE SCHEMA IF NOT EXISTS #{schema_name}")
+    connection.execute(<<~SQL.squish)
+      CREATE TABLE IF NOT EXISTS #{schema_name}.lab_patient_widget_rows (
+        patient_id bigint,
+        label text
+      )
+    SQL
+    connection.execute(<<~SQL.squish)
+      CREATE OR REPLACE VIEW #{schema_name}.lab_patient_widget_view AS
+      SELECT patient_id, label
+      FROM #{schema_name}.lab_patient_widget_rows
+    SQL
+    connection.execute("DELETE FROM #{schema_name}.lab_patient_widget_rows")
+    connection.execute(<<~SQL.squish)
+      INSERT INTO #{schema_name}.lab_patient_widget_rows (patient_id, label)
+      VALUES
+        (#{patient_id}, 'Current patient row'),
+        (#{patient_id + 1}, 'Other patient row')
+    SQL
+
+    create(
+      :view_metadata,
+      category: :widget,
+      schema_name: schema_name,
+      view_name: "lab_patient_widget_view",
+      title: title,
+      columns: [
+        Renalware::System::ColumnDefinition.new(code: "patient_id", hidden: true),
+        Renalware::System::ColumnDefinition.new(code: "label", name: "Label")
+      ],
+      widget_options: {
+        slots: slots,
+        max_rows: 5,
+        patient_id_column: patient_id_column,
+        async: async
+      }.compact
+    )
+  end
+end

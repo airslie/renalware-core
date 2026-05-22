@@ -1,18 +1,16 @@
 = render(Renalware::ArticleComponent.new(classes: "system-sql-view-widget simple simple-table")) do |article|
   - article.with_title { title }
+  - if configure_columns?
+    - article.with_action do
+      = link_to configure_columns_path,
+        data: { "reveal-id" => configure_columns_modal_id, "reveal-ajax" => "true" },
+        class: "button secondary" do
+        .flex.items-center.gap-2
+          = helpers.inline_icon(:cog)
+          | Configure columns
+      div(id=configure_columns_modal_id class="reveal-modal medium" data-reveal)
 
   - if rows.any?
-    table
-      thead
-        tr
-          - columns.each do |col|
-            th= col.title
-      tbody
-        - rows.each do |row|
-          tr
-            - columns.each do |col|
-              - value = row.attributes[col.code]
-              - value = l(value) if value.respond_to?(:strftime)
-              td= value
+    = render Renalware::System::SqlViewTableComponent.new(view_metadata: view_metadata, rows: rows)
   - else
     p.empty= empty_state

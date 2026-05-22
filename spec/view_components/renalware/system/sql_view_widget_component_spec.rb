@@ -11,7 +11,9 @@ module Renalware
           columns: [
             ColumnDefinition.new(code: "patient_id", hidden: true),
             ColumnDefinition.new(code: "performed_on", name: "Date"),
-            ColumnDefinition.new(code: "test_type", name: "Type")
+            ColumnDefinition.new(code: "test_type", name: "Type"),
+            ColumnDefinition.new(code: "notes", width: :medium, truncate: true),
+            ColumnDefinition.new(code: "active", name: "Active")
           ],
           widget_options: widget_options
         )
@@ -32,12 +34,16 @@ module Renalware
           CREATE TABLE IF NOT EXISTS renalware.sql_view_widget_component_test_rows (
             patient_id bigint,
             performed_on date,
-            test_type text
+            test_type text,
+            secure_id text,
+            patient_name text,
+            notes text,
+            active boolean
           )
         SQL
         connection.execute(<<~SQL.squish)
           CREATE OR REPLACE VIEW renalware.sql_view_widget_component_test_view AS
-          SELECT patient_id, performed_on, test_type
+          SELECT patient_id, performed_on, test_type, secure_id, patient_name, notes, active
           FROM renalware.sql_view_widget_component_test_rows
         SQL
         connection.execute(
@@ -45,11 +51,11 @@ module Renalware
         )
         connection.execute(<<~SQL.squish)
           INSERT INTO renalware.sql_view_widget_component_test_rows
-            (patient_id, performed_on, test_type)
+            (patient_id, performed_on, test_type, secure_id, patient_name, notes, active)
           VALUES
-            (1, '2026-05-01', 'UKM'),
-            (1, '2026-05-03', 'Kt/V'),
-            (2, '2026-05-02', 'Other')
+            (1, '2026-05-01', 'UKM', 'patient-secure-id-1', 'Jones, Jack', 'Older note', true),
+            (1, '2026-05-03', 'Kt/V', 'patient-secure-id-1', 'Jones, Jack', 'Long current note', true),
+            (2, '2026-05-02', 'Other', 'patient-secure-id-2', 'Smith, Sam', 'Other note', false)
         SQL
       end
 
@@ -68,6 +74,64 @@ module Renalware
         expect(page).to have_text("Kt/V")
         expect(page).to have_text("Other")
         expect(page).to have_no_text("UKM")
+      end
+
+      it "uses report-style column metadata and patient cell rendering" do
+        render_inline(described_class.new(view_metadata: view_metadata))
+
+        expect(page).to have_css("th.col-width-date", text: "Date")
+        expect(page).to have_css("th.col-width-medium", text: "Notes")
+        expect(page).to have_css("td.col-width-medium-with-ellipsis[title='Long current note']")
+        expect(page).to have_link(
+          "Jones, Jack",
+          href: "/patients/patient-secure-id-1/clinical_summary"
+        )
+        expect(page).to have_css("svg")
+      end
+
+      context "with columns configuration action" do
+        let(:view_metadata) {
+          create(
+            :view_metadata,
+            category: :widget,
+            schema_name: "renalware",
+            view_name: "sql_view_widget_component_test_view",
+            title: "Test Results",
+            columns: [
+              ColumnDefinition.new(code: "patient_id", hidden: true),
+              ColumnDefinition.new(code: "performed_on", name: "Date"),
+              ColumnDefinition.new(code: "test_type", name: "Type")
+            ],
+            widget_options: widget_options
+          )
+        }
+
+        it "renders a configure columns action for a superadmin" do
+          user = create(:user, :super_admin)
+
+          render_inline(described_class.new(view_metadata: view_metadata, current_user: user))
+
+          expect(page).to have_link(
+            "Configure columns",
+            href: "/system/view_metadata/#{view_metadata.id}/edit.html"
+          )
+          expect(page).to have_css(
+            "#system-view-metadata-modal-#{view_metadata.id}.reveal-modal.medium",
+            visible: :all
+          )
+        end
+
+        it "does not render a configure columns action for a non-superadmin" do
+          user = create(:user)
+
+          render_inline(described_class.new(view_metadata: view_metadata, current_user: user))
+
+          expect(page).to have_no_link("Configure columns")
+          expect(page).to have_no_css(
+            "#system-view-metadata-modal-#{view_metadata.id}",
+            visible: :all
+          )
+        end
       end
 
       context "when scoped to a patient" do
@@ -89,6 +153,32 @@ module Renalware
           render_inline(described_class.new(view_metadata: view_metadata))
 
           expect(page).to have_text("No test data")
+          expect(page).to have_no_text("Kt/V")
+          expect(page).to have_no_text("Other")
+        end
+
+        it "only renders rows for the supplied patient scope when no patient is supplied" do
+          visible_patient = create(:patient, :minimal)
+          connection = ApplicationRecord.connection
+          connection.execute(<<~SQL.squish)
+            UPDATE renalware.sql_view_widget_component_test_rows
+            SET patient_id = 999999999
+          SQL
+          connection.execute(<<~SQL.squish)
+            INSERT INTO renalware.sql_view_widget_component_test_rows
+              (patient_id, performed_on, test_type)
+            VALUES
+              (#{visible_patient.id}, '2026-05-04', 'Scoped')
+          SQL
+
+          render_inline(
+            described_class.new(
+              view_metadata: view_metadata,
+              patient_scope: Renalware::Patient.where(id: visible_patient.id)
+            )
+          )
+
+          expect(page).to have_text("Scoped")
           expect(page).to have_no_text("Kt/V")
           expect(page).to have_no_text("Other")
         end

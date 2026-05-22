@@ -16,7 +16,7 @@ module Renalware
         password: Renalware.config.demo_password,
         approved: true,
         signature: "#{site} Superuser",
-        feature_flags: 4,
+        feature_flags: 8,
         professional_position: Faker::Job.position,
         hospital_centre_id: host_hospital_centre_id,
         role: :super_admin

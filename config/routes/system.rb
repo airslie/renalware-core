@@ -6,6 +6,7 @@ namespace :system do
   resources :user_feedback, except: :destroy, controller: "user_feedback"
   resources :messages
   resources :downloads
+  resources :sql_view_widgets, only: :show
   resources :view_metadata, only: %i(edit update) do
     patch :restore, on: :member
   end

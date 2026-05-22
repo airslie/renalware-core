@@ -1,27 +1,30 @@
 module Renalware
   module System
     class SqlViewWidgetComponent < ApplicationComponent
-      rattr_initialize [:view_metadata!, patient: nil, current_user: nil]
+      rattr_initialize [:view_metadata!, patient: nil, patient_scope: nil, current_user: nil]
 
       delegate :empty_state, to: :widget_options
 
       def rows
-        @rows ||= relation.limit(widget_options.max_rows).to_a
-      end
-
-      def columns
-        @columns ||= begin
-          attribute_names = sql_view_klass.columns.map(&:name) - %w(id secure_id document)
-          attribute_names = (view_metadata.columns.map(&:code) + attribute_names).uniq
-
-          attribute_names.filter_map do |attr|
-            column_definition_for(attr).then { |column| column unless column.hidden }
-          end
-        end
+        @rows ||= SqlViewWidgetQuery.call(relation.limit(widget_options.max_rows))
       end
 
       def title
         view_metadata.title.presence || view_metadata.view_name.humanize
+      end
+
+      def configure_columns?
+        return false unless view_metadata.persisted? && current_user.present?
+
+        Renalware::System::ViewMetadataPolicy.new(current_user, view_metadata).edit?
+      end
+
+      def configure_columns_modal_id
+        "system-view-metadata-modal-#{view_metadata.id}"
+      end
+
+      def configure_columns_path
+        helpers.main_app.edit_system_view_metadatum_path(view_metadata, format: :html)
       end
 
       private
@@ -37,11 +40,16 @@ module Renalware
 
       def patient_scoped_relation(rel)
         return rel unless widget_options.scoped_to_patient?
-        return rel.none if patient.blank?
 
         validate_column!(widget_options.patient_id_column)
 
-        rel.where(widget_options.patient_id_column => patient.id)
+        if patient.present?
+          rel.where(widget_options.patient_id_column => patient.id)
+        elsif patient_scope.present?
+          rel.where(widget_options.patient_id_column => patient_scope.select(:id))
+        else
+          rel.none
+        end
       end
 
       def ordered_relation(rel)
@@ -63,11 +71,6 @@ module Renalware
           ArgumentError,
           "#{column_name} is not a column on #{view_metadata.fully_qualified_view_name}"
         )
-      end
-
-      def column_definition_for(attr)
-        view_metadata.columns.detect { |col| col.code == attr } ||
-          Renalware::System::ColumnDefinition.new(code: attr, hidden: false)
       end
 
       def sql_view_klass

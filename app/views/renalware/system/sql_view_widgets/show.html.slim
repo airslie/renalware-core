@@ -1,0 +1,12 @@
+= turbo_frame_tag frame_id do
+  ruby:
+    renderer = Renalware::System::SqlViewWidgetRenderer.new(
+      view_metadata: view_metadata,
+      view_context: self,
+      lab: true,
+      patient: patient,
+      patient_scope: patient_scope,
+      require_patient_scope: require_patient_scope
+    )
+
+  = renderer.call
