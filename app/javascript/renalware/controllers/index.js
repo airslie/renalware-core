@@ -1,5 +1,5 @@
 import { application } from "./application"
-import Dropdown from "stimulus-dropdown"
+import Dropdown from "@stimulus-components/dropdown"
 
 import ToggleController from "./toggle_controller"
 import ClinicsBmiCalculatorController from "./clinics/bmi_calculator_controller"
@@ -119,7 +119,7 @@ application.register("read-more", ReadMoreController)
 application.register("grid-row-auto-span", GridRowAutoSpanController)
 application.register("table_column_hover", TableColumnHoverController)
 application.register("navbar", NavbarController)
-application.register("dropdown", Dropdown) // https://www.stimulus-components.com/docs/stimulus-dropdown/
+application.register("dropdown", Dropdown)
 application.register("tabbed-navigation", TabbedNavigationController)
 application.register("turbo-modal", TurboModalController)
 application.register("charts-raw", ChartsRawController)
