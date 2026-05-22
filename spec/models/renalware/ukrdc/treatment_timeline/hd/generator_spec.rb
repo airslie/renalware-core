@@ -69,6 +69,77 @@ module Renalware
               modality_code: hdf_ukrdc_modality_code
             )
           end
+
+          context "when the HD Profile has no hospital unit" do
+            let(:modality) do
+              set_modality(
+                patient:,
+                modality_description: hd_mod_desc,
+                by: user,
+                started_on: "2019-12-13"
+              )
+            end
+
+            it "uses the nearest HD session hospital unit within one month" do
+              create_profile(
+                start_date: "2019-01-01",
+                hospital_unit: nil
+              )
+              hospital_unit = create(:hd_hospital_unit, unit_type: :satellite)
+              create(
+                :hd_closed_session,
+                patient:,
+                hospital_unit:,
+                started_at: Time.zone.parse("2019-12-20 09:00")
+              )
+
+              generator.call
+
+              expect(UKRDC::Treatment.first.hospital_unit).to eq(hospital_unit)
+            end
+
+            it "does not use HD sessions outside the one month search period" do
+              create_profile(
+                start_date: "2019-01-01",
+                hospital_unit: nil
+              )
+              create(
+                :hd_closed_session,
+                patient:,
+                hospital_unit: create(:hd_hospital_unit),
+                started_at: Time.zone.parse("2019-11-12 09:00")
+              )
+
+              generator.call
+
+              expect(UKRDC::Treatment.first.hospital_unit).to be_nil
+            end
+
+            it "uses the closest HD session, preferring the earlier session when tied" do
+              create_profile(
+                start_date: "2019-01-01",
+                hospital_unit: nil
+              )
+              earlier_unit = create(:hd_hospital_unit, unit_type: :home)
+              later_unit = create(:hd_hospital_unit, unit_type: :satellite)
+              create(
+                :hd_closed_session,
+                patient:,
+                hospital_unit: later_unit,
+                started_at: Time.zone.parse("2019-12-14 00:00")
+              )
+              create(
+                :hd_closed_session,
+                patient:,
+                hospital_unit: earlier_unit,
+                started_at: Time.zone.parse("2019-12-12 00:00")
+              )
+
+              generator.call
+
+              expect(UKRDC::Treatment.first.hospital_unit).to eq(earlier_unit)
+            end
+          end
         end
 
         context "when they have an HD Profile created within 100yrs of the modality start date" do
