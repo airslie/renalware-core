@@ -56,6 +56,25 @@ module Renalware
           end
         end
 
+        context "when no encounter number or modality id is present" do
+          it "omits the optional EncounterNumber element" do
+            treatment = UKRDC::Treatment.new(
+              modality_code: UKRDC::ModalityCode.new(txt_code: "101"),
+              started_on: Time.zone.parse("2019-12-13")
+            )
+
+            xml = format_xml(
+              described_class.new(treatment:).xml
+            )
+
+            expect(xml).not_to include("<EncounterNumber")
+            expect(xml).to match(
+              "<AdmitReason><CodingStandard>CF_RR7_TREATMENT</CodingStandard>" \
+              "<Code>101</Code></AdmitReason>"
+            )
+          end
+        end
+
         context "when the treatment has a hospital_unit present" do
           it "uses that rather than Renalware.config.ukrdc_site_code" do
             treatment = UKRDC::Treatment.new(

@@ -73,6 +73,14 @@ module Renalware
           expect(xml).to include("<Code>en</Code>")
         end
 
+        it "uses the base Treatment renderer when a treatment has no modality description" do
+          patient = instance_double(Renalware::UKRDC::PatientPresenter)
+
+          renderer = described_class.new(patient:)
+
+          expect(renderer.send(:treatment_class_for, nil)).to eq(Rendering::V4::Treatment)
+        end
+
         context "when the language is Other (ot)" do
           it "does not output it" do
             language = create(:language, :other)

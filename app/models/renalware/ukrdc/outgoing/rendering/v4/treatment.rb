@@ -17,7 +17,7 @@ module Renalware
             # rubocop:disable Metrics/AbcSize
             def treatment_element
               create_node("Treatment") do |elem|
-                elem << create_node("EncounterNumber", encounter_number || treatment.modality_id)
+                elem << encounter_number_element
                 elem << create_node("FromTime", treatment.started_on&.iso8601)
                 if treatment.ended_on.present?
                   elem << create_node("ToTime", treatment.ended_on&.iso8601)
@@ -31,6 +31,13 @@ module Renalware
               end
             end
             # rubocop:enable Metrics/AbcSize
+
+            def encounter_number_element
+              value = encounter_number || treatment.modality_id
+              return if value.blank?
+
+              create_node("EncounterNumber", value)
+            end
 
             def healthcare_facility_element
               create_node("HealthCareFacility") do |elem|

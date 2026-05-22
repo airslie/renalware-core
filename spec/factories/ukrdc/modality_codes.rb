@@ -6,6 +6,12 @@ FactoryBot.define do
       qbl_code { 1 }
     end
 
+    trait :first_assessment do
+      description { "First Assessment by Renal Service" }
+      txt_code { 101 }
+      qbl_code { 101 }
+    end
+
     trait :hdf do
       description { "Haemodiafiltration" }
       txt_code { 3 }
