@@ -85,18 +85,27 @@ module Renalware
           end
         end
 
-        context "when there is a APD regime created within 100 yrs of the modality start date" do
-          it "finds this initial regime, regardless of how far in the future it is, and " \
-             "uses its type etc when creating the Treatment" do
+        context "when there is an APD regime created more than 14 days after the " \
+                "modality start date" do
+          it "does not use the future regime as the initial Treatment regime" do
             apd_ukrdc_modality_code
-            create_regime(start_date: 99.years.from_now, end_date: nil, type: :apd_regime)
+            regime = create_regime(start_date: modality.started_on + 15.days, end_date: nil,
+                                   type: :apd_regime)
 
             expect {
               generator.call
-            }.to change(UKRDC::Treatment, :count).by(1)
+            }.to change(UKRDC::Treatment, :count).by(2)
 
-            expect(UKRDC::Treatment.first).to have_attributes(
-              modality_code: apd_ukrdc_modality_code
+            treatments = UKRDC::Treatment.order(started_on: :asc)
+            expect(treatments[0]).to have_attributes(
+              pd_regime_id: nil,
+              started_on: modality.started_on,
+              ended_on: regime.start_date
+            )
+            expect(treatments[1]).to have_attributes(
+              pd_regime_id: regime.id,
+              started_on: regime.start_date,
+              ended_on: nil
             )
           end
         end
