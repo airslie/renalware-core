@@ -13,6 +13,7 @@ module Renalware
       attribute :order_direction, :string, default: "desc"
       attribute :empty_state, :string, default: "No data"
       attribute :slots, array: true, default: -> { [] }
+      attribute :async, :boolean, default: false
 
       validates :max_rows, numericality: {
         only_integer: true,
@@ -29,6 +30,10 @@ module Renalware
 
       def visible_in_slot?(slot)
         slots.include?(slot)
+      end
+
+      def async?
+        async == true
       end
     end
   end

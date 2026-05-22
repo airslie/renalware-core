@@ -43,6 +43,44 @@ describe "Lab" do
         expect(widget.calls.last.user).to eq(@current_user)
       end
 
+      it "can defer global widget rendering to a turbo frame" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_global_lab_widget(async: true)
+
+        expect { get lab_path }
+          .not_to change(Renalware::System::ViewCall, :count)
+
+        expect(response.body).to include("Global Lab Widget")
+        expect(response.body).to include(%(id="sql-view-widget-#{widget.id}"))
+        expect(response.body).to include(system_sql_view_widget_path(widget))
+        expect(response.body).not_to include("Global widget row")
+
+        expect {
+          get system_sql_view_widget_path(
+            widget,
+            schema_name: "site",
+            slot: "lab:global:top"
+          )
+        }.to change(Renalware::System::ViewCall, :count).by(1)
+
+        expect(response.body).to include(%(id="sql-view-widget-#{widget.id}"))
+        expect(response.body).to include("Global widget row")
+        expect(widget.calls.last.user).to eq(@current_user)
+      end
+
+      it "does not render async widgets outside their configured lab context" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_global_lab_widget(async: true)
+
+        get system_sql_view_widget_path(
+          widget,
+          schema_name: "site",
+          slot: "lab:global:bottom"
+        )
+
+        expect(response).to have_http_status(:not_found)
+      end
+
       it "filters global patient widgets through the current patient policy scope" do
         visible_hospital = create(:hospital_centre, code: "VIS", name: "Visible Hospital")
         hidden_hospital = create(:hospital_centre, code: "HID", name: "Hidden Hospital")
@@ -82,6 +120,19 @@ describe "Lab" do
 
         expect(response).to redirect_to(dashboard_path)
       end
+
+      it "does not render async widgets" do
+        @current_user.update!(feature_flags: 0)
+        widget = create_global_lab_widget(async: true)
+
+        get system_sql_view_widget_path(
+          widget,
+          schema_name: "site",
+          slot: "lab:global:top"
+        )
+
+        expect(response).to redirect_to(dashboard_path)
+      end
     end
   end
 
@@ -114,6 +165,62 @@ describe "Lab" do
         expect(response.body).not_to include("Other patient row")
         expect(response.body).not_to include("Ignored Patient Widget")
         expect(widget.calls.last.user).to eq(@current_user)
+      end
+
+      it "can defer patient widget rendering to a turbo frame" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_patient_lab_widget(patient_id: patient.id, async: true)
+
+        expect { get patient_lab_path(patient) }
+          .not_to change(Renalware::System::ViewCall, :count)
+
+        expect(response.body).to include("Patient Lab Widget")
+        expect(response.body).to include(%(id="sql-view-widget-#{widget.id}"))
+        expect(response.body).not_to include("Current patient row")
+
+        expect {
+          get system_sql_view_widget_path(
+            widget,
+            patient_id: patient.to_param,
+            schema_name: "site",
+            slot: "lab:patient:middle"
+          )
+        }.to change(Renalware::System::ViewCall, :count).by(1)
+
+        expect(response.body).to include(%(id="sql-view-widget-#{widget.id}"))
+        expect(response.body).to include("Current patient row")
+        expect(response.body).not_to include("Other patient row")
+        expect(widget.calls.last.user).to eq(@current_user)
+      end
+
+      it "does not render async patient widgets without a patient context" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_patient_lab_widget(patient_id: patient.id, async: true)
+
+        get system_sql_view_widget_path(
+          widget,
+          schema_name: "site",
+          slot: "lab:patient:middle"
+        )
+
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "treats any patient slot segment as requiring patient context" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        widget = create_patient_lab_widget(
+          patient_id: patient.id,
+          async: true,
+          slots: ["dashboard:patient:middle"]
+        )
+
+        get system_sql_view_widget_path(
+          widget,
+          schema_name: "site",
+          slot: "dashboard:patient:middle"
+        )
+
+        expect(response).to have_http_status(:not_found)
       end
 
       it "does not render unscoped patient widgets" do
@@ -166,7 +273,7 @@ describe "Lab" do
     end
   end
 
-  def create_global_lab_widget(schema_name: "site", title: "Global Lab Widget")
+  def create_global_lab_widget(schema_name: "site", title: "Global Lab Widget", async: false)
     connection.execute("CREATE SCHEMA IF NOT EXISTS #{schema_name}")
     connection.execute(<<~SQL.squish)
       CREATE TABLE IF NOT EXISTS #{schema_name}.lab_global_widget_rows (
@@ -195,7 +302,8 @@ describe "Lab" do
       ],
       widget_options: {
         slots: ["lab:global:top"],
-        max_rows: 5
+        max_rows: 5,
+        async: async
       }
     )
   end
@@ -243,7 +351,9 @@ describe "Lab" do
     patient_id:,
     schema_name: "site",
     title: "Patient Lab Widget",
-    patient_id_column: "patient_id"
+    patient_id_column: "patient_id",
+    async: false,
+    slots: ["lab:patient:middle"]
   )
     connection.execute("CREATE SCHEMA IF NOT EXISTS #{schema_name}")
     connection.execute(<<~SQL.squish)
@@ -276,9 +386,10 @@ describe "Lab" do
         Renalware::System::ColumnDefinition.new(code: "label", name: "Label")
       ],
       widget_options: {
-        slots: ["lab:patient:middle"],
+        slots: slots,
         max_rows: 5,
-        patient_id_column: patient_id_column
+        patient_id_column: patient_id_column,
+        async: async
       }.compact
     )
   end
