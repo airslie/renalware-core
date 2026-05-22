@@ -32,14 +32,8 @@ module Renalware
           # active on the day the modality was created, search up to 14 days ahead until we find
           # one. Return nil if none found.
           def pd_regime_at_start_of_modality
-            @pd_regime_at_start_of_modality ||= begin
-              pd_regime_id = Renalware::PD::RegimeForModality.find_by!(
-                modality_id: modality.id
-              )&.pd_regime_id
-              return if pd_regime_id.blank?
-
-              Renalware::PD::Regime.find(pd_regime_id)
-            end
+            @pd_regime_at_start_of_modality ||=
+              Renalware::PD::RegimeForModalityQuery.new(modality:).call
           end
 
           # Create a Treatment for each regime change regardless of its type
