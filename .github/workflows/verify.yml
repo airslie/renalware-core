@@ -43,7 +43,7 @@ jobs:
           bundler-cache: true
 
       - name: Setup node and yarn with caching
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: "yarn"
@@ -154,7 +154,7 @@ jobs:
           bundler-cache: true
 
       - name: Setup node and yarn with caching
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: "yarn"
