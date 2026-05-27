@@ -167,7 +167,8 @@ describe "API request for a single UKRDC patient XML document" do
         to: :patient,
         state: :approved,
         patient: Renalware::Letters.cast_patient(patient),
-        description: "xxx"
+        description: "xxx",
+        approved_at: Time.zone.now
       )
       get api_ukrdc_patient_path(patient)
 

@@ -16,7 +16,7 @@ module Renalware
 
             def dialysis_sessions_element
               create_node("DialysisSessions") do |sessions_elem|
-                sessions_elem[:start] = patient.changes_since.to_date.iso8601
+                sessions_elem[:start] = patient.child_data_since.to_date.iso8601
                 sessions_elem[:stop] = patient.changes_up_until.to_date.iso8601
 
                 sessions.each do |session|

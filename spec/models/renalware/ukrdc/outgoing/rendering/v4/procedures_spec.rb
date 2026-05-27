@@ -7,12 +7,14 @@ module Renalware
         include XmlSpecHelper
 
         let(:changes_since) { Time.zone.parse("2021-01-01 10:01:01") }
+        let(:child_data_since) { Time.zone.parse("2020-12-02 10:01:01") }
         let(:changes_up_until) { Time.zone.parse("2021-02-01 09:02:02") }
 
         def build_patient(finished_hd_sessions:, transplant_operations:)
           instance_double(
             Renalware::UKRDC::PatientPresenter,
             changes_since:,
+            child_data_since:,
             changes_up_until:,
             finished_hd_sessions:,
             transplant_operations:,
@@ -50,7 +52,7 @@ module Renalware
         def expected_xml_for_session_and_transplant
           <<~XML.squish.gsub("> <", "><")
             <Procedures>
-              <DialysisSessions start="2021-01-01" stop="2021-02-01">
+              <DialysisSessions start="2020-12-02" stop="2021-02-01">
                 <DialysisSession>
                   <ProcedureType>
                     <CodingStandard>SNOMED</CodingStandard>
@@ -89,7 +91,7 @@ module Renalware
         def expected_xml_for_vascular_access
           <<~XML.squish.gsub("> <", "><")
             <Procedures>
-              <DialysisSessions start="2021-01-01" stop="2021-02-01"/>
+              <DialysisSessions start="2020-12-02" stop="2021-02-01"/>
               <VascularAccess>
                 <ProcedureType>
                   <CodingStandard>SNOMED</CodingStandard>
@@ -112,7 +114,7 @@ module Renalware
 
           expected_xml = <<~XML.squish.gsub("> <", "><")
             <Procedures>
-              <DialysisSessions start="2021-01-01" stop="2021-02-01"/>
+              <DialysisSessions start="2020-12-02" stop="2021-02-01"/>
             </Procedures>
           XML
 
@@ -157,6 +159,7 @@ module Renalware
           patient = instance_double(
             Renalware::UKRDC::PatientPresenter,
             changes_since:,
+            child_data_since:,
             changes_up_until:,
             finished_hd_sessions: [],
             transplant_operations: [],

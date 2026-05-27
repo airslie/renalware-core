@@ -61,6 +61,10 @@ module Renalware
       end
 
       def self.register_patient_scope_settings(base)
+        base.config_accessor(:ukrdc_child_data_lookback_days) do
+          [Integer(ENV.fetch("UKRDC_CHILD_DATA_LOOKBACK_DAYS", "30")), 0].max
+        end
+
         # To use a date other that the default changes_since date when
         # compiling pathology to send to UKRDC, you can set an ENV var as follows:
         #   UKRDC_PATHOLOGY_START_DATE=01-01-2011
