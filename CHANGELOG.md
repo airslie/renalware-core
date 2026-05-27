@@ -9,6 +9,36 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.5.2
+### Added
+- Renal safety alerts #5923
+  - Adds rule-based safety alerts, alert review pages, historical alerts, alert notes, resolution workflow and patient timeline entries.
+  - Test rule setup, scheduled alert generation, resolving alerts, editing notes, patient timeline display and user permissions.
+- Lab pages and SQL view widgets #5922 #5947
+  - Adds feature-flagged Labs pages and reusable SQL view widgets that can show configured result tables in patient and dashboard contexts.
+  - Test widget display, filters, links from widgets to full tables, patient-specific lab views and permissions.
+- (Barts) HEROIC research pack integration #5924
+  - Adds the HEROIC pack with research participation, clinic visit, ECG, echo, mGFR, MRI, OCT-A, biobank sample/aliquot/usage and report workflows for sites using this extension.
+  - Test only where HEROIC is enabled.
+
+### Changed
+- UKRDC v4/v5 export changes #5929 #5936 #5943 #5948 #5949 #5950
+  - Adds local UKRR opt-out anonymisation handling, UKRR UID patient numbers, first assessment treatment support, admission/discharge location fields, HD sample type support for pre/post pathology, updated modality code handling and improved HD/PD treatment timeline generation.
+  - Regression test UKRDC exports carefully, especially opted-out patients, HD and PD modality history, treatment dates, treatment units, pathology sample types and admission/discharge locations.
+- Clinic appointment HL7 imports now capture the appointment status code from SCH.25 #5933
+  - Test new and rescheduled SIU appointment messages and confirm the expected appointment status is stored.
+- Transplant registration statuses now include NHSBT status mapping #5932
+  - Test transplant registration status imports/displays, especially NHSBT status descriptions.
+- Internet Explorer 11-specific support has been removed #5940
+  - Users should use a current supported browser. Regression test common screens in the browsers used locally.
+
+### Fixed
+- Letter batch printing improvements #5820
+  - Fixes problems around single-letter batch compilation and preserves selected filters when working from the letter list.
+  - Test batch printing for both single and multiple letters.
+- Report patient links now keep the reporting mount point #5942
+  - Test patient links from report pages, especially where Renalware is mounted under a sub-path.
+
 ## 2.5.0
 ### Added
 - UKRDC v5 changes #4921
