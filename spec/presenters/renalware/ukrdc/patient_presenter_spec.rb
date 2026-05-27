@@ -40,6 +40,39 @@ module Renalware
       end
     end
 
+    describe "#child_data_since" do
+      it "uses the configured lookback before changes_since" do
+        allow(Renalware.config).to receive(:ukrdc_child_data_lookback_days).and_return(30)
+
+        patient = build_stubbed(:patient, sent_to_ukrdc_at: Time.zone.parse("2021-02-01 12:00"))
+
+        expect(described_class.new(patient).child_data_since)
+          .to eq(Time.zone.parse("2021-01-02 12:00"))
+      end
+    end
+
+    describe "#pathology_data_since" do
+      it "uses the configured pathology start date when present" do
+        allow(Renalware.config).to receive(:ukrdc_pathology_start_date).and_return("2011-01-01")
+
+        patient = build_stubbed(:patient, sent_to_ukrdc_at: Time.zone.parse("2021-02-01 12:00"))
+
+        expect(described_class.new(patient).pathology_data_since).to eq(Date.parse("2011-01-01"))
+      end
+
+      it "uses child_data_since when no pathology start date is configured" do
+        allow(Renalware.config).to receive_messages(
+          ukrdc_pathology_start_date: nil,
+          ukrdc_child_data_lookback_days: 30
+        )
+
+        patient = build_stubbed(:patient, sent_to_ukrdc_at: Time.zone.parse("2021-02-01 12:00"))
+
+        expect(described_class.new(patient).pathology_data_since)
+          .to eq(Time.zone.parse("2021-01-02 12:00"))
+      end
+    end
+
     describe "#modalties" do
       subject(:presenter) { described_class.new(patient) }
 
@@ -114,6 +147,32 @@ module Renalware
 
           expect(letters_patient).to have_received(:letters)
         end
+
+        it "uses approved_at and the configured lookback to select letters" do
+          allow(Renalware.config).to receive(:ukrdc_child_data_lookback_days).and_return(30)
+          patient = create(
+            :letter_patient,
+            send_to_rpv: true,
+            send_to_renalreg: true,
+            sent_to_ukrdc_at: Time.zone.parse("2021-02-01 00:00:00")
+          )
+          included_letter = create(
+            :approved_letter,
+            patient:,
+            approved_at: Time.zone.parse("2021-01-15 00:00:00")
+          )
+          old_recently_edited_letter = create(
+            :approved_letter,
+            patient:,
+            approved_at: Time.zone.parse("2020-12-01 00:00:00")
+          )
+          old_recently_edited_letter.update_column(
+            :updated_at,
+            Time.zone.parse("2021-02-01 01:00:00")
+          )
+
+          expect(described_class.new(patient).letters.map(&:id)).to eq([included_letter.id])
+        end
       end
 
       context "when the patient has not opted-in to PKB (previously RPV)" do
@@ -125,6 +184,32 @@ module Renalware
 
           expect(letters_patient).not_to have_received(:letters)
         end
+      end
+    end
+
+    describe "#finished_hd_sessions" do
+      it "uses started_at and the configured lookback to select sessions" do
+        allow(Renalware.config).to receive(:ukrdc_child_data_lookback_days).and_return(30)
+        patient = create(
+          :hd_patient,
+          sent_to_ukrdc_at: Time.zone.parse("2021-02-01 00:00:00")
+        )
+        included_session = create(
+          :hd_closed_session,
+          patient:,
+          started_at: Time.zone.parse("2021-01-15 10:00:00")
+        )
+        old_recently_edited_session = create(
+          :hd_closed_session,
+          patient:,
+          started_at: Time.zone.parse("2020-12-01 10:00:00")
+        )
+        old_recently_edited_session.update_column(
+          :updated_at,
+          Time.zone.parse("2021-02-01 01:00:00")
+        )
+
+        expect(described_class.new(patient).finished_hd_sessions).to eq([included_session])
       end
     end
 

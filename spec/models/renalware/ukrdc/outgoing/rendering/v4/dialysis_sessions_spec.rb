@@ -12,7 +12,7 @@ module Renalware
               instance_double(Renalware::Patient, sent_to_ukrdc_at: nil),
               changes_since: "2021-01-01 10:01:01"
             )
-            expected_xml = "<DialysisSessions start=\"2021-01-01\" stop=\"2021-02-01\"/>"
+            expected_xml = "<DialysisSessions start=\"2020-12-02\" stop=\"2021-02-01\"/>"
 
             actual_xml = format_xml(
               described_class.new(patient:, sessions: []).xml

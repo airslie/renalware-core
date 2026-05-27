@@ -56,7 +56,7 @@ module Renalware
               created_at: Time.zone.parse("2021-01-11 00:00:01")
             )
             expected_xml = <<~XML.squish.gsub("> <", "><")
-              <DialysisPrescriptions start=\"2021-01-01\" stop=\"2021-02-01\">
+              <DialysisPrescriptions start=\"2020-12-02\" stop=\"2021-02-01\">
                 <DialysisPrescription>
                   <EnteredOn>2021-01-09T00:00:01+00:00</EnteredOn>
                   <FromTime>2021-01-10T00:00:00+00:00</FromTime>

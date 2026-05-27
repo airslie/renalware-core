@@ -27,6 +27,15 @@ module Renalware
         super(patient)
       end
 
+      def child_data_since
+        @child_data_since ||= changes_since.in_time_zone -
+                              Renalware.config.ukrdc_child_data_lookback_days.days
+      end
+
+      def pathology_data_since
+        @pathology_data_since ||= configured_pathology_start_date || child_data_since
+      end
+
       def language
         return if super.nil? || super.name == "Unknown"
 
@@ -56,7 +65,7 @@ module Renalware
             .letters
             .approved_or_completed
             .includes(:updated_by, :author, :letterhead, :archive)
-            .where("updated_at > ?", changes_since),
+            .where(approved_at: child_data_since..),
           Renalware::Letters::LetterPresenterFactory
         )
       end
@@ -69,7 +78,7 @@ module Renalware
           .finished_hd_sessions
           .select("distinct on (hd_sessions.started_at::date) hd_sessions.*")
           .includes(:patient, :dialysate, :updated_by)
-          .where("hd_sessions.updated_at > ?", changes_since)
+          .where(hd_sessions: { started_at: child_data_since.. })
           .order("hd_sessions.started_at::date desc")
       end
 
@@ -87,14 +96,14 @@ module Renalware
       def allergies
         clinical_patient
           .allergies
-          .where(recorded_at: changes_since..)
+          .where(recorded_at: child_data_since..)
       end
 
       def clinic_visits
         @clinic_visits ||= begin
           visits = clinics_patient
             .clinic_visits
-            .where(date: changes_since..)
+            .where(date: child_data_since..)
             .includes(:updated_by)
           CollectionPresenter.new(visits, Clinics::ClinicVisitPresenter)
         end
@@ -122,7 +131,7 @@ module Renalware
       def observation_requests
         requests = UKRDC::PathologyObservationRequestsQuery.new(
           patient_id: id,
-          changes_since: changes_since
+          changes_since: pathology_data_since
         ).call
         CollectionPresenter.new(requests, UKRDC::PathologyObservationRequestPresenter)
       end
@@ -191,7 +200,7 @@ module Renalware
           .cast_patient(__getobj__)
           .procedures
           .includes(:type, :pd_catheter_insertion_technique)
-          .where(performed_on: changes_since.to_date..)
+          .where(performed_on: child_data_since.to_date..)
           .order(:performed_on)
       end
 
@@ -242,6 +251,13 @@ module Renalware
 
       def hd_patient
         @hd_patient ||= Renalware::HD::PatientPresenter.new(self)
+      end
+
+      def configured_pathology_start_date
+        start_date = Renalware.config.ukrdc_pathology_start_date
+        return if start_date.blank?
+
+        Date.parse(start_date)
       end
     end
     # rubocop:enable Metrics/ClassLength

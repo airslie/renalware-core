@@ -16,7 +16,7 @@ module Renalware
 
             def observations_element
               create_node("Observations") do |observations_elem|
-                observations_elem[:start] = patient.changes_since.to_date.iso8601
+                observations_elem[:start] = patient.child_data_since.to_date.iso8601
                 observations_elem[:stop] = patient.changes_up_until.to_date.iso8601
 
                 add_clinic_visit_observations_elements_to(observations_elem)

@@ -16,7 +16,7 @@ module Renalware
 
             def lab_orders_element
               create_node("LabOrders") do |lab_orders|
-                lab_orders[:start] = patient.changes_since.to_date.iso8601
+                lab_orders[:start] = patient.pathology_data_since.to_date.iso8601
                 lab_orders[:stop] = patient.changes_up_until.to_date.iso8601
 
                 patient.observation_requests.each do |request|

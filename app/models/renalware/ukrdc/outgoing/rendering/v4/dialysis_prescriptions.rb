@@ -31,7 +31,7 @@ module Renalware
                 .where(patient:, prescribed_on: from..to)
             end
 
-            def from = patient.changes_since.to_date
+            def from = patient.child_data_since.to_date
             def to = patient.changes_up_until.to_date
           end
         end
