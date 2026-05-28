@@ -158,7 +158,7 @@ module Renalware
 
     # Overrides Personable mixin
     def to_s(format = :default)
-      title_suffix = " (#{title})" if has_title?
+      title_suffix = " (#{title})" if title?
       formatted_name = "#{family_name.upcase}, #{given_name}#{title_suffix}"
       formatted_nhs_number = " (#{nhs_number})" if nhs_number.present?
       case format
@@ -235,7 +235,7 @@ module Renalware
       self.died_on = nil if died_on == '""'
     end
 
-    def has_title?
+    def title?
       respond_to?(:title) && title.present?
     end
 

@@ -4,7 +4,7 @@ module World
       module Domain
         # @section commands
         #
-        def run_high_risk_algorithm(patient)
+        def run_high_risk_algorithm?(patient)
           pathology_patient = Renalware::Pathology.cast_patient(patient)
 
           Renalware::Pathology::Requests::HighRiskAlgorithm.new(

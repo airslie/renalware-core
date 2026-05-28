@@ -49,7 +49,7 @@ describe "Admin safety alert rules" do
       get admin_safety_alert_rules_path,
           params: { safety_alert_rule_category_id: infection_category.id }
 
-      table_body = Nokogiri::HTML5(response.body).css("table").text
+      table_body = response.parsed_body.css("table").text
 
       expect(response).to be_successful
       expect(response.body).to include("All categories")

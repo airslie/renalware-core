@@ -27,8 +27,7 @@ module Renalware
       #   ...
       # ]
       def call
-        # Note:
-        #
+        # NOTE: that
         #   CurrentObservation.where(patient: patient, description_name: descriptions.map(&:name))
         #
         # is potentially a replacement for the SQL below, but it does not return

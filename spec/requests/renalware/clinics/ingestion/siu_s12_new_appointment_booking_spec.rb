@@ -5,7 +5,7 @@ describe "HL7 SIU^S12 - Notification of New Appointment Booking" do
   # detail segments as appropriate describe the appointment that has been booked by the
   # filler application.
 
-  # NOTE if clinic code and name are not in PV3, then in Mirth we should move them in there to
+  # NOTE: if clinic code and name are not in PV3, then in Mirth we should move them in there to
   # match our expectations. For example at BLT PV3.1 is not necessarily populated so we copy:
   #  AIL3.1 => PV3.1 clinic name
   #  SCH7.1 => PV3.2 clinic name

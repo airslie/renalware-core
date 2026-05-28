@@ -11,7 +11,7 @@ module Renalware
 
           expect(response).to have_http_status(:ok)
 
-          payload = JSON.parse(response.body)
+          payload = response.parsed_body
           expect(payload).to include("expires_at_epoch_ms")
           expect(payload["expires_at_epoch_ms"]).to be_a(Integer)
           expect(payload["expires_at_epoch_ms"]).to be > Time.zone.now.to_i * 1000

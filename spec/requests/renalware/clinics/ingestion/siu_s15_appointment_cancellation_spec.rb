@@ -5,7 +5,7 @@ describe "SIU^S15 - Notification of Appointment Cancellation" do
   # valid appointment from taking place. For example, if a patient scheduled for an exam cancels
   # his/her appointment, then the appointment is canceled on the filler application.
 
-  # NOTE if clinic code and name are not in PV3, then in Mirth we should move them in there to
+  # NOTE: if clinic code and name are not in PV3, then in Mirth we should move them in there to
   # match our expectations. For example at BLT PV3.1 is not necessarily populated so we copy:
   #  AIL3.1 => PV3.1 clinic name
   #  SCH7.1 => PV3.2 clinic name

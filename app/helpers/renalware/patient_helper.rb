@@ -6,7 +6,7 @@ module Renalware
     # Its possible in places that the active class is added by both this helper and the js...
     def patient_menu_item(title:, path:, active_when_controller_matches:, enabled: true)
       klasses = %w(link)
-      klasses << "active" if current_controller_matches(active_when_controller_matches)
+      klasses << "active" if current_controller_matches?(active_when_controller_matches)
       tag.li(
         class: klasses.join(" "),
         "data-navbar-target": "nav",
@@ -20,7 +20,7 @@ module Renalware
       end
     end
 
-    def current_controller_matches(regex)
+    def current_controller_matches?(regex)
       regex.match(params[:controller]).present?
     end
 
