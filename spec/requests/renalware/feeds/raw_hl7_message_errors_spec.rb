@@ -29,7 +29,7 @@ describe "Viewing HL7 raw message errors" do
 
         expect(response).to be_successful
 
-        row_ids = Nokogiri::HTML5(response.body)
+        row_ids = response.parsed_body
           .css("tbody tr")
           .map { |row| row.css("td")[1].text.strip.to_i }
 

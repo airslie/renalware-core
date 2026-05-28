@@ -4,7 +4,7 @@ describe "HL7 SIU^S14 - Notification of Appointment Modification" do
   # the filler application. This trigger event should only be used for appointments that have not
   # been completed, or for parent appointments whose children have not been completed.
 
-  # NOTE if clinic code and name are not in PV3, then in Mirth we should move them in there to
+  # NOTE: if clinic code and name are not in PV3, then in Mirth we should move them in there to
   # match our expectations. For example at BLT PV3.1 is not necessarily populated so we copy:
   #  AIL3.1 => PV3.1 clinic name
   #  SCH7.1 => PV3.2 clinic name

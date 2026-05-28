@@ -49,10 +49,10 @@ Rails/ToFormattedS:
     - 'app/presenters/renalware/pd/training_duration_presenter.rb'
 
 RSpec/LetSetup:
-  Enabled: false
+  Enabled: true
 
 Rails/ResponseParsedBody:
-  Enabled: false
+  Enabled: true
 
 Rails/FindByOrAssignmentMemoization:
   Enabled: true
@@ -70,32 +70,32 @@ Lint/LiteralAsCondition:
 # This cop is useful, but currently too noisy for the existing baseline.
 # Re-enable once redundant disable comments have been reduced.
 Lint/RedundantCopDisableDirective:
-  Enabled: false
+  Enabled: true
 
 Rails/EnumSyntax:
   Enabled: true
 
 Style/CommentAnnotation:
-  Enabled: false
+  Enabled: true
 
 Rails/WhereRange:
   Enabled: true
 
 Naming/PredicatePrefix:
-  Enabled: false
+  Enabled: true
 
 Naming/PredicateMethod:
-  Enabled: false
+  Enabled: true
 
 Style/Lambda:
-  Enabled: false
+  Enabled: true
 
 Metrics/BlockNesting:
-  Enabled: false
-  CountBlocks: false
+  Enabled: true
+  CountBlocks: true
 
 Rails/ToSWithArgument:
-  Enabled: false
+  Enabled: true
 
 Rails/UnknownEnv:
   Environments:
@@ -111,7 +111,7 @@ Style/AsciiComments:
 
 
 Rails/ActionOrder:
-  Enabled: false
+  Enabled: true
 
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: true
@@ -189,15 +189,15 @@ RSpec/DescribedClass:
 Performance/RedundantBlockCall:
   Enabled: true
 Style/NumericPredicate:
-  Enabled: false
+  Enabled: true
 RSpec/InstanceVariable:
   Enabled: false
 Gemspec/RequiredRubyVersion:
   Enabled: true
 Style/MultilineBlockChain:
-  Enabled: false
+  Enabled: true
 Style/RedundantBegin:
-  Enabled: false
+  Enabled: true
 Rails/RakeEnvironment:
   Enabled: false
 Rails/RedundantPresenceValidationOnBelongsTo:
@@ -205,7 +205,7 @@ Rails/RedundantPresenceValidationOnBelongsTo:
 Rails/DurationArithmetic:
   Enabled: true
 Style/OpenStructUse:
-  Enabled: false
+  Enabled: true
 RSpec/IndexedLet:
   Enabled: false
 
@@ -260,7 +260,7 @@ Style/RedundantLineContinuation:
       - 'app/components/**/*'
 
 Style/RedundantStructKeywordInit:
-  Enabled: false
+  Enabled: true
 
 Lint/AssignmentInCondition:
   Enabled: true

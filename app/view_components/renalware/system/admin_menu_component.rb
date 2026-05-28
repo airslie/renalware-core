@@ -29,7 +29,7 @@ module Renalware
 
       def menu_item(title, path, active_when_controller_matches, enabled: true)
         klasses = %w(link)
-        klasses << "active" if current_controller_matches(active_when_controller_matches)
+        klasses << "active" if current_controller_matches?(active_when_controller_matches)
         tag.li class: klasses.join(" ") do
           if enabled
             link_to(title, path)
@@ -39,7 +39,7 @@ module Renalware
         end
       end
 
-      def current_controller_matches(regex)
+      def current_controller_matches?(regex)
         regex.match(params[:controller]).present?
       end
 

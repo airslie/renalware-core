@@ -53,7 +53,7 @@ describe "Admin safety alert rule executions" do
       expect(response.body).to include("<optgroup label=\"General\">")
       expect(response.body).to include("<optgroup label=\"Infection\">")
 
-      row_ids = Nokogiri::HTML5(response.body)
+      row_ids = response.parsed_body
         .css("tbody tr")
         .map { |row| row.css("td").first.text.strip.to_i }
 
@@ -63,7 +63,7 @@ describe "Admin safety alert rule executions" do
     it "filters by safety alert rule" do
       get admin_safety_alert_rule_executions_path, params: { safety_alert_rule_id: mssa_rule.id }
 
-      table_body = Nokogiri::HTML5(response.body).css("tbody").text
+      table_body = response.parsed_body.css("tbody").text
 
       expect(response).to be_successful
       expect(table_body).to include("Positive MSSA screen")
@@ -74,7 +74,7 @@ describe "Admin safety alert rule executions" do
       get admin_safety_alert_rule_executions_path,
           params: { safety_alert_rule_category_id: infection_category.id }
 
-      table_body = Nokogiri::HTML5(response.body).css("tbody").text
+      table_body = response.parsed_body.css("tbody").text
 
       expect(response).to be_successful
       expect(table_body).to include("Infection")

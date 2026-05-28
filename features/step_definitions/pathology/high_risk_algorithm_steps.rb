@@ -24,7 +24,7 @@ Given /Patty is a high risk patient/ do
 end
 
 When /the high risk algorithm is run for Patty/ do
-  @high_risk = run_high_risk_algorithm(@patty)
+  @high_risk = run_high_risk_algorithm?(@patty)
 end
 
 Then /Patty is determined to be high risk/ do

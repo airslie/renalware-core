@@ -50,7 +50,7 @@ describe "Renal safety alerts" do
     it "uses unique form field ids for each notes dialog" do
       get renal_safety_alerts_path
 
-      textarea_ids = Nokogiri::HTML5(response.body)
+      textarea_ids = response.parsed_body
         .css("dialog textarea")
         .pluck("id")
 
@@ -65,7 +65,7 @@ describe "Renal safety alerts" do
     it "shows notes as read-only quick-preview content" do
       get renal_safety_alerts_path
 
-      quick_preview = Nokogiri::HTML5(response.body).css("tr.quick-preview").text
+      quick_preview = response.parsed_body.css("tr.quick-preview").text
 
       expect(response).to be_successful
       expect(quick_preview).to include("Notes")
@@ -79,7 +79,7 @@ describe "Renal safety alerts" do
 
       get renal_safety_alerts_path
 
-      table_body = Nokogiri::HTML5(response.body).css("table.safety-alerts").text
+      table_body = response.parsed_body.css("table.safety-alerts").text
 
       expect(response).to be_successful
       expect(table_body).not_to include("Positive MSSA screen")
@@ -102,7 +102,7 @@ describe "Renal safety alerts" do
 
       get renal_safety_alerts_path, params: { safety_alert_rule_category_id: category.id }
 
-      table_body = Nokogiri::HTML5(response.body).css("table.safety-alerts").text
+      table_body = response.parsed_body.css("table.safety-alerts").text
 
       expect(response).to be_successful
       expect(table_body).to include("Positive MSSA screen")
@@ -122,7 +122,7 @@ describe "Renal safety alerts" do
 
       get renal_safety_alerts_path, params: { safety_alert_rule_id: rule.id }
 
-      table_body = Nokogiri::HTML5(response.body).css("table.safety-alerts").text
+      table_body = response.parsed_body.css("table.safety-alerts").text
 
       expect(response).to be_successful
       expect(table_body).to include("Positive MSSA screen")
@@ -164,7 +164,7 @@ describe "Renal safety alerts" do
       get historical_renal_safety_alerts_path,
           params: { safety_alert_rule_category_id: category.id }
 
-      table_body = Nokogiri::HTML5(response.body).css("table.safety-alerts").text
+      table_body = response.parsed_body.css("table.safety-alerts").text
 
       expect(response).to be_successful
       expect(table_body).to include("Positive MSSA screen")
@@ -219,6 +219,6 @@ describe "Renal safety alerts" do
   end
 
   def active_tab_text
-    Nokogiri::HTML5(response.body).at_css("dl.sub-nav dd.active").text.strip
+    response.parsed_body.at_css("dl.sub-nav dd.active").text.strip
   end
 end

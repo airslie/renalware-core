@@ -25,11 +25,11 @@ RSpec.describe "Creating an vaccination", :js do
 
       select "Vac Type B", from: "Type"
 
-      # wait_for_turbo_frame is only needed here because the drug dropdown
+      # wait_for_turbo_frame? is only needed here because the drug dropdown
       # items are the same even though it's reloaded when the type is changed
       # I'm guessing for Vaccinations the drugs are all the same but this isn't
       # necessarily the case for all event types.
-      wait_for_turbo_frame :vaccination_drugs
+      wait_for_turbo_frame? :vaccination_drugs
       select "ABC", from: "Drug"
 
       click_on t("btn.create")
@@ -60,7 +60,7 @@ RSpec.describe "Creating an vaccination", :js do
 
       # Now change vaccination type to make drugs dropdown reload
       select "HBV Booster", from: "Type"
-      wait_for_turbo_frame :vaccination_drugs
+      wait_for_turbo_frame? :vaccination_drugs
       select "XYZ", from: "Drug"
 
       within(".form-actions", match: :first) do

@@ -8,7 +8,7 @@ describe "Renalware stage banner" do
   end
 
   def stage_banner
-    Nokogiri::HTML(response.body).at_css(".stage-banner")
+    response.parsed_body.at_css(".stage-banner")
   end
 
   it "renders the banner in uat" do

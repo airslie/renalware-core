@@ -2,7 +2,7 @@ module Renalware
   module HD
     class StationPolicy < BasePolicy
       def sort? = edit?
-      def index = true
+      def index? = true
     end
   end
 end
