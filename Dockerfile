@@ -46,8 +46,10 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # System deps
+ARG YARN_VERSION=1.22.22
 RUN apt-get update && apt-get install -y --no-install-recommends nodejs npm \
-    && npm install -g yarn \
+    && npm install -g yarn@${YARN_VERSION} \
+    && yarn --version \
     && rm -rf /var/lib/apt/lists/*
 
 # Install application gems
