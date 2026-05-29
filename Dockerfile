@@ -144,14 +144,18 @@ RUN apt-get update -qq && \
 # --platform=linux/amd64 → downloads ..._amd64.deb
 # --platform=linux/arm64 → downloads ..._arm64.deb
 ARG WKHTMLTOX_VER=0.12.6.1-3
+ARG WKHTMLTOX_SHA256_AMD64=98ba0d157b50d36f23bd0dedf4c0aa28c7b0c50fcdcdc54aa5b6bbba81a3941d
+ARG WKHTMLTOX_SHA256_ARM64=b6606157b27c13e044d0abbe670301f88de4e1782afca4f9c06a5817f3e03a9c
 ARG TARGETARCH
 RUN set -eux; \
     case "${TARGETARCH}" in \
-      amd64|arm64) wk_arch="${TARGETARCH}" ;; \
+      amd64) wk_arch="${TARGETARCH}"; wk_sha256="${WKHTMLTOX_SHA256_AMD64}" ;; \
+      arm64) wk_arch="${TARGETARCH}"; wk_sha256="${WKHTMLTOX_SHA256_ARM64}" ;; \
       *) echo "Unsupported TARGETARCH=${TARGETARCH}"; exit 1 ;; \
     esac; \
     wget -O /tmp/wkhtmltox.deb \
       "https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOX_VER}/wkhtmltox_${WKHTMLTOX_VER}.bookworm_${wk_arch}.deb"; \
+    echo "${wk_sha256}  /tmp/wkhtmltox.deb" | sha256sum -c -; \
     apt-get update; \
     apt-get install -y --no-install-recommends /tmp/wkhtmltox.deb; \
     rm -f /tmp/wkhtmltox.deb; \
