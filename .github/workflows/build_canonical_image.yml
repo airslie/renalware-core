@@ -87,14 +87,15 @@ jobs:
             org.opencontainers.image.created=${{ steps.meta.outputs.build_timestamp }}
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
 
-      - name: Scan canonical image with Trivy
+      - name: Build Trivy SARIF report
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
           format: sarif
           output: trivy-results.sarif
-          exit-code: "1"
+          exit-code: "0"
           ignore-unfixed: true
+          scanners: vuln
           vuln-type: os,library
           severity: CRITICAL
           limit-severities-for-sarif: true
@@ -104,6 +105,17 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: trivy-results.sarif
+
+      - name: Fail on critical image vulnerabilities
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
+          format: table
+          exit-code: "1"
+          ignore-unfixed: true
+          scanners: vuln
+          vuln-type: os,library
+          severity: CRITICAL
 
       - name: Write image metadata artifact
         shell: bash
