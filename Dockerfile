@@ -8,13 +8,17 @@
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=4.0.3
+# To get the sha use eg
+# docker buildx imagetools inspect docker.io/library/ruby:4.0.5-slim-trixie
+# and use the Digest (under MediaType at the top of the output)
+ARG RUBY_VERSION=4.0.5
+ARG RUBY_IMAGE_SHA=sha256:86a2ff44ce474c1c9bd11dfb2fd7fe5408a5bfe8236b9bc6013e2c6ef4c02d39
 
 # Note that we are pinning debian to trixie (13) here to ensure consistent builds. We could use
 # -slim and let it track latest stable, but that might lead to unexpected breakages.
 # However note that as we are using the bookworm deb for wkhtmltopdf below and this means
 # wkhtmltopdf might break if dependencies change so need to keep an eye on it.
-FROM docker.io/library/ruby:$RUBY_VERSION-slim-trixie AS base
+FROM docker.io/library/ruby:$RUBY_VERSION-slim-trixie@$RUBY_IMAGE_SHA AS base
 
 # Rails app lives here
 WORKDIR /rails
