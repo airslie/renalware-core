@@ -5,6 +5,7 @@
   "repository": "https://github.com/airslie/renalware.git",
   "author": "Airslie Ltd",
   "license": "MIT",
+  "packageManager": "yarn@1.22.22",
   "browserslist": [
     "defaults"
   ],

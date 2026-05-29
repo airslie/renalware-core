@@ -8,13 +8,17 @@
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=4.0.3
+# To get the sha use eg
+# docker buildx imagetools inspect docker.io/library/ruby:4.0.5-slim-trixie
+# and use the Digest (under MediaType at the top of the output)
+ARG RUBY_VERSION=4.0.5
+ARG RUBY_IMAGE_SHA=sha256:86a2ff44ce474c1c9bd11dfb2fd7fe5408a5bfe8236b9bc6013e2c6ef4c02d39
 
 # Note that we are pinning debian to trixie (13) here to ensure consistent builds. We could use
 # -slim and let it track latest stable, but that might lead to unexpected breakages.
 # However note that as we are using the bookworm deb for wkhtmltopdf below and this means
 # wkhtmltopdf might break if dependencies change so need to keep an eye on it.
-FROM docker.io/library/ruby:$RUBY_VERSION-slim-trixie AS base
+FROM docker.io/library/ruby:$RUBY_VERSION-slim-trixie@$RUBY_IMAGE_SHA AS base
 
 # Rails app lives here
 WORKDIR /rails
@@ -42,8 +46,10 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # System deps
+ARG YARN_VERSION=1.22.22
 RUN apt-get update && apt-get install -y --no-install-recommends nodejs npm \
-    && npm install -g yarn \
+    && npm install -g yarn@${YARN_VERSION} \
+    && yarn --version \
     && rm -rf /var/lib/apt/lists/*
 
 # Install application gems
@@ -140,14 +146,18 @@ RUN apt-get update -qq && \
 # --platform=linux/amd64 → downloads ..._amd64.deb
 # --platform=linux/arm64 → downloads ..._arm64.deb
 ARG WKHTMLTOX_VER=0.12.6.1-3
+ARG WKHTMLTOX_SHA256_AMD64=98ba0d157b50d36f23bd0dedf4c0aa28c7b0c50fcdcdc54aa5b6bbba81a3941d
+ARG WKHTMLTOX_SHA256_ARM64=b6606157b27c13e044d0abbe670301f88de4e1782afca4f9c06a5817f3e03a9c
 ARG TARGETARCH
 RUN set -eux; \
     case "${TARGETARCH}" in \
-      amd64|arm64) wk_arch="${TARGETARCH}" ;; \
+      amd64) wk_arch="${TARGETARCH}"; wk_sha256="${WKHTMLTOX_SHA256_AMD64}" ;; \
+      arm64) wk_arch="${TARGETARCH}"; wk_sha256="${WKHTMLTOX_SHA256_ARM64}" ;; \
       *) echo "Unsupported TARGETARCH=${TARGETARCH}"; exit 1 ;; \
     esac; \
     wget -O /tmp/wkhtmltox.deb \
       "https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOX_VER}/wkhtmltox_${WKHTMLTOX_VER}.bookworm_${wk_arch}.deb"; \
+    echo "${wk_sha256}  /tmp/wkhtmltox.deb" | sha256sum -c -; \
     apt-get update; \
     apt-get install -y --no-install-recommends /tmp/wkhtmltox.deb; \
     rm -f /tmp/wkhtmltox.deb; \

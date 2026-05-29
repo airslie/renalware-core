@@ -9,6 +9,7 @@ permissions:
   contents: read
   packages: write
   id-token: write
+  security-events: write
 
 concurrency:
   group: build-canonical-image-${{ github.ref }}
@@ -85,6 +86,24 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.created=${{ steps.meta.outputs.build_timestamp }}
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
+
+      - name: Scan canonical image with Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
+          format: sarif
+          output: trivy-results.sarif
+          exit-code: "1"
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL
+          limit-severities-for-sarif: true
+
+      - name: Upload Trivy scan results
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: trivy-results.sarif
 
       - name: Write image metadata artifact
         shell: bash
