@@ -14,6 +14,8 @@ describe Renalware::Configuration do
       DEVISE_EXTRA_MODULES
       PATIENT_HOSPITAL_IDENTIFIERS
       URR_GENERATION_ENABLED
+      MESH_CARE_SETTING_SNOMED_CODE
+      MESH_CARE_SETTING_DESCRIPTION
     )
     original_values = env_keys_that_override_defaults.index_with { |key| ENV.fetch(key, nil) }
     env_keys_that_override_defaults.each { |key| ENV.delete(key) }
@@ -46,6 +48,8 @@ describe Renalware::Configuration do
         :medication_delivery_purchase_order_prefix,
         :medication_review_max_age_in_months,
         :messaging_recipient_warn_if_not_signed_in_for_days,
+        :mesh_care_setting_description,
+        :mesh_care_setting_snomed_code,
         :mesh_mailbox_id,
         :new_clinic_visit_deletion_window,
         :new_clinic_visit_edit_window,
@@ -66,7 +70,9 @@ describe Renalware::Configuration do
         auto_terminate_hd_stat_prescriptions_after_period: 14.days,
         patients_must_have_at_least_one_hosp_number: true,
         enable_expiring_prescriptions_list_component: true,
-        enforce_user_prescriber_flag: false
+        enforce_user_prescriber_flag: false,
+        mesh_care_setting_snomed_code: "788003006",
+        mesh_care_setting_description: "Nephrology service"
       )
     end
   end
