@@ -1,0 +1,6 @@
+# These CVEs are reported from inactive Ruby base-image gemspecs that remain
+# in /usr/local/lib/ruby/gems outside the application bundle. Bundler installs
+# and activates fixed versions from Gemfile.lock, shadowing these base copies.
+CVE-2026-33210
+CVE-2026-42257
+CVE-2026-42258
