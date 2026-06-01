@@ -166,7 +166,7 @@ gem "phlex-rails"
 gem "prawn", "~> 2.5.0"
 gem "prawn-table", "~> 0.2"
 gem "psych", ">= 5.1.2" # required for ruby 3.x to avoid invalid database.yml error
-gem "puma", "< 8" # Puma 7 may require testing due to call back changes
+gem "puma", "~> 8.0.2" # Puma 7 may require testing due to call back changes
 gem "pundit", "~> 2.5.0"
 gem "rack"
 gem "rack-attack"

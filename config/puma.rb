@@ -40,19 +40,15 @@ worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 workers ENV.fetch("WEB_CONCURRENCY", 2)
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-port ENV.fetch("PORT", 3000)
-
-# Allow puma to be restarted by `bin/rails restart` command.
-plugin :tmp_restart
+# Puma 8 may listen on :: by default instead of 0.0.0.0 on hosts with IPv6 so
+# if deployment/proxy/health checks assume IPv4, set it explicitly with "0.0.0.0"
+port ENV.fetch("PORT", 3000), "0.0.0.0"
 
 # Run the Solid Queue supervisor inside of Puma for single-server deployments
 plugin :solid_queue if ENV["SOLID_QUEUE_IN_PUMA"]
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
-
-# Run the Solid Queue supervisor inside of Puma for single-server deployments
-plugin :solid_queue if ENV["SOLID_QUEUE_IN_PUMA"]
 
 # silence_fork_callback_warning
 
