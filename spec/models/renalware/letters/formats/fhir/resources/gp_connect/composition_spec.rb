@@ -40,7 +40,11 @@ module Renalware
           allow(author).to receive_messages(uuid: "abc")
           allow(letter_patient).to receive(:secure_id_dashed).and_return("PAT1")
           allow(clinic_visit).to receive(:uuid).and_return("CV_ENCOUNTER_1")
-          allow(Renalware.config).to receive(:mesh_organisation_uuid).and_return("ORG1")
+          allow(Renalware.config).to receive_messages(
+            mesh_care_setting_description: "Renal service",
+            mesh_care_setting_snomed_code: "123456",
+            mesh_organisation_uuid: "ORG1"
+          )
         end
 
         describe "fullUrl" do
@@ -82,6 +86,17 @@ module Renalware
 
           it "custodian element references the sending organisation" do
             expect(resource.custodian.reference).to eq("urn:uuid:ORG1")
+          end
+
+          it "includes the configured care setting type extension" do
+            extension = resource.extension.first
+
+            expect(extension.url).to eq(
+              "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-CareSettingType-1"
+            )
+            expect(extension.valueCodeableConcept.coding.first.system).to eq("http://snomed.info/sct")
+            expect(extension.valueCodeableConcept.coding.first.code).to eq("123456")
+            expect(extension.valueCodeableConcept.coding.first.display).to eq("Renal service")
           end
 
           it "has the correct snomed code" do

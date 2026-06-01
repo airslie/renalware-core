@@ -7,6 +7,7 @@ module Renalware
         register_mesh_api_settings(base)
         register_mesh_certificate_settings(base)
         register_mesh_organisation_settings(base)
+        register_mesh_care_setting_settings(base)
       end
 
       def self.register_letter_settings(base)
@@ -105,6 +106,16 @@ module Renalware
           ENV.fetch("MESH_ORGANISATION_EMAIL", "??")
         end
         base.config_accessor(:mesh_organisation_name) { ENV.fetch("MESH_ORGANISATION_NAME", "??") }
+      end
+
+      def self.register_mesh_care_setting_settings(base)
+        base.config_accessor(:mesh_care_setting_snomed_code) do
+          ENV.fetch("MESH_CARE_SETTING_SNOMED_CODE", "788003006")
+        end
+
+        base.config_accessor(:mesh_care_setting_description) do
+          ENV.fetch("MESH_CARE_SETTING_DESCRIPTION", "Nephrology service")
+        end
       end
     end
   end

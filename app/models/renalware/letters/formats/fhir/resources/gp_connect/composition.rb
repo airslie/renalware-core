@@ -8,6 +8,9 @@ module Renalware::Letters
           include Support::Helpers
 
           PROFILE_URL = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Composition-1".freeze
+          CARE_SETTING_TYPE_EXTENSION_URL =
+            "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-CareSettingType-1"
+              .freeze
 
           def call
             {
@@ -41,6 +44,7 @@ module Renalware::Letters
                 custodian: {
                   reference: arguments.organisation_urn
                 },
+                extension: care_setting_type_extension,
                 title: arguments.composition_title,
                 confidentiality: arguments.confidentiality,
                 section: {
@@ -52,6 +56,18 @@ module Renalware::Letters
                     { reference: arguments.binary_urn }
                   ]
                 }
+              )
+            }
+          end
+
+          private
+
+          def care_setting_type_extension
+            {
+              url: CARE_SETTING_TYPE_EXTENSION_URL,
+              valueCodeableConcept: snomed_coding(
+                Renalware.config.mesh_care_setting_snomed_code,
+                Renalware.config.mesh_care_setting_description
               )
             }
           end
