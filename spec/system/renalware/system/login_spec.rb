@@ -172,5 +172,47 @@ module Renalware
         expect(page).to have_current_path root_path
       end
     end
+
+    context "when a user's password has expired" do
+      before do
+        Renalware::User.devise(:password_expirable)
+        Rails.application.reload_routes!
+      end
+
+      it "asks them to renew their password", js: false do
+        user = create(:user, :clinical)
+        user.update_column(:password_changed_at, nil)
+
+        visit new_user_session_path
+
+        fill_in "Username", with: user.username
+        fill_in "Password", with: user.password
+        click_on "Sign in"
+
+        expect(page).to have_current_path user_password_expired_path
+        expect(page).to have_text "Renew your password"
+      end
+
+      it "allows them to change their expired password", js: false do
+        user = create(:user, :clinical)
+        user.update_column(:password_changed_at, nil)
+
+        visit new_user_session_path
+
+        fill_in "Username", with: user.username
+        fill_in "Password", with: user.password
+        click_on "Sign in"
+
+        fill_in "Current password", with: user.password
+        fill_in "New password", with: "newsupersecret"
+        fill_in "Confirm new password", with: "newsupersecret"
+        click_on "Change my password"
+
+        expect(page).to have_current_path root_path
+        expect(page).to have_text "Your new password is saved."
+        expect(user.reload.password_changed_at).to be_present
+        expect(user.valid_password?("newsupersecret")).to be true
+      end
+    end
   end
 end
