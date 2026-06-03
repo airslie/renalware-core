@@ -25,7 +25,8 @@ devise_for :users,
              omniauth_callbacks: "renalware/devise/omniauth_callbacks",
              registrations: "renalware/devise/registrations",
              sessions: "renalware/devise/sessions",
-             passwords: "renalware/devise/passwords"
+             passwords: "renalware/devise/passwords",
+             password_expired: "devise/password_expired"
            }
 
 # Session keepalive endpoint returning server-calculated expiry metadata.
