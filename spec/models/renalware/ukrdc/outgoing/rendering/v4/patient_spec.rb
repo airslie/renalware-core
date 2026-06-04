@@ -28,7 +28,7 @@ module Renalware
           expect(patient.reload.renal_registry_id).to eq("123")
         end
 
-        it "includes the prefixed renal registry id as a UKRR_UID patient number" do
+        it "includes the prefixed renal registry id as a UKRR_UID national identifier" do
           allow(Renalware.config).to receive(:ukrdc_sending_facility_name).and_return("RAJ")
           patient = Renalware::UKRDC::PatientPresenter.new(
             create(:patient, renal_registry_id: "ABC123", sent_to_ukrdc_at: 1.year.ago)
@@ -39,7 +39,7 @@ module Renalware
           expect(xml).to include("<PatientNumbers>")
           expect(xml).to include("<Number>RAJ_ABC123</Number>")
           expect(xml).to include("<Organization>UKRR_UID</Organization>")
-          expect(xml).to include("<NumberType>MRN</NumberType>")
+          expect(xml).to include("<NumberType>NI</NumberType>")
         end
 
         it "includes the correctly formatted NHS number" do
@@ -139,8 +139,8 @@ module Renalware
             expect(xml).to include("<BirthTime>1988-01-01T00:00:00+00:00</BirthTime>")
             expect(xml).to include("<Number>RAJ_ABC123</Number>")
             expect(xml).to include("<Organization>UKRR_UID</Organization>")
-            expect(xml).to include("<NumberType>MRN</NumberType>")
             expect(xml).to include("<NumberType>NI</NumberType>")
+            expect(xml).to include("<NumberType>MRN</NumberType>")
             expect(xml).to include("<Postcode>BS10</Postcode>")
             expect(xml).to include("<ProgramName>UKRR</ProgramName>")
             expect(xml).to include("<FromTime>1900-01-01</FromTime>")
