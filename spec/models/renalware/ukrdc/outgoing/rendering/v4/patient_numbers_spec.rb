@@ -12,7 +12,7 @@ module Renalware
               <PatientNumber>
                 <Number>RAJ_ABC123</Number>
                 <Organization>UKRR_UID</Organization>
-                <NumberType>MRN</NumberType>
+                <NumberType>NI</NumberType>
               </PatientNumber>
             </PatientNumbers>
           XML
@@ -30,7 +30,7 @@ module Renalware
               <PatientNumber>
                 <Number>RAJ_ABC123</Number>
                 <Organization>UKRR_UID</Organization>
-                <NumberType>MRN</NumberType>
+                <NumberType>NI</NumberType>
               </PatientNumber>
               <PatientNumber>
                 <Number>9999999999</Number>
@@ -58,7 +58,7 @@ module Renalware
               <PatientNumber>
                 <Number>RAJ_ABC123</Number>
                 <Organization>UKRR_UID</Organization>
-                <NumberType>MRN</NumberType>
+                <NumberType>NI</NumberType>
               </PatientNumber>
               <PatientNumber>
                 <Number>123</Number>
@@ -73,7 +73,7 @@ module Renalware
           expect(actual_xml).to eq(expected_xml)
         end
 
-        it "renders the UKRR UID as MRN and NI when anonymised" do
+        it "renders the UKRR UID as NI and MRN when anonymised" do
           allow(Renalware.config).to receive(:ukrdc_sending_facility_name).and_return("RAJ")
           patient = Patient.new(
             renal_registry_id: "ABC123",
@@ -85,12 +85,12 @@ module Renalware
               <PatientNumber>
                 <Number>RAJ_ABC123</Number>
                 <Organization>UKRR_UID</Organization>
-                <NumberType>MRN</NumberType>
+                <NumberType>NI</NumberType>
               </PatientNumber>
               <PatientNumber>
                 <Number>RAJ_ABC123</Number>
                 <Organization>UKRR_UID</Organization>
-                <NumberType>NI</NumberType>
+                <NumberType>MRN</NumberType>
               </PatientNumber>
             </PatientNumbers>
           XML

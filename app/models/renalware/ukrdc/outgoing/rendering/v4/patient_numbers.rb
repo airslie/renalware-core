@@ -31,7 +31,7 @@ module Renalware
               PatientNumber.new(
                 number: Renalware::UKRDC::RenalRegistryId.new(patient:).to_s,
                 organisation: "UKRR_UID",
-                type: "MRN"
+                type: "NI"
               ).xml
             end
 
@@ -39,7 +39,7 @@ module Renalware
               PatientNumber.new(
                 number: Renalware::UKRDC::RenalRegistryId.new(patient:).to_s,
                 organisation: "UKRR_UID",
-                type: "NI"
+                type: "MRN"
               ).xml
             end
 
