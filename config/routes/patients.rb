@@ -38,6 +38,9 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
   resource :lab, only: :show, controller: "patients/labs"
   resource :heidi_linked_account, only: :create, controller: "patients/heidi_linked_accounts"
   resource :heidi_session, only: :create, controller: "patients/heidi_sessions"
+  post "heidi_session_syncs/:heidi_session_id",
+       to: "patients/heidi_session_syncs#create",
+       as: :heidi_session_sync
   resource :clinical_summary, only: :show, controller: "patients/clinical_summaries"
   resource :death, only: %i(edit update), controller: "patients/deaths"
   resource :primary_care_physician,

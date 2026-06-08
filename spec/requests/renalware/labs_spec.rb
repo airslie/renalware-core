@@ -292,6 +292,34 @@ describe "Lab" do
         expect(response.body).to include(@current_user.email)
         expect(response.body).to include(patient_heidi_session_path(patient))
       end
+
+      it "renders synced Heidi note content for recent patient Heidi sessions" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        client = instance_double(Renalware::Heidi::Client)
+        allow(Renalware::Heidi::Client).to receive_messages(configured?: true, new: client)
+        allow(client).to receive(:linked_account_access).with(@current_user).and_return(
+          Renalware::Heidi::Client::Result.new(
+            success: true,
+            status: 200,
+            body: { "is_linked" => true }
+          )
+        )
+        create(
+          :heidi_session,
+          patient:,
+          user: @current_user,
+          status: :synced,
+          consult_note_status: "COMPLETED",
+          consult_note: "Synced renal clinic note\nPlan: Continue monitoring"
+        )
+
+        get patient_lab_path(patient)
+
+        expect(response.body).to include("Recent Heidi sessions")
+        expect(response.body).to include("Synced note")
+        expect(response.body).to include("Synced renal clinic note")
+        expect(response.body).to include("Plan: Continue monitoring")
+      end
     end
 
     context "when the user does not have the lab feature flag" do
@@ -385,10 +413,19 @@ describe "Lab" do
         )
       )
 
-      post patient_heidi_session_path(patient)
+      expect {
+        post patient_heidi_session_path(patient)
+      }.to change(Renalware::Heidi::Session, :count).by(1)
 
       expect(response).to redirect_to(
         "https://registrar.scribe.heidihealth.com/scribe/session/1234567890"
+      )
+      expect(Renalware::Heidi::Session.last).to have_attributes(
+        patient: patient,
+        user: @current_user,
+        heidi_session_id: "1234567890",
+        heidi_patient_profile_id: "profile-1",
+        status: "launched"
       )
     end
 
@@ -408,6 +445,28 @@ describe "Lab" do
 
       expect(response).to redirect_to(patient_lab_path(patient))
       expect(flash[:alert]).to eq("Heidi session could not be created: not linked")
+    end
+  end
+
+  describe "POST /patients/:patient_id/heidi_session_syncs/:heidi_session_id" do
+    let(:patient) { create(:patient, :minimal, by: @current_user) }
+    let(:heidi_session) { create(:heidi_session, patient:, user: @current_user) }
+
+    before do
+      @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+    end
+
+    it "syncs the selected Heidi session and redirects back to the lab page" do
+      sync = instance_double(Renalware::Heidi::SyncSession, call: heidi_session)
+      allow(Renalware::Heidi::SyncSession).to receive(:new)
+        .with(session: heidi_session)
+        .and_return(sync)
+
+      post patient_heidi_session_sync_path(patient, heidi_session)
+
+      expect(sync).to have_received(:call)
+      expect(response).to redirect_to(patient_lab_path(patient))
+      expect(flash[:notice]).to eq("Heidi session sync requested.")
     end
   end
 

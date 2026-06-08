@@ -20,12 +20,39 @@
         = button_to "Launch Heidi session",
                     patient_heidi_session_path(patient),
                     method: :post,
-                    class: "button"
+                    class: "button",
+                    form: { target: "_blank", rel: "noopener" }
       - else
         = button_to "Link Heidi account",
                     patient_heidi_linked_account_path(patient),
                     method: :post,
                     class: "button"
+      - if heidi_sessions.any?
+        h3 Recent Heidi sessions
+        table
+          thead
+            tr
+              th Created
+              th Status
+              th Note
+              th
+          tbody
+            - heidi_sessions.each do |session|
+              tr
+                td= l(session.created_at)
+                td= session.status.humanize
+                td= session.consult_note_status.presence || "Not synced"
+                td
+                  = button_to "Sync note",
+                              patient_heidi_session_sync_path(patient, session),
+                              method: :post,
+                              class: "button secondary"
+                - if session.consult_note.present?
+                  tr
+                    td(colspan=4)
+                      details
+                        summary Synced note
+                        pre.whitespace-pre-wrap= session.consult_note
 
   - slots.each do |slot|
     .lab-slot

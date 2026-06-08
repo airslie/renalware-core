@@ -75,52 +75,24 @@ describe Renalware::Heidi::Client do
     end
   end
 
-  describe "#create_session" do
-    it "creates a session using the generated JWT" do
-      stub_jwt
-      stub_create_session
-
-      result = client.create_session(user)
-
-      expect(result).to be_success
-      expect(result.body).to eq("session_id" => "1234567890")
-      stubs.verify_stubbed_calls
-    end
-  end
-
   describe "#create_session_for_patient" do
-    it "creates a session, links it to a patient profile, and returns launch data" do
-      stub_jwt
-      stub_create_session
-      patient_profiles = instance_double(Renalware::Heidi::PatientProfilesClient)
-      allow(Renalware::Heidi::PatientProfilesClient).to receive(:new).and_return(patient_profiles)
-      allow(patient_profiles).to receive(:find_or_create).with(user, patient).and_return(
+    it "delegates patient-aware session creation to the sessions client" do
+      sessions_client = instance_double(Renalware::Heidi::SessionsClient)
+      allow(Renalware::Heidi::SessionsClient).to receive(:new)
+        .with(client:)
+        .and_return(sessions_client)
+      allow(sessions_client).to receive(:create_for_patient).with(user, patient).and_return(
         Renalware::Heidi::Client::Result.new(
           success: true,
           status: 200,
-          body: { "id" => "profile-1" }
-        )
-      )
-      allow(patient_profiles).to receive(:link_session).with(
-        user,
-        patient_profile_id: "profile-1",
-        session_id: "1234567890"
-      ).and_return(
-        Renalware::Heidi::Client::Result.new(
-          success: true,
-          status: 200,
-          body: { "data" => [{ "session_id" => "1234567890" }] }
+          body: { "session_id" => "1234567890" }
         )
       )
 
       result = client.create_session_for_patient(user, patient)
 
       expect(result).to be_success
-      expect(result.body).to include(
-        "session_id" => "1234567890",
-        "patient_profile_id" => "profile-1"
-      )
-      stubs.verify_stubbed_calls
+      expect(result.body).to eq("session_id" => "1234567890")
     end
   end
 
@@ -175,16 +147,6 @@ describe Renalware::Heidi::Client do
         { "Content-Type" => "application/json" },
         { account: { ehr_email: "dr@example.com" } }.to_json
       ]
-    end
-  end
-
-  def stub_create_session
-    stubs.post("sessions") do |env|
-      expect(env.request_headers["Authorization"]).to eq("Bearer jwt-token")
-      expect(env.request_headers["Heidi-Api-Key"]).to eq("test-api-key")
-      expect(JSON.parse(env.body)).to eq({})
-
-      [200, { "Content-Type" => "application/json" }, { session_id: "1234567890" }.to_json]
     end
   end
 end

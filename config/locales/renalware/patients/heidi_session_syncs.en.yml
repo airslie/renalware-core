@@ -1,0 +1,6 @@
+en:
+  renalware:
+    patients:
+      heidi_session_syncs:
+        create:
+          success: Heidi session sync requested.

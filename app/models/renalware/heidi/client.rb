@@ -52,47 +52,11 @@ module Renalware
         failure(error: e.message)
       end
 
-      def create_session(user)
-        with_jwt(user) do |token|
-          response = connection.post("sessions") do |request|
-            request.headers["Authorization"] = "Bearer #{token}"
-            request.headers["Heidi-Api-Key"] = api_key
-            request.headers["Content-Type"] = "application/json"
-            request.body = {}.to_json
-          end
-
-          result_from(response)
-        end
-      rescue ConfigurationError, Faraday::Error, JSON::ParserError => e
-        failure(error: e.message)
-      end
-
       def create_session_for_patient(user, patient)
-        session = create_session(user)
-        return session if session.failed? || session.body["session_id"].blank?
-
-        profile = PatientProfilesClient.new.find_or_create(user, patient)
-        return profile if profile.failed?
-
-        link_patient_profile_to_session(user, profile, session)
+        SessionsClient.new(client: self).create_for_patient(user, patient)
       end
 
       private
-
-      def link_patient_profile_to_session(user, profile, session)
-        link = PatientProfilesClient.new.link_session(
-          user,
-          patient_profile_id: profile.body.fetch("id"),
-          session_id: session.body["session_id"]
-        )
-        return link if link.failed?
-
-        session.body["patient_profile_id"] = profile.body["id"]
-        session.body["patient_profile_session_link"] = link.body
-        session
-      rescue KeyError => e
-        failure(error: "Heidi response did not include #{e.key}")
-      end
 
       def validate_authentication_config_for(user)
         raise ConfigurationError, "HEIDI_API_KEY is not configured" if api_key.blank?
