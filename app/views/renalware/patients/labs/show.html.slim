@@ -1,4 +1,26 @@
 = within_patient_layout(title: "Lab") do
+  - if Renalware::Heidi::Client.configured?
+    .panel
+      h2 Heidi WIP
+      - if heidi_link_status.success?
+        - account = heidi_link_status.body.fetch("account", {})
+        p
+          strong Link status:
+          =< heidi_link_status.body["is_linked"] ? "linked" : "not linked"
+        - if account.present?
+          p
+            strong Heidi EHR user:
+            =< [account["ehr_email"], account["ehr_user_id"]].compact.join(" / ")
+      - else
+        p
+          strong Link status:
+          =< "could not be checked"
+        p= heidi_link_status.error
+      = button_to "Link Heidi account",
+                  patient_heidi_linked_account_path(patient),
+                  method: :post,
+                  class: "button"
+
   - slots.each do |slot|
     .lab-slot
       = sql_view_widgets_for(slot,

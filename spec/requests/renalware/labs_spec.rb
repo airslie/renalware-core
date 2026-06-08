@@ -141,6 +141,10 @@ describe "Lab" do
   describe "GET /patients/:patient_id/lab" do
     let(:patient) { create(:patient, :minimal, by: @current_user) }
 
+    before do
+      allow(Renalware::Heidi::Client).to receive(:configured?).and_return(false)
+    end
+
     context "when the user has the lab feature flag" do
       it "responds with the patient lab page" do
         @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
@@ -262,6 +266,32 @@ describe "Lab" do
           "Patient lab widgets must define widget_options.patient_id_column"
         )
       end
+
+      it "renders Heidi link status when Heidi is configured" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        client = instance_double(Renalware::Heidi::Client)
+        allow(Renalware::Heidi::Client).to receive_messages(configured?: true, new: client)
+        allow(client).to receive(:linked_account_access).with(@current_user).and_return(
+          Renalware::Heidi::Client::Result.new(
+            success: true,
+            status: 200,
+            body: {
+              "is_linked" => true,
+              "account" => {
+                "ehr_email" => @current_user.email,
+                "ehr_user_id" => @current_user.uuid
+              }
+            }
+          )
+        )
+
+        get patient_lab_path(patient)
+
+        expect(response.body).to include("Heidi WIP")
+        expect(response.body).to include("linked")
+        expect(response.body).to include(@current_user.email)
+        expect(response.body).to include(patient_heidi_linked_account_path(patient))
+      end
     end
 
     context "when the user does not have the lab feature flag" do
@@ -292,6 +322,45 @@ describe "Lab" do
       expect(response.body).to include(%(id="sql-view-widget-#{widget.id}"))
       expect(response.body).to include("Current patient row")
       expect(response.body).not_to include("Other patient row")
+    end
+  end
+
+  describe "POST /patients/:patient_id/heidi_linked_account" do
+    let(:patient) { create(:patient, :minimal, by: @current_user) }
+
+    before do
+      @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+    end
+
+    it "links the current user's Heidi account and redirects back to the lab page" do
+      client = instance_double(Renalware::Heidi::Client)
+      allow(Renalware::Heidi::Client).to receive(:new).and_return(client)
+      allow(client).to receive(:link_account).with(@current_user).and_return(
+        Renalware::Heidi::Client::Result.new(success: true, status: 200, body: {})
+      )
+
+      post patient_heidi_linked_account_path(patient)
+
+      expect(response).to redirect_to(patient_lab_path(patient))
+      expect(flash[:notice]).to eq("Heidi account linked.")
+    end
+
+    it "redirects with an alert when Heidi rejects the link request" do
+      client = instance_double(Renalware::Heidi::Client)
+      allow(Renalware::Heidi::Client).to receive(:new).and_return(client)
+      allow(client).to receive(:link_account).with(@current_user).and_return(
+        Renalware::Heidi::Client::Result.new(
+          success: false,
+          status: 400,
+          body: {},
+          error: "bad payload"
+        )
+      )
+
+      post patient_heidi_linked_account_path(patient)
+
+      expect(response).to redirect_to(patient_lab_path(patient))
+      expect(flash[:alert]).to eq("Heidi account linking failed: bad payload")
     end
   end
 

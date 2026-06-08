@@ -15,8 +15,17 @@ module Renalware
 
         render locals: {
           patient: patient,
+          heidi_link_status: heidi_link_status,
           slots: SLOTS
         }
+      end
+
+      private
+
+      def heidi_link_status
+        return unless Renalware::Heidi::Client.configured?
+
+        Renalware::Heidi::Client.new.linked_account_access(current_user)
       end
     end
   end

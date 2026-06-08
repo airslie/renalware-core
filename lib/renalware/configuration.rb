@@ -138,6 +138,13 @@ module Renalware
     config_accessor(:nhs_client_id)     { ENV.fetch("NHS_CLIENT_ID", "") }
     config_accessor(:nhs_client_secret) { ENV.fetch("NHS_CLIENT_SECRET", "") }
     config_accessor(:nhs_trud_api_key)  { ENV.fetch("NHS_TRUD_API_KEY", "") }
+    config_accessor(:heidi_api_base_url) {
+      ENV.fetch(
+        "HEIDI_API_BASE_URL",
+        "https://registrar.api.heidihealth.com/api/v2/ml-scribe/open-api/"
+      )
+    }
+    config_accessor(:heidi_api_key) { ENV.fetch("HEIDI_API_KEY", "") }
 
     # MESHAPI
     # Introduce an optional delay between letter approval and letter send, in order to allow
