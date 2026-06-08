@@ -2,20 +2,14 @@ require "faraday"
 
 module Renalware
   module Heidi
-    class Client
-      Result = Struct.new(:success, :status, :body, :error) do
-        alias_method :success?, :success
-
-        def failed? = !success?
-      end
-
-      class ConfigurationError < StandardError; end
+    class Client < BaseClient
+      Result = BaseClient::Result
+      ConfigurationError = BaseClient::ConfigurationError
 
       def self.configured? = Renalware.config.heidi_api_key.present?
 
-      def initialize(connection: nil, api_key: Renalware.config.heidi_api_key)
-        @connection = connection
-        @api_key = api_key
+      def self.launch_url_for(session_id)
+        "#{Renalware.config.heidi_scribe_session_base_url.chomp('/')}/#{session_id}"
       end
 
       def jwt_for(user)
@@ -58,9 +52,47 @@ module Renalware
         failure(error: e.message)
       end
 
+      def create_session(user)
+        with_jwt(user) do |token|
+          response = connection.post("sessions") do |request|
+            request.headers["Authorization"] = "Bearer #{token}"
+            request.headers["Heidi-Api-Key"] = api_key
+            request.headers["Content-Type"] = "application/json"
+            request.body = {}.to_json
+          end
+
+          result_from(response)
+        end
+      rescue ConfigurationError, Faraday::Error, JSON::ParserError => e
+        failure(error: e.message)
+      end
+
+      def create_session_for_patient(user, patient)
+        session = create_session(user)
+        return session if session.failed? || session.body["session_id"].blank?
+
+        profile = PatientProfilesClient.new.find_or_create(user, patient)
+        return profile if profile.failed?
+
+        link_patient_profile_to_session(user, profile, session)
+      end
+
       private
 
-      attr_reader :api_key
+      def link_patient_profile_to_session(user, profile, session)
+        link = PatientProfilesClient.new.link_session(
+          user,
+          patient_profile_id: profile.body.fetch("id"),
+          session_id: session.body["session_id"]
+        )
+        return link if link.failed?
+
+        session.body["patient_profile_id"] = profile.body["id"]
+        session.body["patient_profile_session_link"] = link.body
+        session
+      rescue KeyError => e
+        failure(error: "Heidi response did not include #{e.key}")
+      end
 
       def validate_authentication_config_for(user)
         raise ConfigurationError, "HEIDI_API_KEY is not configured" if api_key.blank?
@@ -81,33 +113,6 @@ module Renalware
         yield jwt.body.fetch("token")
       rescue KeyError
         failure(error: "Heidi JWT response did not include a token")
-      end
-
-      def result_from(response)
-        Result.new(
-          success: response.success?,
-          status: response.status,
-          body: response.body.presence || {},
-          error: response.success? ? nil : response_error(response)
-        )
-      end
-
-      def response_error(response)
-        response.body.presence || response.reason_phrase.presence || "Heidi API request failed"
-      end
-
-      def failure(error:, status: nil, body: {})
-        Result.new(success: false, status:, body:, error:)
-      end
-
-      def connection
-        @connection ||= Faraday.new(
-          url: Renalware.config.heidi_api_base_url,
-          headers: { "Accept" => "application/json" }
-        ) do |faraday|
-          faraday.request :json
-          faraday.response :json
-        end
       end
     end
   end

@@ -16,10 +16,16 @@
           strong Link status:
           =< "could not be checked"
         p= heidi_link_status.error
-      = button_to "Link Heidi account",
-                  patient_heidi_linked_account_path(patient),
-                  method: :post,
-                  class: "button"
+      - if heidi_link_status.success? && heidi_link_status.body["is_linked"]
+        = button_to "Launch Heidi session",
+                    patient_heidi_session_path(patient),
+                    method: :post,
+                    class: "button"
+      - else
+        = button_to "Link Heidi account",
+                    patient_heidi_linked_account_path(patient),
+                    method: :post,
+                    class: "button"
 
   - slots.each do |slot|
     .lab-slot

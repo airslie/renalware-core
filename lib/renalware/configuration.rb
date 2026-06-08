@@ -144,6 +144,12 @@ module Renalware
         "https://registrar.api.heidihealth.com/api/v2/ml-scribe/open-api/"
       )
     }
+    config_accessor(:heidi_scribe_session_base_url) {
+      ENV.fetch(
+        "HEIDI_SCRIBE_SESSION_BASE_URL",
+        "https://registrar.scribe.heidihealth.com/scribe/session/"
+      )
+    }
     config_accessor(:heidi_api_key) { ENV.fetch("HEIDI_API_KEY", "") }
 
     # MESHAPI
