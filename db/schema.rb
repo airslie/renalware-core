@@ -3601,6 +3601,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_19_120000) do
   end
 
   create_table "renalware.heidi_sessions", force: :cascade do |t|
+    t.jsonb "clinical_codes_response", default: {}, null: false
     t.text "consult_note"
     t.string "consult_note_status"
     t.datetime "created_at", null: false

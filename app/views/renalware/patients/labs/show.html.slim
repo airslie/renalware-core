@@ -72,6 +72,12 @@
                       details
                         summary Heidi structured response
                         pre.whitespace-pre-wrap= JSON.pretty_generate(session.structured_response)
+                - if session.clinical_codes_response.present?
+                  tr
+                    td(colspan=5)
+                      details
+                        summary Heidi clinical codes
+                        pre.whitespace-pre-wrap= JSON.pretty_generate(session.clinical_codes_response)
                 - if session.outputs_error.present?
                   tr
                     td(colspan=5)

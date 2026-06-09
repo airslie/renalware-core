@@ -9200,6 +9200,7 @@ CREATE TABLE renalware.heidi_sessions (
     document_content text,
     document_response jsonb DEFAULT '{}'::jsonb NOT NULL,
     structured_response jsonb DEFAULT '{}'::jsonb NOT NULL,
+    clinical_codes_response jsonb DEFAULT '{}'::jsonb NOT NULL,
     outputs_generated_at timestamp(6) without time zone,
     outputs_error text
 );
@@ -35570,6 +35571,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260622120100'),
 ('20260622120000'),
 ('20260611120000'),
+('20260609113000'),
 ('20260609110000'),
 ('20260608120000'),
 ('20260520090000'),

@@ -49,6 +49,32 @@ describe Renalware::Heidi::OutputsClient do
     end
   end
 
+  describe "#clinical_codes" do
+    it "fetches generated clinical codes for a Heidi session" do
+      stub_clinical_codes
+
+      result = outputs_client.clinical_codes(user, "session-1")
+
+      expect(result).to be_success
+      expect(result.body).to eq(
+        "codes" => [{ "code" => "73211009", "code_set" => "SNOMED-CT" }]
+      )
+      stubs.verify_stubbed_calls
+    end
+  end
+
+  def stub_clinical_codes
+    stubs.get("sessions/session-1/clinical-codes") do |env|
+      expect_common_headers(env)
+
+      [
+        200,
+        { "Content-Type" => "application/json" },
+        { codes: [{ code: "73211009", code_set: "SNOMED-CT" }] }.to_json
+      ]
+    end
+  end
+
   def stub_create_document
     stubs.post("sessions/session-1/documents") do |env|
       expect_common_headers(env)

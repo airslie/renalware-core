@@ -11,6 +11,7 @@ module Renalware
         session.update!(outputs_error: nil)
         generate_document if document_template_id.present?
         generate_structured_response
+        fetch_clinical_codes
 
         session.update!(outputs_generated_at: Time.zone.now)
         session
@@ -48,6 +49,13 @@ module Renalware
         raise response.error if response.failed?
 
         session.update!(structured_response: response.body)
+      end
+
+      def fetch_clinical_codes
+        response = client.clinical_codes(session.user, session.heidi_session_id)
+        raise response.error if response.failed?
+
+        session.update!(clinical_codes_response: response.body)
       end
     end
   end

@@ -32,6 +32,18 @@ module Renalware
         failure(error: e.message)
       end
 
+      def clinical_codes(user, session_id)
+        with_jwt(user) do |token|
+          response = connection.get("sessions/#{session_id}/clinical-codes") do |request|
+            apply_headers(request, token)
+          end
+
+          result_from(response)
+        end
+      rescue Client::ConfigurationError, Faraday::Error, JSON::ParserError => e
+        failure(error: e.message)
+      end
+
       private
 
       attr_reader :client

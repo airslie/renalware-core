@@ -341,6 +341,11 @@ describe "Lab" do
             "questionAnswers" => [
               { "questionId" => "new_problems", "answer" => [{ "value" => "Anaemia" }] }
             ]
+          },
+          clinical_codes_response: {
+            "codes" => [
+              { "code" => "73211009", "code_set" => "SNOMED-CT", "description" => "Diabetes" }
+            ]
           }
         )
 
@@ -351,6 +356,9 @@ describe "Lab" do
         expect(response.body).to include("Heidi structured response")
         expect(response.body).to include("new_problems")
         expect(response.body).to include("Anaemia")
+        expect(response.body).to include("Heidi clinical codes")
+        expect(response.body).to include("73211009")
+        expect(response.body).to include("SNOMED-CT")
       end
     end
 
