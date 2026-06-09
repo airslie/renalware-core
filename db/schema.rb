@@ -3604,12 +3604,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_19_120000) do
     t.text "consult_note"
     t.string "consult_note_status"
     t.datetime "created_at", null: false
+    t.text "document_content"
+    t.string "document_content_type"
+    t.jsonb "document_response", default: {}, null: false
+    t.string "document_template_id"
     t.string "heidi_patient_profile_id", null: false
     t.string "heidi_session_id", null: false
     t.datetime "last_synced_at"
+    t.text "outputs_error"
+    t.datetime "outputs_generated_at"
     t.bigint "patient_id", null: false
     t.jsonb "raw_response", default: {}, null: false
     t.string "status", default: "launched", null: false
+    t.jsonb "structured_response", default: {}, null: false
     t.text "sync_error"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false

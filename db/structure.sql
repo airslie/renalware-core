@@ -9194,7 +9194,14 @@ CREATE TABLE renalware.heidi_sessions (
     last_synced_at timestamp(6) without time zone,
     sync_error text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    document_template_id character varying,
+    document_content_type character varying,
+    document_content text,
+    document_response jsonb DEFAULT '{}'::jsonb NOT NULL,
+    structured_response jsonb DEFAULT '{}'::jsonb NOT NULL,
+    outputs_generated_at timestamp(6) without time zone,
+    outputs_error text
 );
 
 
@@ -35563,6 +35570,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260622120100'),
 ('20260622120000'),
 ('20260611120000'),
+('20260609110000'),
 ('20260608120000'),
 ('20260520090000'),
 ('20260520082138'),

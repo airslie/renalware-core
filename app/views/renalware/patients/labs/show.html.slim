@@ -36,6 +36,7 @@
               th Status
               th Note
               th
+              th Outputs
           tbody
             - heidi_sessions.each do |session|
               tr
@@ -47,12 +48,36 @@
                               patient_heidi_session_sync_path(patient, session),
                               method: :post,
                               class: "button secondary"
+                td
+                  = form_with url: patient_heidi_session_outputs_path(patient, session), method: :post do
+                    = text_field_tag :document_template_id,
+                                     session.document_template_id,
+                                     placeholder: "Heidi document template ID"
+                    = submit_tag "Generate outputs", class: "button secondary"
                 - if session.consult_note.present?
                   tr
-                    td(colspan=4)
+                    td(colspan=5)
                       details
                         summary Synced note
                         pre.whitespace-pre-wrap= session.consult_note
+                - if session.document_content.present?
+                  tr
+                    td(colspan=5)
+                      details
+                        summary Heidi document
+                        pre.whitespace-pre-wrap= session.document_content
+                - if session.structured_response.present?
+                  tr
+                    td(colspan=5)
+                      details
+                        summary Heidi structured response
+                        pre.whitespace-pre-wrap= JSON.pretty_generate(session.structured_response)
+                - if session.outputs_error.present?
+                  tr
+                    td(colspan=5)
+                      details
+                        summary Heidi output error
+                        pre.whitespace-pre-wrap= session.outputs_error
 
   - slots.each do |slot|
     .lab-slot
