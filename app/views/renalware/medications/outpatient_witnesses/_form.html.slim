@@ -3,9 +3,7 @@
                  as: :form,
                  html: { autocomplete: "off" },
                  method: :patch,
-                 url: medications_outpatient_prescription_administration_witness_path(
-                   form.outpatient_prescription_administration_id
-                 )) do |f|
+                 url: medications_outpatient_prescription_administration_witness_path(form.outpatient_prescription_administration_id)) do |f|
   .modal
     .modal__header
       h2 Witness Outpatient Drug
