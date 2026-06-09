@@ -54,7 +54,7 @@ describe "Get formatted letter HTML content" do
         filename = "RABBIT-57837-#{letter.id}-DRAFT".upcase
         expect(response["Content-Disposition"]).to include("attachment")
         expect(response["Content-Disposition"]).to include(filename)
-        expect(response.body).to match(/\{\\rtf/)
+        expect(response.body).to include('{\rtf')
       end
     end
   end

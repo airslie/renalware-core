@@ -70,7 +70,7 @@ module Renalware
           )
           html = diff.to_html
           expect(html).not_to be_blank
-          expect(html).to match(/<table/)
+          expect(html).to include("<table")
         end
       end
     end

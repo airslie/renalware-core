@@ -25,7 +25,7 @@ RSpec.describe Forms::Generic::Homecare::DeliveryFrequencies do
 
       text = extract_pdf_text(args)
 
-      expect(text).to match(/Frequency of deliveries/)
+      expect(text).to include("Frequency of deliveries")
       expect(text).to match(/❏ +3 months/)
       expect(text).to match(/❏ +6 months/)
     end

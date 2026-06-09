@@ -143,7 +143,7 @@ describe "Clinical Studies management" do
         post(research.studies_path, params:)
 
         expect(response).to be_successful
-        expect(response.body).to match(/error/)
+        expect(response.body).to include("error")
       end
     end
   end
