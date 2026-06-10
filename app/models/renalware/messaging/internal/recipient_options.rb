@@ -85,7 +85,7 @@ module Renalware
         end
 
         def ids_of_excludable_users
-          User.excludable.order(:family_name, :given_name).pluck(:id)
+          User.where.not(id: User.messagable.select(:id)).pluck(:id)
         end
 
         def sanitize(*) = Arel.sql(ActiveRecord::Base.sanitize_sql_array(*))

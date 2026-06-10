@@ -34,6 +34,7 @@ module Renalware
 
     scope :unapproved, -> { where(approved: [nil, false]) }
     scope :expired, -> { where.not(expired_at: nil) }
+    scope :banned, -> { where(banned: true) }
     scope :never_used, -> { where(last_activity_at: nil).where(created_at: ...expire_after.ago) }
     scope :inactive, -> do
       where
@@ -41,7 +42,14 @@ module Renalware
         .where(last_activity_at: ...expire_after.ago)
         .or(never_used)
     end
-    scope :excludable, -> { unapproved.or(inactive).or(expired).or(hidden) }
+    scope :excludable, -> { unapproved.or(inactive).or(expired).or(hidden).or(banned) }
+    scope :messagable, -> do
+      where
+        .not(id: excludable.select(:id))
+        .joins(:roles)
+        .where(roles: { name: Role::MESSAGABLE_ROLES })
+        .distinct
+    end
     scope :author, -> { where.not(signature: nil) }
     scope :ordered, -> { visible.order(:family_name, :given_name) }
     scope :excluding_system_user, -> { where.not(username: SystemUser.username) }
