@@ -41,6 +41,10 @@ module Renalware::Messaging::Internal
       vanilla_user(user).update_column(:hidden, true)
     end
 
+    def replace_roles(user, *roles)
+      vanilla_user(user).roles = roles.map { |role| create(:role, role) }
+    end
+
     def vanilla_user(user) = user.becomes(Renalware::User)
 
     describe "#to_h" do
@@ -123,6 +127,39 @@ module Renalware::Messaging::Internal
           # Everyone else excluding anyone already listed and the current author
           all_other_users = groups[2]
           expect(all_other_users.users).not_to include(another_user)
+        end
+      end
+
+      context "when users do not have clinical, admin or superadmin roles" do
+        it "excludes them even if they are recent recipients", :aggregate_failures do
+          replace_roles(recipient_for_message_re_patient_a, :read_only)
+          replace_roles(recipient_for_message_re_patient_b, :prescriber)
+          replace_roles(another_user, :read_only)
+
+          groups = described_class.new(patient_a, author).to_a
+
+          expect(groups[0].users).not_to include(recipient_for_message_re_patient_a)
+          expect(groups[1].users).not_to include(recipient_for_message_re_patient_b)
+          expect(groups[2].users).not_to include(another_user)
+        end
+      end
+
+      context "when users have clinical, admin or superadmin roles" do
+        it "includes them in recipient options", :aggregate_failures do
+          admin = create(:internal_recipient, :admin)
+          super_admin = create(:internal_recipient, :super_admin)
+          read_only_and_clinical = create(
+            :internal_recipient,
+            :read_only,
+            additional_roles: :clinical
+          )
+
+          all_other_users = described_class.new(patient_a, author).to_a[2].users
+
+          expect(all_other_users).to include(another_user)
+          expect(all_other_users).to include(admin)
+          expect(all_other_users).to include(super_admin)
+          expect(all_other_users).to include(read_only_and_clinical)
         end
       end
     end

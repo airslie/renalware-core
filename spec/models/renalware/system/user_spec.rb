@@ -168,6 +168,51 @@ module Renalware
         end
       end
 
+      describe "excludable" do
+        it "retrieves users who are unapproved, inactive, expired, hidden or banned" do
+          active = create(:user)
+          unapproved = create(:user, :unapproved)
+          inactive = create(:user, last_activity_at: 90.days.ago)
+          never_used = create(:user, last_activity_at: nil, created_at: 90.days.ago)
+          expired = create(:user, expired_at: 1.day.ago)
+          hidden = create(:user, hidden: true)
+          banned = create(:user, banned: true)
+
+          expect(described_class.excludable).to contain_exactly(
+            unapproved,
+            inactive,
+            never_used,
+            expired,
+            hidden,
+            banned
+          )
+          expect(described_class.excludable).not_to include(active)
+        end
+      end
+
+      describe "messagable" do
+        it "retrieves non-excludable users with clinical, admin or super_admin roles" do
+          clinical = create(:user, :clinical)
+          admin = create(:user, :admin)
+          super_admin = create(:user, :super_admin)
+          read_only_and_clinical = create(:user, :read_only, additional_roles: :clinical)
+          create(:user, :read_only)
+          create(:user, additional_roles: :prescriber, role: nil)
+          create(:user, :clinical, approved: false)
+          create(:user, :admin, last_activity_at: 90.days.ago)
+          create(:user, :super_admin, expired_at: 1.day.ago)
+          create(:user, :clinical, hidden: true)
+          create(:user, :clinical, banned: true)
+
+          expect(described_class.messagable).to contain_exactly(
+            clinical,
+            admin,
+            super_admin,
+            read_only_and_clinical
+          )
+        end
+      end
+
       describe "inactive" do
         it "retrieves inactive users" do
           create(:user, last_activity_at: 1.minute.ago)
