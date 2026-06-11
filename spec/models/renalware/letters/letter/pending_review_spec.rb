@@ -56,7 +56,7 @@ module Renalware::Letters
 
         it "archives the content" do
           content = letter.generate_archive(by: user).archive.content
-          expect(content).to match(/class="unit-info"/)
+          expect(content).to include('class="unit-info"')
           expect(content).to include(patient.full_name)
           expect(content).to include(patient.practice.address.street_1)
         end

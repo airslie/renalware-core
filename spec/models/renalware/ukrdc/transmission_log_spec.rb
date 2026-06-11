@@ -26,7 +26,7 @@ module Renalware
 
             log = described_class.where(patient_id: patient.id).last
 
-            expect(log.error.first).to match /ArgumentError/
+            expect(log.error.first).to include("ArgumentError")
             expect(log.status).to eq("error")
           end
         end

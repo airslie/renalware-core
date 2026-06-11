@@ -17,7 +17,7 @@ describe "Renew HD prescription" do
 
       expect(response).to be_successful
       expect(response).to render_template(:new)
-      expect(response.body).to match(/Drug1/) # and checkbox
+      expect(response.body).to include("Drug1") # and checkbox
     end
   end
 
