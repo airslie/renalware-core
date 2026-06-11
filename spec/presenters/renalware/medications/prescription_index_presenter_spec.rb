@@ -39,6 +39,7 @@ module Renalware
         end
       end
 
+      # rubocop:disable Metrics/MethodLength
       def allow_grouped_count_query_for(*prescriptions)
         prescription_ids = prescriptions.map(&:id)
         relation = HD::PrescriptionAdministration
@@ -54,6 +55,7 @@ module Renalware
           )
           .and_return(relation)
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

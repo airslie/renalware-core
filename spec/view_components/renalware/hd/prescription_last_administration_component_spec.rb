@@ -39,8 +39,8 @@ describe Renalware::HD::PrescriptionLastAdministrationComponent, type: :componen
 
     render_inline(described_class.new(prescription:))
 
-    expect(page).to have_content("Last given on Wed 01-Jan-2020 by #{user}")
-    expect(page).to have_content("1/5 already given")
+    expect(page).to have_text("Last given on Wed 01-Jan-2020 by #{user}")
+    expect(page).to have_text("1/5 already given")
   end
 
   it "renders the fixed-dose progress when there is no last administration" do
@@ -54,7 +54,7 @@ describe Renalware::HD::PrescriptionLastAdministrationComponent, type: :componen
 
     render_inline(described_class.new(prescription:))
 
-    expect(page).to have_content("0/5 already given")
+    expect(page).to have_text("0/5 already given")
   end
 
   context "when prescription is nil" do

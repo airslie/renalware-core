@@ -74,7 +74,7 @@ module Renalware
         return unless prescription.stat?
 
         terminate_prescription_or_update_future_termination(
-          prescription: prescription,
+          prescription:,
           notes: "Stat prescription automatically terminated once given"
         )
       end
@@ -86,7 +86,7 @@ module Renalware
         return unless administered_doses_count >= prescription.fixed_number_of_doses
 
         terminate_prescription_or_update_future_termination(
-          prescription: prescription,
+          prescription:,
           notes: "HD prescription automatically terminated after " \
                  "#{prescription.fixed_number_of_doses} administered doses"
         )
@@ -103,7 +103,7 @@ module Renalware
       def terminate_prescription(prescription, notes)
         prescription.build_termination(
           terminated_on: Time.zone.now,
-          notes: notes,
+          notes:,
           by: SystemUser.find
         ).save!
       end
@@ -117,8 +117,8 @@ module Renalware
 
       def administered_doses_count
         PrescriptionAdministration
-          .where(prescription: prescription, administered: true)
-          .where.not(id: id)
+          .where(prescription:, administered: true)
+          .where.not(id:)
           .count + 1
       end
 
