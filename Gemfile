@@ -53,8 +53,8 @@ group :test do
   gem "capybara" # , "~> 3.32"
   gem "capybara-screenshot" # , "~> 1.0"
   gem "cucumber"
-  gem "cucumber-rails", require: false # , "~> 2.6.1", require: false # must be loaded in env.rb
-  gem "database_cleaner", require: false # for cucumber (now not needed for rspec)
+  gem "cucumber-rails", require: false
+  gem "database_cleaner", require: false # for cucumber
   gem "execjs"
   gem "fuubar", require: false
   gem "rails-controller-testing", "~> 1.0.4"
@@ -94,9 +94,6 @@ group :development, :test do
   gem "brakeman"
   gem "bundler-audit", require: false
   gem "capybara-playwright-driver"
-  gem "guard", require: false
-  gem "guard-cucumber", require: false
-  gem "guard-rspec", require: false
   # Start debugger with binding.b [https://github.com/ruby/debug]
   gem "debug", ">= 1.0.0", platforms: %i(mri windows)
   gem "factory_bot_rails", "~> 6.2"
