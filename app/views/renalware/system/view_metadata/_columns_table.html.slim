@@ -1,23 +1,48 @@
 table.sortables(data-controller="sortable" style="list-style-type: none;")
   thead(style="position: sticky; top: 0; background-color:#fff;")
     th.col-width-tiny
-      i.fas.fa-arrows-alt-v
-      i.fas.fa-question-circle.inline.ml-1.text-blue-500(title="Drag the 'hamburger' icon to change the order of columns in the table")
+      .flex.items-center.gap-1
+        = inline_icon(:question_mark,
+                      size: :md,
+                      title: "Drag the 'hamburger' icon to change the order of columns in the table",
+                      class: "text-blue-500")
+
     th.col-width-medium
-      | SQL column name
-      i.fas.fa-question-circle.inline.ml-1.text-blue-500(title="The programatic name for the data item, determined by the 'SQL view' in use.")
+      .flex.items-center.gap-1
+        | SQL column name
+        = inline_icon(:question_mark,
+                      size: :md,
+                      title: "The programatic name for the data item, determined by the 'SQL view' in use.",
+                      class: "text-blue-500")
+
     th.col-width-tiny
-      | Hide
-      i.fas.fa-question-circle.inline.ml-1.text-blue-500(title="Don't show this column in the table")
+      .flex.items-center.gap-1
+        | Hide
+        = inline_icon(:question_mark,
+                      size: :md,
+                      title: "Don't show this column in the table",
+                      class: "text-blue-500")
     th
-      | Label
-      i.fas.fa-question-circle.inline.ml-1.text-blue-500(title="The text displayed in the column heading")
+      .flex.items-center.gap-1
+        | Label
+        = inline_icon(:question_mark,
+                      size: :md,
+                      title: "The text displayed in the column heading",
+                      class: "text-blue-500")
     th.col-width-medium
-      | Width
-      i.fas.fa-question-circle.inline.ml-1.text-blue-500(title="Controls the table column width")
+      .flex.items-center.gap-1
+        | Width
+        = inline_icon(:question_mark,
+                      size: :md,
+                      title: "Controls the table column width",
+                      class: "text-blue-500")
     th.col-width-tiny
-      | Truncate
-      i.fas.fa-question-circle.inline.ml-1.text-blue-500(title="Will truncate and append an ellipsis to text constrained by its cell width")
+      .flex.items-center.gap-1
+        | Truncate
+        = inline_icon(:question_mark,
+                      size: :md,
+                      title: "Will truncate and append an ellipsis to text constrained by its cell width",
+                      class: "text-blue-500")
 
   tbody
     - view.columns.each_with_index do |col, _idx|

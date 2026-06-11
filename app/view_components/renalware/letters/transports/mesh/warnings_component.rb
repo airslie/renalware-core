@@ -5,7 +5,7 @@ module Renalware
         class WarningsComponent < ApplicationComponent
           include IconHelper
 
-          NUMBER_TO_DISPLAY = 100
+          NUMBER_TO_DISPLAY = 20
           pattr_initialize [:current_user!]
 
           COLOURS = {

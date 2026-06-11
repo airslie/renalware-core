@@ -1,10 +1,5 @@
 = within_admin_layout(title: "BioBank feed upload") do
   = render "renalware/heroic/shared/progress", upload: upload
-  / .panel.info
-  /   i.far.fa-question-circle
-  /   | &nbsp;&nbsp;
-  /   | The file to upload should be a spreadsheet with 2 sheets: sheet one lists samples and
-  /   | aliquots and second two lists aliquot usage.
   = render "renalware/shared/errors", model: upload
   = simple_form_for(upload, as: :upload, url: heroic.bio_bank_sample_uploads_path) do |f|
     = f.input :file, as: :file, label: "Choose the spreadsheet to upload"

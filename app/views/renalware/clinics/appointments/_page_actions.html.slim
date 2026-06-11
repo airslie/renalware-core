@@ -10,5 +10,6 @@
 
   = f.input :patient_ids, as: :hidden_array
   = button_tag(type: "submit", class: "button secondary") do
-    i.fas.fa-copy
-    | Generate request forms
+    .flex.gap-2.items-center
+      = inline_icon(:copy, size: :md)
+      | Generate request forms

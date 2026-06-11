@@ -17,7 +17,8 @@
             = button_tag(type: "submit",
                         class: "search-registrations button tiny postfix radius radius-right secondary",
                         style: "width: 3rem") do
-              i.fas.fa-search
+              .flex.items-center.justify-center
+                = inline_icon(:search, size: :md)
 
 = content_for(:tabs) do
   ruby:
