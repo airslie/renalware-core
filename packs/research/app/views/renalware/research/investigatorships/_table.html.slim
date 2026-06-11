@@ -14,7 +14,8 @@
           td= investigatorship.user
           td.col-width-medium-with-ellipsis= investigatorship.user&.hospital_centre
           td
-            i.fas(class=("fa-check" if investigatorship.manager?))
+            - if investigatorship.manager?
+              = inline_icon "check", class: "text-green-600", size: :md
           td= l(investigatorship.started_on)
           td= l(investigatorship.left_on)
           td.actions

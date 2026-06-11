@@ -1,9 +1,11 @@
 dl.sub-nav.no-js-selection
   dd(class= "#{'active' if author == :me}")
     = link_to authoring.snippets_path(in_dialog:) do
-        i.fas.fa-user
-        | Mine
+      .flex.gap-2.items-center
+        = inline_icon "user", size: :md
+        span Mine
   dd(class= "#{'active' if author == :anyone}")
     = link_to authoring.snippets_path(author: :anyone, in_dialog:) do
-      i.fas.fa-users
-      | Everyone's
+      .flex.gap-2.items-center
+        = inline_icon "users", size: :md
+        span Everyone's

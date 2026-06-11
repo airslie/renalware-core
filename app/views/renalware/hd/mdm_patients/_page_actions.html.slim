@@ -8,8 +8,9 @@
 
       - if too_many_patients
         div.px-2.bg-blue-50.border.border-gray-50.rounded.mr-3
-          i.fa.fa-info-circle.text-blue-500.mr-3
-          = "Too many patients to batch print - filter to maximum #{Renalware.config.hd_max_session_forms_to_print_in_a_batch}"
+          .flex.items-center.gap-2
+            = inline_icon(:info_circle, size: :sm, class: "text-blue-500")
+            = "Too many patients to batch print - filter to maximum #{Renalware.config.hd_max_session_forms_to_print_in_a_batch}"
 
       / This form lets us batch print the HD Session Forms for all patients in the list (all pages)
       = simple_form_for batch_print_form,
@@ -38,5 +39,7 @@
       = button_tag(type: "submit",
                    class: "button secondary",
                    disabled: presenter.patients.none?) do
-        i.fas.fa-copy
-        = "Generate #{presenter.pagy.count} Request Forms"
+        .flex.gap-2.items-center
+          = inline_icon(:copy, size: :md)
+          = "Generate #{presenter.pagy.count} Request Forms"
+

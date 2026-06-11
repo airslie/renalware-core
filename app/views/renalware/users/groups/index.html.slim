@@ -26,10 +26,11 @@
           td.bg-green-50.text-center
             ul.ml-0
               li
-                - if group.letter_electronic_ccs
-                  i.fa.fa-check-circle.text-green-600
-                - else
-                  i.far.fa-circle.text-gray-500
-                span.ml-2 eCCs on letters
+                .flex.gap-2.items-center.justify-center
+                  - if group.letter_electronic_ccs
+                    = inline_icon "check-circle", size: :md, class: "text-green-600"
+                  - else
+                    = inline_icon "circle", size: :md, class: "text-gray-500"
+                  span.ml-2 eCCs on letters
           td.bg-neutral-50.col-width-date-time= l(group.updated_at)
           td.bg-neutral-50= group.updated_by
