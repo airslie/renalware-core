@@ -2,14 +2,10 @@
 
 - if letter.notes.presence
   div
-    span.pr-2.text-gray-600.font-bold
-      i.fas.fa-comment.text-yellow-500.pr-2
-      | Notes:
+    span.pr-2.text-gray-600.font-bold Notes:
     span.pl-1= letter.notes
 
 - if letter.enclosures.present?
   div
-    span.pr-2.text-gray-600.font-bold
-      i.fas.fa-paperclip.text-green-500.pr-2
-      | Enclosures:
+    span.pr-2.text-gray-600.font-bold Enclosures:
     span.pl-1= letter.enclosures

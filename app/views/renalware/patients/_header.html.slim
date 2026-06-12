@@ -15,8 +15,10 @@
           |  Back
     dd.name.patient-menu-toggler
       a
-        i.fas.fa-ellipsis-v
-        = patient
+        .flex.items-center
+          = inline_icon(:ellipsis_vertical, size: :xxl, class: "text-gray-300 hover:text-gray-50")
+          = patient
+
     - if patient.hospital_identifiers.all.count > 1
       - patient.hospital_identifiers.all.each do |hospital_identifier|
         dl.hospital_no

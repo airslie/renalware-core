@@ -92,3 +92,6 @@ app/assets/builds/renalware.js.map
 MESH_NHS_CA_FILE
 .env.2
 app/assets/builds/tailwind.css
+tximport_data
+tximport/original.xlsx
+storage

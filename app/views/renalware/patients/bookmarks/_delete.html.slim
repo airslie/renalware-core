@@ -1,5 +1,6 @@
 = link_to(bookmark_path(bookmark),
           method: :delete,
           data: { confirm: t(".confirm") }) do
-  i.fas.fa-link-annotation.fa-bookmark
-  = link_text
+  .flex.gap-1.items-center
+    = inline_icon(:unbookmark, size: :md)
+    = link_text

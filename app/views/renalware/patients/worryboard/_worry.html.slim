@@ -16,7 +16,7 @@ tbody(id=dom_id(worry))
     td= l(worry.created_at.to_date)
     td.text-center
       - if toggle
-        i.fas.fa-comment.text-yellow-300.hover:text-yellow-400(title=worry.notes)
+        = inline_icon(:chat_bubble_more, size: :md, title: worry.notes, class: "text-yellow-500 hover:text-yellow-600")
     td= worry.worry_category&.name
     td= worry.created_by.to_s
     td= patient.current_modality
@@ -24,10 +24,13 @@ tbody(id=dom_id(worry))
     tr
       td
       td(colspan=11)
+        .py-2
+          .flex.items-center
+            .flex-shrink-0
+              = inline_icon(:chat_bubble_more, size: :md, title: worry.notes, class: "text-yellow-500 hover:text-yellow-600")
+            .flex-grow
+              b.px-2 Notes:
+              = worry.notes
 
-          .py-2
-            i.fas.fa-comment.text-yellow-300.hover:text-yellow-400(title=worry.notes)
-            b.px-2 Notes:
-            = worry.notes
   - else
     tr

@@ -1,7 +1,8 @@
 / Link to launch the modal dialog
 = link_to("#", data: { "reveal-id" => "add-patient-bookmark-modal" }) do
-  i.far.fa-link-annotation.fa-bookmark
-  = link_text
+  .flex.gap-1.items-center
+    = inline_icon(:bookmark, size: :md)
+    = link_text
 
 / The modal dialog
 #add-patient-bookmark-modal.reveal-modal.medium(data-reveal data-options="close_on_background_click:false")

@@ -13,10 +13,10 @@ tr(class=letter.state.dasherize data-controller="toggle")
 
   td.text-center
     - if letter.notes.present?
-      i.fas.fa-comment.text-yellow-500.hover:text-yellow-600(title=letter.notes)
+      = inline_icon(:chat_bubble_more, size: :md, title: letter.notes, class: "text-yellow-500 hover:text-yellow-600")
   td.text-center
     - if letter.enclosures.present?
-      i.fas.fa-paperclip.text-green-500.pr-1(title=letter.enclosures)
+      = inline_icon(:paperclip, size: :md, title: letter.enclosures, class: "text-green-500")
   td.state
     span= letter.state_description
   - if Renalware.config.send_gp_letters_over_mesh

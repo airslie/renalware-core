@@ -1,5 +1,6 @@
 = link_to(patient_worry_path(patient, patient.worry),
          method: :delete,
          data: { confirm: t(".confirm") }) do
-  i.fas.fa-link-annotation.fa-flag
-  = t(".title")
+  .flex.gap-1.items-center
+    = inline_icon(:flag_solid, size: :md)
+    = t(".title")
