@@ -5,7 +5,8 @@ module Renalware
       sm: " h-4 w-4",
       md: " h-5 w-5",
       lg: " h-6 w-6",
-      xl: " h-7 w-7"
+      xl: " h-7 w-7",
+      xxl: " h-8 w-8"
     }.freeze
 
     # A generic icon helper rendering an inline svg icon file using inline_svg_tag

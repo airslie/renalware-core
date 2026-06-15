@@ -72,12 +72,12 @@
 
 
   - if current_user_is_super_admin?
-    p.border.rounded.px-3.py-2.mb-10.shadow.bg-blue-50.mt-10.flex.items-center
-      i.fa.fa-info-circle.text-blue-400.mr-4
-      ' To create a new report, work out the SQL you need (and the columns to return) and create
-      ' a SQL view (ideally in the hospital's own schema eg
-      ' renalware_mse
-      ' so its clear it is not part of core Renalware)
-      ' and then add an entry for it into the
-      ' renalware.system_view_metadata
-      ' table using the category of 'report'
+    .mt-10= help_panel do
+      span
+          ' To create a new report, work out the SQL you need (and the columns to return) and create
+          ' a SQL view (ideally in the hospital's own schema eg
+          ' renalware_mse
+          ' so its clear it is not part of core Renalware)
+          ' and then add an entry for it into the
+          ' renalware.system_view_metadata
+          ' table using the category of 'report'

@@ -25,7 +25,7 @@
       .download
         .file
           = link_to(system_download_path(item), target: "_blank", rel: "noopener") do
-            i.far.fa-file-alt
+            = inline_icon(:download_file_square, size: :xl)
         .details
           h3= link_to(item.name, system_download_path(item), target: "_blank")
           p= item.description

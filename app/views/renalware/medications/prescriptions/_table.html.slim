@@ -52,7 +52,7 @@
               td= prescription.provider
               td.text-center
                 - if prescription.notes.present?
-                  i.fas.fa-comment.text-yellow-500.hover:text-yellow-600(title="Toggle to see notes")
+                  = inline_icon(:chat_bubble_more, size: :md, title: prescription.notes, class: "text-yellow-500 hover:text-yellow-600")
               td= I18n.l prescription.prescribed_on
               td= I18n.l prescription.terminated_on
               td= prescription.created_by.full_name

@@ -36,7 +36,6 @@
               span(title=log.filepath)
                 - filename = log.filepath && Pathname(log.filepath).basename
                 - if filename.present?
-                  i.fas.fa-file
                   => filename
             td= log.patient && link_to(log.patient, patient_hd_sessions_path(log.patient))
             td

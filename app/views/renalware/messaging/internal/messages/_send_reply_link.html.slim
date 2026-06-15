@@ -8,5 +8,7 @@
 = link_to(url,
          data: { "reveal-id" => "send-message-modal", "reveal-ajax" => "true" },
          class: "button secondary") do
-  i.fas.fa-link-annotation.fa-reply
-  = link_text
+  .flex.gap-1.items-center
+    = link_text
+    = inline_icon(:reply, size: :md)
+
