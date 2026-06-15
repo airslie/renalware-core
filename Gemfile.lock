@@ -642,8 +642,6 @@ GEM
     rack (3.2.6)
     rack-attack (6.8.0)
       rack (>= 1.0, < 4)
-    rack-mini-profiler (4.0.1)
-      rack (>= 1.2.0)
     rack-protection (4.2.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
@@ -1066,7 +1064,6 @@ DEPENDENCIES
   query_count
   rack
   rack-attack
-  rack-mini-profiler
   rails (~> 8.1.2)
   rails-controller-testing (~> 1.0.4)
   rake

@@ -54,6 +54,7 @@ import TableHighlightRowController from "./table_highlight_row_controller"
 import ClipboardAsyncController from "./clipboard_async_controller"
 import ProblemsSearchController from "./problems/search_controller"
 import DialogController from "./dialog_controller"
+import PrimaryNavigationController from "./primary_navigation_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -130,3 +131,4 @@ application.register("table-row-highlight", TableHighlightRowController)
 application.register("clipboard-async", ClipboardAsyncController)
 application.register("problems-search", ProblemsSearchController)
 application.register("dialog", DialogController)
+application.register("primary-navigation", PrimaryNavigationController)

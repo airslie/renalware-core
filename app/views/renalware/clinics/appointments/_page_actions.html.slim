@@ -1,15 +1,18 @@
-= link_to t("btn.add"),
-          new_appointment_path,
-          class: "button"
-= simple_form_for request_html_form_params,
-                url: pathology_requests_new_request_path,
-                html: { autocomplete: "off",
-                        id: "appointment-request-form",
-                        style: "display: inline" },
-                as: :request do |f|
+.flex.gap-3.items-center
+  = link_to t("btn.add"),
+            new_appointment_path,
+            class: "btn btn-primary btn-compact"
 
-  = f.input :patient_ids, as: :hidden_array
-  = button_tag(type: "submit", class: "button secondary") do
-    .flex.gap-2.items-center
-      = inline_icon(:copy, size: :md)
-      | Generate request forms
+  = simple_form_for request_html_form_params,
+                  url: pathology_requests_new_request_path,
+                  html: { autocomplete: "off",
+                          id: "appointment-request-form",
+                          style: "display: inline",
+                          class: "m-0" },
+                  as: :request do |f|
+
+    = f.input :patient_ids, as: :hidden_array
+    = button_tag(type: "submit", class: "btn btn-secondary btn-compact") do
+      .flex.gap-2.items-center
+        = inline_icon(:copy, size: :md)
+        | Generate request forms

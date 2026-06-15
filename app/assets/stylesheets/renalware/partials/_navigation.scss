@@ -183,6 +183,8 @@ dd.patient-name {
 
 .mdm-top-bar {
   height: 2.3rem;
+  background-color: var(--nhs-blue);
+  border-bottom: 1px solid var(--nhs-light-blue);
 
   ul li.name {
     color: var(--white);
