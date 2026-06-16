@@ -2,18 +2,21 @@
   = render "renalware/medications/outpatient_prescription_administrations/dialog_placeholder"
   .mb-4
     = form_with url: patient_medications_outpatient_prescription_administrations_path(patient),
+                builder: Renalware::FormBuilders::Horizontal,
                 method: :get,
-                local: true do
+                local: true do |f|
+
       .flex.items-end.gap-2
-        div
-          = label_tag :drug_name, "Drug"
-          = select_tag :drug_name,
-                       options_for_select([["All drugs", nil]] + drug_name_options.map { |name| [name, name] }, selected_drug_name)
-        = submit_tag "Filter", class: "button secondary"
+        = f.select_row :drug_name,
+                       options_for_select([["All drugs", nil]] + drug_name_options.map { |name| [name, name] }, selected_drug_name),
+                       size: :lg
+
+        = f.submit "Filter", class: "btn btn-secondary"
         - if selected_drug_name.present?
           = link_to "Clear",
                     patient_medications_outpatient_prescription_administrations_path(patient),
-                    class: "button secondary"
+                    class: "btn btn-secondary"
+
   = render "table",
            outpatient_prescription_administrations: outpatient_prescription_administrations
   == pagy_nav(pagy) if pagy.pages > 1
