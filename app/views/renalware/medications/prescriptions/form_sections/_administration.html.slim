@@ -13,11 +13,7 @@ div(data-controller="show-on-selected" class="#{'disabled-input' unless hd_allow
                                   data: { action: "change->show-on-selected#select change->prescriptions#selectHdDefaultProvider" })
           = builder.label(class: "ml-3 block font-medium text-gray-700 cursor-pointer")
 
-  div[ \
-    data-show-on-selected-target="item"
-    data-show-on-selected-option="hd"
-    class=class_names(hidden: !f.object.administer_on_hd?)
-  ]
+  .mt-3.small-12.columns.horizontal_medium(data-show-on-selected-target="item" data-show-on-selected-option="hd" class=class_names(hidden: !f.object.administer_on_hd?))
     = f.input :stat,
               wrapper: :horizontal_small,
               hint: "If checked, the prescription will be automatically terminated once given"
