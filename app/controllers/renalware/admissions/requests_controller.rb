@@ -4,6 +4,7 @@ module Renalware
       def index
         requests = Request
           .ordered
+          .joins(:patient)
           .includes(:patient, :reason, :created_by, :updated_by, :hospital_unit)
           .all
         pagy, requests = pagy(requests)

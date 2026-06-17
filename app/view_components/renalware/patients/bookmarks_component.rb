@@ -7,6 +7,7 @@ module Renalware
         @bookmarks ||= Patients.cast_user(current_user)
           .bookmarks
           .ordered
+          .joins(:patient)
           .includes(patient: [current_modality: :description])
       end
     end
