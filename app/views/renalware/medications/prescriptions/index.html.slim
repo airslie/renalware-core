@@ -1,34 +1,18 @@
 = content_for(:actions) do
-  - if policy(Renalware::Medications::Prescription).new?
-    = link_to t("btn.add"),
-              new_patient_prescription_path(presenter.patient),
-              class: "button"
-  |&nbsp;
+  .flex.gap-1
+    - if policy(Renalware::Medications::Prescription).new?
+      = link_to t("btn.add"),
+                new_patient_prescription_path(presenter.patient),
+                class: "btn btn-primary btn-compact"
+    |&nbsp;
 
-  / Dropdown button with print options
-  button.button.secondary.dropdown(href="#"
-                       data-dropdown="prescription-print-options"
-                       aria-controls="prescription-print-options"
-                       aria-expanded="false")
-    .flex.items-center.gap-2
-      = inline_icon(:printer, size: :md)
-      = "#{t('btn.print')}&hellip;".html_safe
-
-  ul.f-dropdown#prescription-print-options(data-dropdown-content aria-hidden="true")
-    - [{ hd_only: false, title: "All Drugs" }, { hd_only: true, title: "HD Drugs" }].each do |opts|
-      li
-        = link_to(opts[:title],
-                  patient_prescriptions_path(presenter.patient,
-                                                 presenter.treatable,
-                                                 hd_only: opts[:hd_only],
-                                                 format: :pdf),
-                  target: :blank)
-
-    li
-      / link to open the modal
-      = link_to "Home Delivery Drugs",
-                new_patient_medications_home_delivery_event_path(presenter.patient, format: :html),
-                data: { "reveal-id" => "print-home-delivery-drugs-modal", "reveal-ajax" => "true" }
+    = render Renalware::DropdownButtonComponent.new(title: "Print", icon: :printer) do |dropdown|
+      - [{ hd_only: false, title: "All Drugs" }, { hd_only: true, title: "HD Drugs" }].each do |opts|
+        - url = patient_prescriptions_path(presenter.patient, presenter.treatable, hd_only: opts[:hd_only], format: :pdf)
+        - dropdown.with_item(title: opts[:title], url:)
+      - dropdown.with_item(title: "Home Delivery Drugs",
+                           url: new_patient_medications_home_delivery_event_path(presenter.patient, format: :html),
+                           data: { "reveal-id" => "print-home-delivery-drugs-modal", "reveal-ajax" => "true" })
 
   / modal placeholder
   #print-home-delivery-drugs-modal.reveal-modal.small(data-reveal

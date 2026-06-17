@@ -1,0 +1,24 @@
+= tag.div(**wrapper_options) do
+  - captured_content = content
+
+  = tag.button(**merged_button_options) do
+    .flex.items-center.gap-2
+      - if icon.present?
+        = inline_icon(icon, **icon_options)
+      span
+        = title
+        | &hellip;
+      - if disclosure_icon.present?
+        = inline_icon(disclosure_icon, **disclosure_icon_options)
+
+  = tag.div(**menu_options) do
+    .py-1.z-100
+      - static_items.each do |item|
+        - if item_enabled?(item)
+          = link_to item.fetch(:url), item_link_options(item) do
+            = item_content(item)
+        - else
+          span(class=item_classes)= item_content(item)
+      - items.each do |item|
+        = item
+      = captured_content
