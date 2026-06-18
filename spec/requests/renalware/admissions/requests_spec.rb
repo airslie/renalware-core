@@ -27,6 +27,37 @@ describe "Admission Request (TCI) management" do
       expect(response.body).to include(patient.to_s)
       expect(response.body).to include("Urgent")
     end
+
+    it "does not list requests for merged patients" do
+      active_patient = create(:patient, :minimal, by: user, given_name: "Active")
+      merged_patient = create(
+        :patient,
+        :minimal,
+        by: user,
+        given_name: "Merged",
+        merged_at: Time.zone.now
+      )
+      create(
+        :admissions_request,
+        reason:,
+        priority: :urgent,
+        by: user,
+        patient: active_patient
+      )
+      create(
+        :admissions_request,
+        reason:,
+        priority: :urgent,
+        by: user,
+        patient: merged_patient
+      )
+
+      get admissions_requests_path
+
+      expect(response).to be_successful
+      expect(response.body).to include(active_patient.to_s)
+      expect(response.body).not_to include(merged_patient.to_s)
+    end
   end
 
   describe "GET html new" do
