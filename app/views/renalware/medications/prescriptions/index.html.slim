@@ -1,10 +1,16 @@
 = content_for(:actions) do
-  .flex.gap-1
+  .flex.gap-3
     - if policy(Renalware::Medications::Prescription).new?
       = link_to t("btn.add"),
                 new_patient_prescription_path(presenter.patient),
                 class: "btn btn-primary btn-compact"
-    |&nbsp;
+
+
+    = render Renalware::Medications::AdministerOutpatientPrescriptionDropdownComponent.new(patient: presenter.patient)
+
+    = link_to "Outpatient Administrations...",
+              patient_medications_outpatient_prescription_administrations_path(presenter.patient),
+              class: "btn btn-secondary btn-compact"
 
     = render Renalware::DropdownButtonComponent.new(title: "Print", icon: :printer) do |dropdown|
       - [{ hd_only: false, title: "All Drugs" }, { hd_only: true, title: "HD Drugs" }].each do |opts|
@@ -13,17 +19,10 @@
       - dropdown.with_item(title: "Home Delivery Drugs",
                            url: new_patient_medications_home_delivery_event_path(presenter.patient, format: :html),
                            data: { "reveal-id" => "print-home-delivery-drugs-modal", "reveal-ajax" => "true" })
-
   / modal placeholder
   #print-home-delivery-drugs-modal.reveal-modal.small(data-reveal
                                                       data-controller="home-delivery-modal"
                                                       data-options="close_on_background_click:false")
-
-  = render Renalware::Medications::AdministerOutpatientPrescriptionDropdownComponent.new(patient: presenter.patient)
-  |&nbsp;
-  = link_to "Outpatient Administrations",
-            patient_medications_outpatient_prescription_administrations_path(presenter.patient),
-            class: "button secondary"
 
 = within_patient_layout(title: "Prescriptions") do
   = render "filter_form", presenter: presenter

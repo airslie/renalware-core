@@ -10,7 +10,7 @@ div(data-controller="show-on-selected" class="#{'disabled-input' unless hd_allow
       = f.collection_radio_buttons :administration_context, administration_options, :second, :first do |builder|
         .radio.flex.items-center
           = builder.radio_button(disabled: !hd_allowed,
-                                  data: { action: "change->show-on-selected#select change->prescriptions#selectHdDefaultProvider" })
+                                  data: { action: "change->show-on-selected#select change->prescriptions#selectDefaultProvider" })
           = builder.label(class: "ml-3 block font-medium text-gray-700 cursor-pointer")
 
   .mt-3.small-12.columns.horizontal_medium(data-show-on-selected-target="item" data-show-on-selected-option="hd" class=class_names(hidden: !f.object.administer_on_hd?))

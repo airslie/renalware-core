@@ -1,9 +1,7 @@
 module Renalware
   module Medications
     class AdministerOutpatientPrescriptionDropdownComponent < ApplicationComponent
-      include DropdownButtonHelper
       include PresenterHelper
-      include IconHelper
 
       pattr_initialize [:patient!]
 

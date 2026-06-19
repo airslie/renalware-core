@@ -60,6 +60,11 @@ describe "Prescriptions - create / edit / terminate", :js do
     expect(page).to have_checked_field("Hospital") # auto-selected
     uncheck("Give on HD")
     expect(page).to have_select("Fixed number of doses")
+    choose("Give normally")
+    choose("GP")
+    choose("Give as outpatient")
+    expect(page).to have_checked_field("Hospital") # auto-selected
+    choose("Give normally")
 
     #
     # Test validation
