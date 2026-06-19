@@ -75,6 +75,18 @@ describe Renalware::Heidi::Client do
     end
   end
 
+  describe "#unlink_account" do
+    it "uses the generated JWT to unlink the current user's Heidi account" do
+      stub_jwt
+      stub_unlink_account
+
+      result = client.unlink_account(user)
+
+      expect(result).to be_success
+      stubs.verify_stubbed_calls
+    end
+  end
+
   describe "#create_session_for_patient" do
     it "delegates patient-aware session creation to the sessions client" do
       sessions_client = instance_double(Renalware::Heidi::SessionsClient)
@@ -141,6 +153,18 @@ describe Renalware::Heidi::Client do
     stubs.post("users/linked-account") do |env|
       expect(env.request_headers["Authorization"]).to eq("Bearer jwt-token")
       expect(JSON.parse(env.body)).to eq("email" => "dr@example.com")
+
+      [
+        200,
+        { "Content-Type" => "application/json" },
+        { account: { ehr_email: "dr@example.com" } }.to_json
+      ]
+    end
+  end
+
+  def stub_unlink_account
+    stubs.delete("users/linked-account:unlink") do |env|
+      expect(env.request_headers["Authorization"]).to eq("Bearer jwt-token")
 
       [
         200,

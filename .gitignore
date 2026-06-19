@@ -94,6 +94,7 @@ app/assets/builds/tailwind.css
 tximport_data
 tximport/*.xlsx
 tximport/*.xlsx
+tximport/original/*
 storage
 tximport.zip
 mise.toml

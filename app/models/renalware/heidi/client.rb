@@ -52,6 +52,19 @@ module Renalware
         failure(error: e.message)
       end
 
+      def unlink_account(user)
+        with_jwt(user) do |token|
+          response = connection.delete("users/linked-account:unlink") do |request|
+            request.headers["Authorization"] = "Bearer #{token}"
+            request.headers["Content-Type"] = "application/json"
+          end
+
+          result_from(response)
+        end
+      rescue ConfigurationError, Faraday::Error, JSON::ParserError => e
+        failure(error: e.message)
+      end
+
       def create_session_for_patient(user, patient)
         SessionsClient.new(client: self).create_for_patient(user, patient)
       end
