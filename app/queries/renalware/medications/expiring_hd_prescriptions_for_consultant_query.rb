@@ -19,7 +19,7 @@ module Renalware
           .joins(:termination, :patient)
           .includes([:drug, :trade_family, :unit_of_measure, :termination])
           .where(administer_on_hd: true)
-          .where(stat: [false, nil])
+          .where(fixed_number_of_doses: nil)
           .where(patients: { id: ids_of_hd_patients_where_user_is_named_consultant })
           .where("termination.notes ilike '%scheduled to terminate%'")
           .where(prescribed_on: ..(1.day.ago.end_of_day))

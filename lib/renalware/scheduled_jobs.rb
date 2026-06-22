@@ -69,10 +69,10 @@ module Renalware
                        "Drugs"
         },
 
-        terminate_given_but_unwitnessed_hd_stat_prescriptions: {
+        terminate_given_but_unwitnessed_one_dose_hd_prescriptions: {
           cron: "every day at 2am",
           class: "Renalware::HD::TerminateAdministeredUnwitnessedStatPrescriptionsJob",
-          description: "Does what it says on the tin :)"
+          description: "Terminates one-dose HD prescriptions that were administered but not stopped"
         },
 
         run_renal_safety_alert_rules: {

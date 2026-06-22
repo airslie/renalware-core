@@ -6,13 +6,12 @@ module Renalware::Medications
     let(:today) { 1.day.ago.end_of_day + 1.minute }
 
     # rubocop:disable Metrics/MethodLength
-    def create_prescription(hd:, from:, to: nil, stat: false, fixed_number_of_doses: nil)
+    def create_prescription(hd:, from:, to: nil, fixed_number_of_doses: nil)
       prescription = create(
         :prescription,
         patient:,
         administer_on_hd: hd,
         prescribed_on: from,
-        stat:,
         fixed_number_of_doses:,
         by: user
       )
@@ -53,16 +52,8 @@ module Renalware::Medications
         expect(described_class.new(patient:).call).to eq [pres]
       end
 
-      it "finds prescriptions when stat is null or stat is false" do
-        pres = create_prescription(hd: true, stat: nil, from: yesterday, to: nil)
-        pres1 = create_prescription(hd: true, stat: false, from: yesterday, to: nil)
-
-        # rubocop:disable RSpec/MatchArray
-        expect(described_class.new(patient:).call).to match_array([pres, pres1])
-        # rubocop:enable RSpec/MatchArray
-      end
-
       it "ignores prescriptions with a fixed number of doses" do
+        create_prescription(hd: true, from: yesterday, to: nil, fixed_number_of_doses: 1)
         create_prescription(hd: true, from: yesterday, to: nil, fixed_number_of_doses: 2)
         pres = create_prescription(hd: true, from: yesterday, to: nil)
 
@@ -87,14 +78,23 @@ module Renalware::Medications
         expect(described_class.new(patient:).call).to be_empty
       end
 
-      it "ignores stat (give once) prescriptions when stat = false" do
-        create_prescription(hd: true, stat: true, from: 1.week.ago, to: 1.day.ago)
-        create_prescription(hd: true, stat: true, from: 1.week.ago, to: today)
-        create_prescription(hd: true, stat: true, from: 1.week.ago, to: 1.week.from_now)
-        create_prescription(hd: true, stat: true, from: today, to: 1.week.from_now)
-        prs = create_prescription(hd: true, stat: true, from: 1.week.from_now, to: 2.weeks.from_now)
+      it "ignores one fixed dose prescriptions" do
+        create_prescription(hd: true, fixed_number_of_doses: 1, from: 1.week.ago, to: 1.day.ago)
+        create_prescription(hd: true, fixed_number_of_doses: 1, from: 1.week.ago, to: today)
+        create_prescription(
+          hd: true,
+          fixed_number_of_doses: 1,
+          from: 1.week.ago,
+          to: 1.week.from_now
+        )
+        create_prescription(hd: true, fixed_number_of_doses: 1, from: today, to: 1.week.from_now)
+        create_prescription(
+          hd: true,
+          fixed_number_of_doses: 1,
+          from: 1.week.from_now,
+          to: 2.weeks.from_now
+        )
 
-        expect(prs.stat).to be true # sanity check
         expect(described_class.new(patient:).call).to be_empty
       end
     end

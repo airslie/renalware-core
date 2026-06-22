@@ -32,18 +32,17 @@ module Renalware
       validate :check_witnessed_by_password, if: :validate_witness?
       validate :witness_cannot_be_administrator
 
-      before_save :terminate_prescription_if_stat_or_fixed_number_of_doses_reached
+      before_save :terminate_prescription_if_required_number_of_doses_reached
 
       scope :ordered, -> { order(recorded_on: :desc, created_at: :desc) }
       scope :having_given_but_unwitnessed_prescriptions, lambda {
-        # As the act of witnessing terminates the prescription, here, for safety, we are selecting
-        # based on the prescription being unterminated, rather than witnessed = false.
-        # This is a paranoid approach in case witnessing fails to terminate for any reason...
+        # This exists for one-dose prescriptions recorded before fixed-dose termination happened
+        # immediately after administration, and for safety in case an automatic termination fails.
         where(administered: true)
           .joins(:prescription)
           .merge(
             Medications::Prescription
-              .where(stat: true, administer_on_hd: true)
+              .where(administer_on_hd: true, fixed_number_of_doses: 1)
               .where.missing(:termination)
           )
       }
@@ -58,38 +57,31 @@ module Renalware
         administered? && authorised?
       end
 
-      # stat means give one time only
-      def terminate_prescription_if_stat_or_fixed_number_of_doses_reached
+      def terminate_prescription_if_required_number_of_doses_reached
         return unless valid?
         return unless prescription.administer_on_hd?
 
-        terminate_prescription_if_stat
         terminate_prescription_if_fixed_number_of_doses_reached
       end
 
       private
 
-      def terminate_prescription_if_stat
-        return unless witnessed?
-        return unless prescription.stat?
-
-        terminate_prescription_or_update_future_termination(
-          prescription:,
-          notes: "Stat prescription automatically terminated once given"
-        )
-      end
-
       def terminate_prescription_if_fixed_number_of_doses_reached
         return unless administered?
-        return if prescription.stat?
         return if prescription.fixed_number_of_doses.blank?
         return unless administered_doses_count >= prescription.fixed_number_of_doses
 
         terminate_prescription_or_update_future_termination(
           prescription:,
-          notes: "HD prescription automatically terminated after " \
-                 "#{prescription.fixed_number_of_doses} administered doses"
+          notes: termination_notes_for_fixed_number_of_doses
         )
+      end
+
+      def termination_notes_for_fixed_number_of_doses
+        count = prescription.fixed_number_of_doses
+
+        "HD prescription automatically terminated after #{count} administered " \
+          "#{'dose'.pluralize(count)}"
       end
 
       def terminate_prescription_or_update_future_termination(prescription:, notes:)

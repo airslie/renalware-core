@@ -2736,7 +2736,7 @@ CREATE TABLE renalware.medication_prescriptions (
     frequency_comment character varying,
     stat boolean,
     fixed_number_of_doses integer,
-    CONSTRAINT medication_prescriptions_fixed_number_of_doses_check CHECK (((fixed_number_of_doses IS NULL) OR ((fixed_number_of_doses >= 2) AND (fixed_number_of_doses <= 10))))
+    CONSTRAINT medication_prescriptions_fixed_number_of_doses_check CHECK (((fixed_number_of_doses IS NULL) OR ((fixed_number_of_doses >= 1) AND (fixed_number_of_doses <= 10))))
 );
 
 
@@ -32867,6 +32867,8 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260622120100'),
+('20260622120000'),
 ('20260520090000'),
 ('20260520082138'),
 ('20260513120002'),

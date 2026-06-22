@@ -299,11 +299,16 @@ module Renalware
         end
       end
 
-      context "when the HD prescription is stat (give once)" do
+      context "when the HD prescription has one fixed dose" do
         let(:pwd) { "password" }
         let(:user1) { create(:user, password: pwd) }
-        let(:user2) { create(:user, password: pwd) }
-        let(:prescription) { create(:prescription, administer_on_hd: true, stat: true) }
+        let(:prescription) do
+          create(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 1
+          )
+        end
 
         before { create(:user, :system) }
 
@@ -313,9 +318,8 @@ module Renalware
               prescription:,
               administered: true,
               administered_by: user1,
-              witnessed_by: user2,
               administered_by_password: pwd,
-              witnessed_by_password: pwd,
+              skip_witness_validation: true,
               recorded_on: Time.zone.now,
               by: user1
             )
@@ -324,7 +328,7 @@ module Renalware
 
           expect(prescription.reload.termination).to have_attributes(
             terminated_on: Time.zone.today,
-            notes: "Stat prescription automatically terminated once given"
+            notes: "HD prescription automatically terminated after 1 administered dose"
           )
         end
 
@@ -337,9 +341,8 @@ module Renalware
               prescription:,
               administered: true,
               administered_by: user1,
-              witnessed_by: user2,
               administered_by_password: pwd,
-              witnessed_by_password: pwd,
+              skip_witness_validation: true,
               recorded_on: Time.zone.now,
               by: user1
             )
@@ -356,9 +359,8 @@ module Renalware
               prescription:,
               administered: true,
               administered_by: user1,
-              witnessed_by: user2,
               administered_by_password: pwd,
-              witnessed_by_password: pwd,
+              skip_witness_validation: true,
               recorded_on: Time.zone.today,
               by: user1
             )
@@ -371,7 +373,7 @@ module Renalware
         end
 
         it "sets the termination.terminated_on to Now if the termination has a future date " \
-           "(likely, as we give a 14 day future termination date to stat drugs automatically)" \
+           "(likely, as we give a 14 day future termination date to one-dose drugs automatically)" \
            "so that that the prescription is stopped and can not be given again" do
           future_termination_date = 14.days.since
           recorded_on = Time.zone.today
@@ -387,16 +389,15 @@ module Renalware
               prescription:,
               administered: true,
               administered_by: user1,
-              witnessed_by: user2,
               administered_by_password: pwd,
-              witnessed_by_password: pwd,
+              skip_witness_validation: true,
               recorded_on:,
               by: user1
             )
           }.not_to change(Medications::PrescriptionTermination, :count)
 
-          # Administering the stat+hd prescription will cause an existing termination to be adjusted
-          # so it terminates immediately.
+          # Administering the one-dose HD prescription will cause an existing termination to be
+          # adjusted so it terminates immediately.
           expect(prescription.reload.termination).to have_attributes(
             terminated_on: recorded_on,
             updated_by: SystemUser.find,

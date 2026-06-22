@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_22_120100) do
   create_schema "renalware"
 
   # These are extensions that must be enabled in order to support this database
@@ -4046,7 +4046,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_090000) do
     t.index ["treatable_id", "treatable_type"], name: "idx_medication_prescriptions_type"
     t.index ["unit_of_measure_id"], name: "index_medication_prescriptions_on_unit_of_measure_id"
     t.index ["updated_by_id"], name: "index_medication_prescriptions_on_updated_by_id"
-    t.check_constraint "fixed_number_of_doses IS NULL OR fixed_number_of_doses >= 2 AND fixed_number_of_doses <= 10", name: "medication_prescriptions_fixed_number_of_doses_check"
+    t.check_constraint "fixed_number_of_doses IS NULL OR fixed_number_of_doses >= 1 AND fixed_number_of_doses <= 10", name: "medication_prescriptions_fixed_number_of_doses_check"
   end
 
   create_table "renalware.medication_routes", id: :serial, force: :cascade do |t|

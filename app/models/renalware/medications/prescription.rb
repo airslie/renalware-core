@@ -46,11 +46,12 @@ module Renalware
       validates :prescribed_on, presence: true
       validates :provider, presence: true
       validates :fixed_number_of_doses,
-                numericality: { only_integer: true, in: 2..10 },
+                numericality: { only_integer: true, in: 1..10 },
                 allow_nil: true
       validate :deprecated_dose_unit_is_not_populated
       validate :fixed_number_of_doses_requires_hd
-      validate :fixed_number_of_doses_and_stat_are_mutually_exclusive
+
+      before_validation :normalize_stat_to_fixed_number_of_doses
 
       enum :provider, Provider.codes
 
@@ -167,10 +168,11 @@ module Renalware
         errors.add(:fixed_number_of_doses, "can only be set when Give on HD is selected")
       end
 
-      def fixed_number_of_doses_and_stat_are_mutually_exclusive
-        return if fixed_number_of_doses.blank? || !stat?
+      def normalize_stat_to_fixed_number_of_doses
+        return unless stat?
 
-        errors.add(:fixed_number_of_doses, "cannot be set when Stat is selected")
+        self.fixed_number_of_doses ||= 1
+        self.stat = false
       end
     end
   end

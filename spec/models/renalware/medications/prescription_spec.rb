@@ -21,26 +21,26 @@ module Renalware
           is_expected.to be_versioned
         end
 
-        it "allows a fixed number of doses from 2 to 10 on HD prescriptions" do
-          prescription = build(
-            :prescription,
-            administer_on_hd: true,
-            fixed_number_of_doses: 2
-          )
-
-          expect(prescription).to be_valid
-        end
-
-        it "does not allow a fixed number of doses below 2" do
+        it "allows a fixed number of doses from 1 to 10 on HD prescriptions" do
           prescription = build(
             :prescription,
             administer_on_hd: true,
             fixed_number_of_doses: 1
           )
 
+          expect(prescription).to be_valid
+        end
+
+        it "does not allow a fixed number of doses below 1" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 0
+          )
+
           expect(prescription).not_to be_valid
           expect(prescription.errors[:fixed_number_of_doses]).to include(
-            "must be in 2..10"
+            "must be in 1..10"
           )
         end
 
@@ -53,7 +53,7 @@ module Renalware
 
           expect(prescription).not_to be_valid
           expect(prescription.errors[:fixed_number_of_doses]).to include(
-            "must be in 2..10"
+            "must be in 1..10"
           )
         end
 
@@ -70,17 +70,17 @@ module Renalware
           )
         end
 
-        it "does not allow stat and fixed number of doses to both be set" do
+        it "normalizes legacy stat input to one fixed dose" do
           prescription = build(
             :prescription,
             administer_on_hd: true,
-            stat: true,
-            fixed_number_of_doses: 2
+            stat: true
           )
 
-          expect(prescription).not_to be_valid
-          expect(prescription.errors[:fixed_number_of_doses]).to include(
-            "cannot be set when Stat is selected"
+          expect(prescription).to be_valid
+          expect(prescription).to have_attributes(
+            stat: false,
+            fixed_number_of_doses: 1
           )
         end
       end

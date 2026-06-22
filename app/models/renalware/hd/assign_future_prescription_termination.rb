@@ -5,8 +5,8 @@ module Renalware
     # Prescriptions which are administer_on_hd = true should automatically have a future
     # termination according to config.auto_terminate_hd_prescriptions_after_period.
     # If this behaviour is not required, return nil in the setting.
-    # If administer_on_hd = true and stat = true then it should automatically have a future
-    # termination according to config.auto_terminate_hd_stat_prescriptions_after_period.
+    # If administer_on_hd = true and fixed_number_of_doses = 1 then it should automatically have a
+    # future termination according to config.auto_terminate_hd_stat_prescriptions_after_period.
     # If this behaviour is not required, return nil in the setting.
     class AssignFuturePrescriptionTermination
       include Callable
@@ -32,7 +32,7 @@ module Renalware
 
       def termination_period
         @termination_period ||= begin
-          if prescription.stat? # single administration
+          if prescription.fixed_number_of_doses == 1 # single administration
             Renalware.config.auto_terminate_hd_stat_prescriptions_after_period
           else
             Renalware.config.auto_terminate_hd_prescriptions_after_period

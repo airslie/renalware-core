@@ -4,7 +4,6 @@ module Renalware
       let(:pwd) { "password" }
       let(:user1) { create(:user, password: pwd) }
       let(:user2) { create(:user, password: pwd) }
-      let(:prescription) { create(:prescription, administer_on_hd: true, stat: true) }
 
       before do
         create(:user, :system)
@@ -14,8 +13,8 @@ module Renalware
       end
 
       describe "#perform" do
-        def prescription_administration(witnessed:, administered:, stat:)
-          prescription = create(:prescription, administer_on_hd: true, stat:)
+        def prescription_administration(witnessed:, administered:, fixed_number_of_doses:)
+          prescription = create(:prescription, administer_on_hd: true)
           pa = new_prescription_administration(prescription, administered, user1, pwd)
           if witnessed
             pa.witnessed_by = user2
@@ -24,8 +23,9 @@ module Renalware
             pa.skip_witness_validation = true
           end
           pa.save!
+          prescription.update_column(:fixed_number_of_doses, fixed_number_of_doses)
 
-          expect(prescription.reload.termination.present?).to eq(witnessed)
+          expect(prescription.reload.termination.present?).to be(false)
           pa
         end
 
@@ -40,54 +40,59 @@ module Renalware
           )
         end
 
-        it "terminates administered HD stat prescriptions that are sitting around unwitnessed" do
-          # This is because stat prescriptions should only be given once - so if any have been given
-          # but not signed off, then we want periodically terminate these.
-          witnessed_administered_stat_pa = prescription_administration(
+        it "terminates administered one-dose HD prescriptions that are sitting around unstopped" do
+          witnessed_administered_one_dose_pa = prescription_administration(
             witnessed: true,
             administered: true,
-            stat: true
+            fixed_number_of_doses: 1
           ) # prescription already terminated
-          unwitnessed_administered_stat_pa = prescription_administration(
+          witnessed_administered_one_dose_pa.prescription.build_termination(
+            terminated_on: Time.zone.today,
+            by: user1
+          ).save!
+
+          unwitnessed_administered_one_dose_pa = prescription_administration(
             witnessed: false,
             administered: true,
-            stat: true
+            fixed_number_of_doses: 1
           )
-          unwitnessed_unadministered_stat_pa = prescription_administration(
+          unwitnessed_unadministered_one_dose_pa = prescription_administration(
             witnessed: false,
             administered: false,
-            stat: true
+            fixed_number_of_doses: 1
           )
-          unwitnessed_administered_nonstat_pa = prescription_administration(
+          unwitnessed_administered_unlimited_dose_pa = prescription_administration(
             witnessed: false,
             administered: true,
-            stat: false # should not terminate as not stat
+            fixed_number_of_doses: nil
           )
 
           # sanity checks!
-          expect(witnessed_administered_stat_pa.prescription.termination).to be_present
-          expect(unwitnessed_administered_stat_pa.prescription.termination).to be_nil
-          expect(unwitnessed_unadministered_stat_pa.prescription.termination).to be_nil
-          expect(unwitnessed_administered_nonstat_pa.prescription.termination).to be_nil
+          expect(witnessed_administered_one_dose_pa.prescription.termination).to be_present
+          expect(unwitnessed_administered_one_dose_pa.prescription.termination).to be_nil
+          expect(unwitnessed_unadministered_one_dose_pa.prescription.termination).to be_nil
+          expect(unwitnessed_administered_unlimited_dose_pa.prescription.termination).to be_nil
 
           # When we run the job, it should only terminate prescriptions for
           # hd prescription administrations where
           # - it is administered
-          # - the prescription is not already terminated (caused by witnessing at some point)
-          # - the prescription is marked as give on hd and is stat (give once only)
+          # - the prescription is not already terminated
+          # - the prescription is marked as give on hd with one fixed dose
 
           # So.. we are going to terminate the prescriptions for
-          #  unwitnessed_administered_stat_pa
+          #  unwitnessed_administered_one_dose_pa
           # only!
 
           described_class.perform_now
 
-          expect(unwitnessed_administered_stat_pa.prescription.reload.termination).to be_present
+          expect(unwitnessed_administered_one_dose_pa.prescription.reload.termination).to be_present
 
           # Sanity checks that these have not changed
-          expect(witnessed_administered_stat_pa.prescription.reload.termination).to be_present
-          expect(unwitnessed_unadministered_stat_pa.prescription.reload.termination).to be_nil
-          expect(unwitnessed_administered_nonstat_pa.prescription.reload.termination).to be_nil
+          expect(witnessed_administered_one_dose_pa.prescription.reload.termination).to be_present
+          expect(unwitnessed_unadministered_one_dose_pa.prescription.reload.termination).to be_nil
+          expect(
+            unwitnessed_administered_unlimited_dose_pa.prescription.reload.termination
+          ).to be_nil
         end
       end
     end

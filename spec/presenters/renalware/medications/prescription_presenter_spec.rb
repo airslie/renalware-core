@@ -42,11 +42,11 @@ module Renalware
       end
 
       describe "#last_given_or_due_date_with_indicator" do
-        context "when hd and stat and not yet given" do
+        context "when hd and one fixed dose and not yet given" do
           it "displays date with suffix (D) meaning due" do
             prescription = Prescription.new(
               administer_on_hd: true,
-              stat: true,
+              fixed_number_of_doses: 1,
               prescribed_on: "2020-01-01"
             )
 
@@ -55,11 +55,10 @@ module Renalware
           end
         end
 
-        context "when hd and NOT stat and not yet given" do
+        context "when hd and not fixed dose and not yet given" do
           it "displays nothing" do
             prescription = Prescription.new(
               administer_on_hd: true,
-              stat: false,
               prescribed_on: "2020-01-01",
               patient: build(:patient)
             )
@@ -69,12 +68,11 @@ module Renalware
           end
         end
 
-        context "when hd and NOT stat and has been given before" do
+        context "when hd and not fixed dose and has been given before" do
           it "displays date with suffix (L) meaning Last Given" do
             prescription = create(
               :prescription,
               administer_on_hd: true,
-              stat: false,
               prescribed_on: "2020-01-01"
             )
             HD::PrescriptionAdministration.create!(
