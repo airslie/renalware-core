@@ -18,13 +18,6 @@ CREATE SCHEMA renalware;
 
 
 --
--- Name: tximport; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA tximport;
-
-
---
 -- Name: btree_gist; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -1438,7 +1431,7 @@ begin
     insert into feed_message_housekeeping_candidates(id, sent_at)
     select feed_messages.id, feed_messages.sent_at
     from renalware.feed_messages
-    where feed_messages.message_type = 'ADT'
+    where feed_messages.message_type = v_message_type
     and feed_messages.sent_at < v_cutoff_sent_at
     and not exists (
       select 1
@@ -2742,7 +2735,6 @@ CREATE TABLE renalware.medication_prescriptions (
     legacy_medication_route_id integer,
     frequency_comment character varying,
     stat boolean,
-    give_as_outpatient boolean DEFAULT false NOT NULL,
     fixed_number_of_doses integer,
     CONSTRAINT medication_prescriptions_fixed_number_of_doses_check CHECK (((fixed_number_of_doses IS NULL) OR ((fixed_number_of_doses >= 2) AND (fixed_number_of_doses <= 10))))
 );
@@ -8797,54 +8789,6 @@ ALTER SEQUENCE renalware.hd_vnd_risk_assessments_id_seq OWNED BY renalware.hd_vn
 
 
 --
--- Name: heidi_sessions; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.heidi_sessions (
-    id bigint NOT NULL,
-    patient_id bigint NOT NULL,
-    user_id bigint NOT NULL,
-    heidi_session_id character varying NOT NULL,
-    heidi_patient_profile_id character varying NOT NULL,
-    status character varying DEFAULT 'launched'::character varying NOT NULL,
-    consult_note_status character varying,
-    consult_note text,
-    raw_response jsonb DEFAULT '{}'::jsonb NOT NULL,
-    last_synced_at timestamp(6) without time zone,
-    sync_error text,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    document_template_id character varying,
-    document_content_type character varying,
-    document_content text,
-    document_response jsonb DEFAULT '{}'::jsonb NOT NULL,
-    structured_response jsonb DEFAULT '{}'::jsonb NOT NULL,
-    outputs_generated_at timestamp(6) without time zone,
-    outputs_error text,
-    clinical_codes_response jsonb DEFAULT '{}'::jsonb NOT NULL
-);
-
-
---
--- Name: heidi_sessions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE renalware.heidi_sessions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: heidi_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE renalware.heidi_sessions_id_seq OWNED BY renalware.heidi_sessions.id;
-
-
---
 -- Name: help_tour_annotations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -10443,81 +10387,6 @@ CREATE SEQUENCE renalware.medication_delivery_purchase_order_number_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
---
--- Name: medication_outpatient_prescription_administration_reasons; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.medication_outpatient_prescription_administration_reasons (
-    id bigint CONSTRAINT medication_outpatient_prescription_administration_r_id_not_null NOT NULL,
-    name character varying CONSTRAINT medication_outpatient_prescription_administration_name_not_null NOT NULL,
-    created_at timestamp(6) without time zone CONSTRAINT medication_outpatient_prescription_administ_created_at_not_null NOT NULL,
-    updated_at timestamp(6) without time zone CONSTRAINT medication_outpatient_prescription_administ_updated_at_not_null NOT NULL
-);
-
-
---
--- Name: medication_outpatient_prescription_administration_reason_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE renalware.medication_outpatient_prescription_administration_reason_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: medication_outpatient_prescription_administration_reason_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE renalware.medication_outpatient_prescription_administration_reason_id_seq OWNED BY renalware.medication_outpatient_prescription_administration_reasons.id;
-
-
---
--- Name: medication_outpatient_prescription_administrations; Type: TABLE; Schema: renalware; Owner: -
---
-
-CREATE TABLE renalware.medication_outpatient_prescription_administrations (
-    id bigint NOT NULL,
-    administered boolean,
-    administered_by_id bigint,
-    administrator_authorised boolean DEFAULT false CONSTRAINT medication_outpatient_prescri_administrator_authorised_not_null NOT NULL,
-    created_by_id integer CONSTRAINT medication_outpatient_prescription_admin_created_by_id_not_null NOT NULL,
-    deleted_at timestamp(6) without time zone,
-    patient_id bigint CONSTRAINT medication_outpatient_prescription_administ_patient_id_not_null NOT NULL,
-    prescription_id integer CONSTRAINT medication_outpatient_prescription_adm_prescription_id_not_null NOT NULL,
-    reason_id bigint,
-    recorded_on date,
-    signed_off_at timestamp(6) without time zone,
-    notes text,
-    updated_by_id integer CONSTRAINT medication_outpatient_prescription_admin_updated_by_id_not_null NOT NULL,
-    witness_authorised boolean DEFAULT false CONSTRAINT medication_outpatient_prescription__witness_authorised_not_null NOT NULL,
-    witnessed_by_id bigint,
-    created_at timestamp(6) without time zone CONSTRAINT medication_outpatient_prescription_adminis_created_at_not_null1 NOT NULL,
-    updated_at timestamp(6) without time zone CONSTRAINT medication_outpatient_prescription_adminis_updated_at_not_null1 NOT NULL
-);
-
-
---
--- Name: medication_outpatient_prescription_administrations_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
---
-
-CREATE SEQUENCE renalware.medication_outpatient_prescription_administrations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: medication_outpatient_prescription_administrations_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
---
-
-ALTER SEQUENCE renalware.medication_outpatient_prescription_administrations_id_seq OWNED BY renalware.medication_outpatient_prescription_administrations.id;
 
 
 --
@@ -17500,77 +17369,6 @@ ALTER SEQUENCE renalware.virology_versions_id_seq OWNED BY renalware.virology_ve
 
 
 --
--- Name: import_rows; Type: TABLE; Schema: tximport; Owner: -
---
-
-CREATE TABLE tximport.import_rows (
-    id bigint NOT NULL,
-    import_run_id bigint NOT NULL,
-    row_number integer NOT NULL,
-    row_sha256 text NOT NULL,
-    raw_data jsonb NOT NULL,
-    normalised_data jsonb NOT NULL,
-    validation_errors jsonb DEFAULT '[]'::jsonb NOT NULL,
-    patient_id bigint,
-    patient_match_status text DEFAULT 'pending'::text NOT NULL,
-    patient_match_details jsonb DEFAULT '{}'::jsonb NOT NULL,
-    patient_matched_at timestamp with time zone,
-    created_at timestamp with time zone DEFAULT now() NOT NULL
-);
-
-
---
--- Name: import_rows_id_seq; Type: SEQUENCE; Schema: tximport; Owner: -
---
-
-CREATE SEQUENCE tximport.import_rows_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: import_rows_id_seq; Type: SEQUENCE OWNED BY; Schema: tximport; Owner: -
---
-
-ALTER SEQUENCE tximport.import_rows_id_seq OWNED BY tximport.import_rows.id;
-
-
---
--- Name: import_runs; Type: TABLE; Schema: tximport; Owner: -
---
-
-CREATE TABLE tximport.import_runs (
-    id bigint NOT NULL,
-    source_filename text NOT NULL,
-    source_sha256 text NOT NULL,
-    worksheet_name text,
-    started_at timestamp with time zone DEFAULT now() NOT NULL
-);
-
-
---
--- Name: import_runs_id_seq; Type: SEQUENCE; Schema: tximport; Owner: -
---
-
-CREATE SEQUENCE tximport.import_runs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: import_runs_id_seq; Type: SEQUENCE OWNED BY; Schema: tximport; Owner: -
---
-
-ALTER SEQUENCE tximport.import_runs_id_seq OWNED BY tximport.import_runs.id;
-
-
---
 -- Name: access_assessments id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -18348,13 +18146,6 @@ ALTER TABLE ONLY renalware.hd_vnd_risk_assessments ALTER COLUMN id SET DEFAULT n
 
 
 --
--- Name: heidi_sessions id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.heidi_sessions ALTER COLUMN id SET DEFAULT nextval('renalware.heidi_sessions_id_seq'::regclass);
-
-
---
 -- Name: help_tour_annotations id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -18562,20 +18353,6 @@ ALTER TABLE ONLY renalware.medication_delivery_event_prescriptions ALTER COLUMN 
 --
 
 ALTER TABLE ONLY renalware.medication_delivery_events ALTER COLUMN id SET DEFAULT nextval('renalware.medication_delivery_events_id_seq'::regclass);
-
-
---
--- Name: medication_outpatient_prescription_administration_reasons id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.medication_outpatient_prescription_administration_reasons ALTER COLUMN id SET DEFAULT nextval('renalware.medication_outpatient_prescription_administration_reason_id_seq'::regclass);
-
-
---
--- Name: medication_outpatient_prescription_administrations id; Type: DEFAULT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations ALTER COLUMN id SET DEFAULT nextval('renalware.medication_outpatient_prescription_administrations_id_seq'::regclass);
 
 
 --
@@ -19706,20 +19483,6 @@ ALTER TABLE ONLY renalware.virology_versions ALTER COLUMN id SET DEFAULT nextval
 
 
 --
--- Name: import_rows id; Type: DEFAULT; Schema: tximport; Owner: -
---
-
-ALTER TABLE ONLY tximport.import_rows ALTER COLUMN id SET DEFAULT nextval('tximport.import_rows_id_seq'::regclass);
-
-
---
--- Name: import_runs id; Type: DEFAULT; Schema: tximport; Owner: -
---
-
-ALTER TABLE ONLY tximport.import_runs ALTER COLUMN id SET DEFAULT nextval('tximport.import_runs_id_seq'::regclass);
-
-
---
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -20672,14 +20435,6 @@ ALTER TABLE ONLY renalware.hd_vnd_risk_assessments
 
 
 --
--- Name: heidi_sessions heidi_sessions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.heidi_sessions
-    ADD CONSTRAINT heidi_sessions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: help_tour_annotations help_tour_annotations_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -20917,22 +20672,6 @@ ALTER TABLE ONLY renalware.medication_delivery_event_prescriptions
 
 ALTER TABLE ONLY renalware.medication_delivery_events
     ADD CONSTRAINT medication_delivery_events_pkey PRIMARY KEY (id);
-
-
---
--- Name: medication_outpatient_prescription_administration_reasons medication_outpatient_prescription_administration_reasons_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.medication_outpatient_prescription_administration_reasons
-    ADD CONSTRAINT medication_outpatient_prescription_administration_reasons_pkey PRIMARY KEY (id);
-
-
---
--- Name: medication_outpatient_prescription_administrations medication_outpatient_prescription_administrations_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
-    ADD CONSTRAINT medication_outpatient_prescription_administrations_pkey PRIMARY KEY (id);
 
 
 --
@@ -22224,30 +21963,6 @@ ALTER TABLE ONLY renalware.virology_versions
 
 
 --
--- Name: import_rows import_rows_import_run_id_row_number_key; Type: CONSTRAINT; Schema: tximport; Owner: -
---
-
-ALTER TABLE ONLY tximport.import_rows
-    ADD CONSTRAINT import_rows_import_run_id_row_number_key UNIQUE (import_run_id, row_number);
-
-
---
--- Name: import_rows import_rows_pkey; Type: CONSTRAINT; Schema: tximport; Owner: -
---
-
-ALTER TABLE ONLY tximport.import_rows
-    ADD CONSTRAINT import_rows_pkey PRIMARY KEY (id);
-
-
---
--- Name: import_runs import_runs_pkey; Type: CONSTRAINT; Schema: tximport; Owner: -
---
-
-ALTER TABLE ONLY tximport.import_runs
-    ADD CONSTRAINT import_runs_pkey PRIMARY KEY (id);
-
-
---
 -- Name: access_plan_uniqueness; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -22388,24 +22103,10 @@ CREATE INDEX idx_mp_patient_id_medication_route_id ON renalware.medication_presc
 
 
 --
--- Name: idx_on_administered_by_id_4930155dbc; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX idx_on_administered_by_id_4930155dbc ON renalware.medication_outpatient_prescription_administrations USING btree (administered_by_id);
-
-
---
 -- Name: idx_on_code_local_authority_district_id_fe2b0c7d98; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE UNIQUE INDEX idx_on_code_local_authority_district_id_fe2b0c7d98 ON renalware.geography_middle_super_output_areas USING btree (code, local_authority_district_id);
-
-
---
--- Name: idx_on_created_by_id_9325186305; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX idx_on_created_by_id_9325186305 ON renalware.medication_outpatient_prescription_administrations USING btree (created_by_id);
 
 
 --
@@ -22430,45 +22131,10 @@ CREATE UNIQUE INDEX idx_on_page_id_attached_to_selector_1d87c582e9 ON renalware.
 
 
 --
--- Name: idx_on_patient_id_075dd8322f; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX idx_on_patient_id_075dd8322f ON renalware.medication_outpatient_prescription_administrations USING btree (patient_id);
-
-
---
--- Name: idx_on_prescription_id_ff7cc788ff; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX idx_on_prescription_id_ff7cc788ff ON renalware.medication_outpatient_prescription_administrations USING btree (prescription_id);
-
-
---
--- Name: idx_on_reason_id_431e081f81; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX idx_on_reason_id_431e081f81 ON renalware.medication_outpatient_prescription_administrations USING btree (reason_id);
-
-
---
 -- Name: idx_on_study_id_external_reference_a07278c0eb; Type: INDEX; Schema: renalware; Owner: -
 --
 
 CREATE UNIQUE INDEX idx_on_study_id_external_reference_a07278c0eb ON renalware.research_participations USING btree (study_id, external_reference) WHERE ((deleted_at IS NULL) AND ((COALESCE(external_reference, ''::character varying))::text <> ''::text));
-
-
---
--- Name: idx_on_updated_by_id_a8991fe8ea; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX idx_on_updated_by_id_a8991fe8ea ON renalware.medication_outpatient_prescription_administrations USING btree (updated_by_id);
-
-
---
--- Name: idx_on_witnessed_by_id_e9846a9471; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX idx_on_witnessed_by_id_e9846a9471 ON renalware.medication_outpatient_prescription_administrations USING btree (witnessed_by_id);
 
 
 --
@@ -24005,13 +23671,6 @@ CREATE INDEX index_feed_messages_on_nhs_number ON renalware.feed_messages USING 
 
 
 --
--- Name: index_feed_messages_on_old_adt_housekeeping_candidates; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_feed_messages_on_old_adt_housekeeping_candidates ON renalware.feed_messages USING btree (sent_at, id) WHERE ((message_type = 'ADT'::renalware.hl7_message_type) AND (sent_at IS NOT NULL));
-
-
---
 -- Name: index_feed_messages_on_orc_filler_order_number; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -25153,41 +24812,6 @@ CREATE INDEX index_hd_vnd_risk_assessments_on_updated_by_id ON renalware.hd_vnd_
 
 
 --
--- Name: index_heidi_sessions_on_heidi_session_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_heidi_sessions_on_heidi_session_id ON renalware.heidi_sessions USING btree (heidi_session_id);
-
-
---
--- Name: index_heidi_sessions_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_heidi_sessions_on_patient_id ON renalware.heidi_sessions USING btree (patient_id);
-
-
---
--- Name: index_heidi_sessions_on_patient_id_and_created_at; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_heidi_sessions_on_patient_id_and_created_at ON renalware.heidi_sessions USING btree (patient_id, created_at);
-
-
---
--- Name: index_heidi_sessions_on_status; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_heidi_sessions_on_status ON renalware.heidi_sessions USING btree (status);
-
-
---
--- Name: index_heidi_sessions_on_user_id; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_heidi_sessions_on_user_id ON renalware.heidi_sessions USING btree (user_id);
-
-
---
 -- Name: index_help_tour_annotations_on_page_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -26284,20 +25908,6 @@ CREATE INDEX index_monitoring_mirth_channels_on_channel_group_id ON renalware.mo
 --
 
 CREATE UNIQUE INDEX index_monitoring_mirth_channels_on_uuid ON renalware.monitoring_mirth_channels USING btree (uuid);
-
-
---
--- Name: index_outpatient_prescription_administration_reasons_on_name; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE UNIQUE INDEX index_outpatient_prescription_administration_reasons_on_name ON renalware.medication_outpatient_prescription_administration_reasons USING btree (name);
-
-
---
--- Name: index_outpatient_prescription_administrations_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
---
-
-CREATE INDEX index_outpatient_prescription_administrations_on_deleted_at ON renalware.medication_outpatient_prescription_administrations USING btree (deleted_at);
 
 
 --
@@ -29367,20 +28977,6 @@ CREATE UNIQUE INDEX unique_study_participants ON renalware.research_participatio
 
 
 --
--- Name: index_tximport_import_rows_on_patient_id; Type: INDEX; Schema: tximport; Owner: -
---
-
-CREATE INDEX index_tximport_import_rows_on_patient_id ON tximport.import_rows USING btree (patient_id);
-
-
---
--- Name: index_tximport_import_rows_on_patient_match_status; Type: INDEX; Schema: tximport; Owner: -
---
-
-CREATE INDEX index_tximport_import_rows_on_patient_match_status ON tximport.import_rows USING btree (patient_match_status);
-
-
---
 -- Name: pathology_observations update_current_observation_set_trigger; Type: TRIGGER; Schema: renalware; Owner: -
 --
 
@@ -30361,14 +29957,6 @@ ALTER TABLE ONLY renalware.clinical_body_compositions
 
 
 --
--- Name: medication_outpatient_prescription_administrations fk_rails_3cff3aca9b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
-    ADD CONSTRAINT fk_rails_3cff3aca9b FOREIGN KEY (administered_by_id) REFERENCES renalware.users(id);
-
-
---
 -- Name: letter_mailshot_mailshots fk_rails_3db22bcf9b; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -30913,14 +30501,6 @@ ALTER TABLE ONLY renalware.pathology_calculation_sources
 
 
 --
--- Name: heidi_sessions fk_rails_67655abeaa; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.heidi_sessions
-    ADD CONSTRAINT fk_rails_67655abeaa FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
-
-
---
 -- Name: transplant_recipient_followups fk_rails_6893ba0593; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -31265,14 +30845,6 @@ ALTER TABLE ONLY renalware.hd_profiles
 
 
 --
--- Name: medication_outpatient_prescription_administrations fk_rails_8a666647a2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
-    ADD CONSTRAINT fk_rails_8a666647a2 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
-
-
---
 -- Name: monitoring_mirth_channel_stats fk_rails_8a89933de1; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -31366,14 +30938,6 @@ ALTER TABLE ONLY renalware.renal_safety_alert_rule_executions
 
 ALTER TABLE ONLY renalware.hospital_units
     ADD CONSTRAINT fk_rails_8f3a7fc1c7 FOREIGN KEY (hospital_centre_id) REFERENCES renalware.hospital_centres(id);
-
-
---
--- Name: medication_outpatient_prescription_administrations fk_rails_8f50f758ea; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
-    ADD CONSTRAINT fk_rails_8f50f758ea FOREIGN KEY (witnessed_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -31921,14 +31485,6 @@ ALTER TABLE ONLY renalware.hd_patient_statistics
 
 
 --
--- Name: heidi_sessions fk_rails_b19b35d9e4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.heidi_sessions
-    ADD CONSTRAINT fk_rails_b19b35d9e4 FOREIGN KEY (user_id) REFERENCES renalware.users(id);
-
-
---
 -- Name: letter_section_snapshots fk_rails_b3fba09669; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -32310,14 +31866,6 @@ ALTER TABLE ONLY renalware.renal_aki_alerts
 
 ALTER TABLE ONLY renalware.events
     ADD CONSTRAINT fk_rails_d1c8dd0ee5 FOREIGN KEY (subtype_id) REFERENCES renalware.event_subtypes(id);
-
-
---
--- Name: medication_outpatient_prescription_administrations fk_rails_d216611367; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
-    ADD CONSTRAINT fk_rails_d216611367 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -32745,14 +32293,6 @@ ALTER TABLE ONLY renalware.problem_problems
 
 
 --
--- Name: medication_outpatient_prescription_administrations fk_rails_ee1f6872a4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
-    ADD CONSTRAINT fk_rails_ee1f6872a4 FOREIGN KEY (prescription_id) REFERENCES renalware.medication_prescriptions(id);
-
-
---
 -- Name: clinical_igan_risks fk_rails_ef1fbb24e2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -32838,14 +32378,6 @@ ALTER TABLE ONLY renalware.research_studies
 
 ALTER TABLE ONLY renalware.drug_vmp_classifications
     ADD CONSTRAINT fk_rails_f1111cc6ef FOREIGN KEY (route_id) REFERENCES renalware.medication_routes(id);
-
-
---
--- Name: medication_outpatient_prescription_administrations fk_rails_f1d065175d; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
-    ADD CONSTRAINT fk_rails_f1d065175d FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
 
 
 --
@@ -33070,14 +32602,6 @@ ALTER TABLE ONLY renalware.modality_change_types
 
 ALTER TABLE ONLY renalware.clinical_dry_weights
     ADD CONSTRAINT fk_rails_fdc1dbcc6d FOREIGN KEY (assessor_id) REFERENCES renalware.users(id);
-
-
---
--- Name: medication_outpatient_prescription_administrations fk_rails_fe02b90c42; Type: FK CONSTRAINT; Schema: renalware; Owner: -
---
-
-ALTER TABLE ONLY renalware.medication_outpatient_prescription_administrations
-    ADD CONSTRAINT fk_rails_fe02b90c42 FOREIGN KEY (reason_id) REFERENCES renalware.medication_outpatient_prescription_administration_reasons(id);
 
 
 --
@@ -33337,24 +32861,12 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 
 
 --
--- Name: import_rows import_rows_import_run_id_fkey; Type: FK CONSTRAINT; Schema: tximport; Owner: -
---
-
-ALTER TABLE ONLY tximport.import_rows
-    ADD CONSTRAINT import_rows_import_run_id_fkey FOREIGN KEY (import_run_id) REFERENCES tximport.import_runs(id);
-
-
---
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20260611120000'),
-('20260609113000'),
-('20260609110000'),
-('20260608120000'),
 ('20260520090000'),
 ('20260520082138'),
 ('20260513120002'),
@@ -33370,7 +32882,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260420112012'),
 ('20260415165113'),
 ('20260408120000'),
-('20260326100000'),
 ('20260325113000'),
 ('20260324112837'),
 ('20260216170537'),
