@@ -1,14 +1,10 @@
-button.button.dropdown(href="#"
-                       data-dropdown="access-options"
-                       aria-controls="access-options"
-                       aria-expanded="false")
-  = t("btn.add_")
-ul.f-dropdown#access-options(data-dropdown-content aria-hidden="true")
-  li= link_to(t(".access_profile"), new_patient_accesses_profile_path(patient))
-  li= link_to(t(".access_plan"), new_patient_accesses_plan_path(patient))
-  li= link_to(t(".access_procedure"), new_patient_accesses_procedure_path(patient))
-  li= link_to(t(".access_assessment"), new_patient_accesses_assessment_path(patient))
-  li= link_to(t(".needling_assessment"), new_patient_accesses_needling_assessment_path(patient))
-  = dropdown_btn_item enabled: policy(Renalware::HD::VNDRiskAssessment).new?,
-                      title: t(".add_vnd_assessment"),
-                      url: new_patient_hd_vnd_risk_assessment_path(@patient)
+= render Renalware::DropdownButtonComponent.new(title: t("btn.add"), button_classes: "btn btn-primary btn-compact") do |dropdown|
+  - dropdown.with_item(title: t(".access_profile"), url: new_patient_accesses_profile_path(patient))
+  - dropdown.with_item(title: t(".access_plan"), url: new_patient_accesses_plan_path(patient))
+  - dropdown.with_item(title: t(".access_procedure"), url: new_patient_accesses_procedure_path(patient))
+  - dropdown.with_item(title: t(".access_assessment"), url: new_patient_accesses_assessment_path(patient))
+  - dropdown.with_item(title: t(".needling_assessment"), url: new_patient_accesses_needling_assessment_path(patient))
+  - dropdown.with_item(title: t(".add_vnd_assessment"),
+                       url: new_patient_hd_vnd_risk_assessment_path(@patient),
+                       enabled: policy(Renalware::HD::VNDRiskAssessment).new?)
+
