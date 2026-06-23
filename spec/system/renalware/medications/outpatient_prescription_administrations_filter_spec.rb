@@ -4,38 +4,38 @@ RSpec.describe "Filtering outpatient prescription administrations", :js do
   it "filters the index by administered drug name" do
     prescription_a = create(
       :prescription,
-      patient: patient,
+      patient:,
       give_as_outpatient: true,
       drug: create(:drug, name: "AlphaDrug")
     )
     prescription_b = create(
       :prescription,
-      patient: patient,
+      patient:,
       give_as_outpatient: true,
       drug: create(:drug, name: "BetaDrug")
     )
     prescription_c = create(
       :prescription,
-      patient: patient,
+      patient:,
       give_as_outpatient: true,
       drug: create(:drug, name: "GammaDrug")
     )
 
     create(
       :outpatient_prescription_administration,
-      patient: patient,
+      patient:,
       prescription: prescription_a,
       administered: true
     )
     create(
       :outpatient_prescription_administration,
-      patient: patient,
+      patient:,
       prescription: prescription_b,
       administered: true
     )
     create(
       :outpatient_prescription_administration,
-      patient: patient,
+      patient:,
       prescription: prescription_c,
       administered: false
     )
@@ -51,9 +51,9 @@ RSpec.describe "Filtering outpatient prescription administrations", :js do
     click_on "Filter"
 
     within "#outpatient-prescription-administrations" do
-      expect(page).to have_content("AlphaDrug")
-      expect(page).to have_no_content("BetaDrug")
-      expect(page).to have_no_content("GammaDrug")
+      expect(page).to have_text("AlphaDrug")
+      expect(page).to have_no_text("BetaDrug")
+      expect(page).to have_no_text("GammaDrug")
     end
   end
 end

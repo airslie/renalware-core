@@ -1,7 +1,7 @@
 - if prescriptions.any?
   - display_termination_date = !current_scope || local_assigns.fetch(:display_termination_date, false)
-  - quick_preview_colspan = 14
-  - quick_preview_colspan += 2 if current_scope
+  - quick_preview_colspan = 12
+  - quick_preview_colspan += 5 if current_scope
   - quick_preview_colspan += 1 if display_termination_date
   .row
     .large-12.columns
@@ -66,7 +66,7 @@
               - if display_termination_date
                 td= prescription.terminated_by&.full_name
             tr
-              td(colspan=20)
+              td(colspan=quick_preview_colspan)
                 .quick-preview
                   = definition_list_for(prescription, size: :large) do |list|
                     = list.definition(:notes) { |value| simple_format(value) }

@@ -22,7 +22,7 @@ module Renalware
         context "when the drug was not administered" do
           it "does not require administrator or witness credentials" do
             administration = described_class.new(
-              prescription: prescription,
+              prescription:,
               patient: prescription.patient,
               recorded_on: Date.current,
               administered: false
@@ -35,7 +35,7 @@ module Renalware
         context "when saving and witnessing later" do
           it "authorises the administering nurse only" do
             administration = described_class.new(
-              prescription: prescription,
+              prescription:,
               patient: prescription.patient,
               recorded_on: Date.current,
               administered: true,
@@ -56,7 +56,7 @@ module Renalware
         context "when both parties sign off" do
           it "marks the administration as signed off" do
             administration = described_class.new(
-              prescription: prescription,
+              prescription:,
               patient: prescription.patient,
               recorded_on: Date.current,
               administered: true,

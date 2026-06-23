@@ -190,9 +190,12 @@ module Renalware
       end
 
       def fixed_number_of_doses_requires_hd
-        return if fixed_number_of_doses.blank? || administer_on_hd?
+        return if fixed_number_of_doses.blank? || administer_on_hd? || give_as_outpatient?
 
-        errors.add(:fixed_number_of_doses, "can only be set when Give on HD is selected")
+        errors.add(
+          :fixed_number_of_doses,
+          "can only be set when Give on HD/Give as outpatient is selected"
+        )
       end
 
       def normalize_stat_to_fixed_number_of_doses

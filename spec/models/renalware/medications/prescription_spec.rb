@@ -66,7 +66,7 @@ module Renalware
 
           expect(prescription).not_to be_valid
           expect(prescription.errors[:fixed_number_of_doses]).to include(
-            "can only be set when Give on HD is selected"
+            "can only be set when Give on HD/Give as outpatient is selected"
           )
         end
 
