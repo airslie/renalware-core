@@ -66,7 +66,7 @@ module Renalware
 
           expect(prescription).not_to be_valid
           expect(prescription.errors[:fixed_number_of_doses]).to include(
-            "can only be set when Give on HD is selected"
+            "can only be set when Give on HD/Give as outpatient is selected"
           )
         end
 
@@ -144,6 +144,31 @@ module Renalware
             end
           end
         end
+
+        describe ".to_be_administered_as_outpatient" do
+          it "returns only current but non-future prescriptions flagged as give_as_outpatient" do
+            freeze_time do
+              tomorrow = Date.current + 1.day
+              yesterday = Date.current - 1.day
+              create_prescription(give_as_outpatient: false,
+                                  terminated_on: tomorrow,
+                                  prescribed_on: 2.months.ago)
+              target = create_prescription(give_as_outpatient: true,
+                                           terminated_on: tomorrow,
+                                           prescribed_on: 2.months.ago)
+              create_prescription(give_as_outpatient: true,
+                                  terminated_on: yesterday,
+                                  prescribed_on: 2.months.ago)
+              create_prescription(give_as_outpatient: true,
+                                  prescribed_on: tomorrow,
+                                  terminated_on: 2.weeks.since)
+
+              prescriptions = described_class.to_be_administered_as_outpatient
+
+              expect(prescriptions).to eq([target])
+            end
+          end
+        end
       end
 
       describe "state predicates" do
@@ -190,6 +215,61 @@ module Renalware
         end
       end
 
+      describe "#administration_context" do
+        it "returns normal when no special administration is set" do
+          prescription = build(:prescription, administer_on_hd: false, give_as_outpatient: false)
+
+          expect(prescription.administration_context).to eq("normal")
+        end
+
+        it "returns hd when the prescription is to be administered on hd" do
+          prescription = build(:prescription, administer_on_hd: true, give_as_outpatient: false)
+
+          expect(prescription.administration_context).to eq("hd")
+        end
+
+        it "returns outpatient when the prescription is to be administered as outpatient" do
+          prescription = build(:prescription, administer_on_hd: false, give_as_outpatient: true)
+
+          expect(prescription.administration_context).to eq("outpatient")
+        end
+      end
+
+      describe "#administration_context=" do
+        it "maps normal to both flags being false" do
+          prescription.administration_context = "normal"
+
+          expect(prescription.administer_on_hd).to be(false)
+          expect(prescription.give_as_outpatient).to be(false)
+        end
+
+        it "maps hd to administer_on_hd only" do
+          prescription.administration_context = "hd"
+
+          expect(prescription.administer_on_hd).to be(true)
+          expect(prescription.give_as_outpatient).to be(false)
+        end
+
+        it "maps outpatient to give_as_outpatient only" do
+          prescription.administration_context = "outpatient"
+
+          expect(prescription.administer_on_hd).to be(false)
+          expect(prescription.give_as_outpatient).to be(true)
+        end
+      end
+
+      describe "administration validation" do
+        it "does not allow hd and outpatient flags to both be true" do
+          prescription = build(:prescription, administer_on_hd: true, give_as_outpatient: true)
+
+          prescription.validate
+
+          expect(prescription.errors[:base]).to include(
+            "Prescription cannot be both HD and outpatient administered"
+          )
+        end
+      end
+
       describe "entity services" do
         describe "#terminate" do
           context "with an active prescription" do
@@ -223,6 +303,7 @@ module Renalware
         terminated_on:,
         notes: nil,
         administer_on_hd: false,
+        give_as_outpatient: false,
         prescribed_on: "2024-01-01"
       )
         create(
@@ -230,6 +311,7 @@ module Renalware
           prescribed_on:,
           notes:,
           administer_on_hd:,
+          give_as_outpatient:,
           termination: build(:prescription_termination, terminated_on:)
         )
       end

@@ -3,7 +3,7 @@ module Renalware
     class Provider
       PROVIDERS = [
         ["GP", :gp],
-        ["Hospital", :hospital, data: { default_for: :hd }],
+        ["Hospital", :hospital, data: { default_for: "hd outpatient" }],
         ["Home Delivery", :home_delivery]
       ].freeze
 

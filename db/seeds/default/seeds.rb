@@ -7,6 +7,7 @@ Rails.benchmark "Seeding default data" do
   require_relative "accesses/seeds"
   require_relative "events/seeds"
   require_relative "hd/seeds"
+  require_relative "medications/seeds"
   require_relative "clinics/seeds"
   require_relative "letters/seeds"
   require_relative "modalities/seeds"

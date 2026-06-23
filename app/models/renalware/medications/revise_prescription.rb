@@ -13,6 +13,7 @@ module Renalware
         unit_of_measure_id
         frequency
         administer_on_hd
+        give_as_outpatient
         stat
         fixed_number_of_doses
       ).freeze
@@ -137,6 +138,7 @@ module Renalware
           medication_route_id
           route_description
           frequency
+          give_as_outpatient
           prescribed_on
           notes
           provider

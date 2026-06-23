@@ -54,12 +54,16 @@ describe "Prescriptions - create / edit / terminate", :js do
 
     expect(page).to have_no_field("Stat")
     expect(page).to have_select("Fixed number of doses")
-    check("Give on HD")
+    choose("Give on HD")
     expect(page).to have_no_field("Stat")
     expect(page).to have_select("Fixed number of doses")
     expect(page).to have_checked_field("Hospital") # auto-selected
-    uncheck("Give on HD")
+    choose("Give normally")
     expect(page).to have_select("Fixed number of doses")
+    choose("GP")
+    choose("Give as outpatient")
+    expect(page).to have_checked_field("Hospital") # auto-selected
+    choose("Give normally")
 
     #
     # Test validation
@@ -81,7 +85,7 @@ describe "Prescriptions - create / edit / terminate", :js do
       expect(page).to have_text("Oral")
       expect(page).to have_text("GP")
       expect(page).to have_text(l(Date.current))
-      expect(page).to have_css("tr:nth-child(2) td[colspan='15']", visible: :all)
+      expect(page).to have_css("tr:nth-child(2) td[colspan='13']", visible: :all)
     end
 
     within "article", text: "Current" do
@@ -92,7 +96,7 @@ describe "Prescriptions - create / edit / terminate", :js do
       expect(page).to have_text("Oral")
       expect(page).to have_text("GP")
       expect(page).to have_text(l(Date.current))
-      expect(page).to have_css("tr:nth-child(2) td[colspan='16']", visible: :all)
+      expect(page).to have_css("tr:nth-child(2) td[colspan='17']", visible: :all)
     end
 
     #

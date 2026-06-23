@@ -1,0 +1,16 @@
+table.toggleable#outpatient-prescription-administrations.auto-layout(data-controller="toggle")
+  thead
+    tr
+      th.togglers.noprint= rows_toggler
+      th.actions
+      th.col-width-date Recorded on
+      th Prescription
+      th Given
+      th.col-width-medium-with-ellipsis Reason
+      th.col-width-medium-with-ellipsis Administered by
+      th.col-width-medium-with-ellipsis Witnessed by
+      th.text-center Sign-off
+      th.col-width-medium-with-ellipsis Notes
+
+  - outpatient_prescription_administrations.each do |administration|
+    = render "row", administration:

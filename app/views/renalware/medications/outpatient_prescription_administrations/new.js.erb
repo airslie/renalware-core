@@ -1,0 +1,15 @@
+const modal = document.getElementById("outpatient-prescription-administration-modal")
+if (modal) {
+  modal.innerHTML = "<%=
+    j(
+      render(
+        "form",
+        outpatient_prescription_administration: outpatient_prescription_administration,
+        url: medications_prescription_outpatient_administrations_path(
+          outpatient_prescription_administration.prescription
+        ),
+        format: :html
+      )
+    )
+  %>"
+}

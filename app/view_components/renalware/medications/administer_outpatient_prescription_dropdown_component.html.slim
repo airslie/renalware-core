@@ -1,0 +1,16 @@
+= render Renalware::DropdownButtonComponent.new(title: "Record Outpatient Drugs",
+                                                icon: :drugs,
+                                                button_classes: "btn btn-tertiary btn-compact btn-dropdown",
+                                                icon_options: { size: :md },
+                                                menu_id: "outpatient-prescription-options") do |dropdown|
+  - if prescriptions_to_give_as_outpatient.empty?
+    - dropdown.with_item enabled: false,
+                         title: "Patient has no drugs to be given as an outpatient",
+                         url: nil
+  - else
+    - prescriptions_to_give_as_outpatient.each do |prescription|
+      - dropdown.with_item title: prescription.drug_name,
+                           url: administration_url(prescription),
+                           data: administration_link_data
+
+= render "renalware/medications/outpatient_prescription_administrations/dialog_placeholder"

@@ -2,6 +2,7 @@ resources :patients, only: [] do
   resources :prescriptions, controller: "medications/prescriptions", except: :destroy
 
   namespace :medications do
+    resources :outpatient_prescription_administrations, only: :index
     resources :prescription_batch_renewals, only: %i(new create)
     resources :reviews, only: :create, defaults: { format: :js }
     namespace :home_delivery do
@@ -14,6 +15,14 @@ resources :patients, only: [] do
 end
 
 namespace :medications do
+  resources :prescriptions, only: [] do
+    resources :outpatient_administrations,
+              only: %i(new create destroy),
+              controller: "outpatient_prescription_administrations"
+  end
+  resources :outpatient_prescription_administrations, only: [] do
+    resource :witness, only: %i(edit update), controller: "outpatient_witnesses"
+  end
   # medications_esa_prescriptions => /medications/esa_prescriptions
   resources :esa_prescriptions,
             only: :index,
