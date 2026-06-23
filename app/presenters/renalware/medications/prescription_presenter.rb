@@ -4,6 +4,11 @@ module Renalware
       delegate :drug_types, :code, to: :drug
       delegate :local_patient_id, :age, :sex, :current_modality, to: :patient, prefix: true
 
+      def initialize(prescription, administered_doses_count: nil)
+        @administered_doses_count = administered_doses_count
+        super(prescription)
+      end
+
       def patient_name
         patient.to_s
       end
@@ -51,6 +56,19 @@ module Renalware
         stat ? "Yes" : "No"
       end
 
+      def fixed_dose_progress
+        return if fixed_number_of_doses.blank?
+
+        "#{administered_doses_count}/#{fixed_number_of_doses}"
+      end
+
+      def administered_doses_count
+        return @administered_doses_count unless @administered_doses_count.nil?
+
+        @administered_doses_count =
+          HD::PrescriptionAdministration.where(prescription: __getobj__, administered: true).count
+      end
+
       def to_s
         [
           drug_name,
@@ -68,7 +86,7 @@ module Renalware
       end
 
       def last_given_or_due_date_with_indicator
-        return "#{::I18n.l(prescribed_on)} (D)" if administer_on_hd? && stat
+        return "#{::I18n.l(prescribed_on)} (D)" if administer_on_hd? && fixed_number_of_doses == 1
 
         if last_administration_on_hd&.recorded_on.present?
           "#{::I18n.l(last_administration_on_hd.recorded_on)} (L)"

@@ -26,10 +26,7 @@ module Renalware
       end
 
       def current_prescriptions
-        present(
-          call_query(current_prescriptions_query),
-          PrescriptionPresenter
-        )
+        present_prescriptions(call_query(current_prescriptions_query))
       end
 
       def historical_prescriptions_query
@@ -65,7 +62,7 @@ module Renalware
             .terminated
             .terminated_between(from: 14.days.ago, to: ::Time.zone.now)
             .where.not(drug_id: current_prescriptions.map(&:drug_id))
-          present(prescriptions, PrescriptionPresenter)
+          present_prescriptions(prescriptions)
         end
       end
 
@@ -80,14 +77,35 @@ module Renalware
       end
 
       def historical_prescriptions
-        present(
-          call_query(historical_prescriptions_query),
-          PrescriptionPresenter
-        )
+        present_prescriptions(call_query(historical_prescriptions_query))
       end
 
       def drug_types
         Drugs::Type.all
+      end
+
+      private
+
+      def present_prescriptions(prescriptions)
+        prescriptions = prescriptions.to_a
+        administered_doses_counts = administered_doses_counts_for(prescriptions)
+
+        CollectionPresenter.new(prescriptions) do |prescription|
+          PrescriptionPresenter.new(
+            prescription,
+            administered_doses_count: administered_doses_counts.fetch(prescription.id, 0)
+          )
+        end
+      end
+
+      def administered_doses_counts_for(prescriptions)
+        prescription_ids = prescriptions.filter_map(&:id)
+        return {} if prescription_ids.empty?
+
+        HD::PrescriptionAdministration
+          .where(prescription_id: prescription_ids, administered: true)
+          .group(:prescription_id)
+          .count
       end
     end
   end

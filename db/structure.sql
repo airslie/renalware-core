@@ -1,6 +1,7 @@
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -8,13 +9,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
--- *not* creating schema, since initdb creates it
-
 
 --
 -- Name: renalware; Type: SCHEMA; Schema: -; Owner: -
@@ -2698,7 +2692,7 @@ CREATE TABLE renalware.medication_prescription_terminations (
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    terminated_on_set_by_user boolean DEFAULT false NOT NULL
+    terminated_on_set_by_user boolean DEFAULT false CONSTRAINT medication_prescription_term_terminated_on_set_by_user_not_null NOT NULL
 );
 
 
@@ -2740,7 +2734,9 @@ CREATE TABLE renalware.medication_prescriptions (
     legacy_drug_id integer,
     legacy_medication_route_id integer,
     frequency_comment character varying,
-    stat boolean
+    stat boolean,
+    fixed_number_of_doses integer,
+    CONSTRAINT medication_prescriptions_fixed_number_of_doses_check CHECK (((fixed_number_of_doses IS NULL) OR ((fixed_number_of_doses >= 1) AND (fixed_number_of_doses <= 10))))
 );
 
 
@@ -2763,6 +2759,13 @@ COMMENT ON COLUMN renalware.medication_prescriptions.legacy_medication_route_id 
 --
 
 COMMENT ON COLUMN renalware.medication_prescriptions.stat IS 'Can be chosen when administer_on_hd is true. Prescriptions marked as ''stat'' will be marked as terminated automatically once given.';
+
+
+--
+-- Name: COLUMN medication_prescriptions.fixed_number_of_doses; Type: COMMENT; Schema: renalware; Owner: -
+--
+
+COMMENT ON COLUMN renalware.medication_prescriptions.fixed_number_of_doses IS 'Can be chosen when administer_on_hd is true. Prescriptions with a fixed number of doses will be marked as terminated automatically once that many HD administrations have been recorded.';
 
 
 --
@@ -3444,11 +3447,11 @@ ALTER SEQUENCE renalware.access_needling_assessments_id_seq OWNED BY renalware.a
 --
 
 CREATE TABLE renalware.access_plan_types (
-    id integer NOT NULL,
-    name character varying NOT NULL,
+    id integer CONSTRAINT access_plans_id_not_null NOT NULL,
+    name character varying CONSTRAINT access_plans_name_not_null NOT NULL,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone CONSTRAINT access_plans_created_at_not_null NOT NULL,
+    updated_at timestamp without time zone CONSTRAINT access_plans_updated_at_not_null NOT NULL,
     "position" integer DEFAULT 0 NOT NULL
 );
 
@@ -3478,7 +3481,7 @@ ALTER SEQUENCE renalware.access_plan_types_id_seq OWNED BY renalware.access_plan
 --
 
 CREATE TABLE renalware.access_plans (
-    id integer NOT NULL,
+    id integer CONSTRAINT access_plans_id_not_null1 NOT NULL,
     plan_type_id integer NOT NULL,
     notes text,
     patient_id integer NOT NULL,
@@ -3486,8 +3489,8 @@ CREATE TABLE renalware.access_plans (
     updated_by_id integer NOT NULL,
     created_by_id integer NOT NULL,
     terminated_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone CONSTRAINT access_plans_created_at_not_null1 NOT NULL,
+    updated_at timestamp without time zone CONSTRAINT access_plans_updated_at_not_null1 NOT NULL
 );
 
 
@@ -4560,10 +4563,10 @@ CREATE VIEW renalware.akcc_mdm_patients AS
 --
 
 CREATE TABLE renalware.clinic_appointments (
-    id integer NOT NULL,
-    starts_at timestamp without time zone NOT NULL,
-    patient_id integer NOT NULL,
-    clinic_id integer NOT NULL,
+    id integer CONSTRAINT clinics_appointments_id_not_null NOT NULL,
+    starts_at timestamp without time zone CONSTRAINT clinics_appointments_starts_at_not_null NOT NULL,
+    patient_id integer CONSTRAINT clinics_appointments_patient_id_not_null NOT NULL,
+    clinic_id integer CONSTRAINT clinics_appointments_clinic_id_not_null NOT NULL,
     becomes_visit_id integer,
     outcome_notes text,
     dna_notes text,
@@ -4613,10 +4616,10 @@ ALTER SEQUENCE renalware.clinic_appointments_id_seq OWNED BY renalware.clinic_ap
 --
 
 CREATE TABLE renalware.clinic_clinics (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    id integer CONSTRAINT clinics_id_not_null NOT NULL,
+    name character varying CONSTRAINT clinics_name_not_null NOT NULL,
+    created_at timestamp without time zone CONSTRAINT clinics_created_at_not_null NOT NULL,
+    updated_at timestamp without time zone CONSTRAINT clinics_updated_at_not_null NOT NULL,
     user_id integer,
     visit_class_name character varying,
     code character varying,
@@ -4654,7 +4657,7 @@ ALTER SEQUENCE renalware.clinic_clinics_id_seq OWNED BY renalware.clinic_clinics
 --
 
 CREATE TABLE renalware.clinic_consultants (
-    id bigint NOT NULL,
+    id bigint CONSTRAINT renal_consultants_id_not_null NOT NULL,
     code character varying,
     name character varying,
     telephone character varying,
@@ -4909,15 +4912,15 @@ ALTER SEQUENCE renalware.clinical_body_compositions_id_seq OWNED BY renalware.cl
 --
 
 CREATE TABLE renalware.clinical_dry_weights (
-    id integer NOT NULL,
+    id integer CONSTRAINT hd_dry_weights_id_not_null NOT NULL,
     patient_id integer,
-    weight double precision NOT NULL,
-    assessed_on date NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    assessor_id integer NOT NULL,
+    weight double precision CONSTRAINT hd_dry_weights_weight_not_null NOT NULL,
+    assessed_on date CONSTRAINT hd_dry_weights_assessed_on_not_null NOT NULL,
+    created_by_id integer CONSTRAINT hd_dry_weights_created_by_id_not_null NOT NULL,
+    updated_by_id integer CONSTRAINT hd_dry_weights_updated_by_id_not_null NOT NULL,
+    created_at timestamp without time zone CONSTRAINT hd_dry_weights_created_at_not_null NOT NULL,
+    updated_at timestamp without time zone CONSTRAINT hd_dry_weights_updated_at_not_null NOT NULL,
+    assessor_id integer CONSTRAINT hd_dry_weights_assessor_id_not_null NOT NULL,
     minimum_weight double precision,
     maximum_weight double precision
 );
@@ -6901,10 +6904,10 @@ ALTER SEQUENCE renalware.feed_replay_requests_id_seq OWNED BY renalware.feed_rep
 --
 
 CREATE TABLE renalware.feed_sausage_queue_deprecated (
-    id bigint NOT NULL,
-    feed_sausage_id integer NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    id bigint CONSTRAINT feed_sausage_queue_id_not_null NOT NULL,
+    feed_sausage_id integer CONSTRAINT feed_sausage_queue_feed_sausage_id_not_null NOT NULL,
+    created_at timestamp(6) without time zone CONSTRAINT feed_sausage_queue_created_at_not_null NOT NULL,
+    updated_at timestamp(6) without time zone CONSTRAINT feed_sausage_queue_updated_at_not_null NOT NULL
 );
 
 
@@ -6932,16 +6935,16 @@ ALTER SEQUENCE renalware.feed_sausage_queue_deprecated_id_seq OWNED BY renalware
 --
 
 CREATE TABLE renalware.feed_sausages_deprecated (
-    id bigint NOT NULL,
-    sent_at timestamp without time zone NOT NULL,
-    version integer DEFAULT 1 NOT NULL,
+    id bigint CONSTRAINT feed_sausages_id_not_null NOT NULL,
+    sent_at timestamp without time zone CONSTRAINT feed_sausages_sent_at_not_null NOT NULL,
+    version integer DEFAULT 1 CONSTRAINT feed_sausages_version_not_null NOT NULL,
     processed_at timestamp without time zone,
-    message_type renalware.hl7_message_type NOT NULL,
-    event_type renalware.hl7_event_type NOT NULL,
+    message_type renalware.hl7_message_type CONSTRAINT feed_sausages_message_type_not_null NOT NULL,
+    event_type renalware.hl7_event_type CONSTRAINT feed_sausages_event_type_not_null NOT NULL,
     orc_filler_order_number character varying,
     orc_order_status renalware.enum_hl7_orc_order_status,
     message_control_id character varying,
-    body text NOT NULL,
+    body text CONSTRAINT feed_sausages_body_not_null NOT NULL,
     nhs_number character varying,
     local_patient_id character varying,
     local_patient_id_2 character varying,
@@ -6949,8 +6952,8 @@ CREATE TABLE renalware.feed_sausages_deprecated (
     local_patient_id_4 character varying,
     local_patient_id_5 character varying,
     dob date,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp(6) without time zone CONSTRAINT feed_sausages_created_at_not_null NOT NULL,
+    updated_at timestamp(6) without time zone CONSTRAINT feed_sausages_updated_at_not_null NOT NULL
 );
 
 
@@ -7040,7 +7043,7 @@ CREATE TABLE renalware.geography_lower_super_output_areas (
     imd_rank integer,
     imd_pct integer,
     imd_decile integer,
-    middle_super_output_area_id bigint NOT NULL,
+    middle_super_output_area_id bigint CONSTRAINT geography_lower_super_outpu_middle_super_output_area_i_not_null NOT NULL,
     created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
@@ -7106,7 +7109,7 @@ CREATE TABLE renalware.geography_middle_super_output_areas (
     id bigint NOT NULL,
     code character varying NOT NULL,
     name character varying NOT NULL,
-    local_authority_district_id bigint NOT NULL,
+    local_authority_district_id bigint CONSTRAINT geography_middle_super_outp_local_authority_district_i_not_null NOT NULL,
     created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
@@ -8119,7 +8122,7 @@ CREATE TABLE renalware.hd_prescription_administrations (
     updated_at timestamp without time zone NOT NULL,
     administered_by_id bigint,
     witnessed_by_id bigint,
-    administrator_authorised boolean DEFAULT false NOT NULL,
+    administrator_authorised boolean DEFAULT false CONSTRAINT hd_prescription_administratio_administrator_authorised_not_null NOT NULL,
     witness_authorised boolean DEFAULT false NOT NULL,
     reason_id bigint,
     deleted_at timestamp without time zone,
@@ -8387,7 +8390,7 @@ ALTER SEQUENCE renalware.hd_session_form_batches_id_seq OWNED BY renalware.hd_se
 CREATE TABLE renalware.hd_session_patient_group_directions (
     id bigint NOT NULL,
     session_id bigint NOT NULL,
-    patient_group_direction_id bigint NOT NULL,
+    patient_group_direction_id bigint CONSTRAINT hd_session_patient_group_di_patient_group_direction_id_not_null NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -9685,12 +9688,12 @@ COMMENT ON COLUMN renalware.letter_mesh_transmissions.letter_id IS 'A reference 
 --
 
 CREATE TABLE renalware.patient_practices (
-    id integer NOT NULL,
-    name character varying NOT NULL,
+    id integer CONSTRAINT doctor_practices_id_not_null NOT NULL,
+    name character varying CONSTRAINT doctor_practices_name_not_null NOT NULL,
     email character varying,
-    code character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    code character varying CONSTRAINT doctor_practices_code_not_null NOT NULL,
+    created_at timestamp without time zone CONSTRAINT doctor_practices_created_at_not_null NOT NULL,
+    updated_at timestamp without time zone CONSTRAINT doctor_practices_updated_at_not_null NOT NULL,
     telephone character varying,
     last_change_date date,
     active boolean DEFAULT true NOT NULL,
@@ -9887,7 +9890,7 @@ ALTER SEQUENCE renalware.letter_mesh_transmissions_id_seq OWNED BY renalware.let
 CREATE TABLE renalware.letter_qr_encoded_online_reference_links (
     id bigint NOT NULL,
     letter_id bigint NOT NULL,
-    online_reference_link_id bigint NOT NULL
+    online_reference_link_id bigint CONSTRAINT letter_qr_encoded_online_refe_online_reference_link_id_not_null NOT NULL
 );
 
 
@@ -10304,7 +10307,7 @@ CREATE VIEW renalware.medication_current_prescriptions AS
 CREATE TABLE renalware.medication_delivery_event_prescriptions (
     id bigint NOT NULL,
     event_id bigint NOT NULL,
-    prescription_id bigint NOT NULL
+    prescription_id bigint CONSTRAINT medication_delivery_event_prescription_prescription_id_not_null NOT NULL
 );
 
 
@@ -10591,7 +10594,7 @@ CREATE TABLE renalware.modality_change_types (
     created_at timestamp(6) without time zone,
     updated_at timestamp(6) without time zone,
     require_source_hospital_centre boolean DEFAULT false NOT NULL,
-    require_destination_hospital_centre boolean DEFAULT false NOT NULL
+    require_destination_hospital_centre boolean DEFAULT false CONSTRAINT modality_change_types_require_destination_hospital_cen_not_null NOT NULL
 );
 
 
@@ -10877,7 +10880,7 @@ ALTER SEQUENCE renalware.old_passwords_id_seq OWNED BY renalware.old_passwords.i
 
 CREATE TABLE renalware.pathology_calculation_sources (
     id bigint NOT NULL,
-    calculated_observation_id bigint NOT NULL,
+    calculated_observation_id bigint CONSTRAINT pathology_calculation_source_calculated_observation_id_not_null NOT NULL,
     source_observation_id bigint NOT NULL
 );
 
@@ -11072,9 +11075,9 @@ ALTER SEQUENCE renalware.pathology_charts_id_seq OWNED BY renalware.pathology_ch
 CREATE TABLE renalware.pathology_code_group_memberships (
     id bigint NOT NULL,
     code_group_id bigint NOT NULL,
-    observation_description_id bigint NOT NULL,
+    observation_description_id bigint CONSTRAINT pathology_code_group_member_observation_description_id_not_null NOT NULL,
     subgroup integer DEFAULT 1 NOT NULL,
-    position_within_subgroup integer DEFAULT 1 NOT NULL,
+    position_within_subgroup integer DEFAULT 1 CONSTRAINT pathology_code_group_membersh_position_within_subgroup_not_null NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     created_by_id bigint,
@@ -11436,8 +11439,8 @@ ALTER SEQUENCE renalware.pathology_request_descriptions_id_seq OWNED BY renalwar
 
 CREATE TABLE renalware.pathology_request_descriptions_requests_requests (
     id integer NOT NULL,
-    request_id integer NOT NULL,
-    request_description_id integer NOT NULL
+    request_id integer CONSTRAINT pathology_request_descriptions_requests_req_request_id_not_null NOT NULL,
+    request_description_id integer CONSTRAINT pathology_request_descriptions__request_description_id_not_null NOT NULL
 );
 
 
@@ -11498,7 +11501,7 @@ ALTER SEQUENCE renalware.pathology_requests_drug_categories_id_seq OWNED BY rena
 CREATE TABLE renalware.pathology_requests_drugs_drug_categories (
     id integer NOT NULL,
     drug_id integer NOT NULL,
-    drug_category_id integer NOT NULL
+    drug_category_id integer CONSTRAINT pathology_requests_drugs_drug_categor_drug_category_id_not_null NOT NULL
 );
 
 
@@ -11527,9 +11530,9 @@ ALTER SEQUENCE renalware.pathology_requests_drugs_drug_categories_id_seq OWNED B
 --
 
 CREATE TABLE renalware.pathology_requests_global_rule_sets (
-    id integer NOT NULL,
-    request_description_id integer NOT NULL,
-    frequency_type character varying NOT NULL,
+    id integer CONSTRAINT pathology_request_algorithm_global_rule_sets_id_not_null NOT NULL,
+    request_description_id integer CONSTRAINT pathology_request_algorithm_observation_description_id_not_null NOT NULL,
+    frequency_type character varying CONSTRAINT pathology_request_algorithm_global_rule_sets_frequency_not_null NOT NULL,
     clinic_id integer
 );
 
@@ -11559,7 +11562,7 @@ ALTER SEQUENCE renalware.pathology_requests_global_rule_sets_id_seq OWNED BY ren
 --
 
 CREATE TABLE renalware.pathology_requests_global_rules (
-    id integer NOT NULL,
+    id integer CONSTRAINT pathology_request_algorithm_global_rules_id_not_null NOT NULL,
     rule_set_id integer,
     type character varying,
     param_id character varying,
@@ -11594,7 +11597,7 @@ ALTER SEQUENCE renalware.pathology_requests_global_rules_id_seq OWNED BY renalwa
 --
 
 CREATE TABLE renalware.pathology_requests_patient_rules (
-    id integer NOT NULL,
+    id integer CONSTRAINT pathology_request_algorithm_patient_rules_id_not_null NOT NULL,
     test_description text,
     sample_number_bottles integer,
     sample_type character varying,
@@ -11635,7 +11638,7 @@ ALTER SEQUENCE renalware.pathology_requests_patient_rules_id_seq OWNED BY renalw
 CREATE TABLE renalware.pathology_requests_patient_rules_requests (
     id integer NOT NULL,
     request_id integer NOT NULL,
-    patient_rule_id integer NOT NULL
+    patient_rule_id integer CONSTRAINT pathology_requests_patient_rules_reque_patient_rule_id_not_null NOT NULL
 );
 
 
@@ -12067,7 +12070,7 @@ ALTER SEQUENCE renalware.patient_marital_statuses_id_seq OWNED BY renalware.pati
 --
 
 CREATE TABLE renalware.patient_master_index_deprecated (
-    id bigint NOT NULL,
+    id bigint CONSTRAINT patient_master_index_id_not_null NOT NULL,
     patient_id bigint,
     nhs_number character varying,
     hospital_number character varying,
@@ -12082,8 +12085,8 @@ CREATE TABLE renalware.patient_master_index_deprecated (
     ethnicity character varying,
     practice_code character varying,
     gp_code character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone CONSTRAINT patient_master_index_created_at_not_null NOT NULL,
+    updated_at timestamp without time zone CONSTRAINT patient_master_index_updated_at_not_null NOT NULL
 );
 
 
@@ -12401,13 +12404,13 @@ ALTER SEQUENCE renalware.patient_practices_id_seq OWNED BY renalware.patient_pra
 --
 
 CREATE TABLE renalware.patient_primary_care_physicians (
-    id integer NOT NULL,
+    id integer CONSTRAINT doctor_doctors_id_not_null NOT NULL,
     given_name character varying,
     family_name character varying,
     code character varying,
-    practitioner_type character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    practitioner_type character varying CONSTRAINT doctor_doctors_practitioner_type_not_null NOT NULL,
+    created_at timestamp without time zone CONSTRAINT doctor_doctors_created_at_not_null NOT NULL,
+    updated_at timestamp without time zone CONSTRAINT doctor_doctors_updated_at_not_null NOT NULL,
     telephone character varying,
     deleted_at timestamp without time zone,
     name character varying
@@ -12759,7 +12762,7 @@ CREATE TABLE renalware.pd_bag_types (
     id integer NOT NULL,
     manufacturer character varying NOT NULL,
     description character varying NOT NULL,
-    glucose_content numeric(4,2) NOT NULL,
+    glucose_content numeric(4,2) CONSTRAINT pd_bag_types_glucose_grams_per_litre_not_null NOT NULL,
     amino_acid boolean,
     icodextrin boolean,
     low_glucose_degradation boolean,
@@ -13039,12 +13042,12 @@ ALTER SEQUENCE renalware.pd_organism_codes_id_seq OWNED BY renalware.pd_organism
 --
 
 CREATE TABLE renalware.pd_peritonitis_episode_type_descriptions (
-    id integer NOT NULL,
+    id integer CONSTRAINT pd_episode_types_id_not_null NOT NULL,
     term character varying,
     definition character varying,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone CONSTRAINT pd_episode_types_created_at_not_null NOT NULL,
+    updated_at timestamp without time zone CONSTRAINT pd_episode_types_updated_at_not_null NOT NULL
 );
 
 
@@ -13075,7 +13078,7 @@ ALTER SEQUENCE renalware.pd_peritonitis_episode_type_descriptions_id_seq OWNED B
 CREATE TABLE renalware.pd_peritonitis_episode_types (
     id integer NOT NULL,
     peritonitis_episode_id integer NOT NULL,
-    peritonitis_episode_type_description_id integer NOT NULL
+    peritonitis_episode_type_description_id integer CONSTRAINT pd_peritonitis_episode_type_peritonitis_episode_type_d_not_null NOT NULL
 );
 
 
@@ -14109,7 +14112,7 @@ ALTER SEQUENCE renalware.renal_safety_alert_rule_categories_id_seq OWNED BY rena
 
 CREATE TABLE renalware.renal_safety_alert_rule_executions (
     id bigint NOT NULL,
-    safety_alert_rule_id bigint NOT NULL,
+    safety_alert_rule_id bigint CONSTRAINT renal_safety_alert_rule_execution_safety_alert_rule_id_not_null NOT NULL,
     started_at timestamp(6) without time zone NOT NULL,
     finished_at timestamp(6) without time zone,
     status character varying DEFAULT 'running'::character varying NOT NULL,
@@ -14318,7 +14321,7 @@ CREATE VIEW renalware.reporting_anaemia_audit AS
 CREATE TABLE renalware.reporting_audits (
     id integer NOT NULL,
     name character varying NOT NULL,
-    view_name character varying NOT NULL,
+    view_name character varying CONSTRAINT reporting_audits_materialized_view_name_not_null NOT NULL,
     refreshed_at timestamp without time zone,
     refresh_schedule character varying DEFAULT '1 0 * * 1-6'::character varying,
     display_configuration text DEFAULT '{}'::text NOT NULL,
@@ -14635,16 +14638,16 @@ ALTER SEQUENCE renalware.research_investigatorships_id_seq OWNED BY renalware.re
 --
 
 CREATE TABLE renalware.research_participations (
-    id bigint NOT NULL,
-    patient_id bigint NOT NULL,
-    study_id bigint NOT NULL,
-    joined_on date NOT NULL,
+    id bigint CONSTRAINT research_study_participants_id_not_null NOT NULL,
+    patient_id bigint CONSTRAINT research_study_participants_participant_id_not_null NOT NULL,
+    study_id bigint CONSTRAINT research_study_participants_study_id_not_null NOT NULL,
+    joined_on date CONSTRAINT research_study_participants_joined_on_not_null NOT NULL,
     left_on date,
     deleted_at timestamp without time zone,
     updated_by_id bigint,
     created_by_id bigint,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone CONSTRAINT research_study_participants_created_at_not_null NOT NULL,
+    updated_at timestamp without time zone CONSTRAINT research_study_participants_updated_at_not_null NOT NULL,
     external_id text,
     type character varying,
     document jsonb,
@@ -15609,7 +15612,7 @@ CREATE TABLE renalware.system_nag_definitions (
     title text,
     enabled boolean DEFAULT true NOT NULL,
     relative_link text,
-    always_expire_cache_after_minutes integer DEFAULT 60 NOT NULL,
+    always_expire_cache_after_minutes integer DEFAULT 60 CONSTRAINT system_nag_definitions_always_expire_cache_after_minut_not_null NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -16631,8 +16634,8 @@ CREATE TABLE renalware.transplant_registration_nhsbt_status_descriptions (
     id bigint NOT NULL,
     code character varying NOT NULL,
     name character varying NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp(6) without time zone CONSTRAINT transplant_registration_nhsbt_status_descri_created_at_not_null NOT NULL,
+    updated_at timestamp(6) without time zone CONSTRAINT transplant_registration_nhsbt_status_descri_updated_at_not_null NOT NULL
 );
 
 
@@ -16889,9 +16892,9 @@ ALTER SEQUENCE renalware.ukrdc_assessment_types_id_seq OWNED BY renalware.ukrdc_
 --
 
 CREATE TABLE renalware.ukrdc_batches (
-    id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    id bigint CONSTRAINT ukrdc_batch_numbers_id_not_null NOT NULL,
+    created_at timestamp without time zone CONSTRAINT ukrdc_batch_numbers_created_at_not_null NOT NULL,
+    updated_at timestamp without time zone CONSTRAINT ukrdc_batch_numbers_updated_at_not_null NOT NULL
 );
 
 
@@ -32864,6 +32867,8 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260622120100'),
+('20260622120000'),
 ('20260520090000'),
 ('20260520082138'),
 ('20260513120002'),
@@ -32874,6 +32879,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260430120100'),
 ('20260430120000'),
 ('20260429120000'),
+('20260427120100'),
+('20260427120000'),
 ('20260420112012'),
 ('20260415165113'),
 ('20260408120000'),

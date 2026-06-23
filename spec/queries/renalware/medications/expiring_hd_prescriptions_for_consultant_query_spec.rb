@@ -85,12 +85,12 @@ describe Renalware::Medications::ExpiringHDPrescriptionsForConsultantQuery do
         expect(prescriptions).to eq([prescription])
       end
 
-      it "ignores stat prescriptions" do
+      it "ignores fixed-dose prescriptions" do
         create_prescription(
           patient: hd_patient,
           user: consultant,
           terminated_on: 1.day.from_now,
-          stat: true
+          fixed_number_of_doses: 1
         )
 
         expect(described_class.call(user: consultant)).to eq([])

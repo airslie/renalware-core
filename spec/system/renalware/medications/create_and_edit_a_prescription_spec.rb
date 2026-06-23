@@ -53,11 +53,13 @@ describe "Prescriptions - create / edit / terminate", :js do
     expect(page).to have_select "Frequency", selected: "Often"
 
     expect(page).to have_no_field("Stat")
+    expect(page).to have_select("Fixed number of doses")
     check("Give on HD")
-    expect(page).to have_field("Stat")
+    expect(page).to have_no_field("Stat")
+    expect(page).to have_select("Fixed number of doses")
     expect(page).to have_checked_field("Hospital") # auto-selected
-    check("Stat")
     uncheck("Give on HD")
+    expect(page).to have_select("Fixed number of doses")
 
     #
     # Test validation
@@ -79,6 +81,7 @@ describe "Prescriptions - create / edit / terminate", :js do
       expect(page).to have_text("Oral")
       expect(page).to have_text("GP")
       expect(page).to have_text(l(Date.current))
+      expect(page).to have_css("tr:nth-child(2) td[colspan='15']", visible: :all)
     end
 
     within "article", text: "Current" do
@@ -89,6 +92,7 @@ describe "Prescriptions - create / edit / terminate", :js do
       expect(page).to have_text("Oral")
       expect(page).to have_text("GP")
       expect(page).to have_text(l(Date.current))
+      expect(page).to have_css("tr:nth-child(2) td[colspan='16']", visible: :all)
     end
 
     #
@@ -120,7 +124,7 @@ describe "Prescriptions - create / edit / terminate", :js do
     expect(page).to have_link "Edit"
     within "article", text: "Current" do
       expect(page).to have_link "Edit"
-      # # There will be no Terminate button as it is a stat drug that already has a termination date
+      # # There will be no Terminate button as it already has a termination date
       # expect(page).not_to have_link "Terminate"
       expect(page).to have_no_text("Blue Pill\t\tCapsule\t1 Ampoule")
       expect(page).to have_text("Blue Pill\t\tCapsule\tlarger dose Ampoule")

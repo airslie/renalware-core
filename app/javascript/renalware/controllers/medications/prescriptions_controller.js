@@ -3,11 +3,17 @@ import { Controller } from "@hotwired/stimulus"
 // Handles the modal dialog used for presenting Home Delivery print options to
 // the user. Used on the prescriptions page.
 export default class extends Controller {
-  static targets = [ "homeDeliveryDates", "providers" ]
+  static targets = [
+    "administerOnHd",
+    "homeDeliveryDates",
+    "providers"
+  ]
 
   connect() {
-    let radio_value = this.providersTarget.querySelector("input:checked").value
-    this.toggleDeliveryDatesVisibility(radio_value)
+    if (this.hasProvidersTarget) {
+      const checkedProvider = this.providersTarget.querySelector("input:checked")
+      if (checkedProvider) this.toggleDeliveryDatesVisibility(checkedProvider.value)
+    }
   }
 
   toggleDeliveryDates(event) {
@@ -22,6 +28,10 @@ export default class extends Controller {
 
     defaultProviderForHd.checked = true
     defaultProviderForHd.dispatchEvent(new Event("change", { bubbles: true }))
+  }
+
+  toggleHdPrescriptionOptions(event) {
+    this.selectHdDefaultProvider(event)
   }
 
   toggleDeliveryDatesVisibility(radio_value) {

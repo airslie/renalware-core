@@ -32,18 +32,17 @@ module Renalware
       validate :check_witnessed_by_password, if: :validate_witness?
       validate :witness_cannot_be_administrator
 
-      before_save :terminate_prescription_if_stat
+      before_save :terminate_prescription_if_required_number_of_doses_reached
 
       scope :ordered, -> { order(recorded_on: :desc, created_at: :desc) }
       scope :having_given_but_unwitnessed_prescriptions, lambda {
-        # As the act of witnessing terminates the prescription, here, for safety, we are selecting
-        # based on the prescription being unterminated, rather than witnessed = false.
-        # This is a paranoid approach in case witnessing fails to terminate for any reason...
+        # This exists for one-dose prescriptions recorded before fixed-dose termination happened
+        # immediately after administration, and for safety in case an automatic termination fails.
         where(administered: true)
           .joins(:prescription)
           .merge(
             Medications::Prescription
-              .where(stat: true, administer_on_hd: true)
+              .where(administer_on_hd: true, fixed_number_of_doses: 1)
               .where.missing(:termination)
           )
       }
@@ -58,27 +57,45 @@ module Renalware
         administered? && authorised?
       end
 
-      # stat means give one time only
-      def terminate_prescription_if_stat
-        if valid? &&
-           witnessed? &&
-           prescription.administer_on_hd? &&
-           prescription.stat?
+      def terminate_prescription_if_required_number_of_doses_reached
+        return unless valid?
+        return unless prescription.administer_on_hd?
 
-          if prescription.termination.nil?
-            terminate_prescription(prescription)
-          elsif prescription.termination.terminated_on > Time.zone.today
-            update_existing_future_termination_to_terminate_immediately(prescription)
-          end
-        end
+        terminate_prescription_if_fixed_number_of_doses_reached
       end
 
       private
 
-      def terminate_prescription(prescription)
+      def terminate_prescription_if_fixed_number_of_doses_reached
+        return unless administered?
+        return if prescription.fixed_number_of_doses.blank?
+        return unless administered_doses_count >= prescription.fixed_number_of_doses
+
+        terminate_prescription_or_update_future_termination(
+          prescription:,
+          notes: termination_notes_for_fixed_number_of_doses
+        )
+      end
+
+      def termination_notes_for_fixed_number_of_doses
+        count = prescription.fixed_number_of_doses
+
+        "HD prescription automatically terminated after #{count} administered " \
+          "#{'dose'.pluralize(count)}"
+      end
+
+      def terminate_prescription_or_update_future_termination(prescription:, notes:)
+        if prescription.termination.nil?
+          terminate_prescription(prescription, notes)
+        elsif prescription.termination.terminated_on > Time.zone.today
+          update_existing_future_termination_to_terminate_immediately(prescription)
+        end
+      end
+
+      def terminate_prescription(prescription, notes)
         prescription.build_termination(
           terminated_on: Time.zone.now,
-          notes: "Stat prescription automatically terminated once given",
+          notes:,
           by: SystemUser.find
         ).save!
       end
@@ -88,6 +105,13 @@ module Renalware
         termination.terminated_on = Time.zone.today
         termination.created_by = termination.updated_by = SystemUser.find
         termination.save!
+      end
+
+      def administered_doses_count
+        PrescriptionAdministration
+          .where(prescription:, administered: true)
+          .where.not(id:)
+          .count + 1
       end
 
       def witness_cannot_be_administrator

@@ -20,6 +20,69 @@ module Renalware
           is_expected.to respond_to(:last_delivery_date)
           is_expected.to be_versioned
         end
+
+        it "allows a fixed number of doses from 1 to 10 on HD prescriptions" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 1
+          )
+
+          expect(prescription).to be_valid
+        end
+
+        it "does not allow a fixed number of doses below 1" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 0
+          )
+
+          expect(prescription).not_to be_valid
+          expect(prescription.errors[:fixed_number_of_doses]).to include(
+            "must be in 1..10"
+          )
+        end
+
+        it "does not allow a fixed number of doses above 10" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 11
+          )
+
+          expect(prescription).not_to be_valid
+          expect(prescription.errors[:fixed_number_of_doses]).to include(
+            "must be in 1..10"
+          )
+        end
+
+        it "does not allow a fixed number of doses unless the prescription is given on HD" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: false,
+            fixed_number_of_doses: 2
+          )
+
+          expect(prescription).not_to be_valid
+          expect(prescription.errors[:fixed_number_of_doses]).to include(
+            "can only be set when Give on HD is selected"
+          )
+        end
+
+        it "normalizes legacy stat input to one fixed dose" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: true,
+            stat: true
+          )
+
+          expect(prescription).to be_valid
+          expect(prescription).to have_attributes(
+            stat: false,
+            fixed_number_of_doses: 1
+          )
+        end
       end
 
       describe "scopes" do

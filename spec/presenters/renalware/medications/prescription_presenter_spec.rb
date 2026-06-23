@@ -42,11 +42,11 @@ module Renalware
       end
 
       describe "#last_given_or_due_date_with_indicator" do
-        context "when hd and stat and not yet given" do
+        context "when hd and one fixed dose and not yet given" do
           it "displays date with suffix (D) meaning due" do
             prescription = Prescription.new(
               administer_on_hd: true,
-              stat: true,
+              fixed_number_of_doses: 1,
               prescribed_on: "2020-01-01"
             )
 
@@ -55,11 +55,10 @@ module Renalware
           end
         end
 
-        context "when hd and NOT stat and not yet given" do
+        context "when hd and not fixed dose and not yet given" do
           it "displays nothing" do
             prescription = Prescription.new(
               administer_on_hd: true,
-              stat: false,
               prescribed_on: "2020-01-01",
               patient: build(:patient)
             )
@@ -69,12 +68,11 @@ module Renalware
           end
         end
 
-        context "when hd and NOT stat and has been given before" do
+        context "when hd and not fixed dose and has been given before" do
           it "displays date with suffix (L) meaning Last Given" do
             prescription = create(
               :prescription,
               administer_on_hd: true,
-              stat: false,
               prescribed_on: "2020-01-01"
             )
             HD::PrescriptionAdministration.create!(
@@ -91,6 +89,54 @@ module Renalware
             expect(described_class.new(prescription).last_given_or_due_date_with_indicator)
               .to be_blank
           end
+        end
+      end
+
+      describe "#fixed_dose_progress" do
+        it "uses an injected administered doses count when supplied" do
+          prescription = build(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 5
+          )
+          allow(HD::PrescriptionAdministration).to receive(:where)
+
+          expect(
+            described_class.new(
+              prescription,
+              administered_doses_count: 3
+            ).fixed_dose_progress
+          ).to eq("3/5")
+          expect(HD::PrescriptionAdministration).not_to have_received(:where)
+        end
+
+        it "returns administered doses over fixed number of doses" do
+          prescription = create(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 5
+          )
+          create_list(:hd_prescription_administration, 3, prescription:)
+
+          expect(described_class.new(prescription).fixed_dose_progress).to eq("3/5")
+        end
+
+        it "does not count soft-deleted administrations" do
+          prescription = create(
+            :prescription,
+            administer_on_hd: true,
+            fixed_number_of_doses: 5
+          )
+          create(:hd_prescription_administration, prescription:).destroy!
+          create_list(:hd_prescription_administration, 2, prescription:)
+
+          expect(described_class.new(prescription).fixed_dose_progress).to eq("2/5")
+        end
+
+        it "returns nil when no fixed number of doses is set" do
+          prescription = build(:prescription, fixed_number_of_doses: nil)
+
+          expect(described_class.new(prescription).fixed_dose_progress).to be_nil
         end
       end
     end

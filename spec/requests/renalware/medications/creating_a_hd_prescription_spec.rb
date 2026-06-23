@@ -5,7 +5,7 @@ describe "Create an HD prescription" do
   let(:prescribed_on_date) { Date.parse(prescribed_on) }
   let(:prescribed_on_next_date) { Date.parse(prescribed_on_next) }
 
-  def prescription_params(administer_on_hd:, stat: false)
+  def prescription_params(administer_on_hd:, stat: false, fixed_number_of_doses: nil)
     {
       drug_id: create(:drug).id,
       treatable_id: patient.id,
@@ -17,12 +17,13 @@ describe "Create an HD prescription" do
       unit_of_measure_id: create(:drug_unit_of_measure).id,
       frequency: :once_only,
       administer_on_hd:,
-      stat:
+      stat:,
+      fixed_number_of_doses:
     }
   end
 
   describe "PUT update" do
-    context "when prescription is administer_on_hd and not stat" do
+    context "when prescription is administer_on_hd without fixed doses" do
       context "when termination date has never been amended manually by the user" do
         it "updates the termination date to be the future date of start_date + configured period" do
           period = 3.months
@@ -109,7 +110,7 @@ describe "Create an HD prescription" do
       end
     end
 
-    context "when prescription is administer_on_hd and is stat" do
+    context "when prescription is administer_on_hd with one fixed dose" do
       it "updates the termination date to be the future date of start_date + configured period" do
         period = 2.weeks
         initial_prescribed_on = Date.parse(prescribed_on)
@@ -120,7 +121,7 @@ describe "Create an HD prescription" do
           .and_return(period)
 
         # Build initial prescription to update
-        params = prescription_params(administer_on_hd: true, stat: true)
+        params = prescription_params(administer_on_hd: true, fixed_number_of_doses: 1)
         prescription = build(:prescription, params.merge(patient_id: patient.id))
         prescription.termination = build(
           :prescription_termination,
@@ -145,7 +146,7 @@ describe "Create an HD prescription" do
         expect(prescription).to have_attributes(
           prescribed_on: new_prescribed_on,
           administer_on_hd: true,
-          stat: true
+          fixed_number_of_doses: 1
         )
         expect(prescription.termination).to have_attributes(
           terminated_on: new_prescribed_on + period,
@@ -156,7 +157,7 @@ describe "Create an HD prescription" do
   end
 
   describe "POST create" do
-    context "when prescription is administer_on_hd and not stat" do
+    context "when prescription is administer_on_hd without fixed doses" do
       context "when no termination date supplied" do
         it "adds a termination with a future date of start_date + configured period" do
           period = 3.months
@@ -182,6 +183,32 @@ describe "Create an HD prescription" do
             terminated_on: prescribed_on_date + period,
             notes: "HD prescription scheduled to terminate #{period.in_days.to_i} days from start"
           )
+        end
+
+        it "saves a fixed number of doses" do
+          allow(Renalware.config)
+            .to receive(:auto_terminate_hd_prescriptions_after_period)
+            .and_return(nil)
+
+          params = prescription_params(
+            administer_on_hd: true,
+            fixed_number_of_doses: 3
+          )
+          post(
+            patient_prescriptions_path(patient),
+            params: { medications_prescription: params }
+          )
+          follow_redirect!
+
+          expect(response).to be_successful
+
+          prescription = Renalware::Medications::Prescription.last
+          expect(prescription).to have_attributes(
+            administer_on_hd: true,
+            stat: false,
+            fixed_number_of_doses: 3
+          )
+          expect(response.body).to include("0/3")
         end
 
         it "does not create a termination if the configured period is nil" do
@@ -265,14 +292,14 @@ describe "Create an HD prescription" do
       end
     end
 
-    context "when prescription is administer_on_hd and stat (give once)" do
+    context "when prescription is administer_on_hd with one fixed dose" do
       it "additionally saves a termination with a future date of start_date + configured period" do
         period = 2.weeks
         allow(Renalware.config)
           .to receive(:auto_terminate_hd_stat_prescriptions_after_period)
           .and_return(period)
 
-        params = prescription_params(administer_on_hd: true, stat: true)
+        params = prescription_params(administer_on_hd: true, fixed_number_of_doses: 1)
         post(
           patient_prescriptions_path(patient),
           params: { medications_prescription: params }
@@ -284,7 +311,8 @@ describe "Create an HD prescription" do
         prescription = Renalware::Medications::Prescription.last
         expect(prescription).to have_attributes(
           prescribed_on: prescribed_on_date,
-          administer_on_hd: true
+          administer_on_hd: true,
+          fixed_number_of_doses: 1
         )
         expect(prescription.termination).to have_attributes(
           terminated_on: prescribed_on_date + period,
@@ -297,7 +325,7 @@ describe "Create an HD prescription" do
           .to receive(:auto_terminate_hd_stat_prescriptions_after_period)
           .and_return(nil)
 
-        params = prescription_params(administer_on_hd: true, stat: true)
+        params = prescription_params(administer_on_hd: true, fixed_number_of_doses: 1)
 
         post(
           patient_prescriptions_path(patient),
@@ -314,7 +342,7 @@ describe "Create an HD prescription" do
           .to receive(:auto_terminate_hd_stat_prescriptions_after_period)
           .and_return(0.days)
 
-        params = prescription_params(administer_on_hd: true, stat: true)
+        params = prescription_params(administer_on_hd: true, fixed_number_of_doses: 1)
 
         post(
           patient_prescriptions_path(patient),
