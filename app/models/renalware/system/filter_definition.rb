@@ -11,7 +11,8 @@ module Renalware
         :type,
         {
           list: 0,
-          search: 1
+          search: 1,
+          multi: 2
         }
       )
       validates :code, presence: true

@@ -1,8 +1,9 @@
 / Render any filters defined in the view (ViewMetadata) #filters hash (hstore).
 / The format of the filters is
-/   column_names: filter_type (list|search)
+/   column_names: filter_type (list|search|multi)
 / e.g
 /   sex: :list => will render a dropdown of unique options pulled from the underlying view
+/   sex: :multi => will render a multi-select dropdown using unique options
 /   nhs_number: :search => maps to case insensitive ransack predicate
 /   nhs_number_or_local_patient_id: :search => will add _cont to end and use that as the predicate
 
@@ -24,18 +25,29 @@
       - type = filter.type
       - filter_type = ActiveSupport::StringInquirer.new(type)
 
-      - if filter_type.list?
+      - if filter_type.list? || filter_type.multi?
         / Build and cache the filter dropdown options
         - cache_key = [options.current_view.view_name, column, filter.type]
         - collection = Rails.cache.fetch(cache_key, expires_in: Renalware.config.report_filter_cache_expiry_seconds.seconds) do
           - options.search.klass.distinct(column.to_sym).pluck(column.to_sym).compact
-        / Unique values selected from a dropdown
-        .w-full.sm:max-w-xs.pr-2
-          = f.input "#{column}_eq",
-                    include_blank: true,
-                    collection: collection,
-                    label: column.humanize
-          / input_html: { onchange: "this.form.submit();" }
+        - if filter_type.list?
+          / Unique value selected from a dropdown
+          .w-full.sm:max-w-xs.pr-2
+            = f.input "#{column}_eq",
+                      include_blank: true,
+                      collection: collection,
+                      label: column.humanize
+            / input_html: { onchange: "this.form.submit();" }
+        - else
+          / Multiple unique values selected from a dropdown
+          .w-full.sm:max-w-xs.pr-2
+            = f.input "#{column}_in",
+                      collection: collection,
+                      label: column.humanize,
+                      input_html: { \
+                        multiple: "multiple",
+                        data: { controller: "slimselect", action: "change->form#submit" } \
+                      }
       - elsif filter_type.search?
         / Free text inputs
         .w-full.sm:max-w-xs.pr-2
