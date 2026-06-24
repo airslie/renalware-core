@@ -2,12 +2,13 @@ module Renalware
   module System
     class SqlViewWidgetsController < BaseController
       def show
-        authorize %i(renalware lab), :show?
+        authorize_widget_access
 
-        return head :not_found unless lab_widget_context_valid?
+        return head :not_found unless widget_context_valid?
 
         render locals: {
           frame_id: frame_id,
+          lab: lab_slot?,
           patient: patient_context,
           patient_scope: patient_scope_context,
           require_patient_scope: require_patient_scope?,
@@ -17,11 +18,17 @@ module Renalware
 
       private
 
+      def authorize_widget_access
+        return authorize %i(renalware lab), :show? if lab_slot?
+
+        authorize view_metadata
+      end
+
       def view_metadata
         @view_metadata ||= ViewMetadata.widgets.find(params[:id])
       end
 
-      def lab_widget_context_valid?
+      def widget_context_valid?
         view_metadata.schema_name == params[:schema_name] &&
           view_metadata.widget_options.visible_in_slot?(slot) &&
           patient_slot_context_valid?
@@ -32,7 +39,7 @@ module Renalware
       end
 
       def patient_context
-        return unless patient_slot?
+        return if params[:patient_id].blank?
 
         @patient_context ||= policy_scope(Patient)
           .find_by!(secure_id: params[:patient_id])
@@ -40,7 +47,7 @@ module Renalware
       end
 
       def patient_scope_context
-        return if patient_slot?
+        return if patient_context.present?
 
         policy_scope(Patient).select(:id)
       end
@@ -55,6 +62,10 @@ module Renalware
 
       def patient_slot?
         slot_segments.include?("patient")
+      end
+
+      def lab_slot?
+        slot_segments.first == "lab"
       end
 
       def slot_segments
