@@ -67,11 +67,7 @@ module Renalware
         render(component) do |article|
           article.with_title { view_metadata.title.presence || view_metadata.view_name.humanize }
 
-          render Renalware::SpinnerComponent.new do |spinner|
-            spinner.with_main_content do
-              content_tag(:p, "Loading...")
-            end
-          end
+          render Renalware::TableLoadingComponent.new
         end
       end
 

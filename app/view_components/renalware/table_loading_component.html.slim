@@ -1,0 +1,9 @@
+.system-table-loading role="status" aria-live="polite"
+  span.sr-only= label
+  table.system-table-loading__table aria-hidden="true"
+    tbody
+      - rows.times do
+        tr
+          - columns.times do |column_index|
+            td
+              .system-table-loading__cell style="width: #{column_width(column_index)}"
