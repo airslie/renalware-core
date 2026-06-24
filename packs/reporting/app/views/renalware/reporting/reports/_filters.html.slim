@@ -22,18 +22,16 @@
   .flex.flex-col.sm:flex-row.items-start.pb-4
     - options.current_view.filters.each do |filter|
       - column = filter.code
-      - type = filter.type
-      - filter_type = ActiveSupport::StringInquirer.new(type)
 
-      - if filter_type.list? || filter_type.multi?
+      - if filter.collection?
         / Build and cache the filter dropdown options
         - cache_key = [options.current_view.view_name, column, filter.type]
         - collection = Rails.cache.fetch(cache_key, expires_in: Renalware.config.report_filter_cache_expiry_seconds.seconds) do
           - options.search.klass.distinct(column.to_sym).pluck(column.to_sym).compact
-        - if filter_type.list?
+        - if filter.list?
           / Unique value selected from a dropdown
           .w-full.sm:max-w-xs.pr-2
-            = f.input "#{column}_eq",
+            = f.input filter.ransack_attribute,
                       include_blank: true,
                       collection: collection,
                       label: column.humanize
@@ -41,17 +39,17 @@
         - else
           / Multiple unique values selected from a dropdown
           .w-full.sm:max-w-xs.pr-2
-            = f.input "#{column}_in",
+            = f.input filter.ransack_attribute,
                       collection: collection,
                       label: column.humanize,
                       input_html: { \
                         multiple: "multiple",
                         data: { controller: "slimselect", action: "change->form#submit" } \
                       }
-      - elsif filter_type.search?
+      - elsif filter.search?
         / Free text inputs
         .w-full.sm:max-w-xs.pr-2
-          = f.input "#{column}_cont", label: column.humanize
+          = f.input filter.ransack_attribute, label: column.humanize
 
     .w-full.sm:max-w-sm.pr-2.pt-5
       .flex.items-center

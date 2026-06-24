@@ -5,6 +5,12 @@ module Renalware
     class FilterDefinition
       include StoreModel::Model
 
+      RANSACK_PREDICATES = {
+        "list" => "eq",
+        "multi" => "in",
+        "search" => "cont"
+      }.freeze
+
       attribute :code, :string
       # The type enum determines how the filter is constructed eg as a list of distinct values
       enum(
@@ -18,9 +24,23 @@ module Renalware
       validates :code, presence: true
       validates :type, presence: true
 
+      def collection?
+        list? || multi?
+      end
+
+      def ransack_attribute
+        "#{code}_#{ransack_predicate}"
+      end
+
       def title
         code.humanize
         # @title ||= name.presence || code.humanize
+      end
+
+      private
+
+      def ransack_predicate
+        RANSACK_PREDICATES.fetch(type)
       end
     end
   end
