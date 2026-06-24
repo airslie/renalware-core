@@ -1,9 +1,22 @@
-.system-table-loading role="status" aria-live="polite"
-  span.sr-only= label
-  table.system-table-loading__table aria-hidden="true"
-    tbody
+= pre_content
+
+- if overlay?
+  .relative.clear-both
+    .system-table-loading.system-table-loading--overlay.loading-element.absolute.top-0.left-0.w-full.h-full.z-30(role="status" aria-live="polite")
+      span.sr-only= label
+      .system-table-loading__table aria-hidden="true"
+        - rows.times do
+          .system-table-loading__row
+            - columns.times do |column_index|
+              .system-table-loading__column
+                .system-table-loading__cell style="width: #{column_width(column_index)}"
+    = main_content
+- else
+  .system-table-loading role="status" aria-live="polite"
+    span.sr-only= label
+    .system-table-loading__table aria-hidden="true"
       - rows.times do
-        tr
+        .system-table-loading__row
           - columns.times do |column_index|
-            td
+            .system-table-loading__column
               .system-table-loading__cell style="width: #{column_width(column_index)}"

@@ -34,8 +34,8 @@
 
 = within_admin_layout(title: "Reports") do
   = turbo_frame_tag "reports_frame" do
-    = render Renalware::SpinnerComponent.new do |spinner|
-      = spinner.with_main_content do
+    = render Renalware::TableLoadingComponent.new do |loader|
+      = loader.with_main_content do
         table
           thead
             tr
@@ -53,7 +53,7 @@
           tbody
             - reports.each do |report|
               tr
-                td= link_to "View", reporting.report_path(report)
+                td= link_to "View", reporting.report_path(report), target: "_top"
                 td= report.title
                 td=report.sub_category
                 - if current_user_is_super_admin?
@@ -72,7 +72,7 @@
 
 
   - if current_user_is_super_admin?
-    .mt-10= help_panel do
+    .mt-20= help_panel do
       span
           ' To create a new report, work out the SQL you need (and the columns to return) and create
           ' a SQL view (ideally in the hospital's own schema eg

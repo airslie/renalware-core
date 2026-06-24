@@ -29,8 +29,6 @@
   = turbo_frame_tag "report_content",
                     loading: :lazy,
                     src: reporting.content_report_path(options.current_view) do
-    = render Renalware::SpinnerComponent.new do |spinner|
-      = spinner.with_main_content do
-        p.text-center Loading please wait...
+    = render Renalware::TableLoadingComponent.new
 
   = render("info", options: options) if current_user_is_super_admin?
