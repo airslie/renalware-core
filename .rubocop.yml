@@ -146,8 +146,8 @@ RSpec/MultipleExpectations:
   Exclude:
     - "spec/system/**/*"
 
-Capybara/ClickLinkOrButtonStyle:
-  Enabled: false
+# Capybara/ClickLinkOrButtonStyle:
+#   Enabled: false
 
 Metrics/MethodLength:
   Exclude:
