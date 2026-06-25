@@ -9,6 +9,52 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.5.3
+### Added
+- Outpatient prescription administration #5821
+  - Adds outpatient prescription administration records, administration reasons, last-administration display, prescription filtering and a witnessing workflow for outpatient prescriptions.
+  - Test outpatient prescription creation, administration, witnessing, filtering, permissions and clinical display of the last administered dose.
+- Fixed-number-of-dose prescriptions #5896
+  - Adds explicit fixed-dose courses and consolidates previous stat prescription handling into that model.
+  - Test HD and outpatient prescription creation, administration, renewal, expiry and any local stat-prescription workflows.
+- Reporting filters and SQL widget loading improvements #6021
+  - Adds multi-value report filters and async loading for non-lab SQL widgets, with table skeleton loaders while results are loading.
+  - Test commonly used reports, configured filters, patient-specific widgets and dashboard/report pages that use SQL view widgets.
+- GP Connect document care-setting support #5974
+  - Adds configurable GP Connect Composition care setting metadata for outgoing clinical documents.
+  - Test document generation and downstream GP Connect consumers where this integration is used.
+
+### Changed
+- UKRDC child data export lookback windows #5962
+  - Adjusts how far back UKRDC exports look for child dialysis sessions, lab orders, observations and related data.
+  - Regression test UKRDC v3/v4 exports for children, especially dialysis prescriptions/sessions, observations, procedures and lab orders.
+- Internal messaging now restricts recipients to messageable users #5992
+  - Read-only and otherwise non-messageable users are excluded from internal message recipient lists.
+  - Test composing messages to clinical groups and individual users, especially where read-only accounts are present.
+- Reporting, navigation and dashboard UI updates #5997 #6001 #6003 #6008
+  - Adds an opt-in responsive primary navigation, reusable dropdown button component, icon tidy-ups, improved report placeholders and a smaller dashboard MESH warning list.
+  - Regression test core navigation, patient search, action dropdowns, messaging links, report pages and dashboard widgets in the browsers used locally.
+- ADT feed housekeeping has been optimised #5996
+  - Improves cleanup of old ADT feed messages, reducing the expected database load of routine housekeeping.
+  - Test scheduled housekeeping in environments with large HL7/ADT message volumes.
+- Dependency, documentation, CI and Docker image maintenance #5951 #5952 #5953 #5954 #5955 #5956 #5957 #5958 #5965 #5966 #5969 #5970 #5971 #5972 #5973 #5975 #5982 #5987 #5988 #5994 #5995 #6000 #6009 #6014 #6015 #6017 #6022 #6023
+  - Updates application, documentation and GitHub Actions dependencies; tightens Docker build inputs; scans the published Docker image with Trivy; and updates the documentation build toolchain.
+  - Regression test deployment, image builds, CI pipelines and the documentation site where they are part of the local release process.
+
+### Fixed
+- Merged patients no longer appear in bookmark and admission request listings #6007
+  - Prevents merged-away patient records from being offered in these operational lists.
+  - Test patient bookmarks and admission request lists after patient merges.
+- Expired password routing has been fixed #5977
+  - Fixes the expired-password route/controller mapping and adds sign-in coverage for the flow.
+  - Test password-expired sign-in journeys for local and centrally authenticated users where applicable.
+- UKRDC UKRR UID patient number type has been corrected #5981
+  - Fixes the patient number type used for UKRR UIDs in UKRDC exports.
+  - Regression test UKRDC patient number output, especially sites using UKRR UID identifiers.
+- Patient banner and related action layouts have been tidied #6002
+  - Fixes patient header layout issues after recent UI changes.
+  - Test patient banners at common desktop and smaller viewport sizes.
+
 ## 2.5.2
 ### Added
 - Renal safety alerts #5923
