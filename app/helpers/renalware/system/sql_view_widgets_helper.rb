@@ -15,7 +15,7 @@ module Renalware
 
         safe_join(
           widgets.map do |view_metadata|
-            if async_lab_widget?(view_metadata, lab)
+            if async_sql_view_widget?(view_metadata)
               async_sql_view_widget_frame(
                 view_metadata,
                 patient: patient,
@@ -37,8 +37,8 @@ module Renalware
 
       private
 
-      def async_lab_widget?(view_metadata, lab)
-        lab == true && view_metadata.persisted? && view_metadata.widget_options.async?
+      def async_sql_view_widget?(view_metadata)
+        view_metadata.persisted? && view_metadata.widget_options.async?
       end
 
       def async_sql_view_widget_frame(
@@ -52,7 +52,7 @@ module Renalware
           src: system_sql_view_widget_path(
             view_metadata,
             patient_id: patient&.to_param,
-            schema_name: schema_name,
+            schema_name: schema_name.presence || view_metadata.schema_name,
             slot: slot
           ),
           loading: :lazy
@@ -67,11 +67,7 @@ module Renalware
         render(component) do |article|
           article.with_title { view_metadata.title.presence || view_metadata.view_name.humanize }
 
-          render Renalware::SpinnerComponent.new do |spinner|
-            spinner.with_main_content do
-              content_tag(:p, "Loading...")
-            end
-          end
+          render Renalware::TableLoadingComponent.new
         end
       end
 

@@ -16,22 +16,30 @@ you can choose only patient with an age say of 39, you can update `system_view_m
 ```
 
 :::note
-Filter type 0 = a drop downlist of all possible options
-Filter type 1 = a searchable text input
+Filter type 'list' = a drop downlist of all possible options
+Filter type 'multi' = a drop downlist of all possible options
+Filter type 'search' = a searchable text input
 :::
 
 ![Filter example](/img/report-filters.jpg)
 
+## Multi-select filters
+
+```
+[{"code": "age", "type": "multi"}]
+```
+
+![Filter example](/img/report-filter-multiselect.jpg)
 
 ## Text search filters
 
-If you want to allow searching on a specific column in your report - eg patient_name in ou case -
-you can add another filter to `system_view_metadata.filters` of type 1
+If you want to allow searching on a specific column in your report - eg patient_name in our case -
+you can add another filter to `system_view_metadata.filters` of type 'search'
 
 ```
 [
-  {"code": "patient_name", "type": 1},
-  {"code": "age", "type": 0},
+  {"code": "patient_name", "type": "search"},
+  {"code": "age", "type": "list"},
 ]
 ```
 ![Filter example](/img/report-multiple-filters.jpg)

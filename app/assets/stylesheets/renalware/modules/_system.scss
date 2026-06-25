@@ -104,3 +104,62 @@
     }
   }
 }
+
+.system-table-loading {
+  margin: 0.7rem 0 0.2rem;
+}
+
+.system-table-loading--overlay {
+  background: var(--white);
+  margin: 0;
+  opacity: 0;
+  padding: 0.7rem 0.7rem 0.2rem;
+  pointer-events: none;
+  transition: opacity 160ms ease-in 120ms, visibility 0s linear 280ms;
+  visibility: hidden;
+}
+
+turbo-frame[busy] .system-table-loading--overlay {
+  opacity: 1;
+  transition-delay: 120ms, 0s;
+  visibility: visible;
+}
+
+.system-table-loading__table {
+  width: 100%;
+}
+
+.system-table-loading__row {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.system-table-loading__column {
+  flex: 1 1 0;
+  padding: 0.45rem 0 0.45rem 0;
+}
+
+.system-table-loading__cell {
+  animation: system-table-loading-pulse 1.8s ease-in-out infinite;
+  background: linear-gradient(90deg, #eef0f2 25%, #e2e5e8 50%, #eef0f2 75%);
+  background-size: 240% 100%;
+  border-radius: 0.2rem;
+  height: 0.85rem;
+}
+
+@keyframes system-table-loading-pulse {
+  0% {
+    background-position: 120% 0;
+  }
+
+  100% {
+    background-position: -120% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .system-table-loading__cell {
+    animation: none;
+    background: #e2e5e8;
+  }
+}

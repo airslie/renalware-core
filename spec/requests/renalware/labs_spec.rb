@@ -17,6 +17,8 @@ describe "Lab" do
     connection.execute("DROP TABLE IF EXISTS renalware.lab_global_widget_rows")
     connection.execute("DROP VIEW IF EXISTS renalware.lab_patient_widget_view")
     connection.execute("DROP TABLE IF EXISTS renalware.lab_patient_widget_rows")
+    connection.execute("DROP VIEW IF EXISTS site.generic_patient_widget_view")
+    connection.execute("DROP TABLE IF EXISTS site.generic_patient_widget_rows")
   end
 
   describe "GET /lab" do
@@ -273,6 +275,26 @@ describe "Lab" do
     end
   end
 
+  describe "GET /system/sql_view_widgets/:id" do
+    it "renders async widgets for non-Lab slots without the Lab feature flag" do
+      @current_user.update!(feature_flags: 0)
+      patient = create(:patient, :minimal, by: @current_user)
+      widget = create_generic_patient_widget(patient_id: patient.id)
+
+      get system_sql_view_widget_path(
+        widget,
+        patient_id: patient.to_param,
+        schema_name: "site",
+        slot: "hd_mdm:middle"
+      )
+
+      expect(response).to be_successful
+      expect(response.body).to include(%(id="sql-view-widget-#{widget.id}"))
+      expect(response.body).to include("Current patient row")
+      expect(response.body).not_to include("Other patient row")
+    end
+  end
+
   def create_global_lab_widget(schema_name: "site", title: "Global Lab Widget", async: false)
     connection.execute("CREATE SCHEMA IF NOT EXISTS #{schema_name}")
     connection.execute(<<~SQL.squish)
@@ -391,6 +413,46 @@ describe "Lab" do
         patient_id_column: patient_id_column,
         async: async
       }.compact
+    )
+  end
+
+  def create_generic_patient_widget(patient_id:)
+    connection.execute("CREATE SCHEMA IF NOT EXISTS site")
+    connection.execute(<<~SQL.squish)
+      CREATE TABLE IF NOT EXISTS site.generic_patient_widget_rows (
+        patient_id bigint,
+        label text
+      )
+    SQL
+    connection.execute(<<~SQL.squish)
+      CREATE OR REPLACE VIEW site.generic_patient_widget_view AS
+      SELECT patient_id, label
+      FROM site.generic_patient_widget_rows
+    SQL
+    connection.execute("DELETE FROM site.generic_patient_widget_rows")
+    connection.execute(<<~SQL.squish)
+      INSERT INTO site.generic_patient_widget_rows (patient_id, label)
+      VALUES
+        (#{patient_id}, 'Current patient row'),
+        (#{patient_id + 1}, 'Other patient row')
+    SQL
+
+    create(
+      :view_metadata,
+      category: :widget,
+      schema_name: "site",
+      view_name: "generic_patient_widget_view",
+      title: "Generic Patient Widget",
+      columns: [
+        Renalware::System::ColumnDefinition.new(code: "patient_id", hidden: true),
+        Renalware::System::ColumnDefinition.new(code: "label", name: "Label")
+      ],
+      widget_options: {
+        slots: ["hd_mdm:middle"],
+        max_rows: 5,
+        patient_id_column: "patient_id",
+        async: true
+      }
     )
   end
 end
