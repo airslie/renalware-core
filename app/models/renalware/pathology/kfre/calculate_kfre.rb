@@ -51,7 +51,7 @@ module Renalware
         private
 
         def insufficient_data?
-          age.zero? || acr.zero? || egfr.zero? || sex.nil?
+          age.zero? || acr.zero? || egfr.zero? || egfr >= 60 || sex.nil?
         end
 
         # Where the term 'male' is used, this should be replaced by a 1 if the person being
