@@ -1,0 +1,112 @@
+nav.rw-primary-nav(data-controller="primary-navigation"
+                   data-action="keydown.esc@window->primary-navigation#closeAll click@window->primary-navigation#closeOnOutside"
+                   aria-label="Primary navigation")
+  .rw-primary-nav__inner
+    = link_to Renalware.config.site_name, main_app.dashboard_path, class: "rw-primary-nav__brand"
+
+    - if signed_in?
+      button.rw-primary-nav__toggle(type="button"
+                                    aria-controls="primary-navigation-menu"
+                                    aria-expanded="false"
+                                    data-primary-navigation-target="toggle"
+                                    data-action="primary-navigation#toggleMenu")
+        span.rw-primary-nav__toggle-icon aria-hidden="true"
+        span.rw-primary-nav__toggle-label Menu
+
+      - if the_patient_search.present?
+        = search_form_for the_patient_search,
+                          url: main_app.patients_path,
+                          as: :patient_search,
+                          html: { autocomplete: "off" },
+                          class: "rw-primary-nav__search" do |f|
+          = label_tag :identity_match,
+                      t("renalware.navigation.patient_search.accessible_label_title"),
+                      class: "sr-only"
+          = f.search_field :identity_match,
+                           placeholder: t("renalware.navigation.patient_search.verbose_search_placeholder"),
+                           class: "rw-primary-nav__search-input",
+                           input_html: { autocomplete: "off" }
+          = f.button class: "rw-primary-nav__search-button", aria: { label: "Search patients" } do
+            = inline_icon(:search, size: :md)
+
+      ul#primary-navigation-menu.rw-primary-nav__menu(data-primary-navigation-target="menu")
+        - unread_message_count = unread_message_count_component
+
+        li.rw-primary-nav__item
+          button.rw-primary-nav__link.rw-primary-nav__link--button(type="button"
+                                                                   aria-expanded="false"
+                                                                   aria-haspopup="true"
+                                                                   aria-controls="primary-navigation-user"
+                                                                   data-primary-navigation-target="disclosure"
+                                                                   data-action="primary-navigation#toggleDisclosure")
+            span.rw-primary-nav__user-label
+              = inline_icon(:home, size: :md)
+              span= current_user_menu_label
+              = render unread_message_count
+          ul#primary-navigation-user.rw-primary-nav__submenu(data-primary-navigation-target="panel" hidden)
+            li= link_to t("renalware.navigation.user.my_dashboard"), main_app.dashboard_path
+            li= link_to t("renalware.navigation.user.update_profile"), main_app.edit_user_registration_path
+            li= link_to "View Letters", main_app.author_letters_path(current_user.id)
+            li= link_to "Manage Snippets", authoring.snippets_path
+            li= link_to main_app.messaging_internal_inbox_path do
+              span Messages
+              = render unread_message_count
+            li= link_to "Electronic CCs", main_app.unread_letters_electronic_receipts_path
+            li.rw-primary-nav__submenu-separator
+              = link_to t("renalware.navigation.sign_out.log_out"),
+                        main_app.destroy_user_session_path,
+                        method: :delete,
+                        data: { action: "click->session#sendLogoutMessageToAnyOpenTabs" }
+
+        - primary_menu_groups.each do |group|
+          li.rw-primary-nav__item
+            button.rw-primary-nav__link.rw-primary-nav__link--button(type="button"
+                                                                     aria-expanded="false"
+                                                                     aria-haspopup="true"
+                                                                     aria-controls="primary-navigation-#{group[:id]}"
+                                                                     data-primary-navigation-target="disclosure"
+                                                                     data-action="primary-navigation#toggleDisclosure")
+              = group[:label]
+            ul.rw-primary-nav__submenu(id="primary-navigation-#{group[:id]}"
+                                       data-primary-navigation-target="panel"
+                                       hidden)
+              - group[:links].each do |link|
+                - if link.is_a?(Hash) && link[:type] == :separator
+                  li.rw-primary-nav__submenu-separator.rw-primary-nav__submenu-heading= link[:label]
+                - else
+                  - label, path = link
+                  li= link_to label, path, **external_link_options(path)
+
+        li.rw-primary-nav__item= link_to "Reports", reporting.reports_path, class: "rw-primary-nav__link"
+        li.rw-primary-nav__item= link_to t("renalware.navigation.directory.directory"),
+                                         directory.people_path,
+                                         class: "rw-primary-nav__link"
+
+        - if current_user_is_admin? || current_user_is_super_admin?
+          li.rw-primary-nav__item= link_to "Admin", main_app.admin_dashboard_path, class: "rw-primary-nav__link"
+
+        - if Renalware.config.display_feedback_button_in_navbar && current_user.present?
+          li.rw-primary-nav__item= link_to "Feedback",
+                                           main_app.new_system_user_feedback_path,
+                                           class: "rw-primary-nav__link"
+
+        - if help_menu_group.present?
+          li.rw-primary-nav__item
+            button.rw-primary-nav__link.rw-primary-nav__link--button(type="button"
+                                                                     aria-expanded="false"
+                                                                     aria-haspopup="true"
+                                                                     aria-controls="primary-navigation-#{help_menu_group[:id]}"
+                                                                     data-primary-navigation-target="disclosure"
+                                                                     data-action="primary-navigation#toggleDisclosure")
+              = help_menu_group[:label]
+            ul.rw-primary-nav__submenu(id="primary-navigation-#{help_menu_group[:id]}"
+                                       data-primary-navigation-target="panel"
+                                       hidden)
+              - help_menu_group[:links].each do |link|
+                - if link.is_a?(Hash) && link[:type] == :separator
+                  li.rw-primary-nav__submenu-separator.rw-primary-nav__submenu-heading= link[:label]
+                - else
+                  - label, path = link
+                  li= link_to label, path, **external_link_options(path)
+              li.rw-primary-nav__submenu-separator.rw-primary-nav__submenu-note
+                | Version #{semantic_app_version}

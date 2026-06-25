@@ -130,6 +130,9 @@ module Renalware
     config_accessor(:default_from_email) { "dev@airslie.com" }
     config_accessor(:display_feedback_banner) { ENV.key?("DISPLAY_FEEDBACK_BANNER") }
     config_accessor(:display_feedback_button_in_navbar) { ENV.key?("DISPLAY_FEEDBACK_BUTTON_IN_NAVBAR") }
+    config_accessor(:use_new_primary_navigation) {
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("USE_NEW_PRIMARY_NAVIGATION", "false"))
+    }
     config_accessor(:default_from_email_address) { ENV.fetch("DEFAULT_FROM_EMAIL_ADDRESS", nil) }
     config_accessor(:phone_number_on_letters) { ENV.fetch("PHONE_NUMBER_ON_LETTERS", nil) }
     config_accessor(:renal_unit_on_letters) { ENV.fetch("RENAL_UNIT_ON_LETTERS", nil) }
