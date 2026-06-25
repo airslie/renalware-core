@@ -4,6 +4,12 @@
 
 import { Controller } from "@hotwired/stimulus"
 
+function refreshMasonry() {
+  if (window.Renalware && window.Renalware.MasonryHelper) {
+    window.Renalware.MasonryHelper.refresh()
+  }
+}
+
 export default class extends Controller {
   static targets = ["content"]
   static values = {
@@ -25,7 +31,7 @@ export default class extends Controller {
     const target = event.target
     target.innerHTML = this.lessTextValue
     this.contentTarget.style.setProperty("--read-more-line-clamp", "'unset'")
-    $(".mgrid > .row").masonry("layout")
+    refreshMasonry()
   }
 
   hide(event) {
@@ -34,6 +40,6 @@ export default class extends Controller {
     const target = event.target
     target.innerHTML = this.moreTextValue
     this.contentTarget.style.removeProperty("--read-more-line-clamp")
-    $(".mgrid > .row").masonry("layout")
+    refreshMasonry()
   }
 }
