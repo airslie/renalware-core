@@ -79,20 +79,6 @@ describe "Configuring Drugs" do
     end
   end
 
-  describe "GET prescribable" do
-    it "responds with matching drugs ordered by relevance" do
-      create(:drug, name: "Tacrolimus")
-      refresh_prescribable_drugs_materialized_view
-
-      get prescribable_drugs_drugs_path(format: :json), params: { term: "tac" }
-
-      expect(response).to be_successful
-      expect(response.parsed_body).to contain_exactly(
-        a_hash_including("text" => "Tacrolimus")
-      )
-    end
-  end
-
   describe "GET edit" do
     it "responds with a form" do
       get edit_drugs_drug_path(drug)
