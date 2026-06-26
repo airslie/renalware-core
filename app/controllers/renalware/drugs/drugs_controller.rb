@@ -97,14 +97,27 @@ module Renalware
         drugs.where(sanitize(["compound_name ilike ?", "%#{term}%"]))
           .or(
             Drugs::PrescribableDrug.where(
-              sanitize(["SIMILARITY(compound_name,?) > 0.3", "%#{term}%"])
+              sanitize(["#{pg_trgm_similarity_function}(compound_name, ?) > 0.3", "%#{term}%"])
             )
           )
           .order(
             sanitize(["compound_name ilike ? desc", "#{term}%"]),
-            sanitize(["SIMILARITY(compound_name,?) desc", term]),
+            sanitize(["#{pg_trgm_similarity_function}(compound_name, ?) desc", term]),
             "compound_name"
           )
+      end
+
+      def pg_trgm_similarity_function
+        @pg_trgm_similarity_function ||= begin
+          schema = ActiveRecord::Base.connection.select_value(<<~SQL.squish)
+            SELECT pg_namespace.nspname
+            FROM pg_extension
+            JOIN pg_namespace ON pg_namespace.oid = pg_extension.extnamespace
+            WHERE pg_extension.extname = 'pg_trgm'
+          SQL
+
+          "#{ActiveRecord::Base.connection.quote_table_name(schema)}.similarity"
+        end
       end
 
       def drug_params
