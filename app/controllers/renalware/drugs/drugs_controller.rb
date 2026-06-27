@@ -97,38 +97,14 @@ module Renalware
         drugs.where(sanitize(["compound_name ilike ?", "%#{term}%"]))
           .or(
             Drugs::PrescribableDrug.where(
-              sanitize(["#{pg_trgm_similarity_function}(compound_name, ?) > 0.3", "%#{term}%"])
+              sanitize(["SIMILARITY(compound_name,?) > 0.3", "%#{term}%"])
             )
           )
           .order(
             sanitize(["compound_name ilike ? desc", "#{term}%"]),
-            sanitize(["#{pg_trgm_similarity_function}(compound_name, ?) desc", term]),
+            sanitize(["SIMILARITY(compound_name,?) desc", term]),
             "compound_name"
           )
-      end
-
-      def pg_trgm_similarity_function
-        @pg_trgm_similarity_function ||= begin
-          schema = pg_trgm_similarity_function_schema
-
-          "#{ActiveRecord::Base.connection.quote_table_name(schema)}.similarity"
-        end
-      end
-
-      def pg_trgm_similarity_function_schema
-        schema = ActiveRecord::Base.connection.select_value(<<~SQL.squish)
-          SELECT pg_namespace.nspname
-          FROM pg_proc
-          JOIN pg_namespace ON pg_namespace.oid = pg_proc.pronamespace
-          WHERE pg_proc.proname = 'similarity'
-          AND pg_get_function_identity_arguments(pg_proc.oid) = 'text, text'
-          ORDER BY CASE WHEN pg_namespace.nspname = ANY(current_schemas(true)) THEN 0 ELSE 1 END
-          LIMIT 1
-        SQL
-
-        schema.presence || raise(
-          "pg_trgm similarity(text, text) function is not available in this database"
-        )
       end
 
       def drug_params
