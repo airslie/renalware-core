@@ -18,12 +18,20 @@ module Renalware
           format.pdf do
             filename = "#{patient.family_name}_#{patient.hospital_identifier&.id}" \
                        "_medications_#{I18n.l(Time.zone.today)}".upcase
+            title = pdf_title
 
             render_with_wicked_pdf(
               default_pdf_options.merge(
                 pdf: filename,
                 print_media_type: true,
-                locals: { title: pdf_title, presenter: presenter }
+                locals: {
+                  title: title,
+                  presenter: presenter,
+                  render_current_medications_section: render_current_medications_section?,
+                  render_empty_hd_prescriptions_section: render_empty_hd_prescriptions_section?,
+                  render_empty_outpatient_prescriptions_section:
+                    render_empty_outpatient_prescriptions_section?
+                }
               )
             )
           end
@@ -112,6 +120,18 @@ module Renalware
         return "hd" if params[:hd_only] == "true"
 
         params[:print_scope]
+      end
+
+      def render_current_medications_section?
+        !print_scope.in?(%w(hd outpatient))
+      end
+
+      def render_empty_hd_prescriptions_section?
+        print_scope == "hd"
+      end
+
+      def render_empty_outpatient_prescriptions_section?
+        print_scope == "outpatient"
       end
 
       def render_edit(prescription)

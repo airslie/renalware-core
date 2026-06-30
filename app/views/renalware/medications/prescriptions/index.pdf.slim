@@ -31,23 +31,26 @@ html
     section.review
       = render Renalware::Medications::LatestReviewComponent.new(patient: presenter.patient)
 
-    section.prescriptions
-      - with_format(:html) do
-        = render "renalware/medications/prescriptions/current",
-                prescriptions: presenter.current_standard_prescriptions,
-                recently_changed: presenter.recently_changed_prescriptions
+    - if local_assigns.fetch(:render_current_medications_section, true)
+      section.prescriptions
+        - with_format(:html) do
+          = render "renalware/medications/prescriptions/current",
+                  prescriptions: presenter.current_standard_prescriptions,
+                  recently_changed: presenter.recently_changed_prescriptions
 
     section.prescriptions
       - with_format(:html) do
         = render "renalware/medications/prescriptions/current_hd",
                 prescriptions: presenter.current_hd_prescriptions,
-                recently_changed: presenter.recently_changed_prescriptions
+                recently_changed: presenter.recently_changed_prescriptions,
+                render_if_blank: local_assigns.fetch(:render_empty_hd_prescriptions_section, false)
 
     section.prescriptions
       - with_format(:html) do
         = render "renalware/medications/prescriptions/current_outpatient",
                 prescriptions: presenter.current_outpatient_prescriptions,
-                recently_changed: presenter.recently_changed_prescriptions
+                recently_changed: presenter.recently_changed_prescriptions,
+                render_if_blank: local_assigns.fetch(:render_empty_outpatient_prescriptions_section, false)
 
     section.prescriptions
       - with_format(:html) do
