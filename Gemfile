@@ -61,7 +61,7 @@ group :test do
   gem "rspec-html-matchers", require: false
   gem "rspec_junit_formatter", "~> 0.4"
   gem "rspec-retry"
-  gem "shoulda-matchers", "~> 7.0"
+  gem "shoulda-matchers", "~> 8.0"
   gem "simplecov", require: false # only loaded if required
   gem "simplecov-cobertura", "~> 3.1", require: false
   gem "test-prof"
