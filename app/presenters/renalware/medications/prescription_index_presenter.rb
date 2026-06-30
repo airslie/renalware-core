@@ -26,7 +26,21 @@ module Renalware
       end
 
       def current_prescriptions
-        present_prescriptions(call_query(current_prescriptions_query))
+        present_prescriptions(current_prescriptions_relation)
+      end
+
+      def current_standard_prescriptions
+        present_prescriptions(
+          current_prescriptions_relation.where(administer_on_hd: false, give_as_outpatient: false)
+        )
+      end
+
+      def current_hd_prescriptions
+        present_prescriptions(current_prescriptions_relation.where(administer_on_hd: true))
+      end
+
+      def current_outpatient_prescriptions
+        present_prescriptions(current_prescriptions_relation.where(give_as_outpatient: true))
       end
 
       def historical_prescriptions_query
@@ -100,6 +114,10 @@ module Renalware
 
       def administered_doses_counts_for(prescriptions)
         AdministeredDosesQuery.counts_for(prescriptions)
+      end
+
+      def current_prescriptions_relation
+        @current_prescriptions_relation ||= call_query(current_prescriptions_query)
       end
     end
   end

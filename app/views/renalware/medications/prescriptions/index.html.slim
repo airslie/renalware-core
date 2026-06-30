@@ -13,8 +13,10 @@
               class: "btn btn-secondary btn-compact"
 
     = render Renalware::DropdownButtonComponent.new(title: "Print", icon: :printer) do |dropdown|
-      - [{ hd_only: false, title: "All Drugs" }, { hd_only: true, title: "HD Drugs" }].each do |opts|
-        - url = patient_prescriptions_path(presenter.patient, presenter.treatable, hd_only: opts[:hd_only], format: :pdf)
+      - [{ print_scope: "all", title: "All Drugs" },
+         { print_scope: "hd", title: "HD Drugs" },
+         { print_scope: "outpatient", title: "Outpatient Drugs" }].each do |opts|
+        - url = patient_prescriptions_path(presenter.patient, presenter.treatable, print_scope: opts[:print_scope], format: :pdf)
         - dropdown.with_item(title: opts[:title], url:)
       - dropdown.with_item(title: "Home Delivery Drugs",
                            url: new_patient_medications_home_delivery_event_path(presenter.patient, format: :html),

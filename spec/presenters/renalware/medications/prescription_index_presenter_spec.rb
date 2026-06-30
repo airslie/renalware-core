@@ -2,6 +2,27 @@ module Renalware
   module Medications
     describe PrescriptionIndexPresenter do
       describe "#current_prescriptions" do
+        it "includes standard, HD, and outpatient current prescriptions" do
+          patient = create(:patient)
+          standard = create(:prescription, patient:, drug: create(:drug, name: "A standard drug"))
+          hd = create(
+            :prescription,
+            patient:,
+            drug: create(:drug, name: "B HD drug"),
+            administer_on_hd: true
+          )
+          outpatient = create(
+            :prescription,
+            patient:,
+            drug: create(:drug, name: "C outpatient drug"),
+            give_as_outpatient: true
+          )
+
+          prescriptions = described_class.new(patient:, params: {}).current_prescriptions
+
+          expect(prescriptions.map(&:id)).to contain_exactly(standard.id, hd.id, outpatient.id)
+        end
+
         it "preloads administered dose counts for the collection" do
           patient = create(:patient)
           prescription1 = create(
@@ -72,6 +93,75 @@ module Renalware
               administered: true
             )
             .once
+        end
+      end
+
+      describe "#current_standard_prescriptions" do
+        it "includes only current prescriptions that are not HD or outpatient prescriptions" do
+          patient = create(:patient)
+          standard = create(:prescription, patient:, drug: create(:drug, name: "A standard drug"))
+          create(
+            :prescription,
+            patient:,
+            drug: create(:drug, name: "B HD drug"),
+            administer_on_hd: true
+          )
+          create(
+            :prescription,
+            patient:,
+            drug: create(:drug, name: "C outpatient drug"),
+            give_as_outpatient: true
+          )
+
+          prescriptions = described_class.new(patient:, params: {}).current_standard_prescriptions
+
+          expect(prescriptions.map(&:id)).to contain_exactly(standard.id)
+        end
+      end
+
+      describe "#current_hd_prescriptions" do
+        it "includes only current HD prescriptions" do
+          patient = create(:patient)
+          create(:prescription, patient:, drug: create(:drug, name: "A standard drug"))
+          hd = create(
+            :prescription,
+            patient:,
+            drug: create(:drug, name: "B HD drug"),
+            administer_on_hd: true
+          )
+          create(
+            :prescription,
+            patient:,
+            drug: create(:drug, name: "C outpatient drug"),
+            give_as_outpatient: true
+          )
+
+          prescriptions = described_class.new(patient:, params: {}).current_hd_prescriptions
+
+          expect(prescriptions.map(&:id)).to contain_exactly(hd.id)
+        end
+      end
+
+      describe "#current_outpatient_prescriptions" do
+        it "includes only current outpatient prescriptions" do
+          patient = create(:patient)
+          create(:prescription, patient:, drug: create(:drug, name: "A standard drug"))
+          create(
+            :prescription,
+            patient:,
+            drug: create(:drug, name: "B HD drug"),
+            administer_on_hd: true
+          )
+          outpatient = create(
+            :prescription,
+            patient:,
+            drug: create(:drug, name: "C outpatient drug"),
+            give_as_outpatient: true
+          )
+
+          prescriptions = described_class.new(patient:, params: {}).current_outpatient_prescriptions
+
+          expect(prescriptions.map(&:id)).to contain_exactly(outpatient.id)
         end
       end
 

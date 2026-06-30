@@ -34,7 +34,19 @@ html
     section.prescriptions
       - with_format(:html) do
         = render "renalware/medications/prescriptions/current",
-                prescriptions: presenter.current_prescriptions,
+                prescriptions: presenter.current_standard_prescriptions,
+                recently_changed: presenter.recently_changed_prescriptions
+
+    section.prescriptions
+      - with_format(:html) do
+        = render "renalware/medications/prescriptions/current_hd",
+                prescriptions: presenter.current_hd_prescriptions,
+                recently_changed: presenter.recently_changed_prescriptions
+
+    section.prescriptions
+      - with_format(:html) do
+        = render "renalware/medications/prescriptions/current_outpatient",
+                prescriptions: presenter.current_outpatient_prescriptions,
                 recently_changed: presenter.recently_changed_prescriptions
 
     section.prescriptions
