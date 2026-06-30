@@ -12,7 +12,7 @@
 # docker buildx imagetools inspect docker.io/library/ruby:4.0.5-slim-trixie
 # and use the Digest (under MediaType at the top of the output)
 ARG RUBY_VERSION=4.0.5
-ARG RUBY_IMAGE_SHA=sha256:86a2ff44ce474c1c9bd11dfb2fd7fe5408a5bfe8236b9bc6013e2c6ef4c02d39
+ARG RUBY_IMAGE_SHA=sha256:f7866408e569d1699d9aceaa7f2726b231119871d42bb271fef1fb573c2418c5
 
 # Note that we are pinning debian to trixie (13) here to ensure consistent builds. We could use
 # -slim and let it track latest stable, but that might lead to unexpected breakages.
@@ -25,7 +25,7 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips libpq-dev && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libssh2-1 libvips libpq-dev && \
     ln -s /usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
