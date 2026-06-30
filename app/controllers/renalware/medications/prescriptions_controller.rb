@@ -94,19 +94,24 @@ module Renalware
       private
 
       def pdf_title
-        title = "Medication List"
+        params[:q] ||= {}
 
-        if hd_only?
-          title = "Medications to be given on HD"
-          # TODO: move this bit
-          params[:q] ||= {}
+        case print_scope
+        when "hd"
           params[:q][:administer_on_hd_eq] = true
+          "Medications to be given on HD"
+        when "outpatient"
+          params[:q][:give_as_outpatient_eq] = true
+          "Medications to be given as Outpatient"
+        else
+          "Medication List"
         end
-        title
       end
 
-      def hd_only?
-        params[:hd_only] == "true"
+      def print_scope
+        return "hd" if params[:hd_only] == "true"
+
+        params[:print_scope]
       end
 
       def render_edit(prescription)
