@@ -1,5 +1,10 @@
 .panel
-  b= "Last given on #{l(last_administration.recorded_on, format: :long)} by #{last_administration.administered_by}"
-  - if last_administration.notes.present?
+  - if last_administration.present?
+    b= "Last given on #{l(last_administration.recorded_on, format: :long)} by #{last_administration.administered_by}"
+  - if fixed_dose_progress.present?
+    - if last_administration.present?
+      br
+    b= fixed_dose_progress_description
+  - if last_administration&.notes.present?
     br
     span= "Notes: #{last_administration.notes}"

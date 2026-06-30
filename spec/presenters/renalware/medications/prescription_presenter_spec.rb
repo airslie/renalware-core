@@ -121,6 +121,17 @@ module Renalware
           expect(described_class.new(prescription).fixed_dose_progress).to eq("3/5")
         end
 
+        it "counts outpatient administrations for outpatient prescriptions" do
+          prescription = create(
+            :prescription,
+            give_as_outpatient: true,
+            fixed_number_of_doses: 5
+          )
+          create_list(:outpatient_prescription_administration, 3, prescription:)
+
+          expect(described_class.new(prescription).fixed_dose_progress).to eq("3/5")
+        end
+
         it "does not count soft-deleted administrations" do
           prescription = create(
             :prescription,

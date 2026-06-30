@@ -57,10 +57,21 @@ module Renalware
           )
         end
 
-        it "does not allow a fixed number of doses unless the prescription is given on HD" do
+        it "allows a fixed number of doses on outpatient prescriptions" do
+          prescription = build(
+            :prescription,
+            give_as_outpatient: true,
+            fixed_number_of_doses: 2
+          )
+
+          expect(prescription).to be_valid
+        end
+
+        it "does not allow a fixed number of doses unless the prescription is administered" do
           prescription = build(
             :prescription,
             administer_on_hd: false,
+            give_as_outpatient: false,
             fixed_number_of_doses: 2
           )
 

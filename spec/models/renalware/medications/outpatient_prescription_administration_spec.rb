@@ -90,6 +90,106 @@ module Renalware
             )
           end
         end
+
+        context "when the prescription has a fixed number of doses" do
+          let(:prescription) do
+            create(
+              :prescription,
+              give_as_outpatient: true,
+              fixed_number_of_doses: 2
+            )
+          end
+
+          before { create(:user, :system) }
+
+          it "terminates once the fixed number of administered doses is reached" do
+            create_administration(administered: true)
+
+            expect(prescription.reload.termination).to be_nil
+
+            expect {
+              create_administration(administered: true)
+            }.to change(PrescriptionTermination, :count).by(1)
+              .and change(prescription, :updated_at)
+
+            expect(prescription.reload.termination).to have_attributes(
+              terminated_on: Time.zone.today,
+              notes: "Prescription automatically terminated after 2 administered doses",
+              created_by: SystemUser.find
+            )
+          end
+
+          it "counts administrations saved for witnessing later" do
+            create_administration(administered: true)
+
+            expect {
+              create_administration(administered: true, skip_witness_validation: true)
+            }.to change(PrescriptionTermination, :count).by(1)
+          end
+
+          it "does not count administrations where the drug was not administered" do
+            create_administration(administered: false)
+            create_administration(administered: true)
+
+            expect(prescription.reload.termination).to be_nil
+          end
+
+          it "does not count soft-deleted administrations" do
+            create_administration(administered: true).destroy!
+            create_administration(administered: true)
+
+            expect(prescription.reload.termination).to be_nil
+          end
+
+          it "updates an existing future termination to terminate immediately" do
+            future_termination_date = 14.days.since
+            prescription.build_termination(
+              terminated_on: future_termination_date,
+              by: administrator
+            ).save!
+
+            2.times { create_administration(administered: true) }
+
+            expect(prescription.reload.termination).to have_attributes(
+              terminated_on: Time.zone.today,
+              updated_by: SystemUser.find,
+              created_by: SystemUser.find
+            )
+          end
+        end
+      end
+
+      def create_administration(administered:, skip_witness_validation: false)
+        described_class.create!(
+          administration_attributes(
+            administered:,
+            skip_witness_validation:
+          )
+        )
+      end
+
+      def administration_attributes(administered:, skip_witness_validation:)
+        attributes = {
+          prescription:,
+          patient: prescription.patient,
+          recorded_on: Time.zone.today,
+          administered:,
+          by: administrator
+        }
+
+        attributes.merge!(administered_attributes(skip_witness_validation)) if administered
+
+        attributes
+      end
+
+      def administered_attributes(skip_witness_validation)
+        {
+          administered_by: administrator,
+          administered_by_password: "admin-password",
+          witnessed_by: witness,
+          witnessed_by_password: "witness-password",
+          skip_witness_validation:
+        }
       end
     end
   end

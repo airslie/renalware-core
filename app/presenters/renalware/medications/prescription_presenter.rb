@@ -65,8 +65,7 @@ module Renalware
       def administered_doses_count
         return @administered_doses_count unless @administered_doses_count.nil?
 
-        @administered_doses_count =
-          HD::PrescriptionAdministration.where(prescription: __getobj__, administered: true).count
+        @administered_doses_count = AdministeredDosesQuery.count(prescription: __getobj__)
       end
 
       def to_s
