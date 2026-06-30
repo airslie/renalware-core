@@ -4,6 +4,8 @@ module Renalware
       class Patient < Pathology::Patient
         def current_modality_supports_kfre?
           current_modality_code = current_modality&.description&.code
+          return false if current_modality_code.blank?
+
           Modalities::Description
             .ignorable_for_kfre
             .pluck(:code)

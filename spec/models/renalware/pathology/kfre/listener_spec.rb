@@ -52,6 +52,32 @@ module Renalware
           end
 
           context "when the obr contains an ACR result" do
+            context "when the patient has no current modality" do
+              let(:patient) do
+                create(:pathology_patient,
+                       local_patient_id:,
+                       born_on: Time.zone.today - 34.years)
+              end
+
+              it "does not create a KFRE" do
+                give_patient_an_egfr(patient, egfr)
+                obr = create_request_with_observations(
+                  patient:,
+                  obx_codes: ["ACR"],
+                  result: acr.to_s
+                )
+
+                expect(patient.current_modality).to be_nil
+                allow(KFRE::CalculateKFRE).to receive(:call)
+
+                expect {
+                  described_class.new.after_observation_request_persisted(obr)
+                }.not_to change(Renalware::Pathology::Observation, :count)
+
+                expect(KFRE::CalculateKFRE).not_to have_received(:call)
+              end
+            end
+
             context "when the patient has no recent egfr" do
               it "does not create a KFRE" do
                 obr = create_request_with_observations(

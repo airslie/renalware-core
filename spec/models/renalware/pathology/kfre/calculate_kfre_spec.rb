@@ -53,6 +53,16 @@ module Renalware
           end
         end
 
+        context "when egfr is 60 or more" do
+          [60, 90].each do |val|
+            let(:egfr) { val }
+
+            it "returns silently" do
+              expect(svc.call).to be_nil
+            end
+          end
+        end
+
         #  Sex    Age   ACR     EGFR    KFRE2   KFRE5
         [
           ["F",   85,   40.1,   "10.2", 17.5,   49.9 ],
