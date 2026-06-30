@@ -2,6 +2,7 @@ module Renalware
   module Medications
     class OutpatientPrescriptionAdministration < ApplicationRecord
       include Accountable
+      include FixedDosePrescriptionTermination
 
       acts_as_paranoid
 
@@ -47,6 +48,10 @@ module Renalware
       end
 
       private
+
+      def prescription_in_fixed_dose_administration_context?
+        prescription.give_as_outpatient?
+      end
 
       def assign_patient_from_prescription
         self.patient ||= prescription&.patient

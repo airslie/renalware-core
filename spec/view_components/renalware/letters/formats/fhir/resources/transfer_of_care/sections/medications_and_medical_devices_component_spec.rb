@@ -7,6 +7,7 @@ module Renalware::Letters::Formats::FHIR
       let(:patient) { create(:letter_patient, by: user) }
       let(:default_drug) { create(:drug, name: "::drug name::") }
       let(:hd_drug) { create(:drug, name: "::hd drug name::") }
+      let(:outpatient_drug) { create(:drug, name: "::outpatient drug name::") }
       let(:letter) { instance_double(Renalware::Letters::Letter, patient:) }
 
       def terminated_prescription(terminated_on:, drug: default_drug)
@@ -21,7 +22,8 @@ module Renalware::Letters::Formats::FHIR
       def current_prescription(
         prescribed_on: "2009-01-01",
         drug: default_drug,
-        administer_on_hd: false
+        administer_on_hd: false,
+        give_as_outpatient: false
       )
         create(:prescription,
                patient:,
@@ -30,6 +32,7 @@ module Renalware::Letters::Formats::FHIR
                updated_at: prescribed_on,
                created_at: prescribed_on,
                administer_on_hd:,
+               give_as_outpatient:,
                by: user)
       end
 
@@ -42,6 +45,7 @@ module Renalware::Letters::Formats::FHIR
         expect(page).to have_text("::drug name::")
         expect(page).to have_text("20 mg Oral daily GP")
         expect(page).to have_no_text("Drugs to give on Haemodialysis")
+        expect(page).to have_no_text("Drugs to give as Outpatient")
         expect(page).to have_text("Recently Stopped Medications")
         expect(page).to have_text("None")
       end
@@ -56,8 +60,26 @@ module Renalware::Letters::Formats::FHIR
         expect(page).to have_text("Drugs to give on Haemodialysis")
         expect(page).to have_text("::hd drug name::")
         expect(page).to have_text("20 mg Oral daily GP")
+        expect(page).to have_no_text("Drugs to give as Outpatient")
         expect(page).to have_text("Recently Stopped Medications")
         expect(page).to have_text("None")
+      end
+
+      it "displays outpatient prescriptions separately from current prescriptions" do
+        current_prescription(drug: default_drug)
+        current_prescription(give_as_outpatient: true, drug: outpatient_drug)
+
+        render_inline(component)
+
+        current_medications_table = page.first("table")
+        outpatient_medications_table = page.all("table")[1]
+
+        expect(page).to have_text("Current Medications")
+        expect(current_medications_table).to have_text("::drug name::")
+        expect(current_medications_table).to have_no_text("::outpatient drug name::")
+        expect(outpatient_medications_table).to have_text("Drugs to give as Outpatient")
+        expect(outpatient_medications_table).to have_text("::outpatient drug name::")
+        expect(outpatient_medications_table).to have_text("20 mg Oral daily GP")
       end
 
       it "displays recently stopped prescriptions" do
@@ -70,6 +92,7 @@ module Renalware::Letters::Formats::FHIR
         expect(page).to have_text("Current Medications")
         expect(page).to have_text("No medications")
         expect(page).to have_no_text("Drugs to give on Haemodialysis")
+        expect(page).to have_no_text("Drugs to give as Outpatient")
         expect(page).to have_text("::drug name::")
         expect(page).to have_text("20 mg Per Oral daily GP 20-Mar-2024")
         expect(page).to have_text("Recently Stopped Medications")

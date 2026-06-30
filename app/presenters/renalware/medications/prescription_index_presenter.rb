@@ -99,13 +99,7 @@ module Renalware
       end
 
       def administered_doses_counts_for(prescriptions)
-        prescription_ids = prescriptions.filter_map(&:id)
-        return {} if prescription_ids.empty?
-
-        HD::PrescriptionAdministration
-          .where(prescription_id: prescription_ids, administered: true)
-          .group(:prescription_id)
-          .count
+        AdministeredDosesQuery.counts_for(prescriptions)
       end
     end
   end

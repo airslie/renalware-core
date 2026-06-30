@@ -9,20 +9,27 @@ module Renalware
         @prescriptions ||= begin
           presenter_klass = ::Renalware::Medications::PrescriptionPresenter
           ::OpenStruct.new(
-            current: present(current_non_hd_prescriptions, presenter_klass),
+            current: present(current_standard_prescriptions, presenter_klass),
             recently_changed: present(recently_changed_current_prescriptions, presenter_klass),
             recently_stopped: present(recently_stopped_prescriptions, presenter_klass),
             current_hd: present(current_hd_prescriptions, presenter_klass),
+            current_outpatient: present(current_outpatient_prescriptions, presenter_klass),
             patient: patient
           )
         end
       end
-      delegate :current, :recently_changed, :recently_stopped, :current_hd, to: :prescriptions
+      delegate :current,
+               :recently_changed,
+               :recently_stopped,
+               :current_hd,
+               :current_outpatient,
+               to: :prescriptions
 
       private
 
-      def current_non_hd_prescriptions
-        @current_non_hd_prescriptions ||= current_prescriptions.where.not(administer_on_hd: true)
+      def current_standard_prescriptions
+        @current_standard_prescriptions ||= current_prescriptions
+          .where(administer_on_hd: false, give_as_outpatient: false)
       end
 
       def current_prescriptions
@@ -50,6 +57,10 @@ module Renalware
 
       def current_hd_prescriptions
         @current_hd_prescriptions ||= current_prescriptions.where(administer_on_hd: true)
+      end
+
+      def current_outpatient_prescriptions
+        @current_outpatient_prescriptions ||= current_prescriptions.where(give_as_outpatient: true)
       end
 
       def patient_prescriptions

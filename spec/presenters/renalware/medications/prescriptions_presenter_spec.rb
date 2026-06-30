@@ -18,7 +18,8 @@ module Renalware
       def current_prescription(
         prescribed_on: "2009-01-01",
         drug: default_drug,
-        administer_on_hd: false
+        administer_on_hd: false,
+        give_as_outpatient: false
       )
         create(:prescription,
                patient:,
@@ -27,6 +28,7 @@ module Renalware
                updated_at: prescribed_on,
                created_at: prescribed_on,
                administer_on_hd:,
+               give_as_outpatient:,
                by: user)
       end
 
@@ -53,7 +55,8 @@ module Renalware
       def current_prescription(
         prescribed_on: "2009-01-01",
         drug: default_drug,
-        administer_on_hd: false
+        administer_on_hd: false,
+        give_as_outpatient: false
       )
         create(:prescription,
                patient:,
@@ -62,6 +65,7 @@ module Renalware
                updated_at: prescribed_on,
                created_at: prescribed_on,
                administer_on_hd:,
+               give_as_outpatient:,
                by: user)
       end
 
@@ -69,6 +73,7 @@ module Renalware
         it "returns an OpenStruct of different sets of prescriptions" do
           expect(presenter).to respond_to(:current)
           expect(presenter).to respond_to(:current_hd)
+          expect(presenter).to respond_to(:current_outpatient)
           expect(presenter).to respond_to(:recently_changed)
           expect(presenter).to respond_to(:recently_stopped)
         end
@@ -78,7 +83,9 @@ module Renalware
         it "comprises only current prescriptions" do
           terminated_prescription(terminated_on: Time.zone.today - 1.day)
           current_prescription(administer_on_hd: true)
+          current_prescription(give_as_outpatient: true)
           current_non_hd = current_prescription(administer_on_hd: false)
+
           expect(presenter.current.to_a).to eq([current_non_hd])
         end
       end
@@ -131,6 +138,16 @@ module Renalware
           current_hd_prescription = current_prescription(administer_on_hd: true)
 
           expect(presenter.current_hd.to_a).to eq([current_hd_prescription])
+        end
+      end
+
+      describe "#current_outpatient" do
+        it "comprises current prescriptions to give as outpatient only" do
+          patient.prescriptions << terminated_prescription(terminated_on: Time.zone.today - 1.day)
+          current_prescription(administer_on_hd: false)
+          current_outpatient_prescription = current_prescription(give_as_outpatient: true)
+
+          expect(presenter.current_outpatient.to_a).to eq([current_outpatient_prescription])
         end
       end
     end

@@ -4,7 +4,7 @@
   - if fixed_dose_progress.present?
     - if last_administration.present?
       br
-    b= "#{fixed_dose_progress} already given"
+    b= fixed_dose_progress_description
   - if last_administration&.notes.present?
     br
     span= "Notes: #{last_administration.notes}"

@@ -35,6 +35,23 @@ table(width="100%")
             td= render "renalware/medications/prescriptions/prescription",
                       prescription: prescription
 
+- if prescriptions.current_outpatient.any?
+  table(width="100%")
+    thead
+      tr
+        th(style="width:100%") Drugs to give as Outpatient
+    tbody
+      - prescriptions.current_outpatient.each do |prescription|
+        tr
+          - if recently_changed.include?(prescription)
+            td= render "renalware/medications/prescriptions/prescription",
+                        prescription: prescription,
+                        date_changed: prescription.prescribed_on,
+                        recently_changed: true
+          - else
+            td= render "renalware/medications/prescriptions/prescription",
+                      prescription: prescription
+
 table(width="100%")
   thead
     tr

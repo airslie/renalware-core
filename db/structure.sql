@@ -18,13 +18,6 @@ CREATE SCHEMA renalware;
 
 
 --
--- Name: site; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA site;
-
-
---
 -- Name: btree_gist; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -14627,19 +14620,6 @@ CREATE MATERIALIZED VIEW renalware.reporting_main_authors_audit AS
 
 
 --
--- Name: reporting_patients_under_40; Type: VIEW; Schema: renalware; Owner: -
---
-
-CREATE VIEW renalware.reporting_patients_under_40 AS
- SELECT secure_id,
-    ((upper((family_name)::text) || ', '::text) || (given_name)::text) AS patient_name,
-    born_on AS dob,
-    EXTRACT(years FROM age((born_on)::timestamp with time zone)) AS age
-   FROM renalware.patients p
-  WHERE (age((born_on)::timestamp with time zone) < '40 years'::interval);
-
-
---
 -- Name: reporting_unit_patients; Type: VIEW; Schema: renalware; Owner: -
 --
 
@@ -17462,82 +17442,6 @@ CREATE SEQUENCE renalware.virology_versions_id_seq
 --
 
 ALTER SEQUENCE renalware.virology_versions_id_seq OWNED BY renalware.virology_versions.id;
-
-
---
--- Name: xxx; Type: VIEW; Schema: site; Owner: -
---
-
-CREATE VIEW site.xxx AS
- SELECT id,
-    nhs_number,
-    local_patient_id,
-    family_name,
-    given_name,
-    born_on,
-    paediatric_patient_indicator,
-    sex,
-    ethnicity_id,
-    hospital_centre_code,
-    primary_esrf_centre,
-    died_on,
-    first_cause_id,
-    second_cause_id,
-    death_notes,
-    cc_on_all_letters,
-    cc_decision_on,
-    created_at,
-    updated_at,
-    practice_id,
-    primary_care_physician_id,
-    created_by_id,
-    updated_by_id,
-    title,
-    suffix,
-    marital_status,
-    telephone1,
-    telephone2,
-    email,
-    document,
-    religion_id,
-    language_id,
-    allergy_status,
-    allergy_status_updated_at,
-    local_patient_id_2,
-    local_patient_id_3,
-    local_patient_id_4,
-    local_patient_id_5,
-    external_patient_id,
-    send_to_renalreg,
-    send_to_rpv,
-    renalreg_decision_on,
-    rpv_decision_on,
-    renalreg_recorded_by,
-    rpv_recorded_by,
-    ukrdc_external_id,
-    country_of_birth_id,
-    legacy_patient_id,
-    secure_id,
-    sent_to_ukrdc_at,
-    checked_for_ukrdc_changes_at,
-    hospital_centre_id,
-    named_consultant_id,
-    next_of_kin_notes,
-    named_nurse_id,
-    preferred_death_location_id,
-    preferred_death_location_notes,
-    actual_death_location_id,
-    ukrdc_anonymise,
-    ukrdc_anonymise_decision_on,
-    ukrdc_anonymise_recorded_by,
-    renal_registry_id,
-    marital_status_id,
-    confidentiality,
-    ehr_person_identifier,
-    merged_into_patient_id,
-    next_of_kin,
-    merged_at
-   FROM renalware.patients;
 
 
 --
@@ -33192,7 +33096,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware, public, renalware_heroic, renalware_mse, renalware_blt, renalware_ich;
+SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20260622120100'),

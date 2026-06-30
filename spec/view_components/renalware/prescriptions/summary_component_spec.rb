@@ -1,5 +1,5 @@
 module Renalware::Prescriptions
-  describe SummaryComponent do
+  describe SummaryComponent, type: :component do
     subject(:component) { described_class.new(patient:) }
 
     let(:user) { create(:user) }
@@ -18,7 +18,8 @@ module Renalware::Prescriptions
     def current_prescription(
       prescribed_on: "2009-01-01",
       drug: default_drug,
-      administer_on_hd: false
+      administer_on_hd: false,
+      give_as_outpatient: false
     )
       create(:prescription,
              patient:,
@@ -27,6 +28,7 @@ module Renalware::Prescriptions
              updated_at: prescribed_on,
              created_at: prescribed_on,
              administer_on_hd:,
+             give_as_outpatient:,
              by: user)
     end
 
@@ -34,6 +36,7 @@ module Renalware::Prescriptions
       it "returns an OpenStruct of different sets of prescriptions" do
         expect(component).to respond_to(:current)
         expect(component).to respond_to(:current_hd)
+        expect(component).to respond_to(:current_outpatient)
         expect(component).to respond_to(:recently_changed)
         expect(component).to respond_to(:recently_stopped)
       end
@@ -43,6 +46,7 @@ module Renalware::Prescriptions
       it "comprises only current prescriptions" do
         terminated_prescription(terminated_on: Time.zone.today - 1.day)
         current_prescription(administer_on_hd: true)
+        current_prescription(give_as_outpatient: true)
         current_non_hd = current_prescription(administer_on_hd: false)
 
         expect(component.current.to_a).to eq([current_non_hd])
@@ -87,6 +91,37 @@ module Renalware::Prescriptions
         current_hd_prescription = current_prescription(administer_on_hd: true)
 
         expect(component.current_hd.to_a).to eq([current_hd_prescription])
+      end
+    end
+
+    describe "#current_outpatient" do
+      it "comprises current prescriptions to give as outpatient only" do
+        patient.prescriptions << terminated_prescription(terminated_on: Time.zone.today - 1.day)
+        current_prescription(administer_on_hd: false)
+        current_outpatient_prescription = current_prescription(give_as_outpatient: true)
+
+        expect(component.current_outpatient.to_a).to eq([current_outpatient_prescription])
+      end
+    end
+
+    describe "#render" do
+      it "displays outpatient prescriptions separately from current prescriptions" do
+        current_prescription(drug: create(:drug, name: "::current drug::"))
+        current_prescription(
+          drug: create(:drug, name: "::outpatient drug::"),
+          give_as_outpatient: true
+        )
+
+        render_inline(component)
+
+        current_medications = page.first("ul")
+        outpatient_medications = page.all("ul")[1]
+
+        expect(page).to have_text("Current Medications")
+        expect(current_medications).to have_text("::current drug::")
+        expect(current_medications).to have_no_text("::outpatient drug::")
+        expect(page).to have_text("Drugs to give as Outpatient")
+        expect(outpatient_medications).to have_text("::outpatient drug::")
       end
     end
   end

@@ -116,16 +116,21 @@ module Renalware
         end
 
         context "when LDAP authentication is enabled" do
-          let(:admin_user) { create(:user, username: "admin_user") }
-          let(:witness_user) { create(:user, username: "witness_user") }
+          let(:admin_user) { build_stubbed(:user, username: "admin_user") }
+          let(:witness_user) { build_stubbed(:user, username: "witness_user") }
           let(:admin_ldap_connection) { instance_double(Ldap::Connection) }
           let(:witness_ldap_connection) { instance_double(Ldap::Connection) }
+          let(:default_ldap_connection) {
+            instance_double(Ldap::Connection, valid_credentials?: true)
+          }
 
           before do
             allow(Renalware.config).to receive_messages(
               database_authentication_enabled?: false,
               ldap_authentication_enabled?: true
             )
+            allow(Ldap::Connection).to receive(:new)
+              .and_return(default_ldap_connection)
             allow(Ldap::Connection).to receive(:new)
               .with(username: "admin_user", password: anything)
               .and_return(admin_ldap_connection)
@@ -328,7 +333,7 @@ module Renalware
 
           expect(prescription.reload.termination).to have_attributes(
             terminated_on: Time.zone.today,
-            notes: "HD prescription automatically terminated after 1 administered dose"
+            notes: "Prescription automatically terminated after 1 administered dose"
           )
         end
 
@@ -448,7 +453,7 @@ module Renalware
 
           expect(prescription.reload.termination).to have_attributes(
             terminated_on: Time.zone.today,
-            notes: "HD prescription automatically terminated after 2 administered doses",
+            notes: "Prescription automatically terminated after 2 administered doses",
             created_by: SystemUser.find
           )
         end

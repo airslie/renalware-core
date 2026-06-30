@@ -50,7 +50,7 @@ module Renalware
                 allow_nil: true
       validate :administration_context_is_mutually_exclusive
       validate :deprecated_dose_unit_is_not_populated
-      validate :fixed_number_of_doses_requires_hd
+      validate :fixed_number_of_doses_requires_administration_context
 
       before_validation :normalize_stat_to_fixed_number_of_doses
 
@@ -189,7 +189,7 @@ module Renalware
         end
       end
 
-      def fixed_number_of_doses_requires_hd
+      def fixed_number_of_doses_requires_administration_context
         return if fixed_number_of_doses.blank? || administer_on_hd? || give_as_outpatient?
 
         errors.add(
