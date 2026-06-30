@@ -17,8 +17,9 @@ module Renalware
 
       private
 
-      def current_non_hd
-        @current_non_hd ||= current_prescriptions.where.not(administer_on_hd: true)
+      def current_standard
+        @current_standard ||= current_prescriptions
+          .where(administer_on_hd: false, give_as_outpatient: false)
       end
 
       def current_prescriptions
@@ -39,6 +40,10 @@ module Renalware
 
       def current_hd
         @current_hd ||= current_prescriptions.where(administer_on_hd: true)
+      end
+
+      def current_outpatient
+        @current_outpatient ||= current_prescriptions.where(give_as_outpatient: true)
       end
 
       def patient_prescriptions
