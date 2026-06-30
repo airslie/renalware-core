@@ -3,6 +3,7 @@
 - [HD Diary](./hd_diary.md)
 - [Nags](./nags.md)
 - [Asset compilation](./asset_compilation.md)
+- [Form model pattern](./forms_model_pattern.md)
 - [ODS](./ods.md)
 - [UKRDC](./ukrdc.md)
 

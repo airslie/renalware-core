@@ -1,6 +1,8 @@
-# Renalware Form Model Pattern (Pilot)
+# Renalware Form Model Pattern
 
-This describes the pilot approach for building forms without SimpleForm wrappers.
+This is developer guidance for building new or substantially rewritten Renalware
+HTML forms. The architectural decision is recorded in
+[ADR-0001](../docs/adr/ADR-0001-form-with-builder.md).
 
 ## Goals
 
@@ -11,9 +13,10 @@ This describes the pilot approach for building forms without SimpleForm wrappers
 
 ## Core Pattern
 
-- Use `form_with` with a thin builder: `Renalware::FormBuilders::Horizontal`.
+- Use `form_with` with `Renalware::FormBuilders::Horizontal`.
 - Keep builder methods small and predictable.
 - Use explicit template markup for unusual cases.
+- Keep legacy `simple_form` forms working, but do not introduce new usage.
 
 Example:
 
@@ -31,7 +34,7 @@ Example:
     = f.submit nil, class: "btn btn-primary"
 ```
 
-## Builder API (Pilot Scope)
+## Builder API
 
 - `error_summary`
 - `field_row`
@@ -54,17 +57,22 @@ Field sizing is controlled via a semantic `size:` option:
 Example:
 
 ```slim
-= f.date_row :document_date          / defaults to size: :date
+= f.date_row :document_date
 = f.text_row :name, size: :sm
 ```
 
-If a form needs behavior that does not fit these methods cleanly, prefer explicit view markup first.
+If a form needs behaviour that does not fit these methods cleanly, prefer
+explicit view markup first.
 
-## CSS Contract (Pilot Scope)
+## CSS Contract
+
+These classes are defined in
+`app/assets/stylesheets/components/forms.css`:
 
 - `.rw-form`
 - `.rw-field-row`
-- `.rw-label`, `.rw-label__text`
+- `.rw-label`
+- `.rw-label__text`
 - `.rw-control`
 - `.rw-input`
 - `.rw-hint`
@@ -72,11 +80,9 @@ If a form needs behavior that does not fit these methods cleanly, prefer explici
 - `.rw-actions`
 - `.rw-error-summary`
 
-These classes are defined in `app/assets/stylesheets/components/forms.css`.
-
 ## Migration Guidelines
 
-- Do not alter global SimpleForm behavior as part of this pilot.
+- Do not alter global SimpleForm behaviour as part of a form migration.
 - Convert one form end-to-end before attempting broader reuse.
-- Validate parity for submission flow, errors, and JS data attributes.
-- Capture lessons learned before migrating a second form.
+- Validate parity for submission flow, errors, and JavaScript data attributes.
+- Capture lessons learned before migrating another form pattern.
