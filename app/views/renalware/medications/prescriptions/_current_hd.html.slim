@@ -1,7 +1,10 @@
-- if prescriptions.any?
+- if prescriptions.any? || local_assigns.fetch(:render_if_blank, false)
   b.subtitle Drugs to give on Haemodialysis
 
-  ul
+  - if prescriptions.blank?
+    p.prescription No prescriptions
+  - else
+    ul
       - prescriptions.each do |prescription|
         - if recently_changed.include?(prescription)
             = render "renalware/medications/prescriptions/prescription",
