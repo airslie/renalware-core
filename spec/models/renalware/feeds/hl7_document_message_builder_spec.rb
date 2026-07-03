@@ -139,6 +139,7 @@ module Renalware
                 clinical: true,
                 author: user
               )
+              letter.topic.update!(text: "GP/LETTER")
 
               rtf_content = "ABC"
               stub_rendering(:rtf, rtf_content)
@@ -146,7 +147,43 @@ module Renalware
               document = OutgoingDocument.create!(renderable: letter, by:)
 
               msg = described_class.call(renderable: letter, document:)
+              expected_filename_parts = [
+                "111",
+                "19700101",
+                "F",
+                "9999999999",
+                "GP LETTER",
+                letter.approved_at.strftime("%Y%m%d%H%M%S")
+              ]
+              expected_filename = "#{expected_filename_parts.join('_')}.rtf"
+
+              expect(msg[:TXA].to_s).to include(expected_filename)
               expect(msg[:OBX].to_s).to include("^TEXT^RTF^Base64^#{base64_encoded_rtf}")
+            end
+
+            it "limits the topic so max-length fixed fields produce a 100 character filename" do
+              letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
+                patient:,
+                clinical: true,
+                author: user
+              )
+              patient.update_column(:local_patient_id, "1234567890")
+              patient.current_address.update_column(:postcode, "SW1A 1AA")
+              letter.topic.update!(text: "A" * 200)
+
+              stub_rendering(:rtf, "ABC")
+              document = OutgoingDocument.create!(renderable: letter, by:)
+
+              msg = described_class.call(renderable: letter, document:)
+              filename = msg[:TXA].to_s.split("|")[16]
+              issued_on = letter.approved_at.strftime("%Y%m%d%H%M%S")
+              prefix = "1234567890_19700101_SW1A-1AA_9999999999_"
+              suffix = "_#{issued_on}.rtf"
+
+              expect(filename.length).to eq(100)
+              expect(filename).to start_with(prefix)
+              expect(filename).to end_with(suffix)
+              expect(filename.delete_prefix(prefix).delete_suffix(suffix)).to eq("A" * 41)
             end
           end
 

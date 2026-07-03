@@ -141,15 +141,18 @@ module Renalware
 
       # eg "HOSP1_111_HOSP2_222_HOSP3_333_surname_dob_letter_id.pdf"
       def filename
-        # A host Rails app might have overwritten these custom filename class
-        # but we do not care about that here.
         if renderable_type.letter?
-          Feeds::LetterFilename.new(renderable).to_s
+          letter_filename
         elsif renderable_type.event?
           Feeds::EventFilename.new(renderable).to_s
         else
           raise ArgumentError, "cannot render #{renderable_type}"
         end
+      end
+
+      def letter_filename
+        filename_class = file_format == :rtf ? Feeds::RTFLetterFilename : Feeds::LetterFilename
+        filename_class.new(renderable).to_s
       end
 
       # OBX|1|ED|||^TODO^PDF^Base64^BERi0xLjMKJeTjz9IKNSI (more bytes...)||||||
