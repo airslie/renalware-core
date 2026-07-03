@@ -1,0 +1,15 @@
+- cache_if(summary_part.cache?, summary_part) do
+  .summary-part--legacy-letters.px-3
+    article
+      header
+        h2
+          = link_to("Legacy Letters (#{summary_part.legacy_letter_count})",
+                    patient_legacy_letters_path(summary_part.patient))
+        ul
+          li= link_to "View All",
+                    patient_legacy_letters_path(summary_part.patient),
+                    class: "button"
+
+      = render "renalware/legacy/letters/summary_table",
+               letters: summary_part.legacy_letters,
+               patient: summary_part.patient

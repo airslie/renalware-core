@@ -183,6 +183,12 @@ module Renalware
     config_accessor(:batch_printing_enabled) {
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("BATCH_PRINTING_ENABLED", "true"))
     }
+    config_accessor(:legacy_letters_enabled) {
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("RENALWARE_LEGACY_LETTERS_ENABLED", nil))
+    }
+    config_accessor(:legacy_letters_body_selector) {
+      ENV.fetch("RENALWARE_LEGACY_LETTERS_BODY_SELECTOR", "#letter_text_body")
+    }
     config_accessor(:allow_uploading_patient_attachments) {
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("ALLOW_UPLOADING_PATIENT_ATTACHMENTS", "true"))
     }

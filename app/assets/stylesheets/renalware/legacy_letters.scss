@@ -1,0 +1,99 @@
+body {
+  width: 20cm;
+  padding: 1px 0 0;
+  position: static;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#letterhead {
+  width: 100%;
+  margin-bottom: 3em;
+}
+
+#header {
+  font-size: 11pt;
+}
+
+#topleft {
+  float: left;
+  width: 50%;
+  vertical-align: top;
+  margin-bottom: 10px;
+}
+
+#renalunit {
+  font-size: 9pt;
+  font-weight: normal;
+  margin-bottom: 12px;
+}
+
+#topright {
+  font-weight: normal;
+  float: right;
+  text-align: right;
+  padding-right: 5px;
+}
+
+#trustname {
+  font-size: 1.4em;
+  vertical-align: baseline;
+  color: #333;
+}
+
+#nhslogo {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 1.4em;
+  color: white;
+  background-color: #333;
+  vertical-align: baseline;
+  padding: 4px;
+}
+
+#trustcaption {
+  font-size: 0.9em;
+  color: #333;
+  vertical-align: baseline;
+  padding: 2px;
+  margin-right: 80px;
+}
+
+.siteinfohtml {
+  margin-top: 4px;
+  font-size: 0.7em;
+  line-height: 1.2em;
+  text-align: right;
+}
+
+.lettertext {
+  width: 20cm;
+  clear: left;
+  text-align: left;
+  vertical-align: top;
+  font-size: 0.8em;
+  line-height: 1.1em;
+}
+
+div#probsdiv {
+  float: left;
+  width: 50%;
+}
+
+div#medsdiv {
+  float: right;
+  width: 50%;
+}
+
+div#signaturediv {
+  clear: both;
+  height: 60px;
+}
+
+div#ccdiv {
+  margin-top: 10px;
+  font-size: 0.85em;
+}
+
+br.pagebreak {
+  page-break-after: always;
+}

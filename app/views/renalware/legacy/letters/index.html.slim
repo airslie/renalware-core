@@ -1,0 +1,4 @@
+= within_patient_layout(title: "Legacy Letters") do
+  = render "filters", patient: patient, search: search
+  = render "table", patient: patient, letters: letters, search: search
+  == pagy.series_nav if pagy.pages > 1

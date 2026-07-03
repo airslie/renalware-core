@@ -1,0 +1,13 @@
+table.legacy-letters.toggleable data-controller="toggle"
+  thead
+    th.col-width-tiny.noprint.togglers= rows_toggler(link_title: "Toggle previews")
+    th.col-width-tiny
+    th.col-width-date Letter Date
+    th.col-width-medium Author
+    th Description
+    th.col-width-date Clinic Date
+    th Recipient
+  = render partial: "renalware/legacy/letters/letter",
+           collection: letters,
+           patient: patient,
+           cache: true
