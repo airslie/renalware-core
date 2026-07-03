@@ -8974,6 +8974,78 @@ ALTER SEQUENCE renalware.hospital_wards_id_seq OWNED BY renalware.hospital_wards
 
 
 --
+-- Name: legacy_letter_authors; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.legacy_letter_authors (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    code character varying
+);
+
+
+--
+-- Name: legacy_letter_authors_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.legacy_letter_authors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: legacy_letter_authors_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.legacy_letter_authors_id_seq OWNED BY renalware.legacy_letter_authors.id;
+
+
+--
+-- Name: legacy_letters; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.legacy_letters (
+    id bigint NOT NULL,
+    legacy_id integer NOT NULL,
+    patient_id bigint NOT NULL,
+    letter_site character varying,
+    hospital_no character varying,
+    archived_at timestamp(6) without time zone,
+    authored_by_id bigint,
+    clinic_date date,
+    letter_date date,
+    letter_description text,
+    recipient_name character varying,
+    letter_html text,
+    legacy_letter_author_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: legacy_letters_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.legacy_letters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: legacy_letters_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.legacy_letters_id_seq OWNED BY renalware.legacy_letters.id;
+
+
+--
 -- Name: letter_archives; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -18264,6 +18336,20 @@ ALTER TABLE ONLY renalware.hospital_wards ALTER COLUMN id SET DEFAULT nextval('r
 
 
 --
+-- Name: legacy_letter_authors id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.legacy_letter_authors ALTER COLUMN id SET DEFAULT nextval('renalware.legacy_letter_authors_id_seq'::regclass);
+
+
+--
+-- Name: legacy_letters id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.legacy_letters ALTER COLUMN id SET DEFAULT nextval('renalware.legacy_letters_id_seq'::regclass);
+
+
+--
 -- Name: letter_archives id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -20570,6 +20656,22 @@ ALTER TABLE ONLY renalware.hospital_units
 
 ALTER TABLE ONLY renalware.hospital_wards
     ADD CONSTRAINT hospital_wards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: legacy_letter_authors legacy_letter_authors_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.legacy_letter_authors
+    ADD CONSTRAINT legacy_letter_authors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: legacy_letters legacy_letters_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.legacy_letters
+    ADD CONSTRAINT legacy_letters_pkey PRIMARY KEY (id);
 
 
 --
@@ -25062,6 +25164,69 @@ CREATE INDEX index_hospital_wards_on_hospital_unit_id ON renalware.hospital_ward
 --
 
 CREATE UNIQUE INDEX index_hospital_wards_on_name_and_hospital_unit_id ON renalware.hospital_wards USING btree (name, hospital_unit_id) WHERE (deleted_at IS NOT NULL);
+
+
+--
+-- Name: index_legacy_letter_authors_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_legacy_letter_authors_on_name ON renalware.legacy_letter_authors USING btree (name);
+
+
+--
+-- Name: index_legacy_letters_on_authored_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_legacy_letters_on_authored_by_id ON renalware.legacy_letters USING btree (authored_by_id);
+
+
+--
+-- Name: index_legacy_letters_on_legacy_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_legacy_letters_on_legacy_id ON renalware.legacy_letters USING btree (legacy_id);
+
+
+--
+-- Name: index_legacy_letters_on_legacy_letter_author_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_legacy_letters_on_legacy_letter_author_id ON renalware.legacy_letters USING btree (legacy_letter_author_id);
+
+
+--
+-- Name: index_legacy_letters_on_letter_date; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_legacy_letters_on_letter_date ON renalware.legacy_letters USING btree (letter_date);
+
+
+--
+-- Name: index_legacy_letters_on_letter_description; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_legacy_letters_on_letter_description ON renalware.legacy_letters USING btree (letter_description);
+
+
+--
+-- Name: index_legacy_letters_on_letter_site; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_legacy_letters_on_letter_site ON renalware.legacy_letters USING btree (letter_site);
+
+
+--
+-- Name: index_legacy_letters_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_legacy_letters_on_patient_id ON renalware.legacy_letters USING btree (patient_id);
+
+
+--
+-- Name: index_legacy_letters_on_recipient_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_legacy_letters_on_recipient_name ON renalware.legacy_letters USING btree (recipient_name);
 
 
 --
@@ -30637,6 +30802,14 @@ ALTER TABLE ONLY renalware.pathology_obx_mappings
 
 
 --
+-- Name: legacy_letters fk_rails_63ab7c6bbb; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.legacy_letters
+    ADD CONSTRAINT fk_rails_63ab7c6bbb FOREIGN KEY (authored_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: ukrdc_treatments fk_rails_63f35ffdfe; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -30802,6 +30975,14 @@ ALTER TABLE ONLY renalware.geography_middle_super_output_areas
 
 ALTER TABLE ONLY renalware.patient_merge_merges
     ADD CONSTRAINT fk_rails_7425e0d82c FOREIGN KEY (major_patient_id) REFERENCES renalware.patients(id);
+
+
+--
+-- Name: legacy_letters fk_rails_7449af8c82; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.legacy_letters
+    ADD CONSTRAINT fk_rails_7449af8c82 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
 
 
 --
@@ -31754,6 +31935,14 @@ ALTER TABLE ONLY renalware.transplant_donor_operations
 
 ALTER TABLE ONLY renalware.admission_admissions
     ADD CONSTRAINT fk_rails_b722288de2 FOREIGN KEY (hospital_ward_id) REFERENCES renalware.hospital_wards(id);
+
+
+--
+-- Name: legacy_letters fk_rails_b72dddca22; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.legacy_letters
+    ADD CONSTRAINT fk_rails_b72dddca22 FOREIGN KEY (legacy_letter_author_id) REFERENCES renalware.legacy_letter_authors(id);
 
 
 --
@@ -33099,6 +33288,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260703100000'),
 ('20260622120100'),
 ('20260622120000'),
 ('20260611120000'),

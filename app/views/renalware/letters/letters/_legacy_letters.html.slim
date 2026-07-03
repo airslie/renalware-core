@@ -1,0 +1,3 @@
+- if Renalware.config.legacy_letters_enabled
+  - part = Renalware::Legacy::Letters::SummaryPart.new(patient, current_user)
+  = render(part.to_partial_path, summary_part: part) if part.render?

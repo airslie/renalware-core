@@ -1,0 +1,13 @@
+.search-form.filters
+  = simple_form_for search,
+      as: :q,
+      url: patient_legacy_letters_path(patient),
+      method: :get do |f|
+    .row
+      .columns.medium-4.large-3
+        = f.input :letter_description_or_recipient_name_cont,
+                  label: "Letter description or recipient contains"
+      .columns.medium-2.large-2.actions.end
+        = f.submit "Filter", class: "button"
+        span= " or "
+        = link_to t("btn.reset"), patient_legacy_letters_path(patient)

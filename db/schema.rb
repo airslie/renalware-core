@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_22_120100) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_03_100000) do
   create_schema "renalware"
 
   # These are extensions that must be enabled in order to support this database
@@ -3612,6 +3612,37 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_120100) do
     t.index ["name", "hospital_unit_id"], name: "index_hospital_wards_on_name_and_hospital_unit_id", unique: true, where: "(deleted_at IS NOT NULL)"
   end
 
+  create_table "renalware.legacy_letter_authors", force: :cascade do |t|
+    t.string "code"
+    t.string "name", null: false
+    t.index ["name"], name: "index_legacy_letter_authors_on_name", unique: true
+  end
+
+  create_table "renalware.legacy_letters", force: :cascade do |t|
+    t.datetime "archived_at"
+    t.bigint "authored_by_id"
+    t.date "clinic_date"
+    t.datetime "created_at", null: false
+    t.string "hospital_no"
+    t.integer "legacy_id", null: false
+    t.bigint "legacy_letter_author_id"
+    t.date "letter_date"
+    t.text "letter_description"
+    t.text "letter_html"
+    t.string "letter_site"
+    t.bigint "patient_id", null: false
+    t.string "recipient_name"
+    t.datetime "updated_at", null: false
+    t.index ["authored_by_id"], name: "index_legacy_letters_on_authored_by_id"
+    t.index ["legacy_id"], name: "index_legacy_letters_on_legacy_id"
+    t.index ["legacy_letter_author_id"], name: "index_legacy_letters_on_legacy_letter_author_id"
+    t.index ["letter_date"], name: "index_legacy_letters_on_letter_date"
+    t.index ["letter_description"], name: "index_legacy_letters_on_letter_description"
+    t.index ["letter_site"], name: "index_legacy_letters_on_letter_site"
+    t.index ["patient_id"], name: "index_legacy_letters_on_patient_id"
+    t.index ["recipient_name"], name: "index_legacy_letters_on_recipient_name"
+  end
+
   create_table "renalware.letter_archives", id: :serial, force: :cascade do |t|
     t.text "content", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -6617,6 +6648,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_120100) do
   add_foreign_key "renalware.hospital_departments", "renalware.hospital_centres"
   add_foreign_key "renalware.hospital_units", "renalware.hospital_centres"
   add_foreign_key "renalware.hospital_wards", "renalware.hospital_units"
+  add_foreign_key "renalware.legacy_letters", "renalware.legacy_letter_authors"
+  add_foreign_key "renalware.legacy_letters", "renalware.patients"
+  add_foreign_key "renalware.legacy_letters", "renalware.users", column: "authored_by_id"
   add_foreign_key "renalware.letter_archives", "renalware.letter_letters", column: "letter_id"
   add_foreign_key "renalware.letter_archives", "renalware.users", column: "created_by_id", name: "letter_archives_created_by_id_fk"
   add_foreign_key "renalware.letter_archives", "renalware.users", column: "updated_by_id", name: "letter_archives_updated_by_id_fk"

@@ -1,0 +1,17 @@
+tbody
+  tr
+    td.noprint= row_toggler(link_title: "Preview")
+    td= link_to "View", patient_legacy_letter_path(letter.patient, letter), target: "_blank", rel: "noopener"
+    td= l(letter.letter_date) if letter.letter_date
+    td
+      - if letter.authored_by.present?
+        = letter.authored_by
+      - else
+        = letter.legacy_letter_author&.name
+    td= letter.letter_description
+    td= l(letter.clinic_date) if letter.clinic_date
+    td= letter.recipient_name
+  tr
+    td(colspan=7)
+      .legacy-letter-preview
+        = raw(letter.letter_body_text)

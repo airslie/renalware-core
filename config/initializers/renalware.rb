@@ -22,6 +22,10 @@ require_relative "../../app/models/concerns/renalware/broadcasting"
 # As it stands its a bit too easy for the exposed subscription map hash to be overwritten by a host
 # application with confusing outcomes.
 Renalware.configure do |config|
+  if config.legacy_letters_enabled
+    config.page_layouts[:clinical_summary].insert(4, "Renalware::Legacy::Letters::SummaryPart")
+  end
+
   config.broadcast_subscription_map = {
     "Renalware::Patients::BroadcastPatientAddedEvent" => [
       "Renalware::Feeds::PatientListener"

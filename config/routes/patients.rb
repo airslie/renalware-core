@@ -50,4 +50,10 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
   namespace :surveys do
     resource :dashboard, only: :show
   end
+
+  constraints ->(_request) { Renalware.config.legacy_letters_enabled } do
+    namespace :legacy do
+      resources :letters, only: %i(index show)
+    end
+  end
 end
