@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_03_100000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_04_120000) do
   create_schema "renalware"
 
   # These are extensions that must be enabled in order to support this database
@@ -2055,6 +2055,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_03_100000) do
     t.jsonb "object_changes"
     t.string "whodunnit"
     t.index ["item_type", "item_id"], name: "index_admission_versions_on_item_type_and_item_id"
+  end
+
+  create_table "renalware.blood_group_descriptions", force: :cascade do |t|
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.boolean "enabled", default: true, null: false
+    t.string "name", null: false
+    t.integer "position", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_blood_group_descriptions_on_code", unique: true
+    t.index ["name"], name: "index_blood_group_descriptions_on_name", unique: true
   end
 
   create_table "renalware.clinic_appointments", id: :serial, force: :cascade do |t|

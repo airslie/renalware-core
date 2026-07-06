@@ -5,10 +5,3 @@ en:
       renalware/blood_group:
         group: Blood Group
         rhesus: Rhesus
-  enumerize:
-    renalware/blood_group:
-      group:
-        A: A
-        AB: AB
-        B: B
-        O: O

@@ -4560,6 +4560,40 @@ CREATE VIEW renalware.akcc_mdm_patients AS
 
 
 --
+-- Name: blood_group_descriptions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.blood_group_descriptions (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    "position" integer NOT NULL,
+    enabled boolean DEFAULT true NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: blood_group_descriptions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.blood_group_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: blood_group_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.blood_group_descriptions_id_seq OWNED BY renalware.blood_group_descriptions.id;
+
+
+--
 -- Name: clinic_appointments; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -17671,6 +17705,13 @@ ALTER TABLE ONLY renalware.admission_versions ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: blood_group_descriptions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.blood_group_descriptions ALTER COLUMN id SET DEFAULT nextval('renalware.blood_group_descriptions_id_seq'::regclass);
+
+
+--
 -- Name: clinic_appointments id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -19848,6 +19889,14 @@ ALTER TABLE ONLY renalware.admission_specialties
 
 ALTER TABLE ONLY renalware.admission_versions
     ADD CONSTRAINT admission_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: blood_group_descriptions blood_group_descriptions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.blood_group_descriptions
+    ADD CONSTRAINT blood_group_descriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -22931,6 +22980,20 @@ CREATE UNIQUE INDEX index_admission_specialties_on_name ON renalware.admission_s
 --
 
 CREATE INDEX index_admission_versions_on_item_type_and_item_id ON renalware.admission_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: index_blood_group_descriptions_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_blood_group_descriptions_on_code ON renalware.blood_group_descriptions USING btree (code);
+
+
+--
+-- Name: index_blood_group_descriptions_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_blood_group_descriptions_on_name ON renalware.blood_group_descriptions USING btree (name);
 
 
 --
@@ -33288,6 +33351,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260704120000'),
 ('20260703100000'),
 ('20260622120100'),
 ('20260622120000'),
