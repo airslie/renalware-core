@@ -108,7 +108,11 @@ ruby:
         locals: { legend: "Anticoagulant", name: "anticoagulant" } do
       .hd-profile-form-anticoagulant
         = fd.simple_fields_for :anticoagulant, profile.document.anticoagulant do |fcm|
-          = fcm.input :type, wrapper: :horizontal_small
+          = fcm.input :type,
+                      collection: fcm.object.class.anticoagulants,
+                      label_method: :name,
+                      value_method: :code,
+                      wrapper: :horizontal_small
           = fcm.input :loading_dose, wrapper: :horizontal_tiny
           = fcm.input :hourly_dose, wrapper: :horizontal_tiny
           = fcm.input :stop_time, collection: fcm.object.class.stop_times, wrapper: :horizontal_tiny

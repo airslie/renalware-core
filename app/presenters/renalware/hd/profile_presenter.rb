@@ -24,8 +24,7 @@ module Renalware
                :substitution_percent,
                to: :dialysis, allow_nil: true
 
-      delegate :type,
-               :loading_dose,
+      delegate :loading_dose,
                :hourly_dose,
                to: :anticoagulant, allow_nil: true, prefix: true
 
@@ -106,6 +105,12 @@ module Renalware
         return if anticoagulant.stop_time.blank?
 
         Duration.from_minutes(anticoagulant.stop_time).to_s
+      end
+
+      def anticoagulant_type
+        return if anticoagulant&.type.blank?
+
+        Anticoagulant.with_deleted.find_by(code: anticoagulant.type)&.name || anticoagulant.type
       end
 
       def transport_summary

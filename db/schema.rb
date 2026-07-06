@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_04_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_06_120000) do
   create_schema "renalware"
 
   # These are extensions that must be enabled in order to support this database
@@ -3057,6 +3057,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_04_120000) do
     t.index ["patient_id"], name: "index_hd_acuity_assessments_on_patient_id"
     t.index ["updated_by_id"], name: "index_hd_acuity_assessments_on_updated_by_id"
     t.check_constraint "ratio = ANY (ARRAY[0.25, 0.33, 0.5, 1.0])", name: "check_ratio_valid_values"
+  end
+
+  create_table "renalware.hd_anticoagulants", force: :cascade do |t|
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "deleted_at"
+    t.string "name", null: false
+    t.integer "position"
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_hd_anticoagulants_on_code", unique: true
+    t.index ["deleted_at"], name: "index_hd_anticoagulants_on_deleted_at"
   end
 
   create_table "renalware.hd_cannulation_types", id: :serial, force: :cascade do |t|

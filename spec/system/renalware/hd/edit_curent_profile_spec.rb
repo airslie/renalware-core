@@ -6,6 +6,7 @@ describe "Editing a patient's current HD profile", js: false do
   let(:dialysate) { create(:hd_dialysate, name: "Dialysate1") }
   let(:dialyser) { create(:hd_dialyser, name: "FX80") }
   let(:cannulation_type) { create(:hd_cannulation_type, name: "Buttonhole") }
+  let(:anticoagulant) { create(:hd_anticoagulant, code: "heparin", name: "Heparin") }
   let(:schedule_definition) { create(:schedule_definition, :mon_wed_fri_am) }
   let(:hospital_unit) { create(:hd_hospital_unit, unit_code: "Unit1", hospital_centre: centre) }
   let(:patient) do
@@ -28,6 +29,7 @@ describe "Editing a patient's current HD profile", js: false do
       dialysate
       dialyser
       cannulation_type
+      anticoagulant
 
       user = login_as_clinical
       visit patient_hd_dashboard_path(patient)
