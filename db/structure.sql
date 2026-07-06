@@ -7389,6 +7389,40 @@ ALTER SEQUENCE renalware.hd_acuity_assessments_id_seq OWNED BY renalware.hd_acui
 
 
 --
+-- Name: hd_anticoagulants; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.hd_anticoagulants (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    "position" integer,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_anticoagulants_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.hd_anticoagulants_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_anticoagulants_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.hd_anticoagulants_id_seq OWNED BY renalware.hd_anticoagulants.id;
+
+
+--
 -- Name: hd_cannulation_types; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -18146,6 +18180,13 @@ ALTER TABLE ONLY renalware.hd_acuity_assessments ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: hd_anticoagulants id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_anticoagulants ALTER COLUMN id SET DEFAULT nextval('renalware.hd_anticoagulants_id_seq'::regclass);
+
+
+--
 -- Name: hd_cannulation_types id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -20441,6 +20482,14 @@ ALTER TABLE ONLY renalware.good_jobs
 
 ALTER TABLE ONLY renalware.hd_acuity_assessments
     ADD CONSTRAINT hd_acuity_assessments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_anticoagulants hd_anticoagulants_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.hd_anticoagulants
+    ADD CONSTRAINT hd_anticoagulants_pkey PRIMARY KEY (id);
 
 
 --
@@ -24366,6 +24415,20 @@ CREATE INDEX index_hd_acuity_assessments_on_patient_id ON renalware.hd_acuity_as
 --
 
 CREATE INDEX index_hd_acuity_assessments_on_updated_by_id ON renalware.hd_acuity_assessments USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_anticoagulants_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_anticoagulants_on_code ON renalware.hd_anticoagulants USING btree (code);
+
+
+--
+-- Name: index_hd_anticoagulants_on_deleted_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_hd_anticoagulants_on_deleted_at ON renalware.hd_anticoagulants USING btree (deleted_at);
 
 
 --
@@ -33351,6 +33414,7 @@ ALTER TABLE ONLY renalware.transplant_registration_statuses
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260706120000'),
 ('20260704120000'),
 ('20260703100000'),
 ('20260622120100'),

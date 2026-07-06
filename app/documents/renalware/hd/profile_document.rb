@@ -55,10 +55,11 @@ module Renalware
       attribute :dialysis, Dialysis
 
       class Anticoagulant < Document::Embedded
-        attribute :type, Document::Enum # See .yml file for values
+        attribute :type
         attribute :loading_dose
         attribute :hourly_dose
         attribute :stop_time
+        def self.anticoagulants; HD::Anticoagulant.ordered; end
         def self.stop_times; [["0:30", 30], ["1:00", 60], ["1:30", 90], ["2:00", 120]]; end
       end
       attribute :anticoagulant, Anticoagulant
