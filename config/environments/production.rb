@@ -56,6 +56,9 @@ Rails.application.configure do
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
+  # Prevent health checks from clogging up the logs.
+  config.silence_healthcheck_path = "/up"
+
   # `config.assets.precompile` and `config.assets.version` have
   # moved to config/initializers/assets.rb
 
