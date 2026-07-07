@@ -68,11 +68,13 @@ class CreateLegacyLetters < ActiveRecord::Migration[7.0]
   end
 
   def move_blt_table_to_renalware(table_name)
-    execute("ALTER TABLE #{qualified_table_name(:renalware_blt, table_name)} SET SCHEMA renalware")
+    safety_assured do
+      execute("ALTER TABLE #{qualified_table_name(:renalware_blt, table_name)} SET SCHEMA renalware")
+    end
   end
 
   def relation_exists?(qualified_table_name)
-    select_value("SELECT to_regclass(#{connection.quote(qualified_table_name)})").present?
+    select_value("SELECT to_regclass(#{connection.quote(qualified_table_name)})::text").present?
   end
 
   def qualified_table_name(schema, table_name)
