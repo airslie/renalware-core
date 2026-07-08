@@ -42,6 +42,8 @@ module Renalware
     include UKRDC
     include Users
 
+    PATIENT_VISIBILITY_RESTRICTIONS = %i(none by_site_and_research_study by_site).freeze
+
     # Force dotenv to load the .env file at this stage so we can read in the config defaults.
     # Dotenv 3.x no longer provides Dotenv::Rails, so support both APIs.
     if defined?(Dotenv::Rails)
@@ -330,7 +332,7 @@ module Renalware
       )
     }
 
-    config_accessor(:patient_visibility_restrictions) { :none }
+    config_accessor(:patient_visibility_restrictions) { patient_visibility_restrictions_from_env }
 
     config_accessor(:urr_generation_enabled) do
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("URR_GENERATION_ENABLED", "false"))
@@ -375,6 +377,19 @@ module Renalware
 
       duration = ActiveSupport::Duration.parse(value)
       duration.zero? ? nil : duration
+    end
+
+    def patient_visibility_restrictions_from_env
+      value = ENV.fetch("PATIENT_VISIBILITY_RESTRICTIONS", "none").to_s.strip.delete_prefix(":")
+      value = "none" if value.blank?
+
+      value.to_sym.tap do |restriction|
+        unless PATIENT_VISIBILITY_RESTRICTIONS.include?(restriction)
+          raise ArgumentError,
+                "Invalid PATIENT_VISIBILITY_RESTRICTIONS: #{value.inspect}. " \
+                "Expected one of: #{PATIENT_VISIBILITY_RESTRICTIONS.map { |item| ":#{item}" }.join(', ')}"
+        end
+      end
     end
   end
 

@@ -152,8 +152,7 @@ module RenalwareApp
     # config.hl7_patient_locator_strategy[:oru] = :dob_and_any_nhs_or_assigning_auth_number
     # config.hl7_patient_locator_strategy[:adt] = :dynamic
 
-    # # leave patient_visibility_restrictions as :none as demo setting is used on the demo site.
-    # config.patient_visibility_restrictions = :none # or :by_site_and_research_study or :by_site
+    # PATIENT_VISIBILITY_RESTRICTIONS can be set to none, by_site_and_research_study, or by_site.
 
     # config.mesh_organisation_ods_code = "RAJ01"
     # config.mesh_organisation_uuid = "36944886-8c9b-4ada-b15d-500bff58e018"
