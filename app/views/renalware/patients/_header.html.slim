@@ -1,5 +1,6 @@
 - back_path ||= nil
 - patient = Renalware::Patients::BannerPresenter.new(patient)
+/- with_hamburger = local_assigns[:with_hamburger].nil? ? true : local_assigns[:with_hamburger]
 
 .header.patient-header
   / If screen-is-mobile-size is visible then we collapse the patient LH nav
@@ -15,7 +16,8 @@
           |  Back
     dd.name.patient-menu-toggler
       a
-        = inline_icon(:ellipsis_vertical, size: :xxl, class: "inline-block align-text-bottom text-gray-300 hover:text-gray-50")
+        - unless local_assigns[:skip_hamburger]
+          = inline_icon(:ellipsis_vertical, size: :xxl, class: "inline-block align-text-bottom text-gray-300 hover:text-gray-50")
         span= patient
 
     - if patient.hospital_identifiers.all.count > 1

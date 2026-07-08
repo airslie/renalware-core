@@ -5,7 +5,7 @@
 
   /- protocol.with_format("html") do
 .protocol
-  = render "renalware/patients/header", patient: protocol.patient, formats: :html
+  = render "renalware/patients/header", patient: protocol.patient, formats: :html, skip_hamburger: true
   table.protocol-patient-summary
     thead
       tr
