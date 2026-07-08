@@ -13,6 +13,7 @@ describe Renalware::Configuration do
       ENFORCE_USER_PRESCRIBER_FLAG
       DEVISE_EXTRA_MODULES
       PATIENT_HOSPITAL_IDENTIFIERS
+      PATIENT_VISIBILITY_RESTRICTIONS
       URR_GENERATION_ENABLED
       MESH_CARE_SETTING_SNOMED_CODE
       MESH_CARE_SETTING_DESCRIPTION
@@ -202,6 +203,44 @@ describe Renalware::Configuration do
       ENV["URR_GENERATION_ENABLED"] = "1"
 
       expect(config.urr_generation_enabled).to be(true)
+    end
+  end
+
+  describe "#patient_visibility_restrictions" do
+    it "defaults to :none" do
+      expect(config.patient_visibility_restrictions).to eq(:none)
+      expect(config.restrict_patient_visibility_by_user_site?).to be(false)
+      expect(config.restrict_patient_visibility_by_research_study?).to be(false)
+    end
+
+    it "can restrict patient visibility by site" do
+      ENV["PATIENT_VISIBILITY_RESTRICTIONS"] = "by_site"
+
+      expect(config.patient_visibility_restrictions).to eq(:by_site)
+      expect(config.restrict_patient_visibility_by_user_site?).to be(true)
+      expect(config.restrict_patient_visibility_by_research_study?).to be(false)
+    end
+
+    it "can restrict patient visibility by site and research study" do
+      ENV["PATIENT_VISIBILITY_RESTRICTIONS"] = "by_site_and_research_study"
+
+      expect(config.patient_visibility_restrictions).to eq(:by_site_and_research_study)
+      expect(config.restrict_patient_visibility_by_user_site?).to be(true)
+      expect(config.restrict_patient_visibility_by_research_study?).to be(true)
+    end
+
+    it "accepts values with a leading colon" do
+      ENV["PATIENT_VISIBILITY_RESTRICTIONS"] = ":by_site"
+
+      expect(config.patient_visibility_restrictions).to eq(:by_site)
+    end
+
+    it "raises an error for unsupported values" do
+      ENV["PATIENT_VISIBILITY_RESTRICTIONS"] = "unsupported"
+
+      expect {
+        config.patient_visibility_restrictions
+      }.to raise_error(ArgumentError, /Invalid PATIENT_VISIBILITY_RESTRICTIONS/)
     end
   end
 end
