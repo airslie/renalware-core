@@ -3,7 +3,11 @@ Devise.setup do |config|
   # Configure security extension for devise
 
   # Should the password expire (e.g 3.months)
-  config.expire_password_after = 365.days
+
+  # Make sure the environment variable is a positive integer, otherwise default to 365 days
+  expire_password_after_days = ENV.fetch("EXPIRE_PASSWORD_AFTER_DAYS", "365")
+  expire_password_after_days = 365 unless expire_password_after_days.match?(/\A[1-9]\d*\z/)
+  config.expire_password_after = expire_password_after_days.to_i.days
 
   # Need 1 char of A-Z, a-z and 0-9
   config.password_complexity = { digit: 0, lower: 0, symbol: 0, upper: 0 }
