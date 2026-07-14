@@ -31,6 +31,51 @@ module Renalware
 
           expect(RawHL7Message.count).to eq 0
         end
+
+        it "skips processing if another raw HL7 processing job is already running" do
+          allow(instance).to receive(:raw_hl7_processing_lock_acquired?).and_return(false)
+
+          instance.perform
+
+          expect(ProcessRawHL7MessageJob).not_to have_received(:perform_now)
+          expect(RawHL7Message.count).to eq 2
+        end
+
+        it "processes without an advisory lock when the bypass is configured" do
+          allow(Renalware.config)
+            .to receive(:bypass_raw_hl7_processing_advisory_lock)
+            .and_return(true)
+          allow(instance).to receive(:raw_hl7_processing_lock_acquired?).and_return(false)
+
+          instance.perform
+
+          expect(instance).not_to have_received(:raw_hl7_processing_lock_acquired?)
+          expect(ProcessRawHL7MessageJob)
+            .to have_received(:perform_now)
+            .with(message: "FIR\nST\n_M")
+          expect(ProcessRawHL7MessageJob)
+            .to have_received(:perform_now)
+            .with(message: "SECOND_M")
+          expect(RawHL7Message.count).to eq 0
+        end
+
+        it "releases the advisory lock after processing" do
+          allow(instance).to receive(:raw_hl7_processing_lock_acquired?).and_return(true)
+          allow(instance).to receive(:release_raw_hl7_processing_lock)
+
+          instance.perform
+
+          expect(instance).to have_received(:release_raw_hl7_processing_lock)
+        end
+
+        it "releases the advisory lock if processing raises an error" do
+          allow(instance).to receive(:raw_hl7_processing_lock_acquired?).and_return(true)
+          allow(instance).to receive(:process_raw_hl7_messages).and_raise("boom")
+          allow(instance).to receive(:release_raw_hl7_processing_lock)
+
+          expect { instance.perform }.to raise_error("boom")
+          expect(instance).to have_received(:release_raw_hl7_processing_lock)
+        end
       end
 
       context "when processing a message raises an error" do

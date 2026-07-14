@@ -15,6 +15,7 @@ describe Renalware::Configuration do
       PATIENT_HOSPITAL_IDENTIFIERS
       PATIENT_VISIBILITY_RESTRICTIONS
       URR_GENERATION_ENABLED
+      BYPASS_RAW_HL7_PROCESSING_ADVISORY_LOCK
       MESH_CARE_SETTING_SNOMED_CODE
       MESH_CARE_SETTING_DESCRIPTION
     )
@@ -39,6 +40,7 @@ describe Renalware::Configuration do
         :clinical_duke_activity_status_index_url,
         :clinical_summary_max_events_to_display,
         :clinic_name_code_separator,
+        :bypass_raw_hl7_processing_advisory_lock,
         :devise_extra_modules,
         :feeds_outgoing_documents_enabled,
         :hd_session_form_prescription_days_lookahead,
@@ -203,6 +205,18 @@ describe Renalware::Configuration do
       ENV["URR_GENERATION_ENABLED"] = "1"
 
       expect(config.urr_generation_enabled).to be(true)
+    end
+  end
+
+  describe "#bypass_raw_hl7_processing_advisory_lock" do
+    it "defaults to false" do
+      expect(config.bypass_raw_hl7_processing_advisory_lock).to be(false)
+    end
+
+    it "casts truthy ENV values to true" do
+      ENV["BYPASS_RAW_HL7_PROCESSING_ADVISORY_LOCK"] = "1"
+
+      expect(config.bypass_raw_hl7_processing_advisory_lock).to be(true)
     end
   end
 
