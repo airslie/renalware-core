@@ -13,6 +13,10 @@ module Renalware
         allow(ProcessRawHL7MessageJob).to receive(:perform_now)
       end
 
+      it "runs on the HL7 raw ingestion queue" do
+        expect(described_class.queue_name).to eq("hl7_raw_ingestion")
+      end
+
       describe "#perform" do
         it "calls out to the message processor" do
           described_class.perform_now
