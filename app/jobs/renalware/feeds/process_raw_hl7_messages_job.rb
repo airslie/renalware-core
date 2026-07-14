@@ -4,6 +4,11 @@ module Renalware
     # table, and process them into Feeds::Message
     # Process messages in FIFO order.
     class ProcessRawHL7MessagesJob < ApplicationJob
+      # To ensure only one thread per process services this queue set
+      # (eg where GOOD_JOB_MAX_THREADS=5)
+      # GOOD_JOB_QUEUES=hl7_raw_ingestion:1;-hl7_raw_ingestion:4
+      queue_as :hl7_raw_ingestion
+
       # rubocop:disable Metrics/MethodLength
       def perform
         RawHL7Message
