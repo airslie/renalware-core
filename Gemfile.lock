@@ -137,6 +137,9 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
+    azure-blob (0.8.0)
+      cgi
+      rexml
     base64 (0.3.0)
     bcp47 (0.3.3)
       i18n
@@ -1000,6 +1003,7 @@ DEPENDENCIES
   autoprefixer-rails
   awesome_print
   aws-sdk-s3
+  azure-blob (~> 0.8.0)
   bcrypt_pbkdf
   benchmark
   binding_of_caller

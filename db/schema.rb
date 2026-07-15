@@ -1879,6 +1879,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_19_120000) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
+  create_table "renalware.active_storage_blob_malware_scans", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "blob_uri"
+    t.datetime "created_at", null: false
+    t.string "etag"
+    t.datetime "last_checked_at"
+    t.jsonb "metadata", default: {}, null: false
+    t.string "provider", default: "microsoft_defender", null: false
+    t.string "provider_event_id"
+    t.string "provider_result"
+    t.datetime "scanned_at"
+    t.string "status", default: "pending", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_blob_malware_scans_on_blob_id", unique: true
+    t.index ["blob_uri"], name: "index_active_storage_blob_malware_scans_on_blob_uri"
+    t.index ["provider_event_id"], name: "index_active_storage_blob_malware_scans_on_provider_event_id"
+    t.index ["status"], name: "index_active_storage_blob_malware_scans_on_status"
+  end
+
   create_table "renalware.active_storage_blobs", force: :cascade do |t|
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
@@ -6587,6 +6606,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_19_120000) do
   add_foreign_key "renalware.access_profiles", "renalware.users", column: "decided_by_id"
   add_foreign_key "renalware.access_profiles", "renalware.users", column: "updated_by_id", name: "access_profiles_updated_by_id_fk"
   add_foreign_key "renalware.active_storage_attachments", "renalware.active_storage_blobs", column: "blob_id"
+  add_foreign_key "renalware.active_storage_blob_malware_scans", "renalware.active_storage_blobs", column: "blob_id"
   add_foreign_key "renalware.active_storage_variant_records", "renalware.active_storage_blobs", column: "blob_id"
   add_foreign_key "renalware.addresses", "renalware.system_countries", column: "country_id"
   add_foreign_key "renalware.admission_admissions", "renalware.hospital_wards"

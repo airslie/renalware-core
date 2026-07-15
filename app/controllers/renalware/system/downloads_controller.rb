@@ -12,6 +12,8 @@ module Renalware
       def show
         download = find_and_authorize_download
         if download.file.attached?
+          return head :forbidden unless Renalware::FileStorage::MalwareScanning.usable?(download.file)
+
           update_view_count_for download
           redirect_to(raw_active_storage_url_for(download.file))
         end

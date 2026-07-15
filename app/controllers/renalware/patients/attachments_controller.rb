@@ -22,6 +22,8 @@ module Renalware
       def show
         attachment = find_and_authorize_attachment
         if attachment.file.attached?
+          return head :forbidden unless Renalware::FileStorage::MalwareScanning.usable?(attachment.file)
+
           url = Rails.application.routes.url_helpers.rails_blob_url(
             attachment.file,
             only_path: true

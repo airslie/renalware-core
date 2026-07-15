@@ -25,6 +25,8 @@ PreCommit:
     # problem_on_unmodified_line: ignore
   YamlSyntax:
     enabled: true
+    exclude:
+    - "config/storage.yml"
   TrailingWhitespace:
     enabled: true
     exclude:
