@@ -209,7 +209,25 @@ module Renalware
       ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_POLL_BATCH_SIZE", "10").to_i
     }
     config_accessor(:active_storage_malware_scan_service_bus_client_class_name) {
-      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_CLIENT_CLASS_NAME", nil)
+      ENV.fetch(
+        "ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_CLIENT_CLASS_NAME",
+        "Renalware::FileStorage::AzureServiceBusMalwareScanResultsClient"
+      )
+    }
+    config_accessor(:active_storage_malware_scan_service_bus_namespace) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_NAMESPACE", nil)
+    }
+    config_accessor(:active_storage_malware_scan_service_bus_queue_name) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_QUEUE_NAME", nil)
+    }
+    config_accessor(:active_storage_malware_scan_service_bus_sas_key_name) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_SAS_KEY_NAME", nil)
+    }
+    config_accessor(:active_storage_malware_scan_service_bus_sas_key) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_SAS_KEY", nil)
+    }
+    config_accessor(:active_storage_malware_scan_service_bus_receive_timeout_seconds) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_RECEIVE_TIMEOUT_SECONDS", "5").to_i
     }
     config_accessor(:azure_blob_storage_account_name) {
       ENV.fetch("AZURE_STORAGE_ACCOUNT_NAME", nil)
