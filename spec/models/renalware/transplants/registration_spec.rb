@@ -43,6 +43,24 @@ module Renalware
         end
       end
 
+      describe "document validation errors" do
+        it "adds nested document validation errors to the registration" do
+          registration = build(:transplant_registration)
+          registration.document.crf.latest.result = 0
+
+          expect(registration).not_to be_valid
+          expect(registration.errors.full_messages)
+            .to include("Document CRF latest result must be greater than 0")
+        end
+
+        it "does not share nested document defaults across registrations" do
+          registration = build(:transplant_registration)
+          registration.document.crf.latest.result = 0
+
+          expect(build(:transplant_registration).document.crf.latest.result).to be_nil
+        end
+      end
+
       describe "#current_status" do
         it "returns the status not terminated" do
           expect(registration.current_status).to eq(latest_status)

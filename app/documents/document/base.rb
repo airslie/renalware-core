@@ -83,7 +83,37 @@ module Document
       end
 
       def document_valid
-        errors.add(:base, :invalid) unless document.valid?
+        return if document.valid?
+
+        add_document_errors(document, ["document"])
+      end
+
+      def add_document_errors(document_part, path)
+        document_part.errors.each do |error|
+          attribute = error.attribute
+          child = child_document_for(document_part, attribute)
+
+          if child.respond_to?(:errors) && child.errors.any?
+            add_document_errors(child, path + [attribute])
+          else
+            add_document_error(path, error)
+          end
+        end
+      end
+
+      def child_document_for(document_part, attribute)
+        return if attribute == :base
+        return unless document_part.respond_to?(attribute)
+
+        document_part.public_send(attribute)
+      end
+
+      def add_document_error(path, error)
+        if error.attribute == :base
+          errors.add(:base, error.message)
+        else
+          errors.add((path + [error.attribute]).join("."), error.message)
+        end
       end
     end
   end

@@ -1,0 +1,12 @@
+nav.mb-6 aria-label="Progress"
+  ol.flex.items-start
+    - steps.each.with_index(1) do |step, index|
+      li.relative class=item_classes(step) aria-current=("step" if state_for(step) == :current)
+        - unless last_step?(step)
+          span class=connector_classes(step) aria-hidden="true"
+        span.relative.z-10 class=marker_classes(step)
+          - if state_for(step) == :complete
+            = helpers.inline_icon(:check, size: :sm)
+          - else
+            = index
+        span.block= step.label

@@ -6150,6 +6150,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_120003) do
     t.index ["deleted_at"], name: "index_transplant_investigation_types_on_deleted_at"
   end
 
+  create_table "renalware.transplant_nhsbt_wait_list_uploads", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "created_by_id", null: false
+    t.string "filename", null: false
+    t.datetime "imported_at"
+    t.integer "imported_count", default: 0, null: false
+    t.integer "matched_count", default: 0, null: false
+    t.jsonb "rows", default: [], null: false
+    t.integer "status", default: 0, null: false
+    t.integer "unmatched_count", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.integer "updated_by_id", null: false
+    t.index ["created_by_id"], name: "index_transplant_nhsbt_wait_list_uploads_on_created_by_id"
+    t.index ["updated_by_id"], name: "index_transplant_nhsbt_wait_list_uploads_on_updated_by_id"
+  end
+
   create_table "renalware.transplant_recipient_followups", id: :serial, force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.jsonb "document"
@@ -6977,6 +6993,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_120003) do
   add_foreign_key "renalware.transplant_donor_stages", "renalware.users", column: "updated_by_id"
   add_foreign_key "renalware.transplant_donor_workups", "renalware.patients"
   add_foreign_key "renalware.transplant_failure_cause_descriptions", "renalware.transplant_failure_cause_description_groups", column: "group_id"
+  add_foreign_key "renalware.transplant_nhsbt_wait_list_uploads", "renalware.users", column: "created_by_id"
+  add_foreign_key "renalware.transplant_nhsbt_wait_list_uploads", "renalware.users", column: "updated_by_id"
   add_foreign_key "renalware.transplant_recipient_followups", "renalware.transplant_failure_cause_descriptions"
   add_foreign_key "renalware.transplant_recipient_followups", "renalware.transplant_recipient_operations", column: "operation_id"
   add_foreign_key "renalware.transplant_recipient_operations", "renalware.hospital_centres"

@@ -1,0 +1,8 @@
+ruby:
+  steps = [
+    { key: :upload, label: "Upload" },
+    { key: :preview, label: "Preview" },
+    { key: :review, label: "Review" }
+  ]
+
+.mt-4= render Renalware::StepIndicatorComponent.new(steps: steps, current_step: current_step)

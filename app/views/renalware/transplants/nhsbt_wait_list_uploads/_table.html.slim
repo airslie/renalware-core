@@ -1,0 +1,32 @@
+table.report.nhsbt-wait-list-upload-table
+  thead
+    tr
+      th Imported
+      th RECIP ID
+      th DOB
+      th Patient
+      th NHS Number
+      th Status
+      th New Kidney Status
+      th New Kidney Status Date
+      th Matched
+  tbody
+    - rows.each do |row|
+      tr(style=("background-color: #fee2e2;" unless row["matched"]))
+        td
+          - if row["imported"]
+            = inline_icon("check-circle", size: :md, class: "text-green-600")
+        td= row["recip_id"]
+        td= l(Date.iso8601(row["date_of_birth"]))
+        td
+          - if row["matched"]
+            = link_to row["patient_name"],
+                      patient_transplants_registration_path(row["patient_secure_id"]),
+                      target: "_blank"
+          - else
+            = row["patient_name"]
+        td= row["patient_nhs_number"]
+        td= row["current_status"]
+        td= row["kidney_status"]
+        td= l(Date.iso8601(row["kidney_status_date"]))
+        td= row["matched"] ? "Yes" : "No"

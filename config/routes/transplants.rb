@@ -35,6 +35,9 @@ namespace :transplants do
   constraints(named_filter: /#{Renalware::Transplants::WAITLIST_FILTERS.join('|')}/) do
     get "wait_list/:named_filter", to: "wait_lists#show", as: :wait_list
   end
+  resources :nhsbt_wait_list_uploads, only: %i(new create show) do
+    patch :import, on: :member
+  end
   resources :live_donors, only: :index
   resources :mdm_patients, only: :index
   constraints(named_filter: /(recent|on_worryboard|past_year)/) do

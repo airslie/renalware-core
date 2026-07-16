@@ -11,7 +11,7 @@ module Document
 
       # rubocop:disable Style/SendWithLiteralMethodName
       def merge_default_value
-        options.reverse_merge!(default: type.public_send(:new))
+        options.reverse_merge!(default: ->(*) { type.public_send(:new) })
       end
       # rubocop:enable Style/SendWithLiteralMethodName
 
