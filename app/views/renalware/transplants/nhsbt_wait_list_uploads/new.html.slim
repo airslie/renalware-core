@@ -6,6 +6,14 @@
   = help_panel do
     | Upload the NHSBT Wait List Status CSV. The file must be a CSV and less than 10MB.
 
+  - if last_imported_upload
+    = help_panel do
+      | The last NHSBT Wait List upload was imported on
+      =< l(last_imported_upload.imported_at)
+      |  and updated
+      =< pluralize(last_imported_upload.imported_count, "patient")
+      | .
+
   = render "renalware/shared/errors", model: form
 
   = simple_form_for(form,

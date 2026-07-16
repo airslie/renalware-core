@@ -14,6 +14,39 @@ module Renalware
         expect(response.body).to include("aria-current=\"step\"")
       end
 
+      it "shows details of the last imported upload on the upload page" do
+        user = login_as_admin
+        create(
+          :transplant_nhsbt_wait_list_upload,
+          by: user,
+          imported_at: Time.zone.local(2026, 7, 15, 9, 20),
+          imported_count: 1,
+          rows: [{ matched: true }],
+          status: :imported
+        )
+        create(
+          :transplant_nhsbt_wait_list_upload,
+          by: user,
+          imported_at: Time.zone.local(2026, 7, 16, 9, 30),
+          imported_count: 3,
+          rows: [{ matched: true }],
+          status: :imported
+        )
+        create(
+          :transplant_nhsbt_wait_list_upload,
+          by: user,
+          rows: [{ matched: true }],
+          status: :previewing
+        )
+
+        get new_transplants_nhsbt_wait_list_upload_path
+
+        expect(response.body)
+          .to include("The last NHSBT Wait List upload was imported on")
+        expect(response.body).to include("16-Jul-2026 09:30")
+        expect(response.body).to include("3 patients")
+      end
+
       it "previews a CSV file" do
         user = login_as_admin
         registration = create_matching_registration

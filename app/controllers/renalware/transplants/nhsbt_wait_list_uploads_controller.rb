@@ -10,14 +10,14 @@ module Renalware
 
       def new
         authorize NHSBTWaitListUpload
-        render locals: { form: NHSBTWaitListUploadForm.new }
+        render locals: { form: NHSBTWaitListUploadForm.new, last_imported_upload: }
       end
 
       def create
         authorize NHSBTWaitListUpload
 
         form = NHSBTWaitListUploadForm.new(upload_params)
-        return render(:new, locals: { form: }) unless form.valid?
+        return render_new(form) unless form.valid?
 
         # Malware scanning belongs here, after basic file validation and before parsing.
         rows = NHSBT::WaitListParser.new(form.path).call
@@ -28,7 +28,7 @@ module Renalware
         redirect_to transplants_nhsbt_wait_list_upload_path(upload)
       rescue NHSBT::WaitListParser::InvalidCSV => e
         form.errors.add(:base, e.message)
-        render :new, locals: { form: }
+        render_new(form)
       end
 
       def import
@@ -53,6 +53,18 @@ module Renalware
 
       def find_and_authorize_upload
         NHSBTWaitListUpload.find(params[:id]).tap { |upload| authorize upload }
+      end
+
+      def render_new(form)
+        render :new, locals: { form:, last_imported_upload: }
+      end
+
+      def last_imported_upload
+        NHSBTWaitListUpload
+          .imported
+          .where.not(imported_at: nil)
+          .order(imported_at: :desc, id: :desc)
+          .first
       end
 
       def paginated_rows(upload)
