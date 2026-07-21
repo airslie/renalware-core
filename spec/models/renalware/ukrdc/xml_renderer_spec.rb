@@ -22,6 +22,27 @@ module Renalware
         expect(result.xml).to be_a(String)
         expect(result.xml).to include("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
       end
+
+      it "renders v3 XML when export locals include a batch number" do
+        allow(Renalware.config).to receive(:ukrdc_sending_facility_name).and_return("TEST")
+        practice = build_stubbed(:practice, code: "A12345")
+        gp = build_stubbed(:primary_care_physician, code: "G1111111")
+        patient = build_stubbed(:patient,
+                                practice:,
+                                primary_care_physician: gp,
+                                renal_registry_id: "123")
+        patient_presenter = UKRDC::PatientPresenter.new(patient)
+        renderer = described_class.new(
+          schema: UKRDC::XsdSchema.new(major_version: 3),
+          locals: { patient: patient_presenter, batch_number: "000001" }
+        )
+
+        result = renderer.call
+
+        expect(result).to be_success
+        expect(result.xml).to be_present
+        expect(result.xml).not_to include("batchNo")
+      end
     end
 
     context "when the XML does not pass UKRDC XSD validation" do

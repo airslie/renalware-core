@@ -6,7 +6,7 @@ module Renalware
       module Rendering
         module V3
           class Patient < Rendering::Base
-            pattr_initialize [:patient!]
+            pattr_initialize [:patient!, :batch_number]
 
             # Renal Registry requires a 'IDN07' id:
             #  "Unique identifier not attributable to patient, Site code plus internal record
