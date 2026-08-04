@@ -1,5 +1,10 @@
-const $ = window.$
 import { Controller } from "@hotwired/stimulus"
+
+function refreshMasonry() {
+  if (window.Renalware && window.Renalware.MasonryHelper) {
+    window.Renalware.MasonryHelper.refresh()
+  }
+}
 
 // Used when a table has toggleable rows (initially hidden rows that can be toggled open
 // to see e.g. notes or extended details) and each master row and its toggleable sibling are
@@ -14,8 +19,7 @@ export default class extends Controller {
     event.preventDefault
     const tbody = event.target.closest("tbody")
     tbody.classList.toggle("toggleable--open")
-    // Update masonry - TODO: move to a module
-    $(".mgrid > .row").masonry("layout")
+    refreshMasonry()
   }
 
   // Toggle the last tr in each tbody in the current table.
@@ -30,7 +34,6 @@ export default class extends Controller {
     const hide = thead.classList.contains("toggleable--open")
     thead.classList.toggle("toggleable--open")
     tbodies.forEach(function(tbody) { tbody.classList.toggle("toggleable--open", !hide) })
-    // Update masonry - TODO: move to a module
-    $(".mgrid > .row").masonry("layout")
+    refreshMasonry()
   }
 }

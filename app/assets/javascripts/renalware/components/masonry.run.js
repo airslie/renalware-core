@@ -1,43 +1,115 @@
 var Renalware = typeof Renalware === 'undefined' ? {} : Renalware;
 
 Renalware.MasonryHelper = (function() {
-  var masonryIsSetup = false;
+  var gridSelector = '.mgrid > .row';
+  var itemSelector = '.columns';
   var turboFrameLoadHandlerCreated = false;
 
-  var setupMasonry = function() {
-    var $grid = $('.mgrid > .row');
-    if ($grid.length === 0 || !$.fn.masonry) {
+  var findGrids = function() {
+    return Array.prototype.slice.call(document.querySelectorAll(gridSelector));
+  }
+
+  var setupMasonry = function(grid) {
+    if (!window.Masonry || grid.renalwareMasonry) {
       return;
     }
 
-    $grid.masonry({ itemSelector: '.columns' });
-    masonryIsSetup = true;
+    grid.renalwareMasonry = new window.Masonry(grid, { itemSelector: itemSelector });
+    observeMasonryChanges(grid);
   }
 
   var refreshMasonry = function() {
-    if (!$.fn.masonry) {
-      return;
-    }
+    findGrids().forEach(function(grid) {
+      setupMasonry(grid);
 
-    if (!masonryIsSetup) {
-      setupMasonry();
-    }
-
-    $('.mgrid > .row').masonry('layout');
+      if (grid.renalwareMasonry) {
+        grid.renalwareMasonry.layout();
+      }
+    });
   }
 
   var triggerMasonryRefresh = function() {
     setTimeout(refreshMasonry, 100);
   }
 
+  var observeGridItems = function(grid) {
+    if (!grid.renalwareMasonryResizeObserver) {
+      return;
+    }
+
+    Array.prototype.slice.call(grid.querySelectorAll(itemSelector)).forEach(function(item) {
+      grid.renalwareMasonryResizeObserver.observe(item);
+    });
+  }
+
+  var observeMasonryChanges = function(grid) {
+    if (window.ResizeObserver && !grid.renalwareMasonryResizeObserver) {
+      grid.renalwareMasonryResizeObserver = new ResizeObserver(triggerMasonryRefresh);
+      observeGridItems(grid);
+    }
+
+    if (window.MutationObserver && !grid.renalwareMasonryMutationObserver) {
+      grid.renalwareMasonryMutationObserver = new MutationObserver(function() {
+        observeGridItems(grid);
+        triggerMasonryRefresh();
+      });
+
+      grid.renalwareMasonryMutationObserver.observe(grid, {
+        childList: true,
+        subtree: true
+      });
+    }
+  }
+
+  var hasMasonryRefreshTrigger = function(element) {
+    while (element && element !== document) {
+      if (
+        element.nodeType === 1 &&
+        element.getAttribute("data-trigger-masonry-refresh") !== null
+      ) {
+        return true;
+      }
+
+      element = element.parentNode;
+    }
+
+    return false;
+  }
+
+  var isInsideMasonryGrid = function(element) {
+    while (element && element !== document) {
+      if (
+        element.nodeType === 1 &&
+        element.classList &&
+        element.classList.contains("mgrid")
+      ) {
+        return true;
+      }
+
+      element = element.parentNode;
+    }
+
+    return false;
+  }
+
   var triggerMasonryRefreshAfterFrameLoad = function(event) {
-    if (event.target.closest('.mgrid')) {
+    if (isInsideMasonryGrid(event.target)) {
       triggerMasonryRefresh();
     }
   }
 
   var createHandlerToTriggerMasonryRefresh = function() {
-    $("[data-trigger-masonry-refresh]").on("click", triggerMasonryRefresh);
+    if (document.renalwareMasonryRefreshHandler) {
+      return;
+    }
+
+    document.renalwareMasonryRefreshHandler = true;
+
+    document.addEventListener("click", function(event) {
+      if (hasMasonryRefreshTrigger(event.target)) {
+        triggerMasonryRefresh();
+      }
+    });
   }
 
   var createHandlerToRefreshMasonryAfterFrameLoad = function() {
@@ -51,14 +123,23 @@ Renalware.MasonryHelper = (function() {
 
   return {
     init: function () {
-      setupMasonry();
+      findGrids().forEach(setupMasonry);
       createHandlerToTriggerMasonryRefresh();
       createHandlerToRefreshMasonryAfterFrameLoad();
     },
+
     observeTurboFrameLoads: createHandlerToRefreshMasonryAfterFrameLoad,
-    refresh: triggerMasonryRefresh
+
+    refresh: function () {
+      triggerMasonryRefresh();
+    }
   };
 }());
 
 Renalware.MasonryHelper.observeTurboFrameLoads();
-$(document).ready(Renalware.MasonryHelper.init);
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", Renalware.MasonryHelper.init);
+} else {
+  Renalware.MasonryHelper.init();
+}

@@ -11,7 +11,7 @@ $(document).ready(function() {
   })
 
   function triggerMasonryLayoutRefresh() {
-    $('.mgrid > .row').masonry('layout');
+    Renalware.MasonryHelper.refresh();
   }
 
   function showHidePatientMenuAccordingToScreenSize() {

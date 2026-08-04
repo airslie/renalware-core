@@ -1,7 +1,7 @@
 function initTogglers() {
 
   function triggerMasonryLayoutRefresh() {
-    $('.mgrid > .row').masonry('layout');
+    Renalware.MasonryHelper.refresh();
   }
 
   function toggleTarget(elem, open) {
