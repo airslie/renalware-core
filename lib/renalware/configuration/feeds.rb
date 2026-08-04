@@ -23,6 +23,10 @@ module Renalware
           )
         end
 
+        base.config_accessor(:bypass_raw_hl7_processing_advisory_lock) do
+          ENV.fetch("BYPASS_RAW_HL7_PROCESSING_ADVISORY_LOCK", 0).to_i == 1
+        end
+
         base.config_accessor(:feeds_outgoing_documents_letter_format) do
           fmt = ENV.fetch("FEEDS_OUTGOING_DOCUMENTS_LETTER_FORMAT", "pdf").to_sym
           [:pdf, :rtf].find { |x| x == fmt } || :pdf

@@ -9,8 +9,34 @@ module Renalware
       # GOOD_JOB_QUEUES=hl7_raw_ingestion:1;-hl7_raw_ingestion:4
       queue_as :hl7_raw_ingestion
 
-      # rubocop:disable Metrics/MethodLength
+      RAW_HL7_PROCESSING_ADVISORY_LOCK_KEY = 1_530_019_851
+
       def perform
+        return process_raw_hl7_messages if Renalware.config.bypass_raw_hl7_processing_advisory_lock
+
+        with_raw_hl7_processing_lock do
+          process_raw_hl7_messages
+        end
+      end
+
+      private
+
+      def with_raw_hl7_processing_lock
+        ActiveRecord::Base.connection_pool.with_connection do |connection|
+          if raw_hl7_processing_lock_acquired?(connection)
+            begin
+              yield
+            ensure
+              release_raw_hl7_processing_lock(connection)
+            end
+          else
+            Rails.logger.info("#{self.class.name} skipped; another raw HL7 job is already running")
+          end
+        end
+      end
+
+      # rubocop:disable Metrics/MethodLength
+      def process_raw_hl7_messages
         RawHL7Message
           .order(sent_at: :asc, created_at: :asc)
           .find_each(batch_size: 100) do |raw_message|
@@ -32,6 +58,18 @@ module Renalware
         end
       end
       # rubocop:enable Metrics/MethodLength
+
+      def raw_hl7_processing_lock_acquired?(connection)
+        connection.select_value(
+          "SELECT pg_try_advisory_lock(#{RAW_HL7_PROCESSING_ADVISORY_LOCK_KEY})"
+        )
+      end
+
+      def release_raw_hl7_processing_lock(connection)
+        connection.select_value(
+          "SELECT pg_advisory_unlock(#{RAW_HL7_PROCESSING_ADVISORY_LOCK_KEY})"
+        )
+      end
     end
   end
 end
