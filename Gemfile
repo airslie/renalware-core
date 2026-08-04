@@ -80,6 +80,7 @@ group :development do
   # gem "rack-mini-profiler"
   gem "rubocop-capybara", require: false
   gem "rubocop-factory_bot", require: false
+  gem "rubocop-i18n", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rake", require: false
