@@ -99,7 +99,8 @@ group :development, :test do
   gem "debug", ">= 1.0.0", platforms: %i(mri windows)
   gem "factory_bot_rails", "~> 6.2"
   gem "launchy", require: false
-  gem "overcommit"
+  # gem "overcommit" best not to include - just install manually and
+  # run `overcommit --install` in the project root
   gem "packwerk", require: false
   gem "pry-rails"
   gem "rspec-rails"

@@ -22,8 +22,18 @@ RSpec.describe Renalware::Extensions do
 
     it "returns an empty array when no extensions are configured" do
       ENV.delete("RENALWARE_EXTENSIONS")
+      allow(Dotenv).to receive(:load)
 
       expect(described_class.enabled).to eq([])
+    end
+
+    it "loads .env before reading configured extensions" do
+      ENV.delete("RENALWARE_EXTENSIONS")
+      allow(Dotenv).to receive(:load)
+
+      described_class.enabled
+
+      expect(Dotenv).to have_received(:load)
     end
   end
 

@@ -5,6 +5,8 @@ module Renalware
     module_function
 
     def enabled
+      load_dotenv
+
       ENV.fetch("RENALWARE_EXTENSIONS", "")
         .split(",")
         .map { |name| normalize(name) }
@@ -20,5 +22,12 @@ module Renalware
       name.to_s.strip.downcase
     end
     private_class_method :normalize
+
+    def load_dotenv
+      return unless defined?(Dotenv)
+
+      Dotenv.load
+    end
+    private_class_method :load_dotenv
   end
 end

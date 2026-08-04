@@ -24,6 +24,7 @@ RSpec.describe Renalware::PackEngines do
 
     it "skips optional packs when their extension is disabled" do
       ENV.delete("RENALWARE_EXTENSIONS")
+      allow(Dotenv).to receive(:load)
 
       Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
         File.write(File.join(dir, "renalware.yml"), <<~YAML)
@@ -71,6 +72,7 @@ RSpec.describe Renalware::PackEngines do
 
     it "does not return seed files for disabled optional packs" do
       ENV.delete("RENALWARE_EXTENSIONS")
+      allow(Dotenv).to receive(:load)
 
       Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |root|
         pack_root = File.join(root, "heroic")
