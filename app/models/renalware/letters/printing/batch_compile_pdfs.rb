@@ -81,6 +81,9 @@ module Renalware
               filenames << letter_filename
               filenames << blank_page_filename if letter_has_an_odd_number_of_pages
             end
+
+            return if filenames.empty?
+
             combine_multiple_pdfs_using_filenames(filenames, working_folder, output_filepath)
           end
         end
