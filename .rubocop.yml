@@ -16,6 +16,7 @@ plugins:
   - rubocop-factory_bot
   - rubocop-rspec_rails
   - rubocop-capybara
+  #- rubocop-i18n
 
 inherit_from:
   - https://raw.githubusercontent.com/airslie/styleguide/main/rubocop.yml

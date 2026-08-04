@@ -62,7 +62,7 @@ describe "Patient Group Directions (PGD)" do
 
     within "table.pgds tbody tr:first" do
       expect {
-        click_on "Delete" \
+        click_on "Delete"
       }.to change(Renalware::Drugs::PatientGroupDirection, :count).by(-1)
     end
   end

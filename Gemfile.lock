@@ -123,7 +123,7 @@ GEM
       execjs (~> 2)
     awesome_print (1.9.2)
     aws-eventstream (1.4.0)
-    aws-partitions (1.1271.0)
+    aws-partitions (1.1277.0)
     aws-sdk-core (3.254.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
@@ -135,8 +135,8 @@ GEM
     aws-sdk-kms (1.130.0)
       aws-sdk-core (~> 3, >= 3.254.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.226.0)
-      aws-sdk-core (~> 3, >= 3.248.0)
+    aws-sdk-s3 (1.228.2)
+      aws-sdk-core (~> 3, >= 3.254.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.12.1)
@@ -198,7 +198,7 @@ GEM
     combine_pdf (1.0.31)
       matrix
       ruby-rc4 (>= 0.1.5)
-    concurrent-ruby (1.3.7)
+    concurrent-ruby (1.3.8)
     connection_pool (3.0.2)
     constant_resolver (0.3.0)
     crack (1.0.1)
@@ -208,7 +208,7 @@ GEM
     cronex (0.15.0)
       tzinfo
       unicode (>= 0.4.4.5)
-    csv (3.3.5)
+    csv (3.3.6)
     cucumber (11.1.1)
       base64 (~> 0.2)
       builder (~> 3.2)
@@ -276,9 +276,9 @@ GEM
     enumerize (2.8.1)
       activesupport (>= 3.2)
     equalizer (0.0.11)
-    erb (6.0.4)
+    erb (6.0.6)
     erubi (1.13.1)
-    et-orbi (1.4.0)
+    et-orbi (1.4.1)
       tzinfo
     execjs (2.10.1)
     factory_bot (6.6.0)
@@ -392,7 +392,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    language_server-protocol (3.17.0.5)
+    language_server-protocol (3.17.0.6)
     launchy (3.1.1)
       addressable (~> 2.8)
       childprocess (~> 5.0)
@@ -402,7 +402,7 @@ GEM
       bigdecimal
       strscan (>= 3.1.1)
     logger (1.7.0)
-    lograge (0.14.0)
+    lograge (0.15.0)
       actionpack (>= 4)
       activesupport (>= 4)
       railties (>= 4)
@@ -428,7 +428,7 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.3)
+    msgpack (1.8.4)
     multi_test (1.1.0)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
@@ -437,7 +437,7 @@ GEM
     nested_form (0.3.2)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.4.1)
+    net-imap (0.6.6)
       date
       net-protocol
     net-ldap (0.20.0)
@@ -492,7 +492,7 @@ GEM
     omniauth-rails_csrf_protection (2.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
-    opentelemetry-api (1.10.1)
+    opentelemetry-api (1.11.0)
       logger
     opentelemetry-common (0.25.1)
       opentelemetry-api (~> 1.0)
@@ -520,7 +520,7 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-active_storage (0.5.1)
       opentelemetry-instrumentation-active_support (~> 0.10)
-    opentelemetry-instrumentation-active_support (0.12.0)
+    opentelemetry-instrumentation-active_support (0.12.1)
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-base (0.26.1)
       opentelemetry-api (~> 1.7)
@@ -549,7 +549,7 @@ GEM
       opentelemetry-instrumentation-concurrent_ruby (~> 0.25)
     opentelemetry-registry (0.6.3)
       opentelemetry-api (~> 1.1)
-    opentelemetry-sdk (1.12.1)
+    opentelemetry-sdk (1.13.0)
       logger
       opentelemetry-api (~> 1.1)
       opentelemetry-common (~> 0.20)
@@ -559,10 +559,10 @@ GEM
       opentelemetry-api (~> 1.0)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
-    overcommit (0.71.0)
+    overcommit (0.72.0)
       childprocess (>= 0.6.3, < 6)
       iniparse (~> 1.4)
-      rexml (>= 3.3.9)
+      rexml (>= 3.4.2)
     ox (2.14.28)
       bigdecimal (>= 3.0)
     packwerk (3.3.0)
@@ -576,7 +576,7 @@ GEM
       parser
       prism (>= 1.4.0)
       zeitwerk (>= 2.6.1)
-    pagy (43.5.6)
+    pagy (43.6.1)
       json
       uri
       yaml
@@ -609,7 +609,7 @@ GEM
       phlex (~> 2.4.0)
       railties (>= 7.1, < 9)
       zeitwerk (~> 2.7)
-    playwright-ruby-client (1.61.0)
+    playwright-ruby-client (1.62.0)
       base64
       concurrent-ruby (>= 1.1.6)
       mime-types (>= 3.0)
@@ -759,7 +759,7 @@ GEM
     rspec-support (3.13.7)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.88.2)
+    rubocop (1.89.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -779,6 +779,9 @@ GEM
     rubocop-factory_bot (2.28.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
+    rubocop-i18n (3.3.0)
+      lint_roller (~> 1.1)
+      rubocop (>= 1.72.1)
     rubocop-performance (1.26.1)
       lint_roller (~> 1.1)
       rubocop (>= 1.75.0, < 2.0)
@@ -851,7 +854,7 @@ GEM
       rack-protection (= 4.2.1)
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
-    slim (5.2.1)
+    slim (5.2.2)
       temple (~> 0.10.0)
       tilt (>= 2.1.0)
     slim-rails (4.0.0)
@@ -875,7 +878,7 @@ GEM
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
     stackprof (0.2.28)
-    store_model (4.6.0)
+    store_model (4.6.1)
       activerecord (>= 7.0)
     stringio (3.2.0)
     strong_migrations (2.8.0)
@@ -893,9 +896,9 @@ GEM
     temple (0.10.4)
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
-    terser (1.2.7)
+    terser (1.2.8)
       execjs (>= 0.3.0, < 3)
-    test-prof (1.6.2)
+    test-prof (1.6.3)
       logger
     thor (1.5.0)
     thread_safe (0.3.6)
@@ -1083,6 +1086,7 @@ DEPENDENCIES
   rubocop
   rubocop-capybara
   rubocop-factory_bot
+  rubocop-i18n
   rubocop-performance
   rubocop-rails
   rubocop-rake
