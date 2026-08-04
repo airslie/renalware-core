@@ -29,6 +29,20 @@ module Renalware
             expect(right).to end_with "<div><ins><strong><b>new</b> </strong>snapshot</ins></div>"
           end
         end
+
+        context "when the snapshotted section was empty and current content has been added" do
+          before do
+            allow(described_class)
+              .to receive(:content_from_snapshot).with(letter:).and_return("")
+          end
+
+          it "returns a left and right HTML diff" do
+            left, right = instance.content_with_diffs
+            expect(left).to include("Keep original values below")
+            expect(right).to include("Use the updates below")
+            expect(right).to end_with "<div><ins><b>new</b> snapshot</ins></div>"
+          end
+        end
       end
 
       describe "#show_use_updates_toggle?" do

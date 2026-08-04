@@ -47,13 +47,14 @@ module Renalware
 
       def format_diff
         diff = CGI.unescapeHTML(diffy_diff.to_s(:html))
-        left, right = Nokogiri::HTML.fragment(diff).css("li")
-          .children
-          .map { "<div>#{it.to_html}</div>" }
+        diff_items = Nokogiri::HTML.fragment(diff).css("li").each_with_object({}) do |li, hash|
+          hash[:left] = "<div>#{li.children.to_html}</div>" if li["class"] == "del"
+          hash[:right] = "<div>#{li.children.to_html}</div>" if li["class"] == "ins"
+        end
 
         [
-          title_div("Keep original values below") + left,
-          title_div("Use the updates below") + right
+          title_div("Keep original values below") + diff_items.fetch(:left, ""),
+          title_div("Use the updates below") + diff_items.fetch(:right, "")
         ].map(&:html_safe)
       end
 
