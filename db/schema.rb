@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[8.1].define(version: 2026_07_06_120000) do
   create_schema "renalware"
+  create_schema "renalware_heroic"
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -6977,6 +6978,299 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_06_120000) do
   add_foreign_key "renalware.virology_profiles", "renalware.patients"
   add_foreign_key "renalware.virology_profiles", "renalware.users", column: "created_by_id"
   add_foreign_key "renalware.virology_profiles", "renalware.users", column: "updated_by_id"
+
+  create_view "medication_current_prescriptions", sql_definition: <<-SQL
+      SELECT mp.id,
+      mp.patient_id,
+      mp.drug_id,
+      mp.treatable_type,
+      mp.treatable_id,
+      mp.dose_amount,
+      mp.dose_unit,
+      mp.medication_route_id,
+      mp.route_description,
+      mp.frequency,
+      mp.notes,
+      mp.prescribed_on,
+      mp.provider,
+      mp.created_at,
+      mp.updated_at,
+      mp.created_by_id,
+      mp.updated_by_id,
+      mp.administer_on_hd,
+      mp.last_delivery_date,
+      drugs.name AS drug_name,
+      drug_types.code AS drug_type_code,
+      drug_types.name AS drug_type_name
+     FROM ((((renalware.medication_prescriptions mp
+       FULL JOIN renalware.medication_prescription_terminations mpt ON ((mpt.prescription_id = mp.id)))
+       JOIN renalware.drugs ON ((drugs.id = mp.drug_id)))
+       FULL JOIN renalware.drug_types_drugs ON ((drug_types_drugs.drug_id = drugs.id)))
+       FULL JOIN renalware.drug_types ON (((drug_types_drugs.drug_type_id = drug_types.id) AND ((mpt.terminated_on IS NULL) OR (mpt.terminated_on > now())))));
+  SQL
+  create_view "pathology_current_observations", sql_definition: <<-SQL
+      SELECT DISTINCT ON (pathology_observation_requests.patient_id, pathology_observation_descriptions.id) pathology_observations.id,
+      pathology_observations.result,
+      pathology_observations.comment,
+      pathology_observations.observed_at,
+      pathology_observations.description_id,
+      pathology_observations.request_id,
+      pathology_observation_descriptions.code AS description_code,
+      pathology_observation_descriptions.name AS description_name,
+      pathology_observation_requests.patient_id
+     FROM ((renalware.pathology_observations
+       LEFT JOIN renalware.pathology_observation_requests ON ((pathology_observations.request_id = pathology_observation_requests.id)))
+       LEFT JOIN renalware.pathology_observation_descriptions ON ((pathology_observations.description_id = pathology_observation_descriptions.id)))
+    ORDER BY pathology_observation_requests.patient_id, pathology_observation_descriptions.id, pathology_observations.observed_at DESC;
+  SQL
+  create_view "reporting_pd_audit", sql_definition: <<-SQL
+      WITH pd_patients AS (
+           SELECT patients.id
+             FROM ((renalware.patients
+               JOIN renalware.modality_modalities current_modality ON ((current_modality.patient_id = patients.id)))
+               JOIN renalware.modality_descriptions current_modality_description ON ((current_modality_description.id = current_modality.description_id)))
+            WHERE ((current_modality.ended_on IS NULL) AND (current_modality.started_on <= CURRENT_DATE) AND ((current_modality_description.name)::text = 'PD'::text))
+          ), current_regimes AS (
+           SELECT pd_regimes.id,
+              pd_regimes.patient_id,
+              pd_regimes.start_date,
+              pd_regimes.end_date,
+              pd_regimes.treatment,
+              pd_regimes.type,
+              pd_regimes.glucose_volume_low_strength,
+              pd_regimes.glucose_volume_medium_strength,
+              pd_regimes.glucose_volume_high_strength,
+              pd_regimes.amino_acid_volume,
+              pd_regimes.icodextrin_volume,
+              pd_regimes.add_hd,
+              pd_regimes.last_fill_volume,
+              pd_regimes.tidal_indicator,
+              pd_regimes.tidal_percentage,
+              pd_regimes.no_cycles_per_apd,
+              pd_regimes.overnight_volume,
+              pd_regimes.apd_machine_pac,
+              pd_regimes.created_at,
+              pd_regimes.updated_at,
+              pd_regimes.therapy_time,
+              pd_regimes.fill_volume,
+              pd_regimes.delivery_interval,
+              pd_regimes.system_id,
+              pd_regimes.additional_manual_exchange_volume,
+              pd_regimes.tidal_full_drain_every_three_cycles,
+              pd_regimes.daily_volume,
+              pd_regimes.assistance_type
+             FROM renalware.pd_regimes
+            WHERE ((pd_regimes.start_date >= CURRENT_DATE) AND (pd_regimes.end_date IS NULL))
+          ), current_apd_regimes AS (
+           SELECT current_regimes.id,
+              current_regimes.patient_id,
+              current_regimes.start_date,
+              current_regimes.end_date,
+              current_regimes.treatment,
+              current_regimes.type,
+              current_regimes.glucose_volume_low_strength,
+              current_regimes.glucose_volume_medium_strength,
+              current_regimes.glucose_volume_high_strength,
+              current_regimes.amino_acid_volume,
+              current_regimes.icodextrin_volume,
+              current_regimes.add_hd,
+              current_regimes.last_fill_volume,
+              current_regimes.tidal_indicator,
+              current_regimes.tidal_percentage,
+              current_regimes.no_cycles_per_apd,
+              current_regimes.overnight_volume,
+              current_regimes.apd_machine_pac,
+              current_regimes.created_at,
+              current_regimes.updated_at,
+              current_regimes.therapy_time,
+              current_regimes.fill_volume,
+              current_regimes.delivery_interval,
+              current_regimes.system_id,
+              current_regimes.additional_manual_exchange_volume,
+              current_regimes.tidal_full_drain_every_three_cycles,
+              current_regimes.daily_volume,
+              current_regimes.assistance_type
+             FROM current_regimes
+            WHERE ((current_regimes.type)::text ~~ '%::APD%'::text)
+          ), current_capd_regimes AS (
+           SELECT current_regimes.id,
+              current_regimes.patient_id,
+              current_regimes.start_date,
+              current_regimes.end_date,
+              current_regimes.treatment,
+              current_regimes.type,
+              current_regimes.glucose_volume_low_strength,
+              current_regimes.glucose_volume_medium_strength,
+              current_regimes.glucose_volume_high_strength,
+              current_regimes.amino_acid_volume,
+              current_regimes.icodextrin_volume,
+              current_regimes.add_hd,
+              current_regimes.last_fill_volume,
+              current_regimes.tidal_indicator,
+              current_regimes.tidal_percentage,
+              current_regimes.no_cycles_per_apd,
+              current_regimes.overnight_volume,
+              current_regimes.apd_machine_pac,
+              current_regimes.created_at,
+              current_regimes.updated_at,
+              current_regimes.therapy_time,
+              current_regimes.fill_volume,
+              current_regimes.delivery_interval,
+              current_regimes.system_id,
+              current_regimes.additional_manual_exchange_volume,
+              current_regimes.tidal_full_drain_every_three_cycles,
+              current_regimes.daily_volume,
+              current_regimes.assistance_type
+             FROM current_regimes
+            WHERE ((current_regimes.type)::text ~~ '%::CAPD%'::text)
+          )
+   SELECT 'APD'::text AS pd_type,
+      count(current_apd_regimes.patient_id) AS patient_count,
+      0 AS avg_hgb,
+      0 AS pct_hgb_gt_100,
+      0 AS pct_on_epo,
+      0 AS pct_pth_gt_500,
+      0 AS pct_phosphate_gt_1_8,
+      0 AS pct_strong_medium_bag_gt_1l
+     FROM current_apd_regimes
+  UNION ALL
+   SELECT 'CAPD'::text AS pd_type,
+      count(current_capd_regimes.patient_id) AS patient_count,
+      0 AS avg_hgb,
+      0 AS pct_hgb_gt_100,
+      0 AS pct_on_epo,
+      0 AS pct_pth_gt_500,
+      0 AS pct_phosphate_gt_1_8,
+      0 AS pct_strong_medium_bag_gt_1l
+     FROM current_capd_regimes
+  UNION ALL
+   SELECT 'PD'::text AS pd_type,
+      count(pd_patients.id) AS patient_count,
+      0 AS avg_hgb,
+      0 AS pct_hgb_gt_100,
+      0 AS pct_on_epo,
+      0 AS pct_pth_gt_500,
+      0 AS pct_phosphate_gt_1_8,
+      0 AS pct_strong_medium_bag_gt_1l
+     FROM pd_patients;
+  SQL
+
+  create_table "renalware_heroic.biobank_aliquots", force: :cascade do |t|
+    t.datetime "created_at", precision: nil, null: false
+    t.bigint "created_by_id", null: false
+    t.datetime "deleted_at", precision: nil
+    t.string "isbt"
+    t.bigint "sample_id", null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.bigint "updated_by_id", null: false
+    t.bigint "upload_id"
+    t.integer "usable_count", default: 0, null: false
+    t.index ["created_by_id"], name: "index_biobank_aliquots_on_created_by_id"
+    t.index ["deleted_at"], name: "index_biobank_aliquots_on_deleted_at"
+    t.index ["sample_id"], name: "index_biobank_aliquots_on_sample_id"
+    t.index ["updated_by_id"], name: "index_biobank_aliquots_on_updated_by_id"
+    t.index ["upload_id"], name: "index_biobank_aliquots_on_upload_id"
+  end
+
+  create_table "renalware_heroic.biobank_sample_types", force: :cascade do |t|
+    t.string "abbreviation", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.string "name", null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["abbreviation"], name: "index_biobank_sample_types_on_abbreviation"
+  end
+
+  create_table "renalware_heroic.biobank_samples", force: :cascade do |t|
+    t.integer "aliquots_count", default: 0, null: false
+    t.datetime "collected_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.bigint "created_by_id", null: false
+    t.datetime "deleted_at", precision: nil
+    t.string "isbt"
+    t.text "notes"
+    t.bigint "patient_id", null: false
+    t.datetime "processed_at", precision: nil
+    t.datetime "received_at", precision: nil
+    t.bigint "sample_type_id", null: false
+    t.string "storage_location"
+    t.integer "study_visit_number"
+    t.datetime "updated_at", precision: nil, null: false
+    t.bigint "updated_by_id", null: false
+    t.bigint "upload_id"
+    t.index ["collected_at"], name: "index_biobank_samples_on_collected_at"
+    t.index ["created_by_id"], name: "index_biobank_samples_on_created_by_id"
+    t.index ["deleted_at"], name: "index_biobank_samples_on_deleted_at"
+    t.index ["patient_id"], name: "index_biobank_samples_on_patient_id"
+    t.index ["received_at"], name: "index_biobank_samples_on_received_at"
+    t.index ["sample_type_id"], name: "index_biobank_samples_on_sample_type_id"
+    t.index ["study_visit_number"], name: "index_biobank_samples_on_study_visit_number"
+    t.index ["updated_by_id"], name: "index_biobank_samples_on_updated_by_id"
+    t.index ["upload_id"], name: "index_biobank_samples_on_upload_id"
+  end
+
+  create_table "renalware_heroic.biobank_uploads", force: :cascade do |t|
+    t.datetime "created_at", precision: nil, null: false
+    t.bigint "created_by_id", null: false
+    t.integer "file_type", default: 0
+    t.jsonb "staged_changes", default: 0
+    t.integer "status", default: 0, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.bigint "updated_by_id", null: false
+    t.index ["created_by_id"], name: "index_biobank_uploads_on_created_by_id"
+    t.index ["updated_by_id"], name: "index_biobank_uploads_on_updated_by_id"
+  end
+
+  create_table "renalware_heroic.biobank_usages", force: :cascade do |t|
+    t.datetime "created_at", precision: nil, null: false
+    t.bigint "created_by_id", null: false
+    t.datetime "deleted_at", precision: nil
+    t.string "notes"
+    t.string "study_name", null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.bigint "updated_by_id", null: false
+    t.bigint "upload_id"
+    t.bigint "usable_id", null: false
+    t.string "usable_type", null: false
+    t.datetime "used_at", precision: nil, null: false
+    t.index ["created_by_id"], name: "index_biobank_usages_on_created_by_id"
+    t.index ["deleted_at"], name: "index_biobank_usages_on_deleted_at"
+    t.index ["updated_by_id"], name: "index_biobank_usages_on_updated_by_id"
+    t.index ["upload_id"], name: "index_biobank_usages_on_upload_id"
+    t.index ["usable_type", "usable_id"], name: "index_biobank_usages_on_usable_type_and_usable_id"
+    t.index ["used_at"], name: "index_biobank_usages_on_used_at"
+  end
+
+  create_table "renalware_heroic.biobank_versions", force: :cascade do |t|
+    t.datetime "created_at", precision: nil
+    t.string "event", null: false
+    t.integer "item_id", null: false
+    t.string "item_type", null: false
+    t.jsonb "object"
+    t.jsonb "object_changes"
+    t.integer "whodunnit"
+    t.index ["item_type", "item_id"], name: "index_biobank_versions_on_item_type_and_item_id"
+    t.index ["whodunnit"], name: "index_biobank_versions_on_whodunnit"
+  end
+
+  create_table "renalware_heroic.report_definitions", force: :cascade do |t|
+    t.datetime "created_at", precision: nil, null: false
+    t.string "description"
+    t.string "name", null: false
+    t.integer "position", default: 999, null: false
+    t.string "report_view_name", null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["name"], name: "index_report_definitions_on_name"
+  end
+
+  add_foreign_key "renalware_heroic.biobank_aliquots", "renalware.users", column: "created_by_id"
+  add_foreign_key "renalware_heroic.biobank_aliquots", "renalware.users", column: "updated_by_id"
+  add_foreign_key "renalware_heroic.biobank_aliquots", "renalware_heroic.biobank_samples", column: "sample_id"
+  add_foreign_key "renalware_heroic.biobank_samples", "renalware.users", column: "created_by_id"
+  add_foreign_key "renalware_heroic.biobank_samples", "renalware.users", column: "updated_by_id"
+  add_foreign_key "renalware_heroic.biobank_uploads", "renalware.users", column: "created_by_id"
+  add_foreign_key "renalware_heroic.biobank_uploads", "renalware.users", column: "updated_by_id"
+  add_foreign_key "renalware_heroic.biobank_usages", "renalware.users", column: "created_by_id"
+  add_foreign_key "renalware_heroic.biobank_usages", "renalware.users", column: "updated_by_id"
 
   create_view "medication_current_prescriptions", sql_definition: <<-SQL
       SELECT mp.id,
