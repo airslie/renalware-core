@@ -16,6 +16,7 @@ describe Renalware::Configuration do
       PATIENT_VISIBILITY_RESTRICTIONS
       URR_GENERATION_ENABLED
       BYPASS_RAW_HL7_PROCESSING_ADVISORY_LOCK
+      FEEDS_OUTGOING_DOCUMENTS_SENDING_FACILITY
       MESH_CARE_SETTING_SNOMED_CODE
       MESH_CARE_SETTING_DESCRIPTION
     )
@@ -43,6 +44,7 @@ describe Renalware::Configuration do
         :bypass_raw_hl7_processing_advisory_lock,
         :devise_extra_modules,
         :feeds_outgoing_documents_enabled,
+        :feeds_outgoing_documents_sending_facility,
         :hd_session_form_prescription_days_lookahead,
         :hd_session_prescriptions_require_signoff,
         :help_user_guide_link,
@@ -217,6 +219,18 @@ describe Renalware::Configuration do
       ENV["BYPASS_RAW_HL7_PROCESSING_ADVISORY_LOCK"] = "1"
 
       expect(config.bypass_raw_hl7_processing_advisory_lock).to be(true)
+    end
+  end
+
+  describe "#feeds_outgoing_documents_sending_facility" do
+    it "defaults to MSE" do
+      expect(config.feeds_outgoing_documents_sending_facility).to eq("MSE")
+    end
+
+    it "can be set via ENV" do
+      ENV["FEEDS_OUTGOING_DOCUMENTS_SENDING_FACILITY"] = "RJZ"
+
+      expect(config.feeds_outgoing_documents_sending_facility).to eq("RJZ")
     end
   end
 
