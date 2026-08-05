@@ -74,6 +74,13 @@ module Renalware
       end
 
       describe "#external_document_type" do
+        before do
+          allow(Renalware.config).to receive_messages(
+            letters_external_document_type_code: nil,
+            letters_external_document_type_description: nil
+          )
+        end
+
         {
           true => {
             code: "CL",
@@ -89,6 +96,32 @@ module Renalware
 
             expect(letter.external_document_type_code).to eq(doctype_hash[:code])
             expect(letter.external_document_type_description).to eq(doctype_hash[:name])
+          end
+        end
+
+        context "when the external document type is configured" do
+          it "uses the configured code and description for clinical letters" do
+            allow(Renalware.config).to receive_messages(
+              letters_external_document_type_code: "CL",
+              letters_external_document_type_description: "Clinical Letter"
+            )
+
+            letter = described_class.new(clinical: true)
+
+            expect(letter.external_document_type_code).to eq("CL")
+            expect(letter.external_document_type_description).to eq("Clinical Letter")
+          end
+
+          it "uses the configured code and description for non-clinical letters" do
+            allow(Renalware.config).to receive_messages(
+              letters_external_document_type_code: "CL",
+              letters_external_document_type_description: "Clinical Letter"
+            )
+
+            letter = described_class.new(clinical: false)
+
+            expect(letter.external_document_type_code).to eq("CL")
+            expect(letter.external_document_type_description).to eq("Clinical Letter")
           end
         end
       end

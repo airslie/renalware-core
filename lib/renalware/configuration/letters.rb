@@ -17,6 +17,14 @@ module Renalware
           )
         end
 
+        base.config_accessor(:letters_external_document_type_code) do
+          ENV["LETTERS_EXTERNAL_DOCUMENT_TYPE_CODE"].presence
+        end
+
+        base.config_accessor(:letters_external_document_type_description) do
+          ENV["LETTERS_EXTERNAL_DOCUMENT_TYPE_DESCRIPTION"].presence
+        end
+
         base.config_accessor(:letters_mesh_workflow) { :gp_connect } # or :transfer_of_care
       end
 
