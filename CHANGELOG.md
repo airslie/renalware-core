@@ -9,6 +9,51 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.5.4
+### Added
+- Legacy clinical letters support #6040
+  - Adds an optional legacy letters area so older imported letters can be viewed from the patient letters screen where this feature is enabled.
+  - Test patient letter lists, filtering, opening legacy letters and permissions at sites using imported legacy letters.
+- Table-backed blood group and HD anticoagulant reference data #6042 #6043
+  - Moves blood group descriptions and HD anticoagulant options into seeded database tables.
+  - Test editing HD profiles, HD protocol/session-form PDFs and any forms that record or display patient blood group or HD anticoagulant.
+- Transfer-out housekeeping for stale HD patients #6041
+  - Adds a background job that can move HD patients with no hospital unit and no recent HD session to Transfer Out.
+  - Test carefully before scheduling locally: review the selected patient list, resulting modality history, dates used for transfer out and audit/API logs.
+
+### Changed
+- Outpatient and HD prescription printing has been separated more clearly #6033 #6034 #6037
+  - Fixed-dose outpatient prescriptions now terminate after the configured number of administered doses, and prescription PDFs split current medication, HD and outpatient prescription sections more explicitly.
+  - Test outpatient prescription administration, fixed-dose completion, prescription list filtering, current medication PDFs, HD prescription PDFs, outpatient prescription PDFs and letter medication sections.
+- HL7 raw message processing is now isolated and protected from overlapping runs #6055 #6056
+  - Raw HL7 ingestion runs on a dedicated queue and uses a database lock so two workers do not process the same backlog at the same time.
+  - Test feed processing in environments with live HL7 traffic, especially duplicate-message prevention, backlog catch-up and monitoring of the `hl7_raw_ingestion` queue.
+- Outgoing RTF letter filenames now use the legacy EPR filename format when RTF output is configured #6039
+  - Test approved clinical letters sent to downstream EPR/document systems where RTF outgoing documents are used.
+- UKRDC export compatibility has been adjusted #6069 #6090
+  - Preserves v3/v4 batch-number compatibility and omits generic GP identifiers from family doctor output.
+  - Regression test UKRDC v3 and v4 exports, especially patient identifiers, batch numbers and GP/family doctor details.
+- Runtime configuration can now come from environment variables in more places #6051 #6054
+  - Patient visibility restrictions and password expiry can be configured without code changes.
+  - Test sign-in/password-expiry behaviour and patient visibility restrictions after deployment where these environment settings are used.
+- Optional packs are resolved after loading `.env` #6092
+  - Sites using extension packs can now enable them through `.env` earlier in application boot.
+  - Test application boot, database setup/seeding and pack-specific screens in environments that rely on `.env` for enabled packs.
+- Masonry-based page layout behaviour has been removed #6020
+  - Dashboard/report/widget layouts no longer depend on the old Masonry JavaScript integration.
+  - Regression test dashboard widgets, report pages and any pages with tile/card-style layouts at common desktop and smaller screen sizes.
+
+### Fixed
+- Letter batch printing no longer creates a blank batch PDF when no selected letters have printable recipients #6083
+  - Test batch printing from filtered letter lists, including letters with no recipients or no printable recipients.
+- Letter section comparison now handles empty letter snapshots #6091
+  - Test viewing letter changes/diffs where a section was previously blank or missing.
+- HD session form patient header formatting has been corrected #6050
+  - Test generated HD protocol/session-form PDFs and patient header display.
+- KFRE calculation is skipped where it is not clinically applicable #6025
+  - KFRE is not calculated when a patient has no modality or when eGFR is 60 ml/min/1.73m2 or higher.
+  - Test KFRE display/update behaviour for patients with no modality, patients with preserved eGFR and patients where KFRE should still be calculated.
+
 ## 2.5.3
 ### Added
 - Outpatient prescription administration #5821
