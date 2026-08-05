@@ -4,10 +4,18 @@ module Renalware
       def index
         query = OutgoingDocument
           .includes(:created_by)
-          .ransack(params.fetch(:q, { s: "created_at desc" }))
+          .ransack(search_params)
         pagy, documents = pagy(query.result)
         authorize documents
         render locals: { documents: documents, pagy: pagy, query: query }
+      end
+
+      private
+
+      def search_params
+        params.fetch(:q, ActionController::Parameters.new).permit!.to_h.tap do |query_params|
+          query_params["s"] = "created_at desc" if query_params["s"].blank?
+        end
       end
     end
   end

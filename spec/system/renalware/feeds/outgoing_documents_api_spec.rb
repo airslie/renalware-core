@@ -128,29 +128,81 @@ describe "Outgoing Documents API" do
     end
 
     describe "update.json" do
-      it "updates the status to processed" do
-        user = create(:user)
-        event = create(:swab, by: user)
-        Renalware.config.ukrdc_site_code = "RJZ"
-        create(:hospital_centre, code: "RJZ")
-
-        queued_doc = Renalware::Feeds::OutgoingDocument.create!(
+      let(:user) { create(:user) }
+      let(:event) { create(:swab, by: user) }
+      let(:queued_doc) do
+        Renalware::Feeds::OutgoingDocument.create!(
           renderable: event,
           by: user,
           created_at: 1.day.ago,
           state: :queued
         )
+      end
 
-        patch feeds_queued_outgoing_document_path(
+      def path_for_queued_doc(queued_doc)
+        feeds_queued_outgoing_document_path(
           id: queued_doc.id,
           username: api_user.username,
           token: api_user.authentication_token
         )
+      end
+
+      it "updates the status to processed when no result is supplied" do
+        patch path_for_queued_doc(queued_doc)
 
         expect(response.media_type).to eq("application/json")
-        JSON.parse(response.body).with_indifferent_access
+        doc = JSON.parse(response.body).with_indifferent_access
 
+        expect(doc[:result]).to eq("OK")
+        expect(doc[:state]).to eq("processed")
         expect(queued_doc.reload.state).to eq("processed")
+      end
+
+      it "updates the status to processed when Mirth reports a successful send" do
+        patch path_for_queued_doc(queued_doc), params: { result: "sent" }
+
+        expect(response.media_type).to eq("application/json")
+        doc = JSON.parse(response.body).with_indifferent_access
+
+        expect(doc[:result]).to eq("OK")
+        expect(doc[:state]).to eq("processed")
+        expect(queued_doc.reload.state).to eq("processed")
+      end
+
+      it "updates the status to errored when Mirth reports a failed send" do
+        freeze_time do
+          patch(
+            path_for_queued_doc(queued_doc),
+            params: {
+              result: "failed",
+              error_code: "TIE_TIMEOUT",
+              error: "Timed out waiting for TIE response",
+              comments: "Delivery outcome is unknown"
+            }
+          )
+        end
+
+        expect(response.media_type).to eq("application/json")
+        doc = JSON.parse(response.body).with_indifferent_access
+        queued_doc.reload
+
+        expect(doc[:result]).to eq("OK")
+        expect(doc[:state]).to eq("errored")
+        expect(queued_doc).to have_attributes(
+          state: "errored",
+          error_code: "TIE_TIMEOUT",
+          error: "Timed out waiting for TIE response",
+          comments: "Delivery outcome is unknown"
+        )
+        expect(queued_doc.errored_at).to be_within(1.second).of(Time.zone.now)
+      end
+
+      it "returns an error when Mirth reports an invalid result" do
+        patch path_for_queued_doc(queued_doc), params: { result: "unknown" }
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(JSON.parse(response.body)).to eq("error" => "Invalid result")
+        expect(queued_doc.reload.state).to eq("queued")
       end
     end
   end

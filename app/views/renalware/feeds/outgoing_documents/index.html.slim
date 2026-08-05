@@ -31,7 +31,7 @@ ruby:
   table
     thead
       tr
-        th(colspan=6)
+        th(colspan=7)
         th.text-center.bg-pink-100(colspan=3) Renderable
       tr
         th.col-width-tiny= sort_link(query, :id, "Id")
@@ -40,6 +40,7 @@ ruby:
         th.col-width-date-time= sort_link(query, :updated_at, "Updated")
         th Creator
         th Comment
+        th Error
         th.bg-pink-100.text-center.col-width-small Type
         th.bg-pink-100.text-center.col-width-tiny Id
         th.bg-pink-100.text-center.col-width-tiny
@@ -53,6 +54,7 @@ ruby:
           td= l(doc.updated_at)
           td= doc.created_by
           td= doc.comments
+          td= [doc.error_code, doc.error].compact_blank.join(" - ")
           td.bg-pink-50= doc.renderable_type
           td.bg-pink-50= doc.renderable_id
           td.bg-pink-50
