@@ -173,27 +173,27 @@ describe "HL7 ADT^A05 create appointment" do
         )
       end
 
-      # rubocop:disable RSpec/ChangeByZero
       context "when patient has a modality and the default modality description is set on clinic" do
         it "does not change the patient's modality" do
           msg = hl7_message_from_file("clinics/ADT_A05_create_appointment", data)
           nephrology = create(:modality_description, :nephrology)
+          haemodialysis = create(:modality_description, :hd)
           create(:clinic, code: clinic_code, default_modality_description: nephrology)
           create(:consultant, code: consultant_code)
           patient = create_matching_patient
           set_modality(
             patient:,
-            modality_description: create(:modality_description, :hd),
+            modality_description: haemodialysis,
             by: patient.created_by
           )
 
           expect {
             Renalware::Clinics::Ingestion::Commands::CreateOrUpdateAppointment.call(msg)
           }.to change(Renalware::Clinics::Appointment, :count).by(1)
-            .and change(Renalware::Modalities::Modality, :count).by(0)
+
+          expect(patient.reload.current_modality.description_id).to eq(haemodialysis.id)
         end
       end
-      # rubocop:enable RSpec/ChangeByZero
     end
 
     it "updates patient demographics (eg postcode) if patient found" do

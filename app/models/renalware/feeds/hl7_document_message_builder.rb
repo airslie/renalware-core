@@ -60,7 +60,7 @@ module Renalware
         seg = HL7::Message::Segment::MSH.new
         seg.enc_chars = "^~\\&"
         seg.sending_app = "Renalware"
-        seg.sending_facility = "MSE"
+        seg.sending_facility = Renalware.config.feeds_outgoing_documents_sending_facility
         # message_control_id is the correct place for our external_id - however, we accidentally
         # used the processing_id field for this in the past, so we populate both now.
         seg.message_control_id = external_id

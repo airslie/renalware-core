@@ -124,6 +124,29 @@ module Renalware
                 expect(msg[:TXA][12]).to eq(letter.uuid)
               end
             end
+
+            context "when configured with a custom sending facility" do
+              before do
+                allow(Renalware.config)
+                  .to receive(:feeds_outgoing_documents_sending_facility)
+                  .and_return("RJZ")
+              end
+
+              it "uses the configured value in MSH.4" do
+                stub_rendering(:pdf, "A")
+
+                letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
+                  patient:,
+                  clinical: true,
+                  author: user
+                )
+                document = OutgoingDocument.create!(renderable: letter, by:)
+
+                msg = described_class.call(renderable: letter, document:)
+
+                expect(msg[:MSH].sending_facility).to eq("RJZ")
+              end
+            end
           end
 
           context "when letter format is RTF" do
