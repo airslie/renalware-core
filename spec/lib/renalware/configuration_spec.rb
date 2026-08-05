@@ -18,6 +18,8 @@ describe Renalware::Configuration do
       BYPASS_RAW_HL7_PROCESSING_ADVISORY_LOCK
       MESH_CARE_SETTING_SNOMED_CODE
       MESH_CARE_SETTING_DESCRIPTION
+      LETTERS_EXTERNAL_DOCUMENT_TYPE_CODE
+      LETTERS_EXTERNAL_DOCUMENT_TYPE_DESCRIPTION
     )
     original_values = env_keys_that_override_defaults.index_with { |key| ENV.fetch(key, nil) }
     env_keys_that_override_defaults.each { |key| ENV.delete(key) }
@@ -46,6 +48,8 @@ describe Renalware::Configuration do
         :hd_session_form_prescription_days_lookahead,
         :hd_session_prescriptions_require_signoff,
         :help_user_guide_link,
+        :letters_external_document_type_code,
+        :letters_external_document_type_description,
         :letters_render_pdfs_with_prawn,
         :mail_delivery_method,
         :medication_delivery_purchase_order_prefix,
@@ -74,9 +78,39 @@ describe Renalware::Configuration do
         patients_must_have_at_least_one_hosp_number: true,
         enable_expiring_prescriptions_list_component: true,
         enforce_user_prescriber_flag: false,
+        letters_external_document_type_code: nil,
+        letters_external_document_type_description: nil,
         mesh_care_setting_snomed_code: "788003006",
         mesh_care_setting_description: "Nephrology service"
       )
+    end
+  end
+
+  describe "#letters_external_document_type_code" do
+    it "can be configured via ENV" do
+      ENV["LETTERS_EXTERNAL_DOCUMENT_TYPE_CODE"] = "CL"
+
+      expect(config.letters_external_document_type_code).to eq("CL")
+    end
+
+    it "treats a blank ENV value as unconfigured" do
+      ENV["LETTERS_EXTERNAL_DOCUMENT_TYPE_CODE"] = ""
+
+      expect(config.letters_external_document_type_code).to be_nil
+    end
+  end
+
+  describe "#letters_external_document_type_description" do
+    it "can be configured via ENV" do
+      ENV["LETTERS_EXTERNAL_DOCUMENT_TYPE_DESCRIPTION"] = "Clinical Letter"
+
+      expect(config.letters_external_document_type_description).to eq("Clinical Letter")
+    end
+
+    it "treats a blank ENV value as unconfigured" do
+      ENV["LETTERS_EXTERNAL_DOCUMENT_TYPE_DESCRIPTION"] = ""
+
+      expect(config.letters_external_document_type_description).to be_nil
     end
   end
 

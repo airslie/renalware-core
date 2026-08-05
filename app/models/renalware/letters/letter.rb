@@ -156,8 +156,14 @@ module Renalware
         rattr_initialize :code, :name
       end
 
-      def external_document_type_code         = clinical? ? "CL" : "AL"
-      def external_document_type_description  = clinical? ? "Clinic Letter" : "Adhoc Letter"
+      def external_document_type_code
+        Renalware.config.letters_external_document_type_code || (clinical? ? "CL" : "AL")
+      end
+
+      def external_document_type_description
+        Renalware.config.letters_external_document_type_description ||
+          (clinical? ? "Clinic Letter" : "Adhoc Letter")
+      end
 
       # Can be used when exported to external sytems eg via HL7/Mirth.
       # id e.g. 123 => "RW0000000123"
