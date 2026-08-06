@@ -31,6 +31,7 @@ export default class extends Controller {
         searchingText: "Searching...",
         searchPlaceholder: this.placeholder,
         searchText: this.hint,
+        modal: "off"
       },
       events: {
         search: this.debouncePromise(this.search, 250),
