@@ -6,7 +6,7 @@ require Rails.root.join("spec/pages/page_object.rb")
 module Pages
   module Heroic
     module Research
-      class Participations < ::Pages::PageObject
+      class Participations < Pages::PageObject
         pattr_initialize :study
 
         def go

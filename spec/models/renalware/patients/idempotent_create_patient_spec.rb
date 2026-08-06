@@ -9,7 +9,7 @@ module Renalware::Patients
         let(:params) { { patient: attributes_for(:patient) } }
 
         it "creates the patient" do
-          expect { command.call(params) }.to change(::Renalware::Patient, :count).by(1)
+          expect { command.call(params) }.to change(Renalware::Patient, :count).by(1)
         end
       end
 
@@ -25,7 +25,7 @@ module Renalware::Patients
         end
 
         it "does not create the patient" do
-          expect { command.call(params) }.not_to change(::Renalware::Patient, :count)
+          expect { command.call(params) }.not_to change(Renalware::Patient, :count)
         end
       end
     end

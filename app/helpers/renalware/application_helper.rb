@@ -38,7 +38,7 @@ module Renalware
     end
 
     def patient_search
-      ::Renalware::Patients::PatientSearch.call(params)
+      Renalware::Patients::PatientSearch.call(params)
     end
 
     # For use in layouts

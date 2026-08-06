@@ -7,7 +7,7 @@ module Renalware
 
       def prescriptions
         @prescriptions ||= begin
-          presenter_klass = ::Renalware::Medications::PrescriptionPresenter
+          presenter_klass = Renalware::Medications::PrescriptionPresenter
           ::OpenStruct.new(
             current: present(current_standard_prescriptions, presenter_klass),
             recently_changed: present(recently_changed_current_prescriptions, presenter_klass),

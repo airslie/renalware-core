@@ -3,7 +3,7 @@
 module Renalware
   module Heroic
     module BioBank
-      class SamplePolicy < ::Renalware::Research::ResearchPolicy
+      class SamplePolicy < Renalware::Research::ResearchPolicy
         def destroy?
           user_is_super_admin? || user_is_a_manager_in_this_study?
         end

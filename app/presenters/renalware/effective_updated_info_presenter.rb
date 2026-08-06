@@ -1,6 +1,6 @@
 module Renalware
   class EffectiveUpdatedInfoPresenter
-    include ::Renalware::AccountablePresentation
+    include Renalware::AccountablePresentation
 
     def initialize(record)
       @record = record

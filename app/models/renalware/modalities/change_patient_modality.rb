@@ -48,9 +48,9 @@ module Renalware
           previous_modality = patient.current_modality
           make_new_modality_the_current_one(new_modality, previous_modality)
           broadcast_modality_change_event_to_any_listeners(new_modality, previous_modality)
-          ::Success.new(new_modality)
+          Success.new(new_modality)
         else
-          ::Failure.new(new_modality)
+          Failure.new(new_modality)
         end
       end
 

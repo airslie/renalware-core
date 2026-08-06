@@ -3,7 +3,7 @@
 module Renalware
   module Heroic
     module Clinics
-      class Visit < ::Renalware::Clinics::ClinicVisit
+      class Visit < Renalware::Clinics::ClinicVisit
         include ::Document::Base
 
         # We are not fans of callbacks but in this instance, becuase we don't have a decicated

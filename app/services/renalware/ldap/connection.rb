@@ -3,7 +3,7 @@ require "net/ldap"
 module Renalware
   module Ldap
     class Connection
-      delegate :info, :error, to: ::Renalware::Ldap::Logger
+      delegate :info, :error, to: Renalware::Ldap::Logger
 
       attr_reader :username
 

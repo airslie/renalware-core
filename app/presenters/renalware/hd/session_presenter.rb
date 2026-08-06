@@ -68,7 +68,7 @@ module Renalware
 
       # Returns duration as e.g. "02:01"
       def duration
-        super && ::Renalware::Duration.from_minutes(super)
+        super && Renalware::Duration.from_minutes(super)
       end
 
       # Returns duration as e.g. 121 (minutes)

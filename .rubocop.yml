@@ -23,6 +23,7 @@ inherit_from:
   - .rubocop_todo.yml
 
 AllCops:
+  # UseProjectIndex: true
   NewCops: enable
   UseCache: true
   SuggestExtensions: true

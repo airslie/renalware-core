@@ -3,7 +3,7 @@
 module Renalware
   module Heroic
     module BioBank
-      class UsagePolicy < ::Renalware::Research::ResearchPolicy
+      class UsagePolicy < Renalware::Research::ResearchPolicy
         def edit?
           return true if user_is_super_admin? || user_is_a_manager_in_this_study?
           return true if created_recently? && user_is_an_investigator_in_this_study?

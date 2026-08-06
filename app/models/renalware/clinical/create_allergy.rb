@@ -14,9 +14,9 @@ module Renalware
         yield allergy if block_given?
         if allergy.valid?
           save_allergy(allergy)
-          ::Success.new(allergy)
+          Success.new(allergy)
         else
-          ::Failure.new(allergy)
+          Failure.new(allergy)
         end
       end
 

@@ -86,6 +86,7 @@ group :development do
   gem "rubocop-rake", require: false
   gem "rubocop-rspec", require: false
   gem "rubocop-rspec_rails", require: false
+  gem "rubydex", require: false
   gem "ruby-lsp", "~> 0.26", require: false
   gem "stackprof"
   gem "web-console"

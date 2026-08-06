@@ -32,21 +32,6 @@ module Renalware
           .to_h
       end
 
-      def column_headings
-        @column_headings ||= begin
-          headings = ["Date"]
-
-          headings.concat(
-            Renalware::Survey
-            .find_by!(code: "prom")
-            .questions
-            .order(:position)
-            .pluck(:label)
-          )
-          headings
-        end
-      end
-
       def survey
         @survey ||= Renalware::Surveys::Survey.find_by(code: "prom")
       end
