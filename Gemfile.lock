@@ -397,7 +397,7 @@ GEM
       childprocess (~> 5.0)
       logger (~> 1.6)
     lint_roller (1.1.0)
-    liquid (5.12.0)
+    liquid (5.13.0)
       bigdecimal
       strscan (>= 3.1.1)
     logger (1.7.0)
@@ -531,7 +531,7 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-net_http (0.29.0)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-instrumentation-pg (0.36.0)
+    opentelemetry-instrumentation-pg (0.37.0)
       opentelemetry-helpers-sql
       opentelemetry-helpers-sql-processor
       opentelemetry-instrumentation-base (~> 0.25)
@@ -595,7 +595,7 @@ GEM
     pg (1.6.3-aarch64-linux)
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x86_64-linux)
-    pghero (3.8.0)
+    pghero (4.0.0)
       activerecord (>= 7.2)
     phlex (2.4.1)
       refract (~> 1.0)
@@ -903,7 +903,7 @@ GEM
     thruster (0.1.23-aarch64-linux)
     thruster (0.1.23-arm64-darwin)
     thruster (0.1.23-x86_64-linux)
-    tilt (2.7.0)
+    tilt (2.8.0)
     timeliness (0.5.3)
     timeout (0.6.1)
     tsort (0.2.0)
@@ -924,7 +924,7 @@ GEM
       activemodel (>= 8.0.0, < 9)
       timeliness (>= 0.3.10, < 1)
     vcr (6.4.0)
-    version_gem (1.1.14)
+    version_gem (1.1.15)
     view_component (4.12.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
@@ -961,7 +961,7 @@ GEM
       nokogiri (~> 1.8)
     yaml (0.4.0)
     yard (0.9.45)
-    zeitwerk (2.7.5)
+    zeitwerk (2.8.3)
 
 PLATFORMS
   aarch64-linux
