@@ -9,17 +9,17 @@ describe "Searching for a patient from the menu bar search area" do
     expect(page).to have_text("RABBIT, Roger")
     expect(page).to have_text("MOUSE, Minnie")
 
-    within(".patient-search-form") do
+    within(".rw-primary-nav__search") do
       fill_in "patient_search_identity_match", with: "rab ro"
-      find(".button").click
+      find(".rw-primary-nav__search-button").click
     end
 
     expect(page).to have_text("RABBIT, Roger")
     expect(page).to have_no_text("MOUSE, Minnie")
 
-    within(".patient-search-form") do
+    within(".rw-primary-nav__search") do
       fill_in "patient_search_identity_match", with: "mous m"
-      find(".button").click
+      find(".rw-primary-nav__search-button").click
     end
 
     expect(page).to have_text("MOUSE, Minnie")

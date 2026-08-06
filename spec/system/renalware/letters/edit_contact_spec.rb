@@ -76,8 +76,10 @@ RSpec.describe "Managing an existing letter contact", :js do
       end
 
       # Specify neither a description or other description
-      select "", from: "Description"
-      fill_in "", with: "Other description"
+      within "#edit-patient-contact-modal" do
+        select "", from: "Description"
+        fill_in "Other description", with: ""
+      end
 
       click_on t("btn.save")
 

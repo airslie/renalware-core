@@ -11,9 +11,17 @@ describe "Primary navigation" do
     Renalware::Patients::MDMMenu.cached_items = nil
   end
 
-  it "uses the existing Foundation top-bar by default" do
-    Renalware.config.use_new_primary_navigation = false
+  it "uses the primary navigation by default" do
+    get dashboard_path
 
+    expect(response).to be_successful
+    expect(response.body).to include("rw-primary-nav")
+    expect(response.body).to include("primary-navigation-menu")
+    expect(response.body).not_to include("top-menu-bar")
+  end
+
+  it "uses the existing Foundation top-bar when disabled" do
+    Renalware.config.use_new_primary_navigation = false
     get dashboard_path
 
     expect(response).to be_successful

@@ -1,9 +1,9 @@
-describe "View Admission Request" do
+describe "View Admission Request", :js do
   it "Use the top menu to navigate to the list of admission requests" do
     login_as_clinical
     visit dashboard_path
 
-    within "#top-menu-bar" do
+    within ".rw-primary-nav" do
       click_on "Patients"
       click_on "Admission Requests"
     end
