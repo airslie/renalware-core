@@ -27,14 +27,53 @@ module Renalware
 
       def update
         document = OutgoingDocument.queued_for_processing.find(params[:id])
-        document.update!(state: :processed, by: current_user)
+
+        return render_invalid_result unless update_document_for_outcome(document)
 
         render json: {
-          result: "OK"
+          result: "OK",
+          state: document.state
         }
       end
 
       private
+
+      # Wider issues to revisit:
+      # - claim/lease queued documents so concurrent Mirth pollers cannot process the same item
+      # - make updates idempotent with an external Mirth/TIE message identifier
+      # - distinguish definite failures from unknown delivery outcomes, such as TIE timeouts
+      def document_update_outcome
+        case params[:result]
+        when nil, "", "sent", "processed", "success" then :processed
+        when "failed", "errored", "error" then :errored
+        end
+      end
+
+      def update_document_for_outcome(document)
+        case document_update_outcome
+        when :processed then mark_document_as_processed(document)
+        when :errored then mark_document_as_errored(document)
+        end
+      end
+
+      def render_invalid_result
+        render json: { error: "Invalid result" }, status: :unprocessable_content
+      end
+
+      def mark_document_as_processed(document)
+        document.update!(state: :processed, by: current_user)
+      end
+
+      def mark_document_as_errored(document)
+        document.update!(
+          state: :errored,
+          by: current_user,
+          error: params[:error],
+          error_code: params[:error_code],
+          errored_at: Time.zone.now,
+          comments: params[:comments]
+        )
+      end
 
       def document_json(document)
         protocol = Rails.env.local? || ENV.fetch("HTTP_ONLY_LINKS_IN_JSON", false) ? :http : :https
