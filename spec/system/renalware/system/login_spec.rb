@@ -120,10 +120,12 @@ module Renalware
 
     context "when user is signed in" do
       it "signs them out" do
-        login_as_clinical
+        user = login_as_clinical
         visit root_path
 
-        click_on "Log out"
+        nav = find(".rw-primary-nav")
+        nav.click_on user.username.capitalize
+        nav.click_on "Log out"
 
         expect(page).to have_current_path new_user_session_path
       end

@@ -1,5 +1,5 @@
 module Renalware
-  describe "Live Donors", js: false do
+  describe "Live Donors", :js do
     include PatientsSpecHelper
 
     def create_live_donor(by:)
@@ -21,8 +21,8 @@ module Renalware
       non_live_donor = create_non_live_donor
 
       visit root_path
-      within ".top-bar" do
-        click_on "Renal"
+      within ".rw-primary-nav" do
+        click_on "Tx"
         click_on "Live Donors"
       end
 
