@@ -23,12 +23,11 @@ export default class extends Controller {
         maxValuesShown: 100,
         searchingText: "Searching...",
         searchPlaceholder: this.placeholder,
+        placeholderText: "",
+        modal: "off"
       },
       events: {
-        search: this.debouncePromise(this.search, 250),
-        afterOpen: () => {
-          this.slimSelect.search("")
-        },
+        search: this.debouncePromise(this.search, 250)
       },
     })
   }

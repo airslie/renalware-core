@@ -22,17 +22,16 @@ export default class extends Controller {
         searchHighlight: true,
         hideSelectedOption: true,
         allowDeselect: false,
-        maxValuesShown: 100
+        maxValuesShown: 100,
+        placeholderText: "",
+        modal: "off"
       }
     }
 
     if (this.optionsUrl) {
       options.settings.searchingText = "Searching..."
       options.events = {
-        search: this.debouncePromise(this.go, 200),
-        afterOpen: () => {
-          this.slimSelect.search("")
-        }
+        search: this.debouncePromise(this.go, 200)
       }
     }
     this.slimSelect = new SlimSelect(options)
@@ -44,7 +43,7 @@ export default class extends Controller {
     delete this.slimSelect
   }
 
-  go(searchTerm, currentData) {
+  go(searchTerm, selectedOptions) {
     return new Promise((resolve, reject) => {
       if (searchTerm.length < 3) {
         reject("Search term must be at least 3 characters")
@@ -60,7 +59,7 @@ export default class extends Controller {
       })
       .then((response) => response.json())
       .then(data => {
-        resolve(this.mergeOptions(this.normalizeOptions(data), currentData))
+        resolve(this.mergeOptions(this.normalizeOptions(data), selectedOptions))
       })
       .catch(error => reject("Sorry, there was a server error"))
     })

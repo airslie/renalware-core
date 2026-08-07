@@ -869,10 +869,10 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-slim-select@2.10.0:
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-2.10.0.tgz#4793579aa1b368a04d4944f5a0a1dd9dac0ed68c"
-  integrity sha512-sOKXH8YlgspTn+wy1jYbscVlFbBsAIOmtrmx1e16sV+NbYDTIyJCCdLH0EL9gDxDdHzBgE/s5XZ+VChaxz0JGg==
+slim-select@4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-4.0.7.tgz#75313c5e0f7ad1f04cd96220c0fe9e8957e714dd"
+  integrity sha512-2lotyeUu9YusUOCPni7S/iP5o7AsZDozMWP2deQFDmWTmUrt9iIg+i3Yq2r7J7KsbimzVvlFyhqVb3jwFMFJqg==
 
 sortablejs@^1.13.0:
   version "1.15.7"

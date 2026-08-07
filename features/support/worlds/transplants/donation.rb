@@ -125,7 +125,13 @@ module World
 
         # Insert the anticipated <option> into the select.
         page.execute_script(
-          %"$('#transplants_donation_recipient_id').html('<option value=\"#{recipient.id}\">Patty</option>')"
+          <<~JS,
+            const select = document.getElementById("transplants_donation_recipient_id");
+            select.innerHTML = "";
+            select.add(new Option(arguments[1], arguments[0]));
+          JS
+          recipient.id,
+          recipient.to_s(:long)
         )
         slim_select recipient.to_s(:long), from: "Recipient", wait_for: "Enter at least 3 characters"
 
