@@ -11,9 +11,9 @@ module Renalware
       def call(by:, params:)
         regime = patient.pd_regimes.new(params)
         if regime.valid? && save_regime(regime, by)
-          ::Success.new(regime)
+          Success.new(regime)
         else
-          ::Failure.new(regime)
+          Failure.new(regime)
         end
       end
 

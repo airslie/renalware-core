@@ -63,16 +63,16 @@ module Renalware::Heroic
               systolic_bp: nil,
               diastolic_bp: nil
             )
-            visit.document.blood_pressure1 = ::Renalware::BloodPressure.new(
+            visit.document.blood_pressure1 = Renalware::BloodPressure.new(
               systolic: 100,
               diastolic: 80
             )
             # blood_pressure2 is the lowest
-            visit.document.blood_pressure2 = ::Renalware::BloodPressure.new(
+            visit.document.blood_pressure2 = Renalware::BloodPressure.new(
               systolic: 99,
               diastolic: 78
             )
-            visit.document.blood_pressure3 = ::Renalware::BloodPressure.new(
+            visit.document.blood_pressure3 = Renalware::BloodPressure.new(
               systolic: 110,
               diastolic: 90
             )
@@ -92,9 +92,9 @@ module Renalware::Heroic
               systolic_bp: nil,
               diastolic_bp: nil
             )
-            visit.document.blood_pressure1 = ::Renalware::BloodPressure.new
-            visit.document.blood_pressure2 = ::Renalware::BloodPressure.new
-            visit.document.blood_pressure3 = ::Renalware::BloodPressure.new
+            visit.document.blood_pressure1 = Renalware::BloodPressure.new
+            visit.document.blood_pressure2 = Renalware::BloodPressure.new
+            visit.document.blood_pressure3 = Renalware::BloodPressure.new
 
             visit.save!
 
@@ -111,12 +111,12 @@ module Renalware::Heroic
               systolic_bp: nil,
               diastolic_bp: nil
             )
-            visit.document.blood_pressure1 = ::Renalware::BloodPressure.new(
+            visit.document.blood_pressure1 = Renalware::BloodPressure.new(
               systolic: 100,
               diastolic: 80
             )
-            visit.document.blood_pressure2 = ::Renalware::BloodPressure.new
-            visit.document.blood_pressure3 = ::Renalware::BloodPressure.new
+            visit.document.blood_pressure2 = Renalware::BloodPressure.new
+            visit.document.blood_pressure3 = Renalware::BloodPressure.new
 
             visit.save!
 

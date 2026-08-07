@@ -16,9 +16,9 @@ module Renalware
           terminate_current_stage if current_stage.present?
           stage = build_new_stage
           if stage.save
-            ::Success.new(stage)
+            Success.new(stage)
           else
-            ::Failure.new(stage)
+            Failure.new(stage)
           end
         end
       end

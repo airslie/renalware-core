@@ -21,7 +21,7 @@ module Renalware
           objects = OpenStruct.new(clinic_visit: visit, appointment: appointment)
           visit.save && update_appointment_with(visit.id)
         end
-        result ? ::Success.new(objects) : ::Failure.new(objects)
+        result ? Success.new(objects) : Failure.new(objects)
       end
 
       private

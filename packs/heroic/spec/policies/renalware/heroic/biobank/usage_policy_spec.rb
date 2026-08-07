@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Renalware::Heroic
   describe BioBank::UsagePolicy, type: :policy do
-    include ::HeroicHelpers
+    include HeroicHelpers
 
     subject(:policy) { described_class }
 

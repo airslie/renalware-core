@@ -1,7 +1,7 @@
 module Renalware
   module Prescriptions
     class SummaryComponent < ApplicationComponent
-      include ::PresenterHelper
+      include PresenterHelper
 
       attr_reader :patient
 

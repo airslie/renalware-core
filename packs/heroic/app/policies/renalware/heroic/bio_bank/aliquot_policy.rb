@@ -3,7 +3,7 @@
 module Renalware
   module Heroic
     module BioBank
-      class AliquotPolicy < ::Renalware::Research::ResearchPolicy
+      class AliquotPolicy < Renalware::Research::ResearchPolicy
         def destroy?
           return true if user_is_super_admin? || user_is_a_manager_in_this_study?
           return true if aliquot_created_recently? && user_is_an_investigator_in_this_study?

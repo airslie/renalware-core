@@ -82,9 +82,9 @@ module Renalware
               params = form.to_hd_session_params
 
               if hd_session.update(params)
-                ::Success.new(Result.new(session_id: hd_session.id))
+                Success.new(Result.new(session_id: hd_session.id))
               else
-                ::Failure.new(Result.new(session_id: hd_session.id))
+                Failure.new(Result.new(session_id: hd_session.id))
               end
             end
           end
@@ -97,7 +97,7 @@ module Renalware
               params[:patient] = patient
               session = Renalware::HD::Session::Open.new(params)
               session.save!
-              ::Success.new(Result.new(session_id: session.id))
+              Success.new(Result.new(session_id: session.id))
             end
           end
 

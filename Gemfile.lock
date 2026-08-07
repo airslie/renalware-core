@@ -810,6 +810,9 @@ GEM
     ruby-progressbar (1.13.0)
     ruby-rc4 (0.1.5)
     ruby_http_client (3.6.0)
+    rubydex (0.3.0-aarch64-linux)
+    rubydex (0.3.0-arm64-darwin)
+    rubydex (0.3.0-x86_64-linux)
     rubyntlm (0.6.5)
       base64
     rubyzip (3.4.1)
@@ -1089,6 +1092,7 @@ DEPENDENCIES
   ruby-hl7 (~> 1.3)
   ruby-lsp (~> 0.26)
   ruby-prof
+  rubydex
   sassc-rails (~> 2.1.0)
   scenic (~> 1.5)
   sendgrid-ruby (~> 6.7)

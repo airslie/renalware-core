@@ -3,7 +3,7 @@
 module Renalware
   module Heroic
     module Events
-      class HeroicEvent < ::Renalware::Events::Event
+      class HeroicEvent < Renalware::Events::Event
         include ::Document::Base
 
         class Document < Heroic::Document

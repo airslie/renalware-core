@@ -10,7 +10,7 @@ module Renalware
   module Heroic
     def self.table_name_prefix = "renalware_heroic."
 
-    class Engine < ::Rails::Engine
+    class Engine < Rails::Engine
       isolate_namespace Renalware::Heroic
 
       initializer :heroic_assets do |app|

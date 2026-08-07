@@ -21,7 +21,7 @@ module Renalware
         temporary_editing_window_has_elapsed?
       end
 
-      class SessionDocument < ::Renalware::HD::SessionDocument
+      class SessionDocument < Renalware::HD::SessionDocument
         class Info < Renalware::HD::SessionDocument::Info
           # rubocop:disable Rails/Validation
           validates_presence_of(

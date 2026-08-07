@@ -10,7 +10,7 @@ module Renalware
           delegate :address, :religion, :primary_language, :nationality, to: :patient_identification
 
           def initialize(message, patient = nil)
-            @patient = patient || ::Renalware::Patient.new
+            @patient = patient || Renalware::Patient.new
 
             super(message)
           end

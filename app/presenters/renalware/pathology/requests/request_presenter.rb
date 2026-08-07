@@ -20,7 +20,7 @@ module Renalware
         end
 
         def patient_rules
-          ::Renalware::Pathology::Requests::PatientRulePresenter.present(super)
+          Renalware::Pathology::Requests::PatientRulePresenter.present(super)
         end
 
         def global_requests_by_lab_and_bottle_type

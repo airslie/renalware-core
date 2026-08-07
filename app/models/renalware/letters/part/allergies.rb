@@ -9,7 +9,7 @@ module Renalware
       delegate :allergies, to: :clinical_patient
 
       def to_partial_path   = "renalware/letters/parts/allergies"
-      def clinical_patient  = ::Renalware::Clinical.cast_patient(patient)
+      def clinical_patient  = Renalware::Clinical.cast_patient(patient)
     end
   end
 end

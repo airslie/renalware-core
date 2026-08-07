@@ -43,7 +43,7 @@ module Renalware
     end
 
     def nhs_client
-      @nhs_client ||= ::NHSClient.new
+      @nhs_client ||= NHSClient.new
     end
 
     protected

@@ -58,7 +58,7 @@ module Renalware
 
       # Note we of course only send letters for RPV patients and exclude them for all others.
       def letters
-        return ::Renalware::Letters::Letter.none if send_to_rpv == false
+        return Renalware::Letters::Letter.none if send_to_rpv == false
 
         CollectionPresenter.new(
           letters_patient
