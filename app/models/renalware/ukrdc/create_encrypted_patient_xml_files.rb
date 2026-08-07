@@ -111,6 +111,12 @@ module Renalware
           force_send: force_send,
           schema: schema
         ).call
+      rescue StandardError => e
+        Rails.error.report(e, handled: true, source: "application")
+        logger.error(
+          "  Error creating UKRDC XML for patient #{patient.ukrdc_external_id}: " \
+          "#{e.message} (#{e.class})"
+        )
       end
 
       def build_summary
