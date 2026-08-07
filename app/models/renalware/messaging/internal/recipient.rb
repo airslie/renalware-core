@@ -16,17 +16,17 @@ module Renalware
         end
 
         def activity_warning
-          if last_sign_in_at.nil?
+          if current_sign_in_at.nil?
             "(has never signed in)"
-          elsif last_sign_in_at < num_days.days.ago
+          elsif current_sign_in_at < num_days.days.ago
             "(inactive for #{last_active_days_ago} days)"
           end
         end
 
         def last_active_days_ago
-          return if last_sign_in_at.blank?
+          return if current_sign_in_at.blank?
 
-          (Time.zone.now.to_date - last_sign_in_at.to_date).to_i
+          (Time.zone.now.to_date - current_sign_in_at.to_date).to_i
         end
 
         def num_days = Renalware.config.messaging_recipient_warn_if_not_signed_in_for_days
