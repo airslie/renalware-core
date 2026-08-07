@@ -5,6 +5,8 @@ module SlimSelectHelper
     select_box = find_field(options[:from], visible: :all)
     data_id = select_box["data-id"]
 
+    return if selected_value?(data_id, item_text, options[:multi])
+
     open_select(data_id)
     search_and_select(data_id, item_text)
 
@@ -13,7 +15,9 @@ module SlimSelectHelper
       expect(page).to have_css(selected_css(options[:multi]), text: item_text)
     end
 
-    expect(page).to have_no_css(".ss-content[data-id='#{data_id}'].ss-open") unless options[:multi]
+    unless options[:multi]
+      expect(page).to have_no_css(".ss-content[data-id='#{data_id}']", visible: :visible)
+    end
   end
 
   private
@@ -35,6 +39,14 @@ module SlimSelectHelper
     multi ? ".ss-value-text" : ".ss-single"
   end
 
+  def selected_value?(data_id, item_text, multi)
+    page.has_css?(
+      ".ss-main[data-id='#{data_id}'] #{selected_css(multi)}",
+      text: item_text,
+      wait: 0.5
+    )
+  end
+
   def wait_and_click_on(item_text)
     within(".ss-list") do
       expect(page).to have_text(item_text)
@@ -54,6 +66,7 @@ module SlimSelectHelper
   # Wait for the list of items (or a message) to appear before continuing
   def wait_for_list(item_text)
     within(".ss-list") do
+      expect(page).to have_no_css(".ss-searching")
       expect(page).to have_text(item_text)
     end
   end

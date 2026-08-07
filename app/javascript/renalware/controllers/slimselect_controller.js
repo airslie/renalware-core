@@ -19,6 +19,7 @@ export default class extends Controller {
       settings: {
         searchHighlight: true,
         allowDeselect: false,
+        placeholderText: "",
         modal: "off"
       },
       ...this.optionsValue,

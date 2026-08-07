@@ -10,7 +10,7 @@
     #patient-select.pb-3
       = f.input :patient_id,
                 wrapper: :horizontal_medium,
-                collection: [[appointment.patient&.to_s(:long), appointment.patient&.id]],
+                collection: appointment.patient.present? ? [[appointment.patient&.to_s(:long), appointment.patient&.id]] : [],
                 selected: 1,
                 input_html: { \
                   data: { controller: "patient-search",

@@ -23,6 +23,7 @@ export default class extends Controller {
         hideSelectedOption: true,
         allowDeselect: false,
         maxValuesShown: 100,
+        placeholderText: "",
         modal: "off"
       }
     }

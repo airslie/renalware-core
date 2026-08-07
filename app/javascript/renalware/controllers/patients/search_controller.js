@@ -23,6 +23,7 @@ export default class extends Controller {
         maxValuesShown: 100,
         searchingText: "Searching...",
         searchPlaceholder: this.placeholder,
+        placeholderText: "",
         modal: "off"
       },
       events: {

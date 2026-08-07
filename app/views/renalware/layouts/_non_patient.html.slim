@@ -4,9 +4,9 @@
   .layout-wrapper.mt-4
     .non-patient-page-header(class=("with-tabs" if content_for?(:tabs)))
       .row
-        .columns.small-12
-          ul.flex.flex-row.justify-between.ml-0.gap-6
-            li.flex.items-start.gap-2
+        .pl-3
+          ul.flex.flex-row.ml-0.gap-6
+            li.flex.items-start.gap-2.pb-2
               h1 style="margin-top: 0;"
                 = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
                                       title: local_assigns[:title])

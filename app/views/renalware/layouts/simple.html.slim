@@ -7,7 +7,7 @@
     .layout-wrapper
       .non-patient-page-header(class=("with-tabs" if content_for?(:tabs)))
         .row
-          .columns.small-12
+          .pl-3.pt-2
             ul.page-heading
               li
                 h1= content_for?(:title) ? yield(:title) : breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs], title: local_assigns[:title])

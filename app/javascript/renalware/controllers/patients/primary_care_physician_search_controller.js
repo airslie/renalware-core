@@ -30,6 +30,7 @@ export default class extends Controller {
         searchingText: "Searching...",
         searchPlaceholder: this.placeholder,
         searchText: this.hint,
+        placeholderText: "",
         modal: "off"
       },
       events: {
