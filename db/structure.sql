@@ -11047,7 +11047,9 @@ CREATE TABLE renalware.monitoring_mirth_channel_stats (
     queued integer DEFAULT 0 NOT NULL,
     filtered integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    stats_report_id bigint,
+    state character varying
 );
 
 
@@ -11101,6 +11103,43 @@ CREATE SEQUENCE renalware.monitoring_mirth_channels_id_seq
 --
 
 ALTER SEQUENCE renalware.monitoring_mirth_channels_id_seq OWNED BY renalware.monitoring_mirth_channels.id;
+
+
+--
+-- Name: monitoring_mirth_stats_reports; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.monitoring_mirth_stats_reports (
+    id bigint NOT NULL,
+    report_id uuid NOT NULL,
+    source character varying NOT NULL,
+    site_id character varying NOT NULL,
+    instance_id character varying NOT NULL,
+    server_id uuid,
+    reported_at timestamp(6) without time zone NOT NULL,
+    api_credential_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: monitoring_mirth_stats_reports_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.monitoring_mirth_stats_reports_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: monitoring_mirth_stats_reports_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.monitoring_mirth_stats_reports_id_seq OWNED BY renalware.monitoring_mirth_stats_reports.id;
 
 
 --
@@ -19748,6 +19787,13 @@ ALTER TABLE ONLY renalware.monitoring_mirth_channels ALTER COLUMN id SET DEFAULT
 
 
 --
+-- Name: monitoring_mirth_stats_reports id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.monitoring_mirth_stats_reports ALTER COLUMN id SET DEFAULT nextval('renalware.monitoring_mirth_stats_reports_id_seq'::regclass);
+
+
+--
 -- Name: old_passwords id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -22186,6 +22232,14 @@ ALTER TABLE ONLY renalware.monitoring_mirth_channels
 
 
 --
+-- Name: monitoring_mirth_stats_reports monitoring_mirth_stats_reports_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.monitoring_mirth_stats_reports
+    ADD CONSTRAINT monitoring_mirth_stats_reports_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: old_passwords old_passwords_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -23548,6 +23602,20 @@ CREATE UNIQUE INDEX idx_medication_delivery_event_prescriptions ON renalware.med
 --
 
 CREATE INDEX idx_medication_prescriptions_type ON renalware.medication_prescriptions USING btree (treatable_id, treatable_type);
+
+
+--
+-- Name: idx_mirth_channel_stats_on_report_and_channel; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_mirth_channel_stats_on_report_and_channel ON renalware.monitoring_mirth_channel_stats USING btree (stats_report_id, channel_id);
+
+
+--
+-- Name: idx_mirth_stats_reports_on_instance_and_reported_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX idx_mirth_stats_reports_on_instance_and_reported_at ON renalware.monitoring_mirth_stats_reports USING btree (site_id, instance_id, reported_at);
 
 
 --
@@ -27531,6 +27599,20 @@ CREATE INDEX index_monitoring_mirth_channels_on_channel_group_id ON renalware.mo
 --
 
 CREATE UNIQUE INDEX index_monitoring_mirth_channels_on_uuid ON renalware.monitoring_mirth_channels USING btree (uuid);
+
+
+--
+-- Name: index_monitoring_mirth_stats_reports_on_api_credential_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_monitoring_mirth_stats_reports_on_api_credential_id ON renalware.monitoring_mirth_stats_reports USING btree (api_credential_id);
+
+
+--
+-- Name: index_monitoring_mirth_stats_reports_on_report_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_monitoring_mirth_stats_reports_on_report_id ON renalware.monitoring_mirth_stats_reports USING btree (report_id);
 
 
 --
@@ -31912,6 +31994,14 @@ ALTER TABLE ONLY renalware.system_downloads
 
 
 --
+-- Name: monitoring_mirth_stats_reports fk_rails_437c1fcddf; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.monitoring_mirth_stats_reports
+    ADD CONSTRAINT fk_rails_437c1fcddf FOREIGN KEY (api_credential_id) REFERENCES renalware.api_credentials(id);
+
+
+--
 -- Name: pd_pet_results fk_rails_44d212ba62; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -32085,6 +32175,14 @@ ALTER TABLE ONLY renalware.renal_profiles
 
 ALTER TABLE ONLY renalware.event_type_alert_triggers
     ADD CONSTRAINT fk_rails_56eac5912d FOREIGN KEY (event_type_id) REFERENCES renalware.event_types(id);
+
+
+--
+-- Name: monitoring_mirth_channel_stats fk_rails_570541a683; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.monitoring_mirth_channel_stats
+    ADD CONSTRAINT fk_rails_570541a683 FOREIGN KEY (stats_report_id) REFERENCES renalware.monitoring_mirth_stats_reports(id);
 
 
 --
@@ -34846,6 +34944,10 @@ ALTER TABLE ONLY renalware_heroic.biobank_usages
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260809120003'),
+('20260809120002'),
+('20260809120001'),
+('20260809120000'),
 ('20260808120000'),
 ('20260706120000'),
 ('20260704120000'),

@@ -96,7 +96,7 @@ module Renalware
     end
 
     def mirth_monitoring_jobs
-      return {} unless Renalware.config.monitoring_mirth_enabled
+      return {} unless Renalware.config.monitoring_mirth_polling_enabled
 
       {
         mirth_monitoring: {

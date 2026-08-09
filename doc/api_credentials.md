@@ -28,6 +28,7 @@ Supported scopes are:
 | --- | --- |
 | `outgoing_documents:read` | List and retrieve queued outgoing documents |
 | `outgoing_documents:write` | Report the outcome of an outgoing document |
+| `mirth_statistics:write` | Submit Mirth channel statistics reports |
 | `patients:read` | Read patient API resources |
 | `medications:read` | Read patient prescriptions |
 | `hd_sessions:write` | Create or update HD sessions |
@@ -76,3 +77,48 @@ credential.update!(enabled: false)
 
 `last_used_at` is updated periodically and can help confirm whether a credential is still in use.
 Disabling or expiring the associated Devise user also prevents API access.
+
+## Mirth channel statistics
+
+Issue a dedicated credential:
+
+```bash
+API_USERNAME=api \
+API_CREDENTIAL_NAME=mirth-statistics-2026-08 \
+API_SCOPES=mirth_statistics:write \
+bin/rails renalware:api_credentials:issue
+```
+
+Post JSON to `POST /api/v1/monitoring/mirth/channel_stats`. This endpoint accepts bearer
+authentication only; legacy query credentials are deliberately rejected.
+
+```json
+{
+  "schema_version": 1,
+  "report_id": "12d76844-4b15-4226-af8b-d4a66d9aca01",
+  "reported_at": "2026-08-09T10:15:00Z",
+  "source": "mirth_connect",
+  "site_id": "hospital-a",
+  "instance_id": "renalware-production",
+  "server_id": "e64f0bc9-9b8a-4618-ab2f-da497b53a7fe",
+  "channels": [
+    {
+      "id": "a7f684ca-a58a-4e7e-b4a9-8f13a7977cf9",
+      "name": "Pathology results",
+      "state": "STARTED",
+      "received": 12043,
+      "sent": 12040,
+      "error": 2,
+      "filtered": 1,
+      "queued": 3
+    }
+  ]
+}
+```
+
+A new report returns `201 Created`. Repeating a `report_id` is an idempotent retry and returns
+`200 OK` without creating duplicate statistics. Invalid reports return `422 Unprocessable Content`.
+
+For a push-based deployment, retain `MONITORING_MIRTH_ENABLED=true` so the dashboard is visible and
+set `MONITORING_MIRTH_POLLING_ENABLED=false` to stop the old GoodJob API poller. Existing deployments
+that do not set the new polling variable retain their current polling behaviour.

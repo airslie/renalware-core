@@ -16,6 +16,7 @@ module Renalware
     before do
       allow(Renalware.config).to receive_messages(
         monitoring_mirth_enabled: true,
+        monitoring_mirth_polling_enabled: true,
         users_expire_after: 1,
         send_gp_letters_over_mesh: true,
         process_hl7_via_raw_messages_table: true,
@@ -103,6 +104,12 @@ module Renalware
 
     it "omits the URR generation job when disabled" do
       expect(jobs_config).not_to have_key(:generate_missing_urr)
+    end
+
+    it "omits Mirth polling when push-based statistics are enabled" do
+      allow(Renalware.config).to receive(:monitoring_mirth_polling_enabled).and_return(false)
+
+      expect(jobs_config).not_to have_key(:mirth_monitoring)
     end
   end
 end

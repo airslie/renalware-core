@@ -8,6 +8,12 @@ namespace :api do
 
   # The JSON API
   namespace :v1, constraints: { format: :json }, defaults: { format: :json } do
+    namespace :monitoring do
+      namespace :mirth do
+        resource :channel_stats, only: :create
+      end
+    end
+
     namespace :hd do
       # called by hd_hub on receipt of a session data fron a dialyser
       put(

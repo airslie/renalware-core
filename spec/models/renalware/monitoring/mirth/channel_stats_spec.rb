@@ -1,6 +1,7 @@
 module Renalware::Monitoring
   describe Mirth::ChannelStats do
     it { is_expected.to belong_to(:channel) }
+    it { is_expected.to belong_to(:stats_report).optional }
     it { is_expected.to validate_presence_of(:channel) }
     it { is_expected.to validate_numericality_of(:sent) }
     it { is_expected.to validate_numericality_of(:received) }

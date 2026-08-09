@@ -9,6 +9,7 @@ module Renalware
         validates :error, numericality: true
         validates :filtered, numericality: true
         belongs_to :channel
+        belongs_to :stats_report, optional: true
       end
     end
   end
