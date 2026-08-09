@@ -92,5 +92,20 @@ describe "API request for a single patient JSON document" do
         )
       end
     end
+
+    it "does not include query credentials in pagination links" do
+      create_list(:patient, 2)
+
+      visit api_v1_patients_path(
+        last_patient_id: 0,
+        per_page: 1,
+        username: user.username,
+        token: user.authentication_token
+      )
+
+      query = Rack::Utils.parse_query(URI(json.dig("links", "next")).query)
+
+      expect(query).not_to include("username", "token")
+    end
   end
 end

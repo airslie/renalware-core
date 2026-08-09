@@ -5,6 +5,8 @@ module Renalware
         class PatientsController < TokenAuthenticatedAPIController
           include Concerns::Pageable
 
+          api_scope Credential::PATIENTS_READ
+
           def index
             render locals: { patients: patients }
           end

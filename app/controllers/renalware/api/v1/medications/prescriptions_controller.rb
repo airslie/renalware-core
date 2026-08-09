@@ -3,6 +3,8 @@ module Renalware
     module V1
       module Medications
         class PrescriptionsController < TokenAuthenticatedAPIController
+          api_scope Credential::MEDICATIONS_READ
+
           def index
             render locals: {
               patient: patient,

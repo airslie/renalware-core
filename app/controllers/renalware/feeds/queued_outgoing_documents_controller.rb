@@ -1,6 +1,9 @@
 module Renalware
   module Feeds
     class QueuedOutgoingDocumentsController < API::TokenAuthenticatedAPIController
+      api_scope API::Credential::OUTGOING_DOCUMENTS_READ, only: %i(index show)
+      api_scope API::Credential::OUTGOING_DOCUMENTS_WRITE, only: :update
+
       skip_before_action :track_ahoy_visit
       protect_from_forgery only: []
       after_action :track_action, only: []

@@ -8,6 +8,11 @@ module Renalware
 
     has_many :roles_users, dependent: :destroy
     has_many :roles, through: :roles_users
+    has_many(
+      :api_credentials,
+      class_name: "Renalware::API::Credential",
+      dependent: :restrict_with_exception
+    )
     belongs_to :hospital_centre, class_name: "Renalware::Hospitals::Centre", optional: true
 
     validates :username, presence: true, uniqueness: true

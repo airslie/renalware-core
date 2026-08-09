@@ -7,6 +7,10 @@ describe "Outgoing Documents API" do
     )
   end
 
+  def bearer_headers(token)
+    { "Authorization" => "Bearer #{token}" }
+  end
+
   describe "authorisation" do
     context "when no credentials supplied" do
       it "redirects to the login page" do
@@ -37,13 +41,63 @@ describe "Outgoing Documents API" do
     end
 
     context "when valid credentials supplied" do
-      it do
+      it "continues to accept legacy query credentials" do
         get feeds_queued_outgoing_documents_path(
           username: api_user.username,
           token: api_user.authentication_token
         )
 
         expect(response).to be_successful
+      end
+
+      it "can disable legacy query credentials after deployment migration" do
+        allow(Renalware.config)
+          .to receive(:legacy_api_query_authentication_enabled)
+          .and_return(false)
+
+        get feeds_queued_outgoing_documents_path(
+          username: api_user.username,
+          token: api_user.authentication_token
+        )
+
+        expect(response).to be_unauthorized
+      end
+
+      it "accepts a bearer credential with the required scope" do
+        issued = Renalware::API::Credential.issue!(
+          user: api_user,
+          name: "Mirth read",
+          scopes: [Renalware::API::Credential::OUTGOING_DOCUMENTS_READ]
+        )
+
+        get feeds_queued_outgoing_documents_path, headers: bearer_headers(issued.token)
+
+        expect(response).to be_successful
+      end
+
+      it "rejects a bearer credential without the required scope" do
+        issued = Renalware::API::Credential.issue!(
+          user: api_user,
+          name: "Mirth write only",
+          scopes: [Renalware::API::Credential::OUTGOING_DOCUMENTS_WRITE]
+        )
+
+        get feeds_queued_outgoing_documents_path, headers: bearer_headers(issued.token)
+
+        expect(response).to be_unauthorized
+      end
+
+      it "rejects a disabled bearer credential" do
+        issued = Renalware::API::Credential.issue!(
+          user: api_user,
+          name: "Disabled Mirth",
+          scopes: [Renalware::API::Credential::OUTGOING_DOCUMENTS_READ]
+        )
+        issued.credential.update!(enabled: false)
+
+        get feeds_queued_outgoing_documents_path, headers: bearer_headers(issued.token)
+
+        expect(response).to be_unauthorized
       end
     end
   end
@@ -156,6 +210,38 @@ describe "Outgoing Documents API" do
         expect(doc[:result]).to eq("OK")
         expect(doc[:state]).to eq("processed")
         expect(queued_doc.reload.state).to eq("processed")
+      end
+
+      it "accepts a bearer credential with the write scope" do
+        issued = Renalware::API::Credential.issue!(
+          user: api_user,
+          name: "Mirth write",
+          scopes: [Renalware::API::Credential::OUTGOING_DOCUMENTS_WRITE]
+        )
+
+        patch(
+          feeds_queued_outgoing_document_path(queued_doc),
+          headers: bearer_headers(issued.token)
+        )
+
+        expect(response).to be_successful
+        expect(queued_doc.reload).to be_processed
+      end
+
+      it "rejects a bearer credential with only the read scope" do
+        issued = Renalware::API::Credential.issue!(
+          user: api_user,
+          name: "Mirth read only",
+          scopes: [Renalware::API::Credential::OUTGOING_DOCUMENTS_READ]
+        )
+
+        patch(
+          feeds_queued_outgoing_document_path(queued_doc),
+          headers: bearer_headers(issued.token)
+        )
+
+        expect(response).to be_unauthorized
+        expect(queued_doc.reload).to be_queued
       end
 
       it "updates the status to processed when Mirth reports a successful send" do

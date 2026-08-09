@@ -4567,6 +4567,44 @@ CREATE VIEW renalware.akcc_mdm_patients AS
 
 
 --
+-- Name: api_credentials; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.api_credentials (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    name character varying NOT NULL,
+    token_digest character varying NOT NULL,
+    token_prefix character varying NOT NULL,
+    scopes character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    enabled boolean DEFAULT true NOT NULL,
+    expires_at timestamp(6) without time zone,
+    last_used_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: api_credentials_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.api_credentials_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: api_credentials_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.api_credentials_id_seq OWNED BY renalware.api_credentials.id;
+
+
+--
 -- Name: blood_group_descriptions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -18730,6 +18768,13 @@ ALTER TABLE ONLY renalware.admission_versions ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: api_credentials id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.api_credentials ALTER COLUMN id SET DEFAULT nextval('renalware.api_credentials_id_seq'::regclass);
+
+
+--
 -- Name: blood_group_descriptions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -20970,6 +21015,14 @@ ALTER TABLE ONLY renalware.admission_specialties
 
 ALTER TABLE ONLY renalware.admission_versions
     ADD CONSTRAINT admission_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_credentials api_credentials_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.api_credentials
+    ADD CONSTRAINT api_credentials_pkey PRIMARY KEY (id);
 
 
 --
@@ -24125,6 +24178,27 @@ CREATE UNIQUE INDEX index_admission_specialties_on_name ON renalware.admission_s
 --
 
 CREATE INDEX index_admission_versions_on_item_type_and_item_id ON renalware.admission_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: index_api_credentials_on_token_digest; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_api_credentials_on_token_digest ON renalware.api_credentials USING btree (token_digest);
+
+
+--
+-- Name: index_api_credentials_on_user_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_api_credentials_on_user_id ON renalware.api_credentials USING btree (user_id);
+
+
+--
+-- Name: index_api_credentials_on_user_id_and_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_api_credentials_on_user_id_and_name ON renalware.api_credentials USING btree (user_id, name);
 
 
 --
@@ -32270,6 +32344,14 @@ ALTER TABLE ONLY renalware.transplant_recipient_followups
 
 
 --
+-- Name: api_credentials fk_rails_689eb16da8; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.api_credentials
+    ADD CONSTRAINT fk_rails_689eb16da8 FOREIGN KEY (user_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: hd_vnd_risk_assessments fk_rails_68a3593399; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -34764,6 +34846,7 @@ ALTER TABLE ONLY renalware_heroic.biobank_usages
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260808120000'),
 ('20260706120000'),
 ('20260704120000'),
 ('20260703100000'),

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_06_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_08_120000) do
   create_schema "renalware"
   create_schema "renalware_heroic"
 
@@ -2056,6 +2056,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_06_120000) do
     t.jsonb "object_changes"
     t.string "whodunnit"
     t.index ["item_type", "item_id"], name: "index_admission_versions_on_item_type_and_item_id"
+  end
+
+  create_table "renalware.api_credentials", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "enabled", default: true, null: false
+    t.datetime "expires_at"
+    t.datetime "last_used_at"
+    t.string "name", null: false
+    t.string "scopes", default: [], null: false, array: true
+    t.string "token_digest", null: false
+    t.string "token_prefix", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["token_digest"], name: "index_api_credentials_on_token_digest", unique: true
+    t.index ["user_id", "name"], name: "index_api_credentials_on_user_id_and_name", unique: true
+    t.index ["user_id"], name: "index_api_credentials_on_user_id"
   end
 
   create_table "renalware.blood_group_descriptions", force: :cascade do |t|
@@ -6528,6 +6544,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_06_120000) do
   add_foreign_key "renalware.admission_requests", "renalware.patients"
   add_foreign_key "renalware.admission_requests", "renalware.users", column: "created_by_id"
   add_foreign_key "renalware.admission_requests", "renalware.users", column: "updated_by_id"
+  add_foreign_key "renalware.api_credentials", "renalware.users"
   add_foreign_key "renalware.clinic_appointments", "renalware.clinic_clinics", column: "clinic_id"
   add_foreign_key "renalware.clinic_appointments", "renalware.clinic_consultants", column: "consultant_id"
   add_foreign_key "renalware.clinic_appointments", "renalware.clinic_visits", column: "becomes_visit_id"

@@ -6,6 +6,8 @@ module Renalware
     module V1
       module HD
         class SessionsController < TokenAuthenticatedAPIController
+          api_scope Credential::HD_SESSIONS_WRITE
+
           skip_before_action :verify_authenticity_token
 
           # JSON PUT
