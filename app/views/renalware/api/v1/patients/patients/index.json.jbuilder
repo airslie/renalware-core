@@ -1,6 +1,7 @@
 def modify_query(url, options = {})
   uri = URI(url)
   query_hash = Rack::Utils.parse_query(uri.query)
+  query_hash.except!("username", "token")
   query_hash.merge!(options)
   uri.query = Rack::Utils.build_query(query_hash)
   uri.to_s

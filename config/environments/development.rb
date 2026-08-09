@@ -15,6 +15,7 @@ Rails.application.configure do
   config.good_job.execution_mode = :external
 
   config.hosts << "dev.test"
+  config.hosts << "host.docker.internal:3000"
 
   # Settings specified here will take precedence over those in config/application.rb.
 

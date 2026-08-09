@@ -338,6 +338,12 @@ module Renalware
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("URR_GENERATION_ENABLED", "false"))
     end
 
+    config_accessor(:legacy_api_query_authentication_enabled) do
+      ActiveModel::Type::Boolean.new.cast(
+        ENV.fetch("LEGACY_API_QUERY_AUTHENTICATION_ENABLED", "true")
+      )
+    end
+
     #
     # Monitoring::Mirth
     # Default to out-of-the-box development settings
