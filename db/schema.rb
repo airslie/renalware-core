@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_08_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_09_120003) do
   create_schema "renalware"
   create_schema "renalware_heroic"
 
@@ -4300,9 +4300,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_08_120000) do
     t.integer "queued", default: 0, null: false
     t.integer "received", default: 0, null: false
     t.integer "sent", default: 0, null: false
+    t.string "state"
+    t.bigint "stats_report_id"
     t.datetime "updated_at", null: false
     t.index ["channel_id"], name: "index_monitoring_mirth_channel_stats_on_channel_id"
     t.index ["created_at"], name: "index_monitoring_mirth_channel_stats_on_created_at"
+    t.index ["stats_report_id", "channel_id"], name: "idx_mirth_channel_stats_on_report_and_channel", unique: true
   end
 
   create_table "renalware.monitoring_mirth_channels", force: :cascade do |t|
@@ -4313,6 +4316,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_08_120000) do
     t.uuid "uuid", null: false
     t.index ["channel_group_id"], name: "index_monitoring_mirth_channels_on_channel_group_id"
     t.index ["uuid"], name: "index_monitoring_mirth_channels_on_uuid", unique: true
+  end
+
+  create_table "renalware.monitoring_mirth_stats_reports", force: :cascade do |t|
+    t.bigint "api_credential_id", null: false
+    t.datetime "created_at", null: false
+    t.string "instance_id", null: false
+    t.uuid "report_id", null: false
+    t.datetime "reported_at", null: false
+    t.uuid "server_id"
+    t.string "site_id", null: false
+    t.string "source", null: false
+    t.datetime "updated_at", null: false
+    t.index ["api_credential_id"], name: "index_monitoring_mirth_stats_reports_on_api_credential_id"
+    t.index ["report_id"], name: "index_monitoring_mirth_stats_reports_on_report_id", unique: true
+    t.index ["site_id", "instance_id", "reported_at"], name: "idx_mirth_stats_reports_on_instance_and_reported_at"
   end
 
   create_table "renalware.old_passwords", force: :cascade do |t|
@@ -6776,7 +6794,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_08_120000) do
   add_foreign_key "renalware.modality_modalities", "renalware.users", column: "created_by_id", name: "modality_modalities_created_by_id_fk"
   add_foreign_key "renalware.modality_modalities", "renalware.users", column: "updated_by_id", name: "modality_modalities_updated_by_id_fk"
   add_foreign_key "renalware.monitoring_mirth_channel_stats", "renalware.monitoring_mirth_channels", column: "channel_id"
+  add_foreign_key "renalware.monitoring_mirth_channel_stats", "renalware.monitoring_mirth_stats_reports", column: "stats_report_id"
   add_foreign_key "renalware.monitoring_mirth_channels", "renalware.monitoring_mirth_channel_groups", column: "channel_group_id"
+  add_foreign_key "renalware.monitoring_mirth_stats_reports", "renalware.api_credentials"
   add_foreign_key "renalware.pathology_calculation_sources", "renalware.pathology_observations", column: "calculated_observation_id"
   add_foreign_key "renalware.pathology_calculation_sources", "renalware.pathology_observations", column: "source_observation_id"
   add_foreign_key "renalware.pathology_chart_series", "renalware.pathology_charts", column: "chart_id"

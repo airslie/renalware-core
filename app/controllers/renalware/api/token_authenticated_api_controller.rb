@@ -6,6 +6,7 @@ module Renalware
       class MissingScopeError < StandardError; end
 
       class_attribute :api_scopes, instance_accessor: false, default: {}
+      class_attribute :legacy_query_authentication_allowed, instance_accessor: false, default: true
 
       before_action :authenticate_api_request!
 
@@ -14,7 +15,13 @@ module Renalware
         self.api_scopes = api_scopes.merge(actions.index_with { scope })
       end
 
+      def self.disable_legacy_query_authentication
+        self.legacy_query_authentication_allowed = false
+      end
+
       private
+
+      attr_reader :current_api_credential
 
       def authenticate_api_request!
         return authenticate_bearer_request! if request.authorization.present?
@@ -46,6 +53,7 @@ module Renalware
       # TODO: Remove this legacy query-string authentication mechanism once all clients have been
       # updated to use the Authorization header with a bearer token.
       def legacy_query_token_authenticated?
+        return false unless self.class.legacy_query_authentication_allowed
         return false unless Renalware.config.legacy_api_query_authentication_enabled
 
         user = legacy_query_user

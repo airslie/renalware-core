@@ -351,6 +351,11 @@ module Renalware
     config_accessor(:monitoring_mirth_enabled) { # but see good_job schedule also
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("MONITORING_MIRTH_ENABLED", "false"))
     }
+    config_accessor(:monitoring_mirth_polling_enabled) {
+      ActiveModel::Type::Boolean.new.cast(
+        ENV.fetch("MONITORING_MIRTH_POLLING_ENABLED", monitoring_mirth_enabled)
+      )
+    }
     config_accessor(:monitoring_mirth_api_base_url) {
       ENV.fetch("MONITORING_MIRTH_API_BASE_URL", "https://localhost:8443/api")
     }

@@ -7,6 +7,7 @@ module Renalware
 
       HD_SESSIONS_WRITE = "hd_sessions:write".freeze
       MEDICATIONS_READ = "medications:read".freeze
+      MIRTH_STATISTICS_WRITE = "mirth_statistics:write".freeze
       OUTGOING_DOCUMENTS_READ = "outgoing_documents:read".freeze
       OUTGOING_DOCUMENTS_WRITE = "outgoing_documents:write".freeze
       PATIENTS_READ = "patients:read".freeze
@@ -14,6 +15,7 @@ module Renalware
       SCOPES = [
         HD_SESSIONS_WRITE,
         MEDICATIONS_READ,
+        MIRTH_STATISTICS_WRITE,
         OUTGOING_DOCUMENTS_READ,
         OUTGOING_DOCUMENTS_WRITE,
         PATIENTS_READ
