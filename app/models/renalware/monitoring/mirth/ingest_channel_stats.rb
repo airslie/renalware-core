@@ -45,6 +45,8 @@ module Renalware
             end
           end
 
+          Metrics.record_report(report)
+
           Result.new(report:, created?: true)
         end
 
