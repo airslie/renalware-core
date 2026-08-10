@@ -25,14 +25,5 @@ namespace :api do
         }
       )
     end
-    resources :patients, only: %i(show index), controller: "patients/patients" do
-      resources :prescriptions, controller: "medications/prescriptions", only: [:index]
-      namespace :hd do
-        resource :current_profile,
-                 only: :show,
-                 path: "/profiles/current",
-                 controller: "current_profile"
-      end
-    end
   end
 end

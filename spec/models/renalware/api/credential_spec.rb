@@ -34,7 +34,7 @@ describe Renalware::API::Credential do
       issued = described_class.issue!(
         user: create(:user),
         name: "Mirth",
-        scopes: [described_class::PATIENTS_READ]
+        scopes: [described_class::MIRTH_STATISTICS_WRITE]
       )
 
       expect(described_class.authenticate(issued.token)).to eq(issued.credential)
@@ -44,7 +44,7 @@ describe Renalware::API::Credential do
       issued = described_class.issue!(
         user: create(:user),
         name: "Mirth",
-        scopes: [described_class::PATIENTS_READ]
+        scopes: [described_class::MIRTH_STATISTICS_WRITE]
       )
       issued.credential.update!(enabled: false)
 
@@ -55,7 +55,7 @@ describe Renalware::API::Credential do
       issued = described_class.issue!(
         user: create(:user),
         name: "Mirth",
-        scopes: [described_class::PATIENTS_READ],
+        scopes: [described_class::MIRTH_STATISTICS_WRITE],
         expires_at: 1.minute.ago
       )
 
@@ -65,10 +65,10 @@ describe Renalware::API::Credential do
 
   describe "#permits?" do
     it "only permits an assigned scope" do
-      credential = described_class.new(scopes: [described_class::PATIENTS_READ])
+      credential = described_class.new(scopes: [described_class::MIRTH_STATISTICS_WRITE])
 
-      expect(credential).to be_permits(described_class::PATIENTS_READ)
-      expect(credential).not_to be_permits(described_class::MEDICATIONS_READ)
+      expect(credential).to be_permits(described_class::MIRTH_STATISTICS_WRITE)
+      expect(credential).not_to be_permits(described_class::OUTGOING_DOCUMENTS_READ)
     end
   end
 end
