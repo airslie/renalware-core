@@ -22,6 +22,16 @@ This project adheres to Semantic Versioning.
   - Test carefully before scheduling locally: review the selected patient list, resulting modality history, dates used for transfer out and audit/API logs.
 
 ### Changed
+- Stats from Mirth (number of messages queued, sent, errored etc) are now 'pushed' into a Renalware JSON API from a custom Mirth channel,
+  rather then Renalware 'pulling' the stats from the Mirth API. This is both to tighten up security, and to remove
+  the 'fetch stats' responsibility from Renalware, where it does not really belong. #6112
+- Allow opt-in to a more secure Mirth->Renalware API 'scoped bearer authentication' mechanism.
+  Backwards compatible so we can migrate calls incrementally. Will mainly affect outgoing documents polling and sending in Mirth #6111
+- Upgrade slim-select to version 4.x - #6108
+  - This is the javascript library for 'smart' or 'searchable' dropdown lists.
+  - Test in particular Add Prescription, Add Problem, Send Message
+- Improve handling of failed outgoing document delivery - #6098
+  - It can now report error information if document cannot be delivered to the TIE
 - Outpatient and HD prescription printing has been separated more clearly #6033 #6034 #6037
   - Fixed-dose outpatient prescriptions now terminate after the configured number of administered doses, and prescription PDFs split current medication, HD and outpatient prescription sections more explicitly.
   - Test outpatient prescription administration, fixed-dose completion, prescription list filtering, current medication PDFs, HD prescription PDFs, outpatient prescription PDFs and letter medication sections.
@@ -44,6 +54,11 @@ This project adheres to Semantic Versioning.
   - Regression test dashboard widgets, report pages and any pages with tile/card-style layouts at common desktop and smaller screen sizes.
 
 ### Fixed
+- Handle per-patient UKRDC XML export failures - #6110
+  - Wrap individual UKRDC patient XML generation so an exception for one patient is reported and logged without aborting the whole batch.
+- Fix internal message recipient activity warning - #6109
+  - Use current_sign_in_at instead of last_sign_in_at when determining whether an internal message recipient has never
+    signed in or has been inactive long enough to show a warning.
 - Letter batch printing no longer creates a blank batch PDF when no selected letters have printable recipients #6083
   - Test batch printing from filtered letter lists, including letters with no recipients or no printable recipients.
 - Letter section comparison now handles empty letter snapshots #6091
