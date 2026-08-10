@@ -10,12 +10,14 @@ gem "sprockets-rails"
 # opentelemetry is enabled with an ENV var.
 group :opentelemetry do
   gem "opentelemetry-exporter-otlp"
+  gem "opentelemetry-exporter-otlp-metrics", "~> 0.10.0"
   gem "opentelemetry-instrumentation-active_job"
   gem "opentelemetry-instrumentation-faraday"
   gem "opentelemetry-instrumentation-net_http"
   gem "opentelemetry-instrumentation-pg"
   gem "opentelemetry-instrumentation-rack"
   gem "opentelemetry-instrumentation-rails"
+  gem "opentelemetry-metrics-sdk", "~> 0.16.0"
   gem "opentelemetry-sdk"
 end
 

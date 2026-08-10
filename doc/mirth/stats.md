@@ -114,8 +114,9 @@ Prometheus and Grafana should be treated as presentation and alerting infrastruc
 requirement for collecting the first statistics report. The current database-backed receiver lets
 us add them later without changing the Mirth channel.
 
-The receiver could expose a Prometheus-compatible `/metrics` endpoint containing the latest value
-for each Mirth instance and channel. Useful metrics include:
+When OpenTelemetry is enabled, the Renalware receiver emits OTLP metrics for each accepted Mirth
+statistics report. These can be collected by the Azure OpenTelemetry sidecar and forwarded to
+Application Insights/Azure Monitor for dashboards and alert rules. The emitted metrics are:
 
 ```text
 mirth_channel_queued
@@ -127,22 +128,19 @@ mirth_stats_last_report_timestamp_seconds
 mirth_channel_state
 ```
 
-Labels should be limited to stable, bounded identifiers such as `site_id`, `instance_id`,
-`channel_id`, `channel_name`, and a small set of channel states. Never use `report_id`, timestamps,
-errors, or other unbounded values as labels. No patient identifiers should appear in metric names,
-labels, dashboards, or logs.
+Attributes are limited to stable, bounded identifiers: `site_id`, `instance_id`, `server_id`,
+`channel_id`, and `channel_name`. Never use `report_id`, timestamps, errors, or other unbounded
+values as metric attributes. No patient identifiers should appear in metric names, attributes,
+dashboards, or logs.
 
 Received, sent, error, and filtered values are cumulative counters and may reset when a channel is
-reset, redeployed, or recreated. Queue depth is a gauge. Prometheus queries and alerts must account
-for counter resets and should use changes over a time window rather than treating cumulative totals
-as recent activity.
+reset, redeployed, or recreated. Queue depth is a gauge. `mirth_channel_state` is `1` when the
+channel state is `Started` and `0` otherwise. Alert queries must account for counter resets and
+should use changes over a time window rather than treating cumulative totals as recent activity.
 
-Grafana can then provide a cross-application dashboard and alerting plane. In Azure, that dashboard
-could use a Prometheus-compatible data source or Azure Monitor/Application Insights, depending on
-the platform already operated at a site. Because the Rails applications already use OpenTelemetry,
-the neutral receiver could alternatively emit OpenTelemetry metrics to the existing Azure Monitor
-pipeline. This is an implementation choice for the observability layer; Mirth's JSON contract does
-not need to change.
+Azure dashboards can then use the Application Insights/Azure Monitor custom metrics. A
+Prometheus-compatible `/metrics` endpoint remains a possible future addition for sites that operate
+Prometheus/Grafana, but Mirth's JSON contract does not need to change.
 
 Renalware and App X may still show a compact, read-only operational summary, such as current queue
 depth, last report time, and overall status. Alert rules, acknowledgement, notification routing, and

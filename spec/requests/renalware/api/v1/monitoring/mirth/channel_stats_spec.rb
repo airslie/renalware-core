@@ -80,6 +80,8 @@ describe "Mirth channel statistics API" do
   end
 
   it "treats a repeated report id as an idempotent retry" do
+    allow(Renalware::Monitoring::Mirth::Metrics).to receive(:record_report)
+
     post api_v1_monitoring_mirth_channel_stats_path, params: payload, headers:, as: :json
     post api_v1_monitoring_mirth_channel_stats_path, params: payload, headers:, as: :json
 
@@ -87,6 +89,7 @@ describe "Mirth channel statistics API" do
     expect(response.parsed_body).to include("status" => "duplicate")
     expect(Renalware::Monitoring::Mirth::StatsReport.count).to eq(1)
     expect(Renalware::Monitoring::Mirth::ChannelStats.count).to eq(2)
+    expect(Renalware::Monitoring::Mirth::Metrics).to have_received(:record_report).once
   end
 
   it "rejects a credential without the statistics-write scope" do
