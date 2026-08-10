@@ -29,8 +29,6 @@ Supported scopes are:
 | `outgoing_documents:read` | List and retrieve queued outgoing documents |
 | `outgoing_documents:write` | Report the outcome of an outgoing document |
 | `mirth_statistics:write` | Submit Mirth channel statistics reports |
-| `patients:read` | Read patient API resources |
-| `medications:read` | Read patient prescriptions |
 | `hd_sessions:write` | Create or update HD sessions |
 
 Give each integration only the scopes it needs. Prefer separate credentials for different sites,

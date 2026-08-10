@@ -92,8 +92,8 @@ describe "Mirth channel statistics API" do
   it "rejects a credential without the statistics-write scope" do
     other_credential = Renalware::API::Credential.issue!(
       user: api_user,
-      name: "Patient reader",
-      scopes: [Renalware::API::Credential::PATIENTS_READ]
+      name: "Outgoing documents reader",
+      scopes: [Renalware::API::Credential::OUTGOING_DOCUMENTS_READ]
     )
 
     post(
