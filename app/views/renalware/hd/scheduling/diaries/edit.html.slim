@@ -2,10 +2,10 @@
   = render "page_actions", unit: unit, diary: diary
 
 = within_admin_layout(title: diary,
-                      breadcrumbs: [ \
+                      breadcrumbs: [\
                         breadcrumb_for(unit.name, hospitals.edit_unit_path(unit)),
                         breadcrumb_for("HD Diaries", hd_scheduling_unit_diaries_path(unit)) \
-                      ]) do
+]) do
 
   .diary__navigation
     = link_to hd_scheduling_unit_edit_diary_path(**diary.week.previous.to_h), class: "button secondary" do
@@ -24,10 +24,10 @@
         - diary.station_locations.each do |location|
           li(style="background-color: #{location.colour}")= location.name
 
-  .diary(data={"weekly-diary-id" => diary.id,
-               "weekly-diary-slots-path" => hd_scheduling_diary_slots_path(diary_id: diary.id),
-               "master-diary-id" => diary.master_diary.id,
-               "master-diary-slots-path" => hd_scheduling_diary_slots_path(diary.master_diary)})
+  .diary(data={ "weekly-diary-id" => diary.id,
+                "weekly-diary-slots-path" => hd_scheduling_diary_slots_path(diary_id: diary.id),
+                "master-diary-id" => diary.master_diary.id,
+                "master-diary-slots-path" => hd_scheduling_diary_slots_path(diary.master_diary) })
 
     .diary__grid
 

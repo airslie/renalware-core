@@ -22,6 +22,6 @@
     = article_tag "Admin" do
       = definition_list_for(person, size: :large) do |list|
         = list.definition(:created_by)
-        = list.definition(:created_at){ |date| l(date) }
+        = list.definition(:created_at) { |date| l(date) }
         = list.definition(:updated_by)
-        = list.definition(:updated_at){ |date| l(date) }
+        = list.definition(:updated_at) { |date| l(date) }

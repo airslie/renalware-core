@@ -8,7 +8,7 @@
     h5 UKRDC
     .border.rounded.px-4.py-2.mb-2
       = f.association :ukrdc_assessment_outcome,
-        collection: Renalware::UKRDC::Assessments::Outcome.includes(:assessment_type).where(assessment_type: {code: "PPDassess" }).order(:code),
+        collection: Renalware::UKRDC::Assessments::Outcome.includes(:assessment_type).where(assessment_type: { code: "PPDassess" }).order(:code),
         label_method: :description,
         value_method: :code,
         include_blank: true

@@ -1,7 +1,7 @@
 = content_for(:tabs) do
   = render "renalware/research/studies/tabs", study: participation.study, active: :participations
 
-= within_admin_layout(\
+= within_admin_layout( \
   title: "Edit",
   breadcrumbs: research_study_participants_breadcrumb(participation.study)) do
 

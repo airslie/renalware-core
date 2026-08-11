@@ -1,7 +1,7 @@
 - named_filter = params[:named_filter]&.to_sym || :all
 
-= content_for(:tabs)    { render "tabs" }
-= content_for(:title)   { "Letters" }
+= content_for(:tabs) { render "tabs" }
+= content_for(:title) { "Letters" }
 = turbo_frame_tag("letter-lists-turbo-frame") do
   = render Renalware::SpinnerComponent.new do |spinner|
     = spinner.with_main_content do

@@ -30,7 +30,7 @@ ruby:
             selected: subtype&.id,
             wrapper: :horizontal_medium,
             input_html: { id: "event-type-layout-dropdown",
-                          data: { controller: "select", action: "change->select#refresh" }}
+                          data: { controller: "select", action: "change->select#refresh" } }
 
   - if subtype.blank?
     = help_panel do
