@@ -11,6 +11,18 @@ This project adheres to Semantic Versioning.
 
 ## 2.5.4
 ### Added
+- Add NHSBT wait list upload workflow #6067
+  - From the Tx Wait List page you can now upload a wait list CSV file downloaded from NHSBT
+  - The format of the CSV file loks like this, with a space between idney and pancreas entries
+```
+RECIP ID,NAME,DATE OF BIRTH,KIDNEY STATUS,KIDNEY STATUS DATE,PANCREAS STATUS,TISSUE TYPE,SENSI EVAL DATE,CRF,MATCH SCORE,MATCH POINTS,KIDNEY WAITING TIME (days),PANCREAS WAITING TIME (days)
+1234,"SMITH, SAM",25/04/1977,ACTIVE - ROUTINE,12/01/2024,NOT REQUIRED,A2 B15 B75,25/07/2023,50,93,8,776,
+
+RECIP ID,NAME,DATE OF BIRTH,KIDNEY STATUS,KIDNEY STATUS DATE,PANCREAS STATUS,TISSUE TYPE,SENSI EVAL DATE,CRF,MATCH SCORE,MATCH POINTS,KIDNEY WAITING TIME (days),PANCREAS WAITING TIME (days)
+9999,"JONES, JOHN",26/04/1977,SUSPENDED,13/01/2024,NOT REQUIRED,A1 B8 B44,26/07/2023,20,88,7,100,20
+```
+- Emit OpenTelemetry metrics for Mirth channel stats - #6118
+  When Mirth posts channel stats into Renalware, Renalware now sends these to OTel so that can be displayed and alerted-upon in an Azure dashboard for example
 - Legacy clinical letters support #6040
   - Adds an optional legacy letters area so older imported letters can be viewed from the patient letters screen where this feature is enabled.
   - Test patient letter lists, filtering, opening legacy letters and permissions at sites using imported legacy letters.
@@ -26,7 +38,7 @@ This project adheres to Semantic Versioning.
   rather then Renalware 'pulling' the stats from the Mirth API. This is both to tighten up security, and to remove
   the 'fetch stats' responsibility from Renalware, where it does not really belong. #6112
 - Allow opt-in to a more secure Mirth->Renalware API 'scoped bearer authentication' mechanism.
-  Backwards compatible so we can migrate calls incrementally. Will mainly affect outgoing documents polling and sending in Mirth #6111
+  Backwards compatible so we can migrate calls incrementally. Will mainly affect outgoing documents polling/sending in Mirth #6111
 - Upgrade slim-select to version 4.x - #6108
   - This is the javascript library for 'smart' or 'searchable' dropdown lists.
   - Test in particular Add Prescription, Add Problem, Send Message
@@ -54,6 +66,8 @@ This project adheres to Semantic Versioning.
   - Regression test dashboard widgets, report pages and any pages with tile/card-style layouts at common desktop and smaller screen sizes.
 
 ### Fixed
+- Make top nav uncollapse correctly when window enlarged - #6119
+  - if the window is resized from mobile to desktop while the menu is open, it now reverts to desktop style when breakpoint is reached
 - Handle per-patient UKRDC XML export failures - #6110
   - Wrap individual UKRDC patient XML generation so an exception for one patient is reported and logged without aborting the whole batch.
 - Fix internal message recipient activity warning - #6109
