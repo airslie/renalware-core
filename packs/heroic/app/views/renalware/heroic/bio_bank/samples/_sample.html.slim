@@ -6,8 +6,8 @@ tr
     = link_to_if_allowed policy(sample).destroy?,
                          "Delete",
                          heroic.bio_bank_patient_sample_path(patient, sample),
-                         data: { confirm: "Are you sure you want to delete this "\
-                                          "sample and all its aliquots?"},
+                         data: { confirm: "Are you sure you want to delete this " \
+                                          "sample and all its aliquots?" },
                          method: :delete
   td= sample.sample_type.name
   td= sample.isbt

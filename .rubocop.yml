@@ -13,6 +13,7 @@ plugins:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-rake
+  - rubocop-slim
   - rubocop-factory_bot
   - rubocop-rspec_rails
   - rubocop-capybara
@@ -210,6 +211,20 @@ Style/OpenStructUse:
   Enabled: true
 RSpec/IndexedLet:
   Enabled: false
+Style/RedundantLineContinuation:
+  Enabled: true
+  Exclude:
+    - 'app/views/**/*'
+    - 'app/components/**/*'
+    - 'view_components/**/*'
+    - 'packs/**/*'
+Style/HashSyntax:
+  Enabled: true
+  Exclude:
+    - 'app/views/**/*'
+    - 'app/components/**/*'
+    - 'view_components/**/*'
+    - 'packs/**/*'
 
 # HL7 messages contain strings which seem to be escaped and aren't so its safest to disable this
 # cop on all specs
@@ -254,12 +269,6 @@ Metrics/CollectionLiteralLength:
   Exclude:
     - 'db/migrate/**/*'
     - 'demo-old/db/migrate/**/*'
-
-Style/RedundantLineContinuation:
-    Enabled: true
-    Exclude:
-      - 'app/views/**/*'
-      - 'app/components/**/*'
 
 Style/RedundantStructKeywordInit:
   Enabled: true

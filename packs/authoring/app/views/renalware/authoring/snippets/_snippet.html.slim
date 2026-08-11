@@ -6,14 +6,14 @@ tbody
             controller: "clipboard snippet",
             "snippet-snippets-outlet": "#snippets-controller",
             "snippet-invocation-url-value": authoring.snippet_invocations_path(snippet),
-            "clipboard-success-content-value" => "<div class='flex items-center'>#{inline_icon('clipboard_tick', size: :md)}</div>"})
+            "clipboard-success-content-value" => "<div class='flex items-center'>#{inline_icon('clipboard_tick', size: :md)}</div>" })
     td= row_toggler
     td
       .flex.gap-4
         = link_to("#",
                   class: "button secondary compact",
                   title: t("btn.copy"),
-                  data: { action: "clipboard#copy", "clipboard-target" => "button"}) do
+                  data: { action: "clipboard#copy", "clipboard-target" => "button" }) do
           .flex.items-center
             = inline_icon "clipboard", size: :md
 

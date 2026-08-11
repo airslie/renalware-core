@@ -15,13 +15,13 @@
             = f.search_field :name_or_code_cont, autofocus: true
           .small-2.columns
             = f.label "Default site"
-            = f.select :default_site_eq, [["Yes", true], ["No", false] ], include_blank: true
+            = f.select :default_site_eq, [["Yes", true], ["No", false]], include_blank: true
           .small-2.columns
             = f.label "Host site"
-            = f.select :host_site_eq, [["Yes", true], ["No", false] ], include_blank: true
+            = f.select :host_site_eq, [["Yes", true], ["No", false]], include_blank: true
           .small-2.columns.end
             = f.label "Transplant site"
-            = f.select :is_transplant_site_eq, [["Yes", true], ["No", false] ], include_blank: true
+            = f.select :is_transplant_site_eq, [["Yes", true], ["No", false]], include_blank: true
 
           .small-2.columns.actions.end
             .mt-px= filter_or_reset(form: f, reset_path: hospitals.centres_path)

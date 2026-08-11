@@ -30,7 +30,7 @@ div class="bg-gray-50 w-full overflow-y-auto"
         = simple_form_for(resource,
                           as: resource_name,
                           url: session_path(resource_name),
-                          html: { autocomplete: "off", style: "margin-top: 0;"}) do |f|
+                          html: { autocomplete: "off", style: "margin-top: 0;" }) do |f|
 
           = render "username", f: f
           = render "password", f: f
