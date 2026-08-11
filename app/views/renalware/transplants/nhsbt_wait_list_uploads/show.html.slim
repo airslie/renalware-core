@@ -1,0 +1,31 @@
+
+= within_admin_layout(title: upload.previewing? ? "NHSBT Wait List Preview" : "NHSBT Wait List Upload Results",
+                      breadcrumbs: breadcrumb_for("Transplant Wait List Registrations",
+                                                  transplants_wait_list_path(named_filter: "active"))) do
+  = render "step_indicator", current_step: upload.previewing? ? :preview : :review
+
+  - if upload.imported?
+    .alert-box.success.radius
+      | NHSBT Wait List upload was imported successfully.
+
+
+  dl.dl-horizontal.pt-4
+    dt Filename
+    dd= upload.filename
+    dt Matched patients
+    dd= upload.matched_count
+    dt Unmatched patients
+    dd= upload.unmatched_count
+    - if upload.imported?
+      dt Imported patients
+      dd= upload.imported_count
+
+  - if upload.previewing?
+    .mt-4= button_to "Import",
+                import_transplants_nhsbt_wait_list_upload_path(upload),
+                method: :patch,
+                class: "btn btn-primary"
+
+  .pt-4= render "table", upload: upload, rows: rows
+
+  == pagy.series_nav if pagy.pages > 1

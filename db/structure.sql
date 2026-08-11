@@ -16828,6 +16828,45 @@ CREATE VIEW renalware.transplant_mdm_patients AS
 
 
 --
+-- Name: transplant_nhsbt_wait_list_uploads; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.transplant_nhsbt_wait_list_uploads (
+    id bigint NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    filename character varying NOT NULL,
+    status integer DEFAULT 0 NOT NULL,
+    matched_count integer DEFAULT 0 NOT NULL,
+    unmatched_count integer DEFAULT 0 NOT NULL,
+    imported_count integer DEFAULT 0 NOT NULL,
+    rows jsonb DEFAULT '[]'::jsonb NOT NULL,
+    imported_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: transplant_nhsbt_wait_list_uploads_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.transplant_nhsbt_wait_list_uploads_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplant_nhsbt_wait_list_uploads_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.transplant_nhsbt_wait_list_uploads_id_seq OWNED BY renalware.transplant_nhsbt_wait_list_uploads.id;
+
+
+--
 -- Name: transplant_recipient_followups; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -20655,6 +20694,13 @@ ALTER TABLE ONLY renalware.transplant_investigation_types ALTER COLUMN id SET DE
 
 
 --
+-- Name: transplant_nhsbt_wait_list_uploads id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_nhsbt_wait_list_uploads ALTER COLUMN id SET DEFAULT nextval('renalware.transplant_nhsbt_wait_list_uploads_id_seq'::regclass);
+
+
+--
 -- Name: transplant_recipient_followups id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -23221,6 +23267,14 @@ ALTER TABLE ONLY renalware.transplant_induction_agents
 
 ALTER TABLE ONLY renalware.transplant_investigation_types
     ADD CONSTRAINT transplant_investigation_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_nhsbt_wait_list_uploads transplant_nhsbt_wait_list_uploads_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_nhsbt_wait_list_uploads
+    ADD CONSTRAINT transplant_nhsbt_wait_list_uploads_pkey PRIMARY KEY (id);
 
 
 --
@@ -29968,6 +30022,20 @@ CREATE INDEX index_transplant_investigation_types_on_deleted_at ON renalware.tra
 
 
 --
+-- Name: index_transplant_nhsbt_wait_list_uploads_on_created_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_transplant_nhsbt_wait_list_uploads_on_created_by_id ON renalware.transplant_nhsbt_wait_list_uploads USING btree (created_by_id);
+
+
+--
+-- Name: index_transplant_nhsbt_wait_list_uploads_on_updated_by_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_transplant_nhsbt_wait_list_uploads_on_updated_by_id ON renalware.transplant_nhsbt_wait_list_uploads USING btree (updated_by_id);
+
+
+--
 -- Name: index_transplant_recipient_followups_on_document; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -32002,6 +32070,14 @@ ALTER TABLE ONLY renalware.monitoring_mirth_stats_reports
 
 
 --
+-- Name: transplant_nhsbt_wait_list_uploads fk_rails_4479ae4b28; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_nhsbt_wait_list_uploads
+    ADD CONSTRAINT fk_rails_4479ae4b28 FOREIGN KEY (updated_by_id) REFERENCES renalware.users(id);
+
+
+--
 -- Name: pd_pet_results fk_rails_44d212ba62; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -32295,6 +32371,14 @@ ALTER TABLE ONLY renalware.transplant_rejection_episodes
 
 ALTER TABLE ONLY renalware.pathology_code_group_memberships
     ADD CONSTRAINT fk_rails_5fd19b0f12 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
+
+
+--
+-- Name: transplant_nhsbt_wait_list_uploads fk_rails_5fe81946c2; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_nhsbt_wait_list_uploads
+    ADD CONSTRAINT fk_rails_5fe81946c2 FOREIGN KEY (created_by_id) REFERENCES renalware.users(id);
 
 
 --
@@ -34949,6 +35033,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260809120001'),
 ('20260809120000'),
 ('20260808120000'),
+('20260716120000'),
 ('20260706120000'),
 ('20260704120000'),
 ('20260703100000'),

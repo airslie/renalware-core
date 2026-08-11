@@ -1,0 +1,28 @@
+= within_admin_layout(title: "NHSBT Wait List Upload",
+                      breadcrumbs: breadcrumb_for("Transplant Wait List Registrations",
+                                                  transplants_wait_list_path(named_filter: "active"))) do
+  = render "step_indicator", current_step: :upload
+
+  = help_panel do
+    | Upload the NHSBT Wait List Status CSV. The file must be a CSV and less than 10MB.
+
+  - if last_imported_upload
+    = help_panel do
+      | The last NHSBT Wait List upload was imported on
+      =< l(last_imported_upload.imported_at)
+      |  and updated
+      =< pluralize(last_imported_upload.imported_count, "patient")
+      | .
+
+  = render "renalware/shared/errors", model: form
+
+  = simple_form_for(form,
+                    as: :transplants_nhsbt_wait_list_upload_form,
+                    url: transplants_nhsbt_wait_list_uploads_path) do |f|
+    .pt-4
+      = f.input :file,
+              as: :file,
+              label: "Choose the NHSBT Wait List Status CSV",
+              input_html: { accept: ".csv,text/csv" }
+
+    .mt-4= f.button :submit, "Preview", class: "btn btn-primary"
