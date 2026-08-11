@@ -7,5 +7,7 @@
   = render Renalware::Users::NameAndRolesComponent.new(current_user: current_user)
   = render Renalware::Users::LastSigninComponent.new(current_user: current_user)
 
-= within_admin_layout(title: composed_dashboard_title(current_user.full_name), page_title: t(".title")) do
+= within_admin_layout(title: composed_dashboard_title(current_user.full_name),
+                      page_title: t(".title"),
+                      title_container_class: "flex-1") do
   = render "content", dashboard: dashboard

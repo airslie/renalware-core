@@ -4,7 +4,16 @@ export default class extends Controller {
   static targets = ["menu", "toggle", "disclosure", "panel"]
 
   connect() {
+    this.desktopMediaQuery = window.matchMedia("(min-width: 1024px)")
+    this.closeMenuWhenDesktop = event => {
+      if (event.matches) this.closeMenu()
+    }
+    this.desktopMediaQuery.addEventListener("change", this.closeMenuWhenDesktop)
     this.closeAllDisclosures()
+  }
+
+  disconnect() {
+    this.desktopMediaQuery.removeEventListener("change", this.closeMenuWhenDesktop)
   }
 
   toggleMenu() {

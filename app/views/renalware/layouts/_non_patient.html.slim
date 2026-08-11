@@ -6,14 +6,14 @@
       .row
         .pl-3
           ul.flex.flex-row.ml-0.gap-6
-            li.flex.items-start.gap-2.pb-2
+            li.flex.items-start.gap-2.pb-2(class=local_assigns[:title_container_class])
               h1 style="margin-top: 0;"
                 = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
                                       title: local_assigns[:title])
               = yield(:links_to_other_apps) if content_for?(:links_to_other_apps)
 
             - if content_for?(:user_info)
-              li.flex.flex-col.items-end
+              li.flex.flex-col.items-end.pr-3
                 = yield(:user_info)
             - if content_for?(:actions)
               li.page-actions.flex-shrink-0
