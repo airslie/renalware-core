@@ -1,4 +1,4 @@
-= within_patient_layout(title: "Messages", current_patient: patient) do
+= within_patient_layout(title: "Messages", current_patient: patient.becomes(Renalware::Patient)) do
 
   table.toggleable.easy-read data-controller="toggle"
     thead
