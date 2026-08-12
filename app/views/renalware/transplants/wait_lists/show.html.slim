@@ -1,6 +1,6 @@
 
 = content_for(:actions) do
-  - if policy(Renalware::Transplants::NHSBTWaitListUpload).new?
+  - if Renalware.config.display_nhsbt_wait_list_upload && policy(Renalware::Transplants::NHSBTWaitListUpload).new?
     = link_to "Upload NHSBT Wait List",
               new_transplants_nhsbt_wait_list_upload_path,
               class: "btn btn-primary"
