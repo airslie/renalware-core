@@ -142,7 +142,7 @@ module Renalware
       end
 
       describe "#current_outpatient" do
-        it "comprises current prescriptions to give as outpatient only" do
+        it "comprises current prescriptions to give in Outpatients only" do
           patient.prescriptions << terminated_prescription(terminated_on: Time.zone.today - 1.day)
           current_prescription(administer_on_hd: false)
           current_outpatient_prescription = current_prescription(give_as_outpatient: true)

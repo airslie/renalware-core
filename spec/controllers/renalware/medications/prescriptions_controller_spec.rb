@@ -18,7 +18,7 @@ module Renalware
 
           allow(controller).to receive(:params).and_return(params)
 
-          expect(controller.send(:pdf_title)).to eq("Medications to be given as Outpatient")
+          expect(controller.send(:pdf_title)).to eq("Medications to be given in Outpatients")
           expect(params[:q][:give_as_outpatient_eq]).to be(true)
         end
 

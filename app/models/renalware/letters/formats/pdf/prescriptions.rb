@@ -37,7 +37,7 @@ module Renalware
           end
 
           def drugs_as_outpatient
-            title "Drugs to give as Outpatient"
+            title "Drugs to give in Outpatients"
             current_outpatient_prescriptions.each { |pres| row(pres) }
           end
 

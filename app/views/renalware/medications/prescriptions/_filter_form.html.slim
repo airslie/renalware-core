@@ -30,7 +30,7 @@
             = f.input :give_as_outpatient_eq,
                       collection: [["Yes", true], ["No", false]],
                       include_blank: "Any",
-                      label: "Give as outpatient"
+                      label: "Give in Outpatients"
 
         .flex-shrink-0.pt-4
           .mb-px= filter_or_reset(form: f, reset_path: patient_prescriptions_path(presenter.patient))

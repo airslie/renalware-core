@@ -28,13 +28,13 @@ describe Renalware::Medications::AdministerOutpatientPrescriptionDropdownCompone
     expect(page).to have_no_text("Record Outpatient Drugs")
   end
 
-  context "when the patient has no drugs to be given as an outpatient" do
+  context "when the patient has no drugs to be given in Outpatients" do
     it "indicates no drugs are available" do
       patient = Renalware::Patient.new
 
       render_inline(described_class.new(patient:))
 
-      expect(page).to have_text("Patient has no drugs to be given as an outpatient")
+      expect(page).to have_text("Patient has no drugs to be given in Outpatients")
     end
   end
 

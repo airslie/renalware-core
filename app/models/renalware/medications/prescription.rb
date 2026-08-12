@@ -215,7 +215,7 @@ module Renalware
 
       def fixed_number_of_doses_requires_administration_context_message
         if Renalware.config.outpatient_prescription_administration_enabled
-          "can only be set when Give on HD/Give as outpatient is selected"
+          "can only be set when Give on HD/Give in Outpatients is selected"
         else
           "can only be set when Give on HD is selected"
         end

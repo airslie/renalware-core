@@ -24,15 +24,15 @@ module Renalware
 
           expect(text).to include("Current Medications")
           expect(text).to include("Drugs to give on Haemodialysis")
-          expect(text).to include("Drugs to give as Outpatient")
+          expect(text).to include("Drugs to give in Outpatients")
           expect(text).to match(
             /Current Medications.*::current drug::.*Drugs to give on Haemodialysis/m
           )
           expect(text).to match(
-            /Drugs to give on Haemodialysis.*::hd drug::.*Drugs to give as Outpatient/m
+            /Drugs to give on Haemodialysis.*::hd drug::.*Drugs to give in Outpatients/m
           )
           expect(text).to match(
-            /Drugs to give as Outpatient.*::outpatient drug::.*Recently Stopped Medications/m
+            /Drugs to give in Outpatients.*::outpatient drug::.*Recently Stopped Medications/m
           )
         end
 

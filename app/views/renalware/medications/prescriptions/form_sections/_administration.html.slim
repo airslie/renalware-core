@@ -1,4 +1,4 @@
-- administration_options = [["Give normally", "normal"], ["Give on HD", "hd"], ["Give as outpatient", "outpatient"]]
+- administration_options = [["Give normally", "normal"], ["Give on HD", "hd"], ["Give in Outpatients", "outpatient"]]
 - unless Renalware.config.outpatient_prescription_administration_enabled
   - administration_options = administration_options.reject { |_label, value| value == "outpatient" }
 - hd_allowed = policy(f.object).new_hd_prescription?

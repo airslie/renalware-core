@@ -110,7 +110,7 @@ module Renalware
           "Medications to be given on HD"
         when "outpatient"
           params[:q][:give_as_outpatient_eq] = true
-          "Medications to be given as Outpatient"
+          "Medications to be given in Outpatients"
         else
           "Medication List"
         end
