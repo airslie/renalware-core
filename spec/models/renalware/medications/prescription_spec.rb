@@ -81,6 +81,24 @@ module Renalware
           )
         end
 
+        it "does not mention outpatient administration in the fixed dose validation " \
+           "when disabled" do
+          allow(Renalware.config)
+            .to receive(:outpatient_prescription_administration_enabled)
+            .and_return(false)
+          prescription = build(
+            :prescription,
+            administer_on_hd: false,
+            give_as_outpatient: false,
+            fixed_number_of_doses: 2
+          )
+
+          expect(prescription).not_to be_valid
+          expect(prescription.errors[:fixed_number_of_doses]).to include(
+            "can only be set when Give on HD is selected"
+          )
+        end
+
         it "normalizes legacy stat input to one fixed dose" do
           prescription = build(
             :prescription,
@@ -278,6 +296,17 @@ module Renalware
           expect(prescription.errors[:base]).to include(
             "Prescription cannot be both HD and outpatient administered"
           )
+        end
+
+        it "does not allow outpatient prescriptions when outpatient administration is disabled" do
+          allow(Renalware.config)
+            .to receive(:outpatient_prescription_administration_enabled)
+            .and_return(false)
+          prescription = build(:prescription, give_as_outpatient: true)
+
+          prescription.validate
+
+          expect(prescription.errors[:give_as_outpatient]).to include("is disabled")
         end
       end
 

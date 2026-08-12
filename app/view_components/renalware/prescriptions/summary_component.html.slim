@@ -7,9 +7,10 @@
          prescriptions: prescriptions.current_hd,
          recently_changed: prescriptions.recently_changed
 
-  = render "renalware/medications/prescriptions/current_outpatient",
-         prescriptions: prescriptions.current_outpatient,
-         recently_changed: prescriptions.recently_changed
+  - if Renalware.config.outpatient_prescription_administration_enabled
+    = render "renalware/medications/prescriptions/current_outpatient",
+           prescriptions: prescriptions.current_outpatient,
+           recently_changed: prescriptions.recently_changed
 
   = render "renalware/medications/prescriptions/recently_stopped",
          prescriptions: prescriptions.recently_stopped

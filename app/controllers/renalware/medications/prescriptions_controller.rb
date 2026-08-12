@@ -118,6 +118,8 @@ module Renalware
 
       def print_scope
         return "hd" if params[:hd_only] == "true"
+        return if params[:print_scope] == "outpatient" &&
+                  !Renalware.config.outpatient_prescription_administration_enabled
 
         params[:print_scope]
       end

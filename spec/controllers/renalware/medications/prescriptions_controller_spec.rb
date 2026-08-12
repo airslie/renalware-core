@@ -22,6 +22,18 @@ module Renalware
           expect(params[:q][:give_as_outpatient_eq]).to be(true)
         end
 
+        it "falls back to the standard medication list when outpatient admin is disabled" do
+          params = ActionController::Parameters.new(print_scope: "outpatient")
+
+          allow(Renalware.config)
+            .to receive(:outpatient_prescription_administration_enabled)
+            .and_return(false)
+          allow(controller).to receive(:params).and_return(params)
+
+          expect(controller.send(:pdf_title)).to eq("Medication List")
+          expect(params[:q]).to be_empty
+        end
+
         it "retains the legacy hd_only parameter" do
           params = ActionController::Parameters.new(hd_only: "true")
 
@@ -56,6 +68,17 @@ module Renalware
 
           expect(controller.send(:render_current_medications_section?)).to be(false)
         end
+
+        it "renders the section for outpatient drugs when outpatient administration is disabled" do
+          params = ActionController::Parameters.new(print_scope: "outpatient")
+
+          allow(Renalware.config)
+            .to receive(:outpatient_prescription_administration_enabled)
+            .and_return(false)
+          allow(controller).to receive(:params).and_return(params)
+
+          expect(controller.send(:render_current_medications_section?)).to be(true)
+        end
       end
 
       describe "#render_empty_hd_prescriptions_section?" do
@@ -83,6 +106,17 @@ module Renalware
           allow(controller).to receive(:params).and_return(params)
 
           expect(controller.send(:render_empty_outpatient_prescriptions_section?)).to be(true)
+        end
+
+        it "does not render an empty outpatient section when outpatient admin is disabled" do
+          params = ActionController::Parameters.new(print_scope: "outpatient")
+
+          allow(Renalware.config)
+            .to receive(:outpatient_prescription_administration_enabled)
+            .and_return(false)
+          allow(controller).to receive(:params).and_return(params)
+
+          expect(controller.send(:render_empty_outpatient_prescriptions_section?)).to be(false)
         end
 
         it "does not render an empty outpatient prescriptions section for all drugs" do

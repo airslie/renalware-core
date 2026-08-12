@@ -21,6 +21,7 @@ describe Renalware::Configuration do
       MESH_CARE_SETTING_DESCRIPTION
       LETTERS_EXTERNAL_DOCUMENT_TYPE_CODE
       LETTERS_EXTERNAL_DOCUMENT_TYPE_DESCRIPTION
+      OUTPATIENT_PRESCRIPTION_ADMINISTRATION_ENABLED
     )
     original_values = env_keys_that_override_defaults.index_with { |key| ENV.fetch(key, nil) }
     env_keys_that_override_defaults.each { |key| ENV.delete(key) }
@@ -82,9 +83,16 @@ describe Renalware::Configuration do
         enforce_user_prescriber_flag: false,
         letters_external_document_type_code: nil,
         letters_external_document_type_description: nil,
+        outpatient_prescription_administration_enabled: true,
         mesh_care_setting_snomed_code: "788003006",
         mesh_care_setting_description: "Nephrology service"
       )
+    end
+
+    it "can disable outpatient prescription administration from ENV" do
+      ENV["OUTPATIENT_PRESCRIPTION_ADMINISTRATION_ENABLED"] = "false"
+
+      expect(config.outpatient_prescription_administration_enabled).to be(false)
     end
   end
 

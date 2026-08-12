@@ -123,6 +123,18 @@ module Renalware::Prescriptions
         expect(page).to have_text("Drugs to give as Outpatient")
         expect(outpatient_medications).to have_text("::outpatient drug::")
       end
+
+      it "hides the outpatient prescriptions section when outpatient administration is disabled" do
+        allow(Renalware.config)
+          .to receive(:outpatient_prescription_administration_enabled)
+          .and_return(false)
+        current_prescription(drug: create(:drug, name: "::current drug::"))
+
+        render_inline(component)
+
+        expect(page).to have_text("Current Medications")
+        expect(page).to have_no_text("Drugs to give as Outpatient")
+      end
     end
   end
 end

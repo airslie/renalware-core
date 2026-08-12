@@ -1,7 +1,9 @@
 - if prescriptions.any?
   - display_termination_date = !current_scope || local_assigns.fetch(:display_termination_date, false)
+  - outpatient_prescription_administration_enabled = Renalware.config.outpatient_prescription_administration_enabled
   - quick_preview_colspan = 12
   - quick_preview_colspan += 5 if current_scope
+  - quick_preview_colspan -= 1 if current_scope && !outpatient_prescription_administration_enabled
   - quick_preview_colspan += 1 if display_termination_date
   .row
     .large-12.columns
@@ -21,7 +23,8 @@
             th.col-width-tiny Route
             - if current_scope
               th.col-width-tinyish Give on HD
-              th.col-width-tinyish Give as outpatient
+              - if outpatient_prescription_administration_enabled
+                th.col-width-tinyish Give as outpatient
               th.col-width-tiny Fixed Doses
             th.col-width-tiny Provider
             th.col-width-small Notes
@@ -52,7 +55,8 @@
               td= prescription.route_code
               - if current_scope
                 td= inline_check_icon(prescription.administer_on_hd)
-                td= inline_check_icon(prescription.give_as_outpatient)
+                - if outpatient_prescription_administration_enabled
+                  td= inline_check_icon(prescription.give_as_outpatient)
                 td
                   - if prescription.fixed_dose_progress.present?
                     = prescription.fixed_dose_progress

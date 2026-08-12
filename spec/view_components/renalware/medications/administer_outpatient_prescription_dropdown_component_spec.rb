@@ -16,6 +16,18 @@ describe Renalware::Medications::AdministerOutpatientPrescriptionDropdownCompone
     )
   end
 
+  it "renders nothing when outpatient administration is disabled" do
+    patient = Renalware::Patient.new
+
+    allow(Renalware.config)
+      .to receive(:outpatient_prescription_administration_enabled)
+      .and_return(false)
+
+    render_inline(described_class.new(patient:))
+
+    expect(page).to have_no_text("Record Outpatient Drugs")
+  end
+
   context "when the patient has no drugs to be given as an outpatient" do
     it "indicates no drugs are available" do
       patient = Renalware::Patient.new
