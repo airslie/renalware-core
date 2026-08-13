@@ -41,25 +41,28 @@
         = inline_icon :info, size: :lg
         span.pl-3 Help
 
-      markdown:
-        The list of patients to include in a mailshot it determined by the SQL View chosen above.
-        It is intended that a systems or database administrator create this view for you in the
-        renalware database. The view should have one column called 'patient_id' and return the ids
-        of all the patients you want to send this letter to.
 
-        You should ideally create the view in the hospital's
-        own postgres schema (eg 'renalware_kch' in the case of Kings College Hospital) in order to
-        indicate your view is hospital-specific.
+      p
+        | The list of patients to include in a mailshot is determined by the SQL View
+        | chosen above. It is intended that a systems or database administrator create
+        | this view for you in the renalware database.
 
-        **Note that in order for your view to appear in the dropdown above, its name must start
-        with `letter_mailshot_`**
+      p
+        | You should ideally create the view in the hospital's own postgres schema...
 
-        Here is a (somewhat pointless) example of a compatible SQL view definition:
+      p
+        strong
+          | Note that in order for your view to appear in the dropdown above, its name
+          | must start with
+          code letter_mailshot_
 
-        ```
-          CREATE OR REPLACE VIEW
-          renalware_kch.letter_mailshot_patients_where_surname_starts_with_r AS
-          SELECT id as patient_id
-          FROM patients
-          WHERE family_name like 'R%';
-        ```
+      p Here is a compatible SQL view definition:
+
+      pre
+        code
+          |
+            CREATE OR REPLACE VIEW
+            renalware_kch.letter_mailshot_patients_where_surname_starts_with_r AS
+            SELECT id as patient_id
+            FROM patients
+            WHERE family_name like 'R%';
