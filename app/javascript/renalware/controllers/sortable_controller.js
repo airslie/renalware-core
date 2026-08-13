@@ -88,7 +88,7 @@ export default class extends Controller {
     if (typeof ids === "string") {
       try {
         ids = JSON.parse(ids)
-      } catch (_error) {
+      } catch {
         return
       }
     }

@@ -77,7 +77,7 @@ export default class extends Controller {
   parsePotentialJson(valueOrJson) {
     try {
       return JSON.parse(valueOrJson)
-    } catch (error) {
+    } catch {
       return valueOrJson
     }
   }

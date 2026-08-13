@@ -96,6 +96,15 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Setup node and yarn with caching
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: "yarn"
+
+      - name: Install js packages with yarn
+        run: yarn install --frozen-lockfile
+
       - name: Install PostgreSQL 18 client
         run: |
           sudo install -d /usr/share/postgresql-common/pgdg
@@ -117,6 +126,9 @@ jobs:
 
       - name: Rubocop
         run: bundle exec rubocop
+
+      - name: ESLint
+        run: bin/yarn eslint app/javascript --max-warnings=0
 
       - name: Check translations
         run: |
