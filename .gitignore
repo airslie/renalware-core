@@ -73,7 +73,6 @@ config/master.key
 *.csr.cfg
 *id_rsa*
 *.keystore
-config/brakeman.ignore
 renalware.code-workspace
 .unused-env
 .claude/settings.local.json

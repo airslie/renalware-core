@@ -122,6 +122,10 @@ jobs:
 
       - name: Run security checks
         run: |
+          bundle exec brakeman --no-progress \
+            --ignore-config config/brakeman.ignore \
+            --ensure-ignore-notes \
+            --ensure-no-obsolete-ignore-entries
           bundle exec bundle audit --update
 
   tests:
