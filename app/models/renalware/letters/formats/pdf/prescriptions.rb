@@ -15,7 +15,7 @@ module Renalware
             bounding_box([x, y], width: width) do
               pad(4) { current_prescriptions }
               pad(4) { drugs_on_hd }
-              pad(4) { drugs_as_outpatient }
+              pad(4) { drugs_as_outpatient } if outpatient_prescription_administration_enabled?
               pad(4) { recently_stopped_prescriptions }
             end
           end
@@ -37,7 +37,7 @@ module Renalware
           end
 
           def drugs_as_outpatient
-            title "Drugs to give as Outpatient"
+            title "Drugs to give in Outpatients"
             current_outpatient_prescriptions.each { |pres| row(pres) }
           end
 
@@ -70,6 +70,10 @@ module Renalware
           end
 
           def presenter_class = Renalware::Medications::PrescriptionPresenter
+
+          def outpatient_prescription_administration_enabled?
+            Renalware.config.outpatient_prescription_administration_enabled
+          end
 
           def current_standard_prescriptions
             present(

@@ -61,7 +61,7 @@ describe "Prescriptions - create / edit / terminate", :js do
     choose("Give normally")
     expect(page).to have_select("Fixed number of doses")
     choose("GP")
-    choose("Give as outpatient")
+    choose("Give in Outpatients")
     expect(page).to have_checked_field("Hospital") # auto-selected
     choose("Give normally")
 

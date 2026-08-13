@@ -95,7 +95,7 @@ module Renalware::Prescriptions
     end
 
     describe "#current_outpatient" do
-      it "comprises current prescriptions to give as outpatient only" do
+      it "comprises current prescriptions to give in Outpatients only" do
         patient.prescriptions << terminated_prescription(terminated_on: Time.zone.today - 1.day)
         current_prescription(administer_on_hd: false)
         current_outpatient_prescription = current_prescription(give_as_outpatient: true)
@@ -120,8 +120,20 @@ module Renalware::Prescriptions
         expect(page).to have_text("Current Medications")
         expect(current_medications).to have_text("::current drug::")
         expect(current_medications).to have_no_text("::outpatient drug::")
-        expect(page).to have_text("Drugs to give as Outpatient")
+        expect(page).to have_text("Drugs to give in Outpatients")
         expect(outpatient_medications).to have_text("::outpatient drug::")
+      end
+
+      it "hides the outpatient prescriptions section when outpatient administration is disabled" do
+        allow(Renalware.config)
+          .to receive(:outpatient_prescription_administration_enabled)
+          .and_return(false)
+        current_prescription(drug: create(:drug, name: "::current drug::"))
+
+        render_inline(component)
+
+        expect(page).to have_text("Current Medications")
+        expect(page).to have_no_text("Drugs to give in Outpatients")
       end
     end
   end

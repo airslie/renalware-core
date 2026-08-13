@@ -6,16 +6,19 @@
                 class: "btn btn-primary btn-compact"
 
 
-    = render Renalware::Medications::AdministerOutpatientPrescriptionDropdownComponent.new(patient: presenter.patient)
+    - if Renalware.config.outpatient_prescription_administration_enabled
+      = render Renalware::Medications::AdministerOutpatientPrescriptionDropdownComponent.new(patient: presenter.patient)
 
-    = link_to "Outpatient Administrations...",
-              patient_medications_outpatient_prescription_administrations_path(presenter.patient),
-              class: "btn btn-secondary btn-compact"
+      = link_to "Outpatient Administrations...",
+                patient_medications_outpatient_prescription_administrations_path(presenter.patient),
+                class: "btn btn-secondary btn-compact"
 
     = render Renalware::DropdownButtonComponent.new(title: "Print", icon: :printer) do |dropdown|
-      - [{ print_scope: "all", title: "All Drugs" },
-         { print_scope: "hd", title: "HD Drugs" },
-         { print_scope: "outpatient", title: "Outpatient Drugs" }].each do |opts|
+      - print_options = [{ print_scope: "all", title: "All Drugs" },
+                         { print_scope: "hd", title: "HD Drugs" }]
+      - if Renalware.config.outpatient_prescription_administration_enabled
+        - print_options << { print_scope: "outpatient", title: "Outpatient Drugs" }
+      - print_options.each do |opts|
         - url = patient_prescriptions_path(presenter.patient, presenter.treatable, print_scope: opts[:print_scope], format: :pdf)
         - dropdown.with_item(title: opts[:title], url:)
       - dropdown.with_item(title: "Home Delivery Drugs",

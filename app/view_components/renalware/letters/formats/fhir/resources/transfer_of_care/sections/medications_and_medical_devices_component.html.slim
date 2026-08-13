@@ -35,11 +35,11 @@ table(width="100%")
             td= render "renalware/medications/prescriptions/prescription",
                       prescription: prescription
 
-- if prescriptions.current_outpatient.any?
+- if Renalware.config.outpatient_prescription_administration_enabled && prescriptions.current_outpatient.any?
   table(width="100%")
     thead
       tr
-        th(style="width:100%") Drugs to give as Outpatient
+        th(style="width:100%") Drugs to give in Outpatients
     tbody
       - prescriptions.current_outpatient.each do |prescription|
         tr

@@ -51,6 +51,7 @@ module Renalware
       validate :administration_context_is_mutually_exclusive
       validate :deprecated_dose_unit_is_not_populated
       validate :fixed_number_of_doses_requires_administration_context
+      validate :outpatient_prescription_administration_is_enabled
 
       before_validation :normalize_stat_to_fixed_number_of_doses
 
@@ -194,7 +195,7 @@ module Renalware
 
         errors.add(
           :fixed_number_of_doses,
-          "can only be set when Give on HD/Give as outpatient is selected"
+          fixed_number_of_doses_requires_administration_context_message
         )
       end
 
@@ -203,6 +204,21 @@ module Renalware
 
         self.fixed_number_of_doses ||= 1
         self.stat = false
+      end
+
+      def outpatient_prescription_administration_is_enabled
+        return unless give_as_outpatient?
+        return if Renalware.config.outpatient_prescription_administration_enabled
+
+        errors.add(:give_as_outpatient, "is disabled")
+      end
+
+      def fixed_number_of_doses_requires_administration_context_message
+        if Renalware.config.outpatient_prescription_administration_enabled
+          "can only be set when Give on HD/Give in Outpatients is selected"
+        else
+          "can only be set when Give on HD is selected"
+        end
       end
 
       def administration_context_is_mutually_exclusive

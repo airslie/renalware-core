@@ -45,12 +45,13 @@ html
                 recently_changed: presenter.recently_changed_prescriptions,
                 render_if_blank: local_assigns.fetch(:render_empty_hd_prescriptions_section, false)
 
-    section.prescriptions
-      - with_format(:html) do
-        = render "renalware/medications/prescriptions/current_outpatient",
-                prescriptions: presenter.current_outpatient_prescriptions,
-                recently_changed: presenter.recently_changed_prescriptions,
-                render_if_blank: local_assigns.fetch(:render_empty_outpatient_prescriptions_section, false)
+    - if Renalware.config.outpatient_prescription_administration_enabled
+      section.prescriptions
+        - with_format(:html) do
+          = render "renalware/medications/prescriptions/current_outpatient",
+                  prescriptions: presenter.current_outpatient_prescriptions,
+                  recently_changed: presenter.recently_changed_prescriptions,
+                  render_if_blank: local_assigns.fetch(:render_empty_outpatient_prescriptions_section, false)
 
     section.prescriptions
       - with_format(:html) do

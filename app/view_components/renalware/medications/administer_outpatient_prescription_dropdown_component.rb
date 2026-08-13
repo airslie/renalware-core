@@ -5,6 +5,10 @@ module Renalware
 
       pattr_initialize [:patient!]
 
+      def render?
+        Renalware.config.outpatient_prescription_administration_enabled
+      end
+
       def prescriptions_to_give_as_outpatient
         @prescriptions_to_give_as_outpatient ||= begin
           prescriptions = patient.prescriptions.includes(:drug).to_be_administered_as_outpatient

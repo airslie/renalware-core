@@ -110,7 +110,7 @@ module Renalware
           "Medications to be given on HD"
         when "outpatient"
           params[:q][:give_as_outpatient_eq] = true
-          "Medications to be given as Outpatient"
+          "Medications to be given in Outpatients"
         else
           "Medication List"
         end
@@ -118,6 +118,8 @@ module Renalware
 
       def print_scope
         return "hd" if params[:hd_only] == "true"
+        return if params[:print_scope] == "outpatient" &&
+                  !Renalware.config.outpatient_prescription_administration_enabled
 
         params[:print_scope]
       end

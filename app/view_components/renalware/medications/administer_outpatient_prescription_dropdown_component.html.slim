@@ -5,7 +5,7 @@
                                                 menu_id: "outpatient-prescription-options") do |dropdown|
   - if prescriptions_to_give_as_outpatient.empty?
     - dropdown.with_item enabled: false,
-                         title: "Patient has no drugs to be given as an outpatient",
+                         title: "Patient has no drugs to be given in Outpatients",
                          url: nil
   - else
     - prescriptions_to_give_as_outpatient.each do |prescription|

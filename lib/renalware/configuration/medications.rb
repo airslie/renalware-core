@@ -12,6 +12,12 @@ module Renalware
         end
 
         base.config_accessor(:medication_review_max_age_in_months) { 24 }
+
+        base.config_accessor(:outpatient_prescription_administration_enabled) do
+          ActiveModel::Type::Boolean.new.cast(
+            ENV.fetch("OUTPATIENT_PRESCRIPTION_ADMINISTRATION_ENABLED", "true")
+          )
+        end
       end
     end
   end

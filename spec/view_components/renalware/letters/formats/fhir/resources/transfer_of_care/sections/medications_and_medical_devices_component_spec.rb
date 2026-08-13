@@ -45,7 +45,7 @@ module Renalware::Letters::Formats::FHIR
         expect(page).to have_text("::drug name::")
         expect(page).to have_text("20 mg Oral daily GP")
         expect(page).to have_no_text("Drugs to give on Haemodialysis")
-        expect(page).to have_no_text("Drugs to give as Outpatient")
+        expect(page).to have_no_text("Drugs to give in Outpatients")
         expect(page).to have_text("Recently Stopped Medications")
         expect(page).to have_text("None")
       end
@@ -60,7 +60,7 @@ module Renalware::Letters::Formats::FHIR
         expect(page).to have_text("Drugs to give on Haemodialysis")
         expect(page).to have_text("::hd drug name::")
         expect(page).to have_text("20 mg Oral daily GP")
-        expect(page).to have_no_text("Drugs to give as Outpatient")
+        expect(page).to have_no_text("Drugs to give in Outpatients")
         expect(page).to have_text("Recently Stopped Medications")
         expect(page).to have_text("None")
       end
@@ -77,7 +77,7 @@ module Renalware::Letters::Formats::FHIR
         expect(page).to have_text("Current Medications")
         expect(current_medications_table).to have_text("::drug name::")
         expect(current_medications_table).to have_no_text("::outpatient drug name::")
-        expect(outpatient_medications_table).to have_text("Drugs to give as Outpatient")
+        expect(outpatient_medications_table).to have_text("Drugs to give in Outpatients")
         expect(outpatient_medications_table).to have_text("::outpatient drug name::")
         expect(outpatient_medications_table).to have_text("20 mg Oral daily GP")
       end
@@ -92,7 +92,7 @@ module Renalware::Letters::Formats::FHIR
         expect(page).to have_text("Current Medications")
         expect(page).to have_text("No medications")
         expect(page).to have_no_text("Drugs to give on Haemodialysis")
-        expect(page).to have_no_text("Drugs to give as Outpatient")
+        expect(page).to have_no_text("Drugs to give in Outpatients")
         expect(page).to have_text("::drug name::")
         expect(page).to have_text("20 mg Per Oral daily GP 20-Mar-2024")
         expect(page).to have_text("Recently Stopped Medications")
