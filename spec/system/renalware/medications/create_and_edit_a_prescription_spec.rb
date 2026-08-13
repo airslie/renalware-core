@@ -58,12 +58,12 @@ describe "Prescriptions - create / edit / terminate", :js do
     expect(page).to have_no_field("Stat")
     expect(page).to have_select("Fixed number of doses")
     expect(page).to have_checked_field("Hospital") # auto-selected
-    choose("Give normally")
+    choose("Not administered by renal unit")
     expect(page).to have_select("Fixed number of doses")
     choose("GP")
     choose("Give in Outpatients")
     expect(page).to have_checked_field("Hospital") # auto-selected
-    choose("Give normally")
+    choose("Not administered by renal unit")
 
     #
     # Test validation

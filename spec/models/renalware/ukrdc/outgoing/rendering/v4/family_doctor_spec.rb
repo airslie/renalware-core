@@ -39,13 +39,16 @@ module Renalware
         end
 
         context "when the patient has the generic primary care physician" do
-          it "does not render the GPId" do
-            gp = build_stubbed(:primary_care_physician, code: "GENERIC")
+          it "renders the recognised NHS dummy GP code" do
+            gp = build_stubbed(
+              :primary_care_physician,
+              code: Patients::PrimaryCarePhysician::GENERIC_CODE
+            )
             patient = build_stubbed(:patient, primary_care_physician: gp)
 
             actual_xml = format_xml(described_class.new(patient:).xml)
 
-            expect(actual_xml).to eq("<FamilyDoctor/>")
+            expect(actual_xml).to eq("<FamilyDoctor><GPId>G9999998</GPId></FamilyDoctor>")
           end
         end
       end

@@ -7,6 +7,8 @@ module Renalware
     class PrimaryCarePhysician < ApplicationRecord
       include ActiveModel::Validations
 
+      GENERIC_CODE = "G9999998".freeze
+
       # include Personable
       acts_as_paranoid
 
@@ -29,7 +31,7 @@ module Renalware
       # send them a letter. We add this generic GP to any practice that needs it in order to be
       # able to send a letter.
       def self.generic
-        gp = find_or_initialize_by(name: "General Practitioner", code: "GENERIC")
+        gp = find_or_initialize_by(name: "General Practitioner", code: GENERIC_CODE)
         if gp.new_record?
           gp.practitioner_type = "GP"
           # Don't validate because PrimaryCarePhysicians::AddressValidator says at least one

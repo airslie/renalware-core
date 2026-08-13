@@ -53,7 +53,7 @@ RECIP ID,NAME,DATE OF BIRTH,KIDNEY STATUS,KIDNEY STATUS DATE,PANCREAS STATUS,TIS
 - Outgoing RTF letter filenames now use the legacy EPR filename format when RTF output is configured #6039
   - Test approved clinical letters sent to downstream EPR/document systems where RTF outgoing documents are used.
 - UKRDC export compatibility has been adjusted #6069 #6090
-  - Preserves v3/v4 batch-number compatibility and omits generic GP identifiers from family doctor output.
+  - Preserves v3/v4 batch-number compatibility and uses the recognised NHS dummy GP code for generic GPs.
   - Regression test UKRDC v3 and v4 exports, especially patient identifiers, batch numbers and GP/family doctor details.
 - Runtime configuration can now come from environment variables in more places #6051 #6054
   - Patient visibility restrictions and password expiry can be configured without code changes.
