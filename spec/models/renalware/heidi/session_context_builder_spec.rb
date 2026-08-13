@@ -26,7 +26,7 @@ describe Renalware::Heidi::SessionContextBuilder do
       dose_amount: "5"
     )
 
-    expect(context).to eq(
+    expect(context).to include(
       clinician_notes: [
         "Renalware patient problems:",
         "- Diabetes mellitus; SNOMED: 73211009; Date: 2001-02-03",
@@ -34,6 +34,26 @@ describe Renalware::Heidi::SessionContextBuilder do
         "Renalware current prescriptions:",
         "- #{Renalware::Medications::PrescriptionPresenter.new(prescription)}"
       ]
+    )
+  end
+
+  it "builds session patient details from Renalware demographics" do
+    patient.update_columns(
+      given_name: "John",
+      family_name: "Smith",
+      born_on: Date.new(1980, 5, 15),
+      sex: "M",
+      secure_id: "a4556f64-0efd-4d91-8ce4-5390ac345c76"
+    )
+
+    expect(context).to include(
+      patient: {
+        name: "John Smith",
+        gender: "MALE",
+        dob: "1980-05-15",
+        demographic_details: "John Smith, M, 1980-05-15"
+      },
+      ehr_patient_id: "a4556f64-0efd-4d91-8ce4-5390ac345c76"
     )
   end
 
@@ -58,7 +78,8 @@ describe Renalware::Heidi::SessionContextBuilder do
     )
   end
 
-  it "returns no context when the patient has no active problems or current prescriptions" do
-    expect(context).to eq({})
+  it "returns patient context when the patient has no active problems or current prescriptions" do
+    expect(context).to include(:patient, :ehr_patient_id)
+    expect(context).not_to have_key(:clinician_notes)
   end
 end

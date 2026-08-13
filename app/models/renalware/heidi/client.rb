@@ -1,4 +1,5 @@
 require "faraday"
+require "uri"
 
 module Renalware
   module Heidi
@@ -26,15 +27,9 @@ module Renalware
         failure(error: e.message)
       end
 
-      def link_account(user)
+      def link_account_url_for(user)
         with_jwt(user) do |token|
-          response = connection.post("users/linked-account") do |request|
-            request.headers["Authorization"] = "Bearer #{token}"
-            request.headers["Content-Type"] = "application/json"
-            request.body = { email: user.email }.to_json
-          end
-
-          result_from(response)
+          Result.new(success: true, status: nil, body: { "url" => link_account_url(token) })
         end
       rescue ConfigurationError, Faraday::Error, JSON::ParserError => e
         failure(error: e.message)
@@ -81,6 +76,20 @@ module Renalware
         return if user.uuid.present?
 
         raise ConfigurationError, "User uuid is required for Heidi authentication"
+      end
+
+      def link_account_url(token)
+        uri = URI.parse(Renalware.config.heidi_link_account_url)
+        uri.path = "/integration/widget/auth" if uri.path.blank? || uri.path == "/"
+        query = URI.decode_www_form(uri.query || "").to_h
+        query.merge!(
+          "reset" => "true",
+          "region" => Renalware.config.heidi_region,
+          "t" => token,
+          "productName" => "Renalware"
+        )
+        uri.query = URI.encode_www_form(query)
+        uri.to_s
       end
 
       def with_jwt(user)

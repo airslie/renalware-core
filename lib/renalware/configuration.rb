@@ -150,6 +150,13 @@ module Renalware
         "https://registrar.scribe.heidihealth.com/scribe/session/"
       )
     }
+    config_accessor(:heidi_link_account_url) {
+      ENV.fetch(
+        "HEIDI_LINK_ACCOUNT_URL",
+        "https://registrar.scribe.heidihealth.com/integration/widget/auth"
+      )
+    }
+    config_accessor(:heidi_region) { ENV.fetch("HEIDI_REGION", "AU") }
     config_accessor(:heidi_api_key) { ENV.fetch("HEIDI_API_KEY", "") }
 
     # MESHAPI

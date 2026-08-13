@@ -63,14 +63,37 @@ describe Renalware::Heidi::Client do
     end
   end
 
-  describe "#link_account" do
-    it "posts the user's email as the linking payload" do
+  describe "#link_account_url_for" do
+    it "builds the Heidi browser linking URL from the generated JWT" do
       stub_jwt
-      stub_link_account
+      allow(Renalware.config).to receive_messages(
+        heidi_link_account_url: "https://registrar.scribe.heidihealth.com/integration/widget/auth",
+        heidi_region: "AU"
+      )
 
-      result = client.link_account(user)
+      result = client.link_account_url_for(user)
 
       expect(result).to be_success
+      expect(result.body["url"]).to eq(
+        "https://registrar.scribe.heidihealth.com/integration/widget/auth?" \
+        "reset=true&region=AU&t=jwt-token&productName=Renalware"
+      )
+      stubs.verify_stubbed_calls
+    end
+
+    it "uses the Heidi browser linking path when configured with only the scribe host" do
+      stub_jwt
+      allow(Renalware.config).to receive_messages(
+        heidi_link_account_url: "https://registrar.scribe.heidihealth.com/",
+        heidi_region: "AU"
+      )
+
+      result = client.link_account_url_for(user)
+
+      expect(result.body["url"]).to eq(
+        "https://registrar.scribe.heidihealth.com/integration/widget/auth?" \
+        "reset=true&region=AU&t=jwt-token&productName=Renalware"
+      )
       stubs.verify_stubbed_calls
     end
   end
@@ -145,19 +168,6 @@ describe Renalware::Heidi::Client do
         200,
         { "Content-Type" => "application/json" },
         { is_linked: true, account: { ehr_email: "dr@example.com" } }.to_json
-      ]
-    end
-  end
-
-  def stub_link_account
-    stubs.post("users/linked-account") do |env|
-      expect(env.request_headers["Authorization"]).to eq("Bearer jwt-token")
-      expect(JSON.parse(env.body)).to eq("email" => "dr@example.com")
-
-      [
-        200,
-        { "Content-Type" => "application/json" },
-        { account: { ehr_email: "dr@example.com" } }.to_json
       ]
     end
   end

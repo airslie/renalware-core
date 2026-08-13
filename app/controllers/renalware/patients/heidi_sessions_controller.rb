@@ -12,7 +12,7 @@ module Renalware
           create_heidi_session!(result)
           redirect_to launch_url_for(result.body["session_id"]), allow_other_host: true
         else
-          redirect_to patient_lab_path(patient), alert: t(".failed", error: heidi_error(result))
+          redirect_to_launch_failure(heidi_error(result))
         end
       end
 
@@ -29,6 +29,15 @@ module Renalware
           heidi_session_id: result.body["session_id"],
           heidi_patient_profile_id: result.body["patient_profile_id"]
         )
+      end
+
+      def redirect_to_launch_failure(error)
+        redirect_to patient_lab_path(patient),
+                    alert: t(".failed", error: error.presence || default_launch_error)
+      end
+
+      def default_launch_error
+        "Heidi session could not be launched"
       end
 
       def heidi_error(result)

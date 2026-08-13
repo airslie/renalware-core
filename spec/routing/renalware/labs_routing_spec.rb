@@ -15,6 +15,12 @@ describe Renalware::LabsController do
   end
 
   it "routes the Heidi linked account endpoint" do
+    expect(get: "/patients/123/heidi_linked_account").to route_to(
+      controller: "renalware/patients/heidi_linked_accounts",
+      action: "show",
+      patient_id: "123"
+    )
+
     expect(post: "/patients/123/heidi_linked_account").to route_to(
       controller: "renalware/patients/heidi_linked_accounts",
       action: "create",

@@ -1,12 +1,17 @@
 = within_patient_layout(title: "Lab") do
   - if Renalware::Heidi::Client.configured?
-    .panel
+    .panel(data-controller="heidi-linked-account"
+           data-heidi-linked-account-url-value=patient_heidi_linked_account_path(patient))
       h2 Heidi WIP
+      p
+        strong Renalware EHR user:
+        =< [current_user.email, current_user.uuid].compact.join(" / ")
       - if heidi_link_status.success?
         - account = heidi_link_status.body.fetch("account", {})
         p
           strong Link status:
-          =< heidi_link_status.body["is_linked"] ? "linked" : "not linked"
+          span(data-heidi-linked-account-target="status")
+            =< heidi_link_status.body["is_linked"] ? "linked" : "not linked"
         - if account.present?
           p
             strong Heidi EHR user:
@@ -26,7 +31,10 @@
         = button_to "Link Heidi account",
                     patient_heidi_linked_account_path(patient),
                     method: :post,
-                    class: "button"
+                    class: "button",
+                    form: { target: "_blank",
+                            rel: "noopener",
+                            data: { action: "submit->heidi-linked-account#startPolling" } }
       - if heidi_sessions.any?
         h3 Recent Heidi sessions
         table

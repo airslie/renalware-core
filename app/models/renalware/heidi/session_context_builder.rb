@@ -6,9 +6,12 @@ module Renalware
       end
 
       def call
-        return {} if clinician_notes.none?
-
-        { clinician_notes: }
+        {
+          patient: patient_payload,
+          ehr_patient_id:
+        }.tap do |context|
+          context[:clinician_notes] = clinician_notes if clinician_notes.any?
+        end
       end
 
       private
@@ -20,6 +23,31 @@ module Renalware
           problem_notes,
           prescription_notes
         ].flatten.compact
+      end
+
+      def patient_payload
+        {
+          name: patient.full_name,
+          gender: heidi_gender(patient),
+          dob: patient.born_on&.iso8601,
+          demographic_details: patient_demographic_string
+        }.compact_blank
+      end
+
+      def patient_demographic_string
+        [patient.full_name, patient.sex&.to_s, patient.born_on&.iso8601].compact_blank.join(", ")
+      end
+
+      def ehr_patient_id
+        patient.secure_id_dashed || patient.secure_id
+      end
+
+      def heidi_gender(patient)
+        case patient.sex&.to_s
+        when "M" then "MALE"
+        when "F" then "FEMALE"
+        else "OTHER"
+        end
       end
 
       def problem_notes

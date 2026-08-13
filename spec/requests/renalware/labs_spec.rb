@@ -393,6 +393,52 @@ describe "Lab" do
     end
   end
 
+  describe "GET /patients/:patient_id/heidi_linked_account" do
+    let(:patient) { create(:patient, :minimal, by: @current_user) }
+
+    before do
+      @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+    end
+
+    it "returns the current user's Heidi linked-account status as JSON" do
+      client = instance_double(Renalware::Heidi::Client)
+      allow(Renalware::Heidi::Client).to receive(:new).and_return(client)
+      allow(client).to receive(:linked_account_access).with(@current_user).and_return(
+        Renalware::Heidi::Client::Result.new(
+          success: true,
+          status: 200,
+          body: { "is_linked" => true }
+        )
+      )
+
+      get patient_heidi_linked_account_path(patient), headers: { "Accept" => "application/json" }
+
+      expect(response).to be_successful
+      expect(response.parsed_body).to eq("is_linked" => true)
+    end
+
+    it "returns a bad gateway response when Heidi status cannot be checked" do
+      client = instance_double(Renalware::Heidi::Client)
+      allow(Renalware::Heidi::Client).to receive(:new).and_return(client)
+      allow(client).to receive(:linked_account_access).with(@current_user).and_return(
+        Renalware::Heidi::Client::Result.new(
+          success: false,
+          status: 502,
+          body: {},
+          error: "Heidi unavailable"
+        )
+      )
+
+      get patient_heidi_linked_account_path(patient), headers: { "Accept" => "application/json" }
+
+      expect(response).to have_http_status(:bad_gateway)
+      expect(response.parsed_body).to eq(
+        "is_linked" => false,
+        "error" => "Heidi unavailable"
+      )
+    end
+  end
+
   describe "POST /patients/:patient_id/heidi_linked_account" do
     let(:patient) { create(:patient, :minimal, by: @current_user) }
 
@@ -400,23 +446,28 @@ describe "Lab" do
       @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
     end
 
-    it "links the current user's Heidi account and redirects back to the lab page" do
+    it "redirects to Heidi's browser account-linking flow" do
       client = instance_double(Renalware::Heidi::Client)
       allow(Renalware::Heidi::Client).to receive(:new).and_return(client)
-      allow(client).to receive(:link_account).with(@current_user).and_return(
-        Renalware::Heidi::Client::Result.new(success: true, status: 200, body: {})
+      allow(client).to receive(:link_account_url_for).with(@current_user).and_return(
+        Renalware::Heidi::Client::Result.new(
+          success: true,
+          status: nil,
+          body: { "url" => "https://registrar.scribe.heidihealth.com/integration/widget/auth?t=jwt-token" }
+        )
       )
 
       post patient_heidi_linked_account_path(patient)
 
-      expect(response).to redirect_to(patient_lab_path(patient))
-      expect(flash[:notice]).to eq("Heidi account linked.")
+      expect(response).to redirect_to(
+        "https://registrar.scribe.heidihealth.com/integration/widget/auth?t=jwt-token"
+      )
     end
 
-    it "redirects with an alert when Heidi rejects the link request" do
+    it "redirects with an alert when Heidi cannot build the link URL" do
       client = instance_double(Renalware::Heidi::Client)
       allow(Renalware::Heidi::Client).to receive(:new).and_return(client)
-      allow(client).to receive(:link_account).with(@current_user).and_return(
+      allow(client).to receive(:link_account_url_for).with(@current_user).and_return(
         Renalware::Heidi::Client::Result.new(
           success: false,
           status: 400,
@@ -461,7 +512,7 @@ describe "Lab" do
         "https://registrar.scribe.heidihealth.com/scribe/session/1234567890"
       )
       expect(Renalware::Heidi::Session.last).to have_attributes(
-        patient: patient,
+        patient:,
         user: @current_user,
         heidi_session_id: "1234567890",
         heidi_patient_profile_id: "profile-1",
