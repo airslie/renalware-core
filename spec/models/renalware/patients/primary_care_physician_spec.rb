@@ -34,14 +34,20 @@ module Renalware::Patients
         expect {
           gp = described_class.generic
         }.to change(described_class, :count).by(1)
-        expect(gp).to have_attributes(name: "General Practitioner", code: "GENERIC")
+        expect(gp).to have_attributes(
+          name: "General Practitioner",
+          code: described_class::GENERIC_CODE
+        )
 
         # look again and it will be there already so this tests that branch
         gp = nil
         expect {
           gp = described_class.generic
         }.not_to change(described_class, :count)
-        expect(gp).to have_attributes(name: "General Practitioner", code: "GENERIC")
+        expect(gp).to have_attributes(
+          name: "General Practitioner",
+          code: described_class::GENERIC_CODE
+        )
       end
     end
   end

@@ -19,15 +19,10 @@ module Renalware
                 if patient.practice.present?
                   family_doctor << create_node("GPPracticeId", patient.practice.code)
                 end
-                if send_gp_id?
+                if patient.primary_care_physician.present?
                   family_doctor << create_node("GPId", patient.primary_care_physician.code)
                 end
               end
-            end
-
-            def send_gp_id?
-              patient.primary_care_physician.present? &&
-                patient.primary_care_physician.code != "GENERIC"
             end
           end
         end
