@@ -89,7 +89,7 @@ export default class extends Controller {
   // If we come in there then the user has interacted with the page
   // within throttlePeriodSeconds
   registerUserActivity() {
-    this.log(`some activity detected`)
+    this.log("some activity detected")
     this.resetCheckForSessionExpiryTimeout(this.sessionTimeoutSeconds)
     this.sendRequestToKeepSessionAlive()
   }
@@ -252,7 +252,7 @@ export default class extends Controller {
   parseStorageEventPayload(value) {
     try {
       return JSON.parse(value || "{}")
-    } catch (e) {
+    } catch {
       return {}
     }
   }

@@ -47,7 +47,7 @@ export default class extends Controller {
 
   get hiddenPatientIdInputs() {
     return this.requestForm.querySelectorAll(
-      'input[name="request[patient_ids][]"]'
+      "input[name=\"request[patient_ids][]\"]"
     )
   }
 

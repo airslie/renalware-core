@@ -8,7 +8,10 @@ on:
       - "*"
     paths-ignore:
       - "docs/**"
+      - "doc/**"
+      - "documentation/**"
       - "README.md"
+      - "CHANGELOG.md"
   pull_request:
     branches: [main]
 
@@ -31,7 +34,7 @@ jobs:
   assets:
     name: Build Assets
     timeout-minutes: 10
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout code
@@ -69,10 +72,10 @@ jobs:
   linters:
     name: Linters
     timeout-minutes: 10
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     services:
       postgres:
-        image: postgres:18
+        image: postgres:18.4
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -93,7 +96,16 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Install PostgreSQL 18 client
+      - name: Setup node and yarn with caching
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: "yarn"
+
+      - name: Install js packages with yarn
+        run: yarn install --frozen-lockfile
+
+      - name: Install PostgreSQL 18.4 client
         run: |
           sudo install -d /usr/share/postgresql-common/pgdg
           sudo curl -fsSL -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc \
@@ -102,7 +114,14 @@ jobs:
           echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt ${VERSION_CODENAME}-pgdg main" |
             sudo tee /etc/apt/sources.list.d/pgdg.list
           sudo apt-get update
-          sudo apt-get install -y postgresql-client-18
+
+          client_version="$(
+            apt-cache madison postgresql-client-18 |
+              awk '$3 ~ /^18[.]4-/ { print $3; exit }'
+          )"
+          test -n "$client_version"
+          sudo apt-get install -y "postgresql-client-18=$client_version"
+          pg_dump --version | grep -F "18.4"
 
       - name: Setup test database
         env:
@@ -112,8 +131,21 @@ jobs:
           PGHOST: localhost
         run: bin/rails db:create db:schema:load
 
+      # - name: Check schema files are up to date
+      #   run: |
+      #     bin/rails db:migrate
+      #     git diff --exit-code -- db/schema.rb db/structure.sql
+
       - name: Rubocop
         run: bundle exec rubocop
+
+      - name: ESLint
+        run: bin/yarn eslint app/javascript --max-warnings=0
+
+      - name: Check translations
+        run: |
+          bundle exec i18n-tasks check-consistent-interpolations
+          bundle exec i18n-tasks check-reserved-interpolations
 
       - name: Packwerk
         run: |
@@ -131,7 +163,7 @@ jobs:
   tests:
     needs: assets
     timeout-minutes: 30
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       RENALWARE_EXTENSIONS: heroic
     strategy:
@@ -145,7 +177,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:18
+        image: postgres:18.4
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -200,7 +232,7 @@ jobs:
             tmp/cache/assets/sprockets
           key: asset-cache-${{ runner.os }}-${{ github.ref }}-${{ github.sha }}
 
-      - name: Install PostgreSQL 18 client
+      - name: Install PostgreSQL 18.4 client
         run: |
           sudo install -d /usr/share/postgresql-common/pgdg
           sudo curl -fsSL -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc \
@@ -209,7 +241,14 @@ jobs:
           echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt ${VERSION_CODENAME}-pgdg main" |
             sudo tee /etc/apt/sources.list.d/pgdg.list
           sudo apt-get update
-          sudo apt-get install -y postgresql-client-18
+
+          client_version="$(
+            apt-cache madison postgresql-client-18 |
+              awk '$3 ~ /^18[.]4-/ { print $3; exit }'
+          )"
+          test -n "$client_version"
+          sudo apt-get install -y "postgresql-client-18=$client_version"
+          pg_dump --version | grep -F "18.4"
 
       - name: Setup test database
         env:
@@ -256,7 +295,7 @@ jobs:
   coverage:
     name: Coverage Report
     needs: tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: always()
 
     permissions:

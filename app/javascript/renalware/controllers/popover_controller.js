@@ -11,13 +11,9 @@ export default class Popover extends Controller {
     // Temporally variable to prevent `event.currentTarget` to being null.
     const element = event.currentTarget
 
-    let content = null
-
-    if (this.hasContentTarget) {
-      content = this.contentTarget.innerHTML
-    } else {
-      content = await this.fetch()
-    }
+    const content = this.hasContentTarget
+      ? this.contentTarget.innerHTML
+      : await this.fetch()
 
     if (!content) return
 
