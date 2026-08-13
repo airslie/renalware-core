@@ -15,6 +15,7 @@ describe Renalware::Configuration do
       PATIENT_HOSPITAL_IDENTIFIERS
       PATIENT_VISIBILITY_RESTRICTIONS
       URR_GENERATION_ENABLED
+      DISPLAY_NHSBT_WAIT_LIST_UPLOAD
       BYPASS_RAW_HL7_PROCESSING_ADVISORY_LOCK
       FEEDS_OUTGOING_DOCUMENTS_SENDING_FACILITY
       MESH_CARE_SETTING_SNOMED_CODE
@@ -79,6 +80,7 @@ describe Renalware::Configuration do
         auto_terminate_hd_stat_prescriptions_after_period: 14.days,
         patients_must_have_at_least_one_hosp_number: true,
         enable_expiring_prescriptions_list_component: true,
+        display_nhsbt_wait_list_upload: true,
         enforce_user_prescriber_flag: false,
         letters_external_document_type_code: nil,
         letters_external_document_type_description: nil,
@@ -241,6 +243,18 @@ describe Renalware::Configuration do
       ENV["URR_GENERATION_ENABLED"] = "1"
 
       expect(config.urr_generation_enabled).to be(true)
+    end
+  end
+
+  describe "#display_nhsbt_wait_list_upload" do
+    it "defaults to true" do
+      expect(config.display_nhsbt_wait_list_upload).to be(true)
+    end
+
+    it "can be disabled via ENV" do
+      ENV["DISPLAY_NHSBT_WAIT_LIST_UPLOAD"] = "false"
+
+      expect(config.display_nhsbt_wait_list_upload).to be(false)
     end
   end
 

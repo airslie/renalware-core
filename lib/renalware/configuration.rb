@@ -226,6 +226,9 @@ module Renalware
         ENV.fetch("ENABLE_EXPIRING_PRESCRIPTIONS_LIST_COMPONENT", "true")
       )
     }
+    config_accessor(:display_nhsbt_wait_list_upload) {
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("DISPLAY_NHSBT_WAIT_LIST_UPLOAD", "true"))
+    }
     config_accessor(:good_job_execution_mode) do
       ENV.fetch("GOOD_JOB_EXECUTION_MODE", "external").to_sym
     end
