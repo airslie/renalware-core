@@ -5,11 +5,14 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 10
-    groups:
-      minor-and-patch:
+    open-pull-requests-limit: 5
+    allow:
+      - dependency-name: "*"
         update-types:
-          - "minor"
+          - "version-update:semver-patch"
+    groups:
+      patch-updates:
+        update-types:
           - "patch"
 
   - package-ecosystem: "npm"
@@ -17,11 +20,14 @@ updates:
     schedule:
       interval: "weekly"
     versioning-strategy: increase
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 5
+    allow:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
     groups:
       minor-and-patch:
         update-types:
-          - "minor"
           - "patch"
 
   - package-ecosystem: "npm"
