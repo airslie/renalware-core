@@ -11,7 +11,7 @@ updates:
         update-types:
           - "version-update:semver-patch"
     groups:
-      patch-updates:
+      bundler-patch-updates:
         update-types:
           - "patch"
 
@@ -26,7 +26,7 @@ updates:
         update-types:
           - "version-update:semver-patch"
     groups:
-      minor-and-patch:
+      npm-patch-updates:
         update-types:
           - "patch"
 
@@ -35,7 +35,17 @@ updates:
     schedule:
       interval: "weekly"
     versioning-strategy: increase
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 5
+    allow:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+          - "version-update:semver-minor"
+    groups:
+      documentation-npm-minor-patch-updates:
+        update-types:
+          - "patch"
+          - "minor"
 
   - package-ecosystem: "github-actions"
     directory: "/"
