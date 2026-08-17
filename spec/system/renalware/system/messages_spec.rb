@@ -50,6 +50,28 @@ describe "Managing system messages that are displayed on the login page" do
     end
   end
 
+  it "preserves formatted message content when saving and reloading the editor", :js do
+    login_as_super_admin
+    visit new_system_message_path
+
+    fill_in "Title", with: "Formatted message"
+    editor = find("trix-editor")
+    editor.execute_script(<<~JS)
+      this.editor.insertHTML("<strong>Important</strong> message")
+    JS
+    fill_in "Display from", with: "2018-01-01 01:01"
+    fill_in "Display until", with: "2018-02-02 02:02"
+    click_on t("btn.create")
+
+    message = Renalware::System::Message.find_by!(title: "Formatted message")
+    expect(message.body).to include("<strong>Important</strong> message")
+
+    visit edit_system_message_path(message)
+
+    expect(find("trix-editor").evaluate_script("this.value"))
+      .to include("<strong>Important</strong> message")
+  end
+
   it "editing an existing message", :js do
     create(:system_message)
     login_as_super_admin

@@ -29,7 +29,7 @@
 //= require masonry-layout/dist/masonry.pkgd
 //= require print-js/dist/print
 //= require moment/moment
-//= require trix/dist/trix
+//= require trix
 //= require_directory ./components
 
 // Define a console.log if one does not yet exist - e.g. we in IE11

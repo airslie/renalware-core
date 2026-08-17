@@ -895,11 +895,6 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-trix@^1.3.2:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/trix/-/trix-1.3.5.tgz#87c214ce75fbaacff127f6e70fc64b2ff41e3e7a"
-  integrity sha512-JGQtfTU40DZYWS64rjUSbzAN6C+VFbyMLtdVzVTbI1mt3WJCP9+e3lju8Mtuivs9NwXOxowInNA4B34h7dVEZg==
-
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/type-check/-/type-check-0.4.0.tgz#07b8203bfa7056c0657050e3ccd2c37730bab8f1"

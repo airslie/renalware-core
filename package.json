@@ -30,7 +30,6 @@
     "serialize-javascript": "^7.0",
     "slim-select": "4.0.7",
     "sortablejs": "^1.13.0",
-    "trix": "^1.3.2",
     "underscore": "1.13.8"
   },
   "scripts": {
