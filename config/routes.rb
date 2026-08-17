@@ -62,7 +62,5 @@ Rails.application.routes.draw do
 
     # Last
     draw :fallbacks
-
-    resources :protouis
   end
 end
