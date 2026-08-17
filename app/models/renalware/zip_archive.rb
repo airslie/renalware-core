@@ -7,14 +7,15 @@ module Renalware
     def unzip
       # Create a tmp dir and ensure PG has access to it.
       Dir.mktmpdir do |dir|
-        `chmod a+rX #{dir}`
+        FileUtils.chmod("a+rX", dir)
         files = unzip_to_tmp_dir_and_return_pathames_array(dir)
         yield(files)
       end
     end
 
     def rar_archive?
-      `file #{file}`.match? /RAR/
+      output, = Open3.capture2("file", file.to_s)
+      output.match?(/RAR/)
     end
 
     private
@@ -32,17 +33,17 @@ module Renalware
       zip_realpath = file.realpath
       Dir.chdir(dir) do
         if rar_archive?
-          execute("unrar e -o+ #{zip_realpath}")
+          execute("unrar", "e", "-o+", zip_realpath.to_s)
         else
-          execute("unzip -o -j #{zip_realpath}")
+          execute("unzip", "-o", "-j", zip_realpath.to_s)
         end
       end
       Pathname.new(dir).children
     end
 
-    def execute(cmd)
-      success = system(cmd)
-      raise("Command '#{cmd}' returned #{$CHILD_STATUS.exitstatus}") unless success
+    def execute(*cmd)
+      success = system(*cmd)
+      raise("Command #{cmd.inspect} returned #{$CHILD_STATUS.exitstatus}") unless success
     end
   end
 end

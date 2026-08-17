@@ -32,20 +32,24 @@ class GpgEncryptFile
   pattr_initialize [:file!, :options!]
 
   def call
-    err = Open3.popen3(gpg_command) do |_stdin, _stdout, stderr|
+    err = Open3.popen3(*gpg_command) do |_stdin, _stdout, stderr|
       stderr.read
     end
-    raise "Error encrypting UKRDC files: #{err}, #{gpg_command}" unless err.empty?
+    raise "Error encrypting UKRDC files: #{err}, #{gpg_command.join(' ')}" unless err.empty?
   end
 
   private
 
   def gpg_command
-    @gpg_command ||= GpgCommand.new(file: file, options: options).to_s
+    @gpg_command ||= GpgCommand.new(file: file, options: options).to_a
   end
 end
 
 class GpgCommand
+  GPG_OPTIONS = %w(
+    gpg --armor --no-default-keyring --trust-model always --no-random-seed-file
+  ).freeze
+
   attr_reader :file, :options
 
   delegate :public_key_name, :recipient, to: :options
@@ -60,18 +64,17 @@ class GpgCommand
   # because we had problems at KCH where the file would become corrupt, breaking the export, and
   # fixable only by deleting the random_seed file and letting gpg re-create one.
   # Using the --no-random-seed-file option the file is not used so we avoid that problem.
-  def to_s
-    [
-      "gpg",
-      "--armor",
-      "--no-default-keyring",
-      "--trust-model always",
-      "--no-random-seed-file",
-      "--keyring \"#{keyring_path}\"",
-      "--recipient \"#{recipient}\"",
-      "-o \"#{encrypted_filename}\" " \
-      "--encrypt \"#{file}\""
-    ].join(" ")
+  def to_a
+    GPG_OPTIONS + [
+      "--keyring",
+      keyring_path.to_s,
+      "--recipient",
+      recipient,
+      "-o",
+      encrypted_filename.to_s,
+      "--encrypt",
+      file.to_s
+    ]
   end
 
   def filename_without_extension
@@ -87,7 +90,14 @@ class GpgCommand
   end
 
   def create_keyring
-    `gpg --import --no-default-keyring --keyring #{keyring_path} #{public_key_path}`
+    Open3.capture3(
+      "gpg",
+      "--import",
+      "--no-default-keyring",
+      "--keyring",
+      keyring_path.to_s,
+      public_key_path.to_s
+    )
   end
 
   def public_key_path

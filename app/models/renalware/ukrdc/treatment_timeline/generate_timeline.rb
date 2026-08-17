@@ -8,7 +8,6 @@ module Renalware
         pattr_initialize :patient
 
         def call
-          # RemapModelTableNamesToTheirPreparedEquivalents.new.call do
           create_first_assessment_treatment
           Rails.logger.info "    Generating Treatment rows for modalities #{modality_names}"
           modalities.each do |modality|

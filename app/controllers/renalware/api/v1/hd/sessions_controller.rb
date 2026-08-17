@@ -192,7 +192,24 @@ module Renalware
           end
 
           def session_attributes
-            params.require(:session).permit!
+            params.require(:session).permit(
+              :provider_name,
+              :mrn,
+              :started_at,
+              :ended_at,
+              :machine_number,
+              :machine_ip_address,
+              :hospital_unit_code,
+              :state,
+              :dialysate_flow_rate,
+              :blood_flow_rate,
+              :ktv,
+              :urr,
+              :treated_blood_volume,
+              :fluid_removed,
+              :arterial_pressure,
+              :venous_pressure
+            )
           end
         end
       end

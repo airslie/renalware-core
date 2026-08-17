@@ -22,17 +22,20 @@ module Renalware
 
     def shell_to_ghostscript_to_combine_files(filenames, dir, outputfile)
       outputfile = Pathname(outputfile)
-      cmd = "gs -dNOPAUSE " \
-            "-sDEVICE=pdfwrite " \
-            "-sOUTPUTFILE=#{outputfile} " \
-            "-dBATCH #{filenames.join(' ')}"
+      args = [
+        "-dNOPAUSE",
+        "-sDEVICE=pdfwrite",
+        "-sOUTPUTFILE=#{outputfile}",
+        "-dBATCH",
+        *filenames.map(&:to_s)
+      ]
       err = msg = nil
-      Open3.popen3(cmd, chdir: dir.to_s) do |_stdin, stdout, stderr|
+      Open3.popen3("gs", *args, chdir: dir.to_s) do |_stdin, stdout, stderr|
         err = stderr.read
         msg = stdout.read
       end
       if err.present?
-        raise "Error combining PDFs: #{[err, msg].join(' ')} command: #{cmd}"
+        raise "Error combining PDFs: #{[err, msg].join(' ')} args: #{args.inspect}"
       end
     end
 

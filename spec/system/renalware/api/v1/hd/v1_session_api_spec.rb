@@ -121,6 +121,13 @@ describe "V1 HD Session API" do
         litres_processed: valid_session_json[:treated_blood_volume]
       )
     end
+
+    it "ignores attributes outside the permitted session fields" do
+      put url_with_credentials,
+          params: { session: valid_session_json.merge(unexpected_attribute: "value") }
+
+      expect(response).to be_ok
+    end
   end
 
   describe "validating presence of items in payload json" do

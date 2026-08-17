@@ -13,7 +13,11 @@ module Renalware
       private
 
       def search_params
-        params.fetch(:q, ActionController::Parameters.new).permit!.to_h.tap do |query_params|
+        params
+          .fetch(:q, ActionController::Parameters.new)
+          .permit(:state_eq, :s)
+          .to_h
+          .tap do |query_params|
           query_params["s"] = "created_at desc" if query_params["s"].blank?
         end
       end

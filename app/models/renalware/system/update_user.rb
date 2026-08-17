@@ -31,7 +31,7 @@ module Renalware
           authorise(params)
           user.telephone = params[:telephone]
           user.hospital_centre_id = params[:hospital_centre_id]
-          user.banned = params.fetch(:banned, false)
+          user.banned = true?(params[:banned]) if params.key?(:banned)
           user.notes = params[:notes]
           user.save!
         end

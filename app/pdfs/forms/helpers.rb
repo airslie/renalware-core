@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "open3"
 require "tempfile"
 
 module Forms::Helpers
@@ -14,7 +15,7 @@ module Forms::Helpers
     # You may need to fo
     # `sudo apt-get install appmenu-gtk2-module appmenu-gtk3-module`
 
-    `gio open #{filename}`
+    Open3.capture2("gio", "open", filename.to_s).first
   rescue StandardError
     nil
   end

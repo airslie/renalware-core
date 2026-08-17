@@ -158,6 +158,22 @@ module Renalware::System
           expect(user.access_locked?).to be false
         end
       end
+
+      context "with a banned user" do
+        let(:user) { create(:user, banned: true) }
+
+        it "preserves the ban when the attribute is absent" do
+          described_class.new(user).call(notes: "Updated", roles: user.roles)
+
+          expect(user.reload).to have_attributes(banned: true, notes: "Updated")
+        end
+
+        it "removes the ban when the attribute is false" do
+          described_class.new(user).call(banned: "false", roles: user.roles)
+
+          expect(user.reload).not_to be_banned
+        end
+      end
     end
   end
 end
