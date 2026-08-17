@@ -17,7 +17,7 @@ plugins:
   - rubocop-factory_bot
   - rubocop-rspec_rails
   - rubocop-capybara
-  #- rubocop-i18n
+  - rubocop-i18n
 
 inherit_from:
   - https://raw.githubusercontent.com/airslie/styleguide/main/rubocop.yml
@@ -45,6 +45,30 @@ AllCops:
     - "config/initializers/devise.rb"
     - "features/support/env.xaction_view.rb"
     - "db/schema.rb"
+
+I18n/RailsI18n:
+  Enabled: true
+
+I18n/GetText:
+  Enabled: false
+
+I18n/RailsI18n/DecorateString:
+  Enabled: true
+  Exclude:
+    - "spec/**/*"
+    - "features/**/*"
+    - "*.rake"
+    - "db/**/*"
+    - "lib/**/*"
+
+I18n/RailsI18n/DecorateStringFormattingUsingInterpolation:
+  Enabled: true
+  Exclude:
+    - "spec/**/*"
+    - "features/**/*"
+    - "*.rake"
+    - "db/**/*"
+    - "lib/**/*"
 
 Rails/ToFormattedS:
   Exclude:
