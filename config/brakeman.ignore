@@ -1,6 +1,5 @@
 {
   "ignored_warnings": [
-    { "fingerprint": "212201a4f03fe776b4b3f94f7c1836993874b398eeac31df7bad53b00fcd0ca4", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
     { "fingerprint": "29f01b64ea9b1122dcd49804ee4c6797b1232be7b48769c445b806d8fddc9c52", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
     { "fingerprint": "5756829489bda3d601cea081d0819ca193c6269721f961a76da0dbea39509a4b", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
     { "fingerprint": "821f38616e0b3ed0f5b5cec30c9ec8c9fa46930018925dc10e5eaff533f17dcc", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
@@ -10,7 +9,6 @@
     { "fingerprint": "9aea2a52fc88b96b11023c297bdb235d341dd85c0b7c4a8ffdd4a1b1cfea0101", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
     { "fingerprint": "a084d4bb5babe039c0ca6cee7a3a97694e4829b00e83c48d357df73e9fc1fd6b", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
     { "fingerprint": "a3ea39277a95f45fa2c469b0913737402f9b99750aac047a76244162b6008bd3", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
-    { "fingerprint": "a81bcccf758c9313bce921a78431872bb6c6b40390496deb56e0bb67a27fe226", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
     { "fingerprint": "bb4b59b5bcf5b8b356b7ae72fa15ca7c1ed43da3e414c2d4106f34a368ba134b", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
     { "fingerprint": "bf57f7ea4f8af9e2006d9a80cff9a6056cff3f6ac69265f3190dc08460cb510f", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
     { "fingerprint": "cbdb7e983f4730a8a0902bdab52b6991679e5f3f9355d682d61a31f04309e4ef", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
@@ -19,7 +17,6 @@
     { "fingerprint": "d7a75592f2dec8615cdb0ec89d59602d668de5b29b5c59ea73a84219f062f2ac", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
     { "fingerprint": "dbd979b7568efb2b866523ded5d91f397f65097fbd8dd5997bb61fe275260442", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
     { "fingerprint": "f0608ebdaf76edffd011826fd4e73d7aa171c2fd6728e8fbfcd1a050d455f2a9", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
-    { "fingerprint": "f709ae81eddfc7ce482807c6798421fe64d2dd66e15971276d15c25127dd0a9e", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." },
     { "fingerprint": "fa3a24c3c2bba3e730b18c622849eae4a26e2cc9bd474e6cd63da7cb9636469a", "note": "Existing warning baselined when Brakeman CI enforcement was introduced." }
   ],
   "updated": "2026-08-13 00:00:00 +0100",
