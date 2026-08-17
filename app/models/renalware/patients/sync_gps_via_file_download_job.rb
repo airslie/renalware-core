@@ -29,7 +29,7 @@ module Renalware
           # Download the ODS file to a temporary location - must be /tmp dir on linux
           # in order for PG to have access - hence using Tempfile
           tmp_file = Pathname(Tempfile.new(options[:filename]))
-          `wget -O #{tmp_file} #{options[:url]}`
+          system("wget", "-O", tmp_file.to_s, options.fetch(:url))
           file = create_feed_file(type, tmp_file)
           Renalware::Feeds::Files::ImportJobFactory.job_class_for(file.file_type).perform_now(file)
         end
