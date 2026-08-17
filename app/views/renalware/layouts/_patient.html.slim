@@ -4,7 +4,7 @@
 - generate_page_title(local_assigns: local_assigns,
                       patient: current_patient)
 
-nav.patient-side-nav.full-screenable
+nav#patient-side-menu.patient-side-nav.full-screenable
   .layout-wrapper
     = render Renalware::Patients::SideMenuComponent.new(patient: current_patient)
 

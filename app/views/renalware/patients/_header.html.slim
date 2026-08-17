@@ -2,11 +2,14 @@
 - patient = Renalware::Patients::BannerPresenter.new(patient)
 /- with_hamburger = local_assigns[:with_hamburger].nil? ? true : local_assigns[:with_hamburger]
 
-.header.patient-header
+.header.patient-header(
+  data-controller="patient-menu"
+  data-action="resize@window->patient-menu#resize"
+)
   / If screen-is-mobile-size is visible then we collapse the patient LH nav
   / (A media query rule hides and shows it, and some js looks for its visibility
   / when the browser is resized)
-  #screen-is-mobile-size
+  #screen-is-mobile-size(data-patient-menu-target="mobileIndicator")
   dl.full-screenable
     - if back_path
       dt
@@ -15,7 +18,14 @@
           i.fas.fa-arrow-left
           |  Back
     dd.name.patient-menu-toggler
-      a
+      button.patient-menu-toggle(
+        type="button"
+        aria-label="Toggle patient menu"
+        aria-controls="patient-side-menu"
+        aria-expanded="true"
+        data-action="patient-menu#toggle"
+        data-patient-menu-target="toggle"
+      )
         - unless local_assigns[:skip_hamburger]
           = inline_icon(:ellipsis_vertical, size: :xxl, class: "inline-block align-text-bottom text-gray-300 hover:text-gray-50")
         span= patient

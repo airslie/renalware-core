@@ -177,7 +177,8 @@ ul.provider {
         }
 
         a,
-        a:visited {
+        a:visited,
+        button {
           color: var(--white);
 
           &:hover {
@@ -196,6 +197,15 @@ ul.provider {
               display: none;
             }
           }
+        }
+
+        button {
+          background: transparent;
+          border: 0;
+          cursor: pointer;
+          font: inherit;
+          padding: 0;
+          text-align: left;
         }
       }
 
