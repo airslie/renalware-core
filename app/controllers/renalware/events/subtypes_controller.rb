@@ -132,7 +132,7 @@ module Renalware
       def layout_params
         params
           .require(:layout)
-          .permit!
+          .permit(:name, :description)
           .merge(by: current_user)
       end
     end
