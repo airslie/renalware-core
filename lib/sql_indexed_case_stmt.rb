@@ -19,11 +19,25 @@ class SqlIndexedCaseStmt
   def generate
     return if items.blank?
 
-    clauses = []
+    statement = Arel::Nodes::Case.new(column_node)
     Array(items).each_with_index do |item, index|
-      clauses << Arel.sql("WHEN '#{item}' THEN #{index}")
+      statement.when(item).then(index)
     end
+    statement
+  end
 
-    Arel.sql("CASE #{column} #{clauses.join(' ')} END")
+  private
+
+  def column_node
+    parts = column.to_s.split(".")
+    return unqualified_column(parts.first) if parts.one?
+    return Arel::Table.new(parts.first)[parts.second] if parts.length == 2
+
+    raise ArgumentError, "Column must be unqualified or table-qualified"
+  end
+
+  def unqualified_column(name)
+    attribute = Arel::Table.new(:ignored)[name]
+    Arel::Nodes::UnqualifiedColumn.new(attribute)
   end
 end
