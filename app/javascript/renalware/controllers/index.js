@@ -23,6 +23,7 @@ import CollapsibleController from "./collapsible_controller"
 import DependentSelectController from "./dependent_select_controller"
 import PatientAttachmentsController from "./patients/attachments_controller"
 import PatientSearchController from "./patients/search_controller"
+import PatientMenuController from "./patients/menu_controller"
 import PrimaryCarePhysicianSearchController from "./patients/primary_care_physician_search_controller"
 import PrimaryCarePhysicianAddressController from "./patients/primary_care_physician_address_controller"
 import SortableController from "./sortable_controller"
@@ -77,6 +78,7 @@ application.register("collapsible", CollapsibleController)
 application.register("dependent-select", DependentSelectController)
 application.register("patient-attachments", PatientAttachmentsController)
 application.register("patient-search", PatientSearchController)
+application.register("patient-menu", PatientMenuController)
 application.register("primary-care-physician-search", PrimaryCarePhysicianSearchController)
 application.register(
   "primary-care-physician-address",
