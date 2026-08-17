@@ -40,4 +40,27 @@ describe "Outgoing document management" do
     document_ids = all("table tbody tr").map { |row| row.first("td").text.to_i }
     expect(document_ids).to eq([newer_doc.id, older_doc.id])
   end
+
+  it "allows filtering by state and sorting" do
+    user = login_as_super_admin
+    event = create(:swab, by: user)
+    older_errored_doc = Renalware::Feeds::OutgoingDocument.create!(
+      renderable: event,
+      by: user,
+      created_at: 2.days.ago,
+      state: :errored
+    )
+    newer_errored_doc = Renalware::Feeds::OutgoingDocument.create!(
+      renderable: event,
+      by: user,
+      created_at: 1.day.ago,
+      state: :errored
+    )
+    Renalware::Feeds::OutgoingDocument.create!(renderable: event, by: user, state: :queued)
+
+    visit feeds_outgoing_documents_path(q: { state_eq: "errored", s: "created_at asc" })
+
+    document_ids = all("table tbody tr").map { |row| row.first("td").text.to_i }
+    expect(document_ids).to eq([older_errored_doc.id, newer_errored_doc.id])
+  end
 end
