@@ -35,11 +35,12 @@ module Renalware
 
     def update_params
       roles = Array(Role.fetch(role_ids))
-      user_params
-        .merge(
-          roles: roles,
-          approved: ("true" if params[:approve].present?)
-        )
+      attributes = user_params.merge(
+        roles: roles,
+        approved: ("true" if params[:approve].present?)
+      )
+      attributes[:banned] = params.dig(:user, :banned) if current_user.has_role?(:super_admin)
+      attributes
     end
 
     def user_params
@@ -48,7 +49,7 @@ module Renalware
         .permit(
           :approved, :unexpire, :telephone,
           :consultant, :hidden, :prescriber,
-          :banned, :notes, :access_unlock,
+          :notes, :access_unlock,
           :hospital_centre_id, :nursing_experience_level,
           role_ids: []
         )

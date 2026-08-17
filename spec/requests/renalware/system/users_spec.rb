@@ -126,6 +126,34 @@ describe "Managing Users" do
 
           expect(response).to be_successful
         end
+
+        it "allows a superadmin to ban a user" do
+          patch admin_user_path(user), params: { user: { banned: "true", role_ids: user.role_ids } }
+
+          expect(response).to have_http_status(:redirect)
+          expect(user.reload).to be_banned
+        end
+
+        context "when signed in as an admin" do
+          before { login_as_admin }
+
+          it "does not allow a tampered request to ban a user" do
+            patch admin_user_path(user),
+                  params: { user: { banned: "true", role_ids: user.role_ids } }
+
+            expect(response).to have_http_status(:redirect)
+            expect(user.reload).not_to be_banned
+          end
+
+          it "does not unban a user when the banned field is absent" do
+            user.update!(banned: true)
+
+            patch admin_user_path(user), params: { user: { role_ids: user.role_ids } }
+
+            expect(response).to have_http_status(:redirect)
+            expect(user.reload).to be_banned
+          end
+        end
       end
 
       context "with invalid attributes" do
