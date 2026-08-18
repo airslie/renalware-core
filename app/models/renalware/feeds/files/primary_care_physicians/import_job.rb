@@ -13,7 +13,7 @@ module Renalware
             log "PrimaryCarePhysician count before update: #{primary_care_physician_count}"
             file.update!(status: :processing, attempts: file.attempts + 1)
             status = :success
-            elapsed_ms = Benchmark.realtime { process_archive(file.location) }
+            elapsed_ms = Benchmark.realtime { process_file(file.location) }
             log "PrimaryCarePhysician count after update: #{primary_care_physician_count}"
           rescue StandardError => e
             Rails.logger.error(formatted_exception(e))
@@ -25,7 +25,10 @@ module Renalware
 
           private
 
-          def process_archive(location)
+          def process_file(location)
+            path = Pathname(location)
+            return PrimaryCarePhysicians::ImportCSV.new(path).call if path.extname.casecmp?(".csv")
+
             ZipArchive.new(location).unzip do |files|
               csv_path = find_file_in(files, FILE_TO_EXTRACT_FROM_ARCHIVE)
               PrimaryCarePhysicians::ImportCSV.new(csv_path).call

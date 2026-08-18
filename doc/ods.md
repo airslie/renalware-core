@@ -1,54 +1,103 @@
-# Synchronising Practices and GPS with the NHS Organisation Data Service (ODS)
+# Synchronising practices and GPs with NHS ODS
 
-GP and practice data are stored in these database tables:
+Renalware stores Organisation Data Service (ODS) data in:
 
+```text
+patient_practices                 prescribing cost centres and GP practices
+patient_primary_care_physicians   GPs
+patient_practice_memberships      GP-to-practice memberships
 ```
-patient_practices (practices/surgeries)
-patient_primary_care_physicians (GPs)
-patient_practice_memberships (which GP is at which practice)
+
+The scheduled `Renalware::Patients::SyncODSJob` runs daily at 6am. It downloads three full CSV
+reports from NHS ODS Data Search and Export (DSE), validates every row, and then imports all three
+reports in one database transaction:
+
+1. `epraccur` - prescribing cost centres, including GP practices
+2. `egpcur` - GPs
+3. `epracmem` - GP-to-practice memberships
+
+DSE refreshes its source data nightly. The report endpoints are:
+
+```text
+https://www.odsdatasearchandexport.nhs.uk/api/getReport?report=epraccur
+https://www.odsdatasearchandexport.nhs.uk/api/getReport?report=egpcur
+https://www.odsdatasearchandexport.nhs.uk/api/getReport?report=epracmem
 ```
 
-When you deploy Renalware for the first time, it won’t have many (or any) practices and GPs in the these tables (the demo data if you have installed it has about 25 practices). However it will have set up a cron job that overnight fetches updates from the [NHS Organisation Data Service (ODS)](https://digital.nhs.uk/services/organisation-data-service/data-downloads/gp-and-gp-practice-related-data) api, so that the next day you will find there are 18,000+ practices (and even more GPs) in the the database.
+The legacy TRUD Weekly Prescribing Data pack and the corresponding `files.digital.nhs.uk` ZIP
+downloads were retired in 2025. Renalware no longer uses the ODS ORD API for this sync.
 
-If you have say a migration server which you turn off over night so the cron job does not run, or you want to just manually run the sync process, you can trigger it with:
+## Running the sync
+
+Enqueue a normal sync with:
 
 ```bash
-cd ~/apps/renalware/current
 bundle exec rake ods:sync
 ```
 
-> This rake task kicks of a background job to do the actual work. If you have deployed Renalware
-with capistrano then it will have started a background worker for you and there is nothing else to
-do. If you are running locally in development mode you will need to start a worker with
-`bundle exec rake jobs:work`
+The rake task enqueues a background job, so a job worker must be running.
 
-See
-- https://digital.nhs.uk/services/organisation-data-service/data-downloads/gp-and-gp-practice-related-data
-- lib/tasks/ods.rake
+Run the complete download, validation, and import as a dry run with:
 
-## Implementation details
+```bash
+dry_run=true bundle exec rake ods:sync
+```
 
-### Practices
-These are synced using the [ODS API](https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177).
+A dry run performs all reconciliation work and records the proposed counts in `system_api_logs`,
+but rolls back the database changes.
 
-### GPs and GP -> Practice memberships
-These are imported by downloading the current CSV for each and passing the path to the CSV to
-a corresponding Renalware SQL function which imports the data usin the Postgres `COPY` command.
-**Note that currently if the PostreSQL database is on a different server (or another Docker
-container) to the Renalware application code, `COPY` will fail (PG needs the file to be local to
-the database server). There is an open issue to remove the use of `COPY` for this reason.**
+## Safety and reconciliation
+
+All three reports are downloaded and validated before the transaction starts. Each report must:
+
+- return HTTP success with a CSV content type
+- contain the expected number of columns on every row
+- exceed a conservative minimum row count, protecting against truncated or empty snapshots
+- remain within 15% of the previous successful source row count
+
+Membership rows must reference a GP and practice present in their corresponding master reports.
+Unknown codes fail the complete transaction and the error reports counts and sample codes.
+
+### Reconciliation rules
+
+Practices and GPs are upserted by their ODS code. An explicit inactive practice status marks the
+practice inactive, and an explicit inactive or retired GP status soft-deletes the GP. A practice or
+GP omitted from its master report retains its existing local state; absence alone is not treated as
+evidence that it has closed or retired.
+
+Membership state follows these rules:
+
+- A membership is active when its GP is active and `left_on` is blank, today, or in the future.
+- `left_on` is inclusive: the membership becomes inactive on the first sync after that date.
+- A future `joined_on` does not delay activation.
+- An inactive practice may retain active GP memberships.
+- A membership reported for an inactive or retired GP is retained but marked inactive.
+- An ODS-managed membership omitted from `epracmem` is soft-deleted. It is restored if it later
+  reappears.
+- Locally managed and default memberships are not removed by snapshot cleanup.
+- The local Generic GP (`G9999998`) and every membership pointing to it are never changed by the
+  ODS import, even if DSE supplies rows using that code.
+
+Rows imported from ODS have `ods_managed = true`. These provenance flags distinguish records that
+can be reconciled from the full snapshot from records managed locally in Renalware.
+
+Each attempt creates a `system_api_logs` row under the `nhs_ods_dse` identifier. Failures include
+the exception and backtrace. Download and report-validation failures are retried three times.
+
+## Manual file imports
+
+The feed administration UI still supports manual `egpcur` and `epracmem` imports. It accepts the
+plain CSV reports downloaded from DSE as well as legacy ZIP archives retained for recovery or
+historical use.
 
 ## Migration notes
 
-You will need to sync GPS and practices before migrating patient data across.
-A patient has a `practice_id` and and `primary_care_physician_id`. These are foriegn keys into
-`patient_pratices` and `patient_primary_care_physicians` tables.
-If you have a patient that you know belongs to a pratice 'A81010', you will need to look up
-that practice row in patient_practices and use its id as practice_id when inserting into
-the patients table. Likewise for primary_care_physcian: if you have a GP code like 'G3141373'
- you will need to look that code the primary_care_physciansto get the id.
+Practices and GPs should be synced before importing patient data. A patient's `practice_id` and
+`primary_care_physician_id` are foreign keys, so external ODS codes must first be resolved against
+`patient_practices.code` and `patient_primary_care_physicians.code`.
 
-> **Letters** Note that letters are snail-mailed/emailed to the practice's address/email, not the GP's address.
-Generally it seems that the GP name is less and less significant, and the important thing is to get
-the practice right. If a GP moves away from the practice, letters will still be addressed to them
-until the patient's GP is updated in Renalware, but this is not generally an issue.
+Letters are sent to the practice address rather than the GP address. This is intentional because a
+GP may move practice before the patient's recorded GP is updated.
+
+See the NHS England [GP and GP practice related data](https://digital.nhs.uk/services/organisation-data-service/data-search-and-export/csv-downloads/gp-and-gp-practice-related-data)
+page for report specifications and service guidance.

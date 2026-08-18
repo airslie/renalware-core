@@ -8,14 +8,6 @@ GIT
       mime-types (>= 3.0)
       nokogiri (>= 1.11.4)
 
-GIT
-  remote: https://github.com/airslie/nhs_api_client.git
-  revision: ee830d9681f02a5123898b0c02c7645f440d6306
-  specs:
-    nhs_api_client (0.1.5)
-      httparty
-      rails
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -1066,7 +1058,6 @@ DEPENDENCIES
   net-ldap
   net-sftp (~> 4.0)
   net-smtp
-  nhs_api_client!
   nokogiri (~> 1.9)
   omniauth
   omniauth-entra-id

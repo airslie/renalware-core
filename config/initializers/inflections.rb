@@ -43,6 +43,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "NK1"
   inflect.acronym "OBX"
   inflect.acronym "ODS"
+  inflect.acronym "DSE"
   inflect.acronym "PD"
   inflect.acronym "PET"
   inflect.acronym "PRD"

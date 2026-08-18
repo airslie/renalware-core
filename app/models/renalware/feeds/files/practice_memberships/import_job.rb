@@ -14,7 +14,7 @@ module Renalware
             log "Before upload there are #{practice_membership_count} practice memberships"
             file.update!(status: :processing, attempts: file.attempts + 1)
             status = :success
-            elapsed_ms = Benchmark.realtime { process_archive(file.location) }
+            elapsed_ms = Benchmark.realtime { process_file(file.location) }
             log "After upload there are #{practice_membership_count} practice memberships"
           rescue StandardError => e
             Rails.logger.error(formatted_exception(e))
@@ -26,7 +26,10 @@ module Renalware
 
           private
 
-          def process_archive(location)
+          def process_file(location)
+            path = Pathname(location)
+            return PracticeMemberships::ImportCSV.new(path).call if path.extname.casecmp?(".csv")
+
             ZipArchive.new(location).unzip do |files|
               csv_path = find_file_in(files, FILE_TO_EXTRACT_FROM_ARCHIVE)
               PracticeMemberships::ImportCSV.new(csv_path).call

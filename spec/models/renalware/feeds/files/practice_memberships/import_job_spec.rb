@@ -26,6 +26,21 @@ module Renalware
               expect(import_csv).to have_received(:call).exactly(:once)
             end
           end
+
+          context "when importing a plain DSE CSV" do
+            it "passes the CSV directly to ImportCSV" do
+              csv_path = file_fixture("practice_memberships/epracmem.csv")
+              file = create(:feed_file, :primary_care_physicians, location: csv_path)
+              importer = instance_double(PracticeMemberships::ImportCSV, call: nil)
+              allow(PracticeMemberships::ImportCSV).to receive(:new)
+                .with(Pathname(csv_path))
+                .and_return(importer)
+
+              described_class.new.perform(file)
+
+              expect(importer).to have_received(:call)
+            end
+          end
         end
       end
     end
