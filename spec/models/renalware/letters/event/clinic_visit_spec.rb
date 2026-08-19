@@ -38,6 +38,17 @@ module Renalware::Letters
         end
       end
 
+      describe "#to_link" do
+        it "links to the clinic visit" do
+          visit = build_stubbed(:clinic_visit)
+          event = described_class.new(visit, clinical: true)
+
+          expect(event.to_link.call(visit.patient)).to include(
+            edit_patient_clinic_visit_path(visit.patient, visit)
+          )
+        end
+      end
+
       it { is_expected.to be_clinical }
     end
   end

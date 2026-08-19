@@ -345,8 +345,7 @@
       S(window).load(function () {
         S(window)
           .trigger('resize.fndtn.clearing')
-          .trigger('resize.fndtn.dropdown')
-          .trigger('resize.fndtn.topbar');
+          .trigger('resize.fndtn.dropdown');
       });
 
       return scope;

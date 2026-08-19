@@ -41,7 +41,7 @@
   h2.print-only= filters[path_params[:named_filter].to_sym]
 
   .pt-2
-    dl.sub-nav
+    dl.sub-nav(data-controller="tabbed-navigation")
       - filters.each do |key, label|
         - options = path_params.merge(named_filter: key).to_h.symbolize_keys
         - path = Rails.application.routes.url_helpers.url_for(options.merge!(only_path: true))

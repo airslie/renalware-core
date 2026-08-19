@@ -1,5 +1,5 @@
 - if session.persisted?
-  dl.sub-nav
+  dl.sub-nav(data-controller="tabbed-navigation")
     dd= link_to "HD Summary", patient_hd_dashboard_path(@patient)
     dd= link_to t("btn.view"), patient_hd_session_path(@patient, session)
     - if policy(session).edit?

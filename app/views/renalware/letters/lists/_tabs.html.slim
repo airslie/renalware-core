@@ -1,5 +1,5 @@
 - named_filter_param = params[:named_filter]
-dl.sub-nav
+dl.sub-nav(data-controller="tabbed-navigation")
   - filter = :all
   dd(class=("active" if named_filter_param.to_s == filter.to_s))
     = link_to t(".tab.#{filter}"), letters_filtered_letters_list_path(named_filter: filter)

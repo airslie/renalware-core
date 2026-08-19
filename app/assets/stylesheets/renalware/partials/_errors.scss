@@ -5,15 +5,17 @@
 .error-page {
   overflow-y: scroll;
 
-  .title-area .name {
+  .error-navigation {
+    background-color: #333;
+    min-height: 3rem;
+  }
+
+  .error-navigation__home {
     color: var(--white);
+    display: block;
     font-size: 1.3rem;
     line-height: 3rem;
     padding-left: 1rem;
-
-    a {
-      color: var(--white);
-    }
   }
 
   .error-code {

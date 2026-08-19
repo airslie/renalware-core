@@ -1,11 +1,9 @@
 describe "Primary navigation" do
   around do |example|
-    original_value = Renalware.config.use_new_primary_navigation
     original_feedback_value = Renalware.config.display_feedback_button_in_navbar
     original_new_mdms_value = Renalware.config.enable_new_mdms
     Renalware::Patients::MDMMenu.cached_items = nil
     example.run
-    Renalware.config.use_new_primary_navigation = original_value
     Renalware.config.display_feedback_button_in_navbar = original_feedback_value
     Renalware.config.enable_new_mdms = original_new_mdms_value
     Renalware::Patients::MDMMenu.cached_items = nil
@@ -20,17 +18,7 @@ describe "Primary navigation" do
     expect(response.body).not_to include("top-menu-bar")
   end
 
-  it "uses the existing Foundation top-bar when disabled" do
-    Renalware.config.use_new_primary_navigation = false
-    get dashboard_path
-
-    expect(response).to be_successful
-    expect(response.body).to include("top-menu-bar")
-    expect(response.body).not_to include("rw-primary-nav")
-  end
-
-  it "uses the opt-in primary navigation when enabled" do
-    Renalware.config.use_new_primary_navigation = true
+  it "renders the primary navigation menus" do
     Renalware.config.display_feedback_button_in_navbar = true
 
     get dashboard_path
@@ -47,8 +35,6 @@ describe "Primary navigation" do
   end
 
   it "uses main application paths when rendered inside an engine" do
-    Renalware.config.use_new_primary_navigation = true
-
     get reporting.reports_path
 
     expect(response).to be_successful
@@ -57,7 +43,6 @@ describe "Primary navigation" do
   end
 
   it "separates static and beta MDM links" do
-    Renalware.config.use_new_primary_navigation = true
     Renalware.config.enable_new_mdms = true
     create(:view_metadata, category: "mdm", scope: "dietetics", title: "Dietetic MDM")
 

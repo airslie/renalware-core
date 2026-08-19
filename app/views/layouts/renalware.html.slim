@@ -45,10 +45,8 @@ html lang="en"
 
       - if content_for?(:top_navigation)
         = yield :top_navigation
-      - elsif Renalware.config.use_new_primary_navigation
-        = render Renalware::Navigation::PrimaryNavigationComponent.new(the_patient_search: patient_search)
       - else
-        = render "renalware/navigation/main"
+        = render Renalware::Navigation::PrimaryNavigationComponent.new(the_patient_search: patient_search)
       = yield(:header)
       .flash-message
         = yield(:flash_messages)
