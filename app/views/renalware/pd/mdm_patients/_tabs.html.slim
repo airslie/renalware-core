@@ -1,6 +1,6 @@
 - named_filter_param = params[:named_filter]
 
-dl.sub-nav
+dl.sub-nav(data-controller="tabbed-navigation")
   dd(class=("active" unless named_filter_param.present?))
      = link_to t(".tab.all"), pd_mdm_patients_path
   - %i(on_worryboard).each do |filter|

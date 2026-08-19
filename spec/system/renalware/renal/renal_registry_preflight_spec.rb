@@ -5,6 +5,7 @@ describe "Renal Registry Preflight checks", :js do
       visit patients_renal_registry_preflight_checks_path
 
       expect(page).to have_text("Renal Registry")
+      expect(page).to have_css("dl.sub-nav dd.active", text: "Patients with incomplete data")
     end
   end
 
@@ -14,6 +15,10 @@ describe "Renal Registry Preflight checks", :js do
       visit deaths_renal_registry_preflight_checks_path
 
       expect(page).to have_text("Renal Registry")
+      expect(page).to have_css(
+        "dl.sub-nav dd.active",
+        text: "Deceased patients with incomplete data"
+      )
     end
   end
 
@@ -23,6 +28,7 @@ describe "Renal Registry Preflight checks", :js do
       visit missing_esrf_renal_registry_preflight_checks_path
 
       expect(page).to have_text("Renal Registry")
+      expect(page).to have_css("dl.sub-nav dd.active", text: "Patients with missing ESRF")
     end
   end
 end

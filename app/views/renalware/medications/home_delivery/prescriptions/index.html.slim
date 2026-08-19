@@ -14,7 +14,7 @@
   br
 
 - content_for(:tabs) do
- dl.sub-nav
+ dl.sub-nav(data-controller="tabbed-navigation")
     dd
       = link_to "ESA",
                 medications_home_delivery_prescriptions_path(named_filter: "esa")
