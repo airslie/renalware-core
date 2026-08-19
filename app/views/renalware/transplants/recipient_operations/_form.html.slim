@@ -62,7 +62,9 @@ ruby:
         = fcm.input :death_certified_at,
                     as: :flatpickr_with_time,
                     wrapper: :horizontal_datepicker
-        = fcm.input :ukt_cause_of_death, wrapper: :horizontal_medium
+        = fcm.input :ukt_cause_of_death,
+                    collection: Renalware::Transplants::UKTDeathCause.pluck_for_dropdown,
+                    wrapper: :horizontal_medium
         = fcm.input :ukt_cause_of_death_other, wrapper: :horizontal_large
 
     = render layout: "renalware/shared/fieldset",

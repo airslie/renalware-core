@@ -44,6 +44,18 @@ module Renalware
           expect(operation.warm_ischaemic_time_formatted).to eq("1:01")
         end
       end
+
+      describe "UKT cause of death storage" do
+        it "continues to store the selected code in the JSONB document" do
+          operation = create(
+            :transplant_recipient_operation,
+            document: { cadaveric_donor: { ukt_cause_of_death: "brain_tumour" } }
+          )
+
+          expect(operation.reload[:document].dig("cadaveric_donor", "ukt_cause_of_death"))
+            .to eq("brain_tumour")
+        end
+      end
     end
   end
 end

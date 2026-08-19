@@ -1,6 +1,6 @@
 ruby:
   model = group
-  attributes = group.class.attributes_list
+  attributes = local_assigns.fetch(:attributes, group.class.attributes_list)
 
 = render "renalware/shared/attributes_group",
           local_assigns.merge!({ models: { model => attributes } })

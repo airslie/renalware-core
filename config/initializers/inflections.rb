@@ -55,6 +55,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "SCH"
   inflect.acronym "SFTP"
   inflect.acronym "TRUD"
+  inflect.acronym "UKT"
   inflect.acronym "UKRDC"
   inflect.acronym "VMP"
   inflect.acronym "VND"

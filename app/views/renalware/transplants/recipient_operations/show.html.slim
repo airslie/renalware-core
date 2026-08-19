@@ -17,6 +17,11 @@
         = render "recipient", recipient_operation: recipient_operation
 
         - ["Donor", "Cadaveric Donor", "Donor Specific Antibodies", "BK Virus"].each do |group|
+          - document_group = recipient_operation.document.public_send(group.parameterize(separator: "_"))
+          - attributes = document_group.class.attributes_list
+          - if group == "Cadaveric Donor"
+            - attributes = attributes.map do |attribute|
+              - attribute == :ukt_cause_of_death ? :ukt_cause_of_death_name : attribute
           = render "renalware/shared/documents/attributes_group",
-              group: recipient_operation.document.public_send(group.parameterize(separator: "_")),
+              group: document_group, attributes: attributes,
               legend: group, destination: group.parameterize(separator: "_")
