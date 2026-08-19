@@ -1,5 +1,4 @@
-nav.mdm-top-bar(data-topbar role="navigation")
-  ul.title-area
-    li.name
-      i.fas.fa-arrow-left
-      = link_to "Back to Patients List", :back
+nav.mdm-navigation(role="navigation" aria-label="MDM navigation")
+  = link_to :back, class: "mdm-navigation__back-link" do
+    i.fas.fa-arrow-left
+    span Back to Patients List

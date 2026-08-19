@@ -19,6 +19,8 @@ module Renalware
 
         expect(page.status_code).to eq(404)
         expect(page).to have_text("Not Found")
+        expect(page).to have_css("nav.error-navigation")
+        expect(page).to have_no_css("[data-topbar]")
       end
     end
 

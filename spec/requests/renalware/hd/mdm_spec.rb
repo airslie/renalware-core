@@ -8,6 +8,8 @@ describe "Patient HD MDM" do
       get patient_hd_mdm_path(patient)
 
       expect(response).to be_successful
+      expect(response.body).to include("mdm-navigation")
+      expect(response.body).not_to include("data-topbar")
     end
   end
 end
