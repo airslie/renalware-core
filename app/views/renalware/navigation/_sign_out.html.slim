@@ -1,6 +1,0 @@
-li
-  = link_to t(".log_out"),
-            main_app.destroy_user_session_path,
-            class: "right",
-            method: :delete,
-            data: { action: "click->session#sendLogoutMessageToAnyOpenTabs" }
