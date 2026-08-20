@@ -20,6 +20,12 @@ module Renalware
             telephone: 17,
             amended_record_indicator: 21
           }.freeze
+          LEGACY_STATUSES = {
+            "A" => "ACTIVE",
+            "B" => "RETIRED",
+            "C" => "INACTIVE",
+            "P" => "PROPOSED"
+          }.freeze
 
           # 1. Import in batches into a new tmp table - what would the fn have used?
           def call
@@ -39,7 +45,7 @@ module Renalware
               gps = []
               map = CSV_HEADER_MAP
               while row = csv.shift
-                gps << Feeds::GP.new(
+                gps << {
                   code: row[map[:code]],
                   name: row[map[:name]],
                   street_1: row[map[:street_1]],
@@ -49,15 +55,24 @@ module Renalware
                   county: row[map[:county]],
                   postcode: row[map[:postcode]],
                   telephone: row[map[:telephone]],
-                  status: row[map[:status]][0]
-                )
+                  status: normalize_status(row[map[:status]])
+                }
+
+                if gps.size == 1000
+                  Feeds::GP.insert_all!(gps)
+                  gps.clear
+                end
               end
 
-              # Make about 100 insert queries each with 1000 records
-              Feeds::GP.import!(gps, batch_size: 1000)
+              Feeds::GP.insert_all!(gps) if gps.any?
             end
           end
           # rubocop:enable Lint/AssignmentInCondition, Metrics/AbcSize
+
+          def normalize_status(status)
+            status = status.to_s.upcase
+            LEGACY_STATUSES.fetch(status, status)
+          end
 
           # See migration for SQL function definition
           def import_feed_gps_using_sql_function

@@ -29,7 +29,6 @@ gem "faker"
 gem "i18n-tasks", require: false
 gem "jsbundling-rails", "~> 1.0"
 gem "net-smtp", require: false # remove in Rails 7
-gem "nhs_api_client", github: "airslie/nhs_api_client", require: false
 gem "rails", "~> 8.1.2"
 gem "ruby-prof", require: false
 gem "solid_cache"

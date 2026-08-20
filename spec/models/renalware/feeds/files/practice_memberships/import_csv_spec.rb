@@ -64,7 +64,8 @@ module Renalware
               membership2 = create(
                 :practice_membership,
                 practice:,
-                primary_care_physician: gp2
+                primary_care_physician: gp2,
+                ods_managed: true
               )
 
               # Because GP2 is omitted from the CSV they should be marked as deleted

@@ -1525,78 +1525,91 @@ $$;
 CREATE FUNCTION renalware.import_feed_gps() RETURNS void
     LANGUAGE plpgsql
     AS $$
-  BEGIN
-
-  -- Upsert GPs
-  WITH
-   data AS (select * from feed_gps),
-   gp_changes AS (
-    INSERT INTO renalware.patient_primary_care_physicians (code, name, telephone, practitioner_type, created_at, updated_at)
-    SELECT code, name, telephone, 'GP', clock_timestamp(), clock_timestamp()
-    FROM data
-    ON CONFLICT (code) DO UPDATE
-      SET
-       telephone = excluded.telephone,
-       name = excluded.name,
-       updated_at = excluded.updated_at
-      where (patient_primary_care_physicians.telephone) is distinct from (excluded.telephone)
-      RETURNING code, id
-     )
-
-  -- Upsert GP addresses
-  INSERT INTO renalware.addresses (
-    addressable_type,
-    addressable_id,
-    street_1,
-    street_2,
-    street_3,
-    town,
-    county,
-    postcode,
-    created_at,
-    updated_at)
+BEGIN
+  INSERT INTO renalware.patient_primary_care_physicians
+    (code, name, telephone, practitioner_type, ods_managed, created_at, updated_at)
   SELECT
-    'Renalware::Patients::PrimaryCarePhysician' as addressable_type,
-    gps.id as addressable_id,
-    street_1,
-    street_2,
-    street_3,
-    town,
-    county,
-    postcode,
-    CURRENT_TIMESTAMP as created_at,
-    CURRENT_TIMESTAMP as updated_at
-    FROM data join patient_primary_care_physicians gps using(code)
+    code,
+    name,
+    telephone,
+    'GP',
+    true,
+    clock_timestamp(),
+    clock_timestamp()
+  FROM renalware.feed_gps
+  WHERE code <> 'G9999998'
+  ON CONFLICT (code) DO UPDATE
+    SET name = excluded.name,
+        telephone = excluded.telephone,
+        ods_managed = true,
+        updated_at = excluded.updated_at
+    WHERE (patient_primary_care_physicians.name,
+           patient_primary_care_physicians.telephone,
+           patient_primary_care_physicians.ods_managed)
+      IS DISTINCT FROM
+          (excluded.name,
+           excluded.telephone,
+           excluded.ods_managed);
+
+  INSERT INTO renalware.addresses
+    (addressable_type,
+     addressable_id,
+     street_1,
+     street_2,
+     street_3,
+     town,
+     county,
+     postcode,
+     created_at,
+     updated_at)
+  SELECT
+    'Renalware::Patients::PrimaryCarePhysician',
+    gps.id,
+    feed.street_1,
+    feed.street_2,
+    feed.street_3,
+    feed.town,
+    feed.county,
+    feed.postcode,
+    clock_timestamp(),
+    clock_timestamp()
+  FROM renalware.feed_gps feed
+  INNER JOIN renalware.patient_primary_care_physicians gps ON gps.code = feed.code
+  WHERE feed.code <> 'G9999998'
   ON CONFLICT (addressable_type, addressable_id) DO UPDATE
-    SET
-    street_1 = excluded.street_1,
-    street_2 = excluded.street_2,
-    street_3 = excluded.street_3,
-    town = excluded.town,
-    county = excluded.county,
-    postcode = excluded.postcode,
-    updated_at = clock_timestamp()
-    where (addresses.street_1, addresses.street_2, addresses.street_3)
-    is distinct from (excluded.street_1, excluded.street_2, excluded.street_3);
+    SET street_1 = excluded.street_1,
+        street_2 = excluded.street_2,
+        street_3 = excluded.street_3,
+        town = excluded.town,
+        county = excluded.county,
+        postcode = excluded.postcode,
+        updated_at = excluded.updated_at
+    WHERE (addresses.street_1,
+           addresses.street_2,
+           addresses.street_3,
+           addresses.town,
+           addresses.county,
+           addresses.postcode)
+      IS DISTINCT FROM
+          (excluded.street_1,
+           excluded.street_2,
+           excluded.street_3,
+           excluded.town,
+           excluded.county,
+           excluded.postcode);
 
-  --GET DIAGNOSTICS changed_count = ROW_COUNT;
-
-  -- Update the deleted_at column of any gps which do not have an Active status_code
-  UPDATE renalware.patient_primary_care_physicians AS p
-  SET deleted_at = CURRENT_TIMESTAMP
-  FROM feed_gps AS tp
-  WHERE p.code = tp.code AND tp.status IN ('C', 'P', 'B');
-
-  -- Un-delete any previously deleted GPs
-  UPDATE renalware.patient_primary_care_physicians AS gp
-  SET deleted_at = NULL
-  FROM feed_gps
-  WHERE gp.code = feed_gps.code AND feed_gps.status IN ('A') AND gp.code NOT IN ('A');
-
-  --GET DIAGNOSTICS deleted_count = ROW_COUNT;
-  --select changed_count, deleted_count;
-  END;
- $$;
+  UPDATE renalware.patient_primary_care_physicians physicians
+  SET deleted_at = CASE WHEN feed.status = 'ACTIVE' THEN NULL ELSE clock_timestamp() END,
+      updated_at = clock_timestamp()
+  FROM renalware.feed_gps feed
+  WHERE physicians.code = feed.code
+    AND feed.code <> 'G9999998'
+    AND (
+      (feed.status = 'ACTIVE' AND physicians.deleted_at IS NOT NULL)
+      OR (feed.status <> 'ACTIVE' AND physicians.deleted_at IS NULL)
+    );
+END;
+$$;
 
 
 --
@@ -1606,52 +1619,236 @@ CREATE FUNCTION renalware.import_feed_gps() RETURNS void
 CREATE FUNCTION renalware.import_feed_practice_gps() RETURNS void
     LANGUAGE plpgsql
     AS $$
-  BEGIN
+DECLARE
+  unknown_gp_count integer;
+  unknown_gp_codes text;
+  unknown_practice_count integer;
+  unknown_practice_codes text;
+BEGIN
+  DELETE FROM renalware.feed_practice_gps
+  WHERE gp_code = 'G9999998';
 
-  /*
-    1.
-    Update the temporary feed_practice_gps with the correct pcp and prac ids.
-    I supopse we could do this in Rails.
-  */
-  UPDATE feed_practice_gps F
-    SET primary_care_physician_id = P.id
-    FROM patient_primary_care_physicians AS P WHERE P.code = F.gp_code;
+  UPDATE renalware.feed_practice_gps feed
+  SET primary_care_physician_id = physicians.id
+  FROM renalware.patient_primary_care_physicians physicians
+  WHERE physicians.code = feed.gp_code;
 
-  UPDATE feed_practice_gps F
-    SET practice_id = P.id
-    FROM patient_practices AS P WHERE P.code = F.practice_code;
+  UPDATE renalware.feed_practice_gps feed
+  SET practice_id = practices.id
+  FROM renalware.patient_practices practices
+  WHERE practices.code = feed.practice_code;
 
-  /*
-    2.
-    Add any new membership rows (ignoring errors if the row already exists)
-  */
+  SELECT COUNT(DISTINCT gp_code)
+  INTO unknown_gp_count
+  FROM renalware.feed_practice_gps
+  WHERE primary_care_physician_id IS NULL;
+
+  SELECT string_agg(gp_code, ', ' ORDER BY gp_code)
+  INTO unknown_gp_codes
+  FROM (
+    SELECT DISTINCT gp_code
+    FROM renalware.feed_practice_gps
+    WHERE primary_care_physician_id IS NULL
+    ORDER BY gp_code
+    LIMIT 5
+  ) unknown_gps;
+
+  SELECT COUNT(DISTINCT practice_code)
+  INTO unknown_practice_count
+  FROM renalware.feed_practice_gps
+  WHERE practice_id IS NULL;
+
+  SELECT string_agg(practice_code, ', ' ORDER BY practice_code)
+  INTO unknown_practice_codes
+  FROM (
+    SELECT DISTINCT practice_code
+    FROM renalware.feed_practice_gps
+    WHERE practice_id IS NULL
+    ORDER BY practice_code
+    LIMIT 5
+  ) unknown_practices;
+
+  IF unknown_gp_count > 0 OR unknown_practice_count > 0 THEN
+    RAISE EXCEPTION USING MESSAGE = format(
+      'Practice membership feed contains %s unknown GP code(s) [%s] and ' ||
+      '%s unknown practice code(s) [%s]',
+      unknown_gp_count,
+      COALESCE(unknown_gp_codes, 'none'),
+      unknown_practice_count,
+      COALESCE(unknown_practice_codes, 'none')
+    );
+  END IF;
+
+  WITH latest_memberships AS (
+    SELECT DISTINCT ON (practice_id, primary_care_physician_id)
+      practice_id,
+      primary_care_physician_id,
+      joined_on,
+      left_on
+    FROM renalware.feed_practice_gps
+    WHERE practice_id IS NOT NULL AND primary_care_physician_id IS NOT NULL
+    ORDER BY
+      practice_id,
+      primary_care_physician_id,
+      joined_on DESC NULLS LAST,
+      left_on DESC NULLS LAST
+  )
   INSERT INTO renalware.patient_practice_memberships
-    (practice_id, primary_care_physician_id, joined_on, left_on, active, created_at, updated_at)
+    (practice_id,
+     primary_care_physician_id,
+     joined_on,
+     left_on,
+     active,
+     ods_managed,
+     deleted_at,
+     created_at,
+     updated_at)
   SELECT
     practice_id,
     primary_care_physician_id,
     joined_on,
     left_on,
-    case when left_on is null then true else false end, --active
-    CURRENT_TIMESTAMP,
-    CURRENT_TIMESTAMP
-  FROM feed_practice_gps
-  where practice_id is not null and primary_care_physician_id is not null
-  ON CONFLICT (practice_id, primary_care_physician_id) DO NOTHING;
+    (left_on IS NULL OR left_on >= CURRENT_DATE) AND EXISTS (
+      SELECT 1
+      FROM renalware.patient_primary_care_physicians physicians
+      WHERE physicians.id = latest_memberships.primary_care_physician_id
+        AND physicians.deleted_at IS NULL
+    ),
+    true,
+    NULL,
+    clock_timestamp(),
+    clock_timestamp()
+  FROM latest_memberships
+  ON CONFLICT (practice_id, primary_care_physician_id) DO UPDATE
+    SET joined_on = excluded.joined_on,
+        left_on = excluded.left_on,
+        active = excluded.active,
+        ods_managed = true,
+        deleted_at = NULL,
+        updated_at = excluded.updated_at
+    WHERE (patient_practice_memberships.joined_on,
+           patient_practice_memberships.left_on,
+           patient_practice_memberships.active,
+           patient_practice_memberships.ods_managed,
+           patient_practice_memberships.deleted_at)
+      IS DISTINCT FROM
+          (excluded.joined_on,
+           excluded.left_on,
+           excluded.active,
+           excluded.ods_managed,
+           excluded.deleted_at);
 
-  /*
-    3.
-    Mark as deleted any memberships not in the latest uploaded data set
-    as these gps have retired or moved on.
-  */
-  UPDATE patient_practice_memberships M
-    SET deleted_at = CURRENT_TIMESTAMP
-    WHERE NOT EXISTS (
-      select 1 FROM feed_practice_gps T
-      where T.primary_care_physician_id = M.primary_care_physician_id
-      and T.practice_id = M.practice_id
+  UPDATE renalware.patient_practice_memberships membership
+  SET deleted_at = clock_timestamp(),
+      active = false,
+      updated_at = clock_timestamp()
+  WHERE membership.ods_managed = true
+    AND membership.default_gp = false
+    AND membership.deleted_at IS NULL
+    AND NOT EXISTS (
+      SELECT 1
+      FROM renalware.patient_primary_care_physicians physicians
+      WHERE physicians.id = membership.primary_care_physician_id
+        AND physicians.code = 'G9999998'
+    )
+    AND NOT EXISTS (
+      SELECT 1
+      FROM renalware.feed_practice_gps feed
+      WHERE feed.primary_care_physician_id = membership.primary_care_physician_id
+        AND feed.practice_id = membership.practice_id
     );
+END;
+$$;
 
+
+--
+-- Name: import_feed_practices(); Type: FUNCTION; Schema: renalware; Owner: -
+--
+
+CREATE FUNCTION renalware.import_feed_practices() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  INSERT INTO renalware.patient_practices
+    (code, name, telephone, active, ods_managed, created_at, updated_at)
+  SELECT
+    code,
+    name,
+    telephone,
+    status = 'ACTIVE',
+    true,
+    clock_timestamp(),
+    clock_timestamp()
+  FROM renalware.feed_practices
+  ON CONFLICT (code) DO UPDATE
+    SET name = excluded.name,
+        telephone = excluded.telephone,
+        active = excluded.active,
+        ods_managed = true,
+        updated_at = excluded.updated_at
+    WHERE (patient_practices.name,
+           patient_practices.telephone,
+           patient_practices.active,
+           patient_practices.ods_managed)
+      IS DISTINCT FROM
+          (excluded.name,
+           excluded.telephone,
+           excluded.active,
+           excluded.ods_managed);
+
+  INSERT INTO renalware.addresses
+    (addressable_type,
+     addressable_id,
+     street_1,
+     street_2,
+     street_3,
+     town,
+     county,
+     postcode,
+     country_id,
+     created_at,
+     updated_at)
+  SELECT
+    'Renalware::Patients::Practice',
+    practices.id,
+    feed.street_1,
+    feed.street_2,
+    feed.street_3,
+    feed.town,
+    feed.county,
+    feed.postcode,
+    countries.id,
+    clock_timestamp(),
+    clock_timestamp()
+  FROM renalware.feed_practices feed
+  INNER JOIN renalware.patient_practices practices ON practices.code = feed.code
+  CROSS JOIN (
+    SELECT id FROM renalware.system_countries WHERE alpha2 = 'GB' LIMIT 1
+  ) countries
+  ON CONFLICT (addressable_type, addressable_id) DO UPDATE
+    SET street_1 = excluded.street_1,
+        street_2 = excluded.street_2,
+        street_3 = excluded.street_3,
+        town = excluded.town,
+        county = excluded.county,
+        postcode = excluded.postcode,
+        country_id = excluded.country_id,
+        updated_at = excluded.updated_at
+    WHERE (addresses.street_1,
+           addresses.street_2,
+           addresses.street_3,
+           addresses.town,
+           addresses.county,
+           addresses.postcode,
+           addresses.country_id)
+      IS DISTINCT FROM
+          (excluded.street_1,
+           excluded.street_2,
+           excluded.street_3,
+           excluded.town,
+           excluded.county,
+           excluded.postcode,
+           excluded.country_id);
 END;
 $$;
 
@@ -6876,6 +7073,44 @@ ALTER SEQUENCE renalware.feed_practice_gps_id_seq OWNED BY renalware.feed_practi
 
 
 --
+-- Name: feed_practices; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.feed_practices (
+    id bigint NOT NULL,
+    code text NOT NULL,
+    name text NOT NULL,
+    telephone text,
+    street_1 text,
+    street_2 text,
+    street_3 text,
+    town text,
+    county text,
+    postcode text,
+    status character varying NOT NULL
+);
+
+
+--
+-- Name: feed_practices_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.feed_practices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_practices_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.feed_practices_id_seq OWNED BY renalware.feed_practices.id;
+
+
+--
 -- Name: feed_raw_hl7_message_errors; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -9884,7 +10119,8 @@ CREATE TABLE renalware.patient_practices (
     last_change_date date,
     active boolean DEFAULT true NOT NULL,
     mesh_mailbox_id character varying,
-    mesh_mailbox_description character varying
+    mesh_mailbox_description character varying,
+    ods_managed boolean DEFAULT false NOT NULL
 );
 
 
@@ -12648,7 +12884,8 @@ CREATE TABLE renalware.patient_practice_memberships (
     joined_on date,
     left_on date,
     active boolean DEFAULT true NOT NULL,
-    default_gp boolean DEFAULT false NOT NULL
+    default_gp boolean DEFAULT false NOT NULL,
+    ods_managed boolean DEFAULT false NOT NULL
 );
 
 
@@ -12713,7 +12950,8 @@ CREATE TABLE renalware.patient_primary_care_physicians (
     updated_at timestamp without time zone CONSTRAINT doctor_doctors_updated_at_not_null NOT NULL,
     telephone character varying,
     deleted_at timestamp without time zone,
-    name character varying
+    name character varying,
+    ods_managed boolean DEFAULT false NOT NULL
 );
 
 
@@ -19217,6 +19455,13 @@ ALTER TABLE ONLY renalware.feed_practice_gps ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: feed_practices id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_practices ALTER COLUMN id SET DEFAULT nextval('renalware.feed_practices_id_seq'::regclass);
+
+
+--
 -- Name: feed_raw_hl7_message_errors id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -21539,6 +21784,14 @@ ALTER TABLE ONLY renalware.feed_outgoing_documents
 
 ALTER TABLE ONLY renalware.feed_practice_gps
     ADD CONSTRAINT feed_practice_gps_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_practices feed_practices_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.feed_practices
+    ADD CONSTRAINT feed_practices_pkey PRIMARY KEY (id);
 
 
 --
@@ -25420,6 +25673,13 @@ CREATE INDEX index_feed_outgoing_documents_on_renderable ON renalware.feed_outgo
 --
 
 CREATE INDEX index_feed_outgoing_documents_on_updated_by_id ON renalware.feed_outgoing_documents USING btree (updated_by_id);
+
+
+--
+-- Name: index_feed_practices_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_feed_practices_on_code ON renalware.feed_practices USING btree (code);
 
 
 --
@@ -35028,6 +35288,7 @@ ALTER TABLE ONLY renalware_heroic.biobank_usages
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260818120000'),
 ('20260809120003'),
 ('20260809120002'),
 ('20260809120001'),

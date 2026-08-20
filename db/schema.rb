@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_09_120003) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_18_120000) do
   create_schema "renalware"
   create_schema "renalware_heroic"
 
@@ -2856,6 +2856,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_120003) do
     t.integer "primary_care_physician_id"
   end
 
+  create_table "renalware.feed_practices", force: :cascade do |t|
+    t.text "code", null: false
+    t.text "county"
+    t.text "name", null: false
+    t.text "postcode"
+    t.string "status", null: false
+    t.text "street_1"
+    t.text "street_2"
+    t.text "street_3"
+    t.text "telephone"
+    t.text "town"
+    t.index ["code"], name: "index_feed_practices_on_code", unique: true
+  end
+
   create_table "renalware.feed_raw_hl7_message_errors", force: :cascade do |t|
     t.text "body", null: false
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
@@ -4798,6 +4812,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_120003) do
     t.date "joined_on"
     t.date "last_change_date"
     t.date "left_on"
+    t.boolean "ods_managed", default: false, null: false
     t.integer "practice_id", null: false
     t.integer "primary_care_physician_id", null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -4817,6 +4832,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_120003) do
     t.string "mesh_mailbox_description", comment: "Mailbox description eg GP Connect TPP Mailbox One.\nPopulated by a call to MESHAPI endpointlookup.\n"
     t.string "mesh_mailbox_id", comment: "e.g. YGM24GPXXX. Populated by a call to MESHAPI endpointlookup.\nUsed when sending letters using TransferOfCare via MESH.\n"
     t.string "name", null: false
+    t.boolean "ods_managed", default: false, null: false
     t.string "telephone"
     t.datetime "updated_at", precision: nil, null: false
     t.index ["code"], name: "index_patient_practices_on_code", unique: true
@@ -4829,6 +4845,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_120003) do
     t.string "family_name"
     t.string "given_name"
     t.string "name"
+    t.boolean "ods_managed", default: false, null: false
     t.string "practitioner_type", null: false
     t.string "telephone"
     t.datetime "updated_at", precision: nil, null: false

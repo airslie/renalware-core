@@ -11,5 +11,6 @@ A RAR version of simple.zip
 ### primary_care_physicians/egpcur.zip
 
 A compressed egpcur.csv containing a small set of GP records for testing PrimaryCarePhysician
-imports. The file comes from the TRUD nhs_ods_weekly dataset.
-https://isd.digital.nhs.uk/trud3/user/authenticated/group/0/pack/1/subpack/58/releases
+imports. The ZIP is retained to test legacy archive compatibility; current GP data comes from NHS
+ODS Data Search and Export:
+https://digital.nhs.uk/services/organisation-data-service/data-search-and-export/csv-downloads/gp-and-gp-practice-related-data

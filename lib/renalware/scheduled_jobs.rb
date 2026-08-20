@@ -30,8 +30,7 @@ module Renalware
           class: "Renalware::Patients::SyncODSJob",
           kwargs: { dry_run: false },
           set: { priority: -10 },
-          description: "Use the NHS Organisation Data Service (ODS) API to fetch updates to " \
-                       "practices and GPs"
+          description: "Sync practices and GPs from NHS ODS Data Search and Export"
         },
 
         expire_inactive_users: {
