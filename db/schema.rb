@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_18_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_19_120000) do
   create_schema "renalware"
   create_schema "renalware_heroic"
 
@@ -6325,6 +6325,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_18_120000) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["name"], name: "index_transplant_rejection_treatments_on_name"
     t.index ["position"], name: "index_transplant_rejection_treatments_on_position"
+  end
+
+  create_table "renalware.transplant_ukt_death_causes", force: :cascade do |t|
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.boolean "enabled", default: true, null: false
+    t.string "name", null: false
+    t.integer "position", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_transplant_ukt_death_causes_on_code", unique: true
+    t.index ["name"], name: "index_transplant_ukt_death_causes_on_name", unique: true
   end
 
   create_table "renalware.transplant_versions", id: :serial, force: :cascade do |t|

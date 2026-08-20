@@ -37,7 +37,9 @@ module Renalware
       class CadavericDonor < Document::Embedded
         attribute :cadaveric_donor_type, Document::Enum
         attribute :death_certified_at, DateTime
-        attribute :ukt_cause_of_death, Document::Enum
+        # Store the UKT death cause code in the document. The available codes and their display
+        # names are managed in Transplants::UKTDeathCause.
+        attribute :ukt_cause_of_death, String
         attribute :ukt_cause_of_death_other
         attribute :warm_ischaemic_time_in_minutes, Integer
 
@@ -45,7 +47,19 @@ module Renalware
         validates :warm_ischaemic_time_in_minutes, numericality: { allow_blank: true }
         validates :ukt_cause_of_death_other,
                   presence: true,
-                  if: ->(obj) { obj.ukt_cause_of_death.try(:text) =~ /specify/ }
+                  if: :ukt_cause_of_death_requires_other_text?
+
+        def ukt_cause_of_death_name
+          return if ukt_cause_of_death.blank?
+
+          UKTDeathCause.find_by(code: ukt_cause_of_death)&.name || ukt_cause_of_death.humanize
+        end
+
+        private
+
+        def ukt_cause_of_death_requires_other_text?
+          ukt_cause_of_death.in?(%w(other other_drug_overdose))
+        end
       end
       attribute :cadaveric_donor, CadavericDonor
 

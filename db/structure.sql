@@ -17364,6 +17364,40 @@ ALTER SEQUENCE renalware.transplant_rejection_treatments_id_seq OWNED BY renalwa
 
 
 --
+-- Name: transplant_ukt_death_causes; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.transplant_ukt_death_causes (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    "position" integer NOT NULL,
+    enabled boolean DEFAULT true NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: transplant_ukt_death_causes_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.transplant_ukt_death_causes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplant_ukt_death_causes_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.transplant_ukt_death_causes_id_seq OWNED BY renalware.transplant_ukt_death_causes.id;
+
+
+--
 -- Name: transplant_versions; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -21009,6 +21043,13 @@ ALTER TABLE ONLY renalware.transplant_rejection_treatments ALTER COLUMN id SET D
 
 
 --
+-- Name: transplant_ukt_death_causes id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_ukt_death_causes ALTER COLUMN id SET DEFAULT nextval('renalware.transplant_ukt_death_causes_id_seq'::regclass);
+
+
+--
 -- Name: transplant_versions id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -23600,6 +23641,14 @@ ALTER TABLE ONLY renalware.transplant_rejection_episodes
 
 ALTER TABLE ONLY renalware.transplant_rejection_treatments
     ADD CONSTRAINT transplant_rejection_treatments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_ukt_death_causes transplant_ukt_death_causes_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.transplant_ukt_death_causes
+    ADD CONSTRAINT transplant_ukt_death_causes_pkey PRIMARY KEY (id);
 
 
 --
@@ -30478,6 +30527,20 @@ CREATE INDEX index_transplant_rejection_treatments_on_position ON renalware.tran
 
 
 --
+-- Name: index_transplant_ukt_death_causes_on_code; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_transplant_ukt_death_causes_on_code ON renalware.transplant_ukt_death_causes USING btree (code);
+
+
+--
+-- Name: index_transplant_ukt_death_causes_on_name; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_transplant_ukt_death_causes_on_name ON renalware.transplant_ukt_death_causes USING btree (name);
+
+
+--
 -- Name: index_transplant_versions_on_item_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -35288,6 +35351,7 @@ ALTER TABLE ONLY renalware_heroic.biobank_usages
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260819120000'),
 ('20260818120000'),
 ('20260809120003'),
 ('20260809120002'),
