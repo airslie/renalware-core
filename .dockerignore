@@ -33,3 +33,6 @@ ai/*
 .github/*
 Guardfile
 Procfile
+tximport_data/*
+tximport.zip
+mise.toml

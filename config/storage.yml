@@ -19,3 +19,17 @@ amazon:
 azure:
   service: Disk
   root: /uploads
+
+azure_blob:
+  service: AzureBlob
+  storage_account_name: <%= ENV["AZURE_STORAGE_ACCOUNT_NAME"] %>
+<% if ENV["AZURE_STORAGE_ACCESS_KEY"].present? %>
+  storage_access_key: <%= ENV["AZURE_STORAGE_ACCESS_KEY"] %>
+<% end %>
+<% if ENV["AZURE_STORAGE_PRINCIPAL_ID"].present? %>
+  principal_id: <%= ENV["AZURE_STORAGE_PRINCIPAL_ID"] %>
+<% end %>
+<% if ENV["AZURE_STORAGE_USE_MANAGED_IDENTITIES"].present? %>
+  use_managed_identities: <%= ActiveModel::Type::Boolean.new.cast(ENV["AZURE_STORAGE_USE_MANAGED_IDENTITIES"]) %>
+<% end %>
+  container: <%= ENV["AZURE_STORAGE_CONTAINER"] %>

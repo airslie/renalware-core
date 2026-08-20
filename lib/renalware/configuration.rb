@@ -191,6 +191,50 @@ module Renalware
     config_accessor(:allow_uploading_patient_attachments) {
       ActiveModel::Type::Boolean.new.cast(ENV.fetch("ALLOW_UPLOADING_PATIENT_ATTACHMENTS", "true"))
     }
+    config_accessor(:active_storage_malware_scanning_enabled) {
+      ActiveModel::Type::Boolean.new.cast(
+        ENV.fetch("ACTIVE_STORAGE_MALWARE_SCANNING_ENABLED", "false")
+      )
+    }
+    config_accessor(:active_storage_malware_scanning_service_names) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCANNING_SERVICE_NAMES", "azure_blob")
+        .split(",")
+        .map(&:strip)
+        .compact_blank
+    }
+    config_accessor(:active_storage_malware_scan_poll_interval_seconds) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_POLL_INTERVAL_SECONDS", "30").to_i
+    }
+    config_accessor(:active_storage_malware_scan_poll_batch_size) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_POLL_BATCH_SIZE", "10").to_i
+    }
+    config_accessor(:active_storage_malware_scan_service_bus_client_class_name) {
+      ENV.fetch(
+        "ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_CLIENT_CLASS_NAME",
+        "Renalware::FileStorage::AzureServiceBusMalwareScanResultsClient"
+      )
+    }
+    config_accessor(:active_storage_malware_scan_service_bus_namespace) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_NAMESPACE", nil)
+    }
+    config_accessor(:active_storage_malware_scan_service_bus_queue_name) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_QUEUE_NAME", nil)
+    }
+    config_accessor(:active_storage_malware_scan_service_bus_sas_key_name) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_SAS_KEY_NAME", nil)
+    }
+    config_accessor(:active_storage_malware_scan_service_bus_sas_key) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_SAS_KEY", nil)
+    }
+    config_accessor(:active_storage_malware_scan_service_bus_receive_timeout_seconds) {
+      ENV.fetch("ACTIVE_STORAGE_MALWARE_SCAN_SERVICE_BUS_RECEIVE_TIMEOUT_SECONDS", "5").to_i
+    }
+    config_accessor(:azure_blob_storage_account_name) {
+      ENV.fetch("AZURE_STORAGE_ACCOUNT_NAME", nil)
+    }
+    config_accessor(:azure_blob_storage_container) {
+      ENV.fetch("AZURE_STORAGE_CONTAINER", nil)
+    }
     config_accessor(:generate_pathology_request_forms_from_hd_mdm_listing) {
       ActiveModel::Type::Boolean.new.cast(
         ENV.fetch("GENERATE_PATHOLOGY_REQUEST_FORMS_FROM_HD_MDM_LISTING", "true")

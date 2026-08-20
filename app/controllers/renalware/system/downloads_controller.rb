@@ -12,6 +12,10 @@ module Renalware
       def show
         download = find_and_authorize_download
         if download.file.attached?
+          unless Renalware::FileStorage::MalwareScanning.usable?(download.file)
+            return redirect_to_file_unavailable(system_downloads_path)
+          end
+
           update_view_count_for download
           redirect_to(raw_active_storage_url_for(download.file))
         end
@@ -86,6 +90,13 @@ module Renalware
 
       def raw_active_storage_url_for(file)
         Rails.application.routes.url_helpers.rails_blob_url(file.attachment, only_path: true)
+      end
+
+      def redirect_to_file_unavailable(fallback_location)
+        redirect_back_or_to(
+          fallback_location,
+          alert: Renalware::FileStorage::MalwareScanning.file_unavailable_message
+        )
       end
     end
   end

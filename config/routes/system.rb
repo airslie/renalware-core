@@ -12,6 +12,7 @@ namespace :system do
   end
   resources :nag_definitions, except: :show
   resources :api_logs, only: :index
+  resources :malware_scans, only: :index
 end
 
 match "/generate_test_internal_server_error",

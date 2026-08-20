@@ -1,0 +1,6 @@
+---
+en:
+  renalware:
+    file_storage:
+      malware_scanning:
+        file_unavailable: This file is not available until its malware scan has completed successfully.

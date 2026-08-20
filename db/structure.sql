@@ -3965,6 +3965,46 @@ ALTER SEQUENCE renalware.active_storage_attachments_id_seq OWNED BY renalware.ac
 
 
 --
+-- Name: active_storage_blob_malware_scans; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.active_storage_blob_malware_scans (
+    id bigint NOT NULL,
+    blob_id bigint NOT NULL,
+    status character varying DEFAULT 'pending'::character varying NOT NULL,
+    scanned_at timestamp(6) without time zone,
+    last_checked_at timestamp(6) without time zone,
+    provider character varying DEFAULT 'microsoft_defender'::character varying NOT NULL,
+    provider_result character varying,
+    provider_event_id character varying,
+    etag character varying,
+    blob_uri character varying,
+    metadata jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: active_storage_blob_malware_scans_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.active_storage_blob_malware_scans_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_blob_malware_scans_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.active_storage_blob_malware_scans_id_seq OWNED BY renalware.active_storage_blob_malware_scans.id;
+
+
+--
 -- Name: active_storage_blobs; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -19041,6 +19081,13 @@ ALTER TABLE ONLY renalware.active_storage_attachments ALTER COLUMN id SET DEFAUL
 
 
 --
+-- Name: active_storage_blob_malware_scans id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.active_storage_blob_malware_scans ALTER COLUMN id SET DEFAULT nextval('renalware.active_storage_blob_malware_scans_id_seq'::regclass);
+
+
+--
 -- Name: active_storage_blobs id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -21305,6 +21352,14 @@ ALTER TABLE ONLY renalware.access_versions
 
 ALTER TABLE ONLY renalware.active_storage_attachments
     ADD CONSTRAINT active_storage_attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_storage_blob_malware_scans active_storage_blob_malware_scans_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.active_storage_blob_malware_scans
+    ADD CONSTRAINT active_storage_blob_malware_scans_pkey PRIMARY KEY (id);
 
 
 --
@@ -24357,6 +24412,34 @@ CREATE INDEX index_active_storage_attachments_on_blob_id ON renalware.active_sto
 --
 
 CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON renalware.active_storage_attachments USING btree (record_type, record_id, name, blob_id);
+
+
+--
+-- Name: index_active_storage_blob_malware_scans_on_blob_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_blob_malware_scans_on_blob_id ON renalware.active_storage_blob_malware_scans USING btree (blob_id);
+
+
+--
+-- Name: index_active_storage_blob_malware_scans_on_blob_uri; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_active_storage_blob_malware_scans_on_blob_uri ON renalware.active_storage_blob_malware_scans USING btree (blob_uri);
+
+
+--
+-- Name: index_active_storage_blob_malware_scans_on_provider_event_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_active_storage_blob_malware_scans_on_provider_event_id ON renalware.active_storage_blob_malware_scans USING btree (provider_event_id);
+
+
+--
+-- Name: index_active_storage_blob_malware_scans_on_status; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_active_storage_blob_malware_scans_on_status ON renalware.active_storage_blob_malware_scans USING btree (status);
 
 
 --
@@ -33753,6 +33836,14 @@ ALTER TABLE ONLY renalware.hd_diaries
 
 
 --
+-- Name: active_storage_blob_malware_scans fk_rails_aaceda0cdf; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.active_storage_blob_malware_scans
+    ADD CONSTRAINT fk_rails_aaceda0cdf FOREIGN KEY (blob_id) REFERENCES renalware.active_storage_blobs(id);
+
+
+--
 -- Name: geography_output_areas fk_rails_ab0dd53286; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -35359,6 +35450,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260809120000'),
 ('20260808120000'),
 ('20260716120000'),
+('20260715120000'),
 ('20260706120000'),
 ('20260704120000'),
 ('20260703100000'),
