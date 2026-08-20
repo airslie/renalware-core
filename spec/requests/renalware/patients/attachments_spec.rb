@@ -184,6 +184,22 @@ describe "Managing files attached to a patient" do
       follow_redirect!
       expect(response.media_type).to eq("image/png")
     end
+
+    it "redirects with a friendly message when the file scan has not completed" do
+      allow(Renalware.config).to receive_messages(
+        active_storage_malware_scanning_enabled: true,
+        active_storage_malware_scanning_service_names: ["test"]
+      )
+      attachment = create(:patient_attachment, by: user, patient:)
+      attachment.file.blob.malware_scan.update!(status: :pending)
+
+      get patient_attachment_path(patient, attachment)
+
+      expect(response).to redirect_to(patient_attachments_path(patient))
+      expect(flash[:alert]).to eq(
+        Renalware::FileStorage::MalwareScanning.file_unavailable_message
+      )
+    end
   end
 
   describe "DELETE destroy" do

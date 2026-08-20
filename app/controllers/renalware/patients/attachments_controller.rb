@@ -22,7 +22,9 @@ module Renalware
       def show
         attachment = find_and_authorize_attachment
         if attachment.file.attached?
-          return head :forbidden unless Renalware::FileStorage::MalwareScanning.usable?(attachment.file)
+          unless Renalware::FileStorage::MalwareScanning.usable?(attachment.file)
+            return redirect_to_file_unavailable(patient_attachments_path(patient))
+          end
 
           url = Rails.application.routes.url_helpers.rails_blob_url(
             attachment.file,
@@ -105,6 +107,13 @@ module Renalware
 
       def render_edit(attachment)
         render :edit, locals: { attachment: attachment }
+      end
+
+      def redirect_to_file_unavailable(fallback_location)
+        redirect_back_or_to(
+          fallback_location,
+          alert: Renalware::FileStorage::MalwareScanning.file_unavailable_message
+        )
       end
 
       def attachment_params

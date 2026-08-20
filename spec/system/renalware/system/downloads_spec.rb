@@ -79,5 +79,24 @@ describe "Managing downloads - files uploaded by super admins which can be acces
       expect(page).to have_current_path(%r{rails/active_storage.*})
       expect(item.reload.view_count).to eq(1)
     end
+
+    it "shows a friendly message when the file scan has not completed" do
+      allow(Renalware.config).to receive_messages(
+        active_storage_malware_scanning_enabled: true,
+        active_storage_malware_scanning_service_names: ["test"]
+      )
+      login_as_super_admin
+      item = create(:system_download, name: "Name1", description: "Description1")
+      item.file.blob.malware_scan.update!(status: :pending)
+      visit system_downloads_path
+
+      within(".download") do
+        click_on "Name1"
+      end
+
+      expect(page).to have_current_path(system_downloads_path)
+      expect(page).to have_text(Renalware::FileStorage::MalwareScanning.file_unavailable_message)
+      expect(item.reload.view_count).to eq(0)
+    end
   end
 end
