@@ -4,6 +4,8 @@ name: Verify
 # Do not run if updating docs
 on:
   push:
+    branches:
+      - main
     tags-ignore:
       - "*"
     paths-ignore:
@@ -28,7 +30,6 @@ env:
   RENALWARE_EXTENSIONS: ${{ secrets.RENALWARE_EXTENSIONS }}
   RAILS_ENV: test
   PGHOST: localhost
-  COVERAGE: true
 
 jobs:
   assets:
@@ -169,11 +170,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        command:
-          - bin/gh/rspec/unit
-          - bin/gh/rspec/integration
-          - bin/gh/cucumber/domain
-          - bin/gh/cucumber/web
+        include:
+          - command: bin/gh/rspec/unit
+            browser: false
+            javascript: true
+          - command: bin/gh/rspec/integration
+            browser: true
+            javascript: true
+          - command: bin/gh/cucumber/domain
+            browser: false
+            javascript: false
+          - command: bin/gh/cucumber/web
+            browser: true
+            javascript: true
 
     services:
       postgres:
@@ -201,15 +210,18 @@ jobs:
           bundler-cache: true
 
       - name: Setup node and yarn with caching
+        if: matrix.javascript
         uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: "yarn"
 
       - name: Install js packages with yarn
+        if: matrix.javascript
         run: yarn install --frozen-lockfile # optional, --immutable
 
       - name: Cache Playwright Chromium browser
+        if: matrix.browser
         id: playwright-cache
         uses: actions/cache@v6
         with:
@@ -217,14 +229,15 @@ jobs:
           key: playwright-browsers-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
 
       - name: Install Playwright Chromium browser (with deps)
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: matrix.browser && steps.playwright-cache.outputs.cache-hit != 'true'
         run: yarn run playwright install --with-deps chromium
 
       - name: Install Playwright Chromium browser deps
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        if: matrix.browser && steps.playwright-cache.outputs.cache-hit == 'true'
         run: yarn run playwright install-deps chromium
 
       - name: Restore asset cache
+        if: matrix.browser
         uses: actions/cache@v6
         with:
           path: |
@@ -232,7 +245,7 @@ jobs:
             tmp/cache/assets/sprockets
           key: asset-cache-${{ runner.os }}-${{ github.ref }}-${{ github.sha }}
 
-      - name: Install PostgreSQL 18.4 client
+      - name: Install system dependencies
         run: |
           sudo install -d /usr/share/postgresql-common/pgdg
           sudo curl -fsSL -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc \
@@ -247,7 +260,10 @@ jobs:
               awk '$3 ~ /^18[.]4-/ { print $3; exit }'
           )"
           test -n "$client_version"
-          sudo apt-get install -y "postgresql-client-18=$client_version"
+          sudo apt-get install -y \
+            "postgresql-client-18=$client_version" \
+            ghostscript \
+            pandoc
           pg_dump --version | grep -F "18.4"
 
       - name: Setup test database
@@ -258,15 +274,6 @@ jobs:
           RAILS_ENV: test
           PGHOST: localhost
         run: bin/rails db:create db:schema:load db:migrate
-
-      - name: Update packages
-        run: sudo apt update
-
-      - name: Install dependencies
-        run: sudo apt install -y ghostscript pandoc
-
-      - name: Create coverage directory
-        run: mkdir -p coverage
 
       - name: Run tests
         env:
@@ -283,47 +290,3 @@ jobs:
           name: test-failure-screenshots
           path: tmp/capybara
           if-no-files-found: ignore
-
-      - name: Upload coverage artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: coverage-${{ strategy.job-index }}
-          path: coverage/.resultset.json
-          if-no-files-found: ignore
-          include-hidden-files: true
-
-  coverage:
-    name: Coverage Report
-    needs: tests
-    runs-on: ubuntu-24.04
-    if: always()
-
-    permissions:
-      contents: read
-      pull-requests: write
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Download all coverage artifacts
-        uses: actions/download-artifact@v8
-        with:
-          pattern: coverage-*
-          path: coverage-artifacts
-
-      - name: Merge coverage reports
-        env:
-          COVERAGE: true
-          RAILS_ENV: test
-        run: bin/collate-coverage
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v7
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
