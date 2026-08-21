@@ -28,7 +28,7 @@
     "rollup": "^4.22.4",
     "semver": "^7.6.3",
     "serialize-javascript": "^7.0",
-    "slim-select": "4.0.7",
+    "slim-select": "^4.0.7",
     "sortablejs": "^1.13.0",
     "underscore": "1.13.8"
   },
