@@ -113,11 +113,11 @@ module Renalware
       end
 
       def can_add_session?
-        policy_for(Renalware::HD::Session::Open).new? && has_ever_been_on_hd?
+        policy_for(Renalware::HD::Session::Open).new?
       end
 
       def can_add_dna_session?
-        policy_for(Renalware::HD::Session::DNA).new? && has_ever_been_on_hd?
+        policy_for(Renalware::HD::Session::DNA).new?
       end
 
       private
