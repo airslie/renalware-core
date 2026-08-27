@@ -10,6 +10,18 @@ describe "Editing the virology profile" do
     end
 
     expect(page).to have_current_path(edit_patient_virology_profile_path(patient))
+    expect(page).to have_css(".rw-form .rw-field-row", count: 5)
+    expect(page).to have_css("form.rw-form.max-w-7xl")
+    expect(page).to have_no_css(".rw-form .columns")
+
+    within(".hiv") do
+      expect(page).to have_css("[class~='sm:grid-cols-3']")
+    end
+
+    within(".hepatitis_c") do
+      expect(page).to have_css("fieldset legend", text: "Status")
+      expect(page).to have_css("[class~='sm:grid-cols-3']")
+    end
 
     within(".hiv") do
       choose("Yes")
@@ -28,6 +40,8 @@ describe "Editing the virology profile" do
 
     within(".hepatitis_c") do
       choose("Unknown")
+      select("2014", from: "Diagnosed")
+      fill_in "Ended", with: "02-Jan-2015"
     end
 
     within(".htlv") do
@@ -49,8 +63,33 @@ describe "Editing the virology profile" do
     expect(document.hepatitis_b_core_antibody.status.to_s).to eq("yes")
     expect(document.hepatitis_b_core_antibody.confirmed_on_year).to eq(2010)
     expect(document.hepatitis_c.status.to_s).to eq("unknown")
-    expect(document.hepatitis_c.confirmed_on_year).to be_blank
+    expect(document.hepatitis_c.confirmed_on_year).to eq(2014)
+    expect(document.hepatitis_c.ended_on).to eq(Date.new(2015, 1, 2))
     expect(document.htlv.status.to_s).to eq("yes")
     expect(document.htlv.confirmed_on_year).to eq(2018)
+  end
+
+  it "displays an end-date validation error beside the hepatitis C field" do
+    user = login_as_clinical
+    profile = patient.create_profile
+    profile.document.hepatitis_c.status = :unknown
+    profile.document.hepatitis_c.confirmed_on_year = 2014
+    profile.save_by!(user)
+
+    visit edit_patient_virology_profile_path(patient)
+
+    within(".hepatitis_c") do
+      fill_in "Ended", with: "01-Jan-2014"
+    end
+
+    click_on t("btn.update")
+
+    expect(page).to have_current_path(patient_virology_profile_path(patient, profile))
+    within(".hepatitis_c") do
+      expect(page).to have_css(
+        ".rw-error",
+        text: "must be after the beginning of the diagnosis year"
+      )
+    end
   end
 end

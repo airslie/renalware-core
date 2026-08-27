@@ -82,4 +82,63 @@ RSpec.describe Renalware::FormBuilders::Horizontal do
       expect(svg).to be_present
     end
   end
+
+  describe "#compound_row" do
+    it "renders a responsive group of related controls" do
+      html = helper.form_with(model: attachment, url: "/attachments",
+                              builder: described_class) do |f|
+        f.compound_row(label: "Dates", row_class: "dates", controls_class: "sm:grid-cols-2") do
+          f.control_group(:document_date, label: "Document date") do
+            f.date_control(:document_date)
+          end
+        end
+      end
+
+      fragment = Nokogiri::HTML.fragment(html)
+      row = fragment.at_css(".rw-field-row.dates")
+
+      expect(row.at_css(".rw-label__text").text).to eq("Dates")
+      expect(row.at_css(".rw-compound-controls")["class"]).to include("sm:grid-cols-2")
+      expect(row.at_css(".rw-control-label").text).to eq("Document date")
+      expect(row.at_css("input[data-controller='flatpickr']")).to be_present
+    end
+
+    it "renders errors beside the relevant control" do
+      attachment.errors.add(:document_date, "must be after the start date")
+
+      html = helper.form_with(model: attachment, url: "/attachments",
+                              builder: described_class) do |f|
+        f.compound_row(label: "Dates") do
+          f.control_group(:document_date, label: "Document date") do
+            f.date_control(:document_date)
+          end
+        end
+      end
+
+      fragment = Nokogiri::HTML.fragment(html)
+
+      expect(fragment.at_css(".rw-control-group .rw-error").text).to include(
+        "must be after the start date"
+      )
+    end
+  end
+
+  describe "#radio_group" do
+    it "renders an accessible fieldset and checks the current value" do
+      attachment.name = "external"
+      choices = [%w(Internal internal), %w(External external)]
+
+      html = helper.form_with(model: attachment, url: "/attachments",
+                              builder: described_class) do |f|
+        f.radio_group(:name, choices, legend: "Storage")
+      end
+
+      fragment = Nokogiri::HTML.fragment(html)
+      fieldset = fragment.at_css("fieldset.rw-control-group")
+
+      expect(fieldset.at_css("legend").text).to eq("Storage")
+      expect(fieldset.css("label.rw-radio-option").map(&:text)).to eq(choices.map(&:first))
+      expect(fieldset.at_css("input[value='external']")["checked"]).to eq("checked")
+    end
+  end
 end

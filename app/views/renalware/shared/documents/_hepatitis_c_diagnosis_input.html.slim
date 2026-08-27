@@ -9,3 +9,5 @@
                           Renalware::YearDatedConfirmation.valid_years.reverse,
                           options: { include_blank: true },
                           size: :xs
+    = fd.control_group :ended_on, label: "Ended" do
+      = fd.date_control :ended_on

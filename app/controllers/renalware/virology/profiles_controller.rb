@@ -33,7 +33,7 @@ module Renalware
         document.hiv = year_date_diagnosis_for(:hiv)
         document.hepatitis_b = year_date_diagnosis_for(:hepatitis_b)
         document.hepatitis_b_core_antibody = year_date_diagnosis_for(:hepatitis_b_core_antibody)
-        document.hepatitis_c = year_date_diagnosis_for(:hepatitis_c)
+        document.hepatitis_c = hepatitis_c_diagnosis
         document.htlv = year_date_diagnosis_for(:htlv)
         profile.save_by(current_user)
       end
@@ -41,6 +41,11 @@ module Renalware
       def year_date_diagnosis_for(condition)
         document_params = profile_params[:document]
         YearDatedDiagnosis.new(document_params[condition])
+      end
+
+      def hepatitis_c_diagnosis
+        document_params = profile_params[:document]
+        HepatitisCDiagnosis.new(document_params[:hepatitis_c])
       end
 
       def profile_params

@@ -1,18 +1,21 @@
 = within_patient_layout(title: "Edit Profile",
       breadcrumbs: breadcrumb_for("Virology", patient_virology_dashboard_path(patient))) do
 
-  = simple_form_for(profile,
-                    url: patient_virology_profile_path(patient, profile),
-                    method: :patch,
-                    html: { autocomplete: "off" },
-                    wrapper: :horizontal_form) do |f|
+  = form_with(model: profile,
+              url: patient_virology_profile_path(patient, profile),
+              method: :patch,
+              builder: Renalware::FormBuilders::Horizontal,
+              html: { autocomplete: "off", class: "rw-form max-w-7xl" }) do |f|
+    = f.error_summary
 
-    = f.simple_fields_for :document, profile.document do |fd|
-      .hint If YES, enter year of diagnosis
+    = f.fields_for :document, profile.document do |fd|
+      p.rw-hint If YES, enter year of diagnosis
       = render_input fd, :hiv
       = render_input fd, :hepatitis_b
       = render_input fd, :hepatitis_b_core_antibody
       = render_input fd, :hepatitis_c
       = render_input fd, :htlv
 
-    = save_or_cancel(form: f, back_path: patient_virology_dashboard_path(patient))
+    = f.actions_row do
+      = link_to t("btn.cancel"), patient_virology_dashboard_path(patient), class: "btn btn-secondary"
+      = f.submit(profile.persisted? ? t("btn.update") : t("btn.create"), class: "btn btn-primary")

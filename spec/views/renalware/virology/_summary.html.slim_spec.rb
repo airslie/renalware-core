@@ -45,4 +45,19 @@ describe "renalware/virology/profiles/summary" do
       end
     end
   end
+
+  context "when hepatitis C has ended" do
+    before do
+      profile.document.hepatitis_c.status = :yes
+      profile.document.hepatitis_c.confirmed_on_year = 2011
+      profile.document.hepatitis_c.ended_on = Date.new(2012, 3, 4)
+      profile.save_by!(user)
+    end
+
+    it "displays the end date" do
+      render partial:, locals: { patient:, positive_results_only: true }
+
+      expect(rendered).to include("Yes (2011), ended 04-Mar-2012")
+    end
+  end
 end
