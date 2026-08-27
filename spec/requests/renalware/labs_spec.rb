@@ -320,46 +320,6 @@ describe "Lab" do
         expect(response.body).to include("Synced renal clinic note")
         expect(response.body).to include("Plan: Continue monitoring")
       end
-
-      it "renders generated Heidi document and structured response output" do
-        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
-        client = instance_double(Renalware::Heidi::Client)
-        allow(Renalware::Heidi::Client).to receive_messages(configured?: true, new: client)
-        allow(client).to receive(:linked_account_access).with(@current_user).and_return(
-          Renalware::Heidi::Client::Result.new(
-            success: true,
-            status: 200,
-            body: { "is_linked" => true }
-          )
-        )
-        create(
-          :heidi_session,
-          patient:,
-          user: @current_user,
-          document_content: "Generated clinic letter body",
-          structured_response: {
-            "questionAnswers" => [
-              { "questionId" => "new_problems", "answer" => [{ "value" => "Anaemia" }] }
-            ]
-          },
-          clinical_codes_response: {
-            "codes" => [
-              { "code" => "73211009", "code_set" => "SNOMED-CT", "description" => "Diabetes" }
-            ]
-          }
-        )
-
-        get patient_lab_path(patient)
-
-        expect(response.body).to include("Heidi document")
-        expect(response.body).to include("Generated clinic letter body")
-        expect(response.body).to include("Heidi structured response")
-        expect(response.body).to include("new_problems")
-        expect(response.body).to include("Anaemia")
-        expect(response.body).to include("Heidi clinical codes")
-        expect(response.body).to include("73211009")
-        expect(response.body).to include("SNOMED-CT")
-      end
     end
 
     context "when the user does not have the lab feature flag" do
@@ -558,29 +518,6 @@ describe "Lab" do
       expect(sync).to have_received(:call)
       expect(response).to redirect_to(patient_lab_path(patient))
       expect(flash[:notice]).to eq("Heidi session sync requested.")
-    end
-  end
-
-  describe "POST /patients/:patient_id/heidi_session_outputs/:heidi_session_id" do
-    let(:patient) { create(:patient, :minimal, by: @current_user) }
-    let(:heidi_session) { create(:heidi_session, patient:, user: @current_user) }
-
-    before do
-      @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
-    end
-
-    it "generates Heidi outputs for the selected session and redirects back to the lab page" do
-      generator = instance_double(Renalware::Heidi::GenerateOutputs, call: heidi_session)
-      allow(Renalware::Heidi::GenerateOutputs).to receive(:new)
-        .with(session: heidi_session, document_template_id: "document-template-1")
-        .and_return(generator)
-
-      post patient_heidi_session_outputs_path(patient, heidi_session),
-           params: { document_template_id: "document-template-1" }
-
-      expect(generator).to have_received(:call)
-      expect(response).to redirect_to(patient_lab_path(patient))
-      expect(flash[:notice]).to eq("Heidi output generation requested.")
     end
   end
 

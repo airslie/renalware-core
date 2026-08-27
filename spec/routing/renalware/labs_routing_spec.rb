@@ -44,13 +44,4 @@ describe Renalware::LabsController do
       heidi_session_id: "456"
     )
   end
-
-  it "routes the Heidi session outputs endpoint" do
-    expect(post: "/patients/123/heidi_session_outputs/456").to route_to(
-      controller: "renalware/patients/heidi_session_outputs",
-      action: "create",
-      patient_id: "123",
-      heidi_session_id: "456"
-    )
-  end
 end

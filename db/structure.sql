@@ -9194,15 +9194,7 @@ CREATE TABLE renalware.heidi_sessions (
     last_synced_at timestamp(6) without time zone,
     sync_error text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    document_template_id character varying,
-    document_content_type character varying,
-    document_content text,
-    document_response jsonb DEFAULT '{}'::jsonb NOT NULL,
-    structured_response jsonb DEFAULT '{}'::jsonb NOT NULL,
-    clinical_codes_response jsonb DEFAULT '{}'::jsonb NOT NULL,
-    outputs_generated_at timestamp(6) without time zone,
-    outputs_error text
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -35556,6 +35548,7 @@ ALTER TABLE ONLY renalware_heroic.biobank_usages
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260827120000'),
 ('20260819120000'),
 ('20260818120000'),
 ('20260809120003'),
@@ -35571,6 +35564,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260622120100'),
 ('20260622120000'),
 ('20260611120000'),
+('20260609113000'),
 ('20260609110000'),
 ('20260608120000'),
 ('20260520090000'),

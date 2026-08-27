@@ -1,6 +1,0 @@
-en:
-  renalware:
-    patients:
-      heidi_session_outputs:
-        create:
-          success: Heidi output generation requested.
