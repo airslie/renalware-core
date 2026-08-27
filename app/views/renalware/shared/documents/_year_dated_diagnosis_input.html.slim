@@ -3,8 +3,8 @@
   = fd.compound_row label: f.object.class.human_attribute_name(attribute),
                     row_class: attribute,
                     controls_class: "sm:grid-cols-3" do
-    = fd.radio_group :status, renderable.class.status.options, legend: "Status"
-    = fd.control_group :confirmed_on_year, label: "Diagnosed" do
+    = fd.radio_group :status, renderable.class.status.options, legend: "Status", hide_label: true
+    = fd.control_group :confirmed_on_year, label: "Diagnosed", hide_label: true do
       = fd.select_control :confirmed_on_year,
                           Renalware::YearDatedConfirmation.valid_years.reverse,
                           options: { include_blank: true },

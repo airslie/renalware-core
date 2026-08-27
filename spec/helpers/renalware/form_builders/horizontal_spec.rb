@@ -123,6 +123,40 @@ RSpec.describe Renalware::FormBuilders::Horizontal do
     end
   end
 
+  describe "#compound_header" do
+    it "renders captions aligned to the compound grid, hidden from assistive tech" do
+      html = helper.form_with(model: attachment, url: "/attachments",
+                              builder: described_class) do |f|
+        f.compound_header("Status", "Diagnosed", "Ended", controls_class: "sm:grid-cols-3")
+      end
+
+      fragment = Nokogiri::HTML.fragment(html)
+      row = fragment.at_css(".rw-field-row--header")
+
+      expect(row["aria-hidden"]).to eq("true")
+      expect(row["class"]).to include("hidden").and include("sm:grid")
+      expect(row.at_css(".rw-compound-controls")["class"]).to include("sm:grid-cols-3")
+      expect(row.css(".rw-control-label").map(&:text)).to eq(%w(Status Diagnosed Ended))
+    end
+  end
+
+  describe "#control_group" do
+    it "hides the label from the sm breakpoint upwards" do
+      html = helper.form_with(model: attachment, url: "/attachments",
+                              builder: described_class) do |f|
+        f.control_group(:name, label: "Name", hide_label: true) do
+          f.text_field(:name)
+        end
+      end
+
+      fragment = Nokogiri::HTML.fragment(html)
+      label = fragment.at_css("label")
+
+      expect(label.text).to eq("Name")
+      expect(label["class"]).to include("sm:sr-only")
+    end
+  end
+
   describe "#radio_group" do
     it "renders an accessible fieldset and checks the current value" do
       attachment.name = "external"
@@ -139,6 +173,21 @@ RSpec.describe Renalware::FormBuilders::Horizontal do
       expect(fieldset.at_css("legend").text).to eq("Storage")
       expect(fieldset.css("label.rw-radio-option").map(&:text)).to eq(choices.map(&:first))
       expect(fieldset.at_css("input[value='external']")["checked"]).to eq("checked")
+    end
+
+    it "hides the legend from the sm breakpoint upwards" do
+      choices = [%w(Internal internal), %w(External external)]
+
+      html = helper.form_with(model: attachment, url: "/attachments",
+                              builder: described_class) do |f|
+        f.radio_group(:name, choices, legend: "Storage", hide_label: true)
+      end
+
+      fragment = Nokogiri::HTML.fragment(html)
+      legend = fragment.at_css("legend")
+
+      expect(legend.text).to eq("Storage")
+      expect(legend["class"]).to include("sm:sr-only")
     end
   end
 end

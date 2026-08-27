@@ -5,11 +5,12 @@
               url: patient_virology_profile_path(patient, profile),
               method: :patch,
               builder: Renalware::FormBuilders::Horizontal,
-              html: { autocomplete: "off", class: "rw-form max-w-7xl" }) do |f|
+              html: { autocomplete: "off", class: "rw-form max-w-5xl" }) do |f|
     = f.error_summary
 
     = f.fields_for :document, profile.document do |fd|
       p.rw-hint If YES, enter year of diagnosis
+      = fd.compound_header "Status", "Diagnosed", "Ended", controls_class: "sm:grid-cols-3"
       = render_input fd, :hiv
       = render_input fd, :hepatitis_b
       = render_input fd, :hepatitis_b_core_antibody

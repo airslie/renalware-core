@@ -51,10 +51,8 @@ module Renalware
       end
 
       def compound_row(label:, row_class: nil, controls_class: nil, &)
-        @template.content_tag(
-          :div,
-          class: class_names("rw-field-row", "rw-field-row--compound", row_class)
-        ) do
+        row_classes = class_names("rw-field-row", "rw-field-row--compound", row_class)
+        @template.content_tag(:div, class: row_classes) do
           label_html = @template.content_tag(:div, class: "rw-label") do
             @template.content_tag(:span, label, class: "rw-label__text")
           end
@@ -67,16 +65,30 @@ module Renalware
         end
       end
 
-      def control_group(method, label: nil, hint: nil, &)
+      def compound_header(*captions, controls_class: nil)
+        row_classes = class_names(
+          "rw-field-row", "rw-field-row--compound", "rw-field-row--header", "hidden", "sm:grid"
+        )
+        captions_html = @template.safe_join(captions.map { |caption| caption_span(caption) })
+        @template.content_tag(:div, class: row_classes, aria: { hidden: "true" }) do
+          label_html = @template.content_tag(:div, "", class: "rw-label")
+          control_class = class_names("rw-control", "rw-compound-controls", controls_class)
+          controls_html = @template.content_tag(:div, captions_html, class: control_class)
+          label_html + controls_html
+        end
+      end
+
+      def control_group(method, label: nil, hint: nil, hide_label: false, &)
         @template.content_tag(:div, class: "rw-control-group") do
-          label_html = self.label(method, label, class: "rw-control-label")
+          label_class = class_names("rw-control-label", ("sm:sr-only" if hide_label))
+          label_html = self.label(method, label, class: label_class)
           control_html = @template.capture(&)
           hint_html = hint.present? ? @template.content_tag(:p, hint, class: "rw-hint") : nil
           @template.safe_join([label_html, control_html, hint_html, error_text_for(method)].compact)
         end
       end
 
-      def radio_group(method, choices, legend: nil, **)
+      def radio_group(method, choices, legend: nil, hide_label: false, **)
         options_html = collection_radio_buttons(method, choices, :last, :first) do |option|
           @template.content_tag(:label, class: "rw-radio-option") do
             option.radio_button(class: "rw-radio-input", **) +
@@ -85,7 +97,8 @@ module Renalware
         end
 
         @template.content_tag(:fieldset, class: "rw-control-group") do
-          legend_html = @template.content_tag(:legend, legend, class: "rw-control-label")
+          legend_class = class_names("rw-control-label", ("sm:sr-only" if hide_label))
+          legend_html = @template.content_tag(:legend, legend, class: legend_class)
           group_html = @template.content_tag(:div, options_html, class: "rw-radio-group")
           @template.safe_join([legend_html, group_html, error_text_for(method)].compact)
         end
@@ -138,6 +151,10 @@ module Renalware
       end
 
       private
+
+      def caption_span(text)
+        @template.content_tag(:span, text, class: "rw-control-label")
+      end
 
       def label_row(method, text: nil)
         @template.content_tag(:div, class: "rw-label") do

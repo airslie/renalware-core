@@ -52,6 +52,12 @@
 
   .rw-field-row--compound {
     @apply md:items-center;
+
+    .rw-label {
+      .rw-label__text {
+        @apply font-bold;
+      }
+    }
   }
 
   .rw-label {
@@ -75,7 +81,7 @@
   }
 
   .rw-control-label {
-    @apply mb-1 block text-sm font-medium text-slate-700;
+    @apply mb-1 block font-medium text-slate-700;
   }
 
   .rw-radio-group {
