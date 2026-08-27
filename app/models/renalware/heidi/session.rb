@@ -5,6 +5,7 @@ module Renalware
 
       belongs_to :patient, class_name: "Renalware::Patient"
       belongs_to :user, class_name: "Renalware::User"
+      belongs_to :clinic_visit, class_name: "Renalware::Clinics::ClinicVisit", optional: true
 
       enum :status, {
         launched: "launched",

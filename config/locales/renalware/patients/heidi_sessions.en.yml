@@ -1,6 +1,0 @@
-en:
-  renalware:
-    patients:
-      heidi_sessions:
-        create:
-          failed: "Heidi session could not be created: %{error}"

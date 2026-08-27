@@ -38,12 +38,9 @@ module Renalware
         appointment = result.object.appointment_to_build_from
 
         if result.success?
-          RememberedClinicVisitPreferences.new(session).persist(visit)
-          notice = success_msg_for("clinic visit")
-          redirect_to patient_clinic_visits_path(clinics_patient), notice: notice
+          create_success(visit)
         else
-          flash.now[:error] = failed_msg_for("clinic visit")
-          render_new(visit, appointment)
+          create_failure(visit, appointment)
         end
       end
 
@@ -78,6 +75,17 @@ module Renalware
         render :show, locals: {
           patient: clinics_patient,
           clinic_visit: visit
+        }
+      end
+
+      def render_heidi_launch(visit, heidi_session)
+        render :launch_heidi, locals: {
+          patient: clinics_patient,
+          clinic_visit: visit,
+          heidi_launch_url: Renalware::Heidi::Client.launch_url_for(
+            heidi_session.heidi_session_id
+          ),
+          edit_clinic_visit_url: edit_patient_clinic_visit_path(clinics_patient, visit)
         }
       end
 
@@ -154,6 +162,42 @@ module Renalware
 
       def query_params
         params.fetch(:q, {})
+      end
+
+      def launch_heidi?
+        params[:launch_heidi].present?
+      end
+
+      def create_success(visit)
+        RememberedClinicVisitPreferences.new(session).persist(visit)
+        return launch_heidi_for(visit) if launch_heidi?
+
+        redirect_to patient_clinic_visits_path(clinics_patient),
+                    notice: success_msg_for("clinic visit")
+      end
+
+      def create_failure(visit, appointment)
+        flash.now[:error] = clinic_visit_create_error
+        render_new(visit, appointment)
+      end
+
+      def launch_heidi_for(visit)
+        result = Renalware::Heidi::LaunchClinicVisitSession.new(
+          clinic_visit: visit,
+          user: current_user
+        ).call
+        if result.success?
+          render_heidi_launch(visit, result.session)
+        else
+          redirect_to edit_patient_clinic_visit_path(clinics_patient, visit),
+                      alert: t(".heidi_launch_failed", error: result.error)
+        end
+      end
+
+      def clinic_visit_create_error
+        return failed_msg_for("clinic visit") unless launch_heidi?
+
+        "#{failed_msg_for('clinic visit')}. Address the validation errors before launching Heidi."
       end
 
       def clinic_options_for(template)

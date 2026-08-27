@@ -4,6 +4,8 @@
   ) do
 
   .document
+    = render "heidi_sessions", clinic_visit: clinic_visit
+
     = simple_form_for [patient, clinic_visit],
       as: :clinic_visit,
       url: patient_clinic_visit_path(patient, clinic_visit),

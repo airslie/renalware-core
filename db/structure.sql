@@ -9194,7 +9194,8 @@ CREATE TABLE renalware.heidi_sessions (
     last_synced_at timestamp(6) without time zone,
     sync_error text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    clinic_visit_id bigint
 );
 
 
@@ -26941,6 +26942,13 @@ CREATE INDEX index_hd_vnd_risk_assessments_on_updated_by_id ON renalware.hd_vnd_
 
 
 --
+-- Name: index_heidi_sessions_on_clinic_visit_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_heidi_sessions_on_clinic_visit_id ON renalware.heidi_sessions USING btree (clinic_visit_id);
+
+
+--
 -- Name: index_heidi_sessions_on_heidi_session_id; Type: INDEX; Schema: renalware; Owner: -
 --
 
@@ -33990,6 +33998,14 @@ ALTER TABLE ONLY renalware.pd_peritonitis_episodes
 
 
 --
+-- Name: heidi_sessions fk_rails_ae5da9529e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.heidi_sessions
+    ADD CONSTRAINT fk_rails_ae5da9529e FOREIGN KEY (clinic_visit_id) REFERENCES renalware.clinic_visits(id);
+
+
+--
 -- Name: user_group_memberships fk_rails_aece7151f8; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -35545,9 +35561,11 @@ ALTER TABLE ONLY renalware_heroic.biobank_usages
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
+SET search_path TO renalware, public, renalware_heroic, renalware_mse, renalware_blt, renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260827123001'),
+('20260827123000'),
 ('20260827120000'),
 ('20260819120000'),
 ('20260818120000'),

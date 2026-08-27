@@ -21,13 +21,7 @@
           strong Link status:
           =< "could not be checked"
         p= heidi_link_status.error
-      - if heidi_link_status.success? && heidi_link_status.body["is_linked"]
-        = button_to "Launch Heidi session",
-                    patient_heidi_session_path(patient),
-                    method: :post,
-                    class: "button",
-                    form: { target: "_blank", rel: "noopener" }
-      - else
+      - unless heidi_link_status.success? && heidi_link_status.body["is_linked"]
         = button_to "Link Heidi account",
                     patient_heidi_linked_account_path(patient),
                     method: :post,

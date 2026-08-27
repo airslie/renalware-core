@@ -58,6 +58,7 @@ import DialogController from "./dialog_controller"
 import PrimaryNavigationController from "./primary_navigation_controller"
 import AdminMenuFilterController from "./admin_menu_filter_controller"
 import HeidiLinkedAccountController from "./heidi_linked_account_controller"
+import HeidiClinicVisitLaunchController from "./heidi_clinic_visit_launch_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -138,3 +139,4 @@ application.register("dialog", DialogController)
 application.register("primary-navigation", PrimaryNavigationController)
 application.register("admin-menu-filter", AdminMenuFilterController)
 application.register("heidi-linked-account", HeidiLinkedAccountController)
+application.register("heidi-clinic-visit-launch", HeidiClinicVisitLaunchController)

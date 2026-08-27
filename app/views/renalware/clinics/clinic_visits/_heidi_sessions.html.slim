@@ -1,0 +1,21 @@
+- heidi_sessions = clinic_visit.heidi_sessions.order(created_at: :desc)
+
+- if heidi_sessions.any?
+  article.general
+    header
+      h2 Heidi
+
+    table
+      thead
+        tr
+          th Created
+          th Status
+          th Note
+          th Last checked
+      tbody
+        - heidi_sessions.each do |session|
+          tr
+            td= l(session.created_at)
+            td= session.status.humanize
+            td= session.consult_note_status.presence || "Not ready"
+            td= session.last_synced_at.present? ? l(session.last_synced_at) : "Pending"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_27_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_27_123001) do
   create_schema "renalware"
   create_schema "renalware_heroic"
 
@@ -3601,6 +3601,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_27_120000) do
   end
 
   create_table "renalware.heidi_sessions", force: :cascade do |t|
+    t.bigint "clinic_visit_id"
     t.text "consult_note"
     t.string "consult_note_status"
     t.datetime "created_at", null: false
@@ -3613,6 +3614,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_27_120000) do
     t.text "sync_error"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.index ["clinic_visit_id"], name: "index_heidi_sessions_on_clinic_visit_id"
     t.index ["heidi_session_id"], name: "index_heidi_sessions_on_heidi_session_id", unique: true
     t.index ["patient_id", "created_at"], name: "index_heidi_sessions_on_patient_id_and_created_at"
     t.index ["patient_id"], name: "index_heidi_sessions_on_patient_id"
@@ -6786,6 +6788,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_27_120000) do
   add_foreign_key "renalware.hd_vnd_risk_assessments", "renalware.patients"
   add_foreign_key "renalware.hd_vnd_risk_assessments", "renalware.users", column: "created_by_id"
   add_foreign_key "renalware.hd_vnd_risk_assessments", "renalware.users", column: "updated_by_id"
+  add_foreign_key "renalware.heidi_sessions", "renalware.clinic_visits"
   add_foreign_key "renalware.heidi_sessions", "renalware.patients"
   add_foreign_key "renalware.heidi_sessions", "renalware.users"
   add_foreign_key "renalware.help_tour_annotations", "renalware.help_tour_pages", column: "page_id"

@@ -29,6 +29,54 @@ describe Renalware::Heidi::SyncSession do
     expect(session.sync_error).to be_nil
   end
 
+  it "appends the completed consult note to the associated clinic visit notes" do
+    clinic_visit = create(:clinic_visit, notes: "Existing notes")
+    session.update!(clinic_visit:)
+    allow(client).to receive(:get).with(session.user, session.heidi_session_id).and_return(
+      Renalware::Heidi::Client::Result.new(
+        success: true,
+        status: 200,
+        body: {
+          "session" => {
+            "consult_note" => {
+              "status" => "COMPLETED",
+              "result" => "Generated renal clinic note"
+            }
+          }
+        }
+      )
+    )
+
+    sync.call
+
+    expect(clinic_visit.reload.notes).to eq(
+      "Existing notes\n\nHeidi consult note:\nGenerated renal clinic note"
+    )
+  end
+
+  it "does not append the consult note again when the Heidi note was already stored" do
+    clinic_visit = create(:clinic_visit, notes: "Existing notes")
+    session.update!(clinic_visit:, consult_note: "Previously synced note")
+    allow(client).to receive(:get).with(session.user, session.heidi_session_id).and_return(
+      Renalware::Heidi::Client::Result.new(
+        success: true,
+        status: 200,
+        body: {
+          "session" => {
+            "consult_note" => {
+              "status" => "COMPLETED",
+              "result" => "Previously synced note"
+            }
+          }
+        }
+      )
+    )
+
+    sync.call
+
+    expect(clinic_visit.reload.notes).to eq("Existing notes")
+  end
+
   it "leaves the session launched when the consult note is not ready" do
     allow(client).to receive(:get).with(session.user, session.heidi_session_id).and_return(
       Renalware::Heidi::Client::Result.new(

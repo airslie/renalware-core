@@ -5,8 +5,21 @@
     = simple_form_for [patient, clinic_visit],
         as: :clinic_visit,
         url: patient_clinic_visits_path(patient),
-        html: { autocomplete: "off" },
+        html: { \
+          autocomplete: "off",
+          data: { \
+            controller: "heidi-clinic-visit-launch",
+            "heidi-clinic-visit-launch-url-value": heidi_preparation_path \
+          } \
+        },
         wrapper: "horizontal_form" do |f|
+
+      - if Renalware::Heidi::Client.configured?
+        .form-actions.mb-4
+          = f.submit "Save and launch Heidi",
+                     name: "launch_heidi",
+                     class: "btn btn-secondary",
+                     data: { action: "click->heidi-clinic-visit-launch#open" }
 
       input(type="hidden"
             name="clinic_visit[built_from_appointment_id]"

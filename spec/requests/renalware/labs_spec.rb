@@ -290,7 +290,7 @@ describe "Lab" do
         expect(response.body).to include("Heidi WIP")
         expect(response.body).to include("linked")
         expect(response.body).to include(@current_user.email)
-        expect(response.body).to include(patient_heidi_session_path(patient))
+        expect(response.body).not_to include("Launch Heidi session")
       end
 
       it "renders synced Heidi note content for recent patient Heidi sessions" do
@@ -440,62 +440,6 @@ describe "Lab" do
 
       expect(response).to redirect_to(patient_lab_path(patient))
       expect(flash[:alert]).to eq("Heidi account linking failed: bad payload")
-    end
-  end
-
-  describe "POST /patients/:patient_id/heidi_session" do
-    let(:patient) { create(:patient, :minimal, by: @current_user) }
-
-    before do
-      @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
-    end
-
-    it "creates a Heidi session and redirects to the Heidi session URL" do
-      client = instance_double(Renalware::Heidi::Client)
-      allow(Renalware::Heidi::Client).to receive(:new).and_return(client)
-      allow(Renalware::Heidi::Client).to receive(:launch_url_for)
-        .with("1234567890")
-        .and_return("https://registrar.scribe.heidihealth.com/scribe/session/1234567890")
-      allow(client).to receive(:create_session_for_patient).with(@current_user, patient).and_return(
-        Renalware::Heidi::Client::Result.new(
-          success: true,
-          status: 200,
-          body: { "session_id" => "1234567890", "patient_profile_id" => "profile-1" }
-        )
-      )
-
-      expect {
-        post patient_heidi_session_path(patient)
-      }.to change(Renalware::Heidi::Session, :count).by(1)
-
-      expect(response).to redirect_to(
-        "https://registrar.scribe.heidihealth.com/scribe/session/1234567890"
-      )
-      expect(Renalware::Heidi::Session.last).to have_attributes(
-        patient:,
-        user: @current_user,
-        heidi_session_id: "1234567890",
-        heidi_patient_profile_id: "profile-1",
-        status: "launched"
-      )
-    end
-
-    it "redirects back to the lab page when Heidi does not create a session" do
-      client = instance_double(Renalware::Heidi::Client)
-      allow(Renalware::Heidi::Client).to receive(:new).and_return(client)
-      allow(client).to receive(:create_session_for_patient).with(@current_user, patient).and_return(
-        Renalware::Heidi::Client::Result.new(
-          success: false,
-          status: 403,
-          body: {},
-          error: "not linked"
-        )
-      )
-
-      post patient_heidi_session_path(patient)
-
-      expect(response).to redirect_to(patient_lab_path(patient))
-      expect(flash[:alert]).to eq("Heidi session could not be created: not linked")
     end
   end
 

@@ -45,6 +45,8 @@ en:
   renalware:
     clinics:
       clinic_visits:
+        create:
+          heidi_launch_failed: "Clinic visit saved, but Heidi could not be launched: %{error}"
         form:
           clinic_prompt: Select clinic type
   simple_form:

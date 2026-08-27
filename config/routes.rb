@@ -31,6 +31,9 @@ Rails.application.routes.draw do
     root to: "dashboard/dashboards#show"
 
     resource :lab, only: :show
+    get "heidi/preparation",
+        to: "heidi/preparations#show",
+        as: :heidi_preparation
 
     draw :accesses
     draw :admin

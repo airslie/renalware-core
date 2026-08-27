@@ -20,6 +20,7 @@ module Renalware
       def sync_from(body)
         consult_note = body.dig("session", "consult_note") || {}
         note = consult_note["result"].presence
+        append_consult_note_to_clinic_visit(note) if append_consult_note?(note)
 
         session.update!(
           status: note.present? ? :synced : :launched,
@@ -31,6 +32,20 @@ module Renalware
         )
 
         session
+      end
+
+      def append_consult_note?(note)
+        note.present? && session.consult_note.blank? && session.clinic_visit.present?
+      end
+
+      def append_consult_note_to_clinic_visit(note)
+        clinic_visit = session.clinic_visit
+        clinic_visit.by = session.user
+        clinic_visit.update!(notes: appended_notes(clinic_visit.notes, note))
+      end
+
+      def appended_notes(existing_notes, heidi_note)
+        [existing_notes.presence, "Heidi consult note:\n#{heidi_note}"].compact.join("\n\n")
       end
 
       def mark_failed(response)
