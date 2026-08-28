@@ -78,6 +78,34 @@ describe "Clinic Visits Management" do
       expect(response.body).to include(edit_patient_clinic_visit_path(patient, visit))
     end
 
+    it "shows the Heidi launch failure in the preparation tab" do
+      launcher = instance_double(
+        Renalware::Heidi::LaunchClinicVisitSession,
+        call: instance_double(
+          Renalware::Heidi::LaunchClinicVisitSession::Result,
+          success?: false,
+          error: "Your Renalware account is not linked to Heidi yet.",
+          link_account_url: "https://registrar.scribe.heidihealth.com/integration/widget/auth?t=jwt"
+        )
+      )
+      allow(Renalware::Heidi::LaunchClinicVisitSession).to receive(:new).and_return(launcher)
+
+      post patient_clinic_visits_path(patient_id: patient.to_param),
+           params: {
+             launch_heidi: "Save and launch Heidi",
+             clinic_visit: valid_clinic_visit_params
+           }
+
+      visit = patient.clinic_visits.order(:created_at).last
+      expect(response).to be_successful
+      expect(response.body).to include("Heidi could not be launched")
+      expect(response.body).to include("Your Renalware account is not linked to Heidi yet.")
+      expect(response.body).to include(
+        "https://registrar.scribe.heidihealth.com/integration/widget/auth?t=jwt"
+      )
+      expect(response.body).to include(edit_patient_clinic_visit_path(patient, visit))
+    end
+
     it "does not launch Heidi when the clinic visit is invalid" do
       allow(Renalware::Heidi::LaunchClinicVisitSession).to receive(:new)
 
@@ -90,6 +118,9 @@ describe "Clinic Visits Management" do
       expect(Renalware::Heidi::LaunchClinicVisitSession).not_to have_received(:new)
       expect(response).to be_successful
       expect(response.body).to include("Address the validation errors before launching Heidi.")
+      expect(response.body).to include(
+        'data-heidi-clinic-visit-launch-close-preparation-tab-value="true"'
+      )
     end
   end
 

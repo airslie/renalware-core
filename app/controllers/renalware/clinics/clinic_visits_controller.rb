@@ -89,12 +89,28 @@ module Renalware
         }
       end
 
+      def render_heidi_launch_failure(visit, result)
+        render :launch_heidi_failed, locals: {
+          patient: clinics_patient,
+          clinic_visit: visit,
+          error: result.error,
+          link_account_url: result.link_account_url,
+          edit_clinic_visit_url: edit_patient_clinic_visit_path(clinics_patient, visit)
+        }
+      end
+
       def render_template(template, visit, appointment = nil)
         render template, locals: {
           patient: clinics_patient,
           clinic_visit: visit,
           built_from_appointment: appointment,
           clinic_options: clinic_options_for(template)
+        }.merge(heidi_preparation_tab_locals)
+      end
+
+      def heidi_preparation_tab_locals
+        {
+          close_heidi_preparation_tab: launch_heidi? && request.post?
         }
       end
 
@@ -189,8 +205,8 @@ module Renalware
         if result.success?
           render_heidi_launch(visit, result.session)
         else
-          redirect_to edit_patient_clinic_visit_path(clinics_patient, visit),
-                      alert: t(".heidi_launch_failed", error: result.error)
+          flash.now[:alert] = t(".heidi_launch_failed", error: result.error)
+          render_heidi_launch_failure(visit, result)
         end
       end
 

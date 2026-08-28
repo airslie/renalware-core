@@ -1,0 +1,28 @@
+- failure_html = render( \
+    "launch_heidi_failed_content",
+    error: error,
+    link_account_url: link_account_url,
+    edit_clinic_visit_url: edit_clinic_visit_url \
+  )
+
+= within_patient_layout( \
+    title: "Heidi could not be launched",
+    breadcrumbs: breadcrumb_for("Clinic Visits", patient_clinic_visits_path(patient)) \
+  ) do
+
+  .document
+    = render "launch_heidi_failed_content",
+             error: error,
+             link_account_url: link_account_url,
+             edit_clinic_visit_url: edit_clinic_visit_url
+
+  javascript:
+    var heidiWindow = window.open("", "renalware-heidi-session")
+    if (heidiWindow) {
+      heidiWindow.document.open()
+      heidiWindow.document.write("#{j(failure_html)}")
+      heidiWindow.document.close()
+    }
+    window.setTimeout(function() {
+      window.location.href = "#{j(edit_clinic_visit_url)}"
+    }, 1500)

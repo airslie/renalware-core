@@ -1,0 +1,19 @@
+article.general
+  header
+    h2 Heidi could not be launched
+
+  p= error
+
+  - if link_account_url.present?
+    p
+      = link_to "Link Heidi account",
+                link_account_url,
+                class: "btn btn-primary",
+                target: "_self",
+                rel: "noopener"
+
+  p
+    = link_to "Return to clinic visit",
+              edit_clinic_visit_url,
+              class: "btn btn-secondary",
+              target: "_self"
