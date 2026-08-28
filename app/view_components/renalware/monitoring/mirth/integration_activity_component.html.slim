@@ -1,0 +1,30 @@
+div(class=wrapper_classes)
+  article.integration-activity
+    header
+      h2= t(".title")
+      .supplemental
+        span= comparison_description
+
+    dl.clear-both.mt-4.grid.grid-cols-2.rounded-lg.bg-white.overflow-hidden.divide-gray-200.divide-y.divide-x(style="display: grid")
+      .px-4.py-3
+        dt.text-base.font-normal.text-gray-600= t(".received_last_hour")
+        dd.mt-1.text-2xl.font-semibold.text-blue-700= received_last_hour
+      .px-4.py-3
+        dt.text-base.font-normal.text-gray-600= t(".errors_today")
+        dd.mt-1.text-2xl.font-semibold(class=errors_css_class)= errors_today
+      .px-4.py-3
+        dt.text-base.font-normal.text-gray-600= t(".queued_now")
+        dd.mt-1.text-2xl.font-semibold(class=queued_css_class)= queued_now
+      .px-4.py-3
+        dt.text-base.font-normal.text-gray-600= t(".last_report")
+        dd.mt-1.text-lg.font-semibold(class=report_css_class)= last_report_description
+
+    - if chart_data?
+      .clear-both.mt-4(data-controller="charts-raw"
+        data-charts-raw-config-value=chart_configuration.to_json)
+        div(data-charts-raw-target="chart"
+          role="img"
+          aria-label=t(".accessible_label"))
+    - else
+      .clear-both.mt-4.flex.h-80.items-center.justify-center.rounded-lg.bg-gray-50.text-gray-500
+        = t(".no_data")

@@ -1,0 +1,23 @@
+en:
+  renalware:
+    monitoring:
+      mirth:
+        integration_activity_component:
+          accessible_label: Mirth integration activity today, in 30-minute intervals
+          ago: "%{duration} ago"
+          comparison: Received messages compared with the median for the last %{count} equivalent weekdays
+          errors: Errors
+          errors_today: Errors today
+          last_report: Last report
+          messages: Messages
+          never: Never received
+          no_comparison: Historical comparison will appear once enough data is available
+          no_data: No Mirth monitoring data has been received today
+          now: Now
+          queued_now: Queued now
+          received: Received
+          received_last_hour: Received last hour
+          sent: Sent
+          title: Integration activity today
+          typical_received: Typical received
+          waiting_for_data: Waiting for Mirth monitoring data
