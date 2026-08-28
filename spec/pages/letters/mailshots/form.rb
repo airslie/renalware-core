@@ -11,6 +11,7 @@ module Pages
           visit admin_dashboard_path
 
           within ".side-nav--admin" do
+            find("summary", text: "Letters").click
             click_on "Mailshots"
           end
 

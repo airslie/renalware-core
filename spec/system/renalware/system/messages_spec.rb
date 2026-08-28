@@ -1,5 +1,5 @@
 describe "Managing system messages that are displayed on the login page" do
-  it "listing system message via the menu" do
+  it "listing system message via the menu", :js do
     message = create(
       :system_message,
       title: "Test title",
@@ -12,6 +12,7 @@ describe "Managing system messages that are displayed on the login page" do
     visit admin_dashboard_path
 
     within ".side-nav--admin" do
+      find("summary", text: "System").click
       click_on "System Messages"
     end
 

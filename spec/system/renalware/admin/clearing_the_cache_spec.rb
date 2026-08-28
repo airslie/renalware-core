@@ -4,7 +4,7 @@ describe "Clearing the Rails cache" do
     visit admin_dashboard_path
 
     within ".side-nav--admin" do
-      click_on "Cache"
+      find("a", text: "Cache", visible: :all).click
     end
 
     expect(page).to have_current_path(admin_cache_path)

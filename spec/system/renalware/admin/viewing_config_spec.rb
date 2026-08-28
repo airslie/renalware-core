@@ -1,9 +1,10 @@
 describe "Viewing the system config" do
-  it do
+  it :js do
     login_as_super_admin
     visit admin_dashboard_path
 
     within ".side-nav--admin" do
+      find("summary", text: "System").click
       click_on "Config Settings"
     end
 

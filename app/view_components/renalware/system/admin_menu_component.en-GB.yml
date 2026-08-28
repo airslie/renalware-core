@@ -1,0 +1,84 @@
+---
+en-GB:
+  renalware:
+    system:
+      admin_menu_component:
+        primary:
+          dashboard: Dashboard
+        sections:
+          user_management:
+            title: User Management
+            items:
+              users: Users
+              user_groups: User Groups
+          access_configuration:
+            title: Configuration
+            items:
+              event_types: Event Types
+              clinics: Clinics
+              consultants: Consultants
+              drugs: Drugs
+              patient_group_directions: PGDs
+              dmd_matches: DMD Matches
+              modalities: Modalities
+              worry_categories: Worry Categories
+              death_locations: Death Locations
+          safety_alerts:
+            title: Safety Alerts
+            items:
+              rules: Rules
+              executions: Executions
+          pd:
+            title: PD
+            items:
+              bags: Bags
+          hd:
+            title: HD
+            items:
+              transmission_logs: Transmission Logs
+              dialysates: Dialysates
+              dialysers: Dialysers
+              cannulation_types: Cannulation Types
+          pathology:
+            title: Pathology
+            items:
+              labs: Labs
+              obx: OBX
+              code_groups: Code Groups
+              hl7_test: HL7 Test
+              request_form_print_history: Request Form Print History
+              request_config: Request Config
+          virology:
+            title: Virology
+            items:
+              vaccination_types: Vaccination Types
+          letters:
+            title: Letters
+            items:
+              mailshots: Mailshots
+              letter_topics: Topics
+              print_batches: Print Batches
+              qr_code_links: QR Code Links
+              mesh: MESH
+          feeds:
+            title: Feeds
+            items:
+              outgoing_documents: Outgoing Documents
+              logs: Logs
+              hl7_raw_message_errors: HL7 Raw Message Errors
+              replay_requests: Replay Requests
+              patient_merges: Patient Merges
+          system:
+            title: System
+            items:
+              api_logs: API Logs
+              ukrdc_logs: UKRDC Logs
+              cache: Cache
+              system_messages: System Messages
+              malware_scans: Malware Scans
+              nags: Nags (Missing Data)
+              hospital_centres: Hospital Centres
+              gps: GPs
+              user_feedback: User Feedback
+              config_settings: Config Settings
+              email_templates: Email Templates
