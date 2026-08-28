@@ -1,0 +1,50 @@
+@layer components {
+  .admin-menu {
+    @apply pb-6;
+  }
+
+  .admin-menu__heading {
+    @apply mb-2 px-2 text-sm font-semibold uppercase tracking-wide text-white;
+  }
+
+  .admin-menu-search {
+    @apply mb-3 px-1 pr-2 pt-1;
+  }
+
+  .admin-menu-search__field {
+    @apply relative;
+  }
+
+  .admin-menu-search__input {
+    @apply m-0 w-full rounded-md border border-slate-400 bg-white py-2 pl-3 pr-8 text-sm text-slate-900 shadow-sm placeholder:text-slate-500 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300;
+  }
+
+  .admin-menu-search__input::-webkit-search-cancel-button {
+    appearance: none;
+  }
+
+  .admin-menu-search__clear {
+    @apply absolute inset-y-0 right-0 flex w-8 items-center justify-center rounded-r-md text-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500;
+  }
+
+  .admin-menu-search__status {
+    @apply mb-0 mt-1 px-1 text-xs text-slate-200;
+  }
+
+  .admin-menu__section {
+    @apply mt-1;
+  }
+
+  .admin-menu__section-summary {
+    @apply cursor-pointer select-none rounded px-2 py-1 text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white/70;
+  }
+
+  .admin-menu__section-items {
+    @apply mb-1 ml-2 border-l border-white/25 pl-1;
+  }
+
+  .admin-menu__item[hidden],
+  .admin-menu__section[hidden] {
+    display: none;
+  }
+}

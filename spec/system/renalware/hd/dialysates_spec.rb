@@ -1,11 +1,12 @@
 describe "Managing Dialysates" do
   describe "creating a new dialysate" do
-    it do
+    it :js do
       login_as_super_admin
 
       visit admin_dashboard_path
 
       within ".side-nav--admin" do
+        find("summary", text: "HD").click
         click_on "Dialysates"
       end
 

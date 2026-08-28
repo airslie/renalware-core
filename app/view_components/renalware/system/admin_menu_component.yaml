@@ -1,0 +1,221 @@
+primary:
+  - key: dashboard
+    route: admin_dashboard_path
+    controller: admin/dashboard
+    icon: dashboard
+
+sections:
+  - key: user_management
+    items:
+      - key: users
+        route: admin_users_path
+        controller: renalware/admin/users
+        icon: user
+      - key: user_groups
+        route: user_groups_path
+        controller: users/groups
+        access: super_admin
+        icon: users
+
+  - key: access_configuration
+    items:
+      - key: event_types
+        route: events_types_path
+        controller: events/types
+        access: super_admin
+      - key: clinics
+        route: clinics_path
+        controller: clinics/clinics
+      - key: consultants
+        route: consultants_path
+        controller: clinics/consultants
+      - key: drugs
+        route: drugs_drugs_path
+        controller: drugs/drugs
+        access: super_admin
+      - key: patient_group_directions
+        route: drugs_patient_group_directions_path
+        controller: drugs/patient_group_directions
+        access: super_admin
+        keywords: [PGD]
+      - key: dmd_matches
+        route: drugs_dmd_matches_path
+        controller: drugs/dmd_matches
+        access: developer
+        condition: dmd_match_enabled
+      - key: modalities
+        route: modalities_descriptions_path
+        controller: modalities/descriptions
+      - key: worry_categories
+        route: worry_categories_path
+        controller: worry_categories
+        access: super_admin
+      - key: death_locations
+        route: deaths_locations_path
+        controller: deaths/locations
+        access: super_admin
+
+  - key: safety_alerts
+    items:
+      - key: rules
+        route: admin_safety_alert_rules_path
+        controller: admin/safety_alert_rules
+        access: super_admin
+        keywords: [safety, alerts]
+      - key: executions
+        route: admin_safety_alert_rule_executions_path
+        controller: admin/safety_alert_rule_executions
+        access: super_admin
+        keywords: [safety, alerts]
+
+  - key: pd
+    items:
+      - key: bags
+        route: pd_bag_types_path
+        controller: pd/bag_types
+        access: super_admin
+
+  - key: hd
+    items:
+      - key: transmission_logs
+        route: hd_transmission_logs_path
+        controller: hd/transmission_logs
+        keywords: [audit]
+      - key: dialysates
+        route: hd_dialysates_path
+        controller: hd/dialysates
+        access: super_admin
+      - key: dialysers
+        route: hd_dialysers_path
+        controller: hd/dialysers
+        access: super_admin
+      - key: cannulation_types
+        route: hd_cannulation_types_path
+        controller: hd/cannulation_types
+        access: super_admin
+
+  - key: pathology
+    items:
+      - key: labs
+        route: pathology_labs_path
+        controller: pathology/labs
+        access: super_admin
+      - key: obx
+        route: pathology_observation_descriptions_path
+        controller: pathology/observation_descriptions
+        access: super_admin
+        keywords: [observations]
+      - key: code_groups
+        route: pathology_code_groups_path
+        controller: pathology/code_groups
+        access: super_admin
+      - key: hl7_test
+        route: new_feeds_hl7_test_message_path
+        controller: admin/123
+        access: super_admin
+      - key: request_form_print_history
+        route: pathology_requests_requests_path
+        controller: pathology/requests/requests
+      - key: request_config
+        route: pathology_requests_rules_path
+        controller: pathology/requests/rules
+
+  - key: virology
+    items:
+      - key: vaccination_types
+        route: virology_vaccination_types_path
+        controller: virology/vaccination_types
+        access: super_admin
+        keywords: [vaccn]
+
+  - key: letters
+    items:
+      - key: mailshots
+        route: letters_mailshots_path
+        controller: letters/mailshots
+      - key: letter_topics
+        route: letters_topics_path
+        controller: letters/topics
+      - key: print_batches
+        route: letters_batches_path
+        controller: letters/batches
+        access: super_admin
+      - key: qr_code_links
+        route: system_online_reference_links_path
+        controller: system/online_reference
+      - key: mesh
+        route: letters_transports_mesh_transmissions_path
+        controller: mesh
+        access: super_admin
+
+  - key: feeds
+    items:
+      - key: outgoing_documents
+        route: feeds_outgoing_documents_path
+        controller: outgoing_documents
+        access: super_admin
+      - key: logs
+        route: feeds_logs_path
+        controller: feeds/logs
+        access: super_admin
+        keywords: [integration]
+      - key: hl7_raw_message_errors
+        route: feeds_raw_hl7_message_errors_path
+        controller: feeds/raw_hl7_message_errors
+        access: super_admin
+      - key: replay_requests
+        route: feeds_replay_requests_path
+        controller: feeds/replay_requests
+        access: super_admin
+      - key: patient_merges
+        route: patients_merges_path
+        controller: patients/merges
+        access: super_admin
+
+  - key: system
+    items:
+      - key: api_logs
+        route: system_api_logs_path
+        controller: system/api_logs
+        access: super_admin
+        keywords: [requests]
+      - key: ukrdc_logs
+        route: ukrdc_transmission_logs_path
+        controller: ukrdc/transmission_logs
+        access: super_admin
+        keywords: [transmission]
+      - key: cache
+        route: admin_cache_path
+        controller: admin/cache
+        access: super_admin
+      - key: system_messages
+        route: system_messages_path
+        controller: system/messages
+        access: super_admin
+      - key: malware_scans
+        route: system_malware_scans_path
+        controller: system/malware_scans
+        access: super_admin
+      - key: nags
+        route: system_nag_definitions_path
+        controller: system/nag_definitions
+        access: super_admin
+      - key: hospital_centres
+        route: centres_path
+        route_scope: hospitals
+        controller: hospitals/centres
+        access: super_admin
+      - key: gps
+        route: patients_primary_care_physicians_path
+        controller: patients/primary_care_physicians
+        access: super_admin
+        keywords: [primary care physicians]
+      - key: user_feedback
+        route: system_user_feedback_index_path
+        controller: system/user_feedback
+        access: super_admin
+      - key: config_settings
+        route: admin_config_path
+        controller: config
+        access: super_admin
+        keywords: [configuration]
