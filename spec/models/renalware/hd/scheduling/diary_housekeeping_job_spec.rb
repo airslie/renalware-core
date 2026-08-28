@@ -59,7 +59,7 @@ module Renalware::HD::Scheduling
       end
 
       context "when there is an un-archived slot yesterday" do
-        # rubocop:disable RSpec/MultipleExpectations
+        # rubocop:disable-next RSpec/MultipleExpectations
         it "archives it" do
           diary = nil
           # Travel to an arbitrary yesterday
@@ -102,7 +102,6 @@ module Renalware::HD::Scheduling
             expect(slot_that_should_not_be_archived.reload.archived).to be_falsy
           end
         end
-        # rubocop:enable RSpec/MultipleExpectations
       end
 
       context "when past master slots are being inherited by weekly diaries" do

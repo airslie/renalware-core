@@ -1,5 +1,5 @@
 module MessageSpecHelper
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable-next Metrics/MethodLength
   def create_mesh_letter(patient:, user:, to: :primary_care_physician)
     create_letter(
       state: :approved,
@@ -20,7 +20,6 @@ module MessageSpecHelper
         HTML
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def create_mesh_patient(given_name: "John", practice: nil, user: nil)
     practice ||= create(:practice)

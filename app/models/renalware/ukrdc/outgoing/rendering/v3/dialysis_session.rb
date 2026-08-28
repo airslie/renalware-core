@@ -52,7 +52,7 @@ module Renalware
             def external_id_element     = create_node("ExternalId", session.uuid)
             def procedure_time_element  = create_node("ProcedureTime", session.started_at.iso8601)
 
-            # rubocop:disable Metrics/AbcSize
+            # rubocop:disable-next Metrics/AbcSize
             def attributes_element
               create_node("Attributes") do |elem|
                 elem << create_node("QHD19", session.had_intradialytic_hypotension?)
@@ -67,7 +67,6 @@ module Renalware
                 elem << create_node("QHD33", "U") # TODO: Lookup needling Method
               end
             end
-            # rubocop:enable Metrics/AbcSize
           end
         end
       end

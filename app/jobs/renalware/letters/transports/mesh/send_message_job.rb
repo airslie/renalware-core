@@ -50,7 +50,7 @@ module Renalware
             end
           end
 
-          # rubocop:disable Metrics/MethodLength
+          # rubocop:disable-next Metrics/MethodLength
           def build_payload_and_send_message
             API::LogOperation.new(:send_message).call(transmission_id: transmission.id) do |op|
               arguments = Formats::FHIR::Arguments.new(
@@ -68,7 +68,6 @@ module Renalware
               )
             end
           end
-          # rubocop:enable Metrics/MethodLength
         end
       end
     end

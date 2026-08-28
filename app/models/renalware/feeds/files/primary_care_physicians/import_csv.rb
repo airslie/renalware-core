@@ -36,7 +36,7 @@ module Renalware
           private
 
           # There are about 100,000 GPs in the UK
-          # rubocop:disable Lint/AssignmentInCondition, Metrics/AbcSize
+          # rubocop:disable-next Lint/AssignmentInCondition, Metrics/AbcSize
           def batch_import_csv_rows_into_feed_gp_table
             Feeds::GP.delete_all
 
@@ -67,7 +67,6 @@ module Renalware
               Feeds::GP.insert_all!(gps) if gps.any?
             end
           end
-          # rubocop:enable Lint/AssignmentInCondition, Metrics/AbcSize
 
           def normalize_status(status)
             status = status.to_s.upcase

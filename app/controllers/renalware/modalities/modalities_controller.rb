@@ -60,7 +60,7 @@ module Renalware
         render locals: { patient: patient, modality: modality }
       end
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def update
         modality = patient.modalities.find(params[:id])
         authorize modality
@@ -84,7 +84,6 @@ module Renalware
           render :edit, locals: { patient: patient, modality: modality }
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       private
 

@@ -1,6 +1,6 @@
 module Renalware
   module HD
-    # rubocop:disable RSpec/DescribedClass
+    # rubocop:disable-next RSpec/DescribedClass
     describe PrescriptionAdministration do
       let(:witnessed_by) { User.new }
       let(:administered_by) { User.new }
@@ -531,6 +531,5 @@ module Renalware
         end
       end
     end
-    # rubocop:enable RSpec/DescribedClass
   end
 end

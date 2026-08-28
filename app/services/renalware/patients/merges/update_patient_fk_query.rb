@@ -56,7 +56,7 @@ module Renalware
 
       # Some rather over the top argument validation but this is a
       # potentially dangerous operation so better safe than sorry.
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+      # rubocop:disable-next Metrics/AbcSize, Metrics/CyclomaticComplexity
       def validate_arguments
         raise ArgumentError, "major_patient_id is required" if major_patient_id.blank?
         raise ArgumentError, "minor_patient_id is required" if minor_patient_id.blank?
@@ -73,7 +73,6 @@ module Renalware
           raise ArgumentError, "invalid identifier: #{ident.inspect}" unless ident.match?(IDENT_RE)
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
       # We use Rails current time rather than CURRENT_TIMESTAMP to make testing easier
       # eg using freeze_time (which CURRENT_TIMESTAMP does not respect)

@@ -22,7 +22,7 @@ module Renalware
       end
 
       describe "#call" do
-        # rubocop:disable RSpec/ChangeByZero
+        # rubocop:disable-next RSpec/ChangeByZero
         context "when the merge is valid" do
           before do
             # Create some events for each patient. The 2 for the minor patient should be
@@ -93,7 +93,6 @@ module Renalware
           # rubocop:enable RSpec/ExampleLength
           # rubocop:enable RSpec/MultipleExpectations
         end
-        # rubocop:enable RSpec/ChangeByZero
 
         context "when the merge fails" do
           before do

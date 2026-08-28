@@ -33,7 +33,7 @@ module Renalware
           .or(where(include_in_letters_until: nil)))
       }
 
-      # rubocop:disable Style/SoleNestedConditional
+      # rubocop:disable-next Style/SoleNestedConditional
       def validate_letter_inclusion_dates
         if include_in_letters_from.present? && include_in_letters_until.present?
           if include_in_letters_from > include_in_letters_until
@@ -41,7 +41,6 @@ module Renalware
           end
         end
       end
-      # rubocop:enable Style/SoleNestedConditional
     end
   end
 end

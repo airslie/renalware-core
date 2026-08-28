@@ -1,6 +1,6 @@
 module Renalware
   module Pathology
-    # rubocop:disable RSpec/VerifiedDoubles
+    # rubocop:disable-next RSpec/VerifiedDoubles
     describe FindOrCreateObservationDescription do
       describe "#call" do
         let(:observation) {
@@ -82,6 +82,5 @@ module Renalware
         end
       end
     end
-    # rubocop:enable RSpec/VerifiedDoubles
   end
 end

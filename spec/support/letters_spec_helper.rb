@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/MethodLength, Metrics/ParameterLists
+# rubocop:disable-next Metrics/MethodLength, Metrics/ParameterLists
 module LettersSpecHelper
   def simple_stubbed_letter(patient)
     topic = build(:letter_topic, snomed_document_type: build(:snomed_document_type))
@@ -133,4 +133,3 @@ module LettersSpecHelper
     letter
   end
 end
-# rubocop:enable Metrics/MethodLength, Metrics/ParameterLists

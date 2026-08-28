@@ -1,7 +1,7 @@
 # This is testing that the Clinical Frailty Score nag - a combination of a sql function and an entry
 # in the nag_definitions table - works as expected. We are testing both the functionality specific
 # to this nag as well as general conformance to the nag 'protocol'.
-# rubocop:disable RSpec/DescribeClass
+# rubocop:disable-next RSpec/DescribeClass
 describe "Clinical Frailty Score nag", :caching, type: :component do
   include PatientsSpecHelper
   include NagHelpers
@@ -115,4 +115,3 @@ describe "Clinical Frailty Score nag", :caching, type: :component do
     end
   end
 end
-# rubocop:enable RSpec/DescribeClass

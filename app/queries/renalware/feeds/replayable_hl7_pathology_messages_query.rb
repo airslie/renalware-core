@@ -74,7 +74,7 @@ module Renalware
         @identifiers ||= IDENTIFIERS.index_with { |meth| patient.public_send(meth) }.compact_blank
       end
 
-      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
       def feed_message_ids
         urns = orc_filler_order_numbers_already_successfully_imported(patient)
 
@@ -106,7 +106,6 @@ module Renalware
         # Don't use pluck here as it ignores the distinct on !
         query.map(&:id)
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
     end
   end
 end

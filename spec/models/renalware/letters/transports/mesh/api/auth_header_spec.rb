@@ -1,4 +1,4 @@
-# rubocop:disable Layout/LineLength
+# rubocop:disable-next Layout/LineLength
 module Renalware::Letters::Transports::Mesh
   describe API::AuthHeader do
     it "generates a valid auth header string" do
@@ -18,4 +18,3 @@ module Renalware::Letters::Transports::Mesh
     end
   end
 end
-# rubocop:enable Layout/LineLength

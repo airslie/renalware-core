@@ -32,7 +32,7 @@ module Renalware
           @egfr = egfr.to_f
         end
 
-        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable-next Metrics/AbcSize
         def call
           return if insufficient_data?
 
@@ -46,7 +46,6 @@ module Renalware
             yr5: ((1 - (UK_ADJUSTMENT_5_YR**Math.exp(sum))) * 100).round(1)
           )
         end
-        # rubocop:enable Metrics/AbcSize
 
         private
 

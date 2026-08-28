@@ -14,7 +14,7 @@ module Renalware
 
             private
 
-            # rubocop:disable Metrics/AbcSize
+            # rubocop:disable-next Metrics/AbcSize
             def treatment_element
               create_node("Treatment") do |elem|
                 elem << create_node("EncounterNumber", encounter_number || treatment.modality_id)
@@ -29,7 +29,6 @@ module Renalware
                 elem << attributes_element
               end
             end
-            # rubocop:enable Metrics/AbcSize
 
             def healthcare_facility_element
               create_node("HealthCareFacility") do |elem|

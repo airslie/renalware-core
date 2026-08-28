@@ -1,5 +1,5 @@
 module Renalware
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable-next Metrics/MethodLength
   module ScheduledJobs
     module_function
 
@@ -196,5 +196,4 @@ module Renalware
       raise ArgumentError, "CUSTOM_SCHEDULED_JOBS contains invalid JSON: #{e.message}"
     end
   end
-  # rubocop:enable Metrics/MethodLength
 end

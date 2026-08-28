@@ -18,7 +18,7 @@ module Renalware
       end
       delegate_missing_to :assessment
 
-      def css_classes_for(level)= CSS_MAP.fetch(level&.to_sym, "")
+      def css_classes_for(level) = CSS_MAP.fetch(level&.to_sym, "")
     end
   end
 end

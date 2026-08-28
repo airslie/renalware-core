@@ -3,7 +3,7 @@ module Renalware
     class SnippetsController < BaseController
       LIMIT = 10
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def index
         authorize Snippet, :index?
         snippets = snippets_for_author(author)
@@ -23,7 +23,6 @@ module Renalware
 
         render template, locals: locals, layout: !turbo_frame_request?
       end
-      # rubocop:enable Metrics/MethodLength
 
       def new
         authorize(snippet = new_snippet)

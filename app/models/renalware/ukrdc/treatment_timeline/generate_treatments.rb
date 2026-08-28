@@ -23,7 +23,7 @@ module Renalware
             .where("send_to_renalreg = true or send_to_rpv = true")
         end
 
-        # rubocop:disable Rails/Output
+        # rubocop:disable-next Rails/Output
         def generate_treatments
           PrepareTables.call
           Rails.logger.info "#{patient_scope.count} patients"
@@ -34,7 +34,6 @@ module Renalware
             # GC.start if (index % 50).zero?
           end
         end
-        # rubocop:enable Rails/Output
 
         def log(msg)
           Rails.logger.info(msg)

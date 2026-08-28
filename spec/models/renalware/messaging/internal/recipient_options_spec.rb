@@ -54,7 +54,7 @@ module Renalware::Messaging::Internal
         another_user # create this user
       end
 
-      # rubocop:disable RSpec/MultipleExpectations
+      # rubocop:disable-next RSpec/MultipleExpectations
       it "returns a hash of 3 recipient groups" do
         # Lets get grouped dropdown options as if we again want to send a message about patient_a
         recipient_options = described_class.new(patient_a, author)
@@ -93,7 +93,6 @@ module Renalware::Messaging::Internal
         expect(all_other_users).not_to include(author)
         expect(all_other_users).to include(another_user)
       end
-      # rubocop:enable RSpec/MultipleExpectations
 
       context "when a user as become unapproved, expired or inactive then they should " \
               "not appear in recipient options, even if they are a previous recipient for " \

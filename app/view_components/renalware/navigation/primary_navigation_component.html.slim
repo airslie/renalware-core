@@ -30,7 +30,7 @@ nav.rw-primary-nav(data-controller="primary-navigation"
             = inline_icon(:search, size: :md)
 
       ul#primary-navigation-menu.rw-primary-nav__menu(data-primary-navigation-target="menu")
-        - unread_message_count = unread_message_count_component
+        - unread_message_count = render unread_message_count_component
 
         li.rw-primary-nav__item
           button.rw-primary-nav__link.rw-primary-nav__link--button(type="button"
@@ -42,7 +42,7 @@ nav.rw-primary-nav(data-controller="primary-navigation"
             span.rw-primary-nav__user-label
               = inline_icon(:home, size: :md)
               span= current_user_menu_label
-              = render unread_message_count
+              = unread_message_count
           ul#primary-navigation-user.rw-primary-nav__submenu(data-primary-navigation-target="panel" hidden)
             li= link_to t("renalware.navigation.user.my_dashboard"), main_app.dashboard_path
             li= link_to t("renalware.navigation.user.update_profile"), main_app.edit_user_registration_path
@@ -50,7 +50,7 @@ nav.rw-primary-nav(data-controller="primary-navigation"
             li= link_to "Manage Snippets", authoring.snippets_path
             li= link_to main_app.messaging_internal_inbox_path do
               span Messages
-              = render unread_message_count
+              = unread_message_count
             li= link_to "Electronic CCs", main_app.unread_letters_electronic_receipts_path
             li.rw-primary-nav__submenu-separator
               = link_to t("renalware.navigation.sign_out.log_out"),

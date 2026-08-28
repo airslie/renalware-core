@@ -1,6 +1,6 @@
 module Renalware
   module UKRDC
-    # rubocop:disable Metrics/ClassLength
+    # rubocop:disable-next Metrics/ClassLength
     class PatientPresenter < SimpleDelegator
       UKRDC_MAX_PHONE_LEN = 80
 
@@ -260,6 +260,5 @@ module Renalware
         Date.parse(start_date)
       end
     end
-    # rubocop:enable Metrics/ClassLength
   end
 end

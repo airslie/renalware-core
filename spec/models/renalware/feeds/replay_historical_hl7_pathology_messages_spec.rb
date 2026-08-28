@@ -119,7 +119,7 @@ module Renalware
         end
       end
 
-      # rubocop:disable RSpec/ExampleLength
+      # rubocop:disable-next RSpec/ExampleLength
       context "when a replay is run twice for the same patient" do
         it "retries any failed message_replays from a previous attempt" do
           shared_attrs = {
@@ -238,7 +238,6 @@ module Renalware
             .and change(MessageReplay, :count).by(1)
         end
       end
-      # rubocop:enable RSpec/ExampleLength
     end
   end
 end

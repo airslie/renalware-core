@@ -94,7 +94,7 @@ module Renalware
         #     where p.id = rp.patient_id and ri.user_id = 18
         #   )
         #
-        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable-next Metrics/AbcSize
         def resolve
           return if scope.nil?
           return scope.all if user_is_super_admin?
@@ -140,7 +140,6 @@ module Renalware
           end
           @scope
         end
-        # rubocop:enable Metrics/AbcSize
 
         def default_where_sql
           <<~SQL.squish

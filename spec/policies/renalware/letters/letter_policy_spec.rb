@@ -1,5 +1,5 @@
 module Renalware::Letters
-  # rubocop:disable RSpec/RepeatedExample
+  # rubocop:disable-next RSpec/RepeatedExample
   describe LetterPolicy, type: :policy do
     include PolicySpecHelper
 
@@ -101,5 +101,4 @@ module Renalware::Letters
       end
     end
   end
-  # rubocop:enable RSpec/RepeatedExample
 end

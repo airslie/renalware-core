@@ -1,6 +1,6 @@
 module Renalware
   module Devise
-    # rubocop:disable Rails/I18nLocaleTexts
+    # rubocop:disable-next Rails/I18nLocaleTexts
     class OmniauthCallbacksController < ::Devise::OmniauthCallbacksController
       # Callback for LDAP OmniAuth strategy
       def entra_id
@@ -107,6 +107,5 @@ module Renalware
         nil
       end
     end
-    # rubocop:enable Rails/I18nLocaleTexts
   end
 end

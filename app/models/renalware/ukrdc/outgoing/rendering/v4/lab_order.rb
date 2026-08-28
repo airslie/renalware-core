@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/AbcSize
+# rubocop:disable-next Metrics/AbcSize
 module Renalware
   module UKRDC
     module Outgoing
@@ -111,4 +111,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/AbcSize

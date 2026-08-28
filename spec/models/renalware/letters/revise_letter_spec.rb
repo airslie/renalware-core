@@ -151,11 +151,10 @@ module Renalware
       end
 
       # We use a double rather than a spy here as we want to the double to send the original msg.
-      # rubocop:disable RSpec/MessageSpies
+      # rubocop:disable-next RSpec/MessageSpies
       def expect_subject_to_broadcast(*)
         expect(subject).to receive(:broadcast).with(*).and_call_original
       end
-      # rubocop:enable RSpec/MessageSpies
     end
   end
 end

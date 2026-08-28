@@ -22,7 +22,7 @@ module Renalware
         (values.present? && values.respond_to?(method_name)) || super
       end
 
-      # rubocop:disable Layout/EmptyLinesAroundBlockBody
+      # rubocop:disable-next Layout/EmptyLinesAroundBlockBody
       def each_display_group
         return unless block_given?
 
@@ -39,7 +39,6 @@ module Renalware
           yield observation_presenters, group_number
         end
       end
-      # rubocop:enable Layout/EmptyLinesAroundBlockBody
 
       def build_observation_presenter(code_group_membership)
         observation_hash = send(code_group_membership.observation_description.code.to_sym) || {}

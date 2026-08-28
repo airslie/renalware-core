@@ -23,7 +23,7 @@ module Renalware
           .call
       end
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def call
         query = ReplayableHL7PathologyMessagesQuery.call(
           patient: patient,
@@ -42,7 +42,6 @@ module Renalware
           end
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       def criteria
         {

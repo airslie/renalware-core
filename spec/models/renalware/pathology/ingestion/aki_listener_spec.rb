@@ -1,4 +1,4 @@
-# rubocop:disable Layout/LineLength
+# rubocop:disable-next Layout/LineLength
 module Renalware
   module Pathology
     describe Ingestion::AKIListener do
@@ -132,7 +132,7 @@ module Renalware
             end
           end
 
-          # rubocop:disable RSpec/ChangeByZero
+          # rubocop:disable-next RSpec/ChangeByZero
           context "when the patient exists and already has a modality" do
             it "does not change their modality" do
               transplant_patient
@@ -144,7 +144,6 @@ module Renalware
                 .and change(Renalware::Modalities::Modality, :count).by(0)
             end
           end
-          # rubocop:enable RSpec/ChangeByZero
 
           describe "creation of aki_alert" do
             context "when patient's curr modality description is marked 'ignore_for_aki_alerts'" do
@@ -282,4 +281,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Layout/LineLength

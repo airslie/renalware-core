@@ -14,7 +14,7 @@ module Renalware
 
           attr_reader :mapper_factory
 
-          # rubocop:disable Layout/LineLength
+          # rubocop:disable-next Layout/LineLength
           def call
             patient = update_patient_if_exists
             if patient.nil? &&
@@ -22,7 +22,6 @@ module Renalware
               Commands::AddPatient.call(message, "ADT31/28 created patient (TIE filtering by Renal)")
             end
           end
-          # rubocop:enable Layout/LineLength
 
           private
 

@@ -34,7 +34,7 @@ describe "HL7 message handling end to end" do
       Array(codes).each { |code| create(:pathology_request_description, code:) }
     end
 
-    # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
+    # rubocop:disable-next RSpec/MultipleExpectations, RSpec/ExampleLength
     it "creates the required patient observation requests and their observations" do
       # This tests that we create both the results (observation_request -> observations) and
       # their descriptors if missing (observation_request -> observation -> measurement_unit).
@@ -119,7 +119,6 @@ describe "HL7 message handling end to end" do
         result_status: "F"
       )
     end
-    # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
   end
 
   context "when the HL7 message is not specific to a patient eg MFN^M02" do

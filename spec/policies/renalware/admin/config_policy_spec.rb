@@ -1,6 +1,6 @@
 module Renalware
   module Admin
-    # rubocop:disable RSpec/RepeatedExample
+    # rubocop:disable-next RSpec/RepeatedExample
     describe ConfigPolicy, type: :policy do
       include PolicySpecHelper
 
@@ -23,6 +23,5 @@ module Renalware
         end
       end
     end
-    # rubocop:enable RSpec/RepeatedExample
   end
 end

@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/BlockNesting
+# rubocop:disable-next Metrics/BlockNesting
 module Renalware
   module Patients
     describe SyncODSJob do
@@ -31,4 +31,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/BlockNesting

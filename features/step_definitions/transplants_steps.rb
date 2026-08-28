@@ -123,7 +123,7 @@ When /^Clyde submits an erroneous registration$/ do
   )
 end
 
-# rubocop:disable Style/RescueModifier
+# rubocop:disable-next Style/RescueModifier
 When /^Clyde submits an erroneous recipient operation$/ do
   create_recipient_operation(
     patient: @patty,
@@ -132,7 +132,6 @@ When /^Clyde submits an erroneous recipient operation$/ do
     age: 30
   ) rescue nil
 end
-# rubocop:enable Style/RescueModifier
 
 When /^Clyde submits an erroneous donor operation$/ do
   create_donor_operation(

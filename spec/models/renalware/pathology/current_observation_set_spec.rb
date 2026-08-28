@@ -228,13 +228,12 @@ module Renalware
         )
       end
 
-      # rubocop:disable Rails/TimeZone
+      # rubocop:disable-next Rails/TimeZone
       def expect_obs_to_match(obs, result, time)
         observed_at = l(Time.parse(obs[:observed_at]))
         expect(obs[:result]).to eq(result.to_s)
         expect(observed_at).to eq(l(time))
       end
-      # rubocop:enable Rails/TimeZone
     end
   end
 end

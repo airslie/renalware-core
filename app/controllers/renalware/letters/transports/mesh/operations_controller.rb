@@ -31,7 +31,7 @@ module Renalware
         head :ok
       end
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def preview_reconstituted_letter
         authorize Operation, :show?
         operation = Operation.find(params[:id])
@@ -54,7 +54,6 @@ module Renalware
         html = xslt.transform(doc)
         render locals: { html: html }, layout: nil
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

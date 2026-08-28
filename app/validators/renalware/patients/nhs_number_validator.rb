@@ -42,7 +42,7 @@ module Renalware
         end
 
         # See https://www.datadictionary.nhs.uk/data_dictionary/attributes/n/nhs/nhs_number_de.asp
-        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable-next Metrics/AbcSize
         def validate_using_modulus_11
           return if record.errors[attribute].any?
 
@@ -77,7 +77,6 @@ module Renalware
             record.errors.add(attribute, :nhs_number_invalid_checkdigit)
           end
         end
-        # rubocop:enable Metrics/AbcSize
       end
       private_constant :Validator
     end

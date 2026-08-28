@@ -14,7 +14,7 @@ module Renalware
 
             private
 
-            # rubocop:disable Metrics/AbcSize
+            # rubocop:disable-next Metrics/AbcSize
             def treatment_element
               create_node("Treatment") do |elem|
                 elem << encounter_number_element
@@ -30,7 +30,6 @@ module Renalware
                 elem << attributes_element
               end
             end
-            # rubocop:enable Metrics/AbcSize
 
             def encounter_number_element
               value = encounter_number || treatment.modality_id

@@ -11,7 +11,7 @@ module Renalware
         MAX_PAGE_COUNT = 10
 
         # TODO: insert blank pages if odd/even etc
-        # rubocop:disable Metrics/MethodLength, Lint/UnreachableCode
+        # rubocop:disable-next Metrics/MethodLength, Lint/UnreachableCode
         def call(batch)
           raise "Unused?"
 
@@ -32,7 +32,6 @@ module Renalware
 
           pdf.to_pdf
         end
-        # rubocop:enable Metrics/MethodLength, Lint/UnreachableCode
 
         private
 

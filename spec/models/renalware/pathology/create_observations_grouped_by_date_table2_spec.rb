@@ -1,4 +1,4 @@
-# rubocop:disable RSpec/ExampleLength
+# rubocop:disable-next RSpec/ExampleLength
 module Renalware
   module Pathology
     describe CreateObservationsGroupedByDateTable2 do
@@ -188,4 +188,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable RSpec/ExampleLength

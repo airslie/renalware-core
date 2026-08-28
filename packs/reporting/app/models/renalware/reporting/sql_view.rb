@@ -7,7 +7,7 @@ module Renalware
 
       # Create a class under Renalware:: for this SQL name
       # Note that Ransack search_form_for requires our otherwise anonymous class to have a name.
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
       def klass
         return Renalware.const_get(class_name) if class_exists?
 
@@ -30,7 +30,6 @@ module Renalware
           Renalware.const_set(class_name, klass)
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       private
 

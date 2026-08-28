@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable FactoryBot/AssociationStyle
+# rubocop:disable-next FactoryBot/AssociationStyle
 FactoryBot.define do
   factory :prescription, class: "Renalware::Medications::Prescription" do
     accountable
@@ -18,4 +18,3 @@ FactoryBot.define do
     after(:build) { |prescription| prescription.treatable ||= prescription.patient }
   end
 end
-# rubocop:enable FactoryBot/AssociationStyle

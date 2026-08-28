@@ -133,7 +133,7 @@ module Renalware::Letters
         end
       end
 
-      # rubocop:disable Layout/LineLength
+      # rubocop:disable-next Layout/LineLength
       def create_all_letter_observation_descriptions
         create(:pathology_observation_description, code: "HGB", name: "HGB", letter_group: 1, letter_order: 1)
         create(:pathology_observation_description, code: "WBC", name: "WBC", letter_group: 1, letter_order: 2)
@@ -155,7 +155,6 @@ module Renalware::Letters
         create(:pathology_observation_description, code: "HBA", name: "HBA", letter_group: 10, letter_order: 1)
         create(:pathology_observation_description, code: "CHOL", name: "CHOL", letter_group: 11, letter_order: 1)
       end
-      # rubocop:enable Layout/LineLength
     end
   end
 end

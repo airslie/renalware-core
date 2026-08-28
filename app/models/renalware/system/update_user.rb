@@ -16,7 +16,7 @@ module Renalware
 
       private
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def update!(params)
         User.transaction do
           approve if can_approve?(params)
@@ -38,7 +38,6 @@ module Renalware
       rescue ActiveRecord::RecordInvalid
         false
       end
-      # rubocop:enable Metrics/AbcSize
 
       def notify!
         notifications.each { |n| n.public_send(delivery_method) } if notifications.any?

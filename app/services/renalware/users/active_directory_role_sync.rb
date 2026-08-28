@@ -39,7 +39,7 @@ module Renalware
         end
       end
 
-      # rubocop:disable Style/SafeNavigationChainLength
+      # rubocop:disable-next Style/SafeNavigationChainLength
       def normalize_role_name(role_name)
         role_name
           &.downcase
@@ -47,7 +47,6 @@ module Renalware
           &.first
           &.delete_prefix("cn=")
       end
-      # rubocop:enable Style/SafeNavigationChainLength
 
       def add_roles(roles)
         roles.each { |role| user.roles << role }

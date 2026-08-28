@@ -131,9 +131,8 @@ module Document
       attribute_set.entries.map(&:name)
     end
 
-    # rubocop:disable Style/ClassVars
+    # rubocop:disable-next Style/ClassVars
     @@methods_to_ignore = []
-    # rubocop:enable Style/ClassVars
 
     # Flag an old attribute to be ignored
     # when the document is deserialized from the database

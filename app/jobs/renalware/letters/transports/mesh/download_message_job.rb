@@ -13,7 +13,7 @@ module Renalware
           end
         end
 
-        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable-next Metrics/MethodLength
         def download_message(message_id)
           download_operation = nil
           parent_send_operation = nil
@@ -45,9 +45,8 @@ module Renalware
 
           [download_operation, parent_send_operation]
         end
-        # rubocop:enable Metrics/MethodLength
 
-        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable-next Metrics/MethodLength
         def acknowledge_message(message_id, download_operation, send_message_operation)
           API::LogOperation.call(
             :acknowledge_message,
@@ -64,7 +63,6 @@ module Renalware
             end
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
         private
 

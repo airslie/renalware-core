@@ -204,7 +204,7 @@ describe "HL7 ADT^A31 message handling: 'Update person information'" do
     end
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def verify_patient_properties(patient)
     expect(patient).to have_attributes(
       family_name:,
@@ -225,5 +225,4 @@ describe "HL7 ADT^A31 message handling: 'Update person information'" do
     )
     expect(patient.sex.code).to eq(sex)
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end

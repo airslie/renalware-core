@@ -6,7 +6,7 @@ describe Renalware::Medications::ExpiringHDPrescriptionsForConsultantQuery do
   let(:other_hd_patient)  { create(:hd_patient, :with_hd_modality) }
   let(:pd_patient)        { create(:pd_patient, :with_pd_modality) }
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable-next Metrics/MethodLength
   def create_prescription(patient:, user:, terminated_on: 1.day.from_now, **)
     create(
       :prescription,
@@ -26,7 +26,6 @@ describe Renalware::Medications::ExpiringHDPrescriptionsForConsultantQuery do
       prescription.save!
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   context "when the user is not a consultant" do
     before { hd_patient.update(named_consultant: non_consultant, by: non_consultant) }

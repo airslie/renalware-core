@@ -1,4 +1,4 @@
-# rubocop:disable RSpec/VerifiedDoubles
+# rubocop:disable-next RSpec/VerifiedDoubles
 module Renalware::Pathology
   describe ObservationRequestsAttributesBuilder do
     describe "#parse" do
@@ -434,4 +434,3 @@ module Renalware::Pathology
     end
   end
 end
-# rubocop:enable RSpec/VerifiedDoubles

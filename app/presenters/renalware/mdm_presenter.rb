@@ -105,7 +105,7 @@ module Renalware
       @current_problems ||= patient.problems.current.limit(6).with_created_by.ordered
     end
 
-    # rubocop:disable Lint/UnusedMethodArgument
+    # rubocop:disable-next Lint/UnusedMethodArgument
     def events_of_type(type: nil)
       events_ = Events::Event
         .for_patient(patient)
@@ -114,7 +114,6 @@ module Renalware
         .ordered
       CollectionPresenter.new(events_, Renalware::Events::EventPresenter)
     end
-    # rubocop:enable Lint/UnusedMethodArgument
     alias events events_of_type
 
     def letters

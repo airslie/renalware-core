@@ -1,4 +1,4 @@
-# rubocop:disable Layout/SpaceInsideArrayLiteralBrackets
+# rubocop:disable-next Layout/SpaceInsideArrayLiteralBrackets
 module Renalware
   module Pathology
     module KFRE
@@ -63,6 +63,7 @@ module Renalware
           end
         end
 
+        # rubocop:disable-next Layout/ExtraSpacing
         #  Sex    Age   ACR     EGFR    KFRE2   KFRE5
         [
           ["F",   85,   40.1,   "10.2", 17.5,   49.9 ],
@@ -90,4 +91,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Layout/SpaceInsideArrayLiteralBrackets

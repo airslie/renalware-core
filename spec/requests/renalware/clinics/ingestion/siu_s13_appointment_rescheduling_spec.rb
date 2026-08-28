@@ -1,4 +1,4 @@
-# rubocop:disable Layout/LineLength
+# rubocop:disable-next Layout/LineLength
 describe "HL7 SIU^S13 - Notification of Appointment Rescheduling" do
   # This message is sent from a filler application to notify other applications that an existing
   # appointment has been rescheduled. The information in the SCH segment and the other detail
@@ -149,4 +149,3 @@ describe "HL7 SIU^S13 - Notification of Appointment Rescheduling" do
     end
   end
 end
-# rubocop:enable Layout/LineLength

@@ -266,21 +266,21 @@ describe "Outgoing Documents API" do
               comments: "Delivery outcome is unknown"
             }
           )
+
+          expect(response.media_type).to eq("application/json")
+          doc = JSON.parse(response.body).with_indifferent_access
+          queued_doc.reload
+
+          expect(doc[:result]).to eq("OK")
+          expect(doc[:state]).to eq("errored")
+          expect(queued_doc).to have_attributes(
+            state: "errored",
+            error_code: "TIE_TIMEOUT",
+            error: "Timed out waiting for TIE response",
+            comments: "Delivery outcome is unknown"
+          )
+          expect(queued_doc.errored_at).to eq(Time.zone.now)
         end
-
-        expect(response.media_type).to eq("application/json")
-        doc = JSON.parse(response.body).with_indifferent_access
-        queued_doc.reload
-
-        expect(doc[:result]).to eq("OK")
-        expect(doc[:state]).to eq("errored")
-        expect(queued_doc).to have_attributes(
-          state: "errored",
-          error_code: "TIE_TIMEOUT",
-          error: "Timed out waiting for TIE response",
-          comments: "Delivery outcome is unknown"
-        )
-        expect(queued_doc.errored_at).to be_within(1.second).of(Time.zone.now)
       end
 
       it "returns an error when Mirth reports an invalid result" do

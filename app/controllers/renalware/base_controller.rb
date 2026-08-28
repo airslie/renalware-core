@@ -19,9 +19,8 @@ module Renalware
     # some non-user-facing controller actions (for example session keepalive)
     # should not be tracked and are explicitly skipped in those controllers.
 
-    # rubocop:disable Rails/LexicallyScopedActionFilter
+    # rubocop:disable-next Rails/LexicallyScopedActionFilter
     after_action :track_action, except: :status
-    # rubocop:enable Rails/LexicallyScopedActionFilter
 
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
