@@ -24,7 +24,7 @@ module Renalware
 
           private
 
-          # rubocop:disable Metrics/AbcSize
+          # rubocop:disable-next Metrics/AbcSize
           def map_attributes
             # Don't overwrite existing patient data if the new data is blank?
             patient.attributes = {
@@ -60,7 +60,6 @@ module Renalware
               postcode: address[4]
             }
           end
-          # rubocop:enable Metrics/AbcSize
 
           # If for some reason we cannot find the new practice (perhaps we have not imported it yet)
           # then be sure to leave the patient's current practice unchanged.

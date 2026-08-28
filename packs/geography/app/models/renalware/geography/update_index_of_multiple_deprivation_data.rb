@@ -23,7 +23,7 @@ module Renalware
     # Download CSV from here, include Scotland and Wales
     # https://data.cdrc.ac.uk/dataset/index-multiple-deprivation-imd#data-and-resources
     #
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     class UpdateIndexOfMultipleDeprivationData
       include Callable
 
@@ -69,6 +69,5 @@ module Renalware
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end

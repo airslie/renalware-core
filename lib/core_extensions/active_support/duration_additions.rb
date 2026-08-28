@@ -10,7 +10,7 @@ module CoreExtensions
       #   duration.inspect        #=> "1 week, 0 days, and 0 hours"
       #   duration.to_formatted_s #=> "1 week"
       #
-      # rubocop:disable Style/Semicolon, Style/EachWithObject
+      # rubocop:disable-next Style/Semicolon, Style/EachWithObject
       def to_formatted_s
         parts
           .reduce(::Hash.new(0)) { |h, (l, r)| h[l] += r; h }
@@ -19,7 +19,6 @@ module CoreExtensions
           .map { |unit, val| "#{val} #{val == 1 ? unit.to_s.chop : unit.to_s}" }
           .to_sentence(locale: ::I18n.default_locale)
       end
-      # rubocop:enable Style/Semicolon, Style/EachWithObject
     end
   end
 end

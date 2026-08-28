@@ -21,7 +21,7 @@ module Renalware
       create_feed_message(patients)
     end
 
-    def user        = @user ||= SystemUser.find
+    def user        = @user ||= SystemUser.find # rubocop:disable Layout/SpaceAroundOperators
     def sex         = %w(M F).sample
     def dob         = Time.zone.today - rand(30000) + 100
     def nhs_number  = nhs_numbers.sample
@@ -38,7 +38,7 @@ module Renalware
       ).flat_map(&:first)
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def create_patients
       patients = (1..patient_count).flat_map do |_idx|
         {
@@ -60,9 +60,8 @@ module Renalware
       Patient.upsert_all(patients, unique_by: :secure_id)
       patients
     end
-    # rubocop:enable Metrics/MethodLength
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def create_feed_message(patients)
       batches = 10
       batch_size = feed_message_count / 10
@@ -90,6 +89,5 @@ module Renalware
         Feeds::Message.upsert_all(msgs, unique_by: :body_hash)
       end
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end

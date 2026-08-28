@@ -124,7 +124,7 @@ module Renalware
             )
           end
 
-          # rubocop:disable RSpec/ExampleLength
+          # rubocop:disable-next RSpec/ExampleLength
           it "renders Assessments for the patient's Tx registrations" do
             patient = create(:transplant_patient, by:)
             registration = create(:transplant_registration, patient:)
@@ -177,7 +177,6 @@ module Renalware
 
             expect(actual_xml).to match_xml(expected_xml)
           end
-          # rubocop:enable RSpec/ExampleLength
         end
       end
     end

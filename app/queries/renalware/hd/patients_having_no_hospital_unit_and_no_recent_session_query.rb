@@ -6,7 +6,7 @@ module Renalware
     class PatientsHavingNoHospitalUnitAndNoRecentSessionQuery
       def self.call = new.call
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def call
         result = ActiveRecord::Base.connection.execute(<<~SQL.squish)
           select hds.patient_id, max(hds.started_at) as last_session_at
@@ -31,7 +31,6 @@ module Renalware
             }
           end
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

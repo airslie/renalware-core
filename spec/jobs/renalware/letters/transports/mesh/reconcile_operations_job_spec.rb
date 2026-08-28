@@ -61,7 +61,7 @@ module Renalware::Letters::Transports::Mesh
     end
 
     context "when a pending transmission has success inf and bus download operations" do
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def create_pending_transmission_with_successful_inf_and_bus_operations
         Transmission.create!(letter:, status: :pending).tap do |transmission|
           transmission.operations.create!(
@@ -77,7 +77,6 @@ module Renalware::Letters::Transports::Mesh
           letter.update_column(:gp_send_status, "pending")
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       it "flag as transmission and associated letter as successful" do
         transmission = create_pending_transmission_with_successful_inf_and_bus_operations

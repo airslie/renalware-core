@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable RSpec/ExampleLength
+# rubocop:disable-next RSpec/ExampleLength
 module Renalware
   module UKRDC
     module Outgoing
@@ -98,4 +98,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable RSpec/ExampleLength

@@ -2,7 +2,7 @@ module Renalware
   module Transplants
     describe CreateDonorStage do
       describe "#call" do
-        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable-next Metrics/AbcSize
         def validate_stage(stage, position, status, user, options)
           expect(stage).to be_present
           expect(stage.stage_position.name).to eq(position.name)
@@ -11,7 +11,6 @@ module Renalware
           expect(stage.created_at).to be_present
           expect(stage.started_on.change(usec: 0)).to eq(options[:started_on].change(usec: 0))
         end
-        # rubocop:enable Metrics/AbcSize
 
         context "when the donor has no status" do
           it "creates a new status" do

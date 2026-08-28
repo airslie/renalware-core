@@ -91,7 +91,7 @@ module Renalware
             end
           end
 
-          # rubocop:disable RSpec/ChangeByZero
+          # rubocop:disable-next RSpec/ChangeByZero
           context "when GP exists but their properties have changed" do
             it "updates appropriate properties" do
               gp = create(
@@ -125,7 +125,6 @@ module Renalware
               )
             end
           end
-          # rubocop:enable RSpec/ChangeByZero
         end
       end
     end

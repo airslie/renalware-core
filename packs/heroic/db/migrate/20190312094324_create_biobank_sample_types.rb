@@ -1,5 +1,5 @@
 class CreateBiobankSampleTypes < ActiveRecord::Migration[5.2]
-  # rubocop:disable Rails/NotNullColumn
+  # rubocop:disable-next Rails/NotNullColumn
   def change
     within_renalware_schema(suffix: :heroic) do
       create_table :biobank_sample_types do |t|
@@ -18,5 +18,4 @@ class CreateBiobankSampleTypes < ActiveRecord::Migration[5.2]
       add_column :biobank_aliquots, :isbt, :string
     end
   end
-  # rubocop:enable Rails/NotNullColumn
 end

@@ -69,7 +69,7 @@ module Renalware
           Renalware::Patient.find_by!(nhs_number: nhs_number)
         end
 
-        # rubocop:disable Style/RescueModifier
+        # rubocop:disable-next Style/RescueModifier
         def log_options(file)
           {
             status: :undefined,
@@ -78,7 +78,6 @@ module Renalware
             payload: (File.read(file) rescue nil)
           }
         end
-        # rubocop:enable Style/RescueModifier
       end
     end
   end

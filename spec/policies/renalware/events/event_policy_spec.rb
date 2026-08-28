@@ -1,4 +1,4 @@
-# rubocop:disable Layout/LineLength, Layout/ExtraSpacing
+# rubocop:disable-next Layout/LineLength, Layout/ExtraSpacing
 module Renalware
   module Events
     describe EventPolicy, type: :policy do
@@ -64,4 +64,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Layout/LineLength, Layout/ExtraSpacing

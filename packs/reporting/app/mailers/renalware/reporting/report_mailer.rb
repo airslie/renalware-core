@@ -28,7 +28,7 @@ module Renalware
       #   },
       #   "another_view" :...
       # }
-      # rubocop:disable Rails/IndexWith
+      # rubocop:disable-next Rails/IndexWith
       def view_data
         reporting_daily_views.each_with_object({}) do |view_name, hash|
           hash[view_name] = JSON.parse(
@@ -36,7 +36,6 @@ module Renalware
           ).with_indifferent_access
         end
       end
-      # rubocop:enable Rails/IndexWith
 
       # Returns the names of views that start with 'reporting_daily_', regardless of namespace
       # e.g.

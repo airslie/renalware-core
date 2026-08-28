@@ -5,7 +5,7 @@
 # Note some of the housekeeping concerns here eg UKRDC could perhaps be dealt with as a
 # method for example on UKRDC::TransmissionLog - perhaps something to improve
 # at some point.
-# rubocop:disable Rails/Output
+# rubocop:disable-next Rails/Output
 class DatabaseHousekeeping
   def call
     clear_old_ukrdc_transmission_logs
@@ -35,4 +35,3 @@ class DatabaseHousekeeping
     Renalware::System::Visit.where(started_at: ...6.months.ago).delete_all
   end
 end
-# rubocop:enable Rails/Output

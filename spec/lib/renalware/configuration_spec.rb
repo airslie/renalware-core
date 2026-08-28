@@ -225,7 +225,7 @@ describe Renalware::Configuration do
       end
     end
 
-    # rubocop:disable Lint/SymbolConversion
+    # rubocop:disable-next Lint/SymbolConversion
     context "when ENV variable is set" do
       it "uses the JSON-parsed ENV var" do
         ENV["HL7_PID_SEX_MAP"] = { "MALE": "M", "FEMALE": "F" }.to_json
@@ -239,7 +239,6 @@ describe Renalware::Configuration do
         expect(config.hl7_pid_sex_map).to eq("MALE" => "M", "FEMALE" => "F")
       end
     end
-    # rubocop:enable Lint/SymbolConversion
   end
 
   describe "#urr_generation_enabled" do

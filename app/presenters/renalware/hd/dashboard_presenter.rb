@@ -42,7 +42,7 @@ module Renalware
         end
       end
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def sessions
         @sessions ||= begin
           hd_sessions = Session
@@ -58,7 +58,6 @@ module Renalware
           CollectionPresenter.new(hd_sessions, SessionPresenter, view_context)
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       def sessions_total_count
         @sessions_total_count ||= Session.for_patient(patient).count

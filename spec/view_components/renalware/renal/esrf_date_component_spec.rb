@@ -1,4 +1,4 @@
-# rubocop:disable RSpec/PredicateMatcher
+# rubocop:disable-next RSpec/PredicateMatcher
 describe Renalware::Renal::ESRFDateComponent, type: :component do
   let(:esrf_on) { nil }
   let(:profile) { create(:renal_profile, patient:, esrf_on:) }
@@ -97,4 +97,3 @@ describe Renalware::Renal::ESRFDateComponent, type: :component do
     end
   end
 end
-# rubocop:enable RSpec/PredicateMatcher

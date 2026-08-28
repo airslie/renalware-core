@@ -5,7 +5,7 @@ module Document
       initializer_class.new(klass, name, type, options)
     end
 
-    # rubocop:disable Style/ModuleMemberExistenceCheck
+    # rubocop:disable-next Style/ModuleMemberExistenceCheck
     def self.build_class(type)
       if type == Document::Enum
         AttributeInitializer::Enum
@@ -15,7 +15,6 @@ module Document
         AttributeInitializer::Base
       end
     end
-    # rubocop:enable Style/ModuleMemberExistenceCheck
 
     private_class_method :build_class
   end

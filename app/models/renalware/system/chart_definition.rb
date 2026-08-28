@@ -10,7 +10,7 @@ module Renalware
       attribute :series_columns, array: true, default: []
 
       # TODO: remove rescue nil and find a way to warn the user of errors.
-      # rubocop:disable Style/RescueModifier
+      # rubocop:disable-next Style/RescueModifier
       def generate_json(relation)
         series_columns.map do |series_column|
           {
@@ -24,7 +24,6 @@ module Renalware
           }
         end.to_json
       end
-      # rubocop:enable Style/RescueModifier
     end
   end
 end

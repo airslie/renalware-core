@@ -18,7 +18,7 @@ module Renalware
 
       # Passing transmission_id means it will display with other operations under that transmission
       # in the Admin UI
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def perform(practice, transmission_id: nil)
         practice_ods_code = practice.code&.strip
 
@@ -41,9 +41,8 @@ module Renalware
 
         practice.mesh_mailbox_id
       end
-      # rubocop:enable Metrics/MethodLength
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def validate_response(response, practice_ods_code)
         unless response.status.between?(200, 299)
           raise HttpError, "Non-success HTTP response code '#{response.status}' #{response.inspect}"
@@ -65,7 +64,6 @@ module Renalware
           )
         end
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

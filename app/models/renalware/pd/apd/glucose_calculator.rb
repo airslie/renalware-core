@@ -41,11 +41,10 @@ module Renalware
           end
         end
 
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         def glucose_for_bag(bag)
           (((bag.volume.to_f * bag.days_per_week.to_f) / available_overnight_volume.to_f) * overnight_volume) / 7
         end
-        # rubocop:enable Layout/LineLength
 
         def available_overnight_volume
           @available_overnight_volume ||= AvailableOvernightVolume.new(regime:).value

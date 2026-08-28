@@ -1,4 +1,4 @@
-# rubocop:disable Layout/LineLength
+# rubocop:disable-next Layout/LineLength
 module Renalware
   module Feeds
     describe HL7DocumentMessageBuilder do
@@ -419,4 +419,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Layout/LineLength

@@ -1,6 +1,6 @@
 require_relative "../../../seeds_helper"
 
-# rubocop:disable Style/WordArray
+# rubocop:disable-next Style/WordArray
 module Renalware
   Rails.benchmark "Adding Drug Types" do
     now = DateTime.now
@@ -87,4 +87,3 @@ module Renalware
     Renalware::Drugs::Type.upsert_all(drug_types, unique_by: :code)
   end
 end
-# rubocop:enable Style/WordArray

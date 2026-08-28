@@ -8,7 +8,7 @@ module Renalware
 
           # Putting this here for now so all incomplete data criteria is all in one place.
           # Build an array of symbols for all missing data identified by the above query
-          # rubocop:disable Style/SafeNavigationChainLength
+          # rubocop:disable-next Style/SafeNavigationChainLength
           def self.missing_data_for(patient)
             renal_profile = Renal.cast_patient(patient).profile
             missing = []
@@ -20,7 +20,6 @@ module Renalware
             end
             missing
           end
-          # rubocop:enable Style/SafeNavigationChainLength
 
           def initialize(relation: nil, query_params: {})
             @relation = relation || default_relation

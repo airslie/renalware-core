@@ -1,4 +1,4 @@
-# rubocop:disable RSpec/ExampleLength
+# rubocop:disable-next RSpec/ExampleLength
 module Renalware
   module UKRDC
     module Outgoing
@@ -9,7 +9,7 @@ module Renalware
 
         let(:patient) { instance_double(UKRDC::PatientPresenter, current_modality_hd?: true) }
 
-        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable-next Metrics/MethodLength
         def build_pathology_request_with_an_hgb_observation(hd_sample_type: nil)
           request = build_stubbed(
             :pathology_observation_request,
@@ -35,7 +35,6 @@ module Renalware
           allow(request).to receive(:observations).and_return [observation]
           UKRDC::PathologyObservationRequestPresenter.new(request)
         end
-        # rubocop:enable Metrics/MethodLength
 
         it do
           request = build_pathology_request_with_an_hgb_observation
@@ -98,4 +97,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable RSpec/ExampleLength

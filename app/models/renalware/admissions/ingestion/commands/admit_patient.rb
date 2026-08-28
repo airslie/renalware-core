@@ -104,7 +104,7 @@ module Renalware
 
           # If we can't find the unit by name, code or alias, then create it.
           # An example alias might be eg 'RNJ ROYALLONDON' in PV1.3.4 Facility.
-          # rubocop:disable Metrics/MethodLength
+          # rubocop:disable-next Metrics/MethodLength
           def unit
             @unit ||= begin
               incoming_unit_name = assigned_location.facility
@@ -124,7 +124,6 @@ module Renalware
               )
             end
           end
-          # rubocop:enable Metrics/MethodLength
 
           def hospital_centre
             @hospital_centre ||= Hospitals::Centre.where(host_site: true).first

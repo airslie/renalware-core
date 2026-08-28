@@ -1,4 +1,4 @@
-# rubocop:disable RSpec/ExampleLength
+# rubocop:disable-next RSpec/ExampleLength
 module Renalware
   # HD Overall Audit is currently a materialized view
   describe "HD Overall Audit" do # rubocop:disable RSpec/DescribeClass
@@ -188,4 +188,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable RSpec/ExampleLength

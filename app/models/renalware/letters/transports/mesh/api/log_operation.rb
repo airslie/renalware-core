@@ -20,7 +20,7 @@ module Renalware
 
         private
 
-        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable-next Metrics/MethodLength
         def yield_block_to_api_call_and_store_response_in_operation(operation, &block)
           response = yield(operation) if block
           return unless response
@@ -39,7 +39,6 @@ module Renalware
           operation.update(unhandled_error: [e.message, e.backtrace].join)
           raise e
         end
-        # rubocop:enable Metrics/MethodLength
 
         def initial_attributes
           {

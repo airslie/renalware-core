@@ -44,7 +44,7 @@ describe "Mirth HL7 feed processing simulation" do
   end
 
   # Call the SQL fn that Mirth would call
-  # rubocop:disable Metrics/MethodLength, Metrics/ParameterLists
+  # rubocop:disable-next Metrics/MethodLength, Metrics/ParameterLists
   def simulate_mirth_creating_message(
     message_type:,
     event_type:,
@@ -82,7 +82,6 @@ describe "Mirth HL7 feed processing simulation" do
       )
     SQL
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/ParameterLists
 
   context "when ORU^R01" do
     describe "argument validation" do

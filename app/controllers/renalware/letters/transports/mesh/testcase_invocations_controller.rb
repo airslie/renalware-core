@@ -4,7 +4,7 @@ module Renalware
       class TestcaseInvocationsController < BaseController
         include Broadcasting
 
-        # rubocop:disable Metrics/MethodLength, Rails/I18nLocaleTexts
+        # rubocop:disable-next Metrics/MethodLength, Rails/I18nLocaleTexts
         def create
           authorize Transmission, :create?
           redirect_back fallback_location: letters_transports_mesh_help_path,
@@ -21,7 +21,6 @@ module Renalware
             SendMessageJob.perform_now(transmission)
           end
         end
-        # rubocop:enable Metrics/MethodLength, Rails/I18nLocaleTexts
 
         private
 
@@ -31,7 +30,7 @@ module Renalware
           patient
         end
 
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
         def create_letter_for(patient)
           patient = patient.becomes(Letters::Patient)
           draft_letter = LetterFactory.new(
@@ -55,7 +54,6 @@ module Renalware
 
           patient.letters.approved.find(draft_letter.id)
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
       end
     end
   end

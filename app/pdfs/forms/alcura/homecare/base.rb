@@ -38,7 +38,7 @@ class Forms::Alcura::Homecare::Base < Forms::Base
   # Creates a single row (array) where col 0 is the title and there are then n cell
   # where n == options.length, and each cell contains a checkbox+label, and only the last
   # cell has any vertical borders.
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
   def row_with_title_and_array_of_checkbox_options(
     title:,
     options:,
@@ -73,5 +73,4 @@ class Forms::Alcura::Homecare::Base < Forms::Base
       last_cell.borders = %i(right top bottom)
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end

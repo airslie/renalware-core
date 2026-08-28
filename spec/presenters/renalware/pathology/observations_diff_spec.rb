@@ -15,7 +15,7 @@ module Renalware
       end
 
       describe ".to_h" do
-        # rubocop:disable RSpec/MultipleExpectations
+        # rubocop:disable-next RSpec/MultipleExpectations
         it "returns a hash of differences" do
           hgb_old = { result: 2.1, observed_at: "2017-12-12 00:01:01" }
           hgb_new = { result: 1.0, observed_at: "2018-12-12 00:01:01" }
@@ -57,7 +57,6 @@ module Renalware
           expect(diff_hash[:CRE][1]).to be_nil # no change so no new observation here
           expect(diff_hash[:CRE][2]).to be_nil # no change so no difference value here
         end
-        # rubocop:enable RSpec/MultipleExpectations
       end
 
       describe "#to_html" do

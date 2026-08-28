@@ -25,7 +25,7 @@ module Document
         end
 
         context "without given enums" do
-          # rubocop:disable Naming/HeredocDelimiterNaming
+          # rubocop:disable-next Naming/HeredocDelimiterNaming
           let(:translations) do
             Psych.load(<<-EOF)
               enumerize:
@@ -36,7 +36,6 @@ module Document
                     three: three
             EOF
           end
-          # rubocop:enable Naming/HeredocDelimiterNaming
 
           before do
             with_translations(:"en-GB", translations) do
@@ -57,11 +56,10 @@ module Document
               "Document::Foo"
             end
 
-            # rubocop:disable Lint/ConstantDefinitionInBlock
+            # rubocop:disable-next Lint/ConstantDefinitionInBlock
             class Nested < Document::Embedded
               attribute :value
             end
-            # rubocop:enable Lint/ConstantDefinitionInBlock
             attribute :nested, Nested
           end
         end

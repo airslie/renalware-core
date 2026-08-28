@@ -64,7 +64,7 @@ module Renalware
         }
       end
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def identity_sql(query)
         sql = <<~SQL.squish
           patients.local_patient_id = :ucase_term OR
@@ -80,7 +80,6 @@ module Renalware
         sql += " OR patients.ukrdc_external_id = :exact_term" if query_is_a_uuid?(query)
         sql
       end
-      # rubocop:enable Metrics/MethodLength
 
       def query_is_a_uuid?(query)
         query.match(UUID_REGEXP)

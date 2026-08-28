@@ -27,7 +27,7 @@ module Renalware
 
           # Experimental recursive fn to try and handle eg ol>li+li and ul>li+li
           # Does not work correctly atm - ol bullet does not increment.
-          # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+          # rubocop:disable-next Metrics/MethodLength, Metrics/CyclomaticComplexity
           def parse_html_fragment_into_text_array(elem, styles = [], li_type = nil, bullet = nil)
             texts = []
             case elem.name
@@ -48,7 +48,6 @@ module Renalware
             end
             texts
           end
-          # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
         end
       end
     end

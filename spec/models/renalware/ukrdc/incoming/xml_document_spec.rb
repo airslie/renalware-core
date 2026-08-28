@@ -1,4 +1,4 @@
-# rubocop:disable Style/WordArray
+# rubocop:disable-next Style/WordArray
 module Renalware
   module UKRDC
     describe Incoming::XmlDocument do
@@ -61,4 +61,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Style/WordArray

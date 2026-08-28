@@ -35,7 +35,7 @@ module Renalware
         end
       end
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def process_raw_hl7_messages
         RawHL7Message
           .order(sent_at: :asc, created_at: :asc)
@@ -57,7 +57,6 @@ module Renalware
           raw_message.destroy
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       def raw_hl7_processing_lock_acquired?(connection)
         connection.select_value(

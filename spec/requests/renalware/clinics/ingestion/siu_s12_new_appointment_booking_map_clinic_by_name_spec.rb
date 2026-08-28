@@ -1,4 +1,4 @@
-# rubocop:disable Layout/LineLength
+# rubocop:disable-next Layout/LineLength
 describe "HL7 SIU^S12 - Notification of New Appointment Booking" do
   # This message is sent from a filler application to notify other applications that a
   # new appointment has been booked. The information provided in the SCH segment and the other
@@ -231,4 +231,3 @@ describe "HL7 SIU^S12 - Notification of New Appointment Booking" do
     end
   end
 end
-# rubocop:enable Layout/LineLength

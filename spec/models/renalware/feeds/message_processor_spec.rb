@@ -1,4 +1,4 @@
-# rubocop:disable RSpec/AnyInstance
+# rubocop:disable-next RSpec/AnyInstance
 module Renalware::Feeds
   describe MessageProcessor do
     include HL7Helpers
@@ -63,4 +63,3 @@ module Renalware::Feeds
     end
   end
 end
-# rubocop:enable RSpec/AnyInstance

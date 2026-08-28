@@ -1,4 +1,4 @@
-# rubocop:disable RSpec/ExampleLength, Layout/LineLength, Style/WordArray
+# rubocop:disable-next RSpec/ExampleLength, Layout/LineLength, Style/WordArray
 module Renalware
   module UKRDC
     describe TreatmentTimeline::HD::Generator do
@@ -303,6 +303,7 @@ module Renalware
 
             # First profile is a year after the first modality, but it is found and used by
             # modality[0]. The profile lasts for 1 month then another is created
+            # rubocop:disable-next Layout/ExtraSpacing
             profiles_definitions = [
               # start_date,   end_date,     hd_type,  unit
               ["2017-02-01",  "2017-03-01", :hd,      units.first],
@@ -310,7 +311,7 @@ module Renalware
               ["2017-04-01",  nil,          :hdf_pre, units.last]   # unit changes NB deactivated_at = nil as current profile
             ]
 
-            # rubocop:disable Style/RedundantCondition
+            # rubocop:disable-next Style/RedundantCondition
             profiles_definitions.each do |defn|
               create_profile(
                 start_date: defn[0], # created_at
@@ -322,7 +323,6 @@ module Renalware
                 prescribed_time: 210
               )
             end
-            # rubocop:enable Style/RedundantCondition
 
             expect {
               modalities.each do |modality|
@@ -356,4 +356,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable RSpec/ExampleLength, Layout/LineLength, Style/WordArray

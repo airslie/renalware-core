@@ -25,7 +25,7 @@ require_relative "configuration/pathology"
 require_relative "configuration/ukrdc"
 require_relative "configuration/users"
 
-# rubocop:disable Layout/LineLength
+# rubocop:disable-next Layout/LineLength
 module Renalware
   class Configuration # rubocop:disable Metrics/ClassLength
     include Renalware::ConfigAccessors
@@ -453,4 +453,3 @@ module Renalware
     def configure(&)  = Configuration.configure(&)
   end
 end
-# rubocop:enable Layout/LineLength

@@ -17,7 +17,7 @@ module Renalware
     # Example usage:
     #   UpdateLocalAuthorityData.new(csv_path: path_to_csv).call
     #
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     class UpdateLocalAuthorityData
       include Callable
 
@@ -99,6 +99,5 @@ module Renalware
         conn.execute(sql)
       end
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end

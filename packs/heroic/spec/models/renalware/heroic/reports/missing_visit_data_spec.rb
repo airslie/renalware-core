@@ -17,7 +17,7 @@ module Renalware::Heroic
     let(:participant) { create(:heroic_participation, by: user) }
     let(:patient) { Renalware::Clinics.cast_patient(participant.patient) }
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def create_visit(
       health_status_mobility: "1_none",
       alcohol_history: "1_never",
@@ -37,7 +37,6 @@ module Renalware::Heroic
         visit.save!
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     context "when a visit complete data" do
       it "does not return that visit" do

@@ -1,6 +1,6 @@
 module Renalware
   module Admissions
-    # rubocop:disable Rails/Pick
+    # rubocop:disable-next Rails/Pick
     class ActiveConsultAlertComponent < ApplicationComponent
       include IconHelper
 
@@ -18,6 +18,5 @@ module Renalware
         consult_id.present?
       end
     end
-    # rubocop:enable Rails/Pick
   end
 end

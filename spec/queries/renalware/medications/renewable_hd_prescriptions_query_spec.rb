@@ -5,7 +5,7 @@ module Renalware::Medications
     let(:yesterday) { 1.day.ago.end_of_day - 1.minute }
     let(:today) { 1.day.ago.end_of_day + 1.minute }
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def create_prescription(hd:, from:, to: nil, fixed_number_of_doses: nil)
       prescription = create(
         :prescription,
@@ -25,7 +25,6 @@ module Renalware::Medications
       end
       prescription
     end
-    # rubocop:enable Metrics/MethodLength
 
     context "when prescription is not Give On HD, ignores all" do
       subject(:prescriptions) { described_class.new(patient:).call }

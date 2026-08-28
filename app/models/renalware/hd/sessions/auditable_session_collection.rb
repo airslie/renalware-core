@@ -178,13 +178,12 @@ module Renalware
           sessions.map(&:blood_pressure_measurements).flatten
         end
 
-        # rubocop:disable Style/RescueModifier
+        # rubocop:disable-next Style/RescueModifier
         def all_systolic_blood_pressure_measurements
           all_blood_pressure_measurements
             .select(&:systolic)
             .select { |bp| true if Float(bp.systolic) rescue false }
         end
-        # rubocop:enable Style/RescueModifier
 
         # Helper to build a dynamic selector to grab the observation (pre/post) and blood pressure
         # measurement (sys/dias) and mean them.

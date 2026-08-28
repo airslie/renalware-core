@@ -41,7 +41,7 @@ module Renalware
           end
         end
 
-        # rubocop:disable RSpec/ExampleLength
+        # rubocop:disable-next RSpec/ExampleLength
         it "renders a DialysisSession element" do
           dialysate = build_stubbed(:hd_dialysate, sodium_content: 100)
           session = Renalware::HD::Session::Closed.new(
@@ -104,7 +104,6 @@ module Renalware
 
           expect(actual_xml).to match_xml(expected_xml)
         end
-        # rubocop:enable RSpec/ExampleLength
       end
     end
   end

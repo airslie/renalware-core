@@ -7,7 +7,7 @@ module Renalware
 
       helper Hospitals::HospitalsHelper
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def index
         session[:consults_results] = nil if params.key?(:reset)
         query = ConsultQuery.new(params[:q])
@@ -36,7 +36,6 @@ module Renalware
           end
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       def new
         consult = Consult.new(started_on: Time.zone.today)

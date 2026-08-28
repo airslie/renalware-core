@@ -46,7 +46,7 @@ module Renalware
           end
         end
 
-        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable-next Metrics/MethodLength
         def flag_pending_transmissions_as_failed_if_any_operation_has_error
           transmissions = Transmission
             .status_pending
@@ -64,9 +64,8 @@ module Renalware
             end
           end
         end
-        # rubocop:enable Metrics/MethodLength
 
-        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable-next Metrics/MethodLength
         def pending_transmission_ids_with_two_successful_download_operations
           sql = <<~SQL.squish
             select lmt.id from letter_mesh_transmissions lmt
@@ -92,7 +91,6 @@ module Renalware
 
           ActiveRecord::Base.connection.execute(sql).values.flatten
         end
-        # rubocop:enable Metrics/MethodLength
 
         def flag_pending_transmissions_as_failed_if_no_bus_and_inf_response_yet
           transmissions_with_no_response_within_configured_period.each do |transmission|
@@ -109,7 +107,7 @@ module Renalware
           end
         end
 
-        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable-next Metrics/MethodLength
         def transmissions_with_no_response_within_configured_period
           timeout_duration = Renalware.config.mesh_timeout_transmissions_with_no_response_after
           sql = <<~SQL.squish
@@ -128,7 +126,6 @@ module Renalware
           sql = Transmission.sanitize_sql([sql, timeout_duration.ago])
           Transmission.find_by_sql(sql)
         end
-        # rubocop:enable Metrics/MethodLength
       end
     end
   end

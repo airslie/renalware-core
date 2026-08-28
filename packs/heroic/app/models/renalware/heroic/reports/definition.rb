@@ -18,7 +18,7 @@ module Renalware
         # https://shift.infinite.red/fast-csv-report-generation-with-postgres-in-rails-d444d9b915ab
         # The current approach here is more memory hungry for large reports as it builds a CSV
         # string, but is more Rails-y and locale friendly.
-        # rubocop:disable Rails/FindEach
+        # rubocop:disable-next Rails/FindEach
         def to_csv
           klass = Class.new(ApplicationRecord)
           klass.table_name = report_view_name
@@ -30,7 +30,6 @@ module Renalware
             end
           end
         end
-        # rubocop:enable Rails/FindEach
 
         # Map Time values to e.g. "2018-01-01 12:01" and Dates to e.g. "2018-01-01"
         def format_value(val)

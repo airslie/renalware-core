@@ -5,7 +5,7 @@ module Renalware
       let(:other_nhs_num) { "2579228098" }
       let(:dob) { Date.parse("2001-01-01") }
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def create_message(
         nhs_number: nil,
         body: "some-hl7#{Time.zone.now.to_i}",
@@ -29,7 +29,6 @@ module Renalware
           **
         )
       end
-      # rubocop:enable Metrics/MethodLength
 
       it "raises an error if patent is not yet saved" do
         patient = build(:patient)

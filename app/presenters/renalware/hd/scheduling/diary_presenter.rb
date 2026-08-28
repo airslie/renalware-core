@@ -41,7 +41,7 @@ module Renalware
           stations.each_with_index { |station, index| yield(station, index + 1) if block_given? }
         end
 
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable-next Layout/LineLength
         def each_day(diurnal_period, station)
           (1..last_day_of_week).each do |day_of_week|
             diurnal_period_id = diurnal_period.id
@@ -53,7 +53,6 @@ module Renalware
             yield(slot) if block_given?
           end
         end
-        # rubocop:enable Layout/LineLength
 
         def day_names
           DAYS.take(last_day_of_week)

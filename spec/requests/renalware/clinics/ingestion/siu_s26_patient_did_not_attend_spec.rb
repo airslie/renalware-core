@@ -1,4 +1,4 @@
-# rubocop:disable Layout/LineLength
+# rubocop:disable-next Layout/LineLength
 describe "SIU^S26 - Notification that patient did not show up for schedule appointment" do
   # A notification that a patient did not show up for an appointment. For example, if a patient was
   # scheduled for a clinic visit, and never arrived for that appointment, this trigger event can be
@@ -102,4 +102,3 @@ describe "SIU^S26 - Notification that patient did not show up for schedule appoi
     end
   end
 end
-# rubocop:enable Layout/LineLength

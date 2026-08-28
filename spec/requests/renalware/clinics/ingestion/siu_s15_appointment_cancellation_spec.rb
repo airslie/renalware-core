@@ -1,4 +1,4 @@
-# rubocop:disable Layout/LineLength
+# rubocop:disable-next Layout/LineLength
 describe "SIU^S15 - Notification of Appointment Cancellation" do
   # A notification of appointment cancellation is sent by the filler application to other
   # applications when an existing appointment has been canceled. A cancel event is used to stop a
@@ -85,4 +85,3 @@ describe "SIU^S15 - Notification of Appointment Cancellation" do
     end
   end
 end
-# rubocop:enable Layout/LineLength

@@ -6,7 +6,7 @@ module Renalware
     class ChangePatientModalityToTransferOutJob < ApplicationJob
       class ModalityChangeError < StandardError; end
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def perform
         System::APILog.with_log("Transfer Out stale HD patients") do |log|
           results = PatientsHavingNoHospitalUnitAndNoRecentSessionQuery.call
@@ -26,7 +26,6 @@ module Renalware
           end
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       def change_modality_to_transfer_out(patient, last_session_at)
         Renalware::Modalities::ChangePatientModality

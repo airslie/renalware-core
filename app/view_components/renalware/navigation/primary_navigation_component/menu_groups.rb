@@ -1,7 +1,7 @@
 module Renalware
   module Navigation
     class PrimaryNavigationComponent
-      # rubocop:disable Metrics/AbcSize, Metrics/ClassLength, Metrics/MethodLength
+      # rubocop:disable-next Metrics/AbcSize, Metrics/ClassLength, Metrics/MethodLength
       class MenuGroups
         rattr_initialize [:component!]
 
@@ -144,7 +144,6 @@ module Renalware
           }
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/ClassLength, Metrics/MethodLength
     end
   end
 end

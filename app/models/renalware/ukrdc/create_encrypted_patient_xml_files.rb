@@ -66,7 +66,7 @@ module Renalware
       # The performance increase in doing it this way is marginal unless there are
       # PDFs to be rendered, which can introduce significant IO wait. As PDFs are cached
       # by the PDFLetterCache, using threads may have limited benefit but
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def create_patient_xml_files
         count = 0
         patients = ukrdc_patients_who_have_changed_since_last_send
@@ -99,7 +99,6 @@ module Renalware
           thread_pool.wait_for_termination
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       def create_xml_file(patient:, schema:)
         CreatePatientXmlFile.new(
@@ -125,7 +124,7 @@ module Renalware
         summary.results = export_results
       end
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def ukrdc_patients_who_have_changed_since_last_send
         @ukrdc_patients_who_have_changed_since_last_send ||= begin
           logger.info("Finding #{patient_ids&.any? ? patient_ids : 'all ukrdc'} patients")
@@ -147,7 +146,6 @@ module Renalware
           query.all
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       def print_summary
         logger.info("Files saved to #{summary.archive_folder}")

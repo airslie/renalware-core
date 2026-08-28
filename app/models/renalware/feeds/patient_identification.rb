@@ -130,7 +130,7 @@ module Renalware
         age_in_years < years
       end
 
-      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+      # rubocop:disable-next Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
       def telecoms
         @telecoms ||= begin
           telcoms = { email: nil, telephone: [] }
@@ -147,7 +147,6 @@ module Renalware
           end
         end
       end
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
       def email       = telecoms[:email]
       def telephone   = telecoms[:telephone]

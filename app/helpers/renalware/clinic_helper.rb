@@ -1,6 +1,6 @@
 module Renalware
   module ClinicHelper
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def link_to_clinic_visit_letter(patient, clinic_visit)
       letter = Renalware::Letters::Letter.for_event(clinic_visit)
       if letter.present?
@@ -22,6 +22,5 @@ module Renalware
         )
       end
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end

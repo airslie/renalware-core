@@ -25,9 +25,8 @@ module Renalware
           .order(default_site: :desc, host_site: :desc, name: :asc)
       }
 
-      # rubocop:disable Rails/PluckInWhere
+      # rubocop:disable-next Rails/PluckInWhere
       scope :with_hd_sites, -> { where(id: Unit.hd_sites.pluck(:hospital_centre_id)) }
-      # rubocop:enable Rails/PluckInWhere
 
       validates :code, presence: true, uniqueness: true
       validates :abbrev, uniqueness: true, allow_blank: true

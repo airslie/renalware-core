@@ -8,7 +8,7 @@ module Renalware
 
       private
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable-next Metrics/AbcSize
       def displayable_settings
         (Renalware.config.methods - Object.methods)
           .flatten
@@ -21,7 +21,6 @@ module Renalware
           .reject { |name| name == :config }
           .sort
       end
-      # rubocop:enable Metrics/AbcSize
     end
   end
 end

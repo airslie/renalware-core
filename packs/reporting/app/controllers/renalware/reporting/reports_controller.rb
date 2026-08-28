@@ -51,7 +51,7 @@ module Renalware
 
       private
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def show_html(content_only: false)
         sql_view_klass = build_sql_view_klass
         search = sql_view_klass.ransack(params[:q])
@@ -72,7 +72,6 @@ module Renalware
         )
         render locals: { options: options }
       end
-      # rubocop:enable Metrics/MethodLength
 
       def show_csv
         sql_view_klass = build_sql_view_klass
@@ -95,7 +94,7 @@ module Renalware
         render json: chart.generate_json(relation)
       end
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def chart_raw_json # rubocop:disable Metrics/AbcSize
         chart = current_view.chart_raw
 
@@ -119,14 +118,13 @@ module Renalware
           next unless series
 
           series_count += 1
-          # rubocop:disable Style/RescueModifier
+          # rubocop:disable-next Style/RescueModifier
           series["data"] = relation.map do |x|
             [
               x.send(x_axis_column.to_sym).to_datetime.utc.to_i * 1000,
               (x.send(column_name.to_sym) rescue nil)
             ]
           end
-          # rubocop:enable Style/RescueModifier
         end
 
         if series_count.zero?
@@ -136,7 +134,6 @@ module Renalware
 
         render json: current_view.chart_raw
       end
-      # rubocop:enable Metrics/MethodLength
 
       def report_csv_download_path_with_params
         reporting.report_path(

@@ -39,7 +39,7 @@ module Renalware
       ((Time.zone.at(last_request_at.to_i) + ::Devise.timeout_in).to_f * 1000).to_i
     end
 
-    # rubocop:disable Style/QuotedSymbols
+    # rubocop:disable-next Style/QuotedSymbols
     def self.extract_last_request_at(user_session)
       return if user_session.blank?
 
@@ -52,7 +52,6 @@ module Renalware
         safe_dig(user_session, "warden.user.user.session", :last_request_at) ||
         safe_dig(user_session, :'warden.user.user.session', :last_request_at)
     end
-    # rubocop:enable Style/QuotedSymbols
 
     def self.safe_fetch(object, key)
       object[key] if object.respond_to?(:[])

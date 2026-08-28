@@ -1,6 +1,6 @@
 require "base64"
 
-# rubocop:disable Metrics/AbcSize
+# rubocop:disable-next Metrics/AbcSize
 module Renalware
   module Feeds
     # Given a Letters:::Letter, generates an HL7 MDMT T02 message
@@ -113,7 +113,7 @@ module Renalware
       # TXA|1|CL^Clinic Letter|ED^Electronic Document|201508010900| \
       #  ^Foster^John^Harry^^Dr||201508010920|201508010930||||123|||| \
       #  RAJ01_12345_JONES_202109020_123.pdf|AU
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def txa
         approved_at = renderable.approved_at.strftime("%Y%m%d%H%M")
         seg = HL7::Message::Segment::TXA.new
@@ -137,7 +137,6 @@ module Renalware
         seg.document_completion_status = deleted? ? "CA" : "AU"
         seg
       end
-      # rubocop:enable Metrics/MethodLength
 
       # eg "HOSP1_111_HOSP2_222_HOSP3_333_surname_dob_letter_id.pdf"
       def filename
@@ -212,4 +211,3 @@ module Renalware
     end
   end
 end
-# rubocop:enable Metrics/AbcSize

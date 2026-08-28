@@ -21,7 +21,7 @@ module Renalware
         subject: ""
       ]
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def to_h
         {
           "Authorization" => auth_header || API::AuthHeader.new.call,
@@ -40,7 +40,6 @@ module Renalware
           "Mex-LocalID" => operation_uuid
         }
       end
-      # rubocop:enable Metrics/MethodLength
     end
   end
 end

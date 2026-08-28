@@ -1,4 +1,4 @@
-# rubocop:disable Layout/LineLength
+# rubocop:disable-next Layout/LineLength
 describe "HL7 SIU^S14 - Notification of Appointment Modification" do
   # This message notifies other applications that an existing appointment has been modified on
   # the filler application. This trigger event should only be used for appointments that have not
@@ -150,4 +150,3 @@ describe "HL7 SIU^S14 - Notification of Appointment Modification" do
     end
   end
 end
-# rubocop:enable Layout/LineLength

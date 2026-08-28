@@ -26,7 +26,7 @@ module Renalware
 
         private
 
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
         def create_letter_for(patient)
           patient = patient.becomes(Letters::Patient)
           draft_letter = LetterFactory.new(
@@ -50,7 +50,6 @@ module Renalware
 
           patient.letters.approved.find(draft_letter.id)
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
       end
     end
   end

@@ -181,7 +181,7 @@ module Renalware
       end
 
       # Returns an array of objects defining each category, with that category's types within it.
-      # rubocop:disable Layout/LineLength
+      # rubocop:disable-next Layout/LineLength
       def event_types
         Events::Category.order(:position).map do |category|
           types = category.types.visible.order(:name).map do |event_type|
@@ -199,7 +199,6 @@ module Renalware
           OpenStruct.new(name: category.name, id: category.id, types: types)
         end
       end
-      # rubocop:enable Layout/LineLength
 
       def query_params
         params.fetch(:q, {})

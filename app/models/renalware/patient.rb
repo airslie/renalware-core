@@ -1,5 +1,5 @@
 module Renalware
-  # rubocop:disable Metrics/ClassLength
+  # rubocop:disable-next Metrics/ClassLength
   class Patient < ApplicationRecord
     include PatientsRansackHelper
     include Personable
@@ -274,5 +274,4 @@ module Renalware
       end
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end
