@@ -68,7 +68,7 @@ group :test do
   gem "simplecov-cobertura", "~> 3.1", require: false
   gem "test-prof"
   gem "vcr", require: false
-  gem "webmock", "~> 3.7", require: false
+  gem "webmock", "~> 3.26", require: false
   gem "wisper-rspec", "~> 1.1.0"
 end
 

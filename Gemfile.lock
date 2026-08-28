@@ -588,7 +588,7 @@ GEM
       parser
       prism (>= 1.4.0)
       zeitwerk (>= 2.6.1)
-    pagy (43.6.1)
+    pagy (43.6.2)
       json
       uri
       yaml
@@ -964,7 +964,7 @@ GEM
       actionview (>= 8.0.0)
       bindex (>= 0.4.0)
       railties (>= 8.0.0)
-    webmock (3.26.2)
+    webmock (3.26.3)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -1145,7 +1145,7 @@ DEPENDENCIES
   view_component (< 5.0)
   virtus (~> 1.0.5)
   web-console
-  webmock (~> 3.7)
+  webmock (~> 3.26)
   wicked_pdf (~> 2.8.0)
   wisper (~> 3.0.0)
   wisper-activejob (~> 1.0.0)
