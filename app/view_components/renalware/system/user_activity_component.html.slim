@@ -1,0 +1,25 @@
+div(class=wrapper_classes)
+  article.user-activity
+    header
+      h2= t(".title")
+      .supplemental
+        span= comparison_description
+
+    dl.clear-both.mt-4.grid.rounded-lg.bg-white.overflow-hidden.divide-gray-200.grid-cols-3.divide-y-0.divide-x(style="display: grid")
+      .px-4.py-3
+        dt.text-base.font-normal.text-gray-600= t(".active_now")
+        dd.mt-1.text-2xl.font-semibold.text-blue-700= active_now
+      .px-4.py-3
+        dt.text-base.font-normal.text-gray-600= t(".active_today")
+        dd.mt-1.text-2xl.font-semibold.text-blue-700= active_today
+      .px-4.py-3
+        dt.text-base.font-normal.text-gray-600= t(".peak_today")
+        dd.mt-1.text-2xl.font-semibold.text-blue-700
+          = peak_count
+          span.ml-2.text-sm.font-medium.text-gray-500= " #{t('.at_time', time: peak_time)}"
+
+    .mt-4(data-controller="charts-raw"
+      data-charts-raw-config-value=chart_configuration.to_json)
+      div(data-charts-raw-target="chart"
+        role="img"
+        aria-label=t(".accessible_label"))

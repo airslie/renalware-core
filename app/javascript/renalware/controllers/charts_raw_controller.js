@@ -8,11 +8,15 @@ export default class extends Controller {
 
   static values = {
     url: String,          // API endpoint for chart json
+    config: Object,       // Or chart options embedded directly in the page
   }
 
-
-  initialize(){
-    this.getJson()
+  connect(){
+    if (this.hasConfigValue) {
+      this.updateChart(this.configValue)
+    } else if (this.hasUrlValue) {
+      this.getJson()
+    }
   }
 
   updateChart(json) {

@@ -1,0 +1,17 @@
+en:
+  renalware:
+    system:
+      user_activity_component:
+        accessible_label: User activity today, in 30-minute intervals
+        active_now: Active now
+        active_today: Active today
+        active_users: Active users
+        at_time: at %{time}
+        comparison: Compared with the median for the last %{count} equivalent weekdays
+        no_comparison: Historical comparison will appear once enough data is available
+        not_available: n/a
+        now: Now
+        peak_today: Peak today
+        title: User activity today
+        today: Today
+        typical: Typical
