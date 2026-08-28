@@ -27,17 +27,17 @@ shared_examples_for "a nag" do
       expect(page).to have_text("original-value")
 
       # Update value
-      allow(component).to receive(:value).and_return("new-value")
+      allow(nag).to receive(:value).and_return("new-value")
 
       # should render old value up until the expiry time
       travel_to (component.always_expire_cache_after_seconds.seconds - 1.minute).from_now do
-        render_inline(component)
+        render_inline(described_class.new(definition:, patient:))
         expect(page).to have_text("original-value")
       end
 
       # should render new value after the expiry time
       travel_to (component.always_expire_cache_after_seconds.seconds + 1.minute).from_now do
-        render_inline(component)
+        render_inline(described_class.new(definition:, patient:))
         expect(page).to have_text("new-value")
       end
     end
