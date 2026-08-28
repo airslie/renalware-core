@@ -8,6 +8,8 @@ en:
         hepatitis_c: Hepatitis C
         hiv: HIV
         htlv: HTLV
+      renalware/virology/hepatitis_c_diagnosis:
+        ended_on: Ended
   enumerize:
     renalware/virology/vaccination/document:
       type:

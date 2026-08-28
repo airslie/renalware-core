@@ -50,6 +50,16 @@
     @apply grid grid-cols-1 gap-2 md:grid-cols-12 md:items-start pb-0;
   }
 
+  .rw-field-row--compound {
+    @apply md:items-center;
+
+    .rw-label {
+      .rw-label__text {
+        @apply font-bold;
+      }
+    }
+  }
+
   .rw-label {
     @apply md:col-span-3;
   }
@@ -60,6 +70,30 @@
 
   .rw-control {
     @apply md:col-span-9;
+  }
+
+  .rw-compound-controls {
+    @apply grid grid-cols-1 gap-4;
+  }
+
+  .rw-control-group {
+    @apply min-w-0;
+  }
+
+  .rw-control-label {
+    @apply mb-1 block font-medium text-slate-700;
+  }
+
+  .rw-radio-group {
+    @apply flex min-h-10 flex-wrap items-center gap-x-4 gap-y-2;
+  }
+
+  .rw-radio-option {
+    @apply inline-flex cursor-pointer items-center gap-2 text-slate-700;
+  }
+
+  .rw-radio-input {
+    @apply m-0 h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500;
   }
 
   .rw-input {
