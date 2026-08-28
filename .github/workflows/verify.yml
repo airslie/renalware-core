@@ -162,6 +162,7 @@ jobs:
           bundle exec bundle audit --update
 
   tests:
+    name: ${{ matrix.name }}
     needs: assets
     timeout-minutes: 30
     runs-on: ubuntu-24.04
@@ -171,16 +172,20 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - command: bin/gh/rspec/unit
+          - name: RSpec unit tests
+            command: bin/gh/rspec/unit
             browser: false
             javascript: true
-          - command: bin/gh/rspec/integration
+          - name: RSpec integration tests
+            command: bin/gh/rspec/integration
             browser: true
             javascript: true
-          - command: bin/gh/cucumber/domain
+          - name: Cucumber domain tests
+            command: bin/gh/cucumber/domain
             browser: false
             javascript: false
-          - command: bin/gh/cucumber/web
+          - name: Cucumber web tests
+            command: bin/gh/cucumber/web
             browser: true
             javascript: true
 
