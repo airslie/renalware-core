@@ -443,6 +443,28 @@ describe "Lab" do
     end
   end
 
+  describe "GET /patients/:patient_id/heidi_linked_account/new" do
+    let(:patient) { create(:patient, :minimal, by: @current_user) }
+
+    it "redirects to Heidi's browser account-linking flow" do
+      client = instance_double(Renalware::Heidi::Client)
+      allow(Renalware::Heidi::Client).to receive(:new).and_return(client)
+      allow(client).to receive(:link_account_url_for).with(@current_user).and_return(
+        Renalware::Heidi::Client::Result.new(
+          success: true,
+          status: nil,
+          body: { "url" => "https://registrar.scribe.heidihealth.com/integration/widget/auth?t=jwt-token" }
+        )
+      )
+
+      get new_patient_heidi_linked_account_path(patient)
+
+      expect(response).to redirect_to(
+        "https://registrar.scribe.heidihealth.com/integration/widget/auth?t=jwt-token"
+      )
+    end
+  end
+
   describe "POST /patients/:patient_id/heidi_session_syncs/:heidi_session_id" do
     let(:patient) { create(:patient, :minimal, by: @current_user) }
     let(:heidi_session) { create(:heidi_session, patient:, user: @current_user) }

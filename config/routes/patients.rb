@@ -37,7 +37,7 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
   resource :timeline, only: :show, controller: "patients/timeline"
   resource :lab, only: :show, controller: "patients/labs"
   resource :heidi_linked_account,
-           only: %i(show create),
+           only: %i(show new create),
            controller: "patients/heidi_linked_accounts"
   post "heidi_session_syncs/:heidi_session_id",
        to: "patients/heidi_session_syncs#create",

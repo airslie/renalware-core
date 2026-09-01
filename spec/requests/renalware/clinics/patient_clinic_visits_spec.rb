@@ -41,6 +41,8 @@ describe "Clinic Visits Management" do
 
       expect(response.body).to include("Save and launch Heidi")
       expect(response.body).to include(heidi_preparation_path)
+      expect(response.body).to include(patient_heidi_linked_account_path(patient))
+      expect(response.body).to include(new_patient_heidi_linked_account_path(patient))
     end
   end
 

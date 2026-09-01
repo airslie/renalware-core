@@ -35561,7 +35561,7 @@ ALTER TABLE ONLY renalware_heroic.biobank_usages
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO renalware, public, renalware_heroic, renalware_mse, renalware_blt, renalware_ich;
+SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20260827123001'),
@@ -35582,7 +35582,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260622120100'),
 ('20260622120000'),
 ('20260611120000'),
-('20260609113000'),
 ('20260609110000'),
 ('20260608120000'),
 ('20260520090000'),

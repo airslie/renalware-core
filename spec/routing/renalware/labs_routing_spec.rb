@@ -26,6 +26,12 @@ describe Renalware::LabsController do
       action: "create",
       patient_id: "123"
     )
+
+    expect(get: "/patients/123/heidi_linked_account/new").to route_to(
+      controller: "renalware/patients/heidi_linked_accounts",
+      action: "new",
+      patient_id: "123"
+    )
   end
 
   it "routes the Heidi session sync endpoint" do

@@ -9,8 +9,10 @@
           autocomplete: "off",
           data: { \
             controller: "heidi-clinic-visit-launch",
-            "heidi-clinic-visit-launch-url-value": heidi_preparation_path,
-            "heidi-clinic-visit-launch-close-preparation-tab-value": close_heidi_preparation_tab \
+            "heidi-clinic-visit-launch-account-url-value": new_patient_heidi_linked_account_path(patient),
+            "heidi-clinic-visit-launch-close-preparation-tab-value": close_heidi_preparation_tab,
+            "heidi-clinic-visit-launch-preparation-url-value": heidi_preparation_path,
+            "heidi-clinic-visit-launch-status-url-value": patient_heidi_linked_account_path(patient) \
           } \
         },
         wrapper: "horizontal_form" do |f|
@@ -20,7 +22,11 @@
           = f.submit "Save and launch Heidi",
                      name: "launch_heidi",
                      class: "btn btn-secondary",
-                     data: { action: "click->heidi-clinic-visit-launch#open" }
+                     disabled: true,
+                     data: { \
+                       action: "click->heidi-clinic-visit-launch#open",
+                       "heidi-clinic-visit-launch-target": "button" \
+                     }
 
       input(type="hidden"
             name="clinic_visit[built_from_appointment_id]"
