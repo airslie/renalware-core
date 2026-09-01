@@ -18,15 +18,20 @@
         wrapper: "horizontal_form" do |f|
 
       - if Renalware::Heidi::Client.configured?
-        .form-actions.mb-4
-          = f.submit "Save and launch Heidi",
-                     name: "launch_heidi",
-                     class: "btn btn-secondary",
-                     disabled: true,
-                     data: { \
-                       action: "click->heidi-clinic-visit-launch#open",
-                       "heidi-clinic-visit-launch-target": "button" \
-                     }
+        .form-actions.mb-4.text-left.m-0
+          = button_tag type: "submit",
+                       name: "launch_heidi",
+                       value: "true",
+                       class: "p-0 btn btn-secondary inline-flex items-center gap-2 rounded-md mb-2 pr-4",
+                       style: "background-color: #FBF582; ",
+                       disabled: true,
+                       data: { \
+                         action: "click->heidi-clinic-visit-launch#open",
+                         "heidi-clinic-visit-launch-target": "button" \
+                       } do
+            = inline_icon("heidi", class: "h-12 w-12")
+            span(data-heidi-clinic-visit-launch-target="label")
+              | Save and launch Heidi
 
       input(type="hidden"
             name="clinic_visit[built_from_appointment_id]"

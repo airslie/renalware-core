@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["button"]
+  static targets = ["button", "label"]
 
   static values = {
     accountUrl: String,
@@ -114,7 +114,7 @@ export default class extends Controller {
 
     this.state = "checking"
     this.buttonTarget.disabled = true
-    this.buttonTarget.value = label
+    this.labelTarget.textContent = label
   }
 
   setLinked() {
@@ -122,7 +122,7 @@ export default class extends Controller {
 
     this.state = "linked"
     this.buttonTarget.disabled = false
-    this.buttonTarget.value = "Save and launch Heidi"
+    this.labelTarget.textContent = "Save and launch Heidi"
   }
 
   setUnlinked() {
@@ -130,7 +130,7 @@ export default class extends Controller {
 
     this.state = "unlinked"
     this.buttonTarget.disabled = false
-    this.buttonTarget.value = "Link Heidi account"
+    this.labelTarget.textContent = "Link Heidi account"
   }
 
   setUnavailable() {
@@ -138,6 +138,6 @@ export default class extends Controller {
 
     this.state = "unavailable"
     this.buttonTarget.disabled = true
-    this.buttonTarget.value = "Heidi unavailable"
+    this.labelTarget.textContent = "Heidi unavailable"
   }
 }
