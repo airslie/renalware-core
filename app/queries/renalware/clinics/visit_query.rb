@@ -14,6 +14,7 @@ module Renalware
           :created_by,
           :updated_by,
           :clinic,
+          :heidi_sessions,
           :location,
           patient: [current_modality: [:description]]
         )

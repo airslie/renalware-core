@@ -29,6 +29,14 @@ tbody
 
       = link_to_clinic_visit_letter(patient, clinic_visit)
     td.date-time= l(clinic_visit.date)
+    td
+      - if clinic_visit.heidi_state.present?
+        span.heidi-state(class=clinic_visit.heidi_state_css_class)
+          - if clinic_visit.heidi_state_icon.present?
+            = inline_icon(clinic_visit.heidi_state_icon, size: :xs)
+          - else
+            span.heidi-state__pulse
+          span= clinic_visit.heidi_state
     td= yes_no(clinic_visit.did_not_attend)
     td.clinic-type= clinic_visit.clinic&.description
     td.bmi= clinic_visit.height
@@ -50,6 +58,6 @@ tbody
     td.show-for-xlarge-up= effective_presenter.effective_updated_by
 
   tr
-    td(colspan=19)
+    td(colspan=20)
       .quick-preview
         = render(partial: clinic_visit.to_toggled_row_partial_path, locals: { clinic_visit: clinic_visit })

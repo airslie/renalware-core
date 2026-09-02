@@ -19,12 +19,27 @@ describe "Clinic Visits Management" do
   end
 
   describe "GET index" do
-    before do
+    it "responds successfully" do
       get patient_clinic_visits_path(patient_id: patient.to_param)
+
+      expect(response).to be_successful
     end
 
-    it "responds successfully" do
-      expect(response).to be_successful
+    it "shows the latest Heidi session state for linked clinic visits" do
+      clinic_visit = create(:clinic_visit, patient:, by: user)
+      create(
+        :heidi_session,
+        patient:,
+        clinic_visit:,
+        user:,
+        status: :synced
+      )
+
+      get patient_clinic_visits_path(patient_id: patient.to_param)
+
+      expect(response.body).to include("Heidi state")
+      expect(response.body).to include("heidi-state--synced")
+      expect(response.body).to include("Synced")
     end
   end
 
