@@ -164,6 +164,7 @@ describe "Clinic Visits Management" do
       get edit_patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param)
 
       expect(response.body).to include("Heidi")
+      expect(response.body).to include("heidi-state--launched")
       expect(response.body).to include("Launched")
       expect(response.body).to include("CREATED")
     end

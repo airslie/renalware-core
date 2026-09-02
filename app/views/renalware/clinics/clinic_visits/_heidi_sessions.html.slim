@@ -8,17 +8,19 @@
     table
       thead
         tr
-          th Created
-          th Status
+          th.col-width-date-time Created
+          th.col-width-small Status
+          th.col-width-date-time Last checked
           th Note
-          th Last checked
       tbody
         - heidi_sessions.each_with_index do |session, index|
           tr
             td= l(session.created_at)
             td(data-heidi-session-poller-target=("status" if index.zero?))
-              = session.status.humanize
-            td(data-heidi-session-poller-target=("noteStatus" if index.zero?))
-              = session.consult_note_status.presence || "Not ready"
+              = render "renalware/clinics/clinic_visits/heidi_state_badge",
+                       status: session.status
             td(data-heidi-session-poller-target=("lastChecked" if index.zero?))
               = session.last_synced_at.present? ? l(session.last_synced_at) : "Pending"
+            td(data-heidi-session-poller-target=("noteStatus" if index.zero?))
+              = session.consult_note_status.presence || "Not ready"
+

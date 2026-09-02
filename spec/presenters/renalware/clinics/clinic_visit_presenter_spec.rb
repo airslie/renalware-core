@@ -64,6 +64,18 @@ module Renalware::Clinics
       end
     end
 
+    describe "#heidi_status" do
+      it "returns the latest Heidi session status value" do
+        visit = create(:clinic_visit)
+        create(:heidi_session, clinic_visit: visit, status: :launched, created_at: 2.days.ago)
+        create(:heidi_session, clinic_visit: visit, status: :synced, created_at: 1.day.ago)
+
+        presenter = described_class.new(visit)
+
+        expect(presenter.heidi_status).to eq("synced")
+      end
+    end
+
     describe "#heidi_state_css_class" do
       it "returns a state-specific CSS class" do
         visit = create(:clinic_visit)
@@ -72,35 +84,6 @@ module Renalware::Clinics
         presenter = described_class.new(visit)
 
         expect(presenter.heidi_state_css_class).to eq("heidi-state--sync-failed")
-      end
-    end
-
-    describe "#heidi_state_icon" do
-      it "returns a check-circle icon for synced sessions" do
-        visit = create(:clinic_visit)
-        create(:heidi_session, clinic_visit: visit, status: :synced)
-
-        presenter = described_class.new(visit)
-
-        expect(presenter.heidi_state_icon).to eq("check-circle")
-      end
-
-      it "returns a cross icon for failed sessions" do
-        visit = create(:clinic_visit)
-        create(:heidi_session, clinic_visit: visit, status: :sync_failed)
-
-        presenter = described_class.new(visit)
-
-        expect(presenter.heidi_state_icon).to eq("cross")
-      end
-
-      it "does not return an icon for launched sessions" do
-        visit = create(:clinic_visit)
-        create(:heidi_session, clinic_visit: visit, status: :launched)
-
-        presenter = described_class.new(visit)
-
-        expect(presenter.heidi_state_icon).to be_nil
       end
     end
   end

@@ -17,21 +17,17 @@ module Renalware
       end
 
       def heidi_state
-        latest_heidi_session&.status&.humanize
+        heidi_status&.humanize
+      end
+
+      def heidi_status
+        latest_heidi_session&.status
       end
 
       def heidi_state_css_class
-        return if latest_heidi_session.blank?
+        return if heidi_status.blank?
 
-        "heidi-state--#{latest_heidi_session.status.dasherize}"
-      end
-
-      def heidi_state_icon
-        {
-          "launched" => nil,
-          "synced" => "check-circle",
-          "sync_failed" => "cross"
-        }.fetch(latest_heidi_session&.status, nil)
+        "heidi-state--#{heidi_status.dasherize}"
       end
 
       private
