@@ -56,6 +56,7 @@ en-GB:
             title: Letters
             items:
               heidi_sessions: Heidi Sessions
+              heidi_usage: Heidi Usage
               mailshots: Mailshots
               letter_topics: Topics
               print_batches: Print Batches

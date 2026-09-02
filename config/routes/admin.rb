@@ -1,6 +1,7 @@
 namespace :admin do
   resources :users
   resources :heidi_sessions, only: :index
+  resource :heidi_usage, only: :show, controller: "heidi_usage"
   resources :safety_alert_rules, only: :index do
     member do
       patch :enable
