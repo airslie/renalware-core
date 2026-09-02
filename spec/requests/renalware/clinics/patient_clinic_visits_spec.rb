@@ -51,6 +51,7 @@ describe "Clinic Visits Management" do
     end
 
     it "hides the Heidi state column when Heidi is disabled" do
+      Renalware.config.heidi_enabled = false
       clinic_visit = create(:clinic_visit, patient:, by: user)
       create(:heidi_session, patient:, clinic_visit:, user:, status: :synced)
 
@@ -80,6 +81,7 @@ describe "Clinic Visits Management" do
     end
 
     it "hides the Heidi launch button when Heidi is disabled" do
+      Renalware.config.heidi_enabled = false
       allow(Renalware::Heidi::Client).to receive(:configured?).and_return(true)
 
       get new_patient_clinic_visit_path(patient_id: patient.to_param)
@@ -220,6 +222,7 @@ describe "Clinic Visits Management" do
     end
 
     it "hides the Heidi progress summary when Heidi is disabled" do
+      Renalware.config.heidi_enabled = false
       create(:heidi_session, patient:, clinic_visit:, user:, status: :launched)
 
       get edit_patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param)

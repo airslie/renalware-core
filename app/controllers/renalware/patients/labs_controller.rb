@@ -15,27 +15,8 @@ module Renalware
 
         render locals: {
           patient: patient,
-          heidi_link_status: heidi_link_status,
-          heidi_sessions: heidi_sessions,
           slots: SLOTS
         }
-      end
-
-      private
-
-      def heidi_link_status
-        return unless Renalware.config.heidi_enabled && Renalware::Heidi::Client.configured?
-
-        Renalware::Heidi::Client.new.linked_account_access(current_user)
-      end
-
-      def heidi_sessions
-        return Renalware::Heidi::Session.none unless Renalware.config.heidi_enabled
-
-        Renalware::Heidi::Session
-          .where(patient: patient)
-          .order(created_at: :desc)
-          .limit(5)
       end
     end
   end

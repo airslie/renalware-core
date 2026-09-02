@@ -13,33 +13,4 @@ describe Renalware::LabsController do
       patient_id: "123"
     )
   end
-
-  it "routes the Heidi linked account endpoint" do
-    expect(get: "/patients/123/heidi_linked_account").to route_to(
-      controller: "renalware/patients/heidi_linked_accounts",
-      action: "show",
-      patient_id: "123"
-    )
-
-    expect(post: "/patients/123/heidi_linked_account").to route_to(
-      controller: "renalware/patients/heidi_linked_accounts",
-      action: "create",
-      patient_id: "123"
-    )
-
-    expect(get: "/patients/123/heidi_linked_account/new").to route_to(
-      controller: "renalware/patients/heidi_linked_accounts",
-      action: "new",
-      patient_id: "123"
-    )
-  end
-
-  it "routes the Heidi session sync endpoint" do
-    expect(post: "/patients/123/heidi_session_syncs/456").to route_to(
-      controller: "renalware/patients/heidi_session_syncs",
-      action: "create",
-      patient_id: "123",
-      heidi_session_id: "456"
-    )
-  end
 end
