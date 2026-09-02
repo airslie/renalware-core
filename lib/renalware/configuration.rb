@@ -158,6 +158,9 @@ module Renalware
     }
     config_accessor(:heidi_region) { ENV.fetch("HEIDI_REGION", "AU") }
     config_accessor(:heidi_api_key) { ENV.fetch("HEIDI_API_KEY", "") }
+    config_accessor(:heidi_enabled) do
+      ActiveModel::Type::Boolean.new.cast(ENV.fetch("HEIDI_ENABLED", "true"))
+    end
 
     # MESHAPI
     # Introduce an optional delay between letter approval and letter send, in order to allow

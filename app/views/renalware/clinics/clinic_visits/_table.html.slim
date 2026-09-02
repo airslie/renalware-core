@@ -1,6 +1,7 @@
 - # locals: (clinic_visits:, patient:, query: nil, sortable_columns: false)
 
 - sortable = query.present? && sortable_columns
+- heidi_enabled = Renalware.config.heidi_enabled
 
 table.clinics.auto-layout.toggleable data-controller="toggle"
   thead
@@ -8,7 +9,8 @@ table.clinics.auto-layout.toggleable data-controller="toggle"
       th.togglers.noprint= rows_toggler
       th.actions.noprint.col-width-medium
       th.col-width-date= sort_link_if(sortable, query, :date, "Date")
-      th.col-width-medium Heidi state
+      - if heidi_enabled
+        th.col-width-medium Heidi state
       th.col-width-tiny DNA
       th.col-width-large= sort_link_if(sortable, query, :clinic_name, "Clinic")
       th.col-width-tiny= sort_link_if(sortable, query, :height, "Height")
@@ -30,4 +32,4 @@ table.clinics.auto-layout.toggleable data-controller="toggle"
   = render partial: "renalware/clinics/clinic_visits/table_row",
           collection: clinic_visits,
           as: :clinic_visit,
-          locals: { patient: patient }
+          locals: { heidi_enabled: heidi_enabled, patient: patient }

@@ -23,6 +23,7 @@ describe Renalware::Configuration do
       LETTERS_EXTERNAL_DOCUMENT_TYPE_CODE
       LETTERS_EXTERNAL_DOCUMENT_TYPE_DESCRIPTION
       OUTPATIENT_PRESCRIPTION_ADMINISTRATION_ENABLED
+      HEIDI_ENABLED
     )
     original_values = env_keys_that_override_defaults.index_with { |key| ENV.fetch(key, nil) }
     env_keys_that_override_defaults.each { |key| ENV.delete(key) }
@@ -86,9 +87,16 @@ describe Renalware::Configuration do
         letters_external_document_type_code: nil,
         letters_external_document_type_description: nil,
         outpatient_prescription_administration_enabled: true,
+        heidi_enabled: true,
         mesh_care_setting_snomed_code: "788003006",
         mesh_care_setting_description: "Nephrology service"
       )
+    end
+
+    it "can enable Heidi from ENV" do
+      ENV["HEIDI_ENABLED"] = "true"
+
+      expect(config.heidi_enabled).to be(true)
     end
 
     it "can disable outpatient prescription administration from ENV" do

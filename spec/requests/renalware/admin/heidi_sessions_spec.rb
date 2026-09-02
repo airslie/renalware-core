@@ -1,4 +1,11 @@
 describe "Admin Heidi sessions" do
+  around do |example|
+    original = Renalware.config.heidi_enabled
+    example.run
+  ensure
+    Renalware.config.heidi_enabled = original
+  end
+
   let(:patient) do
     create(:clinics_patient, given_name: "Jane", family_name: "Lambert")
   end
@@ -94,6 +101,8 @@ describe "Admin Heidi sessions" do
     end
 
     it "is linked from the admin menu" do
+      Renalware.config.heidi_enabled = true
+
       get admin_dashboard_path
 
       expect(response).to be_successful

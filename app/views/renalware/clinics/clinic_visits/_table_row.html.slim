@@ -29,9 +29,10 @@ tbody
 
       = link_to_clinic_visit_letter(patient, clinic_visit)
     td.date-time= l(clinic_visit.date)
-    td
-      = render "renalware/clinics/clinic_visits/heidi_state_badge",
-               status: clinic_visit.heidi_status
+    - if heidi_enabled
+      td
+        = render "renalware/clinics/clinic_visits/heidi_state_badge",
+                 status: clinic_visit.heidi_status
     td= yes_no(clinic_visit.did_not_attend)
     td.clinic-type= clinic_visit.clinic&.description
     td.bmi= clinic_visit.height
@@ -53,6 +54,6 @@ tbody
     td.show-for-xlarge-up= effective_presenter.effective_updated_by
 
   tr
-    td(colspan=20)
+    td(colspan=(heidi_enabled ? 20 : 19))
       .quick-preview
         = render(partial: clinic_visit.to_toggled_row_partial_path, locals: { clinic_visit: clinic_visit })

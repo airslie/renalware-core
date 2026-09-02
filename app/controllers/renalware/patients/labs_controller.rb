@@ -24,13 +24,13 @@ module Renalware
       private
 
       def heidi_link_status
-        return unless Renalware::Heidi::Client.configured?
+        return unless Renalware.config.heidi_enabled && Renalware::Heidi::Client.configured?
 
         Renalware::Heidi::Client.new.linked_account_access(current_user)
       end
 
       def heidi_sessions
-        return Renalware::Heidi::Session.none unless Renalware::Heidi::Client.configured?
+        return Renalware::Heidi::Session.none unless Renalware.config.heidi_enabled
 
         Renalware::Heidi::Session
           .where(patient: patient)

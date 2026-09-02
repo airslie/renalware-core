@@ -3,7 +3,8 @@
     breadcrumbs: breadcrumb_for("Clinic Visits", patient_clinic_visits_path(patient)) \
   ) do
 
-  - latest_heidi_session = clinic_visit.heidi_sessions.order(created_at: :desc).first
+  - heidi_enabled = Renalware.config.heidi_enabled
+  - latest_heidi_session = heidi_enabled ? clinic_visit.heidi_sessions.order(created_at: :desc).first : nil
   - poller_data = {}
   - if latest_heidi_session&.launched?
     - poller_data = { \
@@ -12,7 +13,8 @@
       }
 
   .document(data=poller_data)
-    = render "heidi_sessions", clinic_visit: clinic_visit
+    - if heidi_enabled
+      = render "heidi_sessions", clinic_visit: clinic_visit
 
     = simple_form_for [patient, clinic_visit],
       as: :clinic_visit,

@@ -1,5 +1,5 @@
 = within_patient_layout(title: "Lab") do
-  - if Renalware::Heidi::Client.configured?
+  - if Renalware.config.heidi_enabled && Renalware::Heidi::Client.configured?
     .panel(data-controller="heidi-linked-account"
            data-heidi-linked-account-url-value=patient_heidi_linked_account_path(patient))
       h2 Heidi WIP

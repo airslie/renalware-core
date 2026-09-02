@@ -181,7 +181,7 @@ module Renalware
       end
 
       def launch_heidi?
-        params[:launch_heidi].present?
+        Renalware.config.heidi_enabled && params[:launch_heidi].present?
       end
 
       def create_success(visit)

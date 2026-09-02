@@ -133,10 +133,12 @@ sections:
       - key: heidi_sessions
         route: admin_heidi_sessions_path
         controller: admin/heidi_sessions
+        condition: heidi_enabled
         keywords: [Heidi, scribe, sessions]
       - key: heidi_usage
         route: admin_heidi_usage_path
         controller: admin/heidi_usage
+        condition: heidi_enabled
         keywords: [Heidi, billing, licences, licenses, usage]
       - key: mailshots
         route: letters_mailshots_path

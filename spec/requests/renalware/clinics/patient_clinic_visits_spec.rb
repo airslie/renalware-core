@@ -1,4 +1,11 @@
 describe "Clinic Visits Management" do
+  around do |example|
+    original = Renalware.config.heidi_enabled
+    example.run
+  ensure
+    Renalware.config.heidi_enabled = original
+  end
+
   let(:user) { @current_user }
   let(:clinic) { create(:clinic) }
   let(:patient) { create(:clinics_patient, by: user) }
@@ -26,6 +33,7 @@ describe "Clinic Visits Management" do
     end
 
     it "shows the latest Heidi session state for linked clinic visits" do
+      Renalware.config.heidi_enabled = true
       clinic_visit = create(:clinic_visit, patient:, by: user)
       create(
         :heidi_session,
@@ -41,6 +49,16 @@ describe "Clinic Visits Management" do
       expect(response.body).to include("heidi-state--synced")
       expect(response.body).to include("Synced")
     end
+
+    it "hides the Heidi state column when Heidi is disabled" do
+      clinic_visit = create(:clinic_visit, patient:, by: user)
+      create(:heidi_session, patient:, clinic_visit:, user:, status: :synced)
+
+      get patient_clinic_visits_path(patient_id: patient.to_param)
+
+      expect(response.body).not_to include("Heidi state")
+      expect(response.body).not_to include("heidi-state--synced")
+    end
   end
 
   describe "GET new" do
@@ -50,6 +68,7 @@ describe "Clinic Visits Management" do
     end
 
     it "shows a Heidi launch button when Heidi is configured" do
+      Renalware.config.heidi_enabled = true
       allow(Renalware::Heidi::Client).to receive(:configured?).and_return(true)
 
       get new_patient_clinic_visit_path(patient_id: patient.to_param)
@@ -58,6 +77,15 @@ describe "Clinic Visits Management" do
       expect(response.body).to include(heidi_preparation_path)
       expect(response.body).to include(patient_heidi_linked_account_path(patient))
       expect(response.body).to include(new_patient_heidi_linked_account_path(patient))
+    end
+
+    it "hides the Heidi launch button when Heidi is disabled" do
+      allow(Renalware::Heidi::Client).to receive(:configured?).and_return(true)
+
+      get new_patient_clinic_visit_path(patient_id: patient.to_param)
+
+      expect(response.body).not_to include("Save and launch Heidi")
+      expect(response.body).not_to include(heidi_preparation_path)
     end
   end
 
@@ -70,6 +98,7 @@ describe "Clinic Visits Management" do
     end
 
     it "launches Heidi after saving the clinic visit" do
+      Renalware.config.heidi_enabled = true
       heidi_session = build_stubbed(:heidi_session, heidi_session_id: "heidi-session-1")
       launcher = instance_double(
         Renalware::Heidi::LaunchClinicVisitSession,
@@ -96,6 +125,7 @@ describe "Clinic Visits Management" do
     end
 
     it "shows the Heidi launch failure in the preparation tab" do
+      Renalware.config.heidi_enabled = true
       launcher = instance_double(
         Renalware::Heidi::LaunchClinicVisitSession,
         call: instance_double(
@@ -124,6 +154,7 @@ describe "Clinic Visits Management" do
     end
 
     it "does not launch Heidi when the clinic visit is invalid" do
+      Renalware.config.heidi_enabled = true
       allow(Renalware::Heidi::LaunchClinicVisitSession).to receive(:new)
 
       post patient_clinic_visits_path(patient_id: patient.to_param),
@@ -153,6 +184,7 @@ describe "Clinic Visits Management" do
     end
 
     it "shows attached Heidi session status" do
+      Renalware.config.heidi_enabled = true
       create(
         :heidi_session,
         patient:,
@@ -170,6 +202,7 @@ describe "Clinic Visits Management" do
     end
 
     it "polls the latest launched Heidi session" do
+      Renalware.config.heidi_enabled = true
       create(
         :heidi_session,
         patient:,
@@ -184,6 +217,15 @@ describe "Clinic Visits Management" do
       expect(response.body).to include(
         patient_clinic_visit_heidi_session_path(patient, clinic_visit)
       )
+    end
+
+    it "hides the Heidi progress summary when Heidi is disabled" do
+      create(:heidi_session, patient:, clinic_visit:, user:, status: :launched)
+
+      get edit_patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param)
+
+      expect(response.body).not_to include('data-controller="heidi-session-poller"')
+      expect(response.body).not_to include("heidi-state--launched")
     end
   end
 

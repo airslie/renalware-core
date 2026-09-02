@@ -3,10 +3,12 @@ describe "Lab" do
 
   before do
     @original_stage = ENV.fetch("RENALWARE_STAGE", nil)
+    @original_heidi_enabled = Renalware.config.heidi_enabled
   end
 
   after do
     @original_stage.nil? ? ENV.delete("RENALWARE_STAGE") : ENV["RENALWARE_STAGE"] = @original_stage
+    Renalware.config.heidi_enabled = @original_heidi_enabled
     connection.execute("DROP VIEW IF EXISTS site.lab_global_widget_view")
     connection.execute("DROP TABLE IF EXISTS site.lab_global_widget_rows")
     connection.execute("DROP VIEW IF EXISTS site.lab_global_patient_widget_view")
@@ -268,6 +270,7 @@ describe "Lab" do
       end
 
       it "renders Heidi link status when Heidi is configured" do
+        Renalware.config.heidi_enabled = true
         @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
         client = instance_double(Renalware::Heidi::Client)
         allow(Renalware::Heidi::Client).to receive_messages(configured?: true, new: client)
@@ -294,6 +297,7 @@ describe "Lab" do
       end
 
       it "renders synced Heidi note content for recent patient Heidi sessions" do
+        Renalware.config.heidi_enabled = true
         @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
         client = instance_double(Renalware::Heidi::Client)
         allow(Renalware::Heidi::Client).to receive_messages(configured?: true, new: client)
@@ -319,6 +323,15 @@ describe "Lab" do
         expect(response.body).to include("Synced note")
         expect(response.body).to include("Synced renal clinic note")
         expect(response.body).to include("Plan: Continue monitoring")
+      end
+
+      it "hides the Heidi WIP panel when Heidi is disabled" do
+        @current_user.update!(feature_flags: Renalware::FeatureFlags::LAB)
+        allow(Renalware::Heidi::Client).to receive(:configured?).and_return(true)
+
+        get patient_lab_path(patient)
+
+        expect(response.body).not_to include("Heidi WIP")
       end
     end
 
