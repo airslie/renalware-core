@@ -22,14 +22,14 @@
           = button_tag type: "submit",
                        name: "launch_heidi",
                        value: "true",
-                       class: "p-0 btn btn-secondary inline-flex items-center gap-2 rounded-md mb-2 pr-4",
+                       class: "p-1 btn btn-secondary inline-flex items-center gap-2 rounded-md mb-2 pr-4",
                        style: "background-color: #FBF582; ",
                        disabled: true,
                        data: { \
                          action: "click->heidi-clinic-visit-launch#open",
                          "heidi-clinic-visit-launch-target": "button" \
                        } do
-            = inline_icon("heidi", class: "h-12 w-12")
+            = inline_icon("heidi", size: :xxl)
             span(data-heidi-clinic-visit-launch-target="label")
               | Save and launch Heidi
 

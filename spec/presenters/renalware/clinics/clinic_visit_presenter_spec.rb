@@ -2,8 +2,8 @@ module Renalware::Clinics
   describe ClinicVisitPresenter do
     describe "#sanitized_notes" do
       it "removes blackisted tags but leaves whitelisted tags" do
-        blackist = %w(b h1 i pre blockquote).freeze
-        whitelist = %w(p ul ol li span div).freeze
+        blackist = %w(b h1 i pre blockquote script).freeze
+        whitelist = %w(p ul ol li span div strong em).freeze
 
         html = blackist.map { |tag| "<#{tag}>#{tag.upcase}</#{tag}>" }
         html.append whitelist.map { |tag| "<#{tag}>#{tag.upcase}</#{tag}>" }

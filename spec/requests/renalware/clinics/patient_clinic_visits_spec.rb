@@ -152,6 +152,65 @@ describe "Clinic Visits Management" do
       expect(response.body).to include("Launched")
       expect(response.body).to include("CREATED")
     end
+
+    it "polls the latest launched Heidi session" do
+      create(
+        :heidi_session,
+        patient:,
+        clinic_visit:,
+        user:,
+        status: :launched
+      )
+
+      get edit_patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param)
+
+      expect(response.body).to include("heidi-session-poller")
+      expect(response.body).to include(
+        patient_clinic_visit_heidi_session_path(patient, clinic_visit)
+      )
+    end
+  end
+
+  describe "GET heidi_session" do
+    let(:clinic_visit) { create(:clinic_visit, patient:, by: user) }
+
+    it "returns the latest Heidi session status" do
+      session = create(
+        :heidi_session,
+        patient:,
+        clinic_visit:,
+        user:,
+        status: :synced,
+        consult_note_status: "CREATED",
+        consult_note: "Heidi note",
+        last_synced_at: Time.zone.parse("2026-09-02 11:30")
+      )
+
+      get patient_clinic_visit_heidi_session_path(patient, clinic_visit), headers: {
+        "ACCEPT" => "application/json"
+      }
+
+      expect(response).to be_successful
+      expect(response.parsed_body).to include(
+        "present" => true,
+        "id" => session.id,
+        "status" => "synced",
+        "status_label" => "Synced",
+        "consult_note_status" => "CREATED",
+        "consult_note" => "Heidi note",
+        "synced" => true
+      )
+      expect(response.parsed_body["last_synced_at"]).to be_present
+    end
+
+    it "returns a blank payload when there are no Heidi sessions" do
+      get patient_clinic_visit_heidi_session_path(patient, clinic_visit), headers: {
+        "ACCEPT" => "application/json"
+      }
+
+      expect(response).to be_successful
+      expect(response.parsed_body).to eq("present" => false)
+    end
   end
 
   describe "GET show" do

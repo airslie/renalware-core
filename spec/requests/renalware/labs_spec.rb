@@ -441,6 +441,25 @@ describe "Lab" do
       expect(response).to redirect_to(patient_lab_path(patient))
       expect(flash[:alert]).to eq("Heidi account linking failed: bad payload")
     end
+
+    it "does not redirect to an unexpected Heidi setup URL" do
+      client = instance_double(Renalware::Heidi::Client)
+      allow(Renalware::Heidi::Client).to receive(:new).and_return(client)
+      allow(client).to receive(:link_account_url_for).with(@current_user).and_return(
+        Renalware::Heidi::Client::Result.new(
+          success: true,
+          status: nil,
+          body: { "url" => "https://example.com/integration/widget/auth?t=jwt-token" }
+        )
+      )
+
+      post patient_heidi_linked_account_path(patient)
+
+      expect(response).to redirect_to(patient_lab_path(patient))
+      expect(flash[:alert]).to eq(
+        "Heidi account linking failed: Heidi account linking returned an invalid setup URL"
+      )
+    end
   end
 
   describe "GET /patients/:patient_id/heidi_linked_account/new" do

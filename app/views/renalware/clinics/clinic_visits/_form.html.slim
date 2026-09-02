@@ -81,7 +81,10 @@
           = f.input :notes,
                     as: :trix_editor,
                     wrapper: :zilch,
-                    data: { "snippets-target": "destination" }
+                    data: { \
+                      "heidi-session-poller-target": "trix",
+                      "snippets-target": "destination" \
+                    }
 
       article
         header

@@ -19,7 +19,7 @@ module Renalware
 
       def sync_from(body)
         consult_note = body.dig("session", "consult_note") || {}
-        note = consult_note["result"].presence
+        note = html_note(consult_note["result"])
         append_consult_note_to_clinic_visit(note) if append_consult_note?(note)
 
         session.update!(
@@ -45,7 +45,15 @@ module Renalware
       end
 
       def appended_notes(existing_notes, heidi_note)
-        [existing_notes.presence, "Heidi consult note:\n#{heidi_note}"].compact.join("\n\n")
+        [existing_notes.presence, "<p><strong>Heidi consult note:</strong></p>#{heidi_note}"]
+          .compact
+          .join
+      end
+
+      def html_note(markdown_note)
+        return if markdown_note.blank?
+
+        MarkdownToHtml.new(markdown_note).call.presence
       end
 
       def mark_failed(response)

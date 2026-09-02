@@ -1,8 +1,13 @@
 module Renalware
   module Clinics
     class ClinicVisitPresenter < DumbDelegator
+      NOTE_TAGS = %w(p br ol li ul span div strong em).freeze
+
       def sanitized_notes
-        ::Rails::Html::WhiteListSanitizer.new.sanitize(notes, tags: %w(p br ol li ul span div))
+        ::Rails::Html::WhiteListSanitizer.new.sanitize(
+          notes,
+          tags: NOTE_TAGS
+        )
       end
 
       def height_in_cm

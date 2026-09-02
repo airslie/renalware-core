@@ -13,7 +13,7 @@ describe Renalware::Heidi::SyncSession do
           "session" => {
             "consult_note" => {
               "status" => "COMPLETED",
-              "result" => "Generated renal clinic note"
+              "result" => "**Generated** renal clinic note"
             }
           }
         }
@@ -24,7 +24,7 @@ describe Renalware::Heidi::SyncSession do
 
     expect(session.reload).to be_synced
     expect(session.consult_note_status).to eq("COMPLETED")
-    expect(session.consult_note).to eq("Generated renal clinic note")
+    expect(session.consult_note).to eq("<p><strong>Generated</strong> renal clinic note</p>")
     expect(session.last_synced_at).to be_present
     expect(session.sync_error).to be_nil
   end
@@ -40,7 +40,12 @@ describe Renalware::Heidi::SyncSession do
           "session" => {
             "consult_note" => {
               "status" => "COMPLETED",
-              "result" => "Generated renal clinic note"
+              "result" => <<~MARKDOWN
+                ## Assessment
+
+                - Stable CKD
+                - Continue current treatment
+              MARKDOWN
             }
           }
         }
@@ -49,9 +54,12 @@ describe Renalware::Heidi::SyncSession do
 
     sync.call
 
-    expect(clinic_visit.reload.notes).to eq(
-      "Existing notes\n\nHeidi consult note:\nGenerated renal clinic note"
-    )
+    notes = clinic_visit.reload.notes
+    expect(notes).to include("Existing notes")
+    expect(notes).to include("<p><strong>Heidi consult note:</strong></p>")
+    expect(notes).to include("<p><strong>Assessment</strong></p>")
+    expect(notes).to include("<li>Stable CKD</li>")
+    expect(notes).to include("<li>Continue current treatment</li>")
   end
 
   it "does not append the consult note again when the Heidi note was already stored" do
