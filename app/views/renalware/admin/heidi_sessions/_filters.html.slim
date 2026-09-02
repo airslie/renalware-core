@@ -1,0 +1,35 @@
+.filters
+  .filters__form
+    = search_form_for search,
+      url: admin_heidi_sessions_path,
+      html: { class: "fn-form", autocomplete: "off" },
+      method: :get,
+      data: { turbo_frame: "admin-heidi-sessions-turbo-frame",
+              turbo: true,
+              turbo_advance: true,
+              controller: "form",
+              action: "input->form#submit" } do |f|
+      .flex.gap-2
+        .basis-1/4
+          = f.label :status_eq, "State"
+          = f.select(:status_eq,
+                     options_for_select( \
+                       Renalware::Heidi::Session.statuses.keys.map { |status| [status.humanize, status] },
+                       search.status_eq),
+                     { include_blank: "Any" },
+                     data: { controller: "slimselect", action: "change->form#submit" })
+        .basis-1/4
+          = f.label :user_id_eq, "User"
+          = f.select(:user_id_eq,
+                     options_from_collection_for_select(users, :id, :to_s, search.user_id_eq),
+                     { include_blank: "Any" },
+                     data: { controller: "slimselect", action: "change->form#submit" })
+        .w-1/4.pt-6
+          = link_to(admin_heidi_sessions_path,
+                    class: "btn btn-secondary text-gray-500 pl-2 font-normal leading-5 border-none shadow-none",
+                    target: "_top") do
+            .flex.items-center
+              .mr-1= inline_icon(:cross, size: :md)
+              | Reset
+          noscript
+            .pt-1= filter_or_reset(form: f, reset_path: admin_heidi_sessions_path)

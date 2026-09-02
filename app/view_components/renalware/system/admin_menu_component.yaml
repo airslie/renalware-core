@@ -130,6 +130,10 @@ sections:
 
   - key: letters
     items:
+      - key: heidi_sessions
+        route: admin_heidi_sessions_path
+        controller: admin/heidi_sessions
+        keywords: [Heidi, scribe, sessions]
       - key: mailshots
         route: letters_mailshots_path
         controller: letters/mailshots

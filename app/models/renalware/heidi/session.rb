@@ -1,6 +1,8 @@
 module Renalware
   module Heidi
     class Session < ApplicationRecord
+      include RansackAll
+
       self.table_name = "heidi_sessions"
 
       belongs_to :patient, class_name: "Renalware::Patient"
