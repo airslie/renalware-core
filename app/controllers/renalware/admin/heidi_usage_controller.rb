@@ -1,6 +1,8 @@
 module Renalware
   module Admin
     class HeidiUsageController < BaseController
+      include Renalware::Concerns::HeidiFeatureGate
+
       def show
         query = Heidi::UsageQuery.new(months: params[:months])
         authorize Heidi::Session, :index?

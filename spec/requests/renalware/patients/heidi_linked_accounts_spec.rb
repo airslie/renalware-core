@@ -1,4 +1,11 @@
 describe "Heidi linked accounts" do
+  around do |example|
+    original = Renalware.config.heidi_enabled
+    example.run
+  ensure
+    Renalware.config.heidi_enabled = original
+  end
+
   let(:patient) { create(:patient, :minimal, by: @current_user) }
 
   describe "GET /patients/:patient_id/heidi_linked_account" do
@@ -42,6 +49,16 @@ describe "Heidi linked accounts" do
         "is_linked" => false,
         "error" => "Heidi unavailable"
       )
+    end
+
+    it "returns not found and does not call Heidi when Heidi is disabled" do
+      Renalware.config.heidi_enabled = false
+      allow(Renalware::Heidi::Client).to receive(:new)
+
+      get patient_heidi_linked_account_path(patient), headers: { "Accept" => "application/json" }
+
+      expect(response).to have_http_status(:not_found)
+      expect(Renalware::Heidi::Client).not_to have_received(:new)
     end
   end
 
@@ -95,6 +112,16 @@ describe "Heidi linked accounts" do
       expect(flash[:alert]).to eq(
         "Heidi account linking failed: Heidi account linking returned an invalid setup URL"
       )
+    end
+
+    it "returns not found and does not call Heidi when Heidi is disabled" do
+      Renalware.config.heidi_enabled = false
+      allow(Renalware::Heidi::Client).to receive(:new)
+
+      post patient_heidi_linked_account_path(patient)
+
+      expect(response).to have_http_status(:not_found)
+      expect(Renalware::Heidi::Client).not_to have_received(:new)
     end
   end
 

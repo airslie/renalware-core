@@ -1,6 +1,8 @@
 module Renalware
   module Admin
     class HeidiSessionsController < BaseController
+      include Renalware::Concerns::HeidiFeatureGate
+
       def index
         query = Heidi::SessionsQuery.new(query_params)
         sessions = query.call

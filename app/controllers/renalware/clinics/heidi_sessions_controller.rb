@@ -1,6 +1,7 @@
 module Renalware
   module Clinics
     class HeidiSessionsController < BaseController
+      include Renalware::Concerns::HeidiFeatureGate
       include Renalware::Concerns::PatientCasting
       include Renalware::Concerns::PatientVisibility
 

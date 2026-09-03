@@ -109,6 +109,14 @@ describe "Admin Heidi sessions" do
       expect(response.body).to include("Heidi Sessions")
       expect(response.body).to include(admin_heidi_sessions_path)
     end
+
+    it "returns not found when Heidi is disabled" do
+      Renalware.config.heidi_enabled = false
+
+      get admin_heidi_sessions_path
+
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   context "when the user is clinical" do

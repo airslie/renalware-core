@@ -1,6 +1,7 @@
 module Renalware
   module Patients
     class HeidiLinkedAccountsController < BaseController
+      include Renalware::Concerns::HeidiFeatureGate
       include Renalware::Concerns::PatientVisibility
 
       def show

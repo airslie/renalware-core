@@ -272,6 +272,16 @@ describe "Clinic Visits Management" do
       expect(response).to be_successful
       expect(response.parsed_body).to eq("present" => false)
     end
+
+    it "returns not found when Heidi is disabled" do
+      Renalware.config.heidi_enabled = false
+
+      get patient_clinic_visit_heidi_session_path(patient, clinic_visit), headers: {
+        "ACCEPT" => "application/json"
+      }
+
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe "GET show" do
