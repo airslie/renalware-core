@@ -67,6 +67,8 @@ module Renalware
       end
 
       def mark_failed(response)
+        return session if session.synced?
+
         session.update!(
           status: :launched,
           last_synced_at: Time.zone.now,

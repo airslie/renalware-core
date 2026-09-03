@@ -61,15 +61,16 @@ export default class extends Controller {
   }
 
   handleSyncedSession(body) {
-    this.appendConsultNote(body)
-    this.markSessionSeen(body.id)
+    if (this.appendConsultNote(body)) this.markSessionSeen(body.id)
     this.stopPolling()
   }
 
   appendConsultNote(body) {
-    if (!this.shouldAppendConsultNote(body)) return
+    if (this.noteAlreadyPresent(body)) return true
+    if (!this.shouldAppendConsultNote(body)) return false
 
     this.trixTarget.editor.insertHTML(this.formattedConsultNote(body.consult_note))
+    return true
   }
 
   shouldAppendConsultNote(body) {
@@ -78,7 +79,13 @@ export default class extends Controller {
     if (!body.consult_note) return false
     if (this.insertedSessionIdsValue.includes(body.id)) return false
 
-    return !this.currentNoteHtml().includes(body.consult_note)
+    return true
+  }
+
+  noteAlreadyPresent(body) {
+    if (!body.consult_note) return false
+
+    return this.currentNoteHtml().includes(body.consult_note)
   }
 
   formattedConsultNote(note) {

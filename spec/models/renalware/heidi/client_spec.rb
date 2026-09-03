@@ -137,6 +137,18 @@ describe Renalware::Heidi::Client do
     end
   end
 
+  describe "timeouts" do
+    subject(:client) { described_class.new(api_key:) }
+
+    it "configures finite Faraday request timeouts" do
+      connection = client.send(:connection)
+
+      expect(connection.options.open_timeout).to eq(5)
+      expect(connection.options.read_timeout).to eq(20)
+      expect(connection.options.write_timeout).to eq(10)
+    end
+  end
+
   def stub_jwt
     stubs.get("jwt") do
       [200, { "Content-Type" => "application/json" }, { token: "jwt-token" }.to_json]

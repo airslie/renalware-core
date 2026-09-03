@@ -126,6 +126,30 @@ describe Renalware::Heidi::SyncSession do
     expect(session.last_synced_at).to be_present
   end
 
+  it "does not downgrade an already synced session after a later poll error" do
+    synced_at = 1.hour.ago
+    session.update!(
+      status: :synced,
+      consult_note: "<p>Completed note</p>",
+      last_synced_at: synced_at
+    )
+    allow(client).to receive(:get).with(session.user, session.heidi_session_id).and_return(
+      Renalware::Heidi::Client::Result.new(
+        success: false,
+        status: 503,
+        body: {},
+        error: "Heidi unavailable"
+      )
+    )
+
+    sync.call
+
+    expect(session.reload).to be_synced
+    expect(session.consult_note).to eq("<p>Completed note</p>")
+    expect(session.last_synced_at).to eq(synced_at)
+    expect(session.sync_error).to be_nil
+  end
+
   def stub_heidi_response(markdown)
     allow(client).to receive(:get).with(session.user, session.heidi_session_id).and_return(
       completed_heidi_response(markdown)

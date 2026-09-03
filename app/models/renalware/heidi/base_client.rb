@@ -3,6 +3,10 @@ require "faraday"
 module Renalware
   module Heidi
     class BaseClient
+      OPEN_TIMEOUT = 5
+      READ_TIMEOUT = 20
+      WRITE_TIMEOUT = 10
+
       Result = Struct.new(:success, :status, :body, :error) do
         alias_method :success?, :success
 
@@ -44,6 +48,9 @@ module Renalware
         ) do |faraday|
           faraday.request :json
           faraday.response :json
+          faraday.options.open_timeout = OPEN_TIMEOUT
+          faraday.options.read_timeout = READ_TIMEOUT
+          faraday.options.write_timeout = WRITE_TIMEOUT
         end
       end
     end
