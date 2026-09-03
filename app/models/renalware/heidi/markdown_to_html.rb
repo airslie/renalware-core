@@ -71,7 +71,7 @@ module Renalware
       def sanitize(html)
         ::Rails::Html::SafeListSanitizer.new.sanitize(
           html,
-          tags: %w(p br ol ul li strong em),
+          tags: Clinics::ClinicVisitPresenter::NOTE_TAGS,
           attributes: []
         )
       end

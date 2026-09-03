@@ -30,4 +30,12 @@ describe Renalware::Heidi::MarkdownToHtml do
 
     expect(html).to eq("<p>Hello &lt;script&gt;alert('x')&lt;/script&gt;</p>")
   end
+
+  it "sanitizes using the same tag whitelist as ClinicVisitPresenter, so the two do not drift" do
+    html = described_class.new(nil).send(:sanitize, "<span>kept</span><script>dropped</script>")
+
+    expect(html).to include("<span>kept</span>")
+    expect(html).not_to include("<script>")
+    expect(Renalware::Clinics::ClinicVisitPresenter::NOTE_TAGS).to include("span")
+  end
 end

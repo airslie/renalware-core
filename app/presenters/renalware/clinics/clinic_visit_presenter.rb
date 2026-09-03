@@ -4,7 +4,7 @@ module Renalware
       NOTE_TAGS = %w(p br ol li ul span div strong em).freeze
 
       def sanitized_notes
-        ::Rails::Html::WhiteListSanitizer.new.sanitize(
+        ::Rails::Html::SafeListSanitizer.new.sanitize(
           notes,
           tags: NOTE_TAGS
         )
