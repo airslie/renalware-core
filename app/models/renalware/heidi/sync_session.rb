@@ -56,7 +56,7 @@ module Renalware
 
       def mark_failed(response)
         session.update!(
-          status: :sync_failed,
+          status: :launched,
           last_synced_at: Time.zone.now,
           sync_error: response.error
         )

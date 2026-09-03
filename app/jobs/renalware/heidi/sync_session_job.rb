@@ -8,17 +8,30 @@ module Renalware
         session = Session.find(session_id)
         SyncSession.new(session:).call
 
-        reschedule(session, attempts_remaining) if session.reload.launched?
+        reschedule_or_fail(session.reload, attempts_remaining) if session.launched?
       end
 
       private
 
-      def reschedule(session, attempts_remaining)
-        return if attempts_remaining <= 1
+      def reschedule_or_fail(session, attempts_remaining)
+        if attempts_remaining <= 1
+          mark_polling_exhausted(session)
+        else
+          reschedule(session, attempts_remaining)
+        end
+      end
 
+      def reschedule(session, attempts_remaining)
         self.class
           .set(wait: POLL_INTERVAL)
           .perform_later(session.id, attempts_remaining: attempts_remaining - 1)
+      end
+
+      def mark_polling_exhausted(session)
+        session.update!(
+          status: :sync_failed,
+          sync_error: session.sync_error.presence || "Heidi polling expired before note completion"
+        )
       end
     end
   end

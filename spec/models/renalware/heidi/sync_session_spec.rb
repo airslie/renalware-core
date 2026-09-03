@@ -101,7 +101,7 @@ describe Renalware::Heidi::SyncSession do
     expect(session.last_synced_at).to be_present
   end
 
-  it "marks the session as failed when Heidi rejects the request" do
+  it "records poll errors without marking the session as failed" do
     allow(client).to receive(:get).with(session.user, session.heidi_session_id).and_return(
       Renalware::Heidi::Client::Result.new(
         success: false,
@@ -113,7 +113,7 @@ describe Renalware::Heidi::SyncSession do
 
     sync.call
 
-    expect(session.reload).to be_sync_failed
+    expect(session.reload).to be_launched
     expect(session.sync_error).to eq("not linked")
     expect(session.last_synced_at).to be_present
   end
