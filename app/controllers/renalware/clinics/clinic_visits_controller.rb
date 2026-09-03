@@ -196,7 +196,9 @@ module Renalware
       def notes_with_unseen_heidi_consult_notes(clinic_visit:, submitted_notes:)
         notes = submitted_notes.to_s
         unseen_heidi_consult_notes(clinic_visit).each do |consult_note|
-          notes = [notes.presence, consult_note].compact.join unless notes.include?(consult_note)
+          unless notes.include?(consult_note)
+            notes = [notes.presence, consult_note].compact.join("<br>")
+          end
         end
         notes
       end

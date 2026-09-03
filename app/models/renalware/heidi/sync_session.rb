@@ -57,7 +57,7 @@ module Renalware
       end
 
       def appended_notes(existing_notes, heidi_note)
-        [existing_notes.presence, heidi_note].compact.join
+        [existing_notes.presence, heidi_note].compact.join("<br>")
       end
 
       def html_note(markdown_note)

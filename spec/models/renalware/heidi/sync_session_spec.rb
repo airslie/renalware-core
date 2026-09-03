@@ -36,6 +36,16 @@ describe Renalware::Heidi::SyncSession do
     expect(session.reload.consult_note_inserted_at).to be_present
   end
 
+  it "separates the appended consult note from existing notes that aren't block-wrapped" do
+    clinic_visit = create(:clinic_visit, notes: "Existing notes")
+    session.update!(clinic_visit:)
+    stub_heidi_response("Generated note")
+
+    sync.call
+
+    expect(clinic_visit.reload.notes).to eq("Existing notes<br><p>Generated note</p>")
+  end
+
   it "does not append the consult note twice from stale sync instances" do
     clinic_visit = create(:clinic_visit, notes: "Existing notes")
     session.update!(clinic_visit:)

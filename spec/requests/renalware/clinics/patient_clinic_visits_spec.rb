@@ -338,7 +338,7 @@ describe "Clinic Visits Management" do
             )
           }
 
-      expect(clinic_visit.reload.notes).to eq("<p>Clinician edit</p><p>Heidi note</p>")
+      expect(clinic_visit.reload.notes).to eq("<p>Clinician edit</p><br><p>Heidi note</p>")
     end
 
     it "trusts the submitted notes when the browser saw the synced Heidi note" do
