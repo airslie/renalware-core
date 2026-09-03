@@ -5,20 +5,7 @@ describe Renalware::Heidi::SyncSession do
   let(:client) { instance_double(Renalware::Heidi::SessionsClient) }
 
   it "stores a completed consult note" do
-    allow(client).to receive(:get).with(session.user, session.heidi_session_id).and_return(
-      Renalware::Heidi::Client::Result.new(
-        success: true,
-        status: 200,
-        body: {
-          "session" => {
-            "consult_note" => {
-              "status" => "COMPLETED",
-              "result" => "**Generated** renal clinic note"
-            }
-          }
-        }
-      )
-    )
+    stub_heidi_response("**Generated** renal clinic note")
 
     sync.call
 
@@ -32,25 +19,12 @@ describe Renalware::Heidi::SyncSession do
   it "appends the completed consult note to the associated clinic visit notes" do
     clinic_visit = create(:clinic_visit, notes: "Existing notes")
     session.update!(clinic_visit:)
-    allow(client).to receive(:get).with(session.user, session.heidi_session_id).and_return(
-      Renalware::Heidi::Client::Result.new(
-        success: true,
-        status: 200,
-        body: {
-          "session" => {
-            "consult_note" => {
-              "status" => "COMPLETED",
-              "result" => <<~MARKDOWN
-                ## Assessment
+    stub_heidi_response(<<~MARKDOWN)
+      ## Assessment
 
-                - Stable CKD
-                - Continue current treatment
-              MARKDOWN
-            }
-          }
-        }
-      )
-    )
+      - Stable CKD
+      - Continue current treatment
+    MARKDOWN
 
     sync.call
 
@@ -59,6 +33,25 @@ describe Renalware::Heidi::SyncSession do
     expect(notes).to include("<p><strong>Assessment</strong></p>")
     expect(notes).to include("<li>Stable CKD</li>")
     expect(notes).to include("<li>Continue current treatment</li>")
+    expect(session.reload.consult_note_inserted_at).to be_present
+  end
+
+  it "does not append the consult note twice from stale sync instances" do
+    clinic_visit = create(:clinic_visit, notes: "Existing notes")
+    session.update!(clinic_visit:)
+    stale_session = Renalware::Heidi::Session.find(session.id)
+    other_stale_session = Renalware::Heidi::Session.find(session.id)
+    stale_client = instance_double(Renalware::Heidi::SessionsClient)
+    other_stale_client = instance_double(Renalware::Heidi::SessionsClient)
+    response = completed_heidi_response("Completed note")
+    allow(stale_client).to receive(:get).and_return(response)
+    allow(other_stale_client).to receive(:get).and_return(response)
+
+    described_class.new(session: stale_session, client: stale_client).call
+    described_class.new(session: other_stale_session, client: other_stale_client).call
+
+    expect(clinic_visit.reload.notes.scan("<p>Completed note</p>").size).to eq(1)
+    expect(session.reload.consult_note_inserted_at).to be_present
   end
 
   it "does not append the consult note again when the Heidi note was already stored" do
@@ -84,6 +77,20 @@ describe Renalware::Heidi::SyncSession do
     expect(clinic_visit.reload.notes).to eq("Existing notes")
   end
 
+  it "does not append the consult note again when it has already been inserted" do
+    clinic_visit = create(:clinic_visit, notes: "Existing notes")
+    session.update!(
+      clinic_visit:,
+      consult_note_inserted_at: Time.zone.now
+    )
+    stub_heidi_response("Previously inserted note")
+
+    sync.call
+
+    expect(clinic_visit.reload.notes).to eq("Existing notes")
+    expect(session.reload.consult_note).to eq("<p>Previously inserted note</p>")
+  end
+
   it "leaves the session launched when the consult note is not ready" do
     allow(client).to receive(:get).with(session.user, session.heidi_session_id).and_return(
       Renalware::Heidi::Client::Result.new(
@@ -98,6 +105,7 @@ describe Renalware::Heidi::SyncSession do
     expect(session.reload).to be_launched
     expect(session.consult_note_status).to eq("CREATED")
     expect(session.consult_note).to be_nil
+    expect(session.consult_note_inserted_at).to be_nil
     expect(session.last_synced_at).to be_present
   end
 
@@ -116,5 +124,26 @@ describe Renalware::Heidi::SyncSession do
     expect(session.reload).to be_launched
     expect(session.sync_error).to eq("not linked")
     expect(session.last_synced_at).to be_present
+  end
+
+  def stub_heidi_response(markdown)
+    allow(client).to receive(:get).with(session.user, session.heidi_session_id).and_return(
+      completed_heidi_response(markdown)
+    )
+  end
+
+  def completed_heidi_response(markdown)
+    Renalware::Heidi::Client::Result.new(
+      success: true,
+      status: 200,
+      body: {
+        "session" => {
+          "consult_note" => {
+            "status" => "COMPLETED",
+            "result" => markdown
+          }
+        }
+      }
+    )
   end
 end

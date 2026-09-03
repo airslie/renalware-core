@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_02_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_03_120000) do
   create_schema "renalware"
   create_schema "renalware_heroic"
 
@@ -3603,6 +3603,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_02_120000) do
   create_table "renalware.heidi_sessions", force: :cascade do |t|
     t.bigint "clinic_visit_id"
     t.text "consult_note"
+    t.datetime "consult_note_inserted_at"
     t.string "consult_note_status"
     t.datetime "created_at", null: false
     t.string "heidi_patient_profile_id"
