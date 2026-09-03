@@ -46,7 +46,7 @@ module Renalware
 
       def update
         clinic_visit = find_and_authorize_visit
-        if clinic_visit.update(visit_params)
+        if update_clinic_visit(clinic_visit)
           redirect_to patient_clinic_visits_path(clinics_patient),
                       notice: success_msg_for("clinic visit")
         else
@@ -174,6 +174,63 @@ module Renalware
             :admin_notes, :did_not_attend, :built_from_appointment_id, document: {}
           ).to_h.merge(by: current_user)
         end
+      end
+
+      def update_clinic_visit(clinic_visit)
+        clinic_visit.with_lock do
+          clinic_visit.update(visit_params_with_preserved_heidi_notes(clinic_visit))
+        end
+      end
+
+      def visit_params_with_preserved_heidi_notes(clinic_visit)
+        attrs = visit_params.dup
+        return attrs unless attrs.key?("notes")
+
+        attrs["notes"] = notes_with_unseen_heidi_consult_notes(
+          clinic_visit:,
+          submitted_notes: attrs["notes"]
+        )
+        attrs
+      end
+
+      def notes_with_unseen_heidi_consult_notes(clinic_visit:, submitted_notes:)
+        notes = submitted_notes.to_s
+        unseen_heidi_consult_notes(clinic_visit).each do |consult_note|
+          notes = [notes.presence, consult_note].compact.join unless notes.include?(consult_note)
+        end
+        notes
+      end
+
+      def unseen_heidi_consult_notes(clinic_visit)
+        return Renalware::Heidi::Session.none unless heidi_notes_loaded_at
+
+        clinic_visit
+          .heidi_sessions
+          .synced
+          .where.not(id: seen_heidi_session_ids)
+          .where.not(consult_note_inserted_at: nil)
+          .where(consult_note_inserted_at: heidi_notes_loaded_at..)
+          .where.not(consult_note: [nil, ""])
+          .order(:consult_note_inserted_at)
+          .pluck(:consult_note)
+      end
+
+      def heidi_notes_loaded_at
+        return @heidi_notes_loaded_at if defined?(@heidi_notes_loaded_at)
+
+        @heidi_notes_loaded_at = Time.zone.parse(
+          params.dig(:clinic_visit, :heidi_notes_loaded_at).to_s
+        )
+      rescue ArgumentError
+        @heidi_notes_loaded_at = nil
+      end
+
+      def seen_heidi_session_ids
+        params
+          .dig(:clinic_visit, :seen_heidi_session_ids)
+          .to_s
+          .split(",")
+          .filter_map { |id| Integer(id, exception: false) }
       end
 
       def query_params

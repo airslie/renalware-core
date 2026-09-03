@@ -286,8 +286,9 @@ describe "Clinic Visits Management" do
   end
 
   describe "PUT update" do
-    before do
-      clinic_visit = create(:clinic_visit, patient:, by: user)
+    let(:clinic_visit) { create(:clinic_visit, patient:, by: user) }
+
+    it "redirects to the clinic_visits index" do
       put patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param),
           params: {
             clinic_visit: {
@@ -301,10 +302,57 @@ describe "Clinic Visits Management" do
               notes: "Nothing unusual"
             }
           }
+
+      expect(response).to redirect_to(patient_clinic_visits_path(patient))
     end
 
-    it "redirects to the clinic_visits index" do
-      expect(response).to redirect_to(patient_clinic_visits_path(patient))
+    it "preserves Heidi notes inserted after the edit form was loaded " \
+       "but not seen by the browser" do
+      loaded_at = 5.minutes.ago
+      create(
+        :heidi_session,
+        patient:,
+        clinic_visit:,
+        user:,
+        status: :synced,
+        consult_note: "<p>Heidi note</p>",
+        consult_note_inserted_at: 1.minute.ago
+      )
+
+      put patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param),
+          params: {
+            clinic_visit: valid_clinic_visit_params.merge(
+              notes: "<p>Clinician edit</p>",
+              heidi_notes_loaded_at: loaded_at.iso8601,
+              seen_heidi_session_ids: ""
+            )
+          }
+
+      expect(clinic_visit.reload.notes).to eq("<p>Clinician edit</p><p>Heidi note</p>")
+    end
+
+    it "trusts the submitted notes when the browser saw the synced Heidi note" do
+      loaded_at = 5.minutes.ago
+      heidi_session = create(
+        :heidi_session,
+        patient:,
+        clinic_visit:,
+        user:,
+        status: :synced,
+        consult_note: "<p>Original Heidi note</p>",
+        consult_note_inserted_at: 1.minute.ago
+      )
+
+      put patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param),
+          params: {
+            clinic_visit: valid_clinic_visit_params.merge(
+              notes: "<p>Clinician edited Heidi note</p>",
+              heidi_notes_loaded_at: loaded_at.iso8601,
+              seen_heidi_session_ids: heidi_session.id.to_s
+            )
+          }
+
+      expect(clinic_visit.reload.notes).to eq("<p>Clinician edited Heidi note</p>")
     end
   end
 

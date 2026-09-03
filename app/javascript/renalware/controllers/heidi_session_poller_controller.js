@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["lastChecked", "noteStatus", "status", "trix"]
+  static targets = ["lastChecked", "noteStatus", "seenSessionIds", "status", "trix"]
 
   static values = {
     interval: { type: Number, default: 10000 },
@@ -62,13 +62,13 @@ export default class extends Controller {
 
   handleSyncedSession(body) {
     this.appendConsultNote(body)
+    this.markSessionSeen(body.id)
     this.stopPolling()
   }
 
   appendConsultNote(body) {
     if (!this.shouldAppendConsultNote(body)) return
 
-    this.insertedSessionIdsValue = [...this.insertedSessionIdsValue, body.id]
     this.trixTarget.editor.insertHTML(this.formattedConsultNote(body.consult_note))
   }
 
@@ -83,6 +83,23 @@ export default class extends Controller {
 
   formattedConsultNote(note) {
     return note
+  }
+
+  markSessionSeen(sessionId) {
+    if (!this.hasSeenSessionIdsTarget) return
+
+    const seenSessionIds = this.seenSessionIds()
+    if (seenSessionIds.includes(sessionId)) return
+
+    this.seenSessionIdsTarget.value = [...seenSessionIds, sessionId].join(",")
+    this.insertedSessionIdsValue = [...this.insertedSessionIdsValue, sessionId]
+  }
+
+  seenSessionIds() {
+    return this.seenSessionIdsTarget.value
+      .split(",")
+      .map((id) => Number.parseInt(id, 10))
+      .filter((id) => Number.isInteger(id))
   }
 
   currentNoteHtml() {
