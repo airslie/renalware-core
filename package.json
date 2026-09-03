@@ -27,7 +27,7 @@
     "print-js": "^1.6.0",
     "rollup": "^4.22.4",
     "semver": "^7.6.3",
-    "serialize-javascript": "^7.0",
+    "serialize-javascript": "^7.1",
     "slim-select": "^4.0.7",
     "sortablejs": "^1.13.0",
     "underscore": "1.13.8"
@@ -37,7 +37,7 @@
     "build:css": "bundle exec tailwindcss -c ./config/tailwind.config.js -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/tailwind.css"
   },
   "devDependencies": {
-    "eslint": "^10.0",
+    "eslint": "^10.9",
     "playwright": "1.62.1",
     "prettier": "^3.4"
   }
