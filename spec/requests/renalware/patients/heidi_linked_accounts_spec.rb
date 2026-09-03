@@ -54,6 +54,16 @@ describe "Heidi linked accounts" do
       )
     end
 
+    it "redirects to the configured Heidi browser account-linking flow" do
+      allow(Renalware.config).to receive(:heidi_link_account_url)
+        .and_return("https://heidi.example.test/custom/auth")
+      stub_link_account_url("https://heidi.example.test/custom/auth?t=jwt-token")
+
+      post patient_heidi_linked_account_path(patient)
+
+      expect(response).to redirect_to("https://heidi.example.test/custom/auth?t=jwt-token")
+    end
+
     it "redirects with an alert when Heidi cannot build the link URL" do
       client = instance_double(Renalware::Heidi::Client)
       allow(Renalware::Heidi::Client).to receive(:new).and_return(client)

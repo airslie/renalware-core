@@ -56,7 +56,6 @@ describe Renalware::Heidi::SyncSession do
 
     notes = clinic_visit.reload.notes
     expect(notes).to include("Existing notes")
-    expect(notes).to include("<p><strong>Heidi consult note:</strong></p>")
     expect(notes).to include("<p><strong>Assessment</strong></p>")
     expect(notes).to include("<li>Stable CKD</li>")
     expect(notes).to include("<li>Continue current treatment</li>")

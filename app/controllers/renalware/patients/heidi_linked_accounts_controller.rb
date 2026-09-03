@@ -3,10 +3,6 @@ module Renalware
     class HeidiLinkedAccountsController < BaseController
       include Renalware::Concerns::PatientVisibility
 
-      HEIDI_LINK_ACCOUNT_URI = URI(
-        "https://registrar.scribe.heidihealth.com/integration/widget/auth"
-      )
-
       def show
         authorize Renalware::Clinics::ClinicVisit, :create?
         authorize patient
@@ -50,15 +46,20 @@ module Renalware
         uri = URI.parse(url)
         return unless expected_heidi_link_account_uri?(uri)
 
-        HEIDI_LINK_ACCOUNT_URI.dup.tap { |safe_uri| safe_uri.query = uri.query }.to_s
+        configured_heidi_link_account_uri.dup.tap { |safe_uri| safe_uri.query = uri.query }.to_s
       rescue KeyError, URI::InvalidURIError
         nil
       end
 
       def expected_heidi_link_account_uri?(uri)
-        uri.scheme == HEIDI_LINK_ACCOUNT_URI.scheme &&
-          uri.host == HEIDI_LINK_ACCOUNT_URI.host &&
-          uri.path == HEIDI_LINK_ACCOUNT_URI.path
+        expected_uri = configured_heidi_link_account_uri
+        uri.scheme == expected_uri.scheme &&
+          uri.host == expected_uri.host &&
+          uri.path == expected_uri.path
+      end
+
+      def configured_heidi_link_account_uri
+        Renalware::Heidi::Client.link_account_uri
       end
 
       def redirect_to_failed_linking(error)

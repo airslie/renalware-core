@@ -24,6 +24,10 @@ describe Renalware::Configuration do
       LETTERS_EXTERNAL_DOCUMENT_TYPE_DESCRIPTION
       OUTPATIENT_PRESCRIPTION_ADMINISTRATION_ENABLED
       HEIDI_ENABLED
+      HEIDI_API_BASE_URL
+      HEIDI_SCRIBE_SESSION_BASE_URL
+      HEIDI_LINK_ACCOUNT_URL
+      HEIDI_REGION
     )
     original_values = env_keys_that_override_defaults.index_with { |key| ENV.fetch(key, nil) }
     env_keys_that_override_defaults.each { |key| ENV.delete(key) }
@@ -88,6 +92,10 @@ describe Renalware::Configuration do
         letters_external_document_type_description: nil,
         outpatient_prescription_administration_enabled: true,
         heidi_enabled: true,
+        heidi_api_base_url: "https://registrar.api.heidihealth.com/api/v2/ml-scribe/open-api/",
+        heidi_scribe_session_base_url: "https://registrar.scribe.heidihealth.com/scribe/session/",
+        heidi_link_account_url: "https://registrar.scribe.heidihealth.com/integration/widget/auth",
+        heidi_region: "AU",
         mesh_care_setting_snomed_code: "788003006",
         mesh_care_setting_description: "Nephrology service"
       )
@@ -97,6 +105,20 @@ describe Renalware::Configuration do
       ENV["HEIDI_ENABLED"] = "true"
 
       expect(config.heidi_enabled).to be(true)
+    end
+
+    it "can configure Heidi URLs from ENV" do
+      ENV["HEIDI_API_BASE_URL"] = "https://example.test/api/"
+      ENV["HEIDI_SCRIBE_SESSION_BASE_URL"] = "https://scribe.example.test/session/"
+      ENV["HEIDI_LINK_ACCOUNT_URL"] = "https://scribe.example.test/auth"
+      ENV["HEIDI_REGION"] = "UK"
+
+      expect(config).to have_attributes(
+        heidi_api_base_url: "https://example.test/api/",
+        heidi_scribe_session_base_url: "https://scribe.example.test/session/",
+        heidi_link_account_url: "https://scribe.example.test/auth",
+        heidi_region: "UK"
+      )
     end
 
     it "can disable outpatient prescription administration from ENV" do

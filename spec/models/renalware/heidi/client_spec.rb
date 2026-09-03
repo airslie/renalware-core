@@ -96,6 +96,22 @@ describe Renalware::Heidi::Client do
       )
       stubs.verify_stubbed_calls
     end
+
+    it "builds the browser linking URL from a configured Heidi host" do
+      stub_jwt
+      allow(Renalware.config).to receive_messages(
+        heidi_link_account_url: "https://heidi.example.test/custom/auth",
+        heidi_region: "UK"
+      )
+
+      result = client.link_account_url_for(user)
+
+      expect(result.body["url"]).to eq(
+        "https://heidi.example.test/custom/auth?" \
+        "reset=true&region=UK&t=jwt-token&productName=Renalware"
+      )
+      stubs.verify_stubbed_calls
+    end
   end
 
   describe "#unlink_account" do

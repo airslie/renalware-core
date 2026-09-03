@@ -82,7 +82,7 @@ export default class extends Controller {
   }
 
   formattedConsultNote(note) {
-    return `<p><strong>Heidi consult note:</strong></p>${note}`
+    return note
   }
 
   currentNoteHtml() {

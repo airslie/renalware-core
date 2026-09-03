@@ -4,6 +4,8 @@ require "uri"
 module Renalware
   module Heidi
     class Client < BaseClient
+      DEFAULT_LINK_ACCOUNT_PATH = "/integration/widget/auth".freeze
+
       Result = BaseClient::Result
       ConfigurationError = BaseClient::ConfigurationError
 
@@ -11,6 +13,12 @@ module Renalware
 
       def self.launch_url_for(session_id)
         "#{Renalware.config.heidi_scribe_session_base_url.chomp('/')}/#{session_id}"
+      end
+
+      def self.link_account_uri
+        URI.parse(Renalware.config.heidi_link_account_url).tap do |uri|
+          uri.path = DEFAULT_LINK_ACCOUNT_PATH if uri.path.blank? || uri.path == "/"
+        end
       end
 
       def jwt_for(user)
@@ -75,8 +83,7 @@ module Renalware
       end
 
       def link_account_url(token)
-        uri = URI.parse(Renalware.config.heidi_link_account_url)
-        uri.path = "/integration/widget/auth" if uri.path.blank? || uri.path == "/"
+        uri = self.class.link_account_uri
         query = URI.decode_www_form(uri.query || "").to_h
         query.merge!(
           "reset" => "true",
