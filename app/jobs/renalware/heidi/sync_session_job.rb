@@ -1,8 +1,8 @@
 module Renalware
   module Heidi
     class SyncSessionJob < ApplicationJob
-      POLL_INTERVAL = 30.seconds
-      MAX_ATTEMPTS = 30
+      POLL_INTERVAL = 15.seconds
+      MAX_ATTEMPTS = 40
 
       def perform(session_id, attempts_remaining: MAX_ATTEMPTS)
         session = Session.find(session_id)
