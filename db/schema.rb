@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_27_123001) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_02_120000) do
   create_schema "renalware"
   create_schema "renalware_heroic"
 
@@ -3605,8 +3605,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_27_123001) do
     t.text "consult_note"
     t.string "consult_note_status"
     t.datetime "created_at", null: false
-    t.string "heidi_patient_profile_id", null: false
-    t.string "heidi_session_id", null: false
+    t.string "heidi_patient_profile_id"
+    t.string "heidi_session_id"
     t.datetime "last_synced_at"
     t.bigint "patient_id", null: false
     t.jsonb "raw_response", default: {}, null: false

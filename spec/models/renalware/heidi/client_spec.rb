@@ -110,27 +110,6 @@ describe Renalware::Heidi::Client do
     end
   end
 
-  describe "#create_session_for_patient" do
-    it "delegates patient-aware session creation to the sessions client" do
-      sessions_client = instance_double(Renalware::Heidi::SessionsClient)
-      allow(Renalware::Heidi::SessionsClient).to receive(:new)
-        .with(client:)
-        .and_return(sessions_client)
-      allow(sessions_client).to receive(:create_for_patient).with(user, patient).and_return(
-        Renalware::Heidi::Client::Result.new(
-          success: true,
-          status: 200,
-          body: { "session_id" => "1234567890" }
-        )
-      )
-
-      result = client.create_session_for_patient(user, patient)
-
-      expect(result).to be_success
-      expect(result.body).to eq("session_id" => "1234567890")
-    end
-  end
-
   describe ".launch_url_for" do
     it "builds the Heidi scribe session URL" do
       allow(Renalware.config).to receive(:heidi_scribe_session_base_url)

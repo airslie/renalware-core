@@ -17,6 +17,7 @@
   }
 }
 
+.heidi-state--preparing,
 .heidi-state--launched {
   background-color: var(--nhs-warm-yellow);
   color: var(--black);
@@ -49,6 +50,7 @@
   }
 }
 
+.heidi-state--launch-failed,
 .heidi-state--sync-failed {
   background-color: var(--nhs-red);
   color: var(--white);

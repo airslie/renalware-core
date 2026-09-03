@@ -60,10 +60,6 @@ module Renalware
         failure(error: e.message)
       end
 
-      def create_session_for_patient(user, patient)
-        SessionsClient.new(client: self).create_for_patient(user, patient)
-      end
-
       private
 
       def validate_authentication_config_for(user)

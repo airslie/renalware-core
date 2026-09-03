@@ -9185,8 +9185,8 @@ CREATE TABLE renalware.heidi_sessions (
     id bigint NOT NULL,
     patient_id bigint NOT NULL,
     user_id bigint NOT NULL,
-    heidi_session_id character varying NOT NULL,
-    heidi_patient_profile_id character varying NOT NULL,
+    heidi_session_id character varying,
+    heidi_patient_profile_id character varying,
     status character varying DEFAULT 'launched'::character varying NOT NULL,
     consult_note_status character varying,
     consult_note text,
@@ -35564,6 +35564,7 @@ ALTER TABLE ONLY renalware_heroic.biobank_usages
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260902120000'),
 ('20260827123001'),
 ('20260827123000'),
 ('20260827120000'),

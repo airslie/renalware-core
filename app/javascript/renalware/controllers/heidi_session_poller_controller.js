@@ -52,8 +52,10 @@ export default class extends Controller {
 
   statusClassName(status) {
     return {
+      "preparing": "heidi-state--preparing",
       "launched": "heidi-state--launched",
       "synced": "heidi-state--synced",
+      "launch_failed": "heidi-state--launch-failed",
       "sync_failed": "heidi-state--sync-failed",
     }[status]
   }
