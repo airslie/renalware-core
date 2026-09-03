@@ -1,4 +1,12 @@
 describe "Clinic Visits" do
+  around do |example|
+    original = Renalware.config.heidi_enabled
+    Renalware.config.heidi_enabled = false
+    example.run
+  ensure
+    Renalware.config.heidi_enabled = original
+  end
+
   let(:clinician) { create(:user, :clinical) }
   let!(:clinic) { create(:clinic) }
   let!(:patient) { create(:clinics_patient, by: clinician, nhs_number: "2717073604") }
@@ -36,8 +44,11 @@ describe "Clinic Visits" do
         click_on t("btn.create")
       end
 
-      expect(page).to have_text(
-        "20-Jul-2015\tNo\t#{clinic.description}\t1.78\t82.5\t26.0\t110/75\t107/71\t100\t37.3"
+      expect_clinic_visit_row(
+        date: "20-Jul-2015",
+        clinic: clinic.description,
+        body_measurements: %w(1.78 82.5 26.0),
+        blood_pressures: %w(110/75 107/71 100 37.3)
       )
     end
   end
@@ -64,14 +75,27 @@ describe "Clinic Visits" do
 
       submit_form
 
-      expect(page).to have_text(
-        "#{today}\tNo\t#{clinic.description}\t1.71\t75.0\t25.6\t128/95\t124/92\t101\t37.7"
+      expect_clinic_visit_row(
+        date: today,
+        clinic: clinic.description,
+        body_measurements: %w(1.71 75.0 25.6),
+        blood_pressures: %w(128/95 124/92 101 37.7)
       )
 
       all("a.toggler")[1].click
 
       expect(page).to have_text "Updated notes"
       expect(page).to have_text "Updated admin notes"
+    end
+  end
+
+  def expect_clinic_visit_row(date:, clinic:, body_measurements:, blood_pressures:)
+    within(first("table.clinics tbody tr")) do
+      expect(page).to have_css("td.date-time", text: date)
+      expect(page).to have_css("td.clinic-type", text: clinic)
+      expect(all("td.bmi").map(&:text)).to eq(body_measurements)
+      expect(all("td.bp").map(&:text)).to eq(blood_pressures)
+      expect(page).to have_css("td", text: "No")
     end
   end
 end
