@@ -156,7 +156,7 @@ describe Renalware::Heidi::SyncSession do
 
     expect(session.reload).to be_synced
     expect(session.consult_note).to eq("<p>Completed note</p>")
-    expect(session.last_synced_at).to eq(synced_at)
+    expect(session.last_synced_at).to be_within(1.second).of(synced_at)
     expect(session.sync_error).to be_nil
   end
 

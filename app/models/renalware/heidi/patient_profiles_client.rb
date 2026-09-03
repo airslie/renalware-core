@@ -37,8 +37,6 @@ module Renalware
 
           result_from(response)
         end
-      rescue Client::ConfigurationError, Faraday::Error, JSON::ParserError => e
-        failure(error: e.message)
       end
 
       def create(user, patient)
@@ -52,8 +50,6 @@ module Renalware
 
           result_from(response)
         end
-      rescue Client::ConfigurationError, Faraday::Error, JSON::ParserError => e
-        failure(error: e.message)
       end
 
       def link_session(user, patient_profile_id:, session_id:)
@@ -67,21 +63,14 @@ module Renalware
 
           result_from(response)
         end
-      rescue Client::ConfigurationError, Faraday::Error, JSON::ParserError => e
-        failure(error: e.message)
       end
 
       private
 
       attr_reader :client
 
-      def with_jwt(user)
-        jwt = client.jwt_for(user)
-        return jwt if jwt.failed?
-
-        yield jwt.body.fetch("token")
-      rescue KeyError
-        failure(error: "Heidi JWT response did not include a token")
+      def jwt_source
+        client
       end
 
       def patient_profile_payload(patient)

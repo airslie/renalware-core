@@ -24,6 +24,24 @@ module Renalware
 
       attr_reader :api_key
 
+      # The object whose #jwt_for(user) fetches the JWT used to authenticate requests.
+      # Client provides its own; SessionsClient and PatientProfilesClient delegate to
+      # the Client instance they were given.
+      def jwt_source
+        self
+      end
+
+      def with_jwt(user)
+        jwt = jwt_source.jwt_for(user)
+        return jwt if jwt.failed?
+
+        yield jwt.body.fetch("token")
+      rescue KeyError
+        failure(error: "Heidi JWT response did not include a token")
+      rescue ConfigurationError, Faraday::Error, JSON::ParserError => e
+        failure(error: e.message)
+      end
+
       def result_from(response)
         Result.new(
           success: response.success?,

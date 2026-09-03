@@ -35,8 +35,6 @@ module Renalware
         with_jwt(user) do |token|
           Result.new(success: true, status: nil, body: { "url" => link_account_url(token) })
         end
-      rescue ConfigurationError, Faraday::Error, JSON::ParserError => e
-        failure(error: e.message)
       end
 
       def linked_account_access(user)
@@ -47,8 +45,6 @@ module Renalware
 
           result_from(response)
         end
-      rescue ConfigurationError, Faraday::Error, JSON::ParserError => e
-        failure(error: e.message)
       end
 
       def unlink_account(user)
@@ -60,8 +56,6 @@ module Renalware
 
           result_from(response)
         end
-      rescue ConfigurationError, Faraday::Error, JSON::ParserError => e
-        failure(error: e.message)
       end
 
       private
@@ -107,15 +101,6 @@ module Renalware
         )
         uri.query = URI.encode_www_form(query)
         uri.to_s
-      end
-
-      def with_jwt(user)
-        jwt = jwt_for(user)
-        return jwt if jwt.failed?
-
-        yield jwt.body.fetch("token")
-      rescue KeyError
-        failure(error: "Heidi JWT response did not include a token")
       end
     end
   end
