@@ -45,6 +45,29 @@ describe Renalware::Heidi::Client do
       expect(result).to be_failed
       expect(result.error).to eq("HEIDI_API_KEY is not configured")
     end
+
+    it "reuses the JWT for the same user instead of fetching it again" do
+      requests = stub_jwt_counting_requests
+
+      client.jwt_for(user)
+      client.jwt_for(user)
+
+      expect(requests.size).to eq(1)
+    end
+
+    it "does not cache a failed JWT fetch, so a later call can retry" do
+      responses = stub_jwt_with_responses(
+        [503, { "Content-Type" => "application/json" }, {}.to_json],
+        [200, { "Content-Type" => "application/json" }, { token: "jwt-token" }.to_json]
+      )
+
+      first_result = client.jwt_for(user)
+      second_result = client.jwt_for(user)
+
+      expect(first_result).to be_failed
+      expect(second_result).to be_success
+      expect(responses).to be_empty
+    end
   end
 
   describe "#linked_account_access" do
@@ -165,6 +188,20 @@ describe Renalware::Heidi::Client do
 
       [200, { "Content-Type" => "application/json" }, { token: "jwt-token" }.to_json]
     end
+  end
+
+  def stub_jwt_counting_requests
+    requests = []
+    stubs.get("jwt") do
+      requests << :request
+      [200, { "Content-Type" => "application/json" }, { token: "jwt-token" }.to_json]
+    end
+    requests
+  end
+
+  def stub_jwt_with_responses(*responses)
+    stubs.get("jwt") { responses.shift }
+    responses
   end
 
   def stub_linked_account_access

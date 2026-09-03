@@ -21,18 +21,14 @@ module Renalware
         end
       end
 
+      # Memoized per user for the lifetime of this Client instance: a single clinic-visit
+      # launch shares one Client across several API calls, and each would otherwise fetch
+      # its own JWT.
       def jwt_for(user)
-        validate_authentication_config_for(user)
+        cached = jwt_cache[user.id]
+        return cached if cached&.success?
 
-        response = connection.get("jwt") do |request|
-          request.headers["Heidi-Api-Key"] = api_key
-          request.params["email"] = user.email
-          request.params["third_party_internal_id"] = user.uuid
-        end
-
-        result_from(response)
-      rescue ConfigurationError, Faraday::Error, JSON::ParserError => e
-        failure(error: e.message)
+        jwt_cache[user.id] = fetch_jwt(user)
       end
 
       def link_account_url_for(user)
@@ -69,6 +65,24 @@ module Renalware
       end
 
       private
+
+      def jwt_cache
+        @jwt_cache ||= {}
+      end
+
+      def fetch_jwt(user)
+        validate_authentication_config_for(user)
+
+        response = connection.get("jwt") do |request|
+          request.headers["Heidi-Api-Key"] = api_key
+          request.params["email"] = user.email
+          request.params["third_party_internal_id"] = user.uuid
+        end
+
+        result_from(response)
+      rescue ConfigurationError, Faraday::Error, JSON::ParserError => e
+        failure(error: e.message)
+      end
 
       def validate_authentication_config_for(user)
         raise ConfigurationError, "HEIDI_API_KEY is not configured" if api_key.blank?
