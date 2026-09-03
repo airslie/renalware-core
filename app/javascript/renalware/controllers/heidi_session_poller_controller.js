@@ -31,7 +31,7 @@ export default class extends Controller {
 
       this.updateStatus(body)
       if (body.synced) this.handleSyncedSession(body)
-      if (body.status === "sync_failed") this.stopPolling()
+      if (this.isTerminalFailure(body.status)) this.stopPolling()
     } catch {
       // Keep polling; transient failures should not disturb the edit form.
     }
@@ -58,6 +58,10 @@ export default class extends Controller {
       "launch_failed": "heidi-state--launch-failed",
       "sync_failed": "heidi-state--sync-failed",
     }[status]
+  }
+
+  isTerminalFailure(status) {
+    return status === "launch_failed" || status === "sync_failed"
   }
 
   handleSyncedSession(body) {
