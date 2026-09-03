@@ -9,7 +9,7 @@ module Renalware
 
         result = Renalware::Heidi::Client.new.linked_account_access(current_user)
         if result.success?
-          render json: result.body
+          render json: { is_linked: result.body["is_linked"] == true }
         else
           render json: { is_linked: false, error: result.error }, status: :bad_gateway
         end

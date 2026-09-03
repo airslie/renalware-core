@@ -9,7 +9,11 @@ describe "Heidi linked accounts" do
         Renalware::Heidi::Client::Result.new(
           success: true,
           status: 200,
-          body: { "is_linked" => true }
+          body: {
+            "is_linked" => true,
+            "heidi_user_id" => "heidi-user-1",
+            "email" => "clinician@example.test"
+          }
         )
       )
 

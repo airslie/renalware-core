@@ -43,6 +43,7 @@ module Renalware
       def count_rows
         Session
           .where(created_at: start_month..)
+          .where.not(heidi_session_id: [nil, ""])
           .group(month_expression)
           .pluck(
             month_expression,

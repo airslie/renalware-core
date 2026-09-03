@@ -12,6 +12,14 @@ describe Renalware::Heidi::UsageQuery do
       create(:heidi_session, user: august_user, created_at: "2026-08-02 09:00")
       create(:heidi_session, user: september_user, created_at: "2026-08-03 09:00")
       create(:heidi_session, user: september_user, created_at: "2026-06-30 23:59")
+      create(
+        :heidi_session,
+        user: create(:user),
+        status: :launch_failed,
+        heidi_session_id: nil,
+        heidi_patient_profile_id: nil,
+        created_at: "2026-09-12 09:00"
+      )
 
       rows = described_class.new(months: 3).call
 
