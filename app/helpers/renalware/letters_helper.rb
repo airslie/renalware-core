@@ -4,12 +4,19 @@ module Renalware
       breadcrumb_for("Letters", patient_letters_letters_path(patient))
     end
 
-    def patient_letters_letters_path(patient, event = nil)
-      if event.present?
-        super(patient, event_type: event.class.to_s, event_id: event.id)
-      else
-        super(patient)
-      end
+    def patient_letters_letters_path(patient, event_or_options = nil)
+      options = patient_letters_letters_path_options(event_or_options)
+      Rails.application.routes.url_helpers.patient_letters_letters_path(patient, options)
+    end
+
+    def patient_letters_letters_path_options(event_or_options)
+      return {} if event_or_options.blank?
+      return event_or_options if event_or_options.is_a?(Hash)
+
+      {
+        event_type: event_or_options.class.to_s,
+        event_id: event_or_options.id
+      }
     end
 
     def inline_value(label, value, unit = nil)

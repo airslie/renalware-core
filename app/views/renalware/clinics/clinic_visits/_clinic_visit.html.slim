@@ -33,7 +33,7 @@
       dt= attr_name(clinic_visit, :urine_glucose)
       dd= clinic_visit.urine_glucose&.text
       dt= attr_name(clinic_visit, :notes)
-      dd= clinic_visit.notes
+      dd= sanitize(clinic_visit.notes, tags: Renalware::Clinics::ClinicVisitPresenter::NOTE_TAGS)
 
   / If clinic_visit is a custom clinic visit subclass defined for example in the
   / host app or a gem like Heroic (in order to augment to the standard ClinicVisit with additional

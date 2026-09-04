@@ -1,6 +1,9 @@
 describe Renalware::System::AdminMenuComponent, type: :component do
   around do |example|
+    original = Renalware.config.heidi_enabled
     I18n.with_locale(:"en-GB") { example.run }
+  ensure
+    Renalware.config.heidi_enabled = original
   end
 
   it "has an en-GB translation for every configured label" do
@@ -84,6 +87,24 @@ describe Renalware::System::AdminMenuComponent, type: :component do
 
       expect(page).to have_css(".system details[open]")
       expect(page).to have_css(".system .admin-menu__item.active", text: "API Logs")
+    end
+
+    it "hides Heidi menu items when Heidi is disabled" do
+      Renalware.config.heidi_enabled = false
+
+      render_inline(described_class.new(current_user: create(:user, :super_admin)))
+
+      expect(page).to have_no_link("Heidi Sessions", visible: :all)
+      expect(page).to have_no_link("Heidi Usage", visible: :all)
+    end
+
+    it "renders Heidi menu items when Heidi is enabled" do
+      Renalware.config.heidi_enabled = true
+
+      render_inline(described_class.new(current_user: create(:user, :super_admin)))
+
+      expect(page).to have_link("Heidi Sessions", visible: :all)
+      expect(page).to have_link("Heidi Usage", visible: :all)
     end
   end
 

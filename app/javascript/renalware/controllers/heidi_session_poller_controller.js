@@ -1,0 +1,130 @@
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+  static targets = ["lastChecked", "noteStatus", "seenSessionIds", "status", "trix"]
+
+  static values = {
+    interval: { type: Number, default: 10000 },
+    insertedSessionIds: { type: Array, default: [] },
+    url: String,
+  }
+
+  connect() {
+    this.poll()
+    this.timer = window.setInterval(() => this.poll(), this.intervalValue)
+  }
+
+  disconnect() {
+    this.stopPolling()
+  }
+
+  async poll() {
+    try {
+      const response = await fetch(this.urlValue, {
+        credentials: "same-origin",
+        headers: { "Accept": "application/json" },
+      })
+      if (!response.ok) return
+
+      const body = await response.json()
+      if (!body.present) return
+
+      this.updateStatus(body)
+      if (body.synced) this.handleSyncedSession(body)
+      if (this.isTerminalFailure(body.status)) this.stopPolling()
+    } catch {
+      // Keep polling; transient failures should not disturb the edit form.
+    }
+  }
+
+  updateStatus(body) {
+    if (this.hasStatusTarget) this.statusTarget.innerHTML = this.statusBadgeHtml(body)
+    if (this.hasNoteStatusTarget) this.noteStatusTarget.textContent = body.consult_note_status
+    if (this.hasLastCheckedTarget) this.lastCheckedTarget.textContent = body.last_synced_at
+  }
+
+  statusBadgeHtml(body) {
+    const status = this.statusClassName(body.status)
+    if (!status) return this.escapeHtml(body.status_label)
+
+    return `<span class="heidi-state ${status}"><span class="heidi-state__indicator"></span><span class="heidi-state__label">${this.escapeHtml(body.status_label)}</span></span>`
+  }
+
+  statusClassName(status) {
+    return {
+      "preparing": "heidi-state--preparing",
+      "launched": "heidi-state--launched",
+      "synced": "heidi-state--synced",
+      "launch_failed": "heidi-state--launch-failed",
+      "sync_failed": "heidi-state--sync-failed",
+    }[status]
+  }
+
+  isTerminalFailure(status) {
+    return status === "launch_failed" || status === "sync_failed"
+  }
+
+  handleSyncedSession(body) {
+    if (this.appendConsultNote(body)) this.markSessionSeen(body.id)
+    this.stopPolling()
+  }
+
+  appendConsultNote(body) {
+    if (this.noteAlreadyPresent(body)) return true
+    if (!this.shouldAppendConsultNote(body)) return false
+
+    this.trixTarget.editor.insertHTML(this.formattedConsultNote(body.consult_note))
+    return true
+  }
+
+  shouldAppendConsultNote(body) {
+    if (!this.hasTrixTarget) return false
+    if (!this.trixTarget.editor) return false
+    if (!body.consult_note) return false
+    if (this.insertedSessionIdsValue.includes(body.id)) return false
+
+    return true
+  }
+
+  noteAlreadyPresent(body) {
+    if (!body.consult_note) return false
+
+    return this.currentNoteHtml().includes(body.consult_note)
+  }
+
+  formattedConsultNote(note) {
+    return note
+  }
+
+  markSessionSeen(sessionId) {
+    if (!this.hasSeenSessionIdsTarget) return
+
+    const seenSessionIds = this.seenSessionIds()
+    if (seenSessionIds.includes(sessionId)) return
+
+    this.seenSessionIdsTarget.value = [...seenSessionIds, sessionId].join(",")
+    this.insertedSessionIdsValue = [...this.insertedSessionIdsValue, sessionId]
+  }
+
+  seenSessionIds() {
+    return this.seenSessionIdsTarget.value
+      .split(",")
+      .map((id) => Number.parseInt(id, 10))
+      .filter((id) => Number.isInteger(id))
+  }
+
+  currentNoteHtml() {
+    return this.trixTarget.value || ""
+  }
+
+  escapeHtml(value) {
+    const div = document.createElement("div")
+    div.textContent = value || ""
+    return div.innerHTML
+  }
+
+  stopPolling() {
+    if (this.timer) window.clearInterval(this.timer)
+    this.timer = null
+  }
+}

@@ -1,0 +1,5 @@
+- return if status.blank?
+
+span.heidi-state(class="heidi-state--#{status.dasherize}")
+  span.heidi-state__indicator
+  span.heidi-state__label= status.humanize

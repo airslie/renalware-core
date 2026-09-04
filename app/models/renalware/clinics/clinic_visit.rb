@@ -21,6 +21,9 @@ module Renalware
       belongs_to :clinic, -> { with_deleted }, counter_cache: true
       belongs_to :location, -> { with_deleted }, class_name: "VisitLocation"
       has_many :clinic_letters # TODO: remove as possibly redundant
+      has_many :heidi_sessions,
+               class_name: "Renalware::Heidi::Session",
+               dependent: :nullify
 
       validates :date, presence: true
       validates :clinic, presence: true

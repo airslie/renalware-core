@@ -1,12 +1,42 @@
 = within_patient_layout(title: t("new_record.page_title"),
   breadcrumbs: breadcrumb_for("Clinic Visits", patient_clinic_visits_path(patient))) do
 
+  - heidi_enabled = Renalware.config.heidi_enabled
+  - heidi_form_data = {}
+  - if heidi_enabled
+    - heidi_form_data = { \
+        controller: "heidi-clinic-visit-launch",
+        "heidi-clinic-visit-launch-account-url-value": new_patient_heidi_linked_account_path(patient),
+        "heidi-clinic-visit-launch-close-preparation-tab-value": close_heidi_preparation_tab,
+        "heidi-clinic-visit-launch-preparation-url-value": heidi_preparation_path,
+        "heidi-clinic-visit-launch-status-url-value": patient_heidi_linked_account_path(patient) \
+      }
+
   .document
     = simple_form_for [patient, clinic_visit],
         as: :clinic_visit,
         url: patient_clinic_visits_path(patient),
-        html: { autocomplete: "off" },
+        html: { \
+          autocomplete: "off",
+          data: heidi_form_data \
+        },
         wrapper: "horizontal_form" do |f|
+
+      - if heidi_enabled && Renalware::Heidi::Client.configured?
+        .form-actions.mb-4.text-left.m-0
+          = button_tag type: "submit",
+                       name: "launch_heidi",
+                       value: "true",
+                       class: "p-1 btn btn-secondary inline-flex items-center gap-2 rounded-md mb-2 pr-4",
+                       style: "background-color: #FBF582; ",
+                       disabled: true,
+                       data: { \
+                         action: "click->heidi-clinic-visit-launch#open",
+                         "heidi-clinic-visit-launch-target": "button" \
+                       } do
+            = inline_icon("heidi", size: :xxl)
+            span(data-heidi-clinic-visit-launch-target="label")
+              | Save and launch Heidi
 
       input(type="hidden"
             name="clinic_visit[built_from_appointment_id]"

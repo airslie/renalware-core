@@ -1,0 +1,16 @@
+.filters
+  .filters__form
+    = form_with url: admin_heidi_usage_path,
+                method: :get,
+                html: { class: "fn-form", autocomplete: "off" } do
+      .flex.gap-2
+        .basis-1/4
+          = label_tag :months, "Months"
+          = select_tag :months,
+                       options_for_select(month_options.map { |value| ["Last #{value} months", value] }, months),
+                       data: { controller: "slimselect" }
+        .w-1/4.pt-6
+          = submit_tag "Filter", class: "button"
+          = link_to "Reset",
+                    admin_heidi_usage_path,
+                    class: "button secondary"

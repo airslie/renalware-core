@@ -9178,6 +9178,48 @@ ALTER SEQUENCE renalware.hd_vnd_risk_assessments_id_seq OWNED BY renalware.hd_vn
 
 
 --
+-- Name: heidi_sessions; Type: TABLE; Schema: renalware; Owner: -
+--
+
+CREATE TABLE renalware.heidi_sessions (
+    id bigint NOT NULL,
+    patient_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    heidi_session_id character varying,
+    heidi_patient_profile_id character varying,
+    status character varying DEFAULT 'launched'::character varying NOT NULL,
+    consult_note_status character varying,
+    consult_note text,
+    raw_response jsonb DEFAULT '{}'::jsonb NOT NULL,
+    last_synced_at timestamp(6) without time zone,
+    sync_error text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    clinic_visit_id bigint,
+    consult_note_inserted_at timestamp(6) without time zone
+);
+
+
+--
+-- Name: heidi_sessions_id_seq; Type: SEQUENCE; Schema: renalware; Owner: -
+--
+
+CREATE SEQUENCE renalware.heidi_sessions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: heidi_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: renalware; Owner: -
+--
+
+ALTER SEQUENCE renalware.heidi_sessions_id_seq OWNED BY renalware.heidi_sessions.id;
+
+
+--
 -- Name: help_tour_annotations; Type: TABLE; Schema: renalware; Owner: -
 --
 
@@ -19816,6 +19858,13 @@ ALTER TABLE ONLY renalware.hd_vnd_risk_assessments ALTER COLUMN id SET DEFAULT n
 
 
 --
+-- Name: heidi_sessions id; Type: DEFAULT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.heidi_sessions ALTER COLUMN id SET DEFAULT nextval('renalware.heidi_sessions_id_seq'::regclass);
+
+
+--
 -- Name: help_tour_annotations id; Type: DEFAULT; Schema: renalware; Owner: -
 --
 
@@ -22240,6 +22289,14 @@ ALTER TABLE ONLY renalware.hd_versions
 
 ALTER TABLE ONLY renalware.hd_vnd_risk_assessments
     ADD CONSTRAINT hd_vnd_risk_assessments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: heidi_sessions heidi_sessions_pkey; Type: CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.heidi_sessions
+    ADD CONSTRAINT heidi_sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -26883,6 +26940,48 @@ CREATE INDEX index_hd_vnd_risk_assessments_on_patient_id ON renalware.hd_vnd_ris
 --
 
 CREATE INDEX index_hd_vnd_risk_assessments_on_updated_by_id ON renalware.hd_vnd_risk_assessments USING btree (updated_by_id);
+
+
+--
+-- Name: index_heidi_sessions_on_clinic_visit_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_heidi_sessions_on_clinic_visit_id ON renalware.heidi_sessions USING btree (clinic_visit_id);
+
+
+--
+-- Name: index_heidi_sessions_on_heidi_session_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE UNIQUE INDEX index_heidi_sessions_on_heidi_session_id ON renalware.heidi_sessions USING btree (heidi_session_id);
+
+
+--
+-- Name: index_heidi_sessions_on_patient_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_heidi_sessions_on_patient_id ON renalware.heidi_sessions USING btree (patient_id);
+
+
+--
+-- Name: index_heidi_sessions_on_patient_id_and_created_at; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_heidi_sessions_on_patient_id_and_created_at ON renalware.heidi_sessions USING btree (patient_id, created_at);
+
+
+--
+-- Name: index_heidi_sessions_on_status; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_heidi_sessions_on_status ON renalware.heidi_sessions USING btree (status);
+
+
+--
+-- Name: index_heidi_sessions_on_user_id; Type: INDEX; Schema: renalware; Owner: -
+--
+
+CREATE INDEX index_heidi_sessions_on_user_id ON renalware.heidi_sessions USING btree (user_id);
 
 
 --
@@ -32924,6 +33023,14 @@ ALTER TABLE ONLY renalware.pathology_calculation_sources
 
 
 --
+-- Name: heidi_sessions fk_rails_67655abeaa; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.heidi_sessions
+    ADD CONSTRAINT fk_rails_67655abeaa FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
 -- Name: transplant_recipient_followups fk_rails_6893ba0593; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -33892,6 +33999,14 @@ ALTER TABLE ONLY renalware.pd_peritonitis_episodes
 
 
 --
+-- Name: heidi_sessions fk_rails_ae5da9529e; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.heidi_sessions
+    ADD CONSTRAINT fk_rails_ae5da9529e FOREIGN KEY (clinic_visit_id) REFERENCES renalware.clinic_visits(id);
+
+
+--
 -- Name: user_group_memberships fk_rails_aece7151f8; Type: FK CONSTRAINT; Schema: renalware; Owner: -
 --
 
@@ -33945,6 +34060,14 @@ ALTER TABLE ONLY renalware.pathology_requests_patient_rules
 
 ALTER TABLE ONLY renalware.hd_patient_statistics
     ADD CONSTRAINT fk_rails_b163068880 FOREIGN KEY (patient_id) REFERENCES renalware.patients(id);
+
+
+--
+-- Name: heidi_sessions fk_rails_b19b35d9e4; Type: FK CONSTRAINT; Schema: renalware; Owner: -
+--
+
+ALTER TABLE ONLY renalware.heidi_sessions
+    ADD CONSTRAINT fk_rails_b19b35d9e4 FOREIGN KEY (user_id) REFERENCES renalware.users(id);
 
 
 --
@@ -35442,6 +35565,11 @@ ALTER TABLE ONLY renalware_heroic.biobank_usages
 SET search_path TO renalware,public,renalware_heroic,renalware_mse,renalware_blt,renalware_ich;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260903120000'),
+('20260902120000'),
+('20260827123001'),
+('20260827123000'),
+('20260827120000'),
 ('20260819120000'),
 ('20260818120000'),
 ('20260809120003'),
@@ -35457,6 +35585,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20260622120100'),
 ('20260622120000'),
 ('20260611120000'),
+('20260609110000'),
+('20260608120000'),
 ('20260520090000'),
 ('20260520082138'),
 ('20260513120002'),

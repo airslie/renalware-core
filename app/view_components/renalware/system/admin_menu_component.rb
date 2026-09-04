@@ -106,6 +106,7 @@ module Renalware
         case condition&.to_sym
         when nil then true
         when :dmd_match_enabled then policy(Renalware::Drugs::DMDMatch).index?
+        when :heidi_enabled then Renalware.config.heidi_enabled
         when :non_production then !Rails.env.production?
         else raise ArgumentError, "Unknown admin menu condition: #{condition}"
         end

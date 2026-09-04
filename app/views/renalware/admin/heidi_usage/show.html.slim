@@ -1,0 +1,24 @@
+- total_user_month_count = usage_rows.sum(&:distinct_user_count)
+- total_session_count = usage_rows.sum(&:session_count)
+
+= content_for(:filters) do
+  = render "filters", month_options: month_options, months: months
+
+= within_new_admin_layout(title: "Heidi Usage") do
+  table.admin-heidi-usage
+    thead
+      tr
+        th Month
+        th.text-right Distinct users
+        th.text-right Sessions
+    tbody
+      - usage_rows.each do |row|
+        tr
+          td= l(row.month, format: "%B %Y")
+          td.text-right= row.distinct_user_count
+          td.text-right= row.session_count
+    tfoot
+      tr
+        th Total user-months / sessions
+        th.text-right= total_user_month_count
+        th.text-right= total_session_count

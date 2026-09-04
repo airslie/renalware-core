@@ -1,0 +1,7 @@
+en:
+  renalware:
+    patients:
+      heidi_linked_accounts:
+        create:
+          success: Heidi account linking opened.
+          failed: "Heidi account linking failed: %{error}"

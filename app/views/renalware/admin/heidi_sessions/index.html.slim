@@ -1,0 +1,53 @@
+= content_for(:filters) { render "filters", search: search, users: users }
+
+= within_new_admin_layout(title: "Heidi Sessions") do
+  = turbo_frame_tag("admin-heidi-sessions-turbo-frame") do
+    = render Renalware::SpinnerComponent.new do |spinner|
+      = spinner.with_main_content do
+        table.admin-heidi-sessions
+          thead
+            tr
+              th.col-width-large= sort_link(search,
+                                            :user_family_name,
+                                            [:user_family_name, :user_given_name],
+                                            "User")
+              th.col-width-large= sort_link(search,
+                                            :patient_family_name,
+                                            [:patient_family_name, :patient_given_name],
+                                            "Patient")
+              th.col-width-date-time Clinic visit
+              th Letter
+              th.col-width-date-time= sort_link(search, :created_at, "Session date")
+              th.col-width-medium= sort_link(search, :status, "Status")
+              th Note status
+              th.col-width-date-time= sort_link(search, :last_synced_at, "Last polled")
+              th Heidi session
+              th Error
+          tbody
+            - sessions.each do |session|
+              - patient = session.patient
+              - clinic_visit = session.clinic_visit
+              - letter = clinic_visit.present? ? letters_by_clinic_visit_id[clinic_visit.id] : nil
+              tr
+                td= link_to session.user.full_name, edit_admin_user_path(session.user), target: "_top"
+                td= link_to patient.full_name, patient_clinic_visits_path(patient), target: "_top"
+                td
+                  - if clinic_visit.present?
+                    = link_to l(clinic_visit.date),
+                              edit_patient_clinic_visit_path(patient, clinic_visit),
+                              target: "_top"
+                td
+                  - if letter.present?
+                    = link_to "View",
+                              patient_letters_letter_path(patient, letter),
+                              target: "_top"
+                td= l(session.created_at)
+                td
+                  = render "renalware/clinics/clinic_visits/heidi_state_badge",
+                           status: session.status
+                td= session.consult_note_status.presence || "Not ready"
+                td= l(session.last_synced_at) if session.last_synced_at.present?
+                td= session.heidi_session_id
+                td= session.sync_error.to_s.truncate(120)
+
+        == pagy.series_nav if pagy.pages > 1

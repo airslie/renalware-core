@@ -36,6 +36,9 @@ resources :patients, except: [:destroy], controller: "patients/patients" do
 
   resource :timeline, only: :show, controller: "patients/timeline"
   resource :lab, only: :show, controller: "patients/labs"
+  resource :heidi_linked_account,
+           only: %i(show new create),
+           controller: "patients/heidi_linked_accounts"
   resource :clinical_summary, only: :show, controller: "patients/clinical_summaries"
   resource :death, only: %i(edit update), controller: "patients/deaths"
   resource :primary_care_physician,

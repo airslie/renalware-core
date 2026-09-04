@@ -32,11 +32,11 @@ module Renalware
       @clinic_visits ||= begin
         visits_ = Clinics::ClinicVisit
           .for_patient(patient)
-          .includes(:clinic)
+          .includes(:clinic, :heidi_sessions)
           .with_created_by
           .ordered
           .limit(limit)
-        CollectionPresenter.new(visits_, Renalware::Clinics::VisitPresenter)
+        CollectionPresenter.new(visits_, Renalware::Clinics::ClinicVisitPresenter)
       end
     end
 

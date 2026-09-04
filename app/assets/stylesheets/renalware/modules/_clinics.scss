@@ -1,4 +1,83 @@
-.page--clinics-visits {
+.heidi-state {
+  align-items: center;
+  border-radius: 0.25rem;
+  display: inline-flex;
+  font-size: 0.85rem;
+  gap: 0.25rem;
+  line-height: 1;
+  padding: 0.25rem 0.4rem;
+  white-space: nowrap;
+
+  .heidi-state__indicator {
+    display: inline-block;
+    flex: 0 0 auto;
+    height: 0.65rem;
+    position: relative;
+    width: 0.65rem;
+  }
+}
+
+.heidi-state--preparing,
+.heidi-state--launched {
+  background-color: var(--nhs-warm-yellow);
+  color: var(--black);
+
+  .heidi-state__indicator {
+    animation: heidi-state-pulse 1.2s ease-in-out infinite;
+    background-color: currentColor;
+    border-radius: 999px;
+    height: 0.5rem;
+    width: 0.5rem;
+  }
+}
+
+.heidi-state--synced {
+  background-color: $nhs-green;
+  color: var(--white);
+
+  .heidi-state__indicator::before {
+    border-color: currentColor;
+    border-style: solid;
+    border-width: 0 0.12rem 0.12rem 0;
+    content: "";
+    display: block;
+    height: 0.5rem;
+    left: 0.18rem;
+    position: absolute;
+    top: 0;
+    transform: rotate(45deg);
+    width: 0.25rem;
+  }
+}
+
+.heidi-state--launch-failed,
+.heidi-state--sync-failed {
+  background-color: var(--nhs-red);
+  color: var(--white);
+
+  .heidi-state__indicator::before,
+  .heidi-state__indicator::after {
+    background-color: currentColor;
+    content: "";
+    display: block;
+    height: 0.12rem;
+    left: 0.05rem;
+    position: absolute;
+    top: 0.28rem;
+    width: 0.55rem;
+  }
+
+  .heidi-state__indicator::before {
+    transform: rotate(45deg);
+  }
+
+  .heidi-state__indicator::after {
+    transform: rotate(-45deg);
+  }
+}
+
+.page--clinics-clinic_visits,
+.page--clinics_visits {
   .filters__output {
     display: none;
   }
@@ -27,5 +106,16 @@
     table tbody tr td {
       padding-bottom: 3rem;
     }
+  }
+}
+
+@keyframes heidi-state-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 1;
   }
 }

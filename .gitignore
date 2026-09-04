@@ -92,7 +92,9 @@ MESH_NHS_CA_FILE
 .env.2
 app/assets/builds/tailwind.css
 tximport_data
-tximport/original.xlsx
+tximport/*.xlsx
+tximport/*.xlsx
+tximport/original/*
 storage
 tximport.zip
 mise.toml

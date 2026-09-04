@@ -57,6 +57,8 @@ import ProblemsSearchController from "./problems/search_controller"
 import DialogController from "./dialog_controller"
 import PrimaryNavigationController from "./primary_navigation_controller"
 import AdminMenuFilterController from "./admin_menu_filter_controller"
+import HeidiClinicVisitLaunchController from "./heidi_clinic_visit_launch_controller"
+import HeidiSessionPollerController from "./heidi_session_poller_controller"
 
 application.register("toggle", ToggleController)
 application.register("hd-prescription-administration", HDPrescriptionController)
@@ -136,3 +138,5 @@ application.register("problems-search", ProblemsSearchController)
 application.register("dialog", DialogController)
 application.register("primary-navigation", PrimaryNavigationController)
 application.register("admin-menu-filter", AdminMenuFilterController)
+application.register("heidi-clinic-visit-launch", HeidiClinicVisitLaunchController)
+application.register("heidi-session-poller", HeidiSessionPollerController)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_19_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_03_120000) do
   create_schema "renalware"
   create_schema "renalware_heroic"
 
@@ -3600,6 +3600,29 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_19_120000) do
     t.index ["updated_by_id"], name: "index_hd_vnd_risk_assessments_on_updated_by_id"
   end
 
+  create_table "renalware.heidi_sessions", force: :cascade do |t|
+    t.bigint "clinic_visit_id"
+    t.text "consult_note"
+    t.datetime "consult_note_inserted_at"
+    t.string "consult_note_status"
+    t.datetime "created_at", null: false
+    t.string "heidi_patient_profile_id"
+    t.string "heidi_session_id"
+    t.datetime "last_synced_at"
+    t.bigint "patient_id", null: false
+    t.jsonb "raw_response", default: {}, null: false
+    t.string "status", default: "launched", null: false
+    t.text "sync_error"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["clinic_visit_id"], name: "index_heidi_sessions_on_clinic_visit_id"
+    t.index ["heidi_session_id"], name: "index_heidi_sessions_on_heidi_session_id", unique: true
+    t.index ["patient_id", "created_at"], name: "index_heidi_sessions_on_patient_id_and_created_at"
+    t.index ["patient_id"], name: "index_heidi_sessions_on_patient_id"
+    t.index ["status"], name: "index_heidi_sessions_on_status"
+    t.index ["user_id"], name: "index_heidi_sessions_on_user_id"
+  end
+
   create_table "renalware.help_tour_annotations", force: :cascade do |t|
     t.string "attached_to_position", default: "bottom", null: false
     t.string "attached_to_selector", null: false
@@ -6766,6 +6789,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_19_120000) do
   add_foreign_key "renalware.hd_vnd_risk_assessments", "renalware.patients"
   add_foreign_key "renalware.hd_vnd_risk_assessments", "renalware.users", column: "created_by_id"
   add_foreign_key "renalware.hd_vnd_risk_assessments", "renalware.users", column: "updated_by_id"
+  add_foreign_key "renalware.heidi_sessions", "renalware.clinic_visits"
+  add_foreign_key "renalware.heidi_sessions", "renalware.patients"
+  add_foreign_key "renalware.heidi_sessions", "renalware.users"
   add_foreign_key "renalware.help_tour_annotations", "renalware.help_tour_pages", column: "page_id"
   add_foreign_key "renalware.hospital_departments", "renalware.hospital_centres"
   add_foreign_key "renalware.hospital_units", "renalware.hospital_centres"
