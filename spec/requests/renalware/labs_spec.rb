@@ -316,16 +316,16 @@ describe "Lab" do
     create(
       :view_metadata,
       category: :widget,
-      schema_name: schema_name,
+      schema_name:,
       view_name: "lab_global_widget_view",
-      title: title,
+      title:,
       columns: [
         Renalware::System::ColumnDefinition.new(code: "label", name: "Label")
       ],
       widget_options: {
         slots: ["lab:global:top"],
         max_rows: 5,
-        async: async
+        async:
       }
     )
   end
@@ -400,18 +400,18 @@ describe "Lab" do
     create(
       :view_metadata,
       category: :widget,
-      schema_name: schema_name,
+      schema_name:,
       view_name: "lab_patient_widget_view",
-      title: title,
+      title:,
       columns: [
         Renalware::System::ColumnDefinition.new(code: "patient_id", hidden: true),
         Renalware::System::ColumnDefinition.new(code: "label", name: "Label")
       ],
       widget_options: {
-        slots: slots,
+        slots:,
         max_rows: 5,
-        patient_id_column: patient_id_column,
-        async: async
+        patient_id_column:,
+        async:
       }.compact
     )
   end

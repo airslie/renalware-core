@@ -24,7 +24,7 @@ module Renalware
             measurement_unit: build_stubbed(:pathology_measurement_unit, name: "L"),
             code: "HGB",
             name: "HGB desc",
-            hd_sample_type: hd_sample_type
+            hd_sample_type:
           )
           observation = build_stubbed(
             :pathology_observation,

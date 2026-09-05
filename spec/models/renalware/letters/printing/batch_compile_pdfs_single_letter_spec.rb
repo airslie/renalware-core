@@ -10,7 +10,7 @@ module Renalware
       it "creates a batch pdf when the batch contains a single letter" do
         batch = Letters::Batch.create!(by: user)
         letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(page_count: 1)
-        batch.items.create!(letter: letter)
+        batch.items.create!(letter:)
 
         Dir.mktmpdir(nil, Rails.root.join("tmp").to_s) do |dir|
           Dir.chdir(dir) do
@@ -27,7 +27,7 @@ module Renalware
       it "does not create a blank pdf when the single letter has no printable recipients" do
         batch = Letters::Batch.create!(by: user)
         letter = create_approved_letter_to_emailed_gp
-        batch.items.create!(letter: letter)
+        batch.items.create!(letter:)
         expected_batch_pdf = Renalware.config.base_working_folder.join(
           "batched_letters",
           "#{batch.id}.pdf"

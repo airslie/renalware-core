@@ -1,7 +1,7 @@
 module Renalware
   module System
     describe SqlViewWidgetQuery do
-      subject(:query) { described_class.new(relation, connection: connection) }
+      subject(:query) { described_class.new(relation, connection:) }
 
       let(:relation) { instance_double(ActiveRecord::Relation, to_a: rows) }
       let(:rows) { [instance_double(ApplicationRecord)] }

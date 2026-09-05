@@ -11,7 +11,7 @@ describe "Renal safety alerts" do
   let!(:alert) do
     create(
       :renal_safety_alert,
-      patient: patient,
+      patient:,
       safety_alert_rule: rule,
       rule_name: rule.name,
       label: "MSSA screen positive"

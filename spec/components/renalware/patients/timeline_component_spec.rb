@@ -32,7 +32,7 @@ module Renalware
       before do
         create(
           :renal_safety_alert,
-          patient: patient,
+          patient:,
           safety_alert_rule: rule,
           rule_name: rule.name,
           created_at: sort_date,
@@ -40,7 +40,7 @@ module Renalware
         )
         create(
           :renal_safety_alert,
-          patient: patient,
+          patient:,
           safety_alert_rule: create(:renal_safety_alert_rule, name: "Resolved alert"),
           rule_name: "Resolved alert",
           created_at: sort_date - 1.day,
