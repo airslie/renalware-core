@@ -9,9 +9,9 @@ module Renalware
 
         render partial: "renalware/letters/lists/filters",
                locals: {
-                 form: form,
+                 form:,
                  named_filter: :batch_printable,
-                 letters: letters,
+                 letters:,
                  letters_count: 3
                }
 

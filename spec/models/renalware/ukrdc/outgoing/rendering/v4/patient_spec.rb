@@ -61,7 +61,7 @@ module Renalware
             create(
               :patient,
               sent_to_ukrdc_at: 1.year.ago,
-              language: language
+              language:
             )
           )
 
@@ -88,7 +88,7 @@ module Renalware
               create(
                 :patient,
                 sent_to_ukrdc_at: 1.year.ago,
-                language: language
+                language:
               )
             )
 

@@ -15,7 +15,7 @@ module Renalware
             ColumnDefinition.new(code: "notes", width: :medium, truncate: true),
             ColumnDefinition.new(code: "active", name: "Active")
           ],
-          widget_options: widget_options
+          widget_options:
         )
       }
 
@@ -66,7 +66,7 @@ module Renalware
       end
 
       it "renders a compact table from a SQL view" do
-        render_inline(described_class.new(view_metadata: view_metadata))
+        render_inline(described_class.new(view_metadata:))
 
         expect(page).to have_text("Test Results")
         expect(page).to have_text("Date")
@@ -77,7 +77,7 @@ module Renalware
       end
 
       it "uses report-style column metadata and patient cell rendering" do
-        render_inline(described_class.new(view_metadata: view_metadata))
+        render_inline(described_class.new(view_metadata:))
 
         expect(page).to have_css("th.col-width-date", text: "Date")
         expect(page).to have_css("th.col-width-medium", text: "Notes")
@@ -102,14 +102,14 @@ module Renalware
               ColumnDefinition.new(code: "performed_on", name: "Date"),
               ColumnDefinition.new(code: "test_type", name: "Type")
             ],
-            widget_options: widget_options
+            widget_options:
           )
         }
 
         it "renders a configure columns action for a superadmin" do
           user = create(:user, :super_admin)
 
-          render_inline(described_class.new(view_metadata: view_metadata, current_user: user))
+          render_inline(described_class.new(view_metadata:, current_user: user))
 
           expect(page).to have_link(
             "Configure columns",
@@ -124,7 +124,7 @@ module Renalware
         it "does not render a configure columns action for a non-superadmin" do
           user = create(:user)
 
-          render_inline(described_class.new(view_metadata: view_metadata, current_user: user))
+          render_inline(described_class.new(view_metadata:, current_user: user))
 
           expect(page).to have_no_link("Configure columns")
           expect(page).to have_no_css(
@@ -142,7 +142,7 @@ module Renalware
         }
 
         it "only renders rows for the supplied patient" do
-          render_inline(described_class.new(view_metadata: view_metadata, patient: patient))
+          render_inline(described_class.new(view_metadata:, patient:))
 
           expect(page).to have_text("Kt/V")
           expect(page).to have_text("UKM")
@@ -150,7 +150,7 @@ module Renalware
         end
 
         it "does not render global rows when no patient is supplied" do
-          render_inline(described_class.new(view_metadata: view_metadata))
+          render_inline(described_class.new(view_metadata:))
 
           expect(page).to have_text("No test data")
           expect(page).to have_no_text("Kt/V")
@@ -173,7 +173,7 @@ module Renalware
 
           render_inline(
             described_class.new(
-              view_metadata: view_metadata,
+              view_metadata:,
               patient_scope: Renalware::Patient.where(id: visible_patient.id)
             )
           )

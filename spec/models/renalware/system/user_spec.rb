@@ -294,7 +294,7 @@ module Renalware
       let!(:readonly_role) { create(:role, :read_only, ad_role_name: "renalware-readonly") }
       let(:hospital_centre) { create(:hospital_centre, :default) }
       let(:password) { "ldap-password" }
-      let(:ldap_connection) { instance_double(Ldap::Connection, nested_group_names: nested_group_names) }
+      let(:ldap_connection) { instance_double(Ldap::Connection, nested_group_names:) }
       let(:nested_group_names) { ["renalware-clinical"] }
       let(:auth) do
         OmniAuth::AuthHash.new(
