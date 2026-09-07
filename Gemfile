@@ -109,7 +109,7 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails"
   gem "rubocop", require: false
-  gem "wkhtmltopdf-binary", "0.12.6.8"
+  gem "wkhtmltopdf-binary", "0.12.6.10"
 end
 
 # From gemspec
