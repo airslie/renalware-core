@@ -73,11 +73,6 @@ When /^Nathalie records a DNA HD session for Patty with the notes "([^"]*)"$/ do
                      notes: notes)
 end
 
-When /Clyde brings up the MDM page for Patty/ do
-  pending
-  view_patient_mdm_page(patient: @patty, user: @clyde)
-end
-
 When /Nathalie views Patty's sessions/ do
   view_patients_hd_sessions(patient: @patty, user: @nathalie)
 end
@@ -116,10 +111,6 @@ end
 
 Then /Patty has a signed-off session HD session/ do
   expect_session_to_be_signed_off(patient: @patty)
-end
-
-Then /the MDM displays the following sessions/ do |table|
-  expect_mdm_to_include_patient_sessions(patient: @patty, table: table)
 end
 
 Then /Nathalie sees all Patty's HD sessions/ do
@@ -168,19 +159,6 @@ end
 
 Then /Patty has a new NDA HD session/ do
   expect_dna_session_to_exist(patient: @patty)
-end
-
-When /Natalie views the protocol/ do
-  view_protocol(@patty)
-end
-
-Given /Patty has these recorded HD Sessions/ do
-  pending
-end
-
-Then /^the protocol contains$/ do |table|
-  pending
-  expect_protocol_to_be(table.hashes)
 end
 
 Then /the rolling session statistics for the patient are regenerated/ do

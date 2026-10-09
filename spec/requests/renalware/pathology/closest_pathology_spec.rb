@@ -54,11 +54,4 @@ describe "Patient's closest pathology to a date, filtered by code group" do
       raise NotImplementedError
     end
   end
-
-  context "when TODO" do
-    it "TODO" do
-      pending "TODO"
-      raise NotImplementedError
-    end
-  end
 end

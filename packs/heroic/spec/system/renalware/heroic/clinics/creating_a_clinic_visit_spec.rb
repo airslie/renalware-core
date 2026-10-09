@@ -5,6 +5,14 @@ require "rails_helper"
 RSpec.describe "Creating a HEROIC Clinic Visit", :js do
   include SlimSelectHelper
 
+  around do |example|
+    original = Renalware.config.heidi_enabled
+    Renalware.config.heidi_enabled = false
+    example.run
+  ensure
+    Renalware.config.heidi_enabled = original
+  end
+
   context "with valid inputs" do
     it "creates the visit" do
       user = login_as_clinical

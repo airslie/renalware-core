@@ -90,7 +90,7 @@
   = field_set_tag do
     legend Letter Preferences
 
-    = f.input :cc_on_all_letters,  as: :inline_radio_buttons, wrapper: :horizontal_small
+    = f.input :cc_on_all_letters, as: :inline_radio_buttons, wrapper: :horizontal_small
     = f.input :cc_decision_on, as: :flatpickr, wrapper: :horizontal_datepicker
 
 - if policy(patient).update_pkb_renalreg_preferences?

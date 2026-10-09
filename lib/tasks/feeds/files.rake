@@ -5,7 +5,7 @@ begin
       # TEST_ZIP_FILE_PATH = "/Users/tim/Downloads/hscorgrefdataxml_data_1.0.1_20170526000001.zip"
       desc "Import GPs"
       # Test file at "/Users/tim/Downloads/nhs_odsweekly_6.2.0_20170615000001.zip"
-      task :import_gps, [:absolute_zip_file_path] => [:environment] do |task, args|
+      task :import_gps, [:absolute_zip_file_path] => [:environment] do |_task, args|
         file = Renalware::Feeds::File.build(
           location: args.fetch(:absolute_zip_file_path),
           file_type: :primary_care_physicians

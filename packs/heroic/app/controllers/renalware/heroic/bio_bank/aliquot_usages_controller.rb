@@ -39,7 +39,7 @@ module Renalware
         def aliquot
           @aliquot ||= Aliquot.find(params[:aliquot_id])
         end
-        alias_method :usable, :aliquot
+        alias usable aliquot
 
         def find_and_authorize_usage
           usable.usage.tap { |usage| authorize usage }

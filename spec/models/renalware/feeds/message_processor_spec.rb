@@ -1,4 +1,3 @@
-# rubocop:disable-next RSpec/AnyInstance
 module Renalware::Feeds
   describe MessageProcessor do
     include HL7Helpers
@@ -21,9 +20,11 @@ module Renalware::Feeds
         it "does not raise an error or notify the exception" do
           message_processor = described_class.new
           allow(Rails.error).to receive(:report)
-          allow_any_instance_of(PersistMessage)
-            .to receive(:call)
-            .and_raise(DuplicateMessageError.new)
+          allow(PersistMessage).to receive(:new).and_return(
+            instance_double(PersistMessage).tap do |persist|
+              allow(persist).to receive(:call).and_raise(DuplicateMessageError.new)
+            end
+          )
 
           expect { message_processor.call("raw_hl7") }.not_to raise_error
           expect(Rails.error).not_to have_received(:report)
@@ -34,9 +35,11 @@ module Renalware::Feeds
         it "notifies the exception and re-raises it" do
           message_processor = described_class.new
           allow(Rails.error).to receive(:report)
-          allow_any_instance_of(PersistMessage)
-            .to receive(:call)
-            .and_raise(ArgumentError.new)
+          allow(PersistMessage).to receive(:new).and_return(
+            instance_double(PersistMessage).tap do |persist|
+              allow(persist).to receive(:call).and_raise(ArgumentError.new)
+            end
+          )
 
           expect { message_processor.call("raw_hl7") }.to raise_error(ArgumentError)
           expect(Rails.error).to have_received(:report).with(

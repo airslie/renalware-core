@@ -24,7 +24,7 @@ module Renalware
           # Returns the integer batch number from the folder name
           # e.g. 13 from /var/ukrdc/archive/000013_20190827081107620
           def batch_number
-            matches = folder.match(%r(\/(\d{6})_))
+            matches = folder.match(%r(/(\d{6})_))
             return unless matches
 
             matches[1].to_i

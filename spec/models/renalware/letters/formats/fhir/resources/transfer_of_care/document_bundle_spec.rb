@@ -50,10 +50,6 @@ module Renalware
           expect(resource.type).to eq("document")
         end
 
-        describe "fullUrl" do
-          pending ".."
-        end
-
         describe "#entry" do
           subject(:entry) { resource.entry }
 

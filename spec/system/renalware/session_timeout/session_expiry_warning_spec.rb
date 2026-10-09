@@ -1,6 +1,8 @@
 # Time is frozen and then advanced rather than waited for: in the browser with Playwright's clock
 # (which drives session_controller.js timers) and on the server with travel (which Devise uses).
 describe "Warning before the session expires", :js do
+  include BrowserClockHelpers
+
   around do |example|
     original_timeout = Devise.timeout_in
     original_warning = Renalware.config.session_timeout_warning
@@ -22,38 +24,14 @@ describe "Warning before the session expires", :js do
   let(:past_original_expiry) { 2.minutes + 5.seconds }
 
   before do
-    freeze_time
-    browser do |playwright_page|
-      playwright_page.clock.install(time: Time.current)
-      playwright_page.clock.pause_at(Time.current)
-    end
+    freeze_time_in_server_and_browser
     login_as_clinical
     visit root_path
     page.execute_script("window.notReloaded = true")
   end
 
-  def browser(&) = page.driver.with_playwright_page(&)
-
-  def advance(duration)
-    travel(duration)
-    run_browser_clock_for(duration)
-  end
-
-  def run_browser_clock_for(duration)
-    browser { |playwright_page| playwright_page.clock.run_for(duration.in_milliseconds.to_i) }
-  end
-
   def choose_to_stay_signed_in
     awaiting_keep_alive { within(warning) { click_on "Stay signed in" } }
-  end
-
-  def awaiting_keep_alive(&)
-    browser { |playwright_page| playwright_page.expect_response(/keep_session_alive/, &) }
-  end
-
-  def expect_user_still_on_the_page
-    expect(page).to have_current_path(root_path)
-    expect(page.evaluate_script("window.notReloaded")).to be(true)
   end
 
   it "warns the user with a countdown shortly before their session expires" do

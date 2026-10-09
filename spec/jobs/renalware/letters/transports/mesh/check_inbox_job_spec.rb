@@ -2,17 +2,17 @@ module Renalware::Letters::Transports::Mesh
   describe CheckInboxJob do
     include FaradayHelper
 
+    let(:perform) { -> { described_class.new.perform } }
+
     context "when there are no messages in the inbox" do
-      let(:response) {  mock_faraday_response(body: { "messages" => [] }) }
+      let(:response) { mock_faraday_response(body: { "messages" => [] }) }
 
       it "checks the inbox and does nothing else" do
         allow(API::Client).to receive(:check_inbox).and_return(response)
-        allow(DownloadMessageJob).to receive(:perform_later)
 
-        described_class.new.perform
+        expect(perform).not_to have_enqueued_job(DownloadMessageJob)
 
         expect(API::Client).to have_received(:check_inbox)
-        expect(DownloadMessageJob).not_to have_received(:perform_later)
       end
     end
 
@@ -21,13 +21,12 @@ module Renalware::Letters::Transports::Mesh
 
       it "spawns a new job to download the messages asynchronously" do
         allow(API::Client).to receive(:check_inbox).and_return(response)
-        allow(DownloadMessageJob).to receive(:perform_later)
 
-        described_class.new.perform
+        expect(perform)
+          .to have_enqueued_job(DownloadMessageJob).with("123").once
+          .and have_enqueued_job(DownloadMessageJob).with("456").once
 
         expect(API::Client).to have_received(:check_inbox)
-        expect(DownloadMessageJob).to have_received(:perform_later).with("123").once
-        expect(DownloadMessageJob).to have_received(:perform_later).with("456").once
       end
     end
 

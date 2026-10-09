@@ -9,15 +9,21 @@ module Renalware
 
       describe "#summarised_access_used" do
         it "delegates to SessionAccessPresenter" do
-          allow_any_instance_of(SessionAccessPresenter).to receive(:to_html)
-          presenter.summarised_access_used
+          access_presenter = instance_double(SessionAccessPresenter, to_html: "<b>access</b>")
+          allow(SessionAccessPresenter)
+            .to receive(:new).with(presenter).and_return(access_presenter)
+
+          expect(presenter.summarised_access_used).to eq("<b>access</b>")
         end
       end
 
       describe "#access_used" do
         it "delegates to SessionAccessPresenter" do
-          allow_any_instance_of(SessionAccessPresenter).to receive(:to_s)
-          presenter.access_used
+          access_presenter = instance_double(SessionAccessPresenter, to_s: "access")
+          allow(SessionAccessPresenter)
+            .to receive(:new).with(presenter).and_return(access_presenter)
+
+          expect(presenter.access_used).to eq("access")
         end
       end
 

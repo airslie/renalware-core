@@ -23,9 +23,6 @@ describe Renalware::Letters::SavePdfLetterToFileJob do
     it "creates the specific file with the pdf letter content" do
       file_path = Rails.root.join("tmp/test.pdf")
 
-      allow_any_instance_of(Renalware::Letters::LetterPresenter)
-        .to receive(:to_html).and_return("test")
-
       job.perform(letter:, file_path:)
 
       expect(File.exist?(file_path)).to be(true)

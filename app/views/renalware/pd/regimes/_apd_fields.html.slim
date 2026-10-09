@@ -16,7 +16,7 @@
                 wrapper: :horizontal_small
 
       = f.input :tidal_percentage,
-                collection: Renalware::PD::APDRegime::VALID_RANGES::tidal_percentages,
+                collection: Renalware::PD::APDRegime::VALID_RANGES.tidal_percentages,
                 include_blank: t("collection.blank_option"),
                 wrapper: :horizontal_small
 

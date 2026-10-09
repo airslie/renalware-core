@@ -136,14 +136,6 @@ Layout/ClassStructure:
   Exclude:
     - 'packs/heroic/app/models/renalware/heroic/bio_bank/samples_sheet.rb'
 
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowForAlignment, AllowBeforeTrailingComments, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Exclude:
-    - 'app/views/renalware/letters/transports/mesh/unreconciled_messages/index.html.slim'
-    - 'app/views/renalware/patients/patients/_form.html.slim'
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: Width, EnforcedStyleAlignWith, AllowedPatterns.
@@ -184,13 +176,6 @@ Layout/LineLength:
     - 'packs/heroic/db/required_seeds/reports/definitions.rb'
     - 'packs/heroic/spec/models/renalware/heroic/clinics/visit_spec.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Layout/SpaceBeforeComma:
-  Exclude:
-    - 'app/views/renalware/hd/mdm_patients/_page_actions.html.slim'
-    - 'app/views/renalware/hd/sessions/_row.html.slim'
-
 # Offense count: 9
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
@@ -207,14 +192,6 @@ Layout/SpaceInsideArrayLiteralBrackets:
     - 'app/views/renalware/transplants/recipient_operations/new.html.slim'
     - 'packs/hospitals/app/views/renalware/hospitals/wards/edit.html.slim'
     - 'packs/hospitals/app/views/renalware/hospitals/wards/new.html.slim'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: space, compact, no_space
-Layout/SpaceInsideParens:
-  Exclude:
-    - 'packs/authoring/app/views/renalware/authoring/snippets/_filters.slim'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
@@ -336,15 +313,6 @@ Lint/SymbolConversion:
     - 'app/views/renalware/virology/vaccinations/_inputs.html.slim'
     - 'packs/heroic/app/views/renalware/heroic/research/participations/_form.html.slim'
 
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
-Lint/UnusedBlockArgument:
-  Exclude:
-    - 'app/views/renalware/admissions/consults/_filters.pdf.slim'
-    - 'app/views/renalware/renal/aki_alerts/_filters.pdf.slim'
-    - 'lib/tasks/feeds/files.rake'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods, IgnoreNotImplementedMethods, NotImplementedExceptions.
@@ -352,12 +320,6 @@ Lint/UnusedBlockArgument:
 Lint/UnusedMethodArgument:
   Exclude:
     - 'app/models/renalware/letters/event/clinic_visit.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Lint/UselessAssignment:
-  Exclude:
-    - 'packs/heroic/spec/models/renalware/heroic/reports/heroic_participants_spec.rb'
 
 # Offense count: 1
 Lint/UselessDefined:
@@ -1835,14 +1797,6 @@ Rails/RedundantActiveRecordAllMethod:
     - 'app/views/renalware/renal/profiles/_form.html.slim'
 
 # Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: referer, referrer
-Rails/RequestReferer:
-  Exclude:
-    - 'app/views/renalware/renal/aki_alerts/edit.html.slim'
-
-# Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: strict, flexible
@@ -1932,14 +1886,6 @@ Rake/DuplicateTask:
     - 'lib/tasks/cucumber.rake'
 
 # Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: prefer_alias, prefer_alias_method
-Style/Alias:
-  Exclude:
-    - 'packs/heroic/app/controllers/renalware/heroic/bio_bank/aliquot_usages_controller.rb'
-
-# Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/ArrayIntersect:
   Exclude:
@@ -1960,15 +1906,6 @@ Style/CollectionQuerying:
     - 'packs/reporting/app/views/renalware/reporting/reports/content.html.slim'
     - 'packs/research/app/views/renalware/research/participations/_table.html.slim'
 
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-Style/ColonMethodCall:
-  Exclude:
-    - 'app/views/renalware/admin/users/edit.html.slim'
-    - 'app/views/renalware/hd/protocols/_latest_access_needling_assessment.html.slim'
-    - 'app/views/renalware/hd/protocols/_latest_vnd_risk_assessment.html.slim'
-    - 'app/views/renalware/pd/regimes/_apd_fields.html.slim'
-
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/ConcatArrayLiterals:
@@ -1982,21 +1919,6 @@ Style/ConcatArrayLiterals:
 Style/EmptyStringInsideInterpolation:
   Exclude:
     - 'app/views/renalware/hd/mdm_patients/_page_actions.html.slim'
-
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-Style/EvenOdd:
-  Exclude:
-    - 'app/views/renalware/hd/protocols/_protocol.pdf.slim'
-    - 'app/views/renalware/hd/sessions/_table.html.slim'
-    - 'app/views/renalware/letters/printable_letters/show.pdf.slim'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowedVariables, DefaultToNil.
-Style/FetchEnvVar:
-  Exclude:
-    - 'lib/tasks/ukrdc.rake'
 
 # Offense count: 1
 Style/FileOpen:
@@ -2471,7 +2393,6 @@ Style/HashSyntax:
     - 'features/support/worlds/directory/person.rb'
     - 'features/support/worlds/global.rb'
     - 'features/support/worlds/hd/dna_session.rb'
-    - 'features/support/worlds/hd/mdm.rb'
     - 'features/support/worlds/hd/preference_set.rb'
     - 'features/support/worlds/hd/profile.rb'
     - 'features/support/worlds/hd/session.rb'
@@ -2742,12 +2663,6 @@ Style/RedundantBegin:
     - 'lib/tasks/audit.rake'
     - 'lib/tasks/feeds/files.rake'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantCapitalW:
-  Exclude:
-    - 'app/views/renalware/hd/sessions/_show.html.slim'
-
 # Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
 Style/RedundantConstantBase:
@@ -2765,12 +2680,6 @@ Style/RedundantInterpolation:
     - 'app/views/renalware/messaging/internal/receipts/_sent_receipt.html.slim'
     - 'app/views/renalware/renal/aki_alerts/_aki_alert.html.slim'
     - 'packs/heroic/app/views/renalware/heroic/bio_bank/samples/_sample.html.slim'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantRegexpEscape:
-  Exclude:
-    - 'app/models/renalware/ukrdc/housekeeping/remove_old_export_archive_folders.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).

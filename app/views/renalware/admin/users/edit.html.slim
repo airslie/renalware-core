@@ -83,7 +83,7 @@
                     wrapper: :horizontal_small
 
       = f.input :nursing_experience_level,
-                collection: Renalware::User::nursing_experience_levels.collect { |c| [c[0].titleize, c[0]] },
+                collection: Renalware::User.nursing_experience_levels.collect { |c| [c[0].titleize, c[0]] },
                 wrapper: :horizontal_tiny
 
       = f.input :notes,
