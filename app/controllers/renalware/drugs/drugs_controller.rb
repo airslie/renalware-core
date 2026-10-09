@@ -108,9 +108,9 @@ module Renalware
       end
 
       def drug_params
-        params.require(:drugs_drug).permit(
-          :name, :deleted_at, drug_type_ids: []
-        )
+        permitted_attributes = [:deleted_at, { drug_type_ids: [] }]
+        permitted_attributes.unshift(:name) if action_name == "create"
+        params.require(:drugs_drug).permit(*permitted_attributes)
       end
 
       def drug_search
