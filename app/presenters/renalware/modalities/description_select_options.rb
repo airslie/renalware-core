@@ -1,6 +1,6 @@
 module Renalware
   module Modalities
-    class DescriptionPresenter
+    class DescriptionSelectOptions
       def self.list_for_dropdown
         Description.where(hidden: false).map do |desc|
           [

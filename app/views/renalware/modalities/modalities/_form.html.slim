@@ -18,7 +18,7 @@
             } \
           }
           = m.input :description_id,
-                    collection: Renalware::Modalities::DescriptionPresenter.list_for_dropdown,
+                    collection: Renalware::Modalities::DescriptionSelectOptions.list_for_dropdown,
                     input_html: description_input_html,
                     wrapper: :horizontal_medium,
                     autofocus: true
