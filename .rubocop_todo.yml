@@ -2393,7 +2393,6 @@ Style/HashSyntax:
     - 'features/support/worlds/directory/person.rb'
     - 'features/support/worlds/global.rb'
     - 'features/support/worlds/hd/dna_session.rb'
-    - 'features/support/worlds/hd/mdm.rb'
     - 'features/support/worlds/hd/preference_set.rb'
     - 'features/support/worlds/hd/profile.rb'
     - 'features/support/worlds/hd/session.rb'

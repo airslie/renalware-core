@@ -41,13 +41,11 @@ rerun.txt
 /config.codekit3
 /.vagrant
 
-/pkg
 .rubocop-https*
 /data
 /.idea
 /Find Results
 key.gpg
-/node_modules
 /node_modules
 /package-lock.json
 /egpcur.zip
@@ -55,7 +53,6 @@ key.gpg
 /public/packs-test
 log/.bash_history
 /*.pdf
-.env.development
 .env.development
 app/assets/builds/tailwind.css
 ukrdc_keyring.*
@@ -79,20 +76,12 @@ renalware.code-workspace
 MESH_NHS_CA_FILE
 rubocop-*.yml
 .env.2
-MESH_NHS_CA_FILE
 .envrc
-MESH_NHS_CA_FILE
 log/development.log.0
 log/test.log.0
-.env.2
-app/assets/builds/tailwind.css
 app/assets/builds/renalware.js
 app/assets/builds/renalware.js.map
-MESH_NHS_CA_FILE
-.env.2
-app/assets/builds/tailwind.css
 tximport_data
-tximport/*.xlsx
 tximport/*.xlsx
 tximport/original/*
 storage

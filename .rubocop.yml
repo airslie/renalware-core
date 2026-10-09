@@ -36,7 +36,6 @@ AllCops:
     - "config/environment.rb"
     - "db/migrate/**/*"
     - "db/cache_migrate/**/*"
-    - "demo-old/**/*"
     - "*.gemspec"
     - "vendor/**/*"
     - "bin/**/*"
@@ -134,7 +133,6 @@ Style/AsciiComments:
   Enabled: true
   Exclude:
     - "app/models/renalware/feeds/hl7_message.rb"
-    - "app/models/renalware/reporting/fetch_audit_json.rb"
 
 
 Rails/ActionOrder:
@@ -184,11 +182,8 @@ Layout/MultilineMethodCallIndentation:
   Enabled: true
 Metrics/ClassLength:
   Enabled: true
-  Exclude:
-    - "lib/renalware/engine.rb"
 Layout/LineLength:
   Exclude:
-    - "spec/acceptance/renalware/steps/**/*"
     - "features/step_definitions/**/*"
     - "config/initializers/**/*"
     - "app/inputs/**.*"
@@ -198,7 +193,6 @@ Style/FrozenStringLiteralComment:
 
 Metrics/AbcSize:
   Exclude:
-    - "spec/acceptance/renalware/steps/**/*"
     - "features/**/*"
     - "db/**/*"
     - "db/**/*"
@@ -240,14 +234,12 @@ Style/RedundantLineContinuation:
   Exclude:
     - 'app/views/**/*'
     - 'app/components/**/*'
-    - 'view_components/**/*'
     - 'packs/**/*'
 Style/HashSyntax:
   Enabled: true
   Exclude:
     - 'app/views/**/*'
     - 'app/components/**/*'
-    - 'view_components/**/*'
     - 'packs/**/*'
 
 # HL7 messages contain strings which seem to be escaped and aren't so its safest to disable this
@@ -292,7 +284,6 @@ Rails/FindEach: # each could badly affect the performance, use find_each
 Metrics/CollectionLiteralLength:
   Exclude:
     - 'db/migrate/**/*'
-    - 'demo-old/db/migrate/**/*'
 
 Style/RedundantStructKeywordInit:
   Enabled: true
