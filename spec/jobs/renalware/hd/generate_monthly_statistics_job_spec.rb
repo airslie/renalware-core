@@ -49,17 +49,10 @@ module Renalware
             travel_to Date.new(2017, 01, 31) do
               create(:hd_closed_session, patient:, signed_off_at: 1.month.ago)
 
-              allow(GenerateMonthlyStatisticsForPatientJob).to receive(:perform_later)
-
-              service.call
-
-              expect(GenerateMonthlyStatisticsForPatientJob).to have_received(:perform_later)
+              expect { service.call }
+                .to have_enqueued_job(GenerateMonthlyStatisticsForPatientJob)
                 .exactly(:once)
-                .with(
-                  patient:,
-                  month: 12,
-                  year: 2016
-                )
+                .with(patient:, month: 12, year: 2016)
             end
           end
         end
@@ -74,17 +67,10 @@ module Renalware
             create(:hd_closed_session, patient: patient_a, signed_off_at: Date.parse("2018-01-31"))
             create(:hd_closed_session, patient: patient_b, signed_off_at: Date.parse("2018-02-28"))
 
-            allow(GenerateMonthlyStatisticsForPatientJob).to receive(:perform_later)
-
-            service.call
-
-            expect(GenerateMonthlyStatisticsForPatientJob).to have_received(:perform_later)
+            expect { service.call }
+              .to have_enqueued_job(GenerateMonthlyStatisticsForPatientJob)
               .exactly(:once)
-              .with(
-                patient: patient_a,
-                month: 1,
-                year: 2018
-              )
+              .with(patient: patient_a, month: 1, year: 2018)
           end
         end
       end

@@ -11,10 +11,14 @@ module Renalware
 
       describe "#perform" do
         it "delegates to a service object passing in last month" do
-          expect_any_instance_of(GenerateMonthlyStatisticsForPatient)
-            .to receive(:call).exactly(:once)
+          service = instance_double(GenerateMonthlyStatisticsForPatient, call: nil)
+          allow(GenerateMonthlyStatisticsForPatient).to receive(:new).and_return(service)
 
           job.perform(patient:, month:, year:)
+
+          expect(GenerateMonthlyStatisticsForPatient)
+            .to have_received(:new).with(patient:, period: having_attributes(month:, year:))
+          expect(service).to have_received(:call).once
         end
       end
     end

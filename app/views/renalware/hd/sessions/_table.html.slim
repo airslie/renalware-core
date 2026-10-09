@@ -7,7 +7,7 @@ table.toggleable.auto-layout.hd-sessions#hd-sessions(
   = render "renalware/hd/sessions/thead"
 
   - sessions.each_with_index do |session, index|
-    - stripe_class = index % 2 == 0 ? "even" : "odd"
+    - stripe_class = index.even? ? "even" : "odd"
     = render "renalware/hd/sessions/#{session.state}/row",
             session: session,
             stripe_class: stripe_class

@@ -5,6 +5,6 @@
   = raw(letter.content)
   / if letter.page_count is e.g. 1 then output another page to prevent the following page
   / being printed on back of the letter
-  - if letter.page_count % 2 == 1
+  - if letter.page_count.odd?
     .alwaysbreak
     | &nbsp;

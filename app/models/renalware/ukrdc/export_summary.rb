@@ -14,6 +14,10 @@ module Renalware
       end
 
       class Serializer < ActiveJob::Serializers::ObjectSerializer
+        def klass
+          ExportSummary
+        end
+
         def serialize?(argument)
           argument.kind_of?(ExportSummary) # rubocop:disable Style/ClassCheck
         end

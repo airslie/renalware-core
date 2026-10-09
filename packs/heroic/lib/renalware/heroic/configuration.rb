@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "renalware/config_accessors"
+
 # Class for configuring the Renalware::Heroic engine
 #
 # To override default config values, create an initializer in the host application
@@ -16,7 +18,7 @@
 module Renalware
   module Heroic
     class Configuration
-      include ActiveSupport::Configurable
+      include Renalware::ConfigAccessors
 
       # Force dotenv to load the .env file at this stage so we can read in the config defaults.
       # Dotenv 3.x no longer provides Dotenv::Rails, so support both APIs.

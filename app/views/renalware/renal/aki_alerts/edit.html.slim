@@ -14,4 +14,4 @@
     = f.submit class: "button"
     '  or
     = link_to t("btn.cancel"), return_to_param || back_url(renal_aki_alerts_path)
-    = hidden_field_tag :return_to, return_to_param || request.referrer
+    = hidden_field_tag :return_to, return_to_param || request.referer

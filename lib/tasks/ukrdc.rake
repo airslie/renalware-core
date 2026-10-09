@@ -37,7 +37,7 @@ namespace :ukrdc do
     end
     # Renalware::UKRDC::TreatmentTimeline::GenerateTreatments.call
     Renalware::UKRDC::CreateEncryptedPatientXmlFiles.new(
-      changed_since: ENV["changed_since"],
+      changed_since: ENV.fetch("changed_since", nil),
       patient_ids: ENV.fetch("patient_ids", "").split(",").map(&:to_i),
       force_send: ENV["force_send"] == "true"
     ).call

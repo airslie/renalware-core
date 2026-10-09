@@ -29,7 +29,7 @@
           group: session.document.observations_after,
           legend: "Post-Dialysis Observations", destination: "after"
 
-      - %W(Dialysis HDF).each do |group|
+      - %w(Dialysis HDF).each do |group|
         = render "renalware/shared/documents/attributes_group",
             group: session.document.public_send(group.parameterize(separator: "_")),
             legend: group, destination: group.parameterize(separator: "_")

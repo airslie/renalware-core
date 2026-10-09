@@ -21,7 +21,7 @@
         = f.input :patient_ids, as: :hidden_array
         = button_tag(type: "submit",
                     class: "button secondary",
-                    style: "#{disabled ? 'color: gray; cursor: not-allowed;' : ''}" ,
+                    style: "#{disabled ? 'color: gray; cursor: not-allowed;' : ''}",
                     disabled: disabled) do
           .flex.items-center.gap-2
             = inline_icon(:printer, size: :md)

@@ -25,6 +25,12 @@ module Renalware
           end
         end
 
+        def stub_session_save(type, result)
+          session = type.constantize.new
+          allow(session).to receive(:save).and_return(result)
+          allow(type.constantize).to receive(:new).and_return(session)
+        end
+
         describe "Simple creation of session without signoff" do
           let(:patient)       { create(:hd_patient) }
           let(:user)          { create(:user, :minimal) }
@@ -61,7 +67,7 @@ module Renalware
         it "broadcasts an event on success" do
           obj = described_class.new(patient:, current_user: user)
 
-          expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
+          stub_session_save("Renalware::HD::Session::Open", true)
           expect {
             obj.call(params: { type: "Renalware::HD::Session::Open" })
           }.to broadcast(:save_success)
@@ -70,7 +76,7 @@ module Renalware
         it "broadcasts an event on failure" do
           obj = described_class.new(patient:, current_user: user)
 
-          expect_any_instance_of(HD::Session).to receive(:save).and_return(false)
+          stub_session_save("Renalware::HD::Session::Open", false)
           expect {
             obj.call(params: { type: "Renalware::HD::Session::Open" })
           }.to broadcast(:save_failure)
@@ -79,7 +85,7 @@ module Renalware
         it "doesn't enqueue a request to update rolling session stats if its an open session" do
           obj = described_class.new(patient:, current_user: user)
 
-          expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
+          stub_session_save("Renalware::HD::Session::Open", true)
 
           expect do
             obj.call(params: { type: "Renalware::HD::Session::Open" })
@@ -89,7 +95,7 @@ module Renalware
         it "enqueues a request to update rolling session stats if its an closed session" do
           obj = described_class.new(patient:, current_user: user)
 
-          expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
+          stub_session_save("Renalware::HD::Session::Closed", true)
 
           expect do
             obj.call(params: { type: "Renalware::HD::Session::Closed" })
@@ -99,7 +105,7 @@ module Renalware
         it "enqueues a request to update rolling session stats if its an dna session" do
           obj = described_class.new(patient:, current_user: user)
 
-          expect_any_instance_of(HD::Session).to receive(:save).and_return(true)
+          stub_session_save("Renalware::HD::Session::DNA", true)
 
           expect do
             obj.call(params: { type: "Renalware::HD::Session::DNA" })

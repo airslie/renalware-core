@@ -17,7 +17,7 @@ module Renalware::Heroic
       subject { described_class.all[0].active }
 
       context "when the patient is inactive" do
-        before { participant = create(:heroic_participation, :inactive) }
+        before { create(:heroic_participation, :inactive) }
 
         it { is_expected.to be(false) }
       end

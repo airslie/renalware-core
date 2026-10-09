@@ -10,8 +10,12 @@ module Renalware
               has_assigned_location?: false
             )
 
-            expect_any_instance_of(CommandFactory).to receive(:for).with(message)
+            factory = instance_double(CommandFactory, for: nil)
+            allow(CommandFactory).to receive(:new).and_return(factory)
+
             described_class.for(message)
+
+            expect(factory).to have_received(:for).with(message)
           end
         end
       end

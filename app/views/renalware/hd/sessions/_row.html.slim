@@ -10,7 +10,7 @@ tbody.hd-session-row(class=[session.state, stripe_class])
                     data: { controller: "clipboard-async",
                             action: "clipboard-async#copy",
                             "clipboard-async-url_value": patient_hd_session_clipboard_url(session.patient, session),
-                            "clipboard-async-status_target": "status" ,
+                            "clipboard-async-status_target": "status",
                             title: "Copy session details" }) do
             = inline_icon(:copy, size: :sm, class: "inline")
 
