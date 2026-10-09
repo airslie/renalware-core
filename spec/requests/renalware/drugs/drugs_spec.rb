@@ -8,6 +8,9 @@ describe "Configuring Drugs" do
       get new_drugs_drug_path
 
       expect(response).to be_successful
+      name_input = response.parsed_body.at_css('input[name="drugs_drug[name]"]')
+      expect(name_input).to be_present
+      expect(name_input["disabled"]).to be_nil
     end
   end
 
@@ -145,13 +148,18 @@ describe "Configuring Drugs" do
       get edit_drugs_drug_path(drug)
 
       expect(response).to be_successful
+      name_input = response.parsed_body.at_css('input[name="drugs_drug[name]"]')
+      expect(name_input["value"]).to eq(drug.name)
+      expect(name_input["disabled"]).to be_present
     end
   end
 
   describe "PATCH update" do
     context "with valid attributes" do
-      it "updates a record" do
-        attributes = { name: "::drug_name::" }
+      it "updates drug types without changing the name" do
+        drug_type = create(:drug_type)
+        original_name = drug.name
+        attributes = { name: "::drug_name::", drug_type_ids: [drug_type.id] }
 
         drug
         refresh_prescribable_drugs_materialized_view
@@ -160,7 +168,8 @@ describe "Configuring Drugs" do
         patch drugs_drug_path(drug), params: { drugs_drug: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Drugs::Drug).to exist(attributes)
+        expect(drug.reload.name).to eq(original_name)
+        expect(drug.drug_types).to eq([drug_type])
 
         follow_redirect!
 
@@ -170,13 +179,15 @@ describe "Configuring Drugs" do
       end
     end
 
-    context "with invalid attributes" do
-      it "responds with a form" do
+    context "with a blank name" do
+      it "ignores the submitted name" do
+        original_name = drug.name
         attributes = { name: "" }
 
         patch drugs_drug_path(drug), params: { drugs_drug: attributes }
 
-        expect(response).to be_successful
+        expect(response).to have_http_status(:redirect)
+        expect(drug.reload.name).to eq(original_name)
       end
     end
 
