@@ -9,6 +9,56 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.5.6
+
+### Added
+
+- Session expiry warning #6214
+  - A countdown warns inactive users before automatic logout (two minutes beforehand by default, configurable locally), with “Stay signed in” and “Log out” actions. Unsaved changes are still lost if the session expires.
+  - Test the warning while editing clinical notes, staying signed in without losing entered text, allowing the countdown to expire, and behaviour with multiple tabs or after returning to a background tab.
+- Pathology result group editor for superadmins #6213
+  - Allows creation and editing of result groups, including adding/removing investigations, dragging them into order or between subgroups, subgroup headings and colours, and a preview before saving. The default and context-specific groups cannot be deleted.
+  - Test saving and reopening a group, cancelling unsaved changes, and checking the resulting investigation selection/order in pathology views and, for relevant groups, letters and MDM screens. Check that editing is restricted to superadmins.
+- Clinic feed mapping management for superadmins #6221
+  - Adds an administration screen for mapping incoming clinic names to Renalware clinics and setting the default clinic. Name matching now ignores letter case.
+  - At sites using clinic-name mappings, test creating/editing mappings, the single-default restriction, and appointment imports with recognised, differently capitalised and previously unknown clinic names. Confirm appointments appear under the expected clinic.
+- Deleted drugs visible in the administration list #6205
+  - Adds a deletion-status filter and deletion date so administrators can review removed drugs. Deleted drugs remain unavailable for new prescriptions and have no edit/delete actions in the list.
+  - Test the Non-deleted, Deleted and All filters, combined with name/type and active-status filters, and confirm deleted drugs are absent from prescription searches.
+
+### Changed
+
+- Return to the previous page after a session timeout #6207
+  - Signing back in as the same user within the configured period (30 minutes by default) returns to the previous page. If a form was open, the user returns to the related record or list; unsaved form contents are not restored. A different user signing in goes to their own dashboard.
+  - Test timeout and sign-in from patient pages, filtered lists and new/edit forms, including local and Microsoft sign-in where used. Check signing in as a different user and signing back in after the return period has elapsed.
+- Existing drug names can no longer be changed through the administration screen #6232
+  - Names can still be entered when creating a drug; other permitted fields, including drug types, remain editable for existing drugs.
+  - Test creating a drug and editing an existing drug's types, confirming its name remains unchanged.
+- User guide moved into the main documentation site #6197
+  - The user guide is now hosted alongside the technical documentation at docs.renalware.com.
+  - Check the application's Help link and navigation to commonly used clinical guidance.
+
+### Fixed
+
+- Pathology group selection remains available when there are no results #6216
+  - Archived and Historical Pathology pages retain the group selector when the selected group is empty. The message now makes clear that the absence of results applies to that group.
+  - Test switching from an empty group to one containing results and back again on both pages.
+- Correct rebuilding of current pathology results #6206
+  - Rebuilding the current-results summary now selects the latest non-empty result for each investigation, handles corrections with identical observation times, preserves UK local result times, and clears stale entries when source results have been removed.
+  - After a technician-led rebuild in a test environment, compare current results with the source history, including corrected/empty results, removed observations and summer-time results around midnight.
+- Deleted drugs stay deleted after dm+d updates #6217
+  - Drug dictionary synchronisation no longer unintentionally restores locally deleted drugs.
+  - Test a dm+d update with a locally deleted drug and confirm it remains deleted and unavailable for new prescriptions.
+- Problem searches no longer select free text prematurely #6218
+  - Free-text selection is held back while matching coded problems are still loading, reducing accidental free-text entries when using the keyboard quickly.
+  - Test typing a problem and pressing Enter quickly, selecting a coded result once loaded, changing the search term, and deliberately adding a free-text problem.
+- HD session display for modalities such as Transfer Out #6233
+  - Fixes a rendering error when an HD session references a modality without a specialised display formatter.
+  - Test viewing HD sessions associated with Transfer Out and other locally used modalities, and check modality selection when editing a patient's modality history.
+- Combined letter PDFs on Ubuntu 26.04 #6198
+  - Fixes temporary PDF filenames that could prevent letter PDFs being combined under the operating system's security rules.
+  - Test batch printing on affected installations and confirm the combined PDF contains all expected letters and pages.
+
 ## 2.5.5
 
 ### Added
