@@ -71,7 +71,13 @@ FactoryBot.define do
     line_exit_site_status { "0" }
   end
 
+  factory :hd_session_document_pre_dialysis_checklist, class: "OpenStruct" do
+    completed { "yes" }
+  end
+
   factory :hd_session_document, class: "OpenStruct" do
+    pre_dialysis_checklist factory: :hd_session_document_pre_dialysis_checklist,
+                           strategy: :marshal_dump
     info factory: :hd_session_document_info, strategy: :marshal_dump
     dialysis factory: :hd_session_document_dialysis, strategy: :marshal_dump
     avf_avg_assessment factory: :hd_session_document_avf_avg_assessment, strategy: :marshal_dump

@@ -21,6 +21,7 @@ module Renalware
       end
 
       session_document = {
+        pre_dialysis_checklist: { completed: "yes" },
         hdf: {
           subs_goal: 1.0,
           subs_rate: 1.0,

@@ -1,7 +1,7 @@
 module Renalware
   class Configuration
     module HD
-      def self.included(base)
+      def self.included(base) # rubocop:disable Metrics/AbcSize
         base.config_accessor(:hd_acuity_assessment_deletion_window) do
           ActiveSupport::Duration.parse(
             ENV.fetch("HD_ACUITY_ASSESSMENT_DELETION_WINDOW", "PT12H")
@@ -23,6 +23,12 @@ module Renalware
         base.config_accessor(:hd_session_require_patient_group_directions) do
           ActiveModel::Type::Boolean.new.cast(
             ENV.fetch("HD_SESSION_REQUIRE_PATIENT_GROUP_DIRECTIONS", "false")
+          )
+        end
+
+        base.config_accessor(:hd_sessions_require_pre_dialysis_checklist) do
+          ActiveModel::Type::Boolean.new.cast(
+            ENV.fetch("HD_SESSIONS_REQUIRE_PRE_DIALYSIS_CHECKLIST", "false")
           )
         end
 

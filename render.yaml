@@ -47,6 +47,8 @@ services:
         generateValue: true
       - key: WEB_CONCURRENCY
         value: 1
+      - key: HD_SESSIONS_REQUIRE_PRE_DIALYSIS_CHECKLIST
+        value: true
 
 databases:
   - name: renalware-review-db
