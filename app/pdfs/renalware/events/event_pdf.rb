@@ -17,6 +17,7 @@ module Renalware
 
       def initialize(event)
         @event = event
+        Fonts.configure(document)
         build
       end
 

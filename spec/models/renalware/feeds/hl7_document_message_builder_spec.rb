@@ -1,3 +1,5 @@
+require "pdf/reader"
+
 # rubocop:disable-next Layout/LineLength
 module Renalware
   module Feeds
@@ -333,6 +335,19 @@ module Renalware
               feeds_outgoing_documents_use_guids: true,
               ukrdc_site_code: "RJZ"
             )
+          end
+
+          it "preserves clinical symbols in the actual PDF embedded in OBX" do
+            symbols = "≥ ≤ → ↑ µ"
+            event = Events::EventPdfPresenter.new(create(:simple_event, patient:, by:, notes: symbols))
+            document = Feeds::OutgoingDocument.create!(renderable: event.__getobj__, by:)
+            create(:hospital_centre, code: "RJZ")
+
+            msg = described_class.call(renderable: event, document:)
+            content = Base64.strict_decode64(msg[:OBX].observation_value.split("^").last)
+            reader = PDF::Reader.new(StringIO.new(content))
+
+            expect(reader.pages.map(&:text).join("\n")).to include(symbols)
           end
 
           it do
