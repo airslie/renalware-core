@@ -1,5 +1,5 @@
 nav.rw-primary-nav(data-controller="primary-navigation"
-                   data-action="keydown.esc@window->primary-navigation#closeAll click@window->primary-navigation#closeOnOutside"
+                   data-action="keydown.esc@window->primary-navigation#closeAll click@window->primary-navigation#closeOnOutside resize@window->primary-navigation#updateViewportOffset"
                    aria-label="Primary navigation")
   .rw-primary-nav__inner
     = link_to Renalware.config.site_name, main_app.dashboard_path, class: "rw-primary-nav__brand"

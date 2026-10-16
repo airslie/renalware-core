@@ -251,6 +251,15 @@
   text-transform: uppercase;
 }
 
+@media only screen and (max-width: 1023px) {
+  .rw-primary-nav--open {
+    // The page body cannot scroll, so expanded mobile menus need their own scroll area.
+    max-height: calc(100vh - var(--primary-nav-top, 0px));
+    max-height: calc(100dvh - var(--primary-nav-top, 0px));
+    overflow-y: auto;
+  }
+}
+
 @media only screen and (min-width: 1024px) {
   .rw-primary-nav__inner {
     grid-template-columns: auto minmax(16rem, 20rem) minmax(0, 1fr);
