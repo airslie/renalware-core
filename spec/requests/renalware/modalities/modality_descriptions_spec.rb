@@ -37,6 +37,18 @@ describe "Configuring Modality Descriptions" do
   end
 
   describe "GET index" do
+    it "lists descriptions by name with their codes immediately before their names" do
+      create(:modality_description, name: "Zeta", code: "A")
+      create(:modality_description, name: "Alpha", code: "Z")
+
+      get modalities_descriptions_path
+
+      table = response.parsed_body.at_css("table.modality-codes")
+      expect(table.css("thead th").map(&:text).last(2)).to eq(%w(Code Name))
+      rows = table.css("tbody tr").map { |row| row.css("td").map(&:text).last(2) }
+      expect(rows).to eq([%w(Z Alpha), %w(A Zeta)])
+    end
+
     it "responds successfully" do
       get modalities_descriptions_path
 

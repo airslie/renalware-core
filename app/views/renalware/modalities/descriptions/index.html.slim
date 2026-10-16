@@ -16,6 +16,7 @@
         th.col-width-tiny AKI Alerts
         th.col-width-tiny KFRE
         th.col-width-tiny Allow HD
+        th.col-width-tiny Code
         th Name
     tbody
       - modality_descriptions.each do |description|
@@ -40,4 +41,5 @@
           td
             = inline_check_icon(description.allow_hd)
 
+          td= description.code
           td= description.name
