@@ -92,7 +92,7 @@ describe Renalware::Configuration do
         letters_external_document_type_code: nil,
         letters_external_document_type_description: nil,
         outpatient_prescription_administration_enabled: true,
-        heidi_enabled: true,
+        heidi_enabled: false,
         heidi_api_base_url: "https://registrar.api.heidihealth.com/api/v2/ml-scribe/open-api/",
         heidi_scribe_session_base_url: "https://registrar.scribe.heidihealth.com/scribe/session/",
         heidi_link_account_url: "https://registrar.scribe.heidihealth.com/integration/widget/auth",
@@ -107,6 +107,10 @@ describe Renalware::Configuration do
       ENV["HELP_USER_GUIDE_LINK"] = "https://example.test/user-guide"
 
       expect(config.help_user_guide_link).to eq("https://example.test/user-guide")
+    end
+
+    it "disables Heidi when HEIDI_ENABLED is unset" do
+      expect(config.heidi_enabled).to be(false)
     end
 
     it "can enable Heidi from ENV" do

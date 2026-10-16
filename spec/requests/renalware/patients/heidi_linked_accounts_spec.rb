@@ -1,6 +1,7 @@
 describe "Heidi linked accounts" do
   around do |example|
     original = Renalware.config.heidi_enabled
+    Renalware.config.heidi_enabled = true
     example.run
   ensure
     Renalware.config.heidi_enabled = original

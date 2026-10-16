@@ -235,6 +235,8 @@ describe "Clinic Visits Management" do
   describe "GET heidi_session" do
     let(:clinic_visit) { create(:clinic_visit, patient:, by: user) }
 
+    before { Renalware.config.heidi_enabled = true }
+
     it "returns the latest Heidi session status" do
       session = create(
         :heidi_session,
