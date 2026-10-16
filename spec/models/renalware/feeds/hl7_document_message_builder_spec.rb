@@ -186,6 +186,26 @@ module Renalware
               expect(msg[:OBX].to_s).to include("^TEXT^RTF^Base64^#{base64_encoded_rtf}")
             end
 
+            it "uses the sanitised and truncated description when the topic is nil" do
+              letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
+                patient:,
+                clinical: true,
+                author: user
+              )
+              letter.assign_attributes(topic: nil, description: " Mailshot/Invitations? #{'A' * 100}")
+              letter.save_by!(user)
+
+              stub_rendering(:rtf, "ABC")
+              document = OutgoingDocument.create!(renderable: letter, by:)
+
+              msg = described_class.call(renderable: letter, document:)
+              issued_on = letter.approved_at.strftime("%Y%m%d%H%M%S")
+
+              expect(msg[:TXA].to_s.split("|")[16])
+                .to eq("111_19700101_F_9999999999_Mailshot Invitations #{'A' * 20}_#{issued_on}.rtf")
+              expect(msg[:OBX].to_s).to include("^TEXT^RTF^Base64^QUJD")
+            end
+
             it "limits the topic so max-length fixed fields produce a 100 character filename" do
               letter = create_approved_letter_to_patient_with_cc_to_gp_and_one_contact(
                 patient:,

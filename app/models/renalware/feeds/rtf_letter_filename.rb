@@ -77,9 +77,9 @@ module Renalware
         end
 
         def topic
-          letter
-            .topic
-            .text
+          text = letter.topic.nil? ? letter.description : letter.topic.text
+          text
+            .to_s
             .tr(INVALID_CHARS_REMOVE, "")
             .tr(INVALID_CHARS_MAP_TO_SPACE, " ")
             .strip
