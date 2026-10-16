@@ -9,6 +9,12 @@ This project adheres to Semantic Versioning.
 ### Changed
 ### Fixed
 
+## 2.5.7
+
+### Added
+### Changed
+### Fixed
+
 ## 2.5.6
 
 ### Added
