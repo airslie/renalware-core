@@ -2,7 +2,7 @@ module Renalware
   module Modalities
     class DescriptionsController < BaseController
       def index
-        modality_descriptions = Description.order(code: :asc)
+        modality_descriptions = Description.order(name: :asc)
         authorize modality_descriptions
         render locals: { modality_descriptions: modality_descriptions }
       end
