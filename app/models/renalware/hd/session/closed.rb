@@ -22,6 +22,14 @@ module Renalware
       end
 
       class SessionDocument < Renalware::HD::SessionDocument
+        class PreDialysisChecklist < Renalware::HD::SessionDocument::PreDialysisChecklist
+          validates :completed, presence: true, if: :checklist_required?
+          validates :findings, presence: true, if: -> { checklist_required? && completed&.no? }
+
+          def checklist_required? = Renalware.config.hd_sessions_require_pre_dialysis_checklist
+        end
+        attribute :pre_dialysis_checklist, PreDialysisChecklist
+
         class Info < Renalware::HD::SessionDocument::Info
           # rubocop:disable-next Rails/Validation
           validates_presence_of(

@@ -17,6 +17,11 @@
                                 :signed_off_by,
                                 :dialysate] }
 
+      - if Renalware.config.hd_sessions_require_pre_dialysis_checklist
+        = render "renalware/shared/documents/attributes_group",
+            group: session.document.pre_dialysis_checklist,
+            legend: "Pre Dialysis Checklist", destination: "pre_dialysis_checklist"
+
       = render "renalware/shared/documents/attributes_group",
           group: session.document.info,
           legend: "Session Info", destination: "info"

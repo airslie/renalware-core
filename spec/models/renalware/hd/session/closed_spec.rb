@@ -83,6 +83,57 @@ module Renalware
         end
       end
 
+      describe Session::Closed::SessionDocument::PreDialysisChecklist do
+        subject(:checklist) { described_class.new }
+
+        context "when Renalware.config.hd_sessions_require_pre_dialysis_checklist is true" do
+          before do
+            allow(Renalware.config)
+              .to receive(:hd_sessions_require_pre_dialysis_checklist)
+              .and_return(true)
+          end
+
+          it "is invalid when completed has not been answered" do
+            expect(checklist).not_to be_valid
+            expect(checklist.errors).to include(:completed)
+          end
+
+          it "defaults completed to no value" do
+            expect(checklist.completed).to be_blank
+          end
+
+          it "requires findings when completed is no" do
+            checklist.completed = :no
+
+            expect(checklist).not_to be_valid
+            expect(checklist.errors).to include(:findings)
+          end
+
+          it "does not require findings when completed is yes" do
+            checklist.completed = :yes
+
+            expect(checklist).to be_valid
+          end
+
+          it "is valid when completed is no and findings are given" do
+            checklist.completed = :no
+            checklist.findings = "Patient refused"
+
+            expect(checklist).to be_valid
+          end
+        end
+
+        context "when Renalware.config.hd_sessions_require_pre_dialysis_checklist is false" do
+          before do
+            allow(Renalware.config)
+              .to receive(:hd_sessions_require_pre_dialysis_checklist)
+              .and_return(false)
+          end
+
+          it { is_expected.to be_valid }
+        end
+      end
+
       describe Session::Closed::SessionDocument::Info do
         it :aggregate_failures do
           is_expected.to validate_presence_of(:hd_type)

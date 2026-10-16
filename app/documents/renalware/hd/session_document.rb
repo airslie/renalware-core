@@ -7,6 +7,12 @@ module Renalware
     end
 
     class SessionDocument < Document::Embedded
+      class PreDialysisChecklist < Document::Embedded
+        attribute :completed, Document::Enum, enums: %i(yes no)
+        attribute :findings, String
+      end
+      attribute :pre_dialysis_checklist, PreDialysisChecklist
+
       class Info < Document::Embedded
         attribute :hd_type, Document::Enum, enums: %i(hd hdf_pre hdf_post)
         attribute :access_confirmed, Boolean
@@ -142,6 +148,7 @@ module Renalware
           observations_after.errors.full_messages,
           dialysis.errors.full_messages,
           info.errors.full_messages,
+          pre_dialysis_checklist.errors.full_messages,
           complications.errors.full_messages,
           hdf.errors.full_messages
         ].flatten.compact

@@ -49,6 +49,11 @@ ruby:
 
         = fdur.input :start_time, as: :clock_picker, wrapper: :horizontal_clockpicker
 
+      - if Renalware.config.hd_sessions_require_pre_dialysis_checklist
+        = fd.simple_fields_for :pre_dialysis_checklist, fd.object.pre_dialysis_checklist do |fchk|
+          = fchk.input :completed, as: :inline_radio_buttons, wrapper: :horizontal_medium
+          = fchk.input :findings, as: :text, wrapper: :horizontal_large
+
       = f.association :signed_on_by,
                       as: :user_picker,
                       collection: Renalware::User.active,

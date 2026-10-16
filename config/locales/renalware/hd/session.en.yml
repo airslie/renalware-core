@@ -61,6 +61,9 @@ en:
         temperature_measured: Temperature taken
         weight: Weight (kg)
         weight_measured: Weight taken
+      renalware/hd/session_document/pre_dialysis_checklist:
+        completed: Have you gone through the Pre Dialysis Check list with the patient?
+        findings: Significant findings / reason not completed
     errors:
       models:
         renalware/hd/session/dna/document:

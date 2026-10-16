@@ -100,6 +100,7 @@ module Renalware
 
     def self.session_document
       {
+        pre_dialysis_checklist: { completed: "yes" },
         info: {
           hd_type: "hd",
           machine_no: rand(100..222),
