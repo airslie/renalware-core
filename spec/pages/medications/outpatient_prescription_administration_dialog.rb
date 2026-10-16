@@ -99,7 +99,7 @@ module Pages
 
       def fill_password(user_type, password)
         within ".user-and-password--#{user_type}" do
-          find("input[type='password']").set(password)
+          find_field(type: "password").set(password)
         end
       end
 

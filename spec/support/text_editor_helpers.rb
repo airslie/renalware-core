@@ -1,7 +1,7 @@
 module TextEditorHelpers
   # Basecamp trix uses hidden input to populate its editor
   def fill_in_trix_editor(id, value)
-    find(:xpath, "//*[@id='#{id}']", visible: false).set(value)
+    find(:xpath, "//*[@id='#{id}']", visible: :hidden).set(value)
   end
 
   # A simplified version of the helper, requires JavaScript, and will end up

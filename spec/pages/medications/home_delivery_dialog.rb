@@ -54,7 +54,7 @@ module Pages
       end
 
       def invisible?
-        page.has_no_css?("#print-home-delivery-drugs-modal .modal", visible: true)
+        page.has_no_css?("#print-home-delivery-drugs-modal .modal", visible: :visible)
       end
 
       def has_enabled_print_button?

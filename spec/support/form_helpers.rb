@@ -3,7 +3,7 @@ module FormHelpers
   # to add a Create/Save button to the form
   def submit_form
     within ".form-actions", match: :first do
-      find("input[name='commit']").click
+      find_button(name: "commit").click
     end
   end
 end
