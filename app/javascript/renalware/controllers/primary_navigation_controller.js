@@ -19,9 +19,16 @@ export default class extends Controller {
   toggleMenu() {
     const expanded = this.toggleTarget.getAttribute("aria-expanded") === "true"
 
+    if (!expanded) this.updateViewportOffset()
     this.element.classList.toggle("rw-primary-nav--open", !expanded)
     this.toggleTarget.setAttribute("aria-expanded", String(!expanded))
     if (expanded) this.closeAllDisclosures()
+  }
+
+  updateViewportOffset() {
+    const top = Math.max(0, this.element.getBoundingClientRect().top)
+
+    this.element.style.setProperty("--primary-nav-top", `${top}px`)
   }
 
   toggleDisclosure(event) {
