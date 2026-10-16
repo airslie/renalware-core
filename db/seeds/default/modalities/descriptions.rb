@@ -15,19 +15,22 @@ module Renalware
     Transplants::RecipientModalityDescription.find_or_create_by!(
       name: "Transplant",
       code: "transplant",
-      ignore_for_kfre: true
+      ignore_for_kfre: true,
+      allow_hd: true
     )
     PD::ModalityDescription.find_or_create_by!(
       name: "PD",
       code: "pd",
       ignore_for_aki_alerts: true,
-      ignore_for_kfre: true
+      ignore_for_kfre: true,
+      allow_hd: true
     )
     HD::ModalityDescription.find_or_create_by!(
       name: "HD",
       code: "hd",
       ignore_for_aki_alerts: true,
-      ignore_for_kfre: true
+      ignore_for_kfre: true,
+      allow_hd: true
     )
     LowClearance::ModalityDescription.find_or_create_by!(
       name: "Advanced Kidney Care", code: "low_clearance"
