@@ -55,9 +55,9 @@ module Renalware::Patients::Ingestion
 
           hl7_message = Renalware::Feeds::HL7Message.new(::HL7::Message.new([msh, pid, mrg]))
 
-          result = nil
+          nil
           expect {
-            result = described_class.call(hl7_message)
+            described_class.call(hl7_message)
           }.to change(Renalware::Patient, :count).by(-1)
             .and not_change(Renalware::Patient.with_deleted, :count)
 

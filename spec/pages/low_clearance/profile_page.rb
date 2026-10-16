@@ -16,7 +16,7 @@ module Pages
 
       def save
         within ".form-actions" do
-          find("input[name='commit']").click
+          find_button(name: "commit").click
         end
       end
 

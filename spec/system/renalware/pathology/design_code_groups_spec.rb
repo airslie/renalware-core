@@ -248,6 +248,7 @@ module Renalware::Pathology
         login_as_super_admin
 
         visit edit_pathology_code_group_path(group)
+        # rubocop:disable-next Capybara/ChainedFind
         find("tr.membership",
              text: "HGB").find(".handle").drag_to(find("[data-subgroup='2'] tr.membership",
                                                        text: "PTH"))

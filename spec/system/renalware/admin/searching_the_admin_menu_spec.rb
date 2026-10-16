@@ -8,7 +8,7 @@ describe "Searching the admin menu", :js do
 
       visible_links = all(
         "[data-admin-menu-filter-target='item']:not([hidden]) a",
-        visible: true
+        visible: :visible
       ).map(&:text)
 
       expect(visible_links).to eq(["Transmission Logs", "Logs", "API Logs", "UKRDC Logs"])
