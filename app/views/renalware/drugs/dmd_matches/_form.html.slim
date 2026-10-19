@@ -1,6 +1,9 @@
 .row
   .large-6.columns
     = simple_form_for form, url: drugs_dmd_matches_path do |f|
+      = render "renalware/shared/errors", model: form
       = f.input :file, label: "Matches CSV file", as: :file
+
+      = f.input :validate_only, as: :boolean, label: "Validate only (do not save mappings)"
 
       = save_or_cancel(form: f, back_path: drugs_dmd_matches_path)

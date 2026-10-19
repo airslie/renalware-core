@@ -1,4 +1,9 @@
 = content_for(:actions) do
+  - export_filters = params.fetch(:q, ActionController::Parameters.new).permit(:drug_name_cont, :s)
+  = link_to "Export CSV",
+            drugs_dmd_matches_path(format: :csv, q: export_filters),
+            class: "button"
+
   = link_to "Upload DMD Matches",
             new_drugs_dmd_match_path,
             class: "button"
@@ -7,6 +12,7 @@
   = render "filters", dmd_matches_search: dmd_matches_search
 
 = within_new_admin_layout(title: "DMD Matches") do
+  p Export CSV includes all matching rows across all pages. Keep drug names unchanged when reviewing.
   table
     thead
       tr
