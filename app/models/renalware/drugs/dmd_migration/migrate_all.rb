@@ -8,6 +8,7 @@ module Renalware
           UnitOfMeasureMigrator.new.call
           FormMigrator.new.call
 
+          IdentifyVtmByTradeFamily.new.call
           TradeFamilyMigrator.new.call
           DrugMigrator.new.call
         end

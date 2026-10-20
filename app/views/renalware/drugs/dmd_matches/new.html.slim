@@ -1,4 +1,17 @@
-= within_new_admin_layout(title: "Upload a DMD Matches file",
+= within_new_admin_layout(title: "Validate or import DMD Matches",
                       breadcrumbs: breadcrumb_for("Drug Matches", drugs_dmd_matches_path)) do
+
+  p Uploading saves reviewed mappings only. It does not change prescriptions.
+  p
+    | Rows match by exact drug name; CSV drug IDs are ignored. Every row must match one local mapping.
+      Remove rows for other hospitals' drugs before uploading. Any error prevents the entire import.
+  p
+    | Required columns: drug_name, vtm_name, approved_vtm_match, trade_family_name,
+      approved_trade_family_match. Approvals accept TRUE/FALSE or t/f (case insensitive);
+      blank means false and clears an earlier approval.
+  p
+    | Optional form_name values are saved, including blanks. Omit that column to preserve existing forms.
+      Catalogue validation checks names exist; it does not establish clinical equivalence.
+  p Prescription conversion must be run separately after review, with forms applied before drug IDs change.
 
   = render "form", form: form

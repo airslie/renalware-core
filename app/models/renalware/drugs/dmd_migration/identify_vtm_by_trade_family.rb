@@ -15,13 +15,16 @@ module Renalware
 
             next if trade_family_id.nil?
 
-            classification = Drugs::VMPClassification
-              .where("? = ANY(trade_family_ids)", trade_family_id).first
+            drug_ids = Drugs::VMPClassification
+              .where("? = ANY(trade_family_ids)", trade_family_id)
+              .distinct.limit(2).pluck(:drug_id)
+            next unless drug_ids.one?
 
-            next if classification.nil?
+            drug = Drugs::Drug.find_by(id: drug_ids.first)
+            next if drug.nil?
 
             dmd_match.update(
-              vtm_name: classification.drug.name,
+              vtm_name: drug.name,
               approved_vtm_match: true
             )
           end

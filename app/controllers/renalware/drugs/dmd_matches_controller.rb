@@ -1,5 +1,3 @@
-require "csv"
-
 module Renalware
   module Drugs
     class DMDMatchesController < BaseController
@@ -7,20 +5,22 @@ module Renalware
         authorize DMDMatch
 
         dmd_matches_search = DMDMatch.ransack(params.fetch(:q, {}))
-        dmd_matches_search.sorts = "name"
-        pagy, dmd_matches = pagy(dmd_matches_search.result)
-
-        render locals: {
-          dmd_matches: dmd_matches,
-          dmd_matches_search: dmd_matches_search,
-          pagy: pagy
-        }
+        dmd_matches_search.sorts = "drug_name" if dmd_matches_search.sorts.empty?
+        respond_to do |format|
+          format.html { render_matches(dmd_matches_search) }
+          format.csv do
+            send_data DMDMigration::MatchExport.new.call(dmd_matches_search.result),
+                      filename: "dmd-matches-#{Date.current.iso8601}.csv",
+                      type: "text/csv; charset=utf-8",
+                      disposition: "attachment"
+          end
+        end
       end
 
       def new
         authorize DMDMatch
 
-        form = Form.new
+        form = DMDMigration::MatchImport.new
 
         render locals: { form: form }
       end
@@ -28,68 +28,29 @@ module Renalware
       def create
         authorize DMDMatch
 
-        form = Form.new(
-          params.require(Form.model_name.param_key).permit(:file)
-        )
+        form = DMDMigration::MatchImport.new(import_params)
 
-        ProcessFile.new.call(form: form)
-
-        redirect_to drugs_dmd_matches_path, notice: "Imported!"
+        if form.save
+          action = form.validate_only ? "Validated" : "Imported"
+          notice = "#{action} #{form.imported_count} mappings. Prescriptions are unchanged."
+          redirect_to drugs_dmd_matches_path, notice: notice
+        else
+          render :new, locals: { form: form }, status: :unprocessable_content
+        end
       end
 
       private
 
-      def drug_params
-        params.require(:drugs_drug).permit(
-          :name, :deleted_at, drug_type_ids: []
-        )
+      def render_matches(dmd_matches_search)
+        pagy, dmd_matches = pagy(dmd_matches_search.result)
+        render locals: { dmd_matches: dmd_matches,
+                         dmd_matches_search: dmd_matches_search,
+                         pagy: pagy }
       end
 
-      class ProcessFile
-        def call(form:)
-          approved_vtms = []
-          approved_trade_families = []
-
-          CSV.foreach(form.file, headers: true) do |row|
-            if row["approved_vtm_match"] == "TRUE"
-              approved_vtms.push(row)
-            end
-
-            if row["approved_trade_family_match"] == "TRUE"
-              approved_trade_families.push(row)
-            end
-          end
-
-          approved_vtms.each do |approved_vtm|
-            DMDMatch.where(drug_name: approved_vtm["drug_name"])
-              .update_all(
-                approved_vtm_match: true,
-                vtm_name: approved_vtm["vtm_name"]
-              )
-          end
-
-          approved_trade_families.each do |approved_trade_family|
-            DMDMatch.where(drug_name: approved_trade_family["drug_name"])
-              .update_all(
-                approved_trade_family_match: true,
-                trade_family_name: approved_trade_family["trade_family_name"]
-              )
-          end
-
-          # Identify VTMs by Trade Family match
-          DMDMigration::IdentifyVtmByTradeFamily.new.call
-
-          # Now migrate the data
-          DMDMigration::TradeFamilyMigrator.new.call
-          DMDMigration::DrugMigrator.new.call
-        end
-      end
-
-      class Form
-        include ActiveModel::Model
-        include ActiveModel::Attributes
-
-        attribute :file
+      def import_params
+        key = DMDMigration::MatchImport.model_name.param_key
+        params.fetch(key, ActionController::Parameters.new).permit(:file, :validate_only)
       end
     end
   end
