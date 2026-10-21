@@ -25,4 +25,4 @@
           td= mapping.clinic&.name || "Unmapped"
           td= mapping.default_clinic? ? "Yes" : "No"
 
-  = paginate mappings
+  == pagy.series_nav if pagy.pages > 1

@@ -21,19 +21,16 @@ module Renalware
     end
 
     # Renders
-    # <span>5 of 16<div>
-    # if the collection has been paginated, otherwise
-    # <span>5<div>
-    def collection_count(collection)
+    # <span>(5 of 16)</span>
+    # if the supplied total exceeds the displayed count, otherwise
+    # <span>(5)</span>
+    def collection_count(collection, total: nil)
       return unless collection.respond_to?(:length)
 
       parts = ["("]
-      parts.append(collection.length)
-      if collection.respond_to?(:total_count)
-        if collection.total_count > collection.length
-          parts.append(" of #{collection.total_count}")
-        end
-      end
+      count = collection.length
+      parts.append(count)
+      parts.append(" of #{total}") if total && total > count
       parts.append(")")
       tag.span(parts.join(""))
     end

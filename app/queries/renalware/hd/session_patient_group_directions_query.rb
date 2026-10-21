@@ -3,11 +3,11 @@ module Renalware
     class SessionPatientGroupDirectionsQuery
       pattr_initialize [:patient!]
 
-      def call(page: nil, per: nil) # rubocop:disable Metrics/MethodLength
+      def call
         session_table = Session.table_name
         pgd_table = Drugs::PatientGroupDirection.table_name
 
-        relation = SessionPatientGroupDirection
+        SessionPatientGroupDirection
           .includes(:patient_group_direction, :session)
           .joins(:session)
           .merge(Session.for_patient(patient))
@@ -16,10 +16,6 @@ module Renalware
             "#{pgd_table}.name ASC, " \
             "#{SessionPatientGroupDirection.table_name}.created_at DESC"
           )
-
-        return relation unless page.present? || per.present?
-
-        relation.page(page).per(per)
       end
     end
   end

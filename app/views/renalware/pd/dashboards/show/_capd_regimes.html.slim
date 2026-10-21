@@ -2,7 +2,7 @@ article.capd-regimes
   header
     h2 CAPD Regimes
     .supplemental
-      = collection_count(capd_regimes)
+      = collection_count(capd_regimes, total: total_count)
     span.noprint
       = link_to t("btn.view_all"),
                 patient_pd_capd_regimes_path(patient),

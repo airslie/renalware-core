@@ -11,12 +11,15 @@ module Renalware
       end
 
       def swabs
-        @swabs ||= Renalware::Events::Swab
-          .for_patient(patient)
-          .includes([:event_type])
-          .ordered
-          .page(params[:page])
-          .per(params.fetch(:per_page, 10))
+        @swabs ||= begin
+          scope = Renalware::Events::Swab.for_patient(patient).includes(:event_type).ordered
+          pagination = Pagy::Offset.new(
+            count: scope.count,
+            page: [params[:page].to_i, 1].max,
+            limit: PageSize.parse(params[:per_page], default: 10)
+          )
+          scope.offset(pagination.offset).limit(pagination.limit)
+        end
       end
 
       def smoking_history

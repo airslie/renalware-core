@@ -3,8 +3,11 @@ module Renalware
     class MappingsController < BaseController
       def index
         authorize Mapping
-        mappings = paginate(Mapping.includes(:clinic).order(:name_in_feed, :id))
-        render locals: { mappings: }
+        pagy, mappings = pagy(
+          Mapping.includes(:clinic).order(:name_in_feed, :id),
+          limit: PageSize.parse(params[:per_page], default: 25)
+        )
+        render locals: { mappings:, pagy: }
       end
 
       def new

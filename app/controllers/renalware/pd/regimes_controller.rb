@@ -19,14 +19,6 @@ module Renalware
         }
       end
 
-      def capd_regimes
-        @capd_regimes ||= CAPDRegime.for_patient(pd_patient).with_bags.ordered.page(1).per(5)
-      end
-
-      def apd_regimes
-        @apd_regimes ||= APDRegime.for_patient(pd_patient).with_bags.ordered.page(1).per(5)
-      end
-
       def show
         render :show, locals: {
           regime: pd_regime,

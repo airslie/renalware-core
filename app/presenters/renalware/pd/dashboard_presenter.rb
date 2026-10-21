@@ -2,7 +2,6 @@ module Renalware
   module PD
     class DashboardPresenter
       include PresenterHelper
-      include Renalware::Concerns::Pageable
 
       attr_accessor :patient
 
@@ -15,11 +14,19 @@ module Renalware
       end
 
       def capd_regimes
-        @capd_regimes ||= CAPDRegime.for_patient(patient).with_bags.ordered.page(1).per(5)
+        @capd_regimes ||= CAPDRegime.for_patient(patient).with_bags.ordered.limit(5)
+      end
+
+      def capd_regimes_total_count
+        @capd_regimes_total_count ||= CAPDRegime.for_patient(patient).count
       end
 
       def apd_regimes
-        @apd_regimes ||= APDRegime.for_patient(patient).with_bags.ordered.page(1).per(5)
+        @apd_regimes ||= APDRegime.for_patient(patient).with_bags.ordered.limit(5)
+      end
+
+      def apd_regimes_total_count
+        @apd_regimes_total_count ||= APDRegime.for_patient(patient).count
       end
 
       def peritonitis_episodes

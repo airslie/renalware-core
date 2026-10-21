@@ -36,4 +36,4 @@
               td = I18n.l request.printed_on
               td = request.created_by.full_name
 
-      = paginate requests
+      == pagy.series_nav if pagy.pages > 1

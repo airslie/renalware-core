@@ -2,7 +2,7 @@ article.apd-regimes
   header
     h2 APD Regimes
     .supplemental
-      = collection_count(apd_regimes)
+      = collection_count(apd_regimes, total: total_count)
     span.noprint
       = link_to t("btn.view_all"),
                 patient_pd_apd_regimes_path(patient),

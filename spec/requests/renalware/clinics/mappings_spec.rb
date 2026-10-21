@@ -4,6 +4,33 @@ describe "Clinic mappings" do
 
   before { login_as_super_admin }
 
+  it "paginates alphabetically with the existing default and custom page sizes" do
+    25.times do |index|
+      Renalware::Clinics::Mapping.create!(name_in_feed: format("Clinic %02d", index))
+    end
+
+    get clinic_mappings_path
+    expect(response).to be_successful
+    expect(response.body).to include("Clinic 00", "Clinic 24")
+    expect(response.body).not_to include(mapping.name_in_feed)
+    expect(response.parsed_body.css("nav.pagy")).to be_present
+
+    get clinic_mappings_path, params: { page: 2, per_page: 1 }
+    expect(response).to be_successful
+    expect(response.body).to include("Clinic 01")
+    expect(response.body).not_to include("Clinic 00", "Clinic 02")
+    expect(response.parsed_body.css("nav.pagy a[href]").pluck("href"))
+      .to all(include("per_page=1"))
+  end
+
+  it "falls back to the default page size when per_page is invalid" do
+    get clinic_mappings_path, params: { per_page: "abc" }
+    expect(response).to be_successful
+
+    get clinic_mappings_path, params: { per_page: "0" }
+    expect(response).to be_successful
+  end
+
   it "lists mapped and unmapped feed names and renders the forms" do
     Renalware::Clinics::Mapping.create!(name_in_feed: "Unknown clinic")
 
