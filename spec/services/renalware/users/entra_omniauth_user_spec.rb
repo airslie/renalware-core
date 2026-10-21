@@ -164,6 +164,61 @@ describe Renalware::Users::EntraOmniauthUser do
     end
   end
 
+  context "when roles come from the groups claim" do
+    before { auth.extra.raw_info.delete("roles") }
+
+    it "grants roles from group names such as a synced sAMAccountName" do
+      auth.extra.raw_info["groups"] = %w(Renalware-Clinical Some-Other-Group)
+
+      user = described_class.new(auth:).call
+
+      expect(user.roles.reload).to contain_exactly(clinical_role)
+    end
+
+    it "grants roles from groups emitted as distinguished names" do
+      auth.extra.raw_info["groups"] = ["CN=Renalware-ReadOnly,OU=Groups,DC=example,DC=com"]
+
+      user = described_class.new(auth:).call
+
+      expect(user.roles.reload).to contain_exactly(readonly_role)
+    end
+
+    it "grants roles from group object ids when the role's ad_role_name is the group id" do
+      clinical_role.update!(ad_role_name: "0a1b2c3d-0000-1111-2222-333344445555")
+      auth.extra.raw_info["groups"] = ["0a1b2c3d-0000-1111-2222-333344445555"]
+
+      user = described_class.new(auth:).call
+
+      expect(user.roles.reload).to contain_exactly(clinical_role)
+    end
+
+    it "combines groups with the roles claim, with clinical taking priority over read only" do
+      auth.extra.raw_info["roles"] = ["renalware-readonly"]
+      auth.extra.raw_info["groups"] = ["renalware-clinical"]
+
+      user = described_class.new(auth:).call
+
+      expect(user.roles.reload).to contain_exactly(clinical_role)
+    end
+
+    it "rejects a user whose groups match no managed role" do
+      auth.extra.raw_info["groups"] = ["Unrelated-Group"]
+
+      expect(service_call).to raise_error(described_class::NotAuthorisedError)
+    end
+
+    it "warns and relies on the roles claim when the group list was too long to include" do
+      auth.extra.raw_info["_claim_names"] = { "groups" => "src1" }
+      auth.extra.raw_info["roles"] = ["renalware-readonly"]
+      allow(Rails.logger).to receive(:warn)
+
+      user = described_class.new(auth:).call
+
+      expect(user.roles.reload).to contain_exactly(readonly_role)
+      expect(Rails.logger).to have_received(:warn).with(/groups claim overage/i)
+    end
+  end
+
   it "raises a validation error when the token has no email or name" do
     auth.info.email = nil
     auth.info.first_name = nil

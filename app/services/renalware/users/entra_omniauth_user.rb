@@ -61,7 +61,20 @@ module Renalware
       end
 
       def app_roles
-        raw_info["roles"]
+        Array(raw_info["roles"]) + group_claims
+      end
+
+      def group_claims
+        warn_about_groups_overage if groups_overage?
+        Array(raw_info["groups"])
+      end
+
+      def groups_overage?
+        raw_info["groups"].blank? && raw_info.dig("_claim_names", "groups").present?
+      end
+
+      def warn_about_groups_overage
+        Rails.logger.warn("Entra groups claim overage: uid=#{auth.uid} (use app roles instead)")
       end
 
       def raw_info
