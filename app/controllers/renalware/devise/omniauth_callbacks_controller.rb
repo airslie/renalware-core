@@ -4,18 +4,21 @@ module Renalware
     class OmniauthCallbacksController < ::Devise::OmniauthCallbacksController
       include Concerns::ResumeAfterSignIn
 
-      # Callback for LDAP OmniAuth strategy
+      INCOMPLETE_ENTRA_PROFILE_MESSAGE =
+        "Your Microsoft account must have an email, first name and last name to sign in.".freeze
+
+      # Callback for Entra ID OmniAuth strategy
       def entra_id
         auth = request.env["omniauth.auth"]
         @user = User.from_entra_id_omniauth(auth)
 
-        if @user.persisted?
-          sign_in_and_redirect @user, event: :authentication
-          set_flash_message(:notice, :success, kind: "Microsoft") if is_navigational_format?
-        else
-          session["devise.entra_id_data"] = auth.except("extra")
-          redirect_to new_user_session_path, alert: "Could not sign in with Microsoft."
-        end
+        sign_in_and_redirect @user, event: :authentication
+        set_flash_message(:notice, :success, kind: "Microsoft") if is_navigational_format?
+      rescue Users::EntraOmniauthUser::NotAuthorisedError => e
+        Rails.logger.info("Entra login denied: #{e.message}")
+        redirect_to new_user_session_path, alert: "You are not authorised to sign in."
+      rescue => e # rubocop:disable Style/RescueStandardError
+        reject_entra_sign_in(e)
       end
 
       # Callback for LDAP OmniAuth strategy
@@ -63,6 +66,16 @@ module Renalware
       end
 
       private
+
+      def reject_entra_sign_in(error)
+        Rails.logger.warn("Entra login failed: #{error.class}: #{error.message}")
+        alert = if error.is_a?(ActiveRecord::RecordInvalid)
+                  INCOMPLETE_ENTRA_PROFILE_MESSAGE
+                else
+                  "Microsoft sign-in failed."
+                end
+        redirect_to new_user_session_path, alert:
+      end
 
       def sign_in_ldap_user
         sign_in_and_redirect @user, event: :authentication

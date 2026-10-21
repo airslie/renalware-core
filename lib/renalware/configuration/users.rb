@@ -4,6 +4,7 @@ module Renalware
       def self.included(base)
         register_authentication_settings(base)
         register_devise_settings(base)
+        register_entra_settings(base)
         register_ldap_group_settings(base)
         register_ldap_connection_settings(base)
         register_ldap_attribute_settings(base)
@@ -24,6 +25,13 @@ module Renalware
         # Hospital-specific devise modules to load (comma-separated list, e.g., "module1,module2").
         base.config_accessor(:devise_extra_modules) do
           ENV.fetch("DEVISE_EXTRA_MODULES", "").split(",").map { it.strip.to_sym }
+        end
+      end
+
+      def self.register_entra_settings(base)
+        base.config_accessor(:entra_tenant_id) { ENV["ENTRA_TENANT_ID"].presence }
+        base.config_accessor(:entra_link_users_by_email) do
+          ENV.fetch("ENTRA_LINK_USERS_BY_EMAIL", "false") == "true"
         end
       end
 
@@ -81,6 +89,13 @@ module Renalware
 
       def entra_authentication_enabled?
         authentication_provider_enabled?(:entra_id)
+      end
+
+      MULTI_TENANT_ENTRA_ENDPOINTS = %w(common organizations consumers).freeze
+
+      def entra_tenant_restricted?
+        entra_tenant_id.present? &&
+          MULTI_TENANT_ENTRA_ENDPOINTS.exclude?(entra_tenant_id.downcase)
       end
     end
   end

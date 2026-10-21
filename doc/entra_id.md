@@ -22,6 +22,17 @@ Implementation fairly straightforward but requires some config in Entra
 - create a secret called ENTRA_CLIENT_ID and copt the value into .env as ENTRA_CLIENT_ID
 - Under API permissions be sure to have (under MS Graph) email, offline_access, openid, profile, User.Read
 
+### Access control
+
+- `ENTRA_TENANT_ID` must be a specific tenant id (not `common`, `organizations` or `consumers`);
+  the app refuses to boot otherwise and rejects tokens whose `tid` does not match.
+- A user must hold an Entra app role matching a Renalware role's `ad_role_name` (case-insensitive),
+  otherwise sign-in is denied and no account is created. The app role values must therefore match
+  `roles.ad_role_name`.
+- Users are matched on `azure_uid`. An existing user with the same email is NOT linked unless
+  `ENTRA_LINK_USERS_BY_EMAIL=true` (the email claim is not verified by Entra, so enable with care).
+- Existing users' approval, hospital centre and profile are never overwritten at sign-in; only roles are synced.
+
 ### To test
 
 - create users in Entra and add them to the app roles (need a paid plan to be able to o this via group membership, otherwise add user individually)

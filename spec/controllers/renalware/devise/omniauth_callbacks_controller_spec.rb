@@ -66,5 +66,59 @@ module Renalware
         expect(Rails.logger).to have_received(:info).with(/LDAP login denied: no matching AD group/)
       end
     end
+
+    describe "GET #entra_id" do
+      let(:entra_auth) do
+        OmniAuth::AuthHash.new(provider: "entra_id", uid: "tid-oid", info: {}, extra: {})
+      end
+
+      before { request.env["omniauth.auth"] = entra_auth }
+
+      it "signs in and redirects when the user is provisioned" do
+        user = create(:user)
+        allow(User).to receive(:from_entra_id_omniauth).with(entra_auth).and_return(user)
+
+        get :entra_id
+
+        expect(response).to have_http_status(:redirect)
+        expect(controller.current_user).to eq(user)
+      end
+
+      it "logs and redirects with a not authorised message when no app role applies" do
+        allow(User).to receive(:from_entra_id_omniauth)
+          .and_raise(Users::EntraOmniauthUser::NotAuthorisedError, "no managed app role")
+        allow(Rails.logger).to receive(:info)
+
+        get :entra_id
+
+        expect(response).to redirect_to(new_user_session_path)
+        expect(flash[:alert]).to eq("You are not authorised to sign in.")
+        expect(Rails.logger).to have_received(:info).with(/Entra login denied: no managed app role/)
+      end
+
+      it "redirects with a helpful message when the Microsoft profile is incomplete" do
+        invalid_user = User.new.tap(&:valid?)
+        allow(User).to receive(:from_entra_id_omniauth)
+          .and_raise(ActiveRecord::RecordInvalid.new(invalid_user))
+        allow(Rails.logger).to receive(:warn)
+
+        get :entra_id
+
+        expect(response).to redirect_to(new_user_session_path)
+        expect(flash[:alert]).to match(/email, first name and last name/i)
+        expect(Rails.logger).to have_received(:warn).with(/Entra login failed: ActiveRecord::RecordInvalid/)
+      end
+
+      it "logs and redirects when the callback raises unexpectedly" do
+        allow(User).to receive(:from_entra_id_omniauth).and_raise(JWT::InvalidAudError, "bad aud")
+        allow(Rails.logger).to receive(:warn)
+
+        get :entra_id
+
+        expect(response).to redirect_to(new_user_session_path)
+        expect(flash[:alert]).to eq("Microsoft sign-in failed.")
+        expect(Rails.logger).to have_received(:warn).with(/Entra login failed: JWT::InvalidAudError/)
+      end
+    end
   end
 end

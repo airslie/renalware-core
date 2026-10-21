@@ -5,6 +5,8 @@ describe Renalware::Configuration do
     # Ensure ENV vars in .env and demo/.env do not upset testing the defaults
     env_keys_that_override_defaults = %w(
       AUTHENTICATION_PROVIDERS
+      ENTRA_TENANT_ID
+      ENTRA_LINK_USERS_BY_EMAIL
       DELAY_AFTER_WHICH_A_FINISHED_SESSION_BECOMES_IMMUTABLE_HOURS
       AUTO_TERMINATE_HD_PRESCRIPTIONS_AFTER_PERIOD
       AUTO_TERMINATE_HD_STAT_PRESCRIPTIONS_AFTER_PERIOD
@@ -222,6 +224,36 @@ describe Renalware::Configuration do
       expect(config.database_authentication_enabled?).to be(true)
       expect(config.ldap_authentication_enabled?).to be(true)
       expect(config.entra_authentication_enabled?).to be(true)
+    end
+  end
+
+  describe "#entra_tenant_id" do
+    it "is nil by default and not restricted to a tenant" do
+      expect(config.entra_tenant_id).to be_nil
+      expect(config.entra_tenant_restricted?).to be(false)
+    end
+
+    it "is restricted when set to a tenant guid" do
+      ENV["ENTRA_TENANT_ID"] = "11111111-2222-3333-4444-555555555555"
+
+      expect(config.entra_tenant_restricted?).to be(true)
+    end
+
+    %w(common organizations consumers).each do |multi_tenant_alias|
+      it "is not restricted when set to the #{multi_tenant_alias} endpoint" do
+        ENV["ENTRA_TENANT_ID"] = multi_tenant_alias
+
+        expect(config.entra_tenant_restricted?).to be(false)
+      end
+    end
+  end
+
+  describe "#entra_link_users_by_email" do
+    it "defaults to false and can be enabled via ENV" do
+      expect(config.entra_link_users_by_email).to be(false)
+
+      ENV["ENTRA_LINK_USERS_BY_EMAIL"] = "true"
+      expect(described_class.new.entra_link_users_by_email).to be(true)
     end
   end
 

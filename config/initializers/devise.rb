@@ -269,6 +269,10 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
   config.omniauth_path_prefix = '/users/auth'
 
+  if Renalware.config.entra_authentication_enabled? && !Renalware.config.entra_tenant_restricted?
+    raise "ENTRA_TENANT_ID must be set to a specific tenant id when entra_id authentication is enabled"
+  end
+
   config.omniauth(
     :entra_id,
     client_id:     ENV['ENTRA_CLIENT_ID'],
