@@ -9,11 +9,13 @@
   - if dashboard.capd_regimes.any?
     = render "renalware/pd/dashboards/show/capd_regimes",
              capd_regimes: dashboard.capd_regimes,
+             total_count: dashboard.capd_regimes_total_count,
              patient: patient
 
   - if dashboard.apd_regimes.any?
     = render "renalware/pd/dashboards/show/apd_regimes",
              apd_regimes: dashboard.apd_regimes,
+             total_count: dashboard.apd_regimes_total_count,
              patient: patient
 
   - if dashboard.peritonitis_episodes.any?

@@ -592,7 +592,6 @@ Metrics/BlockNesting:
     - 'spec/models/renalware/events/category_spec.rb'
     - 'spec/models/renalware/events/investigation_spec.rb'
     - 'spec/models/renalware/events/type_spec.rb'
-    - 'spec/models/renalware/feeds/files/create_feed_file_spec.rb'
     - 'spec/models/renalware/feeds/files/practice_memberships/import_csv_spec.rb'
     - 'spec/models/renalware/feeds/files/practice_memberships/import_job_spec.rb'
     - 'spec/models/renalware/feeds/files/primary_care_physicians/import_csv_spec.rb'
@@ -1116,7 +1115,6 @@ Metrics/CyclomaticComplexity:
 # Configuration parameters: CountComments, Max, CountAsOne, AllowedMethods, AllowedPatterns.
 Metrics/MethodLength:
   Exclude:
-    - 'app/controllers/renalware/admin/feeds/files_controller.rb'
     - 'app/controllers/renalware/admissions/consults_controller.rb'
     - 'app/controllers/renalware/api/v1/hd/sessions_controller.rb'
     - 'app/controllers/renalware/clinical/profiles_controller.rb'
@@ -1323,7 +1321,6 @@ Naming/MemoizedInstanceVariableName:
   Exclude:
     - 'app/controllers/renalware/hd/prescription_administrations_controller.rb'
     - 'app/forms/renalware/admissions/admission_search_form.rb'
-    - 'app/models/renalware/feeds/files/create_feed_file.rb'
     - 'app/models/renalware/letters/section.rb'
     - 'app/models/renalware/patient.rb'
 
@@ -1738,7 +1735,6 @@ Rails/OutputSafety:
     - 'app/presenters/renalware/letters/letter_form_presenter.rb'
     - 'app/presenters/renalware/letters/letter_presenter.rb'
     - 'app/view_components/renalware/read_more_component.html.slim'
-    - 'app/views/renalware/admin/feeds/files/index.html.slim'
     - 'app/views/renalware/events/events/show.pdf.slim'
     - 'app/views/renalware/events/swabs/_list.html.slim'
     - 'app/views/renalware/hd/transmission_logs/index.html.slim'
@@ -1952,7 +1948,6 @@ Style/HashSyntax:
     - 'app/controllers/renalware/accesses/plans_controller.rb'
     - 'app/controllers/renalware/accesses/procedures_controller.rb'
     - 'app/controllers/renalware/accesses/profiles_controller.rb'
-    - 'app/controllers/renalware/admin/feeds/files_controller.rb'
     - 'app/controllers/renalware/admin/safety_alert_rule_executions_controller.rb'
     - 'app/controllers/renalware/admin/safety_alert_rules_controller.rb'
     - 'app/controllers/renalware/admin/users_controller.rb'
@@ -2174,7 +2169,6 @@ Style/HashSyntax:
     - 'app/models/renalware/drugs/trade_family.rb'
     - 'app/models/renalware/drugs/unit_of_measure.rb'
     - 'app/models/renalware/feeds/file.rb'
-    - 'app/models/renalware/feeds/files/create_feed_file.rb'
     - 'app/models/renalware/feeds/files/practice_memberships/import_job.rb'
     - 'app/models/renalware/feeds/files/primary_care_physicians/import_job.rb'
     - 'app/models/renalware/feeds/mark_outgoing_document_as_deleted_and_requeue.rb'

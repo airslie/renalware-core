@@ -1,4 +1,19 @@
 describe "PD Dashboard" do
+  it "shows patient-specific counts without a total suffix when all regimes fit" do
+    user = login_as_clinical
+    patient = create(:pd_patient, by: user)
+    other_patient = create(:pd_patient, by: user)
+    create(:capd_regime, patient:)
+    create(:apd_regime, patient:)
+    create(:capd_regime, patient: other_patient)
+    create(:apd_regime, patient: other_patient)
+
+    visit patient_pd_dashboard_path(patient)
+
+    expect(page).to have_css("article.capd-regimes header .supplemental", exact_text: "(1)")
+    expect(page).to have_css("article.apd-regimes header .supplemental", exact_text: "(1)")
+  end
+
   it "displays the top 5 CAPD and links through to display all of them" do
     user = login_as_clinical
 
@@ -13,6 +28,8 @@ describe "PD Dashboard" do
     end
 
     visit patient_pd_dashboard_path(patient)
+
+    expect(page).to have_css("article.capd-regimes table tbody tr", count: 5)
 
     within "article.capd-regimes header" do
       expect(page).to have_text("CAPD Regimes")
@@ -43,6 +60,8 @@ describe "PD Dashboard" do
     end
 
     visit patient_pd_dashboard_path(patient)
+
+    expect(page).to have_css("article.apd-regimes table tbody tr", count: 5)
 
     within "article.apd-regimes header" do
       expect(page).to have_text("APD Regimes")

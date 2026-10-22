@@ -1,14 +1,12 @@
 module Renalware
   module HD
     describe SessionPatientGroupDirectionsQuery do
-      subject(:results) { described_class.new(patient:).call(page:, per:) }
+      subject(:results) { described_class.new(patient:).call }
 
       let(:patient) { create(:hd_patient) }
       let(:other_patient) { create(:hd_patient) }
-      let(:page) { 1 }
-      let(:per) { 2 }
 
-      it "returns the patient's PGDs in reverse session chronology with pagination" do
+      it "returns all of the patient's PGDs in reverse session chronology" do
         oldest_pgd = create(:patient_group_direction, name: "Zulu", code: "Z")
         middle_pgd = create(:patient_group_direction, name: "Beta", code: "B")
         newest_pgd = create(:patient_group_direction, name: "Alpha", code: "A")
@@ -43,9 +41,8 @@ module Renalware
           patient_group_directions: [excluded_pgd]
         )
 
-        expect(results.map(&:patient_group_direction)).to eq([newest_pgd, middle_pgd])
+        expect(results.map(&:patient_group_direction)).to eq([newest_pgd, middle_pgd, oldest_pgd])
         expect(results).to all(have_attributes(session: have_attributes(patient:)))
-        expect(results.total_pages).to eq(2)
       end
     end
   end

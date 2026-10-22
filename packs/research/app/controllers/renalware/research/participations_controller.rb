@@ -66,10 +66,6 @@ module Renalware
 
       private
 
-      def participations
-        @participations ||= study.participations.includes(:patient).page(page).per(per_page)
-      end
-
       def build_participation(params = {})
         participation_class = study.class.participation_class
         participation_class.new(params).tap do |participation|

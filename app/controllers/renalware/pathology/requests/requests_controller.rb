@@ -2,16 +2,17 @@ module Renalware
   module Pathology
     module Requests
       class RequestsController < BaseController
-        include Renalware::Concerns::Pageable
-
         before_action :load_patients, only: %i(new create)
 
         def index
           requests_query = RequestQuery.new(query_params)
-          requests = requests_query.call.page(page).per(per_page)
+          pagy, requests = pagy(
+            requests_query.call,
+            limit: PageSize.parse(params[:per_page], default: 20)
+          )
           authorize requests
 
-          render :index, locals: { requests: requests, query: requests_query.search }
+          render :index, locals: { requests: requests, query: requests_query.search, pagy: pagy }
         end
 
         # Displays an historical PDF
