@@ -82,41 +82,9 @@ module Renalware
 
     def self.policy_class = UserPolicy
 
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
-    # Experimental - create or update a user from an Entra ID (Azure AD) OmniAuth hash
     def self.from_entra_id_omniauth(auth)
-      # auth is OmniAuth::AuthHash
-      uid  = auth.uid
-      info = auth.info
-      email = info.email&.downcase
-
-      # Pick your own mapping rules here
-      user = find_or_initialize_by(azure_uid: uid)
-
-      if user.new_record?
-        # Fallback: match on email if you already have users
-        user = find_or_initialize_by(email: email) if email.present?
-        user.azure_uid = uid
-        # For username we want to use the sAMAccountName synced from on-prem AD.
-        # eg sAMAccountName -> onPremisesSamAccountName in Entra.
-        # Then we need to add a claim mapping in Entra ID app registration
-        # to include this in the token.
-        # or now use the uid directly.
-        user.username ||= uid # change to sAMAccountName when available
-        user.email ||= email
-        user.family_name ||= info.last_name
-        user.given_name  ||= info.first_name
-        # Optionally set random password if you still need Devise validations:
-        user.password ||= SecureRandom.hex(32)
-        user.approved = Renalware.config.ldap_auto_approve_users
-        user.hospital_centre = Renalware::Hospitals::Centre.site_default
-      end
-
-      sync_roles(user, auth.extra.raw_info["roles"])
-      user.save! if user.changed?
-      user
+      Users::EntraOmniauthUser.new(auth:).call
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
     def self.from_ldap_omniauth(auth, password)
       Users::LdapOmniauthUser.new(auth:, password:).call

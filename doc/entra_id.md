@@ -22,6 +22,24 @@ Implementation fairly straightforward but requires some config in Entra
 - create a secret called ENTRA_CLIENT_ID and copt the value into .env as ENTRA_CLIENT_ID
 - Under API permissions be sure to have (under MS Graph) email, offline_access, openid, profile, User.Read
 
+### Access control
+
+- `ENTRA_TENANT_ID` must be a specific tenant id (not `common`, `organizations` or `consumers`);
+  the app refuses to boot otherwise and rejects tokens whose `tid` does not match.
+- A user must hold an Entra app role or be in a group matching a Renalware role's `ad_role_name`
+  (case-insensitive), otherwise sign-in is denied and no account is created. Values from the token
+  `roles` claim and `groups` claim are both matched against `roles.ad_role_name`.
+- App roles: assign users, or groups, to the app role in Enterprise applications > Users and groups.
+  Members then receive the app role value in the `roles` claim.
+- Groups claim: in the app registration Token configuration add a groups claim. Prefer
+  "Groups assigned to the application" to avoid the 200 group overage limit (when it occurs a warning
+  is logged and only the `roles` claim is used). For synced on-prem groups choose the sAMAccountName
+  (or DN) format so values match LDAP-style names; otherwise Entra sends group object ids, in which
+  case set the role's `ad_role_name` to the group object id. A role has one `ad_role_name`.
+- Users are matched on `azure_uid`. An existing user with the same email is NOT linked unless
+  `ENTRA_LINK_USERS_BY_EMAIL=true` (the email claim is not verified by Entra, so enable with care).
+- Existing users' approval, hospital centre and profile are never overwritten at sign-in; only roles are synced.
+
 ### To test
 
 - create users in Entra and add them to the app roles (need a paid plan to be able to o this via group membership, otherwise add user individually)
